@@ -1,0 +1,342 @@
+<section class="accar-contacto-hero">
+  <div class="accar-contacto-hero-inner">
+    <span class="accar-contacto-kicker">OFICINA VIRTUAL</span>
+    <h1>Contacto Institucional</h1>
+    <p>Estamos aquí para escucharte, resolver tus dudas doctrinales y recibir tus aportes para la defensa de nuestra fe católica.</p>
+  </div>
+</section>
+
+<section class="accar-contacto-main">
+  <div class="accar-contacto-card">
+    
+    <div class="accar-contacto-info">
+      <h3>Nuestros Canales</h3>
+      <p>Si tienes consultas específicas sobre apologética, solicitudes de material o deseas colaborar con la obra, escríbenos directamente.</p>
+      
+      <div class="accar-info-item">
+        <div class="accar-info-icon">✉</div>
+        <div class="accar-info-text">
+          <strong>Correo Electrónico</strong>
+          <span>accar33@icloud.com</span>
+        </div>
+      </div>
+
+      <div class="accar-info-item">
+        <div class="accar-info-icon">☧</div>
+        <div class="accar-info-text">
+          <strong>Colaboraciones</strong>
+          <span>orse30@icloud.com</span>
+        </div>
+      </div>
+
+      <div class="accar-contacto-divider"></div>
+
+      <h4>Síguenos en la verdad</h4>
+      <div class="accar-social-links">
+        <a href="https://www.facebook.com/CATOLICOCRISTIANO70/" target="_blank" class="accar-social-btn">Facebook</a>
+        <a href="https://www.youtube.com/@CCAR33/videos" target="_blank" class="accar-social-btn">YouTube</a>
+        <a href="https://www.instagram.com/catolicocristianos/" target="_blank" class="accar-social-btn">Instagram</a>
+      </div>
+    </div>
+
+    <div class="accar-contacto-form-wrap">
+      <h3>Envíanos un mensaje</h3>
+      <form class="accar-form" onsubmit="event.preventDefault(); alert('Formulario enviado (simulación)');">
+        
+        <div class="accar-form-group">
+          <label for="nombre">Nombre completo</label>
+          <input type="text" id="nombre" placeholder="Ej. Juan Pérez" required>
+        </div>
+
+        <div class="accar-form-group">
+          <label for="correo">Correo electrónico</label>
+          <input type="email" id="correo" placeholder="tu@correo.com" required>
+        </div>
+
+        <div class="accar-form-group">
+          <label for="asunto">Asunto</label>
+          <select id="asunto" required>
+            <option value="" disabled selected>Selecciona un motivo...</option>
+            <option value="duda">Duda doctrinal o apologética</option>
+            <option value="material">Solicitud de material</option>
+            <option value="colaboracion">Colaboración / Apoyo</option>
+            <option value="otro">Otro asunto</option>
+          </select>
+        </div>
+
+        <div class="accar-form-group">
+          <label for="mensaje">Tu mensaje</label>
+          <textarea id="mensaje" rows="5" placeholder="Escribe tu mensaje aquí..." required></textarea>
+        </div>
+
+        <button type="submit" class="accar-btn-enviar">Enviar Mensaje</button>
+      </form>
+    </div>
+
+  </div>
+</section>
+
+<style>
+/* 1. HERO CONTACTO (Capa Profunda Azul Mariano) */
+.accar-contacto-hero {
+  position: relative;
+  overflow: hidden;
+  padding: 140px 20px 180px; /* Mucho padding abajo para que la tarjeta flote sobre él */
+  background: linear-gradient(180deg, #0B1B3D 0%, #060e20 100%);
+  text-align: center;
+}
+
+/* Sello Crismón en Marca de Agua para el Bloque Azul */
+.accar-contacto-hero::before {
+  content: '☧'; 
+  position: absolute;
+  top: 45%; 
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 600px; 
+  line-height: 1; 
+  color: rgba(212, 175, 55, 0.15); 
+  font-family: serif;
+  pointer-events: none;
+  z-index: 0;
+  user-select: none;
+}
+
+.accar-contacto-hero-inner {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.accar-contacto-kicker {
+  display: inline-block;
+  margin-bottom: 20px;
+  padding: 8px 24px;
+  border-radius: 999px;
+  background: rgba(212,175,55,0.1);
+  border: 1px solid rgba(212,175,55,0.6);
+  color: #D4AF37;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+.accar-contacto-hero h1 {
+  font-size: 48px;
+  margin: 0 0 20px;
+  color: #ffffff;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+  font-weight: 800;
+}
+
+.accar-contacto-hero p {
+  font-size: 18px;
+  line-height: 1.8;
+  color: rgba(255,255,255,0.85);
+  margin: 0;
+}
+
+/* 2. CONTENEDOR PRINCIPAL Y TARJETA FLOTANTE (Efecto 3D) */
+.accar-contacto-main {
+  position: relative;
+  z-index: 10;
+  max-width: 1100px;
+  margin: -100px auto 100px; /* El margen negativo la hace subir y "morder" el fondo azul */
+  padding: 0 20px;
+}
+
+.accar-contacto-card {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  background: #ffffff; /* Blanco Puro */
+  border-radius: 24px;
+  border: 2px solid #d4af37; /* Marco Oro Sólido */
+  box-shadow: 0 30px 60px rgba(0,0,0,0.25);
+  overflow: hidden;
+}
+
+/* LADO IZQUIERDO: Información (Fondo Crema Institucional) */
+.accar-contacto-info {
+  background: linear-gradient(180deg, #fdfbf7 0%, #e6dfcc 100%);
+  padding: 50px 40px;
+  border-right: 1px solid rgba(212,175,55,0.3);
+}
+
+.accar-contacto-info h3 {
+  font-size: 24px;
+  color: #0B1B3D;
+  margin: 0 0 16px;
+  font-weight: 800;
+}
+
+.accar-contacto-info p {
+  font-size: 15px;
+  line-height: 1.7;
+  color: #2b2b2b;
+  margin: 0 0 30px;
+}
+
+.accar-info-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.accar-info-icon {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #0B1B3D;
+  color: #D4AF37;
+  font-size: 20px;
+  border-radius: 50%;
+  border: 1px solid #d4af37;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.accar-info-text strong {
+  display: block;
+  font-size: 13px;
+  color: #0B1B3D;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.accar-info-text span {
+  font-size: 15px;
+  color: #4c4b46;
+}
+
+.accar-contacto-divider {
+  height: 1px;
+  background: rgba(212,175,55,0.3);
+  margin: 30px 0;
+}
+
+.accar-contacto-info h4 {
+  font-size: 14px;
+  color: #0B1B3D;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin: 0 0 16px;
+}
+
+.accar-social-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.accar-social-btn {
+  padding: 8px 16px;
+  background: rgba(255,255,255,0.6);
+  border: 1px solid rgba(212,175,55,0.5);
+  border-radius: 999px;
+  color: #0B1B3D;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 700;
+  transition: all 0.3s ease;
+}
+
+.accar-social-btn:hover {
+  background: #0B1B3D;
+  color: #ffffff;
+  border-color: #0B1B3D;
+  transform: translateY(-2px);
+}
+
+/* LADO DERECHO: Formulario */
+.accar-contacto-form-wrap {
+  padding: 50px 60px;
+  background: #ffffff;
+}
+
+.accar-contacto-form-wrap h3 {
+  font-size: 28px;
+  color: #0B1B3D;
+  margin: 0 0 30px;
+  font-weight: 800;
+}
+
+.accar-form-group {
+  margin-bottom: 24px;
+}
+
+.accar-form-group label {
+  display: block;
+  font-size: 13px;
+  font-weight: 800;
+  color: #0B1B3D;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.accar-form-group input,
+.accar-form-group select,
+.accar-form-group textarea {
+  width: 100%;
+  padding: 14px 18px;
+  background: #fdfbf7;
+  border: 1px solid rgba(11,27,61,0.15);
+  border-radius: 12px;
+  font-size: 15px;
+  color: #2b2b2b;
+  font-family: inherit;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+}
+
+.accar-form-group input:focus,
+.accar-form-group select:focus,
+.accar-form-group textarea:focus {
+  outline: none;
+  background: #ffffff;
+  border-color: #d4af37; /* Borde se ilumina en oro */
+  box-shadow: 0 0 0 4px rgba(212,175,55,0.15);
+}
+
+/* Botón de Enviar (Verde Obispo Premium) */
+.accar-btn-enviar {
+  display: inline-block;
+  width: 100%;
+  padding: 16px 30px;
+  background: linear-gradient(135deg, #0f3621 0%, #081e12 100%);
+  color: #ffffff;
+  border: 1px solid #d4af37;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.accar-btn-enviar:hover {
+  background: linear-gradient(135deg, #154c2e 0%, #0a2617 100%);
+  border-color: #e4c76a;
+  transform: translateY(-3px);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.3), 0 0 15px rgba(212,175,55,0.2);
+}
+
+/* Adaptabilidad para Móviles */
+@media (max-width: 900px) {
+  .accar-contacto-card {
+    grid-template-columns: 1fr; /* Una columna encima de otra */
+  }
+  .accar-contacto-info {
+    border-right: none;
+    border-bottom: 1px solid rgba(212,175,55,0.3);
+    padding: 40px 20px;
+  }
+  .accar-contacto-form-wrap {
+    padding: 40px 20px;
+  }
+}
+</style>

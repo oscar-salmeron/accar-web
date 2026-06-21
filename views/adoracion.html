@@ -1,0 +1,617 @@
+<section class="accar-adoracion-page">
+  
+  <div class="accar-adoracion-header">
+    <span class="accar-adoracion-kicker">Santuario Digital</span>
+    <h1 class="accar-adoracion-title">Adoración Eucarística</h1>
+    <p class="accar-adoracion-desc">Adoración perpetua en vivo. Acompaña a Jesús Sacramentado orando con los himnos tradicionales de la Iglesia.</p>
+    
+    <div class="accar-live-status-container">
+      <div class="accar-live-left">
+        <div class="accar-live-pill">
+          <span class="accar-live-pulse-dot"></span> EN VIVO
+        </div>
+        <span class="accar-live-location">NIEPOKALANÓW, POLONIA</span>
+      </div>
+      <div class="accar-live-clock-box">
+        <span id="accar-polonia-time">--:--:--</span>
+      </div>
+    </div>
+
+    <div class="accar-adoracion-video-container">
+      <div class="accar-video-wrapper">
+        <iframe 
+          src="https://www.youtube.com/embed/bIR18Pvy11U?autoplay=1&mute=0" 
+          title="Adoración Eucarística en Vivo" 
+          frameborder="0" 
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+          allowfullscreen>
+        </iframe>
+      </div>
+    </div>
+  </div>
+
+  <div class="accar-misal-container">
+    
+    <div class="accar-misal-tabs">
+      <button class="accar-tab-btn active" onclick="window.abrirOracion(event, 'visita')">Visita al Santísimo</button>
+      <button class="accar-tab-btn" onclick="window.abrirOracion(event, 'adoro')">Adoro te devote</button>
+      <button class="accar-tab-btn" onclick="window.abrirOracion(event, 'pange')">Pange lingua</button>
+      <button class="accar-tab-btn" onclick="window.abrirOracion(event, 'tantum')">Tantum ergo</button>
+      <button class="accar-tab-btn" onclick="window.abrirOracion(event, 'lauda')">Lauda Sion</button>
+      <button class="accar-tab-btn" onclick="window.abrirOracion(event, 'sacris')">Sacris solemniis</button>
+      <button class="accar-tab-btn" onclick="window.abrirOracion(event, 'jesu')">Iesu dulcis memoria</button>
+      <button class="accar-tab-btn" onclick="window.abrirOracion(event, 'verbum')">Verbum supernum</button>
+    </div>
+
+    <div class="accar-misal-content">
+
+      <div id="visita" class="accar-oracion-tab active">
+        <h3 class="accar-oracion-titulo">Visita al Santísimo Sacramento</h3>
+        
+        <div class="accar-audio-group">
+          <div class="accar-audio-player">
+            <span>🎧 Cantos Eucarísticos (1 Hora):</span>
+            <audio controls controlsList="nodownload"><source src="../media/cantos-eucaristicos.mp3" type="audio/mpeg"></audio>
+          </div>
+          <div class="accar-audio-player">
+            <span>🎧 Canciones al Santísimo:</span>
+            <audio controls controlsList="nodownload"><source src="../media/canciones-santisimo.mp3" type="audio/mpeg"></audio>
+          </div>
+        </div>
+
+        <div class="accar-oracion-columnas">
+          <div class="accar-oracion-col lat">
+            <strong>Visitatio Ssimi. Sacramenti</strong><br><br>
+            V. Adorémus in ætérnum Sanctíssimum Sacraméntum.<br>
+            R. Adorémus in ætérnum Sanctíssimum Sacraméntum.<br><br>
+            <em>Pater noster, Ave Maria, Glória Patri (ter repetitur).</em><br><br>
+            <strong>COMMUNIO SPIRITUALIS</strong><br>
+            Yo quidem, Seńor, recíbime cum aquella pureza, humilidad y devoción cum que os recibió vuestra Santísima Madre, cum el espíritu y fervor de los santos.
+          </div>
+          <div class="accar-oracion-col esp">
+            <strong>Visita al Santísimo</strong><br><br>
+            V. ¡Viva Jesús Sacramentado!<br>
+            R. ¡Viva y de todos sea amado!<br><br>
+            <em>Padre nuestro, Avemaría, Gloria (tres veces).</em><br><br>
+            <strong>COMUNIÓN ESPIRITUAL</strong><br>
+            Yo quisiera, Señor, recibiros con aquella pureza, humildad y devoción con que os recibió vuestra Santísima Madre, con el espíritu y fervor de los santos.
+          </div>
+        </div>
+      </div>
+
+      <div id="adoro" class="accar-oracion-tab" style="display:none;">
+        <h3 class="accar-oracion-titulo">Adoro te devote</h3>
+        <div class="accar-audio-group">
+          <div class="accar-audio-player">
+            <span>🎧 Escuchar Canto Gregoriano:</span>
+            <audio controls><source src="../media/adoro-te-devote.mp3" type="audio/mpeg"></audio>
+          </div>
+        </div>
+        <div class="accar-oracion-columnas">
+          <div class="accar-oracion-col lat">
+            1. Adóro te devóte, latens Déitas,<br>quæ sub his figúris vere látitas:<br>tibi se cor meum totum súbicit,<br>quia te contémplans totum déficit.<br><br>
+            2. Visus, tactus, gustus in te fállitur,<br>sed audítu solo tuto créditur:<br>credo quidquid dixit Dei Fílius:<br>nil hoc verbo veritátis vérius.<br><br>
+            3. In cruce latébat sola Déitas,<br>at hic latet simul et humánitas:<br>ambo tamen credens atque cónfitens,<br>peto quod petívit latro pǽnitens.<br><br>
+            4. Plagas, sicut Thomas, non vídeo:<br>Deum tamen meum te confíteor:<br>fac me tibi semper magis crédere,<br>in te spem habére, te dilígere.<br><br>
+            5. O memoriále mortis Dómini,<br>panis vivus, vitam præstans hómini:<br>præsta meæ menti de te vívere,<br>et te illi semper dulce sápere.<br><br>
+            6. Pie pellicáne, Iesu Dómine,<br>me immúndum munda tuo sánguine:<br>cuius una stilla salvum fácere<br>totum mundum quit ab omni scélere.<br><br>
+            7. Iesu, quem velátum nunc áspice,<br>oro, fiat illud quod tam sítio:<br>ut te reveláta cernens fácie,<br>visu sim beátus tuæ glóriæ. Amén.
+          </div>
+          <div class="accar-oracion-col esp">
+            1. Te adoro con devoción, Dios escondido,<br>oculto verdaderamente bajo estas apariencias.<br>A ti se somete mi corazón por completo,<br>y se rinde totalmente al contemplarte.<br><br>
+            2. Al juzgar de ti se equivocan la vista, el tacto, el gusto;<br>pero basta el oído para creer con firmeza.<br>Creo todo lo que ha dicho el Hijo de Dios:<br>nada es más verdadero que esta palabra de verdad.<br><br>
+            3. En la cruz se escondía sólo la Divinidad,<br>pero aquí se esconde también la Humanidad.<br>Sin embargo, creyendo y confesando ambas cosas,<br>pido lo que pidió el ladrón arrepentido.<br><br>
+            4. No veo las llagas como las vio Tomás,<br>pero confieso que eres mi Dios.<br>Haz que yo crea siempre más y más en ti,<br>que espere en ti y que te ame.<br><br>
+            5. ¡Oh memorial de la muerte del Señor!<br>Pan vivo que das vida al hombre:<br>concede a mi alma que de ti viva,<br>y que siempre le seas dulce al gusto.<br><br>
+            6. Pelícano piadoso, Señor Jesús,<br>límpiame a mí, inmundo, con tu Sangre,<br>de la que una sola gota puede salvar<br>a todo el mundo de cualquier pecado.<br><br>
+            7. Jesús, a quien ahora veo oculto,<br>te ruego que se cumpla lo que tanto deseo:<br>que al mirar tu rostro cara a cara,<br>sea yo dichoso con la visión de tu gloria. Amén.
+          </div>
+        </div>
+      </div>
+
+      <div id="pange" class="accar-oracion-tab" style="display:none;">
+        <h3 class="accar-oracion-titulo">Pange lingua</h3>
+        <div class="accar-audio-group">
+          <div class="accar-audio-player">
+            <span>🎧 Escuchar Música con los Heraldos:</span>
+            <audio controls><source src="../media/pange-lingua.mp3" type="audio/mpeg"></audio>
+          </div>
+        </div>
+        <div class="accar-oracion-columnas">
+          <div class="accar-oracion-col lat">
+            1. Pange, lingua, gloriósi<br>Córporis mystérium,<br>Sanguinísque pretiósi,<br>quem in mundi prétium<br>fructus ventris generósi<br>Rex effúdit Géntium.<br><br>
+            2. Nobis datus, nobis natus<br>ex intácta Vírgine,<br>et in mundo conversátus,<br>sparso verbi sémine,<br>sui moras incolátus<br>miro clausit órdine.<br><br>
+            3. In suprémæ nocte cenæ<br>recúmbens cum frátribus,<br>observáta lege plene<br>cibis in legálibus,<br>cibum turbæ duodénæ<br>se dat suis mánibus.<br><br>
+            4. Verbum caro, panem verum<br>verbo carnem éfficit:<br>fitque sanguis Christi merum,<br>et si sensus déficit,<br>ad firmándum cor sincérum<br>sola fides súfficit.<br><br>
+            5. Tantum ergo Sacraméntum<br>venerémur cérnui:<br>et antíquum documéntum<br>novo cedat rítui:<br>præstet fides suppleméntum<br>sénsuum deféctui.<br><br>
+            6. Genitóri, Genitóque<br>laus et iubilátio,<br>salus, honor, virtus quoque<br>sit et benedíctio:<br>procedénti ab utróque<br>compar sit laudátio. Amen.
+          </div>
+          <div class="accar-oracion-col esp">
+            1. Canta, oh lengua, el glorioso<br>misterio del Cuerpo<br>y de la Sangre preciosa<br>que el Rey de las naciones,<br>fruto de un vientre generoso,<br>derramó en rescate del mundo.<br><br>
+            2. Nos fue dado, nos nació<br>de una Virgen sin mancha;<br>y después de pasar su vida en el mundo,<br>una vez esparcida la semilla de su palabra,<br>terminó el tiempo de su destierro<br>dando una admirable disposición.<br><br>
+            3. En la noche de la última cena,<br>recostado a la mesa con sus hermanos,<br>después de observar plenamente la ley<br>sobre la comida legal,<br>se da con sus propias manos<br>como alimento para los doce.<br><br>
+            4. El Verbo encarnado, Pan verdadero,<br>lo convierte con su palabra en su Carne,<br>y el vino puro se convierte en la Sangre de Cristo.<br>Y aunque fallan los sentidos,<br>para fortalecer el corazón en la verdad,<br>sola la fe es suficiente.<br><br>
+            5. Veneremos, pues, postrados<br>tan grande Sacramento;<br>y la antigua figura ceda el puesto<br>al nuevo rito;<br>la fe supla la incapacidad<br>de los sentidos.<br><br>
+            6. Al Padre y al Hijo<br>sean dadas alabanza y júbilo,<br>salud, honor, poder<br>y bendición;<br>una gloria igual sea dada<br>al que de uno y de otro procede. Amén.
+          </div>
+        </div>
+      </div>
+
+      <div id="tantum" class="accar-oracion-tab" style="display:none;">
+        <h3 class="accar-oracion-titulo">Tantum ergo</h3>
+        <div class="accar-audio-group">
+          <div class="accar-audio-player">
+            <span>🎧 Escuchar Himno:</span>
+            <audio controls><source src="../media/tantum-ergo.mp3" type="audio/mpeg"></audio>
+          </div>
+        </div>
+        <div class="accar-oracion-columnas">
+          <div class="accar-oracion-col lat">
+            Tantum ergo Sacraméntum<br>venerémur cérnui:<br>et antíquum documéntum<br>novo cedat rítui:<br>præstet fides suppleméntum<br>sénsuum deféctui.<br><br>
+            Genitóri, Genitóque<br>laus et iubilátio,<br>salus, honor, virtus quoque<br>sit et benedíctio:<br>procedénti ab utróque<br>compar sit laudátio. Amen.<br><br>
+            V. Panem de cælo præstitísti eis.<br>
+            R. Omne delectaméntum in se habéntem.<br><br>
+            <strong>Orémus:</strong><br>
+            Deus, qui nobis sub sacraménto mirábili, passiónis tuæ memóriam reliquísti: tríbue, quǽsumus, ita nos córporis et sánguinis tui sacra mystéria venerári, ut redemptiónis tuæ fructum in nobis iúgiter sentiámus. Qui vivis et regnas in sǽcula sæculórum. Amen.
+          </div>
+          <div class="accar-oracion-col esp">
+            Adoremos, pues, postrados<br>tan grande Sacramento;<br>y la antigua figura ceda el paso<br>al nuevo rito;<br>la fe supla la incapacidad<br>de los sentidos.<br><br>
+            Al Padre y al Hijo<br>sean dadas alabanza y júbilo,<br>salud, honor, poder y bendición;<br>una gloria igual sea dada<br>al que de uno y de otro procede. Amén.<br><br>
+            V. Les diste pan del cielo.<br>
+            R. Que contiene en sí todo deleite.<br><br>
+            <strong>Oremos:</strong><br>
+            Oh Dios, que en este admirable sacramento nos dejaste el memorial de tu Pasión, te pedimos nos concedas venerar de tal modo los sagrados misterios de tu Cuerpo y de tu Sangre, que experimentemos constantemente el fruto de tu redención. Tú que vives y reinas por los siglos de los siglos. Amén.
+          </div>
+        </div>
+      </div>
+
+      <div id="lauda" class="accar-oracion-tab" style="display:none;">
+        <h3 class="accar-oracion-titulo">Lauda Sion</h3>
+        <div class="accar-audio-group">
+          <div class="accar-audio-player">
+            <span>🎧 Escuchar Canto Gregoriano:</span>
+            <audio controls><source src="../media/lauda-sion.mp3" type="audio/mpeg"></audio>
+          </div>
+        </div>
+        <div class="accar-oracion-columnas">
+          <div class="accar-oracion-col lat">
+            1. Lauda Sion Salvatórem,<br>lauda ducem et pastórem,<br>in hymnis et cánticis.<br>Quantum potes, tantum aude:<br>quia maior omni laude,<br>nec laudáre súfficis.<br><br>
+            2. Laudis thema speciális,<br>panis vivus et vitális<br>hódie propónitur.<br>Quem in sacræ mensa cenæ,<br>turbæ fratrum duodénæ<br>datum non ambígitur.<br><br>
+            3. Sit laus plena, sit sonóra,<br>sit iucúnda, sit decóra<br>mentis iubilátio.<br>Dies enim solémnis ágitur,<br>in qua mensæ prima recólitur<br>huius institútio.<br><br>
+            4. In hac mensa novi Regis,<br>novum Pascha novæ legis,<br>Phase vetus términat.<br>Vetustátem nóvitas,<br>umbram fugat véritas,<br>noctem lux elíminat.<br><br>
+            5. Quod in cena Christus gessit,<br>faciéndum hoc expréssit<br>in sui memóriam.<br>Docti sacris institútis,<br>panem, vinum in salútis<br>consecrámus hóstiam.<br><br>
+            6. Dogma datur christiánis,<br>quod in carnem transit panis,<br>et vinum in sánguinem.<br>Quod non capis, quod non vides,<br>animósa firmat fides,<br>præter rerum órdinem.<br><br>
+            7. Sub divérsis speciébus,<br>signis tantum, et non rebus,<br>latent res exímiæ.<br>Caro cibus, sanguis potus:<br>manet tamen Christus totus<br>sub utráque spécie.<br><br>
+            8. A suménte non concísus,<br>non confráctus, non divísus:<br>ínteger accípitur.<br>Sumunt boni, sumunt mali:<br>sorte tamen inæquáli,<br>vitæ vel intéritus.<br><br>
+            9. Mors est malis, vita bonis:<br>vide paris sumptiónis<br>quam sit dispar éxitus.<br>Fracto demum sacraménto,<br>ne vacílles, sed meménto<br>tantum esse sub fragménto,<br>quantum toto tégitur.<br><br>
+            10. Nulla rei fit scissúra:<br>signi tantum fit fractúra,<br>qua nec status, nec statúra<br>signáti minúitur.<br>Ecce panis Angelórum,<br>factus cibus viatórum:<br>vere panis filiórum,<br>non mitténdus cánibus.<br><br>
+            11. In figúris præsignátur,<br>cum Isaac immolátur,<br>agnus Paschæ deputátur,<br>datur manna pátribus.<br>Bone pastor, panis vere,<br>Iesu, nostri miserére:<br>tu nos pasce, nos tuére,<br>tu nos bona fac vidére<br>in terra vivéntium.<br><br>
+            12. Tu qui cuncta scis et vales,<br>qui nos pascis hic mortáles:<br>tuos ibi commensáles,<br>coherédes et sodáles<br>fac sanctórum cívium. Amen.
+          </div>
+          <div class="accar-oracion-col esp">
+            1. Alaba, Sión, a tu Salvador,<br>alaba a tu guía y pastor<br>con himnos y cánticos.<br>Pregona su gloria cuanto puedas,<br>porque Él está sobre toda alabanza,<br>y jamás podrás alabarle lo bastante.<br><br>
+            2. El tema especial de nuestros loores,<br>el pan vivo y que da vida,<br>se nos propone hoy.<br>El cual no hay duda que fue dado<br>al grupo de los doce hermanos<br>en la mesa de la sagrada cena.<br><br>
+            3. Que la alabanza sea llena, sonora,<br>alegre y pura<br>en el júbilo del alma.<br>Pues celebramos el solemne día<br>en que se conmemora<br>la primera institución de esta mesa.<br><br>
+            4. En esta mesa del nuevo Rey,<br>la nueva Pascua de la nueva ley<br>pone fin a la Pascua antigua.<br>Lo nuevo sustituye a lo viejo,<br>la verdad ahuyenta a la sombra,<br>y la luz elimina la noche.<br><br>
+            5. Lo que Cristo hizo en la cena,<br>mandó que se hiciera<br>en memoria suya.<br>Instruidos por sus sagradas enseñanzas,<br>consagramos el pan y el vino<br>como hostia de salvación.<br><br>
+            6. Se da como dogma a los cristianos,<br>que el pan se convierte en carne,<br>y el vino en sangre.<br>Lo que no comprendes ni ves,<br>lo confirma una fe viva,<br>más allá del orden de la naturaleza.<br><br>
+            7. Bajo diversas especies,<br>que son sólo signos y no cosas,<br>se ocultan realidades sublimes.<br>Su carne es comida, su sangre es bebida:<br>sin embargo, Cristo permanece entero<br>bajo cada una de las especies.<br><br>
+            8. Quien lo recibe no lo rompe,<br>no lo quiebra, ni lo divide:<br>se recibe todo entero.<br>Lo reciben los buenos, lo reciben los malos:<br>pero con suerte desigual,<br>de vida o de muerte.<br><br>
+            9. Es muerte para los malos, vida para los buenos:<br>mira cómo de una misma comunión<br>es tan distinto el resultado.<br>Cuando se divide el Sacramento,<br>no vaciles, sino recuerda<br>que hay tanto en un fragmento<br>como en el todo que se oculta.<br><br>
+            10. No se rompe la realidad:<br>sólo se parte el signo,<br>por lo cual ni el estado ni la estatura<br>de lo significado disminuyen.<br>He aquí el pan de los ángeles,<br>hecho alimento de los peregrinos:<br>verdadero pan de los hijos,<br>que no debe echarse a los perros.<br><br>
+            11. En figuras fue preanunciado,<br>cuando Isaac es inmolado,<br>cuando el Cordero Pascual es designado,<br>cuando el maná es dado a los padres.<br>Buen pastor, pan verdadero,<br>Jesús, ten piedad de nosotros:<br>apaciéntanos, protégenos,<br>haznos ver los bienes<br>en la tierra de los vivientes.<br><br>
+            12. Tú, que todo lo sabes y lo puedes,<br>que nos apacientas aquí, siendo mortales:<br>haznos allí tus comensales,<br>coherederos y compañeros<br>de los santos ciudadanos. Amén.
+          </div>
+        </div>
+      </div>
+
+      <div id="sacris" class="accar-oracion-tab" style="display:none;">
+        <h3 class="accar-oracion-titulo">Sacris solemniis</h3>
+        <div class="accar-audio-group">
+          <div class="accar-audio-player">
+            <span>🎧 Escuchar Himno:</span>
+            <audio controls><source src="../media/sacris-solemniis.mp3" type="audio/mpeg"></audio>
+          </div>
+        </div>
+        <div class="accar-oracion-columnas">
+          <div class="accar-oracion-col lat">
+            1. Sacris solémniis iuncta sint gáudia,<br>et ex præcórdiis sonent præcónia;<br>recédant vétera, nova sint ómnia,<br>corda, voces, et ópera.<br><br>
+            2. Noctis recólitur cena novíssima,<br>qua Christus créditor agnum et ázyma<br>dedísse frátribus, iuxta legítima<br>priscis indúlta pátribus.<br><br>
+            3. Post agnum týpicum, explétis épulis,<br>Corpus Domínicum datum discípulis,<br>sic totum ómnibus, quod totum síngulis,<br>eius fatémur mánibus.<br><br>
+            4. Dedit fragílibus córporis férculum,<br>dedit et trístibus sánguinis póculum,<br>dicens: Accípite quod trado vásculum;<br>omnes ex eo bíbite.<br><br>
+            5. Panis angélicus fit panis hóminum;<br>dat panis cælicus figúris términum:<br>O res mirábilis! mandúcat Dóminum<br>pauper, servus, et húmilis.<br><br>
+            6. Te trina Déitas unáque póscimus:<br>sic nos tu vísita, sicut te cólimus;<br>per tuas sémitas duc nos quo téndimus,<br>ad lucem quam inhábitas. Amen.
+          </div>
+          <div class="accar-oracion-col esp">
+            1. A las sagradas solemnidades se unan los gozos,<br>y desde lo íntimo del corazón resuenen las alabanzas;<br>huyan las cosas viejas, y todo sea nuevo:<br>los corazones, las voces y las obras.<br><br>
+            2. Se conmemora la última cena de aquella noche,<br>en la que creemos que Cristo dio a sus hermanos<br>el cordero y los panes ázimos,<br>según las leyes dadas a los antiguos padres.<br><br>
+            3. Después del cordero típico, terminada la cena,<br>confesamos que el Cuerpo del Señor fue dado a los discípulos<br>por sus propias manos,<br>tan entero a todos como entero a cada uno.<br><br>
+            4. Dio a los débiles el alimento de su Cuerpo,<br>y dio a los tristes el cáliz de su Sangre,<br>diciendo: Tomad el vaso que os entrego;<br>bebed todos de él.<br><br>
+            5. El pan de los ángeles se hace pan de los hombres;<br>el pan del cielo pone fin a las figuras:<br>¡Oh cosa admirable! se alimenta de su Señor<br>el pobre, el siervo y el humilde.<br><br>
+            6. A ti, Deidad trina y una, te rogamos:<br>que así nos visites, como nosotros te damos culto;<br>por tus sendas condúcenos a donde tendemos,<br>a la luz en que habitas. Amén.
+          </div>
+        </div>
+      </div>
+
+      <div id="jesu" class="accar-oracion-tab" style="display:none;">
+        <h3 class="accar-oracion-titulo">Iesu dulcis memoria</h3>
+        <div class="accar-audio-group">
+          <div class="accar-audio-player">
+            <span>🎧 Escuchar Canto Gregoriano:</span>
+            <audio controls><source src="../media/jesu-dulcis.mp3" type="audio/mpeg"></audio>
+          </div>
+        </div>
+        <div class="accar-oracion-columnas">
+          <div class="accar-oracion-col lat">
+            1. Iesu, dulcis memória,<br>dans vera cordis gáudia:<br>sed super mel et ómnia<br>eius dulcis præséntia.<br><br>
+            2. Nil cánitur suávius,<br>nil audítur iucúndius,<br>nil cogitátur dúlcius,<br>quam Iesus Dei Fílius.<br><br>
+            3. Iesu, spes pæniténtibus,<br>quam pius es peténtibus!<br>quam bonus te quæréntibus!<br>sed quid inveniéntibus?<br><br>
+            4. Nec lingua valet dícere,<br>nec líttera exprímere:<br>expértus potest crédere,<br>quid sit Iesum dilígere.<br><br>
+            5. Sis, Iesu, nostrum gáudium,<br>qui es futúrus præmium:<br>sit nostra in te glória,<br>per cuncta semper sǽcula. Amen.
+          </div>
+          <div class="accar-oracion-col esp">
+            1. Dulce es el recuerdo de Jesús,<br>que da verdaderos gozos al corazón;<br>pero más dulce que la miel y que todas las cosas<br>es su dulce presencia.<br><br>
+            2. Nada se canta más suave,<br>nada se oye más agradable,<br>nada se piensa más dulce,<br>que Jesús, el Hijo de Dios.<br><br>
+            3. Jesús, esperanza para los que se arrepienten,<br>¡qué piadoso eres con los que te piden!<br>¡qué bueno con los que te buscan!<br>¿Pero qué serás para los que te encuentran?<br><br>
+            4. Ni la lengua es capaz de decirlo,<br>ni la palabra escrita de expresarlo:<br>sólo el que lo ha experimentado puede creer<br>lo que es amar a Jesús.<br><br>
+            5. Sé, Jesús, nuestra alegría,<br>Tú que serás nuestra recompensa futura:<br>que nuestra gloria esté en ti,<br>por todos los siglos de los siglos. Amén.
+          </div>
+        </div>
+      </div>
+
+      <div id="verbum" class="accar-oracion-tab" style="display:none;">
+        <h3 class="accar-oracion-titulo">Verbum supernum</h3>
+        <div class="accar-audio-group">
+          <div class="accar-audio-player">
+            <span>🎧 Escuchar Himno:</span>
+            <audio controls><source src="../media/verbum-supernum.mp3" type="audio/mpeg"></audio>
+          </div>
+        </div>
+        <div class="accar-oracion-columnas">
+          <div class="accar-oracion-col lat">
+            1. Verbum supérnum pródiens,<br>nec Patris linquens déxteram,<br>ad opus suum éxiens,<br>venit ad vitæ vésperam.<br><br>
+            2. In mortem a discípulo<br>suis tradéndus ǽmulis,<br>prius in vitæ férculo<br>se trádidit discípulis.<br><br>
+            3. Quibus sub bina spécie<br>carnem dedit et sánguinem;<br>ut dúplicis substántiæ<br>totum cibáret hóminem.<br><br>
+            4. Se nascens dedit sócium,<br>convéscens in edúlium,<br>se móriens in prétium,<br>se regnans dat in præmium.<br><br>
+            5. O salutáris Hóstia,<br>quæ cæli pandis óstium:<br>bella premunt hostília,<br>da robur, fer auxílium.<br><br>
+            6. Uni trinóque Dómino<br>sit sempitérna glória,<br>qui vitam sine término<br>nobis donet in pátria. Amen.
+          </div>
+          <div class="accar-oracion-col esp">
+            1. El Verbo supremo saliendo,<br>sin dejar la derecha del Padre,<br>saliendo para su obra,<br>llegó al atardecer de su vida.<br><br>
+            2. A punto de ser entregado a la muerte<br>a sus enemigos por su propio discípulo,<br>se entregó antes a sus discípulos<br>en el banquete de vida.<br><br>
+            3. A quienes, bajo las dos especies,<br>les dio su carne y su sangre;<br>para alimentar a todo el hombre,<br>que es de doble sustancia.<br><br>
+            4. Al nacer se nos dio como compañero,<br>comiendo se entregó como alimento,<br>muriendo se entregó como precio de rescate,<br>reinando se da como premio.<br><br>
+            5. ¡Oh Hostia de salvación,<br>que abres la puerta del cielo!<br>Las guerras hostiles nos oprimen:<br>danos fuerza, concédenos tu auxilio.<br><br>
+            6. Al Señor Uno y Trino<br>sea la gloria sempiterna,<br>que nos conceda una vida sin fin<br>en la patria celestial. Amén.
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+</section>
+
+<style>
+/* FONDO DEL SANTUARIO */
+.accar-adoracion-page {
+  background: linear-gradient(180deg, #04091a 0%, #02040a 100%);
+  min-height: 100vh;
+  padding: 80px 20px 100px;
+  color: #fdfbf7;
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+/* CABECERA Y VIDEO FIJO (Sticky) */
+.accar-adoracion-header {
+  max-width: 900px;
+  margin: 0 auto 50px;
+  position: sticky;
+  top: 20px;
+  z-index: 100;
+}
+
+.accar-adoracion-kicker {
+  display: inline-block;
+  padding: 6px 20px;
+  border-radius: 50px;
+  border: 1px solid rgba(212,175,55,0.4);
+  color: #D4AF37;
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 2px;
+  margin-bottom: 20px;
+  background: rgba(4, 9, 26, 0.8);
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+.accar-adoracion-header {
+  text-align: center;
+}
+
+/* Ajuste de Títulos para que no se encimen */
+.accar-adoracion-title {
+  display: block !important;
+  margin: 10px auto 20px !important;
+  font-size: 42px;
+  color: #ffffff;
+  font-weight: normal;
+  text-shadow: 0 4px 10px rgba(0,0,0,0.8);
+  background: none !important;
+  text-align: center;
+}
+
+.accar-adoracion-desc {
+  display: block;
+  max-width: 700px;
+  margin: 0 auto 40px;
+  color: rgba(255,255,255,0.7);
+  font-size: 18px;
+}
+
+/* DISEÑO DE BARRA PROFESIONAL */
+.accar-live-status-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  padding: 0 4px;
+}
+
+.accar-live-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Botón Píldora Rojo Destellante */
+.accar-live-pill {
+  background: #ff3b3b;
+  color: #ffffff;
+  padding: 5px 14px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: sans-serif;
+  font-weight: 800;
+  font-size: 11px;
+  letter-spacing: 0.5px;
+  box-shadow: 0 0 15px rgba(255, 59, 59, 0.4);
+}
+
+.accar-live-pulse-dot {
+  width: 8px;
+  height: 8px;
+  background-color: #ffffff;
+  border-radius: 50%;
+  animation: accar-blink 1.2s infinite;
+}
+
+@keyframes accar-blink {
+  0% { opacity: 1; }
+  50% { opacity: 0.3; }
+  100% { opacity: 1; }
+}
+
+.accar-live-location {
+  color: #e6dfcc;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-family: sans-serif;
+}
+
+/* Marco de Cristal para la Hora (Sin texto adicional) */
+.accar-live-clock-box {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 5px 18px;
+  border-radius: 8px;
+  color: #ffffff;
+  font-family: 'Courier New', monospace;
+  font-size: 14px;
+  font-weight: 800;
+  box-shadow: inset 0 0 10px rgba(255,255,255,0.02);
+}
+
+/* MARCO DORADO EXCLUSIVO PARA EL VIDEO */
+.accar-adoracion-video-container {
+  border: 2px solid #d4af37;
+  border-radius: 12px;
+  padding: 10px;
+  background: rgba(255,255,255,0.05);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.6), 0 0 30px rgba(212,175,55,0.15);
+}
+
+.accar-video-wrapper {
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+  overflow: hidden;
+  border-radius: 6px;
+  background: #000;
+}
+
+.accar-video-wrapper iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* MISAL: PESTAÑAS (TABS) */
+.accar-misal-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  background: rgba(11, 27, 61, 0.4);
+  border: 1px solid rgba(212,175,55,0.2);
+  border-radius: 16px;
+  padding: 30px;
+  box-shadow: inset 0 0 50px rgba(0,0,0,0.5);
+  position: relative;
+  z-index: 10;
+}
+
+.accar-misal-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 40px;
+  border-bottom: 1px solid rgba(212,175,55,0.3);
+  padding-bottom: 20px;
+}
+
+.accar-tab-btn {
+  background: transparent;
+  color: #e6dfcc;
+  border: 1px solid rgba(212,175,55,0.5);
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 15px;
+  transition: all 0.3s ease;
+}
+
+.accar-tab-btn:hover {
+  background: rgba(212,175,55,0.1);
+  color: #ffffff;
+}
+
+.accar-tab-btn.active {
+  background: #d4af37;
+  color: #060e20;
+  border-color: #d4af37;
+  font-weight: bold;
+  box-shadow: 0 4px 15px rgba(212,175,55,0.3);
+}
+
+/* CONTENIDO DE LAS ORACIONES */
+.accar-oracion-titulo {
+  text-align: center;
+  color: #d4af37;
+  font-size: 28px;
+  margin-bottom: 25px;
+  font-weight: normal;
+  border-bottom: 1px dotted rgba(212,175,55,0.3);
+  padding-bottom: 15px;
+  display: inline-block;
+  width: 100%;
+}
+
+/* GRUPO DE AUDIOS (Lado a lado) */
+.accar-audio-group {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-bottom: 40px;
+}
+
+.accar-audio-player {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  background: rgba(0,0,0,0.3);
+  padding: 15px;
+  border-radius: 50px;
+  border: 1px solid rgba(255,255,255,0.1);
+  flex: 1;
+  max-width: 450px;
+  min-width: 300px;
+}
+
+.accar-audio-player span {
+  font-size: 14px;
+  color: #e6dfcc;
+  font-style: italic;
+}
+
+.accar-audio-player audio {
+  height: 35px;
+  border-radius: 20px;
+  outline: none;
+}
+
+.accar-oracion-columnas {
+  display: flex;
+  gap: 40px;
+}
+
+.accar-oracion-col {
+  flex: 1;
+  font-size: 17px;
+  line-height: 2;
+  color: #e6dfcc;
+}
+
+.accar-oracion-col.lat {
+  border-right: 1px solid rgba(212,175,55,0.3);
+  padding-right: 40px;
+}
+
+@media (max-width: 800px) {
+  .accar-oracion-columnas {
+    flex-direction: column;
+    gap: 20px;
+  }
+  .accar-oracion-col.lat {
+    border-right: none;
+    border-bottom: 1px solid rgba(212,175,55,0.3);
+    padding-right: 0;
+    padding-bottom: 20px;
+  }
+  .accar-live-status-container {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+</style>
+
+<script>
+window.abrirOracion = function(evento, idOracion) {
+  var contenidos = document.getElementsByClassName("accar-oracion-tab");
+  for (var i = 0; i < contenidos.length; i++) {
+    contenidos[i].style.display = "none";
+  }
+
+  var botones = document.getElementsByClassName("accar-tab-btn");
+  for (var i = 0; i < botones.length; i++) {
+    botones[i].className = botones[i].className.replace(" active", "");
+  }
+
+  document.getElementById(idOracion).style.display = "block";
+  evento.currentTarget.className += " active";
+  
+  var audios = document.getElementsByTagName("audio");
+  for(var i = 0; i < audios.length; i++) {
+    audios[i].pause();
+  }
+};
+
+// Reloj en tiempo real para Polonia (Santuario de Niepokalanów)
+function actualizarHoraPolonia() {
+  const elementoReloj = document.getElementById('accar-polonia-time');
+  if (!elementoReloj) return;
+
+  const opcionesHora = { 
+    timeZone: 'Europe/Warsaw', 
+    hour: '2-digit', 
+    minute: '2-digit', 
+    second: '2-digit',
+    hour12: true 
+  };
+  
+  const horaPolonia = new Intl.DateTimeFormat('es-ES', opcionesHora).format(new Date());
+  elementoReloj.textContent = horaPolonia;
+}
+
+// Iniciar el reloj inmediatamente y actualizar cada segundo
+actualizarHoraPolonia();
+setInterval(actualizarHoraPolonia, 1000);
+</script>

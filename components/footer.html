@@ -1,0 +1,498 @@
+<!-- ===== INICIO FOOTER GLOBAL ACCAR ===== -->
+<style>
+  /* ===== LIMPIEZA GLOBAL DEFINITIVA ===== */
+  html, body{
+    margin:0 !important;
+    padding:0 !important;
+    width:100%;
+    max-width:100%;
+    overflow-x:hidden;
+    background:#09172d !important;
+  }
+
+  body{
+    font-family:Georgia, "Times New Roman", serif;
+  }
+
+  /* Si RocketCake o el layout mete contenedores externos con espacios */
+  .footer-global-accar,
+  .footer-global-accar *{
+    box-sizing:border-box;
+  }
+
+  .footer-global-accar{
+    position:relative;
+    display:block;
+    width:100%;
+    margin:0 !important;
+    overflow:hidden;
+    padding:72px 0 38px;
+    color:#f8efd3;
+    border:none;
+    background:
+      linear-gradient(180deg, rgba(10,24,48,.10), rgba(10,24,48,.22)),
+      url("../assets/img/footer_bg_iglesia.webp") center center / cover no-repeat;
+    background-attachment:fixed;
+  }
+
+  .footer-global-overlay{
+    position:absolute;
+    inset:0;
+    pointer-events:none;
+    background:
+      linear-gradient(180deg, rgba(8,20,40,.06), rgba(8,20,40,.16)),
+      linear-gradient(90deg, rgba(7,26,54,.12), rgba(12,42,86,.03), rgba(7,26,54,.12));
+  }
+
+  .footer-global-wrap{
+    position:relative;
+    z-index:1;
+    width:min(1240px, calc(100% - 28px));
+    margin:0 auto !important;
+    padding:0 !important;
+  }
+
+  .footer-global-card {
+    width: 100%;
+    margin: 0 auto;
+    padding: 54px 48px 40px; /* Más aire: arriba, lados y abajo */
+    border: 1px solid rgba(212, 175, 55, 0.55); /* Un toque extra de brillo al borde Oro Papal */
+    border-radius: 34px;
+    background: linear-gradient(180deg, rgba(11, 31, 63, 0.92) 0%, rgba(7, 17, 34, 0.98) 100%);
+    backdrop-filter: blur(12px); /* Más desenfoque del fondo */
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6); /* Sombra más profunda para dar relieve */
+    overflow: hidden;
+  }
+
+.footer-global-top{
+  display:grid;
+  grid-template-columns:minmax(390px, 1.14fr) minmax(290px, 0.9fr) minmax(300px, 0.94fr);
+  column-gap:58px;
+  row-gap:20px;
+  align-items:start;
+}
+
+  .footer-global-col{
+    min-width:0;
+  }
+
+ .footer-global-brand{
+  display:flex;
+  align-items:flex-start;
+  gap:26px;
+}
+
+.footer-global-brand-stacked{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  justify-content:flex-start;
+  padding-top:0;
+}
+
+.footer-global-brand-top{
+  display:flex;
+  align-items:center;
+  justify-content:flex-start;
+  gap:16px;
+  width:100%;
+  margin-top:-6px;
+}
+
+.footer-global-logo-home{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  flex:0 0 auto;
+  border-radius:50%;
+  transition:transform .28s ease, filter .28s ease;
+}
+
+.footer-global-logo-home:hover{
+  transform:translateY(-2px) scale(1.04);
+  filter:drop-shadow(0 0 14px rgba(216,178,74,.34));
+}
+
+.footer-global-logo-home img{
+  width:98px;
+  height:auto;
+  display:block;
+}
+
+.footer-global-brand-copy-horizontal{
+  max-width:265px;
+  text-align:center;
+  padding-top:0;
+}
+
+.footer-global-brand-main{
+  margin:0;
+  font-size:1rem;
+  line-height:1.45;
+  color:#f6ecd0;
+}
+
+.footer-global-motto{
+  margin:-4px 0 0; /* Separamos un poco más del texto de arriba */
+  width:100%;
+  text-align:center;
+  font-size:1.15rem; /* Letra ligeramente más grande */
+  line-height:1.4;
+  color:#D4AF37 !important; /* Oro Papal puro */
+  font-style:italic;
+  font-weight:700;
+  letter-spacing: 0.5px; /* Letras sutilmente separadas para mayor presencia */
+  text-shadow:0 4px 12px rgba(0,0,0,.40); /* Sombra que le da relieve y majestuosidad */
+}
+
+.footer-global-links-grid{
+  display:grid !important;
+  grid-template-columns:repeat(2, minmax(140px, 1fr));
+  gap:18px 42px;
+  align-items:start;
+  justify-items:start;
+  max-width:390px;
+}
+
+  .footer-global-logo{
+    flex:0 0 auto;
+    display:inline-block;
+    text-decoration:none;
+  }
+
+  .footer-global-logo img{
+    width:180px;
+    max-width:100%;
+    height:auto;
+    display:block;
+    filter:
+      drop-shadow(0 10px 18px rgba(0,0,0,.22))
+      drop-shadow(0 0 10px rgba(212,175,55,.08));
+  }
+
+  .footer-global-brand-copy{
+    padding-top:10px;
+    max-width:430px;
+  }
+
+  .footer-global-brand-copy p{
+    margin:0 0 10px;
+    font-size:1rem;
+    line-height:1.62;
+    color:#f6ecd0;
+  }
+
+  .footer-global-brand-copy p strong{
+    color:#fff3cb;
+    font-weight:bold;
+  }
+
+  .footer-global-brand-copy p:last-child{
+    margin-bottom:0;
+  }
+
+  .footer-global-col h4{
+    margin:0 0 22px; /* Ajustado para coincidir con tu línea 170 */
+    font-size:1.9rem;
+    line-height:1.05;
+    color: #D4AF37; /* Oro Papal puro */
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+  }
+
+  .footer-global-brand-col{
+  justify-self:start;
+  padding-top:0;
+}
+
+.footer-global-links-col{
+  justify-self:center;
+  padding-top:4px;
+}
+
+.footer-global-contact-col{
+  justify-self:end;
+  padding-top:4px;
+  max-width:320px;
+}
+
+.footer-global-contact{
+  max-width:290px;
+}
+
+.footer-global-col h4 {
+  margin: 0 0 22px;
+  position: relative; /* Necesario para posicionar la línea verde */
+  display: inline-block; /* Ajusta el ancho al texto */
+  padding-bottom: 12px; /* Da espacio para la línea */
+}
+
+/* La línea de acento Verde Episcopal bajo los títulos */
+.footer-global-col h4::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 50px; /* Ancho sutil y elegante */
+  height: 3px; /* Un poquito más gruesa para que destaque */
+  background: linear-gradient(90deg, #0f3621 0%, #154c2e 100%); /* Verde Episcopal en degradado */
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(15, 54, 33, 0.4); /* Sombra para darle relieve */
+}
+
+  .footer-global-links{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+  }
+
+  .footer-global-links a{
+    color:#f6ecd0;
+    text-decoration:none;
+    font-size:1.08rem;
+    font-weight:bold;
+    line-height:1.35;
+    transition:all .3s ease; /* Transición más fluida */
+    display: inline-block; /* Necesario para que el deslizamiento sea perfecto */
+  }
+
+  .footer-global-links a:hover{
+    color:#D4AF37; /* Oro Papal premium */
+    transform:translateX(5px); /* Deslizamiento más elegante */
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5); /* Suave resplandor al pasar el mouse */
+  }
+
+  .footer-global-contact{
+    display:flex;
+    flex-direction:column;
+    gap:18px;
+    color:#f6ecd0;
+    font-size:1.08rem;
+    line-height:1.65;
+  }
+
+  .footer-global-contact a{
+    color:#f6ecd0;
+    text-decoration:none;
+    font-weight:bold;
+    transition:color .18s ease;
+  }
+
+  .footer-global-contact a:hover{
+    color:#ffe8a4;
+  }
+
+  .footer-global-divider{
+    width:100%;
+    height:1px;
+    margin:24px 0 20px;
+    background:linear-gradient(90deg, transparent, rgba(212,175,55,.72), transparent);
+  }
+
+  .footer-global-legal{
+    text-align:center;
+    color:#eadfb7;
+    font-size:1rem;
+    line-height:1.75;
+  }
+
+  @media (max-width:1180px){
+    .footer-global-top{
+      grid-template-columns:1fr 1fr;
+    }
+
+    .footer-global-contact-col{
+      grid-column:1 / -1;
+    }
+  }
+
+  @media (max-width:980px){
+    .footer-global-accar{
+      padding:54px 0 28px;
+      background:
+        linear-gradient(180deg, rgba(10,24,48,.12), rgba(10,24,48,.22)),
+        url("../assets/img/footer_bg_iglesia.webp") center center / cover no-repeat;
+      background-attachment:scroll;
+    }
+  }
+
+ @media (max-width:920px){
+  .footer-global-top{
+    grid-template-columns:1fr;
+    column-gap:0;
+    row-gap:30px;
+  }
+
+  .footer-global-brand-col,
+  .footer-global-links-col,
+  .footer-global-contact-col{
+    justify-self:center;
+    max-width:100%;
+    text-align:center;
+  }
+
+  .footer-global-brand-stacked{
+    align-items:center;
+    text-align:center;
+  }
+
+  .footer-global-brand-top{
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    gap:14px;
+  }
+
+  .footer-global-brand-copy-horizontal{
+    max-width:100%;
+    text-align:center;
+  }
+
+  .footer-global-motto{
+    text-align:center;
+  }
+
+  .footer-global-col{
+    text-align:center;
+  }
+
+  .footer-global-links{
+    align-items:center;
+  }
+
+  .footer-global-links-grid{
+    grid-template-columns:1fr 1fr;
+    gap:12px 24px;
+    justify-items:center;
+    max-width:360px;
+    margin:0 auto;
+  }
+
+  .footer-global-links a:hover{
+    transform:none;
+  }
+
+  .footer-global-contact{
+    align-items:center;
+    max-width:100%;
+    margin:0 auto;
+    text-align:center;
+  }
+}
+
+  @media (max-width:560px){
+    .footer-global-wrap{
+      width:min(1240px, calc(100% - 16px));
+    }
+
+    .footer-global-accar{
+      padding:34px 0 24px;
+      background:
+        linear-gradient(180deg, rgba(10,24,48,.14), rgba(10,24,48,.24)),
+        url("../assets/img/footer_bg_iglesia.webp") 50% center / cover no-repeat;
+      background-attachment:scroll;
+    }
+
+    .footer-global-card{
+      padding:32px 20px 24px; /* Un poco más de aire en móvil también */
+      border-radius:24px;
+    }
+
+    .footer-global-logo img{
+      width:152px;
+    }
+
+    .footer-global-col h4{
+      font-size:1.52rem;
+    }
+
+    .footer-global-brand-copy p,
+    .footer-global-contact,
+    .footer-global-links a{
+      font-size:1rem;
+      line-height:1.75;
+    }
+
+    .footer-global-legal{
+      font-size:.94rem;
+    }
+  }
+</style>
+
+<footer class="footer-global-accar">
+  <div class="footer-global-overlay"></div>
+
+  <div class="footer-global-wrap">
+    <div class="footer-global-card">
+
+<div class="footer-global-top">
+  <!-- COLUMNA MARCA -->
+  <div class="footer-global-col footer-global-brand-col">
+  <div class="footer-global-brand footer-global-brand-stacked">
+    <div class="footer-global-brand-top">
+      <a class="footer-global-logo footer-global-logo-home" href="index.html" aria-label="Ir al inicio de Apologética Católica">
+        <img src="../assets/img/logo-accar.png" alt="Logo ACCAR">
+      </a>
+
+      <div class="footer-global-brand-copy footer-global-brand-copy-horizontal">
+        <p class="footer-global-brand-main">
+          <strong>Somos un sitio fiel a la Iglesia Católica</strong><br>
+          en obediencia al Sucesor de San Pedro.
+        </p>
+      </div>
+    </div>
+
+    <p class="footer-global-motto"><em>Extra Ecclesiam nulla salus.</em></p>
+  </div>
+</div>
+
+  <!-- COLUMNA ENLACES -->
+  <div class="footer-global-col footer-global-links-col">
+  <h4>Enlaces</h4>
+  <nav class="footer-global-links footer-global-links-grid" aria-label="Enlaces del sitio">
+    <a href="/index.html">Inicio</a>
+    <a href="/biblioteca.html">Biblioteca</a>
+
+    <a href="/apologetica.html">Apologética</a>
+    <a href="/multimedia.html">Multimedia</a>
+
+    <a href="/formacion.html">Formación</a>
+    <a href="/actualidad.html">Actualidad</a>
+
+    <a href="/historia.html">Historia</a>
+    <a href="/contacto.html">Contacto</a>
+  </nav>
+</div>
+
+  <!-- COLUMNA CONTACTO -->
+  <div class="footer-global-col footer-global-contact-col">
+    <h4>Contacto</h4>
+    <div class="footer-global-contact">
+      <a href="mailto:accar33@icloud.com">accar33@icloud.com</a>
+      <div>Atención orientativa para formación y consulta apologética.</div>
+    </div>
+  </div>
+</div>
+
+      <div class="footer-global-divider"></div>
+
+      <div class="footer-global-legal">
+        © <span id="yearActualFooterGlobal"></span> Apologética ACCAR. Todos los derechos reservados.<br>
+        Diseño y Desarrollo por OlgWal Studio Vision<br>
+        Web Development · Digital Strategy
+      </div>
+
+    </div>
+  </div>
+</footer>
+
+<script>
+  (function(){
+    const yearEl = document.getElementById("yearActualFooterGlobal");
+    if(yearEl){
+      yearEl.textContent = new Date().getFullYear();
+    }
+  })();
+</script>
+<!-- ===== FINAL FOOTER GLOBAL ACCAR ===== -->

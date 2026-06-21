@@ -1,0 +1,1354 @@
+<!-- =========================================================
+SISTEMA GLOBAL DE COLORES (ACCAR)
+========================================================= -->
+<style>
+:root{
+  --accar-bg-light: #f3efe6;
+  --accar-bg-celeste: #dbe8f6;
+  --accar-bg-celeste-soft: #cfe0f2;
+
+  --accar-card-white: #ffffff;
+  --accar-card-blue: linear-gradient(180deg, #163a67 0%, #0f2d52 100%);
+
+  --accar-title: #243a5a;
+  --accar-text: #4c4b46;
+
+  --accar-gold: #d4af37;
+}:root{
+  /* Fondos Translúcidos para heredar el Mármol */
+  --accar-bg-light: transparent;
+  --accar-bg-celeste: rgba(11, 27, 61, 0.4); /* Azul Mariano translúcido */
+  --accar-bg-celeste-soft: rgba(11, 27, 61, 0.2);
+
+  /* Tarjetas con efecto Premium */
+  --accar-card-white: rgba(255, 255, 255, 0.92);
+  --accar-card-blue: linear-gradient(180deg, #0B1B3D 0%, #060e20 100%); /* Azul Mariano Institucional */
+
+  /* Textos oscurecidos para máximo contraste */
+  --accar-title: #060e20;
+  --accar-text: #2b2b2b;
+
+  --accar-gold: #d4af37; /* Oro Papal intacto */
+}
+
+/* Forzamos transparencia global en actualidad */
+.accar-actualidad-hero, 
+.accar-world-wrap {
+  background: transparent !important;
+}
+
+/* Efecto cristal en la tarjeta principal de actualidad */
+.accar-actualidad-card {
+  background: var(--accar-card-white) !important;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(212, 175, 55, 0.4);
+}
+</style>
+
+
+<!-- =========================================================
+INICIO BLOQUE 1 — CABECERA ACTUALIDAD
+========================================================= -->
+<section class="accar-actualidad-hero">
+
+  <div class="accar-actualidad-card-frame">
+    <div class="accar-actualidad-card">
+
+      <div class="accar-actualidad-hero__label">
+        SECCIÓN ACTUALIDAD ACCAR
+      </div>
+
+      <h1 class="accar-actualidad-hero__title">
+        Actualidad
+      </h1>
+
+      <p class="accar-actualidad-hero__subtitle">
+        Seguimiento en tiempo real de la Iglesia Católica, la actividad del Santo Padre,
+        noticias recientes y contenidos oficiales de la Santa Sede.
+      </p>
+
+      <div class="accar-actualidad-hero__divider"></div>
+
+      <div class="accar-actualidad-hero__quicklinks">
+        <a href="#bloque-transmision" class="accar-actualidad-hero__btn">Transmisión en vivo</a>
+        <a href="#bloque-noticias" class="accar-actualidad-hero__btn">Noticias recientes</a>
+        <a href="#bloque-iglesia-mundo" class="accar-actualidad-hero__btn">Iglesia en América</a>
+      </div>
+
+    </div>
+  </div>
+
+</section>
+
+<style>
+
+/* SECCIÓN */
+.accar-actualidad-hero{
+  padding:120px 20px 90px;
+  background:var(--accar-bg-light);
+  text-align:center;
+}
+
+/* MARCO PREMIUM EXTERIOR */
+.accar-actualidad-card-frame{
+  max-width:1128px;
+  margin:0 auto;
+  padding:16px;
+  border-radius:34px;
+  background:
+    linear-gradient(135deg, rgba(212,175,55,.22) 0%, rgba(255,255,255,.70) 24%, rgba(22,58,103,.08) 100%);
+  box-shadow:
+    0 28px 58px rgba(26,32,44,.12),
+    inset 0 1px 0 rgba(255,255,255,.58);
+  transition:transform .28s ease, box-shadow .28s ease;
+  box-sizing:border-box;
+}
+
+.accar-actualidad-card-frame:hover{
+  transform:translateY(-4px);
+  box-shadow:
+    0 34px 68px rgba(26,32,44,.15),
+    inset 0 1px 0 rgba(255,255,255,.66);
+}
+
+/* TARJETA */
+.accar-actualidad-card{
+  max-width:100%;
+  margin:0 auto;
+  background:linear-gradient(180deg, rgba(255,255,255,.98) 0%, rgba(250,247,241,.97) 100%);
+  border:1px solid rgba(167,140,74,.18);
+  border-radius:28px;
+  padding:58px 46px 52px;
+  box-shadow:
+    0 14px 30px rgba(0,0,0,.06),
+    inset 0 1px 0 rgba(255,255,255,.68);
+  box-sizing:border-box;
+  transition:border-color .25s ease, box-shadow .25s ease;
+}
+
+.accar-actualidad-card-frame:hover .accar-actualidad-card{
+  border-color:rgba(212,175,55,.28);
+  box-shadow:
+    0 18px 38px rgba(0,0,0,.08),
+    inset 0 1px 0 rgba(255,255,255,.78);
+}
+
+/* LABEL */
+.accar-actualidad-hero__label{
+  display:inline-block;
+  margin-bottom:18px;
+  padding:10px 22px;
+  border-radius:999px;
+  background:rgba(212,175,55,.12);
+  border:1px solid rgba(212,175,55,.35);
+  color:#8c7a4c;
+  font-size:13px;
+  font-weight:700;
+  letter-spacing:.55px;
+  box-shadow:0 6px 14px rgba(212,175,55,.08);
+}
+
+/* TITULO */
+.accar-actualidad-hero__title{
+  margin:0;
+  font-size:58px;
+  line-height:1.05;
+  color:var(--accar-title);
+  font-weight:800;
+  letter-spacing:.2px;
+  text-shadow:0 1px 0 rgba(255,255,255,.55);
+}
+
+/* TEXTO */
+.accar-actualidad-hero__subtitle{
+  margin:18px auto 0;
+  font-size:18px;
+  line-height:1.85;
+  color:var(--accar-text);
+  max-width:800px;
+}
+
+/* DIVISOR */
+.accar-actualidad-hero__divider{
+  width:96px;
+  height:3px;
+  margin:26px auto 28px;
+  background:linear-gradient(90deg, rgba(212,175,55,.55) 0%, var(--accar-gold) 50%, rgba(212,175,55,.55) 100%);
+  border-radius:999px;
+  box-shadow:0 4px 10px rgba(212,175,55,.12);
+}
+
+/* BOTONES */
+.accar-actualidad-hero__quicklinks{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:14px;
+  margin-top:4px;
+  width:100%;
+  box-sizing:border-box;
+}
+
+/* BOTÓN */
+.accar-actualidad-hero__btn,
+.accar-actualidad-hero__btn:link,
+.accar-actualidad-hero__btn:visited,
+.accar-actualidad-hero__btn:active{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:50px;
+  padding:0 24px;
+  border-radius:999px;
+  background:#2f3e5c;
+  color:#ffffff !important;
+  text-decoration:none;
+  font-size:15px;
+  font-weight:700;
+  line-height:1.2;
+  text-align:center;
+  border:1px solid #2f3e5c;
+  box-shadow:0 10px 22px rgba(47,62,92,.14);
+  transition:background-color .22s ease, color .22s ease, border-color .22s ease, transform .22s ease, box-shadow .22s ease;
+  box-sizing:border-box;
+}
+
+.accar-actualidad-hero__btn:hover,
+.accar-actualidad-hero__btn:focus{
+  background:#d4af37;
+  border-color:#d4af37;
+  color:#1a1408 !important;
+  transform:translateY(-2px);
+  box-shadow:0 14px 28px rgba(212,175,55,.18);
+  outline:none;
+}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+
+  .accar-actualidad-hero{
+    padding:105px 16px 80px;
+  }
+
+  .accar-actualidad-card-frame{
+    padding:10px;
+    border-radius:24px;
+  }
+
+  .accar-actualidad-card{
+    padding:40px 20px 36px;
+    border-radius:20px;
+  }
+
+  .accar-actualidad-hero__title{
+    font-size:42px;
+  }
+
+  .accar-actualidad-hero__subtitle{
+    font-size:16px;
+    line-height:1.75;
+  }
+
+  .accar-actualidad-hero__quicklinks{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    width:100%;
+    max-width:100%;
+    margin:0;
+  }
+
+  .accar-actualidad-hero__btn,
+  .accar-actualidad-hero__btn:link,
+  .accar-actualidad-hero__btn:visited,
+  .accar-actualidad-hero__btn:active{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    width:100%;
+    max-width:100%;
+    min-height:46px;
+    padding:11px 14px;
+    font-size:14px;
+    line-height:1.15;
+    text-align:center;
+    box-sizing:border-box;
+    overflow-wrap:break-word;
+    white-space:normal;
+  }
+}
+
+</style>
+<!-- =========================================================
+FINAL BLOQUE 1
+========================================================= -->
+
+<!-- =========================================================
+INICIO BLOQUE 2 — TRANSMISIÓN EN VIVO
+========================================================= -->
+<section id="bloque-transmision" class="accar-live-wrap">
+
+  <div class="accar-live-container">
+
+    <div class="accar-live-shell">
+
+      <div class="accar-live-card">
+
+        <div class="accar-live-video">
+          <iframe
+            src="https://www.youtube.com/embed/5lfWxoaPGRg?rel=0"
+            title="Vatican Media Live - Español"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen>
+          </iframe>
+        </div>
+
+        <div class="accar-live-content">
+
+          <span class="accar-live-badge">DESTACADO DEL MOMENTO</span>
+
+          <h2>Transmisión en vivo</h2>
+
+          <p>
+            Sigue en tiempo real las celebraciones y transmisiones oficiales
+            de la Santa Sede.
+          </p>
+
+          <div class="accar-live-buttons">
+            <a href="#" class="accar-live-btn-primary">Ver canal oficial</a>
+            <a href="#" class="accar-live-btn-secondary">Ir a noticias</a>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<style>
+.accar-live-wrap{
+  padding:110px 20px;
+  background:linear-gradient(180deg, var(--accar-bg-celeste) 0%, var(--accar-bg-celeste-soft) 100%);
+}
+
+.accar-live-container{
+  max-width:1320px;
+  margin:0 auto;
+}
+
+/* ===== CAPA PREMIUM TIPO ACTUALIDAD ===== */
+.accar-live-shell{
+  position:relative;
+  max-width:1280px;
+  margin:0 auto;
+  padding:18px;
+  border-radius:34px;
+  background:
+    linear-gradient(135deg, rgba(212,175,55,.16) 0%, rgba(212,175,55,.07) 100%),
+    linear-gradient(180deg, #e2dccf 0%, #d9d4ca 100%);
+  box-shadow:
+    0 26px 60px rgba(26, 35, 54, .10),
+    0 38px 90px rgba(26, 35, 54, .08);
+}
+
+.accar-live-card{
+  position:relative;
+  display:flex;
+  align-items:center;
+  gap:42px;
+  padding:34px 38px;
+  border-radius:30px;
+  overflow:hidden;
+
+  background:
+    radial-gradient(circle at top left, rgba(212,175,55,.10) 0%, rgba(212,175,55,0) 26%),
+    linear-gradient(135deg, rgba(255,255,255,.05) 0%, rgba(255,255,255,.015) 35%, rgba(255,255,255,.03) 100%),
+    linear-gradient(135deg, #173663 0%, #1c3f73 48%, #15355f 100%);
+
+  border:1px solid rgba(255,255,255,.10);
+
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.08),
+    0 18px 38px rgba(7,22,43,.18);
+
+  transition:transform .30s ease, box-shadow .30s ease;
+}
+
+.accar-live-card::before{
+  content:"";
+  position:absolute;
+  inset:16px;
+  border-radius:22px;
+  border:1px solid rgba(255,255,255,.05);
+  pointer-events:none;
+}
+
+.accar-live-card::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    linear-gradient(115deg, rgba(255,255,255,.04) 0%, rgba(255,255,255,0) 34%),
+    linear-gradient(180deg, rgba(212,175,55,.04) 0%, rgba(212,175,55,0) 22%);
+  pointer-events:none;
+}
+
+.accar-live-shell:hover .accar-live-card{
+  transform:translateY(-3px);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.10),
+    0 24px 48px rgba(7,22,43,.22);
+}
+
+/* ===== VIDEO ===== */
+.accar-live-video{
+  position:relative;
+  z-index:1;
+  flex:0 0 58%;
+  max-width:58%;
+}
+
+.accar-live-video iframe{
+  display:block;
+  width:100%;
+  aspect-ratio:16 / 9;
+  border:none;
+  border-radius:22px;
+  background:#000;
+  box-shadow:
+    0 18px 34px rgba(0,0,0,.26),
+    0 0 0 1px rgba(255,255,255,.05);
+}
+
+/* ===== CONTENIDO ===== */
+.accar-live-content{
+  position:relative;
+  z-index:1;
+  flex:0 0 42%;
+  max-width:42%;
+  color:#fff;
+  text-align:left;
+  padding-right:6px;
+}
+
+.accar-live-badge{
+  display:inline-block;
+  margin:0 0 16px 0;
+  color:var(--accar-gold);
+  font-size:13px;
+  font-weight:800;
+  letter-spacing:1.8px;
+  text-transform:uppercase;
+}
+
+.accar-live-content h2{
+  margin:0 0 18px 0;
+  color:#fff;
+  font-size:clamp(34px, 3vw, 54px);
+  line-height:1.03;
+  font-weight:800;
+  letter-spacing:-0.03em;
+}
+
+.accar-live-content p{
+  margin:0 0 28px 0;
+  color:rgba(255,255,255,.93);
+  font-size:20px;
+  line-height:1.58;
+  font-weight:500;
+  max-width:520px;
+}
+
+.accar-live-buttons{
+  display:flex;
+  flex-wrap:wrap;
+  gap:14px;
+  align-items:center;
+}
+
+/* ===== BOTONES ===== */
+.accar-live-btn-primary,
+.accar-live-btn-secondary{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:52px;
+  padding:0 24px;
+  border-radius:999px;
+  text-decoration:none !important;
+  font-size:15px;
+  font-weight:700;
+  line-height:1;
+  letter-spacing:.01em;
+  transition:
+    background-color .25s ease,
+    color .25s ease,
+    border-color .25s ease,
+    transform .25s ease,
+    box-shadow .25s ease;
+}
+
+.accar-live-btn-primary{
+  background:#30579a;
+  color:#ffffff !important;
+  border:1px solid rgba(255,255,255,.14);
+  box-shadow:0 8px 20px rgba(0,0,0,.16);
+}
+
+.accar-live-btn-primary:visited{
+  color:#ffffff !important;
+}
+
+.accar-live-btn-primary:hover{
+  background:var(--accar-gold);
+  color:#000000 !important;
+  border-color:rgba(212,175,55,.60);
+  transform:translateY(-1px);
+  box-shadow:0 12px 24px rgba(0,0,0,.18);
+}
+
+.accar-live-btn-secondary{
+  background:rgba(255,255,255,.10);
+  color:#ffffff !important;
+  border:1px solid rgba(255,255,255,.16);
+  box-shadow:0 8px 20px rgba(0,0,0,.10);
+}
+
+.accar-live-btn-secondary:visited{
+  color:#ffffff !important;
+}
+
+.accar-live-btn-secondary:hover{
+  background:var(--accar-gold);
+  color:#000000 !important;
+  border-color:rgba(212,175,55,.60);
+  transform:translateY(-1px);
+  box-shadow:0 12px 24px rgba(0,0,0,.18);
+}
+
+.accar-live-buttons a,
+.accar-live-buttons a:link,
+.accar-live-buttons a:active,
+.accar-live-buttons a:visited{
+  text-decoration:none !important;
+}
+
+/* ===== TABLET ===== */
+@media (max-width:1080px){
+  .accar-live-shell{
+    padding:14px;
+  }
+
+  .accar-live-card{
+    gap:28px;
+    padding:28px;
+  }
+
+  .accar-live-video{
+    flex:0 0 55%;
+    max-width:55%;
+  }
+
+  .accar-live-content{
+    flex:0 0 45%;
+    max-width:45%;
+  }
+
+  .accar-live-content h2{
+    font-size:clamp(28px, 3vw, 40px);
+  }
+
+  .accar-live-content p{
+    font-size:18px;
+  }
+}
+
+/* ===== MOBILE ===== */
+@media (max-width:900px){
+  .accar-live-wrap{
+    padding:90px 18px;
+  }
+
+  .accar-live-shell{
+    padding:12px;
+    border-radius:28px;
+  }
+
+  .accar-live-card{
+    flex-direction:column;
+    gap:24px;
+    padding:24px;
+    border-radius:24px;
+  }
+
+  .accar-live-video,
+  .accar-live-content{
+    flex:0 0 100%;
+    max-width:100%;
+  }
+
+  .accar-live-content{
+    text-align:center;
+    padding-right:0;
+  }
+
+  .accar-live-content p{
+    max-width:none;
+    font-size:17px;
+    margin-bottom:22px;
+  }
+
+  .accar-live-buttons{
+    justify-content:center;
+  }
+}
+
+@media (max-width:560px){
+  .accar-live-card{
+    padding:20px 18px;
+  }
+
+  .accar-live-card::before{
+    inset:10px;
+    border-radius:16px;
+  }
+
+  .accar-live-video iframe{
+    border-radius:18px;
+  }
+
+  .accar-live-content h2{
+    font-size:30px;
+  }
+
+  .accar-live-content p{
+    font-size:16px;
+    line-height:1.55;
+  }
+
+  .accar-live-btn-primary,
+  .accar-live-btn-secondary{
+    width:100%;
+  }
+}
+</style>
+<!-- =========================================================
+FINAL BLOQUE 2
+========================================================= -->
+
+<!-- =========================================================
+INICIO BLOQUE 3 — NOTICIAS OFICIALES DEL VATICANO (ULTRA PRO + AUTO)
+========================================================= -->
+<section id="bloque-noticias" class="accar-vn-ultra">
+
+  <div class="accar-vn-ultra__shell">
+
+    <div class="accar-vn-ultra__head">
+      <span class="accar-vn-ultra__kicker">VATICAN NEWS · SANTA SEDE</span>
+      <h2>Noticias oficiales del Vaticano</h2>
+      <p>
+        Información en tiempo real desde Vatican News y servicios oficiales de la Santa Sede,
+        integrada en un bloque visual premium acorde al sistema ACCAR.
+      </p>
+    </div>
+
+    <div class="accar-vn-ultra__layout">
+
+      <!-- COLUMNA PRINCIPAL -->
+      <div class="accar-vn-ultra__main">
+
+        <div class="accar-vn-ultra__widget-frame">
+          <div class="accar-vn-ultra__widget-card">
+            <vaticannews-widget
+              lang="es"
+              fontSize="14"
+              carouselVideoAuto="true"
+              carouselVideoTime="fast">
+            </vaticannews-widget>
+          </div>
+        </div>
+
+        <div class="accar-vn-ultra__actions">
+          <a href="https://www.vaticannews.va/es.html" target="_blank" rel="noopener noreferrer" class="accar-vn-ultra__btn accar-vn-ultra__btn--primary">
+            Ver Vatican News
+          </a>
+
+          <a href="https://press.vatican.va/" target="_blank" rel="noopener noreferrer" class="accar-vn-ultra__btn accar-vn-ultra__btn--secondary">
+            Oficina de Prensa
+          </a>
+        </div>
+
+      </div>
+
+      <!-- COLUMNA LATERAL -->
+      <aside class="accar-vn-ultra__side">
+
+        <a href="https://www.vatican.va/content/leo-xiv/es/events/month.dir.html/2026/4.html"
+           target="_blank" rel="noopener noreferrer"
+           class="accar-vn-sidecard accar-vn-sidecard--agenda">
+          <div class="accar-vn-sidecard__label">AGENDA DEL PAPA</div>
+          <div class="accar-vn-sidecard__title">Consulta actividades y programación oficial</div>
+        </a>
+
+        <a href="https://press.vatican.va/"
+           target="_blank" rel="noopener noreferrer"
+           class="accar-vn-sidecard">
+          <div class="accar-vn-sidecard__label">OFICINA DE PRENSA</div>
+          <div class="accar-vn-sidecard__title">Comunicados, boletines y actualizaciones oficiales</div>
+        </a>
+
+        <a href="https://www.vaticannews.va/es/radio-vaticana.html"
+           target="_blank" rel="noopener noreferrer"
+           class="accar-vn-sidecard">
+          <div class="accar-vn-sidecard__label">RADIO VATICANA</div>
+          <div class="accar-vn-sidecard__title">Cobertura, audio y presencia informativa oficial</div>
+        </a>
+
+        <a href="https://www.osservatoreromano.va/es.html"
+           target="_blank" rel="noopener noreferrer"
+           class="accar-vn-sidecard">
+          <div class="accar-vn-sidecard__label">L’OSSERVATORE ROMANO</div>
+          <div class="accar-vn-sidecard__title">Acceso al periódico oficial de la Santa Sede</div>
+        </a>
+
+        <a href="https://www.vaticannews.va/es/inscripcion-boletin-de-noticias.html"
+           target="_blank" rel="noopener noreferrer"
+           class="accar-vn-sidecard">
+          <div class="accar-vn-sidecard__label">BOLETÍN</div>
+          <div class="accar-vn-sidecard__title">Suscríbete para recibir noticias y avisos actualizados</div>
+        </a>
+
+      </aside>
+
+    </div>
+
+  </div>
+
+</section>
+
+<style>
+.accar-vn-ultra{
+  padding:120px 20px;
+  background:linear-gradient(180deg, #f3efe6 0%, #ece6da 100%);
+}
+
+.accar-vn-ultra__shell{
+  max-width:1320px;
+  margin:0 auto;
+}
+
+.accar-vn-ultra__head{
+  text-align:center;
+  max-width:860px;
+  margin:0 auto 42px;
+}
+
+.accar-vn-ultra__kicker{
+  display:inline-block;
+  margin-bottom:16px;
+  padding:10px 22px;
+  border-radius:999px;
+  background:rgba(212,175,55,.12);
+  border:1px solid rgba(212,175,55,.35);
+  color:#8c7a4c;
+  font-size:13px;
+  font-weight:700;
+  letter-spacing:.5px;
+}
+
+.accar-vn-ultra__head h2{
+  margin:0 0 14px;
+  font-size:56px;
+  line-height:1.08;
+  color:#243a5a;
+  font-weight:800;
+}
+
+.accar-vn-ultra__head p{
+  margin:0;
+  font-size:19px;
+  line-height:1.75;
+  color:#4c4b46;
+}
+
+.accar-vn-ultra__layout{
+  display:grid;
+  grid-template-columns:1.25fr .52fr;
+  gap:28px;
+  align-items:start;
+}
+
+.accar-vn-ultra__main{
+  min-width:0;
+}
+
+.accar-vn-ultra__widget-frame{
+  position:relative;
+  padding:14px;
+  border-radius:30px;
+  background:
+    linear-gradient(135deg, rgba(212,175,55,.24) 0%, rgba(255,255,255,.72) 24%, rgba(22,58,103,.08) 100%);
+  box-shadow:
+    0 28px 58px rgba(26,32,44,.12),
+    inset 0 1px 0 rgba(255,255,255,.55);
+}
+
+.accar-vn-ultra__widget-card{
+  background:linear-gradient(180deg, rgba(255,255,255,.98) 0%, rgba(247,244,238,.98) 100%);
+  border-radius:22px;
+  padding:18px;
+  border:1px solid rgba(36,58,90,.08);
+  box-shadow:
+    0 10px 24px rgba(26,32,44,.08),
+    inset 0 1px 0 rgba(255,255,255,.65);
+  overflow:hidden;
+}
+
+.accar-vn-ultra__actions{
+  display:flex;
+  justify-content:center;
+  gap:14px;
+  flex-wrap:wrap;
+  margin-top:24px;
+}
+
+.accar-vn-ultra__btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:52px;
+  padding:0 26px;
+  border-radius:999px;
+  text-decoration:none;
+  font-size:15px;
+  font-weight:700;
+  transition:.25s ease;
+}
+
+.accar-vn-ultra__btn--primary,
+.accar-vn-ultra__btn--primary:visited,
+.accar-vn-ultra__btn--primary:focus{
+  background:#2f3e5c;
+  color:#ffffff;
+}
+
+.accar-vn-ultra__btn--primary:hover{
+  background:#d4af37;
+  color:#1a1408;
+}
+
+.accar-vn-ultra__btn--secondary,
+.accar-vn-ultra__btn--secondary:visited,
+.accar-vn-ultra__btn--secondary:focus{
+  background:rgba(47,62,92,.08);
+  color:#2f3e5c;
+  border:1px solid rgba(47,62,92,.14);
+}
+
+.accar-vn-ultra__btn--secondary:hover{
+  background:#d4af37;
+  border-color:#d4af37;
+  color:#1a1408;
+}
+
+.accar-vn-ultra__side{
+  display:grid;
+  gap:18px;
+}
+
+.accar-vn-sidecard{
+  display:block;
+  text-decoration:none;
+  background:linear-gradient(180deg, rgba(255,255,255,.98) 0%, rgba(249,246,240,.98) 100%);
+  border:1px solid rgba(36,58,90,.08);
+  border-radius:22px;
+  padding:22px 20px;
+  box-shadow:0 14px 32px rgba(26,32,44,.08);
+  transition:transform .22s ease, box-shadow .22s ease, border-color .22s ease;
+}
+
+.accar-vn-sidecard:hover{
+  transform:translateY(-4px);
+  box-shadow:0 22px 40px rgba(26,32,44,.12);
+  border-color:rgba(212,175,55,.28);
+}
+
+.accar-vn-sidecard--agenda{
+  background:linear-gradient(180deg, #163a67 0%, #0f2d52 100%);
+}
+
+.accar-vn-sidecard--agenda .accar-vn-sidecard__label,
+.accar-vn-sidecard--agenda .accar-vn-sidecard__title{
+  color:#ffffff;
+}
+
+.accar-vn-sidecard__label{
+  display:inline-block;
+  margin-bottom:10px;
+  font-size:12px;
+  font-weight:800;
+  letter-spacing:.55px;
+  color:#8c7a4c;
+  text-transform:uppercase;
+}
+
+.accar-vn-sidecard__title{
+  font-size:20px;
+  line-height:1.4;
+  color:#243a5a;
+  font-weight:800;
+}
+
+@media(max-width:1100px){
+  .accar-vn-ultra__layout{
+    grid-template-columns:1fr;
+  }
+
+  .accar-vn-ultra__head h2{
+    font-size:42px;
+  }
+}
+
+@media(max-width:768px){
+  .accar-vn-ultra{
+    padding:100px 16px;
+  }
+
+  .accar-vn-ultra__head{
+    margin-bottom:32px;
+  }
+
+  .accar-vn-ultra__head h2{
+    font-size:36px;
+  }
+
+  .accar-vn-ultra__head p{
+    font-size:17px;
+  }
+
+  .accar-vn-ultra__widget-frame{
+    padding:10px;
+    border-radius:22px;
+  }
+
+  .accar-vn-ultra__widget-card{
+    padding:12px;
+    border-radius:18px;
+  }
+
+  .accar-vn-sidecard{
+    border-radius:18px;
+    padding:18px 16px;
+  }
+
+  .accar-vn-sidecard__title{
+    font-size:18px;
+  }
+}
+</style>
+
+<script src="https://www.vaticannews.va/widget.js"></script>
+
+<!-- =========================================================
+FINAL BLOQUE 3
+========================================================= -->
+
+<!-- =========================================================
+INICIO BLOQUE 4 — IGLESIA EN AMÉRICA
+========================================================= -->
+<section id="bloque-iglesia-mundo" class="accar-world-wrap">
+
+  <div class="accar-world-shell">
+
+    <div class="accar-world-head">
+      <span class="accar-world-kicker">IGLESIA EN AMÉRICA</span>
+      <h2>Actualidad de diócesis y arquidiócesis</h2>
+      <p>
+        Seguimiento de medios y portales eclesiales relevantes para mantener una
+        visión más amplia de la vida de la Iglesia en distintas regiones de América.
+      </p>
+    </div>
+
+    <div class="accar-world-grid">
+
+      <!-- LOS ANGELES -->
+      <article class="accar-world-card accar-world-card--auto">
+        <div class="accar-world-media">
+          <img src="assets/img/diocesis_los_angeles.webp" alt="Catedral de Nuestra Señora de los Ángeles">
+          <span class="accar-world-badge">MEDIO OFICIAL</span>
+        </div>
+        <div class="accar-world-body">
+          <div class="accar-world-meta">
+            <span class="accar-world-country">Estados Unidos</span>
+            <span class="accar-world-status">Los Ángeles</span>
+          </div>
+          <h3>Arquidiócesis de Los Ángeles</h3>
+          <p>
+            Referencia informativa de gran peso para el contexto hispano y católico
+            en Estados Unidos, con medio oficial y portal arquidiocesano activo.
+          </p>
+          <div class="accar-world-actions">
+            <a href="https://angelusnews.com/" target="_blank" rel="noopener noreferrer" class="accar-world-btn-main">Ver actualidad</a>
+            <a href="https://lacatholics.org/" target="_blank" rel="noopener noreferrer" class="accar-world-btn-ghost">Sitio oficial</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- NUEVA YORK -->
+      <article class="accar-world-card accar-world-card--auto">
+        <div class="accar-world-media">
+          <img src="assets/img/diocesis_new_york.webp" alt="Catedral de San Patricio de Nueva York">
+          <span class="accar-world-badge">PORTAL OFICIAL</span>
+        </div>
+        <div class="accar-world-body">
+          <div class="accar-world-meta">
+            <span class="accar-world-country">Estados Unidos</span>
+            <span class="accar-world-status">Nueva York</span>
+          </div>
+          <h3>Arquidiócesis de Nueva York</h3>
+          <p>
+            Medio moderno y muy activo, útil como referencia visual y noticiosa
+            para la vida de la Iglesia en Estados Unidos.
+          </p>
+          <div class="accar-world-actions">
+            <a href="https://thegoodnewsroom.org/" target="_blank" rel="noopener noreferrer" class="accar-world-btn-main">Ver actualidad</a>
+            <a href="https://archny.org/" target="_blank" rel="noopener noreferrer" class="accar-world-btn-ghost">Sitio oficial</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- MEXICO -->
+      <article class="accar-world-card">
+        <div class="accar-world-media">
+          <img src="assets/img/diocesis_mexico.webp" alt="Basílica de Guadalupe, referencia visual de Ciudad de México">
+          <span class="accar-world-badge">PORTAL ACTIVO</span>
+        </div>
+        <div class="accar-world-body">
+          <div class="accar-world-meta">
+            <span class="accar-world-country">México</span>
+            <span class="accar-world-status">Ciudad de México</span>
+          </div>
+          <h3>Arquidiócesis Primada de México</h3>
+          <p>
+            Fuente relevante para la audiencia hispana, con presencia institucional
+            y contenidos pastorales y formativos.
+          </p>
+          <div class="accar-world-actions">
+            <a href="https://arquidiocesismexico.org.mx/" target="_blank" rel="noopener noreferrer" class="accar-world-btn-main">Ver actualidad</a>
+            <a href="https://arquidiocesismexico.org.mx/" target="_blank" rel="noopener noreferrer" class="accar-world-btn-ghost">Sitio oficial</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- BOGOTA -->
+      <article class="accar-world-card">
+        <div class="accar-world-media">
+          <img src="assets/img/diocesis_bogota.webp" alt="Catedral Primada de Colombia">
+          <span class="accar-world-badge">PORTAL NOTICIOSO</span>
+        </div>
+        <div class="accar-world-body">
+          <div class="accar-world-meta">
+            <span class="accar-world-country">Colombia</span>
+            <span class="accar-world-status">Bogotá</span>
+          </div>
+          <h3>Arquidiócesis de Bogotá</h3>
+          <p>
+            Portal arquidiocesano con sección informativa amplia y útil para seguir
+            la actualidad eclesial de Colombia.
+          </p>
+          <div class="accar-world-actions">
+            <a href="https://arquibogota.org.co/centro-de-informacion/noticias" target="_blank" rel="noopener noreferrer" class="accar-world-btn-main">Ver actualidad</a>
+            <a href="https://arquibogota.org.co/" target="_blank" rel="noopener noreferrer" class="accar-world-btn-ghost">Sitio oficial</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- GUATEMALA -->
+      <article class="accar-world-card">
+        <div class="accar-world-media">
+          <img src="assets/img/diocesis_guatemala.webp" alt="Catedral Metropolitana de Guatemala">
+          <span class="accar-world-badge">REFERENCIA REGIONAL</span>
+        </div>
+        <div class="accar-world-body">
+          <div class="accar-world-meta">
+            <span class="accar-world-country">Guatemala</span>
+            <span class="accar-world-status">Guatemala</span>
+          </div>
+          <h3>Arquidiócesis de Guatemala</h3>
+          <p>
+            Punto de referencia útil para ampliar la cobertura eclesial en
+            Centroamérica dentro del sitio ACCAR.
+          </p>
+          <div class="accar-world-actions">
+            <a href="https://arzobispadodeguatemala.com/" target="_blank" rel="noopener noreferrer" class="accar-world-btn-main">Ver actualidad</a>
+            <a href="https://arzobispadodeguatemala.com/" target="_blank" rel="noopener noreferrer" class="accar-world-btn-ghost">Sitio oficial</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- MANAGUA -->
+      <article class="accar-world-card">
+        <div class="accar-world-media">
+          <img src="assets/img/diocesis_managua.webp" alt="Catedral de Managua">
+          <span class="accar-world-badge">FACEBOOK OFICIAL</span>
+        </div>
+        <div class="accar-world-body">
+          <div class="accar-world-meta">
+            <span class="accar-world-country">Nicaragua</span>
+            <span class="accar-world-status">Managua</span>
+          </div>
+          <h3>Arquidiócesis de Managua</h3>
+          <p>
+            Referencia eclesial de Nicaragua. Por ahora queda enlazada a su presencia
+            oficial en Facebook, que es la fuente que sí confirmaste.
+          </p>
+          <div class="accar-world-actions">
+            <a href="https://www.facebook.com/arquidiocesisdemanagua/?locale=es_LA" target="_blank" rel="noopener noreferrer" class="accar-world-btn-main">Ver actualidad</a>
+            <a href="https://www.facebook.com/arquidiocesisdemanagua/?locale=es_LA" target="_blank" rel="noopener noreferrer" class="accar-world-btn-ghost">Facebook oficial</a>
+          </div>
+        </div>
+      </article>
+
+    </div>
+
+  </div>
+
+</section>
+
+<style>
+.accar-world-wrap{
+  padding:120px 20px;
+  background:linear-gradient(180deg, #eef3f8 0%, #f7f4ed 100%);
+}
+
+.accar-world-shell{
+  max-width:1280px;
+  margin:0 auto;
+}
+
+.accar-world-head{
+  text-align:center;
+  max-width:900px;
+  margin:0 auto 54px;
+}
+
+.accar-world-kicker{
+  display:inline-block;
+  margin-bottom:16px;
+  padding:10px 22px;
+  border-radius:999px;
+  background:rgba(212,175,55,.12);
+  border:1px solid rgba(212,175,55,.35);
+  color:#8c7a4c;
+  font-size:13px;
+  font-weight:700;
+  letter-spacing:.5px;
+}
+
+.accar-world-head h2{
+  margin:0 0 14px;
+  font-size:54px;
+  line-height:1.08;
+  color:var(--accar-title);
+  font-weight:800;
+}
+
+.accar-world-head p{
+  margin:0;
+  font-size:19px;
+  line-height:1.75;
+  color:var(--accar-text);
+}
+
+.accar-world-grid{
+  display:grid;
+  grid-template-columns:repeat(3, 1fr);
+  gap:26px;
+}
+
+.accar-world-card{
+  overflow:hidden;
+  background:rgba(255,255,255,.96);
+  border:1px solid rgba(36,58,90,.10);
+  border-radius:28px;
+  box-shadow:0 18px 38px rgba(26,32,44,.08);
+  transition:transform .22s ease, box-shadow .22s ease, border-color .22s ease;
+}
+
+.accar-world-card:hover{
+  transform:translateY(-6px);
+  box-shadow:0 24px 44px rgba(26,32,44,.12);
+  border-color:rgba(212,175,55,.30);
+}
+
+.accar-world-card--auto{
+  border-color:rgba(47,62,92,.16);
+}
+
+.accar-world-media{
+  position:relative;
+  height:230px;
+  overflow:hidden;
+  background:linear-gradient(135deg, #d7dee7 0%, #a4b4c9 48%, #3b5277 100%);
+}
+
+.accar-world-media img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+
+.accar-world-badge{
+  position:absolute;
+  top:18px;
+  left:18px;
+  display:inline-flex;
+  align-items:center;
+  min-height:36px;
+  padding:7px 14px;
+  border-radius:999px;
+  background:rgba(255,255,255,.92);
+  color:#2f3e5c;
+  border:1px solid rgba(255,255,255,.75);
+  font-size:12px;
+  font-weight:700;
+  letter-spacing:.4px;
+}
+
+.accar-world-body{
+  padding:24px 24px 26px;
+}
+
+.accar-world-meta{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  margin-bottom:14px;
+}
+
+.accar-world-country{
+  display:inline-block;
+  padding:7px 12px;
+  border-radius:999px;
+  background:rgba(212,175,55,.12);
+  border:1px solid rgba(212,175,55,.28);
+  color:#8c7a4c;
+  font-size:12px;
+  font-weight:700;
+  letter-spacing:.4px;
+}
+
+.accar-world-status{
+  color:#6f7380;
+  font-size:13px;
+  font-weight:600;
+}
+
+.accar-world-body h3{
+  margin:0 0 14px;
+  font-size:30px;
+  line-height:1.12;
+  color:var(--accar-title);
+  font-weight:800;
+}
+
+.accar-world-body p{
+  margin:0;
+  font-size:16px;
+  line-height:1.75;
+  color:var(--accar-text);
+}
+
+.accar-world-actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px;
+  margin-top:22px;
+}
+
+.accar-world-btn-main,
+.accar-world-btn-ghost{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:48px;
+  padding:0 20px;
+  border-radius:999px;
+  text-decoration:none;
+  font-size:15px;
+  font-weight:700;
+  transition:background-color .25s ease, color .25s ease, border-color .25s ease;
+}
+
+.accar-world-btn-main,
+.accar-world-btn-main:visited,
+.accar-world-btn-main:focus{
+  background:#2f3e5c;
+  color:#ffffff;
+}
+
+.accar-world-btn-main:hover{
+  background:var(--accar-gold);
+  color:#1a1408;
+}
+
+.accar-world-btn-ghost,
+.accar-world-btn-ghost:visited,
+.accar-world-btn-ghost:focus{
+  background:rgba(47,62,92,.08);
+  color:#2f3e5c;
+  border:1px solid rgba(47,62,92,.12);
+}
+
+.accar-world-btn-ghost:hover{
+  background:#2f3e5c;
+  color:#ffffff;
+  border-color:#2f3e5c;
+}
+
+@media(max-width:1100px){
+  .accar-world-grid{
+    grid-template-columns:repeat(2, 1fr);
+  }
+}
+
+@media(max-width:768px){
+  .accar-world-wrap{
+    padding:100px 16px;
+  }
+
+  .accar-world-head h2{
+    font-size:40px;
+  }
+
+  .accar-world-head p{
+    font-size:17px;
+  }
+
+  .accar-world-grid{
+    grid-template-columns:1fr;
+  }
+
+  .accar-world-media{
+    height:220px;
+  }
+
+  .accar-world-body{
+    padding:22px 20px 24px;
+  }
+
+  .accar-world-body h3{
+    font-size:25px;
+  }
+}
+</style>
+<!-- =========================================================
+FINAL BLOQUE 4
+========================================================= -->

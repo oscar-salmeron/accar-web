@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Día del Santo</title>
+
+<style>
+
+body{
+  margin:0;
+  font-family: Georgia, serif;
+  background: radial-gradient(circle at top, #0f3d3e, #021617);
+  color:#fff;
+  text-align:center;
+  padding:60px 20px;
+}
+
+.titulo{
+  font-size:40px;
+  color:#d4af37;
+  margin-bottom:10px;
+}
+
+.sub{
+  color:#cbd5e1;
+  margin-bottom:30px;
+}
+
+.card{
+  max-width:600px;
+  margin:auto;
+  padding:30px;
+  background:rgba(0,0,0,0.7);
+  border-radius:16px;
+  border:1px solid rgba(212,175,55,0.4);
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="titulo" id="nombreSanto"></div>
+<div class="sub" id="fecha"></div>
+
+<div class="card">
+  Aquí irá la información del santo (siguiente paso)
+</div>
+
+<script>
+const params = new URLSearchParams(window.location.search);
+
+const mes = params.get("mes");
+const dia = params.get("dia");
+
+if(mes && dia){
+  window.location.href = "plantilla-santo.html?mes=" + mes + "&dia=" + dia;
+}
+</script>
+
+</body>
+</html>

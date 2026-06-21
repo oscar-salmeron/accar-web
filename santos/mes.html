@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Santoral por Mes</title>
+
+<style>
+
+/* 🔵 FONDO GENERAL */
+body{
+  margin:0;
+  font-family: Georgia, "Times New Roman", serif;
+  background: radial-gradient(circle at top, #0f3d3e, #021617);
+  color:#fff;
+}
+
+/* CONTENEDOR */
+.mes-wrapper{
+  max-width:1200px;
+  margin:auto;
+  padding:60px 20px;
+}
+
+/* TÍTULO */
+.mes-title{
+  text-align:center;
+  font-size:42px;
+  color:#d4af37;
+  margin-bottom:10px;
+}
+
+.mes-sub{
+  text-align:center;
+  color:#cbd5e1;
+  margin-bottom:40px;
+}
+
+/* GRID */
+.dias-grid{
+  display:grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px,1fr));
+  gap:20px;
+}
+
+/* TARJETA */
+.dia-card{
+  background: linear-gradient(145deg, rgba(0,0,0,0.75), rgba(0,0,0,0.95));
+  border:1px solid rgba(212,175,55,0.35);
+  border-radius:16px;
+  padding:20px;
+  cursor:pointer;
+  transition:all .35s ease;
+  position:relative;
+
+  box-shadow:
+    0 12px 30px rgba(0,0,0,0.7),
+    inset 0 0 0 1px rgba(255,255,255,0.04);
+}
+
+/* 🔥 TARJETA HOY */
+.dia-card.hoy{
+  border:1px solid rgba(212,175,55,0.9);
+  box-shadow:
+    0 0 20px rgba(212,175,55,0.6),
+    0 30px 60px rgba(0,0,0,0.9);
+}
+
+/* ETIQUETA HOY */
+.dia-card.hoy::before{
+  content:"HOY";
+  position:absolute;
+  top:10px;
+  right:12px;
+  font-size:11px;
+  font-weight:bold;
+  color:#0b1a2f;
+  background:#d4af37;
+  padding:3px 8px;
+  border-radius:6px;
+}
+
+/* NÚMERO */
+.dia-num{
+  font-size:13px;
+  color:#d4af37;
+  margin-bottom:6px;
+  opacity:0.85;
+}
+
+/* NOMBRE */
+.dia-nombre{
+  font-size:20px;
+  font-weight:700;
+  line-height:1.3;
+}
+
+/* LINK */
+.dia-card a{
+  position:absolute;
+  inset:0;
+  text-decoration:none;
+}
+
+.dia-card:hover{
+  transform:translateY(-8px) scale(1.02);
+
+  box-shadow:
+    0 30px 60px rgba(0,0,0,0.95),
+    0 0 18px rgba(212,175,55,0.25);
+
+  border:1px solid rgba(212,175,55,0.75);
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="mes-wrapper">
+
+  <div id="mesTitulo" class="mes-title"></div>
+  <div class="mes-sub">Explora el santoral día a día</div>
+
+  <div id="diasContainer" class="dias-grid"></div>
+
+</div>
+
+<script>
+
+/* 🔥 OBTENER MES DESDE URL */
+const params = new URLSearchParams(window.location.search);
+const mes = params.get("mes") || "enero";
+
+/* 🔤 FORMATEAR NOMBRE */
+const mesCapitalizado = mes.charAt(0).toUpperCase() + mes.slice(1);
+document.getElementById("mesTitulo").innerText = mesCapitalizado;
+
+/* 📅 DATOS BASE (PRUEBA - LUEGO VA JSON REAL) */
+let datos = {};
+
+fetch('data/enero.json')
+  .then(res => res.json())
+  .then(json => {
+
+    const lista = json[mes];
+    const contenedor = document.getElementById("diasContainer");
+
+    if(!lista){
+      contenedor.innerHTML = "No hay datos disponibles.";
+      return;
+    }
+
+    const hoy = new Date();
+const diaActual = hoy.getDate();
+const mesActual = hoy.toLocaleString('es-ES', { month: 'long' }).toLowerCase();
+    lista.forEach(item => {
+
+      const card = document.createElement("div");
+      card.className = "dia-card";
+
+if(item.dia === diaActual && mes === mesActual){
+  card.classList.add("hoy");
+}
+
+      card.innerHTML = `
+        <div class="dia-num">${item.dia} de ${mes}</div>
+        <div class="dia-nombre">${item.principal}</div>
+        <a href="dia.html?mes=${mes}&dia=${item.dia}"></a>
+      `;
+
+      contenedor.appendChild(card);
+
+    });
+
+  });
+
+</script>
+
+</body>
+</html>

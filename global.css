@@ -1,0 +1,15 @@
+:root {
+  --accar-azul: #09172d;
+  --accar-dorado: #d4af37;
+  --accar-dorado-luz: #e4c76a;
+  --accar-crema: #f8efd3;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: radial-gradient(circle at top, #0f3d3e, #021617);
+  background-color: var(--accar-azul);
+  font-family: Georgia, serif;
+  color: var(--accar-crema);
+  overflow-x: hidden;
+}
+#spa-content { min-height: 80vh; width: 100%; }

@@ -1,0 +1,222 @@
+<section class="accar-vestibulo-page">
+  
+  <div class="accar-vestibulo-header">
+    <span class="accar-vestibulo-kicker">Fides Quaerens Intellectum</span>
+    <h1 class="accar-vestibulo-title">Formación Católica</h1>
+    <p class="accar-vestibulo-desc">
+      El camino del discipulado requiere conocer, amar y vivir nuestra fe. Explora los pilares fundamentales de la formación cristiana.
+    </p>
+    <div class="accar-vestibulo-divider"></div>
+  </div>
+
+  <div class="accar-vestibulo-grid">
+    
+    <a href="#" onclick="event.preventDefault(); loadView('views/doctrina.html');" class="accar-sala-card">
+      <div class="accar-sala-decoracion"></div>
+      <div class="accar-sala-contenido">
+        <div class="accar-sala-icono"><img src="../assets/img/icono_doctrina.png" alt="Doctrina" class="accar-icono-img"></div>
+        <h2 class="accar-sala-titulo">Doctrina</h2>
+        <p class="accar-sala-desc">El depósito de la fe: verdades dogmáticas, credo y enseñanza moral de la Iglesia Católica.</p>
+        <span class="accar-sala-entrar">Acceder ➔</span>
+      </div>
+    </a>
+
+    <a href="#" onclick="event.preventDefault(); loadView('views/sagrada-escritura.html');" class="accar-sala-card">
+      <div class="accar-sala-decoracion"></div>
+      <div class="accar-sala-contenido">
+        <div class="accar-sala-icono"><img src="../assets/img/icono_escrituras.png" alt="Sagrada Escritura" class="accar-icono-img"></div>
+        <h2 class="accar-sala-titulo">Sagrada Escritura</h2>
+        <p class="accar-sala-desc">La Palabra de Dios revelada: estudio bíblico, historia de la salvación y exégesis fiel al Magisterio.</p>
+        <span class="accar-sala-entrar">Acceder ➔</span>
+      </div>
+    </a>
+
+    <a href="#" onclick="event.preventDefault(); loadView('views/sacramentos.html');" class="accar-sala-card">
+      <div class="accar-sala-decoracion"></div>
+      <div class="accar-sala-contenido">
+        <div class="accar-sala-icono"><img src="../assets/img/icono_sacramentos.png" alt="Sacramentos" class="accar-icono-img"></div>
+        <h2 class="accar-sala-titulo">Sacramentos</h2>
+        <p class="accar-sala-desc">Los siete signos sensibles instituidos por Cristo para comunicar la gracia invisible y santificadora.</p>
+        <span class="accar-sala-entrar">Acceder ➔</span>
+      </div>
+    </a>
+
+    <a href="#" onclick="event.preventDefault(); loadView('views/biblioteca.html');" class="accar-sala-card">
+      <div class="accar-sala-decoracion"></div>
+      <div class="accar-sala-contenido">
+        <div class="accar-sala-icono"><img src="../assets/img/icono_biblioteca.png" alt="Biblioteca" class="accar-icono-img"></div>
+        <h2 class="accar-sala-titulo">Biblioteca</h2>
+        <p class="accar-sala-desc">El gran archivo eclesial: Magisterio pontificio, concilios, patrística y grandes tratados teológicos.</p>
+        <span class="accar-sala-entrar">Acceder ➔</span>
+      </div>
+    </a>
+
+  </div>
+</section>
+
+<style>
+.accar-vestibulo-page {
+  background: linear-gradient(180deg, #02040a 0%, #050b1a 100%);
+  min-height: 100vh;
+  padding: 100px 20px;
+  color: #f5f2eb;
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+.accar-vestibulo-header {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto 60px;
+}
+
+.accar-vestibulo-kicker {
+  display: inline-block;
+  font-family: sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  color: #D4AF37;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+  padding-bottom: 5px;
+}
+
+.accar-vestibulo-title {
+  font-size: 48px;
+  font-weight: normal;
+  color: #ffffff;
+  margin: 10px 0 20px 0;
+  text-shadow: 0 4px 15px rgba(0,0,0,0.8);
+}
+
+.accar-vestibulo-desc {
+  font-size: 18px;
+  color: rgba(245, 242, 235, 0.7);
+  line-height: 1.6;
+}
+
+.accar-vestibulo-divider {
+  width: 60px;
+  height: 2px;
+  background: #D4AF37;
+  margin: 30px auto 0;
+  box-shadow: 0 0 10px #D4AF37;
+}
+
+.accar-vestibulo-grid {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 40px;
+}
+
+.accar-sala-card {
+  position: relative;
+  background: rgba(11, 22, 48, 0.3);
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  border-radius: 12px;
+  text-decoration: none;
+  color: inherit;
+  overflow: hidden;
+  transition: all 0.4s ease;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  display: flex;
+  flex-direction: column;
+}
+
+.accar-sala-card:hover {
+  transform: translateY(-8px);
+  border-color: #D4AF37;
+  box-shadow: 0 20px 40px rgba(212, 175, 55, 0.15);
+  background: rgba(11, 22, 48, 0.6);
+}
+
+.accar-sala-decoracion {
+  height: 4px;
+  width: 100%;
+  background: linear-gradient(90deg, transparent, #D4AF37, transparent);
+  opacity: 0.5;
+  transition: opacity 0.4s ease;
+}
+
+.accar-sala-card:hover .accar-sala-decoracion {
+  opacity: 1;
+}
+
+.accar-sala-contenido {
+  padding: 40px 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  flex: 1;
+}
+
+/* === TAMAÑO EXACTO PARA LOS ÍCONOS === */
+.accar-sala-icono {
+  height: 90px !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  margin-bottom: 20px !important;
+}
+
+.accar-icono-img {
+  width: 85px !important;
+  height: auto !important;
+  max-height: 85px !important;
+  object-fit: contain !important;
+  filter: drop-shadow(0 5px 15px rgba(0,0,0,0.8)) !important;
+  transition: transform 0.3s ease !important;
+}
+
+.accar-sala-card:hover .accar-icono-img {
+  transform: scale(1.15) !important;
+}
+
+.accar-sala-titulo {
+  font-size: 26px;
+  color: #D4AF37;
+  font-weight: normal;
+  margin: 0 0 15px 0;
+}
+
+.accar-sala-desc {
+  font-size: 15px;
+  color: rgba(245, 242, 235, 0.6);
+  line-height: 1.6;
+  margin: 0 0 25px 0;
+  flex: 1;
+}
+
+.accar-sala-entrar {
+  font-family: sans-serif;
+  font-size: 12px;
+  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: bold;
+  opacity: 0.5;
+  transition: all 0.3s ease;
+}
+
+.accar-sala-card:hover .accar-sala-entrar {
+  opacity: 1;
+  color: #D4AF37;
+}
+
+@media (max-width: 600px) {
+  .accar-vestibulo-grid {
+    grid-template-columns: 1fr;
+    padding: 0 10px;
+  }
+  .accar-vestibulo-title {
+    font-size: 36px;
+  }
+  .accar-sala-contenido {
+    padding: 30px 20px;
+  }
+}
+</style>
