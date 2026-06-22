@@ -91,8 +91,9 @@
     </div>
 
     <script>
-        // La URL de tu archivo en Firebase Storage ya está integrada aquí:
-        const urlLibro = 'https://firebasestorage.googleapis.com/v0/b/accar-web.firebasestorage.app/o/libros%2Fmaria-santisima%2FMARIA%20EN%20LAS%20ESCRITURAS_compressed.pdf?alt=media&token=644d0237-4749-4756-830c-93d34135e77f';
+        // Captura dinámicamente el PDF que se le envía desde la estantería
+        const urlParams = new URLSearchParams(window.location.search);
+        const urlLibro = urlParams.get('pdf') || '../assets/pdf/MARIA%20EN%20LAS%20ESCRITURAS_compressed.pdf';
         
         let pdfDoc = null,
             pageNum = 1,
