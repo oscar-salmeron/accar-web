@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visor de Biblioteca - Apologética ACCAR</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #0a1a33;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            user-select: none; /* Bloquea selección de texto */
+        }
+        .controles-visor {
+            background-color: #2158a1;
+            width: 100%;
+            padding: 15px 10px;
+            display: flex;
+            flex-wrap: wrap; /* Permite que los botones bajen de línea en celulares */
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            border-bottom: 2px solid #D4AF37;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-sizing: border-box;
+        }
+        
+        /* Estilo especial para resaltar el botón de regresar */
+        #btn-volver {
+            background-color: #0a1a33;
+            color: #D4AF37;
+            border-color: #0a1a33;
+        }
+        #btn-volver:hover {
+            background-color: #D4AF37;
+            color: #0a1a33;
+            border-color: #0a1a33;
+        }
+
+        button {
+            background-color: #fdfbf7;
+            color: #0a1a33;
+            border: 2px solid #D4AF37;
+            padding: 8px 16px;
+            cursor: pointer;
+            font-weight: bold;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        button:hover {
+            background-color: #D4AF37;
+            color: #fdfbf7;
+        }
+        .paginacion {
+            color: #fdfbf7;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        #contenedor-libro {
+            margin-top: 30px;
+            margin-bottom: 30px;
+            border: 4px solid #D4AF37;
+            background-color: #fdfbf7;
+            box-shadow: 0px 10px 30px rgba(0,0,0,0.8);
+        }
+        canvas {
+            display: block;
+        }
+    </style>
+</head>
+<body oncontextmenu="return false;"> <div class="controles-visor">
+        <button id="btn-volver">◄ Volver al Estante</button>
+        <button id="btn-prev">◀ Anterior</button>
+        <div class="paginacion">
+            Página: <span id="num-pagina"></span> de <span id="total-paginas"></span>
+        </div>
+        <button id="btn-next">Siguiente ▶</button>
+        <button id="btn-zoom-in">🔍 +</button>
+        <button id="btn-zoom-out">🔍 -</button>
+    </div>
+
+    <div id="contenedor-libro">
+        <canvas id="renderizado-pdf"></canvas>
+    </div>
+
+    <script>
+        // La URL de tu archivo en Firebase Storage ya está integrada aquí:
+        const urlLibro = 'https://firebasestorage.googleapis.com/v0/b/accar-web.firebasestorage.app/o/libros%2Fmaria-santisima%2FMARIA%20EN%20LAS%20ESCRITURAS_compressed.pdf?alt=media&token=644d0237-4749-4756-830c-93d34135e77f';
+        
+        let pdfDoc = null,
+            pageNum = 1,
+            pageIsRendering = false,
+            pageNumIsPending = null,
+            // Escala automática: detecta el tamaño de la pantalla y ajusta el PDF (Celular: 0.5, Tablet: 1.0, PC: 1.3)
+            scale = window.innerWidth <= 600 ? 0.5 : (window.innerWidth <= 1024 ? 1.0 : 1.3),
+            canvas = document.getElementById('renderizado-pdf'),
+            ctx = canvas.getContext('2d');
+
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+        const renderizarPagina = num => {
+            pageIsRendering = true;
+            pdfDoc.getPage(num).then(page => {
+                const viewport = page.getViewport({ scale });
+                canvas.height = viewport.height;
+                canvas.width = viewport.width;
+
+                const renderCtx = {
+                    canvasContext: ctx,
+                    viewport: viewport
+                };
+
+                page.render(renderCtx).promise.then(() => {
+                    pageIsRendering = false;
+                    if (pageNumIsPending !== null) {
+                        renderizarPagina(pageNumIsPending);
+                        pageNumIsPending = null;
+                    }
+                });
+
+                document.getElementById('num-pagina').textContent = num;
+            });
+        };
+
+        const queueRenderPage = num => {
+            if (pageIsRendering) {
+                pageNumIsPending = num;
+            } else {
+                renderizarPagina(num);
+            }
+        };
+
+        // Función mágica de regreso: el navegador recuerda de qué estante vino el usuario
+        document.getElementById('btn-volver').addEventListener('click', () => {
+            window.history.back();
+        });
+
+        document.getElementById('btn-prev').addEventListener('click', () => {
+            if (pageNum <= 1) return;
+            pageNum--;
+            queueRenderPage(pageNum);
+        });
+
+        document.getElementById('btn-next').addEventListener('click', () => {
+            if (pageNum >= pdfDoc.numPages) return;
+            pageNum++;
+            queueRenderPage(pageNum);
+        });
+
+        document.getElementById('btn-zoom-in').addEventListener('click', () => {
+            scale += 0.2;
+            queueRenderPage(pageNum);
+        });
+
+        document.getElementById('btn-zoom-out').addEventListener('click', () => {
+            if (scale <= 0.6) return;
+            scale -= 0.2;
+            queueRenderPage(pageNum);
+        });
+
+        pdfjsLib.getDocument(urlLibro).promise.then(pdfDoc_ => {
+            pdfDoc = pdfDoc_;
+            document.getElementById('total-paginas').textContent = pdfDoc.numPages;
+            renderizarPagina(pageNum);
+        }).catch(err => {
+            console.error("Error crítico de carga: ", err);
+        });
+    </script>
+</body>
+</html>

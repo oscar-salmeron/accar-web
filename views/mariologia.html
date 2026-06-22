@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mariología - Biblioteca ACCAR</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            /* Fondo Beige/Dorado tipo manto sagrado o pergamino antiguo */
+            background: linear-gradient(135deg, #FAF4E1 0%, #E8D6B3 100%);
+            font-family: 'Lora', serif;
+            color: #2c2c2c;
+            min-height: 100vh;
+        }
+        
+        /* Encabezado Majestuoso */
+        .header-santuario {
+            background-color: #0a1a33; /* Azul Mariano profundo */
+            background-image: radial-gradient(circle at center, #112a52 0%, #0a1a33 100%);
+            color: #D4AF37; /* Oro Papal */
+            padding: 70px 20px;
+            text-align: center;
+            border-bottom: 6px solid #D4AF37;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            position: relative;
+        }
+        
+        .header-santuario h1 {
+            font-family: 'Cinzel', serif;
+            font-size: 52px;
+            margin: 0;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.6);
+        }
+        
+        .linea-divisoria {
+            width: 150px;
+            height: 2px;
+            background-color: #D4AF37;
+            margin: 20px auto;
+        }
+
+        .cita-patristica {
+            max-width: 900px;
+            margin: 0 auto;
+            font-size: 20px;
+            line-height: 1.8;
+            color: #fdfbf7;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+        }
+
+        .cita-patristica p {
+            margin-bottom: 15px;
+        }
+
+        .texto-cita {
+            font-style: italic;
+            color: #E8D6B3;
+        }
+
+        .autor-cita {
+            display: block;
+            margin-top: 20px;
+            font-weight: 700;
+            color: #D4AF37;
+            font-size: 16px;
+            font-family: 'Cinzel', serif;
+            letter-spacing: 1px;
+        }
+
+        /* Estantería y Tarjetas Elevadas */
+        .contenedor-libros {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 50px;
+            padding: 60px 40px;
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+        
+        .tarjeta-libro {
+            background-color: #fffcf5;
+            border: 2px solid #D4AF37;
+            border-radius: 6px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            transition: all 0.4s ease;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+        
+        .tarjeta-libro:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(10, 26, 51, 0.3);
+            border-color: #2158a1;
+        }
+        
+        .marco-portada {
+            width: 100%;
+            height: 450px;
+            background-color: #0a1a33;
+            border-bottom: 3px solid #D4AF37;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0; /* Eliminado para que la imagen no se vea al fondo */
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+        
+        .portada-libro {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            /* Sombra más sutil para que el libro resalte hacia el frente */
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.4));
+        }
+        
+        .info-libro {
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            text-align: center;
+        }
+        
+        .titulo-libro {
+            font-family: 'Cinzel', serif;
+            color: #0a1a33;
+            margin: 0 0 15px 0;
+            font-size: 26px;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+        
+        .desc-libro {
+            color: #4a4a4a;
+            font-size: 16px;
+            line-height: 1.7;
+            margin-bottom: 30px;
+            flex-grow: 1;
+        }
+        
+        .btn-leer {
+            background-color: #0a1a33; /* Azul Mariano */
+            color: #D4AF37; /* Oro */
+            text-align: center;
+            text-decoration: none;
+            padding: 14px;
+            border-radius: 4px;
+            font-weight: bold;
+            font-family: 'Cinzel', serif;
+            letter-spacing: 1.5px;
+            border: 1px solid #D4AF37;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            font-size: 15px;
+        }
+        
+        .btn-leer:hover {
+            background-color: #D4AF37;
+            color: #0a1a33;
+            border-color: #0a1a33;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header-santuario">
+        <h1>Mariología</h1>
+        <div class="linea-divisoria"></div>
+        <div class="cita-patristica">
+            <p>Porque no se puede amar verdaderamente a quien no se conoce, te invitamos a profundizar en el misterio de la Madre de Dios.</p>
+            <p class="texto-cita">"El nudo de la desobediencia de Eva fue desatado por la obediencia de María. Lo que ató la virgen Eva por su incredulidad, lo desató la Virgen María por su fe."</p>
+            <span class="autor-cita">— San Ireneo de Lyon (Padre de la Iglesia, s. II)</span>
+        </div>
+    </div>
+
+    <div class="contenedor-libros">
+        
+        <div class="tarjeta-libro">
+            <div class="marco-portada">
+                <img src="../assets/img/portada_maria.png" alt="Portada María en las Escrituras" class="portada-libro">
+            </div>
+            
+            <div class="info-libro">
+                <h2 class="titulo-libro">María en las Escrituras</h2>
+                <p class="desc-libro">Un recorrido bíblico profundo que demuestra la presencia y el papel de la Santísima Virgen María en el plan de salvación, con sólido respaldo en la Tradición y el Magisterio.</p>
+                <a href="#" onclick="event.preventDefault(); window.location.href='visor.html?pdf=../assets/pdf/MARIA%20EN%20LAS%20ESCRITURAS_compressed.pdf';" class="btn-leer">Abrir Documento</a>
+            </div>
+        </div>
+
+        <div class="tarjeta-libro">
+            <div class="marco-portada">
+                <img src="../assets/img/portada_glorias_maria.jpg" alt="Portada Las Glorias de María" class="portada-libro">
+            </div>
+            
+            <div class="info-libro">
+                <h2 class="titulo-libro">Las Glorias de María</h2>
+                <p class="desc-libro">Obra cumbre de San Alfonso María de Ligorio. Una explicación detallada de la Salve Regina y las devociones marianas sustentadas por los Santos Padres.</p>
+                <a href="#" class="btn-leer" style="background-color: #e0e0e0; color: #888; border-color: #ccc; pointer-events: none;">Próximamente</a>
+            </div>
+        </div>
+
+</body>
+</html>
