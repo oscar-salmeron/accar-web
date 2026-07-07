@@ -264,95 +264,137 @@
         </div>
     </div>
 
-    <script>
-        const quizData = [
-            {
-                question: "¿Qué sacramento de la Iglesia Católica es prefigurado por el ofrecimiento de pan y vino de Melquisedec a Abraham en Génesis 14?",
-                options: ["A) El Bautismo", "B) La Eucaristía", "C) La Confirmación", "D) El Matrimonio"],
-                correct: 1,
-                justification: "La Tradición apostólica y los Padres de la Iglesia identifican unánimemente el pan y el vino de Melquisedec como el tipo del sacrificio Eucarístico perpetuado por el sacerdocio católico."
-            },
-            {
-                question: "Según la enseñanza de la Iglesia, ¿cómo se cumple plenamente la promesa de Dios a Abraham de que en su linaje 'serían benditas todas las naciones'?",
-                options: ["A) Mediante el reinado terrenal e histórico del Rey David.", "B) A través de Jesucristo y la expansión universal de la Iglesia Católica.", "C) Únicamente mediante la descendencia biológica de Ismael.", "D) Con la conquista militar de la tierra de Canaán."],
-                correct: 1,
-                justification: "Como expone el Catecismo (CIC 762), el llamado a Abraham fue la preparación remota para congregar a toda la humanidad dispersa en la única asamblea de Dios, que es la Iglesia instituida por Cristo."
-            },
-            {
-                question: "Siguiendo el paralelismo eclesiológico, así como Abraham fue la roca fundacional del Antiguo Israel, ¿a quién establece Jesucristo como la Roca visible de Su Iglesia?",
-                options: ["A) San Juan el Evangelista", "B) San Pablo de Tarso", "C) San Pedro y sus legítimos sucesores", "D) San Santiago el Mayor"],
-                correct: 2,
-                justification: "Cristo cambia el nombre de Simón a Cefas ('Roca') y le entrega las llaves del Reino en Mateo 16, 18-19. Esto instituye el primado petrino y el Papado como garante perpetuo de la unidad."
-            }
-        ];
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+        import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
+        const firebaseConfig = {
+            apiKey: "AIzaSyDSCSWYM5dgkIfVK-uBe1oWkeU7se4fvFg",
+            authDomain: "accar-web.firebaseapp.com",
+            projectId: "accar-web",
+            storageBucket: "accar-web.firebasestorage.app",
+            messagingSenderId: "249370548582",
+            appId: "1:249370548582:web:6b35298df41771113910a7"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        let quizData = [];
         let index = 0;
         let score = 0;
 
-        function abrirModal() {
+        async function cargarDatos() {
+            // Lee el ID inyectado por el SPA, o carga Abraham por defecto
+            const personajeId = window.currentPersonajeId || 'abraham'; 
+            try {
+                const docRef = doc(db, "directorio_biblico", "personajes", "registros", personajeId);
+                const docSnap = await getDoc(docRef);
+
+                if (docSnap.exists()) {
+                    const p = docSnap.data();
+                    
+                    document.querySelector('.hero-text h1').innerText = p.titulo || p.nombre;
+                    document.querySelector('.hero-text .subtitle').innerText = p.subtitulo || '';
+                    if(p.imagen_path) document.querySelector('.hero-image img').src = p.imagen_path;
+
+                    if(p.ficha_tecnica) {
+                        document.querySelector('.ficha-tecnica ul').innerHTML = `
+                            <li><strong>Nombre:</strong> ${p.ficha_tecnica.nombre}</li>
+                            <li><strong>Significado Espiritual:</strong> ${p.ficha_tecnica.significado}</li>
+                            <li><strong>Linaje:</strong> ${p.ficha_tecnica.linaje}</li>
+                            <li><strong>Capítulos Claves:</strong> ${p.ficha_tecnica.referencia}</li>
+                        `;
+                    }
+
+                    if(p.relato_biblico && p.importancia_teologica) {
+                        const main = document.querySelector('main');
+                        main.innerHTML = `
+                            <h2>1. Ficha Técnica</h2>
+                            <div class="ficha-tecnica"><ul>${document.querySelector('.ficha-tecnica ul').innerHTML}</ul></div>
+                            <h2>2. El Relato Bíblico (Hechos Históricos)</h2>
+                            <p>${p.relato_biblico.replace(/\n\n/g, '</p><p>')}</p>
+                            <h2>3. Importancia en el Plan de Salvación (Cristocéntrico y Eclesiológico)</h2>
+                            <p>${p.importancia_teologica.replace(/\n\n/g, '</p><p>')}</p>
+                        `;
+                    }
+
+                    quizData = p.test || [];
+                }
+            } catch (error) {
+                console.error("Error al cargar personaje desde Firestore:", error);
+            }
+        }
+
+        // Exponer funciones del test globalmente para el SPA
+        window.abrirModal = function() {
+            if(quizData.length === 0) { alert("Test no disponible."); return; }
             index = 0; score = 0;
             document.getElementById('quiz-view').style.display = 'block';
             document.getElementById('results-view').style.display = 'none';
             document.getElementById('quizModal').classList.add('active');
-            cargarPregunta();
-        }
+            window.cargarPregunta();
+        };
 
-        function cerrarModal() { document.getElementById('quizModal').classList.remove('active'); }
+        window.cerrarModal = function() { document.getElementById('quizModal').classList.remove('active'); };
 
-        function cargarPregunta() {
+        window.cargarPregunta = function() {
             const q = quizData[index];
             document.getElementById('q-num').innerText = index + 1;
-            document.getElementById('q-text').innerText = q.question;
+            document.getElementById('q-text').innerText = q.pregunta || q.question;
             
             const optionsBox = document.getElementById('options-box');
             optionsBox.innerHTML = '';
             document.getElementById('just-box').style.display = 'none';
             document.getElementById('next-btn').style.display = 'none';
 
-            q.options.forEach((opt, i) => {
+            const opciones = q.opciones || q.options;
+            opciones.forEach((opt, i) => {
                 const btn = document.createElement('button');
                 btn.className = 'option-btn'; btn.innerText = opt;
-                btn.onclick = () => seleccionar(i, btn);
+                btn.onclick = () => window.seleccionar(i, btn);
                 optionsBox.appendChild(btn);
             });
-        }
+        };
 
-        function seleccionar(seleccionado, btnEl) {
+        window.seleccionar = function(seleccionado, btnEl) {
             const q = quizData[index];
+            const correcta = q.correcta !== undefined ? q.correcta : q.correct;
             const botones = document.querySelectorAll('.option-btn');
             botones.forEach(b => b.disabled = true);
 
-            if (seleccionado === q.correct) {
+            if (seleccionado === correcta) {
                 btnEl.classList.add('correct-ans'); score++;
             } else {
                 btnEl.classList.add('wrong-ans');
-                botones[q.correct].classList.add('correct-ans');
+                botones[correcta].classList.add('correct-ans');
             }
 
-            document.getElementById('just-text').innerText = q.justification;
+            document.getElementById('just-text').innerText = q.justificacion;
             document.getElementById('just-box').style.display = 'block';
             
             const nextBtn = document.getElementById('next-btn');
             nextBtn.innerText = (index === quizData.length - 1) ? "Ver Calificación" : "Siguiente Pregunta";
             nextBtn.style.display = 'block';
-        }
+        };
 
-        function siguientePregunta() {
+        window.siguientePregunta = function() {
             index++;
-            if (index < quizData.length) cargarPregunta();
-            else mostrarResultados();
-        }
+            if (index < quizData.length) window.cargarPregunta();
+            else window.mostrarResultados();
+        };
 
-        function mostrarResultados() {
+        window.mostrarResultados = function() {
             document.getElementById('quiz-view').style.display = 'none';
             document.getElementById('results-view').style.display = 'block';
             document.getElementById('final-score').innerText = score;
-
             const msg = document.getElementById('result-msg');
             if (score === quizData.length) { msg.innerHTML = "<strong>¡Excelente!</strong> Tienes una base doctrinal sólida."; msg.style.color = "var(--success)"; }
             else if (score > 0) { msg.innerHTML = "<strong>¡Muy bien!</strong> Repasa algunos detalles teológicos."; msg.style.color = "#d84315"; }
             else { msg.innerHTML = "Te sugerimos repasar la sección eclesiológica."; msg.style.color = "var(--error)"; }
-        }
+        };
+
+        cargarDatos();
     </script>
 </body>
 </html>

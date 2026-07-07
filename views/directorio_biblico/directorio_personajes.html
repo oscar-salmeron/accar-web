@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Directorio de Personajes - ACCAR</title>
+    <style>
+        body {
+            background: linear-gradient(180deg, #02040a 0%, #050b1a 100%);
+            min-height: 100vh;
+            margin: 0;
+            padding: 80px 20px;
+            color: #f5f2eb;
+            font-family: Georgia, "Times New Roman", serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .accar-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .accar-kicker {
+            display: inline-block;
+            font-family: sans-serif;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            color: #D4AF37;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+            padding-bottom: 5px;
+        }
+
+        .accar-title {
+            font-size: 42px;
+            font-weight: normal;
+            color: #ffffff;
+            margin: 10px 0 0 0;
+            text-shadow: 0 4px 15px rgba(0,0,0,0.8);
+        }
+
+        .accar-divider {
+            width: 60px;
+            height: 2px;
+            background: #D4AF37;
+            margin: 20px auto 0;
+            box-shadow: 0 0 10px #D4AF37;
+        }
+
+        .accar-grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            width: 100%;
+            max-width: 1100px;
+        }
+
+        .accar-card {
+            background: rgba(11, 22, 48, 0.3);
+            border: 1px solid rgba(212, 175, 55, 0.15);
+            border-radius: 8px;
+            padding: 35px 25px;
+            text-align: center;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+        }
+
+        .accar-card:hover {
+            background: rgba(11, 22, 48, 0.6);
+            border-color: rgba(212, 175, 55, 0.5);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.6), inset 0 0 15px rgba(212, 175, 55, 0.05);
+        }
+
+        .accar-card h2 {
+            font-size: 26px;
+            color: #D4AF37;
+            font-weight: normal;
+            margin: 0 0 5px 0;
+        }
+
+        .epoca {
+            font-family: sans-serif;
+            font-size: 11px;
+            color: rgba(245, 242, 235, 0.5);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+        }
+
+        .accar-card p {
+            color: rgba(245, 242, 235, 0.7);
+            font-size: 15px;
+            line-height: 1.6;
+            margin: 0 0 30px 0;
+            flex-grow: 1;
+        }
+
+        .accar-acceder {
+            font-family: sans-serif;
+            color: #D4AF37;
+            font-size: 12px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: color 0.3s ease;
+        }
+
+        .accar-card:hover .accar-acceder {
+            color: #ffffff;
+        }
+
+        .loading-text {
+            color: #D4AF37;
+            font-family: sans-serif;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="accar-header">
+        <span class="accar-kicker">Historia de la Salvación</span>
+        <h1 class="accar-title">Directorio de Personajes</h1>
+        <div class="accar-divider"></div>
+    </div>
+
+    <!-- Contenedor donde Firebase inyectará las tarjetas -->
+    <div id="galeria-personajes" class="accar-grid-container">
+        <p class="loading-text" id="mensaje-carga">Conectando con el archivo eclesial...</p>
+    </div>
+
+    <!-- SDK de Firebase modular (CDN) -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+        import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+        // Configuración exacta
+        const firebaseConfig = {
+            apiKey: "AIzaSyDSCSWYM5dgkIfVK-uBe1oWkeU7se4fvFg",
+            authDomain: "accar-web.firebaseapp.com",
+            projectId: "accar-web",
+            storageBucket: "accar-web.firebasestorage.app",
+            messagingSenderId: "249370548582",
+            appId: "1:249370548582:web:6b35298df41771113910a7"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        async function cargarPersonajes() {
+            const contenedor = document.getElementById('galeria-personajes');
+            const mensajeCarga = document.getElementById('mensaje-carga');
+
+            try {
+                // Hacemos la consulta a la colección exacta que creamos
+                const querySnapshot = await getDocs(collection(db, "directorio_biblico", "personajes", "registros"));
+                let htmlContent = "";
+
+                querySnapshot.forEach((doc) => {
+                    const data = doc.data();
+                    // Cortamos la biografía para mostrar solo un extracto en la tarjeta
+                    const extracto = data.biografia.length > 120 ? data.biografia.substring(0, 120) + "..." : data.biografia;
+                    
+                    // El enlace enviará el ID del personaje por la URL a la plantilla final
+                    htmlContent += `
+                        <a href="#" onclick="event.preventDefault(); window.currentPersonajeId = '${doc.id}'; loadView('views/directorio_biblico/personaje.html');" class="accar-card">
+                            <h2>${data.nombre}</h2>
+                            <span class="epoca">${data.epoca}</span>
+                            <p>${extracto}</p>
+                            <span class="accar-acceder">LEER ESTUDIO ➔</span>
+                        </a>
+                    `;
+                });
+
+                // Inyectamos las tarjetas borrando el mensaje de carga
+                contenedor.innerHTML = htmlContent;
+
+            } catch (error) {
+                console.error("Error obteniendo documentos: ", error);
+                mensajeCarga.innerText = "Error de conexión. No se pudieron cargar los registros.";
+                mensajeCarga.style.color = "#f87171";
+            }
+        }
+
+        // Ejecutar la función al abrir la página
+        cargarPersonajes();
+    </script>
+</body>
+</html>
