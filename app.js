@@ -18,13 +18,13 @@ async function loadComponent(id, url) {
   runScripts(document.getElementById(id));
 }
 
-async function loadView(url) {
+window.loadView = async function(url) {
   const res = await fetch(url);
   const html = await res.text();
   SPA_CONTAINER.innerHTML = html;
   runScripts(SPA_CONTAINER);
   window.scrollTo({ top: 0, behavior: "smooth" });
-}
+};
 
 document.addEventListener("DOMContentLoaded", async () => {
   await Promise.all([

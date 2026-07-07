@@ -3,6 +3,10 @@
     {
       "source": "/bodega/:path*",
       "destination": "https://storage.googleapis.com/accar-web.firebasestorage.app/:path*"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
     }
   ]
 }
