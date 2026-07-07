@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conociendo a los Personajes de la Biblia: Abraham</title>
+    <style>
+        :root {
+            --primary: #d4af37; /* Dorado institucional */
+            --primary-light: #f3c93f;
+            --secondary: #0a0e17; /* Azul medianoche oscuro */
+            --accent: #8a7322; /* Dorado oscuro/Bronce */
+            --text-main: #e2e8f0; /* Hueso suave para lectura */
+            --card-bg: #111827; /* Fondo para tarjetas y cajas */
+            --success: #4ade80;
+            --error: #f87171;
+        }
+
+        body {
+            font-family: 'Georgia', Times, serif;
+            color: var(--text-main);
+            background-color: var(--secondary);
+            line-height: 1.8;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container { max-width: 800px; margin: 0 auto; padding: 40px 20px; }
+        .no-break { white-space: nowrap; }
+
+        /* Cabecera Lado a Lado */
+        .hero-section {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 40px;
+            background-color: transparent;
+            border-bottom: 2px solid var(--accent);
+            margin-bottom: 40px;
+            gap: 40px;
+        }
+
+        .hero-image {
+            flex: 1;
+            text-align: right;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .hero-image img {
+            max-width: 100%;
+            height: auto;
+            max-height: 300px;
+            object-fit: contain;
+            filter: drop-shadow(0px 10px 25px rgba(212, 175, 55, 0.15)); /* Resplandor sutil dorado */
+        }
+
+        .hero-text {
+            flex: 1.5;
+            text-align: left;
+        }
+
+        .hero-text h1 {
+            margin: 0;
+            font-size: 3.5em;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .hero-text .subtitle {
+            color: #94a3b8;
+            font-style: italic;
+            font-size: 1.3em;
+            margin-top: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .hero-section { flex-direction: column; text-align: center; gap: 20px; }
+            .hero-image, .hero-text { text-align: center; justify-content: center; }
+        }
+
+        h2 { color: var(--primary); border-bottom: 2px solid var(--accent); padding-bottom: 8px; margin-top: 40px; font-size: 1.5em; }
+
+        .ficha-tecnica {
+            background-color: var(--card-bg); padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            border-left: 5px solid var(--primary);
+        }
+        .ficha-tecnica ul { list-style: none; padding: 0; margin: 0; }
+        .ficha-tecnica li { margin-bottom: 12px; }
+        strong { color: var(--primary); }
+        p { text-align: justify; margin-bottom: 20px; font-size: 1.05em; color: #cbd5e1; }
+
+        /* Invitación al Test */
+        .cta-invitation {
+            background-color: var(--card-bg); border: 1px solid var(--accent);
+            text-align: center; padding: 40px; border-radius: 8px;
+            margin-top: 50px; box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+        }
+        .cta-invitation h3 { color: var(--primary); font-size: 1.8em; margin-top: 0; }
+        .cta-invitation p { color: #94a3b8; margin-bottom: 30px; }
+        
+        .btn-elegant {
+            background-color: transparent; color: var(--primary); 
+            border: 2px solid var(--primary);
+            padding: 15px 40px; font-size: 1.2em; font-family: 'Georgia', serif;
+            border-radius: 30px; cursor: pointer; transition: all 0.3s;
+        }
+        .btn-elegant:hover { background-color: var(--primary); color: var(--secondary); box-shadow: 0 0 15px rgba(212, 175, 55, 0.4); }
+
+        /* Fondo del Pop-up con la imagen a pantalla completa */
+        .modal-overlay {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            /* Imagen de fondo movida aquí, con opacidad 0.7 para que se vea bien */
+            background-image: linear-gradient(rgba(10, 14, 23, 0.5), rgba(10, 14, 23, 0.5)), url('../../assets/img/bg_apologetica.webp');
+            background-size: cover;
+            background-position: center;
+            backdrop-filter: blur(8px);
+            z-index: 1000; align-items: center; justify-content: center;
+            opacity: 0; transition: opacity 0.3s ease;
+        }
+        .modal-overlay.active { display: flex; opacity: 1; }
+
+        /* Tarjeta del Pop-up devuelta a su color sólido original */
+        .modal-card {
+            background-color: var(--card-bg); /* Retorna al color azul oscuro sólido */
+            width: 90%; max-width: 600px;
+            border-radius: 12px; padding: 40px; position: relative;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.6); transform: translateY(20px);
+            transition: transform 0.3s ease; max-height: 90vh; overflow-y: auto;
+            border: 1px solid var(--accent);
+        }
+        .modal-overlay.active .modal-card { transform: translateY(0); }
+        
+        .close-btn {
+            position: absolute; top: 15px; right: 20px; font-size: 28px;
+            cursor: pointer; color: #64748b; transition: color 0.2s;
+        }
+        .close-btn:hover { color: var(--primary); }
+
+        /* Contenido del Test */
+        .quiz-status { font-family: sans-serif; font-size: 0.85em; font-weight: bold; color: var(--accent); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 15px; text-align: center;}
+        .question-text { font-size: 1.3em; color: var(--text-main); font-weight: bold; margin-bottom: 30px; text-align: center; line-height: 1.4; }
+
+        .options-container { display: flex; flex-direction: column; gap: 12px; }
+        .option-btn {
+            background-color: rgba(255, 255, 255, 0.03); border: 1px solid var(--accent); padding: 15px 20px;
+            border-radius: 8px; text-align: left; font-size: 1.05em; font-family: inherit;
+            color: var(--text-main); cursor: pointer; transition: all 0.2s;
+        }
+        .option-btn:hover:not(:disabled) { border-color: var(--primary); background-color: rgba(212, 175, 55, 0.1); }
+        .option-btn:disabled { cursor: default; }
+
+        .correct-ans { background-color: rgba(74, 222, 128, 0.1) !important; border-color: var(--success) !important; color: var(--success) !important; font-weight: bold; }
+        .wrong-ans { background-color: rgba(248, 113, 113, 0.1) !important; border-color: var(--error) !important; color: var(--error) !important; opacity: 0.7; }
+
+        .justification-box {
+            display: none; background-color: rgba(0,0,0,0.2); padding: 20px;
+            border-radius: 4px;
+            margin-top: 25px; font-size: 0.95em; box-shadow: inset 0 2px 8px rgba(0,0,0,0.1);
+            animation: slideDown 0.3s ease-out;
+            color: #cbd5e1;
+            border-left: 4px solid var(--primary);
+        }
+
+        .next-btn {
+            display: none; width: 100%; background-color: var(--primary); color: var(--secondary);
+            border: none; padding: 15px; font-size: 1.1em; border-radius: 8px;
+            margin-top: 20px; cursor: pointer; font-family: 'Georgia', serif; font-weight: bold;
+        }
+        .next-btn:hover { background-color: var(--primary-light); }
+
+        .results-view { display: none; text-align: center; }
+        .results-view h2 { border: none; margin-top: 0; color: var(--primary); }
+        .score-circle {
+            width: 100px; height: 100px; border-radius: 50%; border: 4px solid var(--primary);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 2em; font-weight: bold; margin: 0 auto 20px; color: var(--primary);
+            background-color: rgba(212, 175, 55, 0.05);
+        }
+
+        @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <header class="hero-section">
+            <div class="hero-image">
+                <!-- Imagen con fondo transparente -->
+                <img src="../../assets/img/abraham-sacrificio.png" alt="Ilustración del Patriarca Abraham">
+            </div>
+            <div class="hero-text">
+                <h1>Abraham</h1>
+                <div class="subtitle">Padre de todos los creyentes y raíz del Pueblo de Dios</div>
+            </div>
+        </header>
+
+        <main>
+            <h2>1. Ficha Técnica</h2>
+            <div class="ficha-tecnica">
+                <ul>
+                    <li><strong>Nombre:</strong> Abram ("Padre enaltecido"), renombrado como Abraham ("Padre de muchedumbres") <span class="no-break">(Gn 17, 5)</span>.</li>
+                    <li><strong>Significado Espiritual:</strong> Patriarca fundamental, "Padre de todos los creyentes" <span class="no-break">(Rm 4, 11)</span> y raíz del Pueblo de Dios.</li>
+                    <li><strong>Linaje:</strong> Hijo de Taré, descendiente directo de Sem. Esposo de Sara. Padre de Ismael e Isaac.</li>
+                    <li><strong>Capítulos Clave:</strong> Génesis 11 al 25.</li>
+                </ul>
+            </div>
+
+            <h2>2. El Relato Bíblico (Hechos Históricos)</h2>
+            <p>Por llamado divino, Abram abandona su tierra y su parentela en Ur y Harán para dirigirse a Canaán, recibiendo la promesa de convertirse en una gran nación y ser bendición para el mundo <span class="no-break">(Gn 12, 1-3)</span>. Tras establecerse en la tierra prometida, separarse de su sobrino Lot y rescatarlo de una coalición de reyes, Abraham es bendecido por Melquisedec, rey de Salem y sacerdote del Dios Altísimo, quien le ofrece pan y vino <span class="no-break">(Gn 14, 18-20)</span>. Dios sella una alianza formal con él, prometiéndole una descendencia tan innumerable como las estrellas del cielo <span class="no-break">(Gn 15, 5)</span>.</p>
+            <p>A los 99 años de edad, Dios renueva el pacto, cambia su nombre a Abraham e instituye el rito de la circuncisión como señal perpetua <span class="no-break">(Gn 17, 1-14)</span>. Milagrosamente, en su vejez y la de su esposa Sara, nace Isaac <span class="no-break">(Gn 21, 1-7)</span>. La fe del patriarca es probada al límite cuando Dios le pide ofrecer a su único hijo, Isaac, en sacrificio en la región de Moria; su obediencia total detiene el brazo ejecutor y Dios confirma mediante juramento todas sus promesas de bendición universal <span class="no-break">(Gn 22, 1-18)</span>. Abraham muere en buena vejez y es sepultado en la cueva de Macpela <span class="no-break">(Gn 25, 7-10)</span>.</p>
+
+            <h2>3. Importancia en el Plan de Salvación (Cristocéntrico y Eclesiológico)</h2>
+            <p>La figura de Abraham demuestra que el Plan de Salvación fue concebido desde el principio con un orden eclesial. La promesa divina de que en su descendencia "serán bendecidas todas las naciones de la tierra" <span class="no-break">(Gn 22, 18)</span> encuentra su cumplimiento perfecto en Jesucristo, quien funda la Iglesia Católica como el instrumento universal para congregar a todos los pueblos.</p>
+            
+            <p><strong>En el ámbito sacramental,</strong> el sacerdocio de Melquisedec <span class="no-break">(Gn 14)</span>, quien ofrece pan y vino a Abraham, es unánimemente reconocido por la Patrística (como San Cipriano y San Clemente de Alejandría) como la prefiguración directa del sacrificio de la Eucaristía y del sacerdocio ministerial de la Nueva Alianza. Asimismo, la circuncisión <span class="no-break">(Gn 17)</span> prefigura el sacramento del Bautismo, la nueva y definitiva puerta de entrada a la Iglesia.</p>
+            
+            <p><strong>Eclesiológicamente,</strong> Dios llama a Abraham para ser la "roca" de la cual fue tallado el Pueblo de Dios en el Antiguo Testamento <span class="no-break">(Is 51, 1-2)</span>. Esta imagen profética se consuma cuando Cristo instituye el Nuevo Israel, edificándolo sobre una nueva "Roca": Pedro <span class="no-break">(Mt 16, 18)</span>. La autoridad eclesial, prefigurada en el patriarcado, se consolida con la entrega de las llaves del Reino (prefiguradas en Isaías 22) al apóstol Pedro, estableciendo el primado petrino.</p>
+            
+           <p><strong>El Catecismo de la Iglesia Católica</strong> lo afirma con claridad: <em>"Para reunir a la humanidad dispersa, Dios elige a Abram... El pueblo nacido de Abraham será el depositario de la promesa hecha a los patriarcas, el pueblo de la elección... para preparar la reunión de todos los hijos de Dios en la Iglesia" <span class="no-break">(CIC 761-762)</span></em>. San Ireneo de Lyon (siglo II) enseña en Adversus Haereses que la fe de Abraham es la misma fe que custodia la Iglesia. Esta autoridad, el Magisterio y las promesas de Cristo se han mantenido intactas a través de los siglos mediante una sucesión apostólica ininterrumpida hasta el actual Papa León XIV.</p>
+        </main>
+
+        <!-- Tarjeta de Invitación (Dispara el Pop-up) -->
+        <div class="cta-invitation">
+            <h3>¿Profundizaste en la lectura?</h3>
+            <p>Te invitamos a evaluar tu comprensión doctrinal y eclesiológica sobre este patriarca.</p>
+            <button class="btn-elegant" onclick="abrirModal()">Realizar Test Interactivo</button>
+        </div>
+
+    </div>
+
+    <!-- El Pop-up (Modal) -->
+    <div class="modal-overlay" id="quizModal">
+        <div class="modal-card">
+            <span class="close-btn" onclick="cerrarModal()">&times;</span>
+            
+            <!-- Vista de Preguntas -->
+            <div id="quiz-view">
+                <div class="quiz-status">Pregunta <span id="q-num">1</span> de 3</div>
+                <div class="question-text" id="q-text"></div>
+                <div class="options-container" id="options-box"></div>
+                
+                <div class="justification-box" id="just-box">
+                    <strong>Fundamento Teológico:</strong> <span id="just-text"></span>
+                </div>
+                
+                <button class="next-btn" id="next-btn" onclick="siguientePregunta()">Siguiente Pregunta</button>
+            </div>
+
+            <!-- Vista de Resultados -->
+            <div class="results-view" id="results-view">
+                <h2>Evaluación Finalizada</h2>
+                <div class="score-circle"><span id="final-score">0</span>/3</div>
+                <p id="result-msg" style="font-size: 1.1em; margin-bottom: 30px;"></p>
+                <button class="btn-elegant" style="width: 100%;" onclick="cerrarModal()">Volver al Artículo</button>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        const quizData = [
+            {
+                question: "¿Qué sacramento de la Iglesia Católica es prefigurado por el ofrecimiento de pan y vino de Melquisedec a Abraham en Génesis 14?",
+                options: ["A) El Bautismo", "B) La Eucaristía", "C) La Confirmación", "D) El Matrimonio"],
+                correct: 1,
+                justification: "La Tradición apostólica y los Padres de la Iglesia identifican unánimemente el pan y el vino de Melquisedec como el tipo del sacrificio Eucarístico perpetuado por el sacerdocio católico."
+            },
+            {
+                question: "Según la enseñanza de la Iglesia, ¿cómo se cumple plenamente la promesa de Dios a Abraham de que en su linaje 'serían benditas todas las naciones'?",
+                options: ["A) Mediante el reinado terrenal e histórico del Rey David.", "B) A través de Jesucristo y la expansión universal de la Iglesia Católica.", "C) Únicamente mediante la descendencia biológica de Ismael.", "D) Con la conquista militar de la tierra de Canaán."],
+                correct: 1,
+                justification: "Como expone el Catecismo (CIC 762), el llamado a Abraham fue la preparación remota para congregar a toda la humanidad dispersa en la única asamblea de Dios, que es la Iglesia instituida por Cristo."
+            },
+            {
+                question: "Siguiendo el paralelismo eclesiológico, así como Abraham fue la roca fundacional del Antiguo Israel, ¿a quién establece Jesucristo como la Roca visible de Su Iglesia?",
+                options: ["A) San Juan el Evangelista", "B) San Pablo de Tarso", "C) San Pedro y sus legítimos sucesores", "D) San Santiago el Mayor"],
+                correct: 2,
+                justification: "Cristo cambia el nombre de Simón a Cefas ('Roca') y le entrega las llaves del Reino en Mateo 16, 18-19. Esto instituye el primado petrino y el Papado como garante perpetuo de la unidad."
+            }
+        ];
+
+        let index = 0;
+        let score = 0;
+
+        function abrirModal() {
+            index = 0; score = 0;
+            document.getElementById('quiz-view').style.display = 'block';
+            document.getElementById('results-view').style.display = 'none';
+            document.getElementById('quizModal').classList.add('active');
+            cargarPregunta();
+        }
+
+        function cerrarModal() { document.getElementById('quizModal').classList.remove('active'); }
+
+        function cargarPregunta() {
+            const q = quizData[index];
+            document.getElementById('q-num').innerText = index + 1;
+            document.getElementById('q-text').innerText = q.question;
+            
+            const optionsBox = document.getElementById('options-box');
+            optionsBox.innerHTML = '';
+            document.getElementById('just-box').style.display = 'none';
+            document.getElementById('next-btn').style.display = 'none';
+
+            q.options.forEach((opt, i) => {
+                const btn = document.createElement('button');
+                btn.className = 'option-btn'; btn.innerText = opt;
+                btn.onclick = () => seleccionar(i, btn);
+                optionsBox.appendChild(btn);
+            });
+        }
+
+        function seleccionar(seleccionado, btnEl) {
+            const q = quizData[index];
+            const botones = document.querySelectorAll('.option-btn');
+            botones.forEach(b => b.disabled = true);
+
+            if (seleccionado === q.correct) {
+                btnEl.classList.add('correct-ans'); score++;
+            } else {
+                btnEl.classList.add('wrong-ans');
+                botones[q.correct].classList.add('correct-ans');
+            }
+
+            document.getElementById('just-text').innerText = q.justification;
+            document.getElementById('just-box').style.display = 'block';
+            
+            const nextBtn = document.getElementById('next-btn');
+            nextBtn.innerText = (index === quizData.length - 1) ? "Ver Calificación" : "Siguiente Pregunta";
+            nextBtn.style.display = 'block';
+        }
+
+        function siguientePregunta() {
+            index++;
+            if (index < quizData.length) cargarPregunta();
+            else mostrarResultados();
+        }
+
+        function mostrarResultados() {
+            document.getElementById('quiz-view').style.display = 'none';
+            document.getElementById('results-view').style.display = 'block';
+            document.getElementById('final-score').innerText = score;
+
+            const msg = document.getElementById('result-msg');
+            if (score === quizData.length) { msg.innerHTML = "<strong>¡Excelente!</strong> Tienes una base doctrinal sólida."; msg.style.color = "var(--success)"; }
+            else if (score > 0) { msg.innerHTML = "<strong>¡Muy bien!</strong> Repasa algunos detalles teológicos."; msg.style.color = "#d84315"; }
+            else { msg.innerHTML = "Te sugerimos repasar la sección eclesiológica."; msg.style.color = "var(--error)"; }
+        }
+    </script>
+</body>
+</html>

@@ -1,49 +1,67 @@
-<section class="accar-construccion-page">
+<section class="accar-page">
   
-  <div class="accar-construccion-header">
-    <span class="accar-construccion-kicker">Dei Verbum</span>
-    <h1 class="accar-construccion-title">Sagrada Escritura</h1>
-    <div class="accar-construccion-divider"></div>
+  <div class="accar-header">
+    <span class="accar-kicker">Dei Verbum</span>
+    <h1 class="accar-title">Sagrada Escritura</h1>
+    <div class="accar-divider"></div>
   </div>
 
-  <div class="accar-construccion-container">
-    <div class="accar-construccion-box">
-      <img src="../assets/img/logo.png" alt="Logo Apologética" class="accar-construccion-escudo">
-      <h2>Santuario en Estudio</h2>
-      <p class="accar-construccion-oracion">
-        "Señor, abre nuestro entendimiento para comprender las Escrituras, que son lámpara para nuestros pasos y luz en nuestro sendero."
-      </p>
-      <div class="accar-construccion-status">
-        <span class="accar-status-pulse"></span> ESTUDIO EXEGÉTICO EN DESARROLLO
-      </div>
-      <p class="accar-construccion-detalle">
-        Estamos preparando los recursos de estudio bíblico, historia de la salvación y análisis hermenéutico fiel a la Tradición viva de la Iglesia.
-      </p>
-      <a href="formacion.html" class="accar-btn-regresar">➔ Regresar a Formación</a>
-    </div>
+  <div class="accar-grid-container">
+    
+    <!-- Tarjeta 1: Canon Bíblico -->
+    <a href="canon-biblico.html" class="accar-card">
+      <img src="../assets/img/icono-canon.png" alt="Icono Canon" class="accar-icon">
+      <h2>Canon Bíblico</h2>
+      <p>La formación del canon católico de 73 libros, la inspiración del Espíritu Santo y la inerrancia de los textos sagrados.</p>
+      <span class="accar-acceder">ACCEDER ➔</span>
+    </a>
+
+    <!-- Tarjeta 2: Personajes Bíblicos -->
+    <a href="directorio_personajes.html" class="accar-card">
+      <img src="../assets/img/icono-personajes.png" alt="Icono Personajes" class="accar-icon">
+      <h2>Personajes Bíblicos</h2>
+      <p>Compendio interactivo de los patriarcas, profetas y figuras clave en la Historia de la Salvación con análisis tipológico.</p>
+      <span class="accar-acceder">ACCEDER ➔</span>
+    </a>
+
+    <!-- Tarjeta 3: Historia de la Salvación -->
+    <a href="historia-salvacion.html" class="accar-card">
+      <img src="../assets/img/icono-historia.png" alt="Icono Historia" class="accar-icon">
+      <h2>Historia de la Salvación</h2>
+      <p>Recorrido cronológico por las alianzas divinas: desde Adán y la creación, hasta la plenitud en Cristo y la Iglesia.</p>
+      <span class="accar-acceder">ACCEDER ➔</span>
+    </a>
+
+    <!-- Tarjeta 4: Exégesis y Magisterio -->
+    <a href="exegesis.html" class="accar-card">
+      <img src="../assets/img/icono-exegesis.png" alt="Icono Exégesis" class="accar-icon">
+      <h2>Exégesis y Magisterio</h2>
+      <p>Estudio de los sentidos de la Escritura (literal y espiritual) guiados por la Tradición y la Dei Verbum.</p>
+      <span class="accar-acceder">ACCEDER ➔</span>
+    </a>
+
   </div>
 
 </section>
 
 <style>
-.accar-construccion-page {
+.accar-page {
   background: linear-gradient(180deg, #02040a 0%, #050b1a 100%);
   min-height: 100vh;
-  padding: 100px 20px;
+  padding: 80px 20px;
   color: #f5f2eb;
   font-family: Georgia, "Times New Roman", serif;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
 }
 
-.accar-construccion-header {
+.accar-header {
   text-align: center;
-  margin-bottom: 40px;
+  margin-bottom: 60px;
 }
 
-.accar-construccion-kicker {
+.accar-kicker {
   display: inline-block;
   font-family: sans-serif;
   font-size: 11px;
@@ -56,7 +74,7 @@
   padding-bottom: 5px;
 }
 
-.accar-construccion-title {
+.accar-title {
   font-size: 42px;
   font-weight: normal;
   color: #ffffff;
@@ -64,7 +82,7 @@
   text-shadow: 0 4px 15px rgba(0,0,0,0.8);
 }
 
-.accar-construccion-divider {
+.accar-divider {
   width: 60px;
   height: 2px;
   background: #D4AF37;
@@ -72,112 +90,87 @@
   box-shadow: 0 0 10px #D4AF37;
 }
 
-.accar-construccion-container {
+/* Cuadrícula idéntica a Formación Católica (2x2) */
+.accar-grid-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
   width: 100%;
-  max-width: 650px;
+  max-width: 950px; /* Ancho máximo para mantener las tarjetas horizontales/rectangulares */
 }
 
-.accar-construccion-box {
+/* Diseño de la Tarjeta Elegante */
+.accar-card {
   background: rgba(11, 22, 48, 0.3);
-  border: 1px dashed rgba(212, 175, 55, 0.3);
-  border-radius: 12px;
-  padding: 50px 40px;
+  border: 1px solid rgba(212, 175, 55, 0.15);
+  border-radius: 8px;
+  padding: 40px 30px;
   text-align: center;
-  box-shadow: 0 15px 35px rgba(0,0,0,0.6);
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.4);
 }
 
-.accar-construccion-escudo {
-  width: 90px;
-  height: auto;
-  margin-bottom: 25px;
-  filter: drop-shadow(0 4px 10px rgba(0,0,0,0.7));
+.accar-card:hover {
+  background: rgba(11, 22, 48, 0.6);
+  border-color: rgba(212, 175, 55, 0.5);
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.6), inset 0 0 15px rgba(212, 175, 55, 0.05);
 }
 
-.accar-construccion-box h2 {
-  font-size: 26px;
+.accar-icon {
+  width: 75px;
+  height: 75px;
+  object-fit: contain;
+  margin-bottom: 20px;
+  filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.3));
+}
+
+.accar-card h2 {
+  font-size: 22px;
   color: #D4AF37;
   font-weight: normal;
-  margin: 0 0 20px 0;
+  margin: 0 0 15px 0;
 }
 
-.accar-construccion-oracion {
-  font-style: italic;
-  color: rgba(245, 242, 235, 0.8);
-  font-size: 16px;
+.accar-card p {
+  color: rgba(245, 242, 235, 0.7);
+  font-size: 15px;
   line-height: 1.6;
-  max-width: 500px;
-  margin: 0 auto 30px auto;
-  padding: 0 20px;
-  border-left: 2px solid rgba(212, 175, 55, 0.3);
-  border-right: 2px solid rgba(212, 175, 55, 0.3);
+  margin: 0 0 30px 0;
+  flex-grow: 1; /* Empuja el botón "Acceder" hacia abajo */
 }
 
-.accar-construccion-status {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  background: rgba(212, 175, 55, 0.05);
-  border: 1px solid rgba(212, 175, 55, 0.2);
-  padding: 8px 18px;
-  border-radius: 50px;
+.accar-acceder {
   font-family: sans-serif;
+  color: rgba(245, 242, 235, 0.5);
   font-size: 11px;
   font-weight: bold;
-  letter-spacing: 1px;
-  color: #D4AF37;
-  margin-bottom: 25px;
-}
-
-.accar-status-pulse {
-  width: 8px;
-  height: 8px;
-  background-color: #D4AF37;
-  border-radius: 50%;
-  animation: accar-glow 1.5s infinite ease-in-out;
-}
-
-@keyframes accar-glow {
-  0% { opacity: 0.3; transform: scale(0.9); }
-  50% { opacity: 1; transform: scale(1.1); box-shadow: 0 0 8px #D4AF37; }
-  100% { opacity: 0.3; transform: scale(0.9); }
-}
-
-.accar-construccion-detalle {
-  font-size: 15px;
-  color: rgba(245, 242, 235, 0.6);
-  line-height: 1.6;
-  margin: 0 0 35px 0;
-}
-
-.accar-btn-regresar {
-  display: inline-block;
-  font-family: sans-serif;
-  font-size: 12px;
-  color: #050b1a;
-  background: #D4AF37;
-  padding: 12px 25px;
-  border-radius: 6px;
-  text-decoration: none;
-  font-weight: bold;
-  letter-spacing: 1px;
+  letter-spacing: 2px;
   text-transform: uppercase;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+  transition: color 0.3s ease;
 }
 
-.accar-btn-regresar:hover {
-  background: #ffffff;
-  color: #050b1a;
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(255, 255, 255, 0.2);
+.accar-card:hover .accar-acceder {
+  color: #D4AF37;
 }
 
-@media (max-width: 600px) {
-  .accar-construccion-box {
-    padding: 35px 20px;
+/* Responsividad para móviles (1 columna) */
+@media (max-width: 768px) {
+  .accar-grid-container {
+    grid-template-columns: 1fr;
+    max-width: 500px;
   }
-  .accar-construccion-title {
+  
+  .accar-title {
     font-size: 32px;
+  }
+  
+  .accar-card {
+    padding: 30px 20px;
   }
 }
 </style>
