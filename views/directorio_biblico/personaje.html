@@ -264,8 +264,9 @@
         </div>
     </div>
 
+    <!-- SDK de Firebase modular (CDN) -->
     <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+        import { initializeApp, getApps, getApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
         import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
         const firebaseConfig = {
@@ -277,7 +278,8 @@
             appId: "1:249370548582:web:6b35298df41771113910a7"
         };
 
-        const app = initializeApp(firebaseConfig);
+        // Solución SPA: Verifica si Firebase ya está conectado antes de inicializarlo
+        const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApp();
         const db = getFirestore(app);
 
         let quizData = [];

@@ -53,69 +53,65 @@
 
         .accar-grid-container {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 40px;
             width: 100%;
-            max-width: 1100px;
+            max-width: 1000px;
+            justify-items: center;
         }
 
-        .accar-card {
-            background: rgba(11, 22, 48, 0.3);
-            border: 1px solid rgba(212, 175, 55, 0.15);
-            border-radius: 8px;
-            padding: 35px 25px;
-            text-align: center;
+        .accar-portrait-card {
             text-decoration: none;
             display: flex;
             flex-direction: column;
             align-items: center;
-            transition: all 0.3s ease;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+            transition: transform 0.3s ease, filter 0.3s ease;
+            width: 100%;
+            max-width: 250px;
         }
 
-        .accar-card:hover {
-            background: rgba(11, 22, 48, 0.6);
-            border-color: rgba(212, 175, 55, 0.5);
+        .accar-portrait-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.6), inset 0 0 15px rgba(212, 175, 55, 0.05);
+            filter: drop-shadow(0 10px 20px rgba(212, 175, 55, 0.2));
         }
 
-        .accar-card h2 {
-            font-size: 26px;
+        .portrait-frame {
+            width: 100%;
+            aspect-ratio: 2 / 3;
+            overflow: hidden;
+            border-radius: 4px;
+            border: 2px solid rgba(212, 175, 55, 0.4);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.8);
+            margin-bottom: 15px;
+            background: #02040a;
+        }
+
+        .portrait-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center top;
+            transition: transform 0.5s ease;
+        }
+
+        .accar-portrait-card:hover .portrait-frame img {
+            transform: scale(1.05);
+        }
+
+        .portrait-name {
+            font-size: 24px;
             color: #D4AF37;
             font-weight: normal;
-            margin: 0 0 5px 0;
+            margin: 0;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.8);
+            text-align: center;
+            border-bottom: 1px solid transparent;
+            padding-bottom: 5px;
+            transition: border-color 0.3s ease;
         }
 
-        .epoca {
-            font-family: sans-serif;
-            font-size: 11px;
-            color: rgba(245, 242, 235, 0.5);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 20px;
-        }
-
-        .accar-card p {
-            color: rgba(245, 242, 235, 0.7);
-            font-size: 15px;
-            line-height: 1.6;
-            margin: 0 0 30px 0;
-            flex-grow: 1;
-        }
-
-        .accar-acceder {
-            font-family: sans-serif;
-            color: #D4AF37;
-            font-size: 12px;
-            font-weight: bold;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            transition: color 0.3s ease;
-        }
-
-        .accar-card:hover .accar-acceder {
-            color: #ffffff;
+        .accar-portrait-card:hover .portrait-name {
+            border-color: rgba(212, 175, 55, 0.5);
         }
 
         .loading-text {
@@ -169,16 +165,14 @@
 
                 querySnapshot.forEach((doc) => {
                     const data = doc.data();
-                    // Cortamos la biografía para mostrar solo un extracto en la tarjeta
-                    const extracto = data.biografia.length > 120 ? data.biografia.substring(0, 120) + "..." : data.biografia;
+                    const imagen = data.imagen_path || "../../assets/img/logo-accar.png";
                     
-                    // El enlace enviará el ID del personaje por la URL a la plantilla final
                     htmlContent += `
-                        <a href="#" onclick="event.preventDefault(); window.currentPersonajeId = '${doc.id}'; loadView('views/directorio_biblico/personaje.html');" class="accar-card">
-                            <h2>${data.nombre}</h2>
-                            <span class="epoca">${data.epoca}</span>
-                            <p>${extracto}</p>
-                            <span class="accar-acceder">LEER ESTUDIO ➔</span>
+                        <a href="#" onclick="event.preventDefault(); window.currentPersonajeId = '${doc.id}'; loadView('/views/directorio_biblico/personaje.html');" class="accar-portrait-card">
+                            <div class="portrait-frame">
+                                <img src="${imagen}" alt="${data.nombre}">
+                            </div>
+                            <h2 class="portrait-name">${data.nombre}</h2>
                         </a>
                     `;
                 });
