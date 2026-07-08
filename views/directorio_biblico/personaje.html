@@ -310,7 +310,6 @@
 
                     if(p.relato_biblico && p.importancia_teologica) {
                         const main = document.querySelector('main');
-                        // Inyectamos la estructura HTML limpia y forzamos el diseño
                         main.innerHTML = `
                             <h2>1. Ficha Técnica</h2>
                             <div class="ficha-tecnica">
@@ -322,9 +321,9 @@
                                 </ul>
                             </div>
                             <h2>2. El Relato Bíblico (Hechos Históricos)</h2>
-                            <p>${p.relato_biblico}</p>
+                            <p>${p.relato_biblico.replace(/\n\n/g, '</p><p>').replace(/\n/g, '<br>')}</p>
                             <h2>3. Importancia en el Plan de Salvación (Cristocéntrico y Eclesiológico)</h2>
-                            <p>${p.importancia_teologica}</p>
+                            <p>${p.importancia_teologica.replace(/\n\n/g, '</p><p>').replace(/\n/g, '<br>')}</p>
                         `;
                     }
 
