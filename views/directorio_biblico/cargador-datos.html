@@ -23,8 +23,24 @@
             padding: 40px;
             border-radius: 12px;
             box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            width: 80%;
+            max-width: 800px;
         }
         h1 { color: #D4AF37; margin-top: 0; }
+        textarea {
+            width: 100%;
+            height: 300px;
+            margin-bottom: 20px;
+            background-color: #1a2642;
+            color: #f5f2eb;
+            border: 1px solid #D4AF37;
+            border-radius: 8px;
+            padding: 15px;
+            font-family: monospace;
+            font-size: 14px;
+            resize: vertical;
+            box-sizing: border-box;
+        }
         button {
             background-color: #D4AF37;
             color: #050b1a;
@@ -54,8 +70,12 @@
 
     <div class="container">
         <h1>Sincronización Firestore</h1>
-        <p>Herramienta interna para inicializar la base de datos de Personajes Bíblicos.</p>
-        <button id="btnSubir">Subir Personajes a la Base de Datos</button>
+        <p>Pega aquí el código del personaje y presiona subir.</p>
+        
+        <textarea id="jsonInput" placeholder="Pega el bloque del personaje aquí..."></textarea>
+        <br>
+        <button id="btnSubir">Subir a la Base de Datos</button>
+        
         <div id="mensaje"></div>
     </div>
 
@@ -78,173 +98,60 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        const personajes = [
-          {
-            "id": "abraham",
-            "nombre": "Abraham",
-            "biografia": "Primer patriarca del pueblo de Israel. Llamado por Dios a dejar su tierra en Ur de los Caldeos para dirigirse a Canaán. Es el modelo de obediencia y fe inquebrantable en la promesa divina.",
-            "epoca": "Era Patriarcal (Aprox. 2000 a.C.)",
-            "simbolo": "Las estrellas del cielo y la arena del mar",
-            "referencias": "Génesis 12-25, Romanos 4, Hebreos 11:8-19",
-            "titulo": "Abraham",
-            "subtitulo": "Padre de todos los creyentes y raíz del Pueblo de Dios",
-            "ficha_tecnica": {
-              "nombre": "Abram (\"Padre enaltecido\"), renombrado como Abraham (\"Padre de muchedumbres\") (Gn 17, 5).",
-              "significado": "Patriarca fundamental, \"Padre de todos los creyentes\" (Rm 4, 11) y raíz del Pueblo de Dios.",
-              "linaje": "Hijo de Taré, descendiente directo de Sem. Esposo de Sara. Padre de Ismael e Isaac.",
-              "referencia": "Génesis 11 al 25."
-            },
-            "relato_biblico": "Por llamado divino, Abram abandona su tierra y su parentela en Ur (en el actual sur de Irak) y Harán (en la actual Turquía) para dirigirse a Canaán (actual región de Israel y Palestina), recibiendo la promesa de convertirse en una gran nación y ser bendición para el mundo (Gn 12, 1-3). Tras establecerse en la tierra prometida, separarse de su sobrino Lot y rescatarlo de una coalición de reyes, Abraham es bendecido por Melquisedec, rey de Salem y sacerdote del Dios Altísimo, quien le ofrece pan y vino (Gn 14, 18-20). Dios sella una alianza formal con él, prometiéndole una descendencia tan innumerable como las estrellas del cielo (Gn 15, 5). A los 99 años de edad, Dios renueva el pacto, cambia su nombre a Abraham e instituye el rito de la circuncisión como señal perpetua (Gn 17, 1-14). Milagrosamente, en su vejez y la de su esposa Sara, nace Isaac (Gn 21, 1-7). La fe del patriarca es probada al límite cuando Dios le pide ofrecer a su único hijo, Isaac, en sacrificio en la región de Moria (en la actual Jerusalén); su obediencia total detiene el brazo ejecutor y Dios confirma mediante juramento todas sus promesas de bendición universal (Gn 22, 1-18). Abraham muere en buena vejez y es sepultado en la cueva de Macpela (en la actual Hebrón) (Gn 25, 7-10).",
-            "importancia_teologica": "La figura de Abraham demuestra que el Plan de Salvación fue concebido desde el principio con un orden eclesial. La promesa divina de que en su descendencia \"serán bendecidas todas las naciones de la tierra\" (Gn 22, 18) encuentra su cumplimiento perfecto en Jesucristo, quien funda la Iglesia Católica como el instrumento universal para congregar a todos los pueblos. En el ámbito sacramental, el sacerdocio de Melquisedec (Gn 14), quien ofrece pan y vino a Abraham, es unánimemente reconocido por la Patrística (como San Cipriano y San Clemente de Alejandría) como la prefiguración directa del sacrificio de la Eucaristía y del sacerdocio ministerial de la Nueva Alianza. Asimismo, la circuncisión (Gn 17) prefigura el sacramento del Bautismo, la nueva y definitiva puerta de entrada a la Iglesia. Eclesiológicamente, Dios llama a Abraham para ser la \"roca\" de la cual fue tallado el Pueblo de Dios en el Antiguo Testamento (Is 51, 1-2). Esta imagen profética se consuma cuando Cristo instituye el Nuevo Israel, edificándolo sobre una nueva \"Roca\": Pedro (Mt 16, 18). La autoridad eclesial, prefigurada en el patriarcado, se consolida con la entrega de las llaves del Reino (prefiguradas en Isaías 22) al apóstol Pedro, estableciendo el primado petrino. El Catecismo de la Iglesia Católica lo afirma con claridad: \"Para reunir a la humanidad dispersa, Dios elige a Abram... El pueblo nacido de Abraham será el depositario de la promesa hecha a los patriarcas, el pueblo de la elección... para preparar la reunión de todos los hijos de Dios en la Iglesia\" (CIC 761-762). San Ireneo de Lyon (siglo II) enseña en Adversus Haereses que la fe de Abraham es la misma fe que custodia la Iglesia. Esta autoridad, el Magisterio y las promesas de Cristo se han mantenido intactas a través de los siglos mediante una sucesión apostólica ininterrumpida hasta el actual Papa León XIV.",
-            "imagen_path": "../../assets/img/abraham-sacrificio.png",
-            "test": [
-              {
-                "pregunta": "¿Qué sacramento de la Iglesia Católica es prefigurado por el ofrecimiento de pan y vino de Melquisedec a Abraham en Génesis 14?",
-                "opciones": ["A) El Bautismo", "B) La Eucaristía", "C) La Confirmación", "D) El Matrimonio"],
-                "correcta": 1,
-                "justificacion": "La Tradición apostólica y los Padres de la Iglesia identifican unánimemente el pan y el vino de Melquisedec como el tipo del sacrificio Eucarístico perpetuado por el sacerdocio católico."
-              },
-              {
-                "pregunta": "Según la enseñanza de la Iglesia, ¿cómo se cumple plenamente la promesa de Dios a Abraham de que en su linaje 'serían benditas todas las naciones'?",
-                "opciones": ["A) Mediante el reinado terrenal e histórico del Rey David.", "B) A través de Jesucristo y la expansión universal de la Iglesia Católica.", "C) Únicamente mediante la descendencia biológica de Ismael.", "D) Con la conquista militar de la tierra de Canaán."],
-                "correcta": 1,
-                "justificacion": "Como expone el Catecismo (CIC 762), el llamado a Abraham fue la preparación remota para congregar a toda la humanidad dispersa en la única asamblea de Dios, que es la Iglesia instituida por Cristo."
-              },
-              {
-                "pregunta": "Siguiendo el paralelismo eclesiológico, así como Abraham fue la roca fundacional del Antiguo Israel, ¿a quién establece Jesucristo como la Roca visible de Su Iglesia?",
-                "opciones": ["A) San Juan el Evangelista", "B) San Pablo de Tarso", "C) San Pedro y sus legítimos sucesores", "D) San Santiago el Mayor"],
-                "correcta": 2,
-                "justificacion": "Cristo cambia el nombre de Simón a Cefas ('Roca') y le entrega las llaves del Reino en Mateo 16, 18-19. Esto instituye el primado petrino y el Papado como garante perpetuo de la unidad."
-              }
-            ]
-          },
-          {
-            "id": "sara",
-            "nombre": "Sara",
-            "biografia": "Esposa de Abraham y matriarca de Israel. Aunque era estéril y de edad avanzada, por gracia de Dios concibió a Isaac, cumpliendo la promesa divina de una descendencia numerosa.",
-            "epoca": "Era Patriarcal (Aprox. 2000 a.C.)",
-            "simbolo": "La tienda (hospitalidad)",
-            "referencias": "Génesis 11-23, Hebreos 11:11, 1 Pedro 3:6",
-            "titulo": "Sara",
-            "subtitulo": "Madre de la promesa, prefiguración de la Iglesia y modelo de fe en la Alianza divina.",
-            "ficha_tecnica": {
-              "nombre": "Sarai (\"Mi princesa\"), renombrada por Dios como Sara (\"Princesa\" o \"Madre de naciones\") (Gn 17, 15).",
-              "significado": "Madre de todos los creyentes en la promesa, vasija de la Alianza incondicional de Dios y tipo tipológico de la Iglesia libre y fecunda por la gracia.",
-              "linaje": "Hija de Taré, esposa del patriarca Abraham y madre biológica de Isaac, el hijo de la promesa.",
-              "referencia": "Génesis 11 al 23."
-            },
-            "relato_biblico": "Sara acompaña a su esposo Abraham en su obediencia inicial al llamado divino, abandonando Ur de los caldeos (en el actual Irak) para migrar hacia la tierra prometida de Canaán (actual región de Israel y Palestina) (Gn 11, 31; 12, 5). Durante una hambruna severa, el matrimonio desciende a Egipto (actual República Árabe de Egipto), donde Sara, debido a su excepcional belleza, es llevada al palacio del Faraón tras presentarse como hermana de Abraham. Sin embargo, Dios interviene con plagas para proteger la pureza de Sara y asegurar la legitimidad del futuro linaje mesiánico, obligando al Faraón a devolverla (Gn 12, 10-20). Una prueba casi idéntica ocurre más tarde en Gerar (actual región sur de Israel y la Franja de Gaza) con el rey Abimelec, donde nuevamente la Providencia la custodia (Gn 20). Avanzada en edad y afligida por la esterilidad, Sara acude a una costumbre de la época y ofrece a su esclava Agar a Abraham para obtener descendencia legal, lo que da lugar al nacimiento de Ismael (Gn 16). No obstante, la verdadera Alianza divina no dependía de la planificación humana: Dios reafirma que la promesa se cumpliría a través de Sara. Cambia su nombre y le promete que reyes de pueblos nacerán de ella (Gn 17, 15-16). Milagrosamente, a los noventa años, concibe y da a luz a Isaac, evento que llena su vida de la \"risa\" del gozo divino (Gn 21, 1-7). Tras proteger la herencia de su hijo exigiendo la expulsión de Agar e Ismael, Sara fallece a los 127 años en Quiryat Arbá, es decir, Hebrón (en la actual Cisjordania, Palestina), y es sepultada por Abraham en la cueva de Macpela, la primera posesión territorial de los patriarcas en la tierra prometida (Gn 23).",
-            "importancia_teologica": "Sara posee un peso exegético y tipológico indispensable en el Plan de Salvación, siendo la vasija elegida de la que habría de brotar el linaje davídico y, en la plenitud de los tiempos, Jesucristo. San Pablo, en la Epístola a los Gálatas (Gal 4, 22-31), consagra su figura al identificarla como la \"mujer libre\". En esta alegoría inspirada, Sara prefigura a la Nueva Alianza y a la \"Jerusalén de arriba\", que es nuestra Madre, la Iglesia Católica. Mientras que Agar engendra para la esclavitud bajo la Ley, Sara engendra mediante la promesa y la gracia; de igual modo, la Iglesia no engendra a sus hijos por la carne, sino espiritualmente mediante el sacramento del Bautismo y la infusión del Espíritu Santo. Desde la perspectiva de la Patrística, San Juan Crisostomo y San Justino Mártir exponen que la esterilidad superada de Sara es una clara prefiguración del nacimiento virginal de Cristo en el seno de la Santísima Virgen María. El milagro de Isaac demuestra que la salvación es obra del poder de Dios, no del mérito ni de la biología humana. La promesa de que Sara sería \"Madre de naciones\" (Gn 17, 16) anticipa la \"catolicidad\" (universalidad) de la Iglesia, diseñada para congregar a todos los pueblos en un solo Cuerpo Místico. Esta congregación ininterrumpida de los hijos de la promesa, nacidos del agua y del Espíritu, se mantiene estructurada, visible y unida gracias al primado eclesial, custodiado fielmente por la sucesión apostólica desde el Apóstol Pedro hasta nuestros días.",
-            "imagen_path": "../../assets/img/sara.png",
-            "test": [
-              {
-                "pregunta": "Según la exégesis de San Pablo en la Epístola a los Gálatas, ¿qué prefigura Sara en contraste con la sierva Agar?",
-                "opciones": ["A) La Antigua Alianza y la esclavitud de la ley mosaica.", "B) La condena divina sobre las naciones paganas no elegidas.", "C) La Nueva Alianza y la \"Jerusalén de arriba\", que es la Iglesia Católica libre.", "D) El linaje biológico destinado a recuperar la tierra de Egipto."],
-                "correcta": 2,
-                "justificacion": "El apóstol Pablo (Gal 4, 22-31) establece que Sara, la mujer libre que engendra por virtud de la promesa, es tipología directa de la Iglesia, Madre de los bautizados, quienes nacen libres por la gracia de Cristo y no bajo la esclavitud del pecado o de la antigua Ley."
-              },
-              {
-                "pregunta": "¿Qué enseñanza magisterial fundamental se extrae del nacimiento milagroso de Isaac en el vientre estéril de Sara?",
-                "opciones": ["A) Que la fecundidad espiritual y la salvación son dones exclusivos de la gracia divina, no del esfuerzo de la carne.", "B) Que el sacramento del matrimonio del Antiguo Testamento era superior al del Nuevo.", "C) Que Dios exige descendencia biológica copiosa para otorgar la salvación.", "D) Que la salvación está reservada exclusivamente para el pueblo hebreo histórico."],
-                "correcta": 0,
-                "justificacion": "Como enseña el Catecismo de la Iglesia Católica (CIC 706), el cumplimiento de la promesa en una mujer estéril demuestra que la justificación y la gracia bautismal son dones totalmente inmerecidos, nacidos del poder de Dios y no de la capacidad humana."
-              },
-              {
-                "pregunta": "En la tradición de la Patrística, ¿a qué gran misterio cristológico y mariano prefigura la superación de la esterilidad de Sara?",
-                "opciones": ["A) Al arrepentimiento de María Magdalena al pie de la cruz.", "B) Al nacimiento de Juan el Bautista en el desierto.", "C) Al misterio de la Encarnación y el nacimiento virginal de Jesús en Santa María.", "D) A la resurrección de Lázaro de entre los muertos."],
-                "correcta": 2,
-                "justificacion": "Diversos Padres de la Iglesia explican que el milagro de concebir vida en un vientre estéril (Sara) es la preparación pedagógica y profética de un milagro aún mayor: el Verbo encarnado en el vientre virginal intacto de María, por obra del Espíritu Santo."
-              },
-              {
-                "pregunta": "¿Por qué el cambio de nombre de Sarai a Sara (\"Madre de naciones\" en Gn 17) tiene un profundo significado eclesiológico?",
-                "opciones": ["A) Porque justifica el dominio imperialista terrenal de Israel sobre sus vecinos.", "B) Porque prefigura la \"Catolicidad\" de la Iglesia, que reunirá a fieles de todas las naciones en un solo pueblo.", "C) Porque era el único nombre aceptado por las culturas cananeas circundantes.", "D) Porque indica el final definitivo del sacerdocio ministerial."],
-                "correcta": 1,
-                "justificacion": "El Magisterio entiende que la bendición a todas las naciones iniciada en Abraham y Sara se materializa plenamente en la Iglesia de Cristo, que es \"Católica\" (universal), enviada a predicar, bautizar y congregar a todas las razas y culturas en la comunión eclesial."
-              },
-              {
-                "pregunta": "¿Cómo se relaciona el rol de Sara, \"madre de los creyentes\", con el Bautismo y la estructura de la Iglesia en la actualidad?",
-                "opciones": ["A) Muestra que la fe puede nacer y sostenerse de forma aislada, sin necesidad de la Iglesia.", "B) Confirma que la salvación depende únicamente de aprender a leer el Antiguo Testamento en hebreo.", "C) Anula la necesidad de tener sacerdotes o sacramentos visibles.", "D) Prefigura a la \"Madre Iglesia\" que nos engendra espiritualmente en la fuente bautismal, pastoreados por el Magisterio y la sucesión apostólica."],
-                "correcta": 3,
-                "justificacion": "La Iglesia Católica es reconocida doctrinalmente como \"Madre y Maestra\" (Mater et Magistra). Tal como Sara da a luz al hijo de la promesa, la Iglesia nos engendra incesantemente a la vida de la gracia en el Bautismo, nutriéndonos con los sacramentos bajo la guía segura de los sucesores de los Apóstoles."
-              }
-            ]
-          },
-          {
-            "id": "isaac",
-            "nombre": "Isaac",
-            "biografia": "Hijo de la promesa nacido de Abraham y Sara. Su disposición a ser sacrificado por su padre en el monte Moria es una prefiguración tipológica directa del sacrificio voluntario de Jesucristo en la cruz.",
-            "epoca": "Era Patriarcal",
-            "simbolo": "El haz de leña y el carnero",
-            "referencias": "Génesis 21-35, Hebreos 11:20",
-            "titulo": "Isaac",
-            "subtitulo": "Hijo de la promesa, eslabón indispensable de la Alianza y prefiguración perfecta del sacrificio redentor de Cristo.",
-            "ficha_tecnica": {
-              "nombre": "Isaac, que se traduce como \"El que ríe\" o \"Dios reirá\" (en referencia a la risa de sus padres ante la promesa de su nacimiento en la vejez).",
-              "significado": "Heredero legítimo de las promesas divinas por pura gracia, y prototipo del Hijo unigénito que se somete voluntariamente al sacrificio.",
-              "linaje": "Único hijo de la promesa de Abraham y Sara. Esposo de Rebeca. Padre de Esaú y Jacob (Israel).",
-              "referencia": "Génesis 21 al 28."
-            },
-            "relato_biblico": "El nacimiento milagroso de Isaac marca el cumplimiento de la promesa divina en el vientre estéril de Sara y la ancianidad de Abraham (Gn 21, 1-7). Criado en la región de Beerseba y el Néguev (actual sur del Estado de Israel), Isaac crece como el portador exclusivo del pacto. La obediencia y fe del linaje son sometidas a la prueba suprema cuando Dios ordena a Abraham ofrecer a su único hijo en holocausto en la tierra de Moria (actual Monte del Templo en Jerusalén). Isaac, en un acto de sumisión absoluta, carga él mismo la leña para su inmolación hasta la cima del monte. En el instante culminante, el Ángel del Señor detiene la mano del patriarca y provee un carnero como sustituto, sellando la Alianza con un juramento perpetuo de bendición (Gn 22, 1-19). Para preservar la pureza del linaje mesiánico y evitar la idolatría de las naciones vecinas, Abraham envía a su siervo a Padán-Aram (actual región fronteriza entre Siria y Turquía) para buscar una esposa para su hijo. Así, Isaac desposa a Rebeca, a quien ama profundamente y con quien encuentra consuelo tras la muerte de su madre (Gn 24, 62-67). Tras veinte años de esterilidad, Isaac intercede ante Dios, quien escucha su oración, dando lugar al nacimiento de los gemelos Esaú y Jacob (Gn 25, 20-26). En su ancianidad, estando ciego en Beerseba, Isaac se dispone a impartir la bendición patriarcal a su primogénito Esaú. Sin embargo, mediante la providencia divina y la intervención de Rebeca, es Jacob quien recibe irrevocablemente la bendición, asegurando que la línea de la promesa y el futuro sacerdocio continuaran según el designio de Dios (Gn 27, 1-40). Isaac muere a los ciento ochenta años en Mamre, cerca de Hebrón (actual Cisjordania, Palestina), y es sepultado por sus dos hijos en la cueva de Macpela (Gn 35, 27-29).",
-            "importancia_teologica": "La figura de Isaac alberga una de las tipologías cristológicas más asombrosas y reveladoras de la Sagrada Escritura. Al cargar sobre sus propios hombros la leña para el holocausto mientras subía al monte Moria (Gn 22, 6), Isaac prefigura con extrema precisión a Jesucristo cargando el madero de la cruz hacia el Calvario. La Patrística ilumina este misterio de forma magistral; San Ireneo de Lyon y San Clemente de Alejandría enseñan que Isaac no fue una víctima obligada, sino que asintió con mansedumbre a la voluntad de su padre, siendo la imagen del Verbo Encarnado que se entregó libre y voluntariamente por la salvación de la humanidad. Asimismo, el carnero enredado por los cuernos en la maleza prefigura a Cristo coronado de espinas, inmolado como el verdadero Cordero de Dios. Eclesiológicamente, la obediencia de Isaac y el carnero sustitutorio anticipan el Misterio Pascual, del cual mana la gracia para todos los sacramentos de la Iglesia Católica, en especial la Sagrada Eucaristía, que es la actualización perpetua, incruenta y definitiva de este sacrificio perfecto. Isaac actúa como el puente necesario en la Alianza: sin su supervivencia y su posterior bendición a Jacob, no se habrían formado las Doce Tribus del Antiguo Israel, cuya finalidad era ser la preparación histórica para la fundación del Nuevo Israel, la Iglesia de Cristo. Esta autoridad patriarcal para transmitir el gobierno y la bendición (Gn 27) encuentra su pleno sentido en la jerarquía eclesial instituida por Cristo. Así como la bendición pasaba de forma tangible y autoritaria en el Antiguo Testamento, Jesucristo otorga la autoridad máxima, simbolizada en las llaves del Reino (Is 22), al apóstol Pedro (Mt 16, 18-19). La Iglesia Católica enseña que esta promesa de salvación y autoridad magisterial no pereció con los patriarcas ni con los Apóstoles, sino que sigue viva y operativa mediante la sucesión apostólica ininterrumpida hasta el actual Papa León XIV. Es por esto que el Catecismo (CIC 762) reafirma que el pueblo nacido de los patriarcas fue constituido para preparar la reunión de todos los hijos de Dios en la única y verdadera Iglesia.",
-            "imagen_path": "../../assets/img/isaac.png",
-            "test": [
-              {
-                "pregunta": "Al cargar la leña sobre sus hombros hacia el monte Moria, ¿a quién prefigura exactamente la figura de Isaac en la teología católica?",
-                "opciones": ["A) A San Pedro llevando el evangelio a Roma.", "B) A Jesucristo cargando con el madero de la cruz hacia el Calvario.", "C) Al sumo sacerdote ofreciendo incienso en el Templo.", "D) A Moisés subiendo al monte Sinaí con las tablas de la ley."],
-                "correcta": 1,
-                "justificacion": "Los Padres de la Iglesia, apoyados en la tipología bíblica, enseñan unánimemente que Isaac cargando la leña es la prefiguración profética perfecta de la Pasión, donde el Hijo unigénito carga el instrumento de su propio sacrificio para la redención humana."
-              },
-              {
-                "pregunta": "Según la Tradición de la Patrística (ej. San Ireneo de Lyon), ¿qué cualidad espiritual fundamental de Cristo anticipó Isaac durante el episodio en Moria?",
-                "opciones": ["A) Su habilidad para evadir la opresión política.", "B) Su rechazo al sacerdocio levítico.", "C) Su obediencia y entrega libre, al no resistirse a ser inmolado por su padre.", "D) Su poder para multiplicar los panes y los peces."],
-                "correcta": 2,
-                "justificacion": "La tradición teológica subraya que Isaac era lo suficientemente fuerte para resistirse a su anciano padre, pero aceptó el sacrificio voluntariamente, prefigurando la obediencia perfecta de Cristo (\"no se haga mi voluntad, sino la tuya\" Lc 22, 42)."
-              },
-              {
-                "pregunta": "¿Qué representa el carnero enredado en las zarzas que Dios provee para sustituir a Isaac?",
-                "opciones": ["A) Un símbolo de la riqueza material prometida a Abraham.", "B) Una prefiguración de Cristo coronado de espinas, el verdadero Cordero de Dios inmolado.", "C) Una señal de que los sacrificios de animales jamás terminarían.", "D) Un error en el relato, pues no tiene significado teológico."],
-                "correcta": 1,
-                "justificacion": "San Agustín y otros Padres asocian las zarzas que atrapaban la cabeza del carnero con la corona de espinas de Cristo, consolidando la imagen del Cordero sustitutorio que muere para que el hombre (representado en Isaac) viva."
-              },
-              {
-                "pregunta": "¿A qué sacramento de la Iglesia Católica apunta directamente la prefiguración del sacrificio de Isaac y el Cordero sustitutorio?",
-                "opciones": ["A) El Sacramento del Orden Sacerdotal.", "B) El Sacramento del Matrimonio.", "C) El Sacramento de la Sagrada Eucaristía.", "D) El Sacramento de la Unción de los Enfermos."],
-                "correcta": 2,
-                "justificacion": "La Eucaristía es el memorial del sacrificio perfecto de Cristo. El sacrificio en Moria es citado en la liturgia tradicional de la Iglesia (\"el sacrificio de tu siervo Abraham\") como el tipo antiguo del único sacrificio salvífico que hoy se ofrece en el altar."
-              },
-              {
-                "pregunta": "Eclesiológicamente, la transmisión inquebrantable de la bendición de Abraham a Isaac, y de este a Jacob, prefigura en el Nuevo Testamento:",
-                "opciones": ["A) La Sucesión Apostólica y la entrega de las llaves a Pedro para gobernar la Iglesia.", "B) La doctrina de la \"Sola Scriptura\" donde no hace falta la jerarquía.", "C) La separación entre la fe y las obras.", "D) La abolición completa del sacerdocio ministerial."],
-                "correcta": 0,
-                "justificacion": "La bendición patriarcal era una transmisión visible de autoridad y gracia. En la Nueva Alianza, Cristo transfiere esta autoridad divinamente garantizada (las llaves de Is 22) a San Pedro y a sus sucesores (CIC 880), asegurando la perpetuidad de la verdadera fe."
-              }
-            ]
-          }
-        ];
         const btnSubir = document.getElementById('btnSubir');
         const mensajeDiv = document.getElementById('mensaje');
+        const jsonInput = document.getElementById('jsonInput');
 
         btnSubir.addEventListener('click', async () => {
+            const textoEntrada = jsonInput.value.trim();
+            
+            if (!textoEntrada) {
+                mensajeDiv.innerHTML = "Por favor, pega el código primero.";
+                mensajeDiv.className = "error";
+                return;
+            }
+
             btnSubir.disabled = true;
             btnSubir.innerText = "Subiendo datos...";
             mensajeDiv.innerHTML = "";
 
             try {
-                // Iteramos sobre cada personaje para subirlo a la ruta: directorio_biblico/personajes/ID_DEL_PERSONAJE
-                for (const personaje of personajes) {
-                    const docRef = doc(db, 'directorio_biblico', 'personajes', 'registros', personaje.id);
-                    // Usamos la destructuración para subir los datos sin el campo "id" dentro del documento
+                // Convertir el texto pegado en un objeto real de programación
+                let datos = JSON.parse(textoEntrada);
+                
+                // Si el usuario pega un solo personaje, lo convertimos en lista para que el ciclo funcione igual
+                if (!Array.isArray(datos)) {
+                    datos = [datos];
+                }
+
+                let contador = 0;
+
+                for (const personaje of datos) {
+                    // Crea un ID limpio automáticamente basado en el título (ej: "Adán" -> "adan")
+                    let docId = personaje.id;
+                    if (!docId && personaje.titulo) {
+                        docId = personaje.titulo.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+                    } else if (!docId) {
+                         docId = "personaje_" + Date.now(); // Respaldo por si no tiene título
+                    }
+
+                    const docRef = doc(db, 'directorio_biblico', 'personajes', 'registros', docId);
+                    
+                    // Asegurarnos de no duplicar el ID dentro del documento
                     const { id, ...datosPersonaje } = personaje;
                     await setDoc(docRef, datosPersonaje);
+                    contador++;
                 }
                 
-                mensajeDiv.innerHTML = "¡Éxito! Los 3 personajes han sido guardados en Firestore.";
+                mensajeDiv.innerHTML = `¡Éxito! ${contador} personaje(s) guardado(s) correctamente.`;
                 mensajeDiv.className = "exito";
-                btnSubir.innerText = "Datos sincronizados";
+                btnSubir.innerText = "Subir otro";
+                btnSubir.disabled = false;
+                jsonInput.value = ""; // Limpia la caja para el siguiente
                 
             } catch (error) {
                 console.error("Error al subir los documentos: ", error);
-                mensajeDiv.innerHTML = "Error al conectar con la base de datos. Revisa la consola (F12).";
+                mensajeDiv.innerHTML = "Error: Verifica que copiaste el bloque completo correctamente sin que falten llaves { }.";
                 mensajeDiv.className = "error";
                 btnSubir.disabled = false;
                 btnSubir.innerText = "Reintentar";
