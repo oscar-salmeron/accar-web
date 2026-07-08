@@ -3,257 +3,304 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Conociendo a los Personajes de la Biblia - ACCAR</title>
+    <title>Directorio de Personajes - ACCAR</title>
     <style>
-        :root {
-            --primary: #d4af37; /* Dorado institucional */
-            --primary-light: #f3c93f;
-            --secondary: #0a0e17; /* Azul medianoche oscuro */
-            --accent: #8a7322; /* Dorado oscuro/Bronce */
-            --text-main: #e2e8f0; /* Hueso suave para lectura */
-            --card-bg: #111827; /* Fondo para tarjetas y cajas */
-            --success: #4ade80;
-            --error: #f87171;
-        }
-
         body {
-            font-family: 'Georgia', Times, serif;
-            color: var(--text-main);
-            background-color: var(--secondary);
-            line-height: 1.8;
+            background: linear-gradient(180deg, #02040a 0%, #050b1a 100%);
+            min-height: 100vh;
             margin: 0;
-            padding: 0;
-        }
-
-        .container { max-width: 800px; margin: 0 auto; padding: 40px 20px; }
-        .no-break { white-space: nowrap; }
-
-        /* Cabecera Lado a Lado */
-        .hero-section {
+            padding: 80px 20px;
+            color: #f5f2eb;
+            font-family: Georgia, "Times New Roman", serif;
             display: flex;
+            flex-direction: column;
             align-items: center;
-            justify-content: flex-start; /* Alineación a la izquierda */
-            padding: 20px 0; /* Removido el padding lateral para alinear con la Ficha Técnica */
-            background-color: transparent;
-            border-bottom: 2px solid var(--accent);
-            margin-bottom: 40px;
-            gap: 40px;
         }
 
-        .hero-image {
-            flex: 1;
-            text-align: left;
-            display: flex;
-            justify-content: flex-start; /* Fuerza la imagen a la izquierda */
+        .accar-header {
+            text-align: center;
+            margin-bottom: 50px;
         }
 
-        .hero-image img {
-            max-width: 100%;
-            height: auto;
-            max-height: 380px;
-            object-fit: contain;
-            filter: drop-shadow(0px 10px 25px rgba(0, 0, 0, 0.8)); /* Resplandor sutil para PNGs sin fondo */
-        }
-
-        .hero-text {
-            flex: 1.5;
-            text-align: left;
-        }
-
-        .hero-text h1 {
-            margin: 0;
-            font-size: 3.5em;
-            color: var(--primary);
+        .accar-kicker {
+            display: inline-block;
+            font-family: sans-serif;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            color: #D4AF37;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+            margin-bottom: 15px;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+            padding-bottom: 5px;
         }
 
-        .hero-text .subtitle {
-            color: #94a3b8;
-            font-style: italic;
-            font-size: 1.3em;
-            margin-top: 10px;
+        .accar-title {
+            font-size: 42px;
+            font-weight: normal;
+            color: #ffffff;
+            margin: 10px 0 0 0;
+            text-shadow: 0 4px 15px rgba(0,0,0,0.8);
         }
 
-        @media (max-width: 768px) {
-            .hero-section { flex-direction: column; text-align: center; gap: 20px; }
-            .hero-image, .hero-text { text-align: center; justify-content: center; }
+        .accar-divider {
+            width: 60px;
+            height: 2px;
+            background: #D4AF37;
+            margin: 20px auto 0;
+            box-shadow: 0 0 10px #D4AF37;
         }
 
-        h2 { color: var(--primary); border-bottom: 2px solid var(--accent); padding-bottom: 8px; margin-top: 40px; font-size: 1.5em; }
+        /* --- Estilos del Acordeón --- */
+        .accordion-container {
+            width: 100%;
+            max-width: 1100px; /* Un poco más ancho para albergar más tarjetas */
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
 
-        .ficha-tecnica {
-            background-color: var(--card-bg); padding: 25px;
+        .accordion-item {
+            border: 1px solid rgba(212, 175, 55, 0.2);
             border-radius: 8px;
-            margin-bottom: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            border: 1px solid rgba(212, 175, 55, 0.1);
-            border-left: 5px solid var(--primary);
+            overflow: hidden;
+            background: rgba(11, 22, 48, 0.4);
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
         }
-        .ficha-tecnica ul { list-style: none; padding: 0; margin: 0; }
-        .ficha-tecnica li { margin-bottom: 12px; }
-        strong { color: var(--primary); }
-        p { text-align: justify; margin-bottom: 20px; font-size: 1.05em; color: #cbd5e1; }
-
-        /* Invitación al Test */
-        .cta-invitation {
-            background-color: var(--card-bg); border: 1px solid var(--accent);
-            text-align: center; padding: 40px; border-radius: 8px;
-            margin-top: 50px; box-shadow: 0 4px 20px rgba(0,0,0,0.4);
-        }
-        .cta-invitation h3 { color: var(--primary); font-size: 1.8em; margin-top: 0; }
-        .cta-invitation p { color: #94a3b8; margin-bottom: 30px; }
         
-        .btn-elegant {
-            background-color: transparent; color: var(--primary); 
-            border: 2px solid var(--primary);
-            padding: 15px 40px; font-size: 1.2em; font-family: 'Georgia', serif;
-            border-radius: 30px; cursor: pointer; transition: all 0.3s;
+        .accordion-item.active {
+            border-color: rgba(212, 175, 55, 0.6);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+            background: rgba(11, 22, 48, 0.6);
         }
-        .btn-elegant:hover { background-color: var(--primary); color: var(--secondary); box-shadow: 0 0 15px rgba(212, 175, 55, 0.4); }
 
-        /* Fondo del Pop-up con la imagen a pantalla completa */
-        .modal-overlay {
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background-image: linear-gradient(rgba(10, 14, 23, 0.5), rgba(10, 14, 23, 0.5)), url('../../assets/img/bg_apologetica.webp');
-            background-size: cover;
-            background-position: center;
-            backdrop-filter: blur(8px);
-            z-index: 1000; align-items: center; justify-content: center;
-            opacity: 0; transition: opacity 0.3s ease;
+        .accordion-header {
+            width: 100%;
+            padding: 20px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: transparent;
+            border: none;
+            color: #D4AF37;
+            font-size: 20px;
+            font-family: Georgia, serif;
+            cursor: pointer;
+            text-align: left;
+            transition: background-color 0.2s ease;
         }
-        .modal-overlay.active { display: flex; opacity: 1; }
 
-        /* Tarjeta del Pop-up devuelta a su color sólido original */
-        .modal-card {
-            background-color: var(--card-bg);
-            width: 90%; max-width: 600px;
-            border-radius: 12px; padding: 40px; position: relative;
-            box-shadow: 0 15px 50px rgba(0,0,0,0.6); transform: translateY(20px);
-            transition: transform 0.3s ease; max-height: 90vh; overflow-y: auto;
-            border: 1px solid var(--accent);
+        .accordion-header:hover {
+            background: rgba(212, 175, 55, 0.05);
         }
-        .modal-overlay.active .modal-card { transform: translateY(0); }
+
+        .accordion-header .title-text {
+            font-weight: normal;
+            letter-spacing: 1px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.6);
+        }
         
-        .close-btn {
-            position: absolute; top: 15px; right: 20px; font-size: 28px;
-            cursor: pointer; color: #64748b; transition: color 0.2s;
-        }
-        .close-btn:hover { color: var(--primary); }
-
-        /* Contenido del Test */
-        .quiz-status { font-family: sans-serif; font-size: 0.85em; font-weight: bold; color: var(--accent); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 15px; text-align: center;}
-        .question-text { font-size: 1.3em; color: var(--text-main); font-weight: bold; margin-bottom: 30px; text-align: center; line-height: 1.4; }
-
-        .options-container { display: flex; flex-direction: column; gap: 12px; }
-        .option-btn {
-            background-color: rgba(255, 255, 255, 0.03); border: 1px solid var(--accent); padding: 15px 20px;
-            border-radius: 8px; text-align: left; font-size: 1.05em; font-family: inherit;
-            color: var(--text-main); cursor: pointer; transition: all 0.2s;
-        }
-        .option-btn:hover:not(:disabled) { border-color: var(--primary); background-color: rgba(212, 175, 55, 0.1); }
-        .option-btn:disabled { cursor: default; }
-
-        .correct-ans { background-color: rgba(74, 222, 128, 0.1) !important; border-color: var(--success) !important; color: var(--success) !important; font-weight: bold; }
-        .wrong-ans { background-color: rgba(248, 113, 113, 0.1) !important; border-color: var(--error) !important; color: var(--error) !important; opacity: 0.7; }
-
-        .justification-box {
-            display: none; background-color: rgba(0,0,0,0.2); padding: 20px;
-            border-radius: 4px;
-            margin-top: 25px; font-size: 0.95em; box-shadow: inset 0 2px 8px rgba(0,0,0,0.1);
-            animation: slideDown 0.3s ease-out;
-            color: #cbd5e1;
-            border-left: 4px solid var(--primary);
+        .accordion-header .subtitle-text {
+            font-family: sans-serif;
+            font-size: 12px;
+            color: #94a3b8;
+            margin-left: 15px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
         }
 
-        .next-btn {
-            display: none; width: 100%; background-color: var(--primary); color: var(--secondary);
-            border: none; padding: 15px; font-size: 1.1em; border-radius: 8px;
-            margin-top: 20px; cursor: pointer; font-family: 'Georgia', serif; font-weight: bold;
-        }
-        .next-btn:hover { background-color: var(--primary-light); }
-
-        .results-view { display: none; text-align: center; }
-        .results-view h2 { border: none; margin-top: 0; color: var(--primary); }
-        .score-circle {
-            width: 100px; height: 100px; border-radius: 50%; border: 4px solid var(--primary);
-            display: flex; align-items: center; justify-content: center;
-            font-size: 2em; font-weight: bold; margin: 0 auto 20px; color: var(--primary);
-            background-color: rgba(212, 175, 55, 0.05);
+        .icon-toggle {
+            font-family: monospace;
+            font-size: 24px;
+            font-weight: bold;
+            color: #D4AF37;
+            transition: transform 0.3s ease;
+            width: 20px;
+            text-align: center;
         }
 
-        @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+        .accordion-item.active .icon-toggle {
+            transform: rotate(45deg); /* Gira el + para que parezca un x (o se cambia a - vía JS) */
+        }
+
+        /* Contenido oculto del acordeón */
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out, padding 0.4s ease;
+            padding: 0 30px; /* Padding lateral fijo, vertical animado */
+        }
+
+        .accordion-item.active .accordion-content {
+            /* Se establece un max-height muy alto para permitir la expansión */
+            max-height: 2000px; 
+            padding: 30px;
+            border-top: 1px solid rgba(212, 175, 55, 0.1);
+        }
+
+        /* --- Estilos de la Cuadrícula Reducida --- */
+        .accar-grid-container {
+            display: grid;
+            /* Hemos reducido minmax de 220px a 160px para que entren más por fila */
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 30px;
+            width: 100%;
+            justify-items: center;
+        }
+
+        .accar-portrait-card {
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: transform 0.3s ease, filter 0.3s ease;
+            width: 100%;
+            max-width: 180px; /* Reducido para encajar mejor */
+        }
+
+        .accar-portrait-card:hover {
+            transform: translateY(-5px);
+            filter: drop-shadow(0 10px 20px rgba(212, 175, 55, 0.2));
+        }
+
+        .portrait-frame {
+            width: 100%;
+            height: 280px; /* Altura reducida (antes 380px) para acomodar el nuevo ancho */
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            margin-bottom: 15px;
+            background: transparent;
+            border: none;
+            box-shadow: none;
+        }
+
+        .portrait-frame img {
+            width: auto;
+            height: 100%;
+            max-width: 100%;
+            object-fit: contain;
+            transition: transform 0.5s ease;
+            filter: drop-shadow(0 10px 15px rgba(0,0,0,0.8));
+        }
+
+        .portrait-name {
+            font-size: 18px; /* Reducido para acompañar a la imagen pequeña */
+            color: #D4AF37;
+            font-weight: normal;
+            margin: 0;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.8);
+            text-align: center;
+            border-bottom: 1px solid transparent;
+            padding-bottom: 5px;
+            transition: border-color 0.3s ease;
+        }
+
+        .accar-portrait-card:hover .portrait-name {
+            border-color: rgba(212, 175, 55, 0.5);
+        }
+
+        .loading-text, .empty-text {
+            color: #D4AF37;
+            font-family: sans-serif;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-align: center;
+            width: 100%;
+            padding: 20px 0;
+            grid-column: 1 / -1; /* Para que ocupe todo el ancho de la grilla */
+        }
+        
+        .empty-text {
+            color: #64748b;
+            font-size: 12px;
+        }
+
     </style>
 </head>
 <body>
 
-    <div class="container">
-        
-        <div style="margin-bottom: 25px;">
-            <a href="#" onclick="event.preventDefault(); loadView('/views/directorio_biblico/directorio_personajes.html');" style="color: #D4AF37; text-decoration: none; font-size: 12px; font-weight: bold; letter-spacing: 2px; text-transform: uppercase; font-family: sans-serif;">
-                ⮜ Volver al Directorio
-            </a>
-        </div>
-
-        <header class="hero-section">
-            <div class="hero-image">
-                <!-- La imagen cargará dinámicamente -->
-                <img src="" alt="Ilustración del Personaje">
-            </div>
-            <div class="hero-text">
-                <h1>Cargando...</h1>
-                <div class="subtitle"></div>
-            </div>
-        </header>
-
-        <!-- El contenedor principal donde inyectaremos la Ficha Técnica y los textos -->
-        <main id="main-content">
-            <p style="text-align: center; color: var(--primary);">Conectando con el archivo eclesial...</p>
-        </main>
-
-        <!-- Tarjeta de Invitación (Dispara el Pop-up) -->
-        <div class="cta-invitation">
-            <h3>¿Profundizaste en la lectura?</h3>
-            <p>Te invitamos a evaluar tu comprensión doctrinal y eclesiológica sobre este patriarca.</p>
-            <button class="btn-elegant" onclick="abrirModal()">Realizar Test Interactivo</button>
-        </div>
-
+    <div class="accar-header">
+        <span class="accar-kicker">Historia de la Salvación</span>
+        <h1 class="accar-title">Directorio de Personajes</h1>
+        <div class="accar-divider"></div>
     </div>
 
-    <!-- El Pop-up (Modal) -->
-    <div class="modal-overlay" id="quizModal">
-        <div class="modal-card">
-            <span class="close-btn" onclick="cerrarModal()">&times;</span>
-            
-            <!-- Vista de Preguntas -->
-            <div id="quiz-view">
-                <div class="quiz-status">Pregunta <span id="q-num">1</span> de 3</div>
-                <div class="question-text" id="q-text"></div>
-                <div class="options-container" id="options-box"></div>
-                
-                <div class="justification-box" id="just-box">
-                    <strong>Fundamento Teológico:</strong> <span id="just-text"></span>
+    <!-- Contenedor del Acordeón -->
+    <div class="accordion-container" id="accordion-root">
+        
+        <!-- Bloque 1: Génesis -->
+        <div class="accordion-item" id="bloque-genesis">
+            <button class="accordion-header" onclick="toggleAccordion('bloque-genesis')">
+                <div>
+                    <span class="title-text">El Génesis</span>
+                    <span class="subtitle-text">Los Patriarcas (Abraham, Isaac, Jacob, José)</span>
                 </div>
-                
-                <button class="next-btn" id="next-btn" onclick="siguientePregunta()">Siguiente Pregunta</button>
+                <span class="icon-toggle">+</span>
+            </button>
+            <div class="accordion-content">
+                <div id="grid-genesis" class="accar-grid-container">
+                    <p class="loading-text">Cargando archivo eclesial...</p>
+                </div>
             </div>
-
-            <!-- Vista de Resultados -->
-            <div class="results-view" id="results-view">
-                <h2>Evaluación Finalizada</h2>
-                <div class="score-circle"><span id="final-score">0</span>/<span id="total-q">3</span></div>
-                <p id="result-msg" style="font-size: 1.1em; margin-bottom: 30px;"></p>
-                <button class="btn-elegant" style="width: 100%;" onclick="cerrarModal()">Volver al Artículo</button>
-            </div>
-
         </div>
+
+        <!-- Bloque 2: Éxodo -->
+        <div class="accordion-item" id="bloque-exodo">
+            <button class="accordion-header" onclick="toggleAccordion('bloque-exodo')">
+                <div>
+                    <span class="title-text">El Éxodo y La Ley</span>
+                    <span class="subtitle-text">Moisés, Aarón, Josué</span>
+                </div>
+                <span class="icon-toggle">+</span>
+            </button>
+            <div class="accordion-content">
+                <div id="grid-exodo" class="accar-grid-container">
+                    <p class="empty-text">No hay registros disponibles en esta sección por el momento.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Bloque 3: Jueces (Preparado para el futuro) -->
+        <div class="accordion-item" id="bloque-jueces">
+            <button class="accordion-header" onclick="toggleAccordion('bloque-jueces')">
+                <div>
+                    <span class="title-text">La Era de los Jueces</span>
+                    <span class="subtitle-text">Gedeón, Sansón, Samuel</span>
+                </div>
+                <span class="icon-toggle">+</span>
+            </button>
+            <div class="accordion-content">
+                <div id="grid-jueces" class="accar-grid-container">
+                    <p class="empty-text">No hay registros disponibles en esta sección por el momento.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Bloque 4: Reyes (Preparado para el futuro) -->
+        <div class="accordion-item" id="bloque-reyes">
+            <button class="accordion-header" onclick="toggleAccordion('bloque-reyes')">
+                <div>
+                    <span class="title-text">La Monarquía</span>
+                    <span class="subtitle-text">Saúl, David, Salomón</span>
+                </div>
+                <span class="icon-toggle">+</span>
+            </button>
+            <div class="accordion-content">
+                <div id="grid-reyes" class="accar-grid-container">
+                    <p class="empty-text">No hay registros disponibles en esta sección por el momento.</p>
+                </div>
+            </div>
+        </div>
+
     </div>
 
     <!-- SDK de Firebase modular (CDN) -->
     <script type="module">
         import { initializeApp, getApps, getApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-        import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+        import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
+        // Configuración exacta
         const firebaseConfig = {
             apiKey: "AIzaSyDSCSWYM5dgkIfVK-uBe1oWkeU7se4fvFg",
             authDomain: "accar-web.firebaseapp.com",
@@ -266,129 +313,74 @@
         const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApp();
         const db = getFirestore(app);
 
-        let quizData = [];
-        let index = 0;
-        let score = 0;
+        // --- Función para la interactividad del Acordeón ---
+        window.toggleAccordion = function(idBloque) {
+            const bloque = document.getElementById(idBloque);
+            const icono = bloque.querySelector('.icon-toggle');
+            
+            // Si ya está activo, lo cerramos
+            if (bloque.classList.contains('active')) {
+                bloque.classList.remove('active');
+                icono.innerText = "+";
+                icono.style.transform = "rotate(0deg)";
+            } else {
+                // Opcional: Cerrar los demás antes de abrir este (descomenta el forEach si lo deseas)
+                /*
+                document.querySelectorAll('.accordion-item').forEach(item => {
+                    item.classList.remove('active');
+                    item.querySelector('.icon-toggle').innerText = "+";
+                    item.querySelector('.icon-toggle').style.transform = "rotate(0deg)";
+                });
+                */
+                
+                // Abrir el seleccionado
+                bloque.classList.add('active');
+                icono.innerText = "-";
+                icono.style.transform = "rotate(180deg)";
+            }
+        };
 
-        async function cargarDatos() {
-            const personajeId = localStorage.getItem('personajeSeleccionado') || 'abraham'; 
+        async function cargarPersonajes() {
+            // Actualmente cargaremos todos en Génesis, pero más adelante 
+            // podrás filtrar la consulta en Firebase según el libro.
+            const gridGenesis = document.getElementById('grid-genesis');
+
             try {
-                const docRef = doc(db, "directorio_biblico", "personajes", "registros", personajeId);
-                const docSnap = await getDoc(docRef);
+                const querySnapshot = await getDocs(collection(db, "directorio_biblico", "personajes", "registros"));
+                let htmlContent = "";
 
-                if (docSnap.exists()) {
-                    const p = docSnap.data();
-                    
-                    // 1. Cargar Cabecera
-                    document.querySelector('.hero-text h1').innerText = p.titulo || p.nombre || "Personaje";
-                    document.querySelector('.hero-text .subtitle').innerText = p.subtitulo || '';
-                    document.querySelector('.hero-image img').src = `/assets/img/${personajeId}.png`;
-
-                    // 2. Extraer datos exactos de la estructura JSON
-                    const f_nombre = (p.ficha_tecnica && p.ficha_tecnica.nombre) ? p.ficha_tecnica.nombre : "Dato no disponible";
-                    const f_significado = (p.ficha_tecnica && p.ficha_tecnica.significado) ? p.ficha_tecnica.significado : "Dato no disponible";
-                    const f_linaje = (p.ficha_tecnica && p.ficha_tecnica.linaje) ? p.ficha_tecnica.linaje : "Dato no disponible";
-                    const f_referencia = (p.ficha_tecnica && p.ficha_tecnica.referencia) ? p.ficha_tecnica.referencia : "Dato no disponible";
-                    
-                    const relato = p.relato_biblico || "Relato no disponible.";
-                    const importancia = p.importancia_teologica || "Importancia no disponible.";
-
-                    // 3. Inyectar respetando estrictamente el diseño original CSS
-                    document.getElementById('main-content').innerHTML = `
-                        <h2>1. Ficha Técnica</h2>
-                        <div class="ficha-tecnica">
-                            <ul>
-                                <li><strong>Nombre:</strong> ${f_nombre}</li>
-                                <li><strong>Significado Espiritual:</strong> ${f_significado}</li>
-                                <li><strong>Linaje:</strong> ${f_linaje}</li>
-                                <li><strong>Capítulos Claves:</strong> ${f_referencia}</li>
-                            </ul>
-                        </div>
-                        <h2>2. El Relato Bíblico (Hechos Históricos)</h2>
-                        <p>${relato}</p>
-                        <h2>3. Importancia en el Plan de Salvación (Cristocéntrico y Eclesiológico)</h2>
-                        <p>${importancia}</p>
-                    `;
-
-                    // 4. Guardar los datos del test
-                    quizData = p.test || [];
+                if (querySnapshot.empty) {
+                    htmlContent = `<p class="empty-text">No se encontraron registros en la base de datos.</p>`;
+                } else {
+                    querySnapshot.forEach((doc) => {
+                        const data = doc.data();
+                        const imagen = `/assets/img/${doc.id}.png`;
+                        
+                        htmlContent += `
+                            <a href="#" onclick="event.preventDefault(); localStorage.setItem('personajeSeleccionado', '${doc.id}'); loadView('/views/directorio_biblico/personaje.html');" class="accar-portrait-card">
+                                <div class="portrait-frame">
+                                    <img src="${imagen}" alt="${data.nombre || 'Personaje'}">
+                                </div>
+                                <h2 class="portrait-name">${data.nombre || 'Desconocido'}</h2>
+                            </a>
+                        `;
+                    });
                 }
+
+                // Inyectamos las tarjetas solo en el panel de Génesis
+                gridGenesis.innerHTML = htmlContent;
+                
+                // Abrimos el primer acordeón por defecto para que el usuario vea contenido inmediato
+                window.toggleAccordion('bloque-genesis');
+
             } catch (error) {
-                console.error("Error al cargar personaje:", error);
-                document.getElementById('main-content').innerHTML = `<p style="color: red;">Error al conectar con la base de datos.</p>`;
+                console.error("Error obteniendo documentos: ", error);
+                gridGenesis.innerHTML = `<p class="loading-text" style="color: #f87171;">Error de conexión. No se pudieron cargar los registros.</p>`;
             }
         }
 
-        // Exponer funciones del test globalmente para el SPA
-        window.abrirModal = function() {
-            if(quizData.length === 0) { alert("Test no disponible para este personaje."); return; }
-            index = 0; score = 0;
-            document.getElementById('quiz-view').style.display = 'block';
-            document.getElementById('results-view').style.display = 'none';
-            document.getElementById('quizModal').classList.add('active');
-            window.cargarPregunta();
-        };
-
-        window.cerrarModal = function() { document.getElementById('quizModal').classList.remove('active'); };
-
-        window.cargarPregunta = function() {
-            const q = quizData[index];
-            document.getElementById('q-num').innerText = index + 1;
-            document.getElementById('q-text').innerText = q.pregunta || q.question;
-            
-            const optionsBox = document.getElementById('options-box');
-            optionsBox.innerHTML = '';
-            document.getElementById('just-box').style.display = 'none';
-            document.getElementById('next-btn').style.display = 'none';
-
-            const opciones = q.opciones || q.options;
-            opciones.forEach((opt, i) => {
-                const btn = document.createElement('button');
-                btn.className = 'option-btn'; btn.innerText = opt;
-                btn.onclick = () => window.seleccionar(i, btn);
-                optionsBox.appendChild(btn);
-            });
-        };
-
-        window.seleccionar = function(seleccionado, btnEl) {
-            const q = quizData[index];
-            const correcta = q.correcta !== undefined ? q.correcta : q.correct;
-            const botones = document.querySelectorAll('.option-btn');
-            botones.forEach(b => b.disabled = true);
-
-            if (seleccionado === correcta) {
-                btnEl.classList.add('correct-ans'); score++;
-            } else {
-                btnEl.classList.add('wrong-ans');
-                botones[correcta].classList.add('correct-ans');
-            }
-
-            document.getElementById('just-text').innerText = q.justificacion;
-            document.getElementById('just-box').style.display = 'block';
-            
-            const nextBtn = document.getElementById('next-btn');
-            nextBtn.innerText = (index === quizData.length - 1) ? "Ver Calificación" : "Siguiente Pregunta";
-            nextBtn.style.display = 'block';
-        };
-
-        window.siguientePregunta = function() {
-            index++;
-            if (index < quizData.length) window.cargarPregunta();
-            else window.mostrarResultados();
-        };
-
-        window.mostrarResultados = function() {
-            document.getElementById('quiz-view').style.display = 'none';
-            document.getElementById('results-view').style.display = 'block';
-            document.getElementById('final-score').innerText = score;
-            document.getElementById('total-q').innerText = quizData.length;
-            const msg = document.getElementById('result-msg');
-            if (score === quizData.length) { msg.innerHTML = "<strong>¡Excelente!</strong> Tienes una base doctrinal sólida."; msg.style.color = "var(--success)"; }
-            else if (score > 0) { msg.innerHTML = "<strong>¡Muy bien!</strong> Repasa algunos detalles teológicos."; msg.style.color = "#d84315"; }
-            else { msg.innerHTML = "Te sugerimos repasar la sección eclesiológica."; msg.style.color = "var(--error)"; }
-        };
-
-        cargarDatos();
+        // Ejecutar la función al abrir la página
+        cargarPersonajes();
     </script>
 </body>
 </html>
