@@ -331,21 +331,32 @@
         };
 
         async function cargarPersonajes() {
-            const gridGenesis = document.getElementById('grid-genesis');
+            const grids = {
+                "Genesis": document.getElementById('grid-genesis'),
+                "Exodo": document.getElementById('grid-exodo'),
+                "Levitico": document.getElementById('grid-levitico'),
+                "Numeros": document.getElementById('grid-numeros'),
+                "Deuteronomio": document.getElementById('grid-deuteronomio')
+            };
+
+            // Limpiamos los mensajes de "No hay registros" antes de inyectar
+            for (let key in grids) {
+                if (grids[key]) grids[key].innerHTML = ""; 
+            }
 
             try {
                 const querySnapshot = await getDocs(collection(db, "directorio_biblico", "personajes", "registros"));
-                let htmlContent = "";
 
                 if (querySnapshot.empty) {
-                    htmlContent = `<p class="empty-text">No se encontraron registros en la base de datos.</p>`;
+                    grids["Genesis"].innerHTML = `<p class="empty-text">No se encontraron registros en la base de datos.</p>`;
                 } else {
                     querySnapshot.forEach((doc) => {
                         const data = doc.data();
                         const imagen = `/assets/img/${doc.id}.png`;
+                        // Por defecto lo mandamos a Génesis si no tiene el campo "libro"
+                        const libroDestino = data.libro ? data.libro : "Genesis"; 
                         
-                        // IMPORTANTE: Al hacer clic, carga personaje.html
-                        htmlContent += `
+                        const tarjetaHTML = `
                             <a href="#" onclick="event.preventDefault(); localStorage.setItem('personajeSeleccionado', '${doc.id}'); loadView('/views/directorio_biblico/personaje.html');" class="accar-portrait-card">
                                 <div class="portrait-frame">
                                     <img src="${imagen}" alt="${data.nombre || 'Personaje'}">
@@ -353,15 +364,27 @@
                                 <h2 class="portrait-name">${data.nombre || 'Desconocido'}</h2>
                             </a>
                         `;
-                    });
-                }
 
-                gridGenesis.innerHTML = htmlContent;
-                window.toggleAccordion('bloque-genesis');
+                        // Lo inyectamos en el grid correspondiente si existe en nuestro HTML
+                        if (grids[libroDestino]) {
+                            grids[libroDestino].innerHTML += tarjetaHTML;
+                        } else {
+                            // Si el libro no está en la página web, lo mandamos a Génesis por seguridad
+                             grids["Genesis"].innerHTML += tarjetaHTML;
+                        }
+                    });
+                    
+                    // Volvemos a poner el mensaje vacío si algún libro se quedó sin personajes
+                     for (let key in grids) {
+                        if (grids[key] && grids[key].innerHTML.trim() === "") {
+                             grids[key].innerHTML = `<p class="empty-text">No hay registros disponibles en esta sección por el momento.</p>`;
+                        }
+                    }
+                }
 
             } catch (error) {
                 console.error("Error obteniendo documentos: ", error);
-                gridGenesis.innerHTML = `<p class="loading-text" style="color: #f87171;">Error de conexión. No se pudieron cargar los registros.</p>`;
+                grids["Genesis"].innerHTML = `<p class="loading-text" style="color: #f87171;">Error de conexión. No se pudieron cargar los registros.</p>`;
             }
         }
 
