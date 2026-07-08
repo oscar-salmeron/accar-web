@@ -331,13 +331,33 @@
         };
 
         async function cargarPersonajes() {
-            const grids = {
-                "Genesis": document.getElementById('grid-genesis'),
-                "Exodo": document.getElementById('grid-exodo'),
-                "Levitico": document.getElementById('grid-levitico'),
-                "Numeros": document.getElementById('grid-numeros'),
-                "Deuteronomio": document.getElementById('grid-deuteronomio')
-            };
+           const grids = {
+    // Pentateuco (Base Original)
+    "Genesis": document.getElementById('grid-genesis'),
+    "Exodo": document.getElementById('grid-exodo'),
+    "Levitico": document.getElementById('grid-levitico'),
+    "Numeros": document.getElementById('grid-numeros'),
+    "Deuteronomio": document.getElementById('grid-deuteronomio'),
+    
+    // --- EJEMPLO DE EXPANSIÓN (Libros Históricos Católicos) ---
+    "Josue": document.getElementById('grid-josue'),
+    "Jueces": document.getElementById('grid-jueces'),
+    "Rut": document.getElementById('grid-rut'),
+    "1_Samuel": document.getElementById('grid-1_samuel'),
+    "2_Samuel": document.getElementById('grid-2_samuel'),
+    "1_Reyes": document.getElementById('grid-1_reyes'),
+    "2_Reyes": document.getElementById('grid-2_reyes'),
+    "1_Cronicas": document.getElementById('grid-1_cronicas'),
+    "2_Cronicas": document.getElementById('grid-2_cronicas'),
+    "Esdras": document.getElementById('grid-esdras'),
+    "Nehemias": document.getElementById('grid-nehemias'),
+    "Tobias": document.getElementById('grid-tobias'),
+    "Judit": document.getElementById('grid-judit'),
+    "Ester": document.getElementById('grid-ester'),
+    "1_Macabeos": document.getElementById('grid-1_macabeos'),
+    "2_Macabeos": document.getElementById('grid-2_macabeos')
+    // etc.
+};
 
             // Limpiamos los mensajes de "No hay registros" antes de inyectar
             for (let key in grids) {
