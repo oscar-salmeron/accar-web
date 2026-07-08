@@ -308,24 +308,23 @@
                     // Forzamos la ruta de la imagen basándonos en el ID real, ignorando los errores de Firebase
                     document.querySelector('.hero-image img').src = `/assets/img/${personajeId}.png`;
 
-                    if(p.ficha_tecnica) {
-                        document.querySelector('.ficha-tecnica ul').innerHTML = `
-                            <li><strong>Nombre:</strong> ${p.ficha_tecnica.nombre}</li>
-                            <li><strong>Significado Espiritual:</strong> ${p.ficha_tecnica.significado}</li>
-                            <li><strong>Linaje:</strong> ${p.ficha_tecnica.linaje}</li>
-                            <li><strong>Capítulos Claves:</strong> ${p.ficha_tecnica.referencia}</li>
-                        `;
-                    }
-
                     if(p.relato_biblico && p.importancia_teologica) {
                         const main = document.querySelector('main');
+                        // Inyectamos la estructura HTML limpia y forzamos el diseño
                         main.innerHTML = `
                             <h2>1. Ficha Técnica</h2>
-                            <div class="ficha-tecnica"><ul>${document.querySelector('.ficha-tecnica ul').innerHTML}</ul></div>
+                            <div class="ficha-tecnica">
+                                <ul>
+                                    <li><strong>Nombre:</strong> ${p.ficha_tecnica.nombre}</li>
+                                    <li><strong>Significado Espiritual:</strong> ${p.ficha_tecnica.significado}</li>
+                                    <li><strong>Linaje:</strong> ${p.ficha_tecnica.linaje}</li>
+                                    <li><strong>Capítulos Claves:</strong> ${p.ficha_tecnica.referencia}</li>
+                                </ul>
+                            </div>
                             <h2>2. El Relato Bíblico (Hechos Históricos)</h2>
-                            <p>${p.relato_biblico.replace(/\n\n/g, '</p><p>')}</p>
+                            <p>${p.relato_biblico}</p>
                             <h2>3. Importancia en el Plan de Salvación (Cristocéntrico y Eclesiológico)</h2>
-                            <p>${p.importancia_teologica.replace(/\n\n/g, '</p><p>')}</p>
+                            <p>${p.importancia_teologica}</p>
                         `;
                     }
 
