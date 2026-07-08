@@ -293,7 +293,6 @@
         let score = 0;
 
         async function cargarDatos() {
-            // Lee el ID inyectado por el SPA
             const personajeId = localStorage.getItem('personajeSeleccionado') || 'abraham'; 
             try {
                 const docRef = doc(db, "directorio_biblico", "personajes", "registros", personajeId);
@@ -302,28 +301,56 @@
                 if (docSnap.exists()) {
                     const p = docSnap.data();
                     
-                    document.querySelector('.hero-text h1').innerText = p.titulo || p.nombre;
+                    document.querySelector('.hero-text h1').innerText = p.titulo || p.nombre || "Personaje";
                     document.querySelector('.hero-text .subtitle').innerText = p.subtitulo || '';
-                    
-                    // Forzamos la ruta de la imagen basándonos en el ID real, ignorando los errores de Firebase
                     document.querySelector('.hero-image img').src = `/assets/img/${personajeId}.png`;
 
-                    if(p.relato_biblico && p.importancia_teologica) {
-                        const main = document.querySelector('main');
-                        main.innerHTML = `
+                    // Lógica para detectar si Firebase mandó todo aplastado y recortarlo automáticamente
+                    let rawText = (p.relato_biblico || "") + "\n" + (p.importancia_teologica || "") + "\n" + (p.biografia || "");
+                    
+                    let v_nombre = p.ficha_tecnica?.nombre || "";
+                    let v_significado = p.ficha_tecnica?.significado || "";
+                    let v_linaje = p.ficha_tecnica?.linaje || "";
+                    let v_referencia = p.ficha_tecnica?.referencia || "";
+                    let v_relato = p.relato_biblico || "";
+                    let v_importancia = p.importancia_teologica || "";
+
+                    if (rawText.includes("Nombre:") && rawText.includes("Significado Espiritual:")) {
+                        const nMatch = rawText.match(/Nombre:\s*(.*?)(?=\n|<br>|Significado)/);
+                        if (nMatch) v_nombre = nMatch[1].trim();
+
+                        const sMatch = rawText.match(/Significado Espiritual:\s*(.*?)(?=\n|<br>|Linaje)/);
+                        if (sMatch) v_significado = sMatch[1].trim();
+
+                        const lMatch = rawText.match(/Linaje:\s*(.*?)(?=\n|<br>|Capítulos)/);
+                        if (lMatch) v_linaje = lMatch[1].trim();
+
+                        const rMatch = rawText.match(/Capítulos Claves:\s*(.*?)(?=\n|<br>|2\.)/);
+                        if (rMatch) v_referencia = rMatch[1].trim();
+
+                        const relMatch = rawText.match(/2\.\s*El Relato Bíblico[^\n]*[\n<br>]+([\s\S]*?)(?=3\.\s*Importancia)/);
+                        if (relMatch) v_relato = relMatch[1].trim();
+
+                        const impMatch = rawText.match(/3\.\s*Importancia[^\n]*[\n<br>]+([\s\S]*)/);
+                        if (impMatch) v_importancia = impMatch[1].trim();
+                    }
+
+                    // Inyección segura: fuerza la estructura y activa la caja azul con bordes dorados
+                    if (v_relato !== "") {
+                        document.querySelector('main').innerHTML = `
                             <h2>1. Ficha Técnica</h2>
                             <div class="ficha-tecnica">
                                 <ul>
-                                    <li><strong>Nombre:</strong> ${p.ficha_tecnica.nombre}</li>
-                                    <li><strong>Significado Espiritual:</strong> ${p.ficha_tecnica.significado}</li>
-                                    <li><strong>Linaje:</strong> ${p.ficha_tecnica.linaje}</li>
-                                    <li><strong>Capítulos Claves:</strong> ${p.ficha_tecnica.referencia}</li>
+                                    <li><strong>Nombre:</strong> ${v_nombre}</li>
+                                    <li><strong>Significado Espiritual:</strong> ${v_significado}</li>
+                                    <li><strong>Linaje:</strong> ${v_linaje}</li>
+                                    <li><strong>Capítulos Claves:</strong> ${v_referencia}</li>
                                 </ul>
                             </div>
                             <h2>2. El Relato Bíblico (Hechos Históricos)</h2>
-                            <p>${p.relato_biblico.replace(/\n\n/g, '</p><p>').replace(/\n/g, '<br>')}</p>
+                            <p>${v_relato.replace(/\n\n/g, '</p><p>').replace(/\n/g, '<br>')}</p>
                             <h2>3. Importancia en el Plan de Salvación (Cristocéntrico y Eclesiológico)</h2>
-                            <p>${p.importancia_teologica.replace(/\n\n/g, '</p><p>').replace(/\n/g, '<br>')}</p>
+                            <p>${v_importancia.replace(/\n\n/g, '</p><p>').replace(/\n/g, '<br>')}</p>
                         `;
                     }
 
