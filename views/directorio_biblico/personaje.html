@@ -268,57 +268,35 @@
                     document.querySelector('.hero-text .subtitle').innerText = p.subtitulo || '';
                     document.querySelector('.hero-image img').src = `/assets/img/${personajeId}.png`;
 
-                    // Lógica blindada para extraer datos de Firebase
-                    const textoCrudo = JSON.stringify(p).replace(/<[^>]*>?/gm, ''); 
-                    let v_nombre = p.ficha_tecnica?.nombre || p.nombre || "";
-                    let v_significado = p.ficha_tecnica?.significado || p.significado || "";
-                    let v_linaje = p.ficha_tecnica?.linaje || p.linaje || "";
-                    let v_referencia = p.ficha_tecnica?.referencia || "";
-                    let v_relato = p.relato_biblico || "";
-                    let v_importancia = p.importancia_teologica || "";
+                    const f_nombre = (p.ficha_tecnica && p.ficha_tecnica.nombre) ? p.ficha_tecnica.nombre : "Dato no disponible";
+                    const f_significado = (p.ficha_tecnica && p.ficha_tecnica.significado) ? p.ficha_tecnica.significado : "Dato no disponible";
+                    const f_linaje = (p.ficha_tecnica && p.ficha_tecnica.linaje) ? p.ficha_tecnica.linaje : "Dato no disponible";
+                    const f_referencia = (p.ficha_tecnica && p.ficha_tecnica.referencia) ? p.ficha_tecnica.referencia : "Dato no disponible";
+                    
+                    const relato = p.relato_biblico || "Relato no disponible.";
+                    const importancia = p.importancia_teologica || "Importancia no disponible.";
 
-                    if (v_nombre === "" && textoCrudo.includes("Nombre:")) {
-                        const mN = textoCrudo.match(/Nombre:\s*([^\\n"]+)/);
-                        if (mN) v_nombre = mN[1].replace(/Significado.*/, '').trim();
-
-                        const mS = textoCrudo.match(/Significado Espiritual:\s*([^\\n"]+)/);
-                        if (mS) v_significado = mS[1].replace(/Linaje.*/, '').trim();
-
-                        const mL = textoCrudo.match(/Linaje:\s*([^\\n"]+)/);
-                        if (mL) v_linaje = mL[1].replace(/Capítulos.*/, '').trim();
-
-                        const mR = textoCrudo.match(/Capítulos Claves:\s*([^\\n"]+)/);
-                        if (mR) v_referencia = mR[1].replace(/2\..*/, '').trim();
-                        
-                        const partesRelato = textoCrudo.split(/2\.\s*El Relato Bíblico[^\\]*/);
-                        if (partesRelato.length > 1) {
-                            const partesImportancia = partesRelato[1].split(/3\.\s*Importancia[^\\]*/);
-                            v_relato = partesImportancia[0].trim();
-                            if (partesImportancia.length > 1) v_importancia = partesImportancia[1].trim();
-                        }
-                    }
-
-                    // Inyección limpia
-                    document.querySelector('main').innerHTML = `
+                    document.getElementById('main-content').innerHTML = `
                         <h2>1. Ficha Técnica</h2>
                         <div class="ficha-tecnica">
                             <ul>
-                                <li><strong>Nombre:</strong> ${v_nombre || "Dato no disponible"}</li>
-                                <li><strong>Significado Espiritual:</strong> ${v_significado || "Dato no disponible"}</li>
-                                <li><strong>Linaje:</strong> ${v_linaje || "Dato no disponible"}</li>
-                                <li><strong>Capítulos Claves:</strong> ${v_referencia || "Dato no disponible"}</li>
+                                <li><strong>Nombre:</strong> ${f_nombre}</li>
+                                <li><strong>Significado Espiritual:</strong> ${f_significado}</li>
+                                <li><strong>Linaje:</strong> ${f_linaje}</li>
+                                <li><strong>Capítulos Claves:</strong> ${f_referencia}</li>
                             </ul>
                         </div>
                         <h2>2. El Relato Bíblico (Hechos Históricos)</h2>
-                        <p>${v_relato.replace(/\\n/g, '<br>')}</p>
+                        <p>${relato.replace(/\n\n/g, '</p><p>').replace(/\n/g, '<br>')}</p>
                         <h2>3. Importancia en el Plan de Salvación (Cristocéntrico y Eclesiológico)</h2>
-                        <p>${v_importancia.replace(/\\n/g, '<br>')}</p>
+                        <p>${importancia.replace(/\n\n/g, '</p><p>').replace(/\n/g, '<br>')}</p>
                     `;
 
                     quizData = p.test || [];
                 }
             } catch (error) {
                 console.error("Error al cargar personaje:", error);
+                document.getElementById('main-content').innerHTML = `<p style="color: red;">Error al conectar con la base de datos.</p>`;
             }
         }
 
