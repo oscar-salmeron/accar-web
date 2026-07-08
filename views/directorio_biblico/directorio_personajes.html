@@ -165,10 +165,10 @@
 
                 querySnapshot.forEach((doc) => {
                     const data = doc.data();
-                    const imagen = data.imagen_path || "../../assets/img/logo-accar.png";
+                    const imagen = `/assets/img/${doc.id}.png`;
                     
                     htmlContent += `
-                        <a href="#" onclick="event.preventDefault(); window.currentPersonajeId = '${doc.id}'; loadView('/views/directorio_biblico/personaje.html');" class="accar-portrait-card">
+                        <a href="#" onclick="event.preventDefault(); localStorage.setItem('personajeSeleccionado', '${doc.id}'); loadView('/views/directorio_biblico/personaje.html');" class="accar-portrait-card">
                             <div class="portrait-frame">
                                 <img src="${imagen}" alt="${data.nombre}">
                             </div>

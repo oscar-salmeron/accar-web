@@ -190,6 +190,12 @@
 
     <div class="container">
         
+        <div style="margin-bottom: 25px;">
+            <a href="#" onclick="event.preventDefault(); loadView('/views/directorio_biblico/directorio_personajes.html');" style="color: #D4AF37; text-decoration: none; font-size: 12px; font-weight: bold; letter-spacing: 2px; text-transform: uppercase; font-family: sans-serif;">
+                ⮜ Volver al Directorio
+            </a>
+        </div>
+
         <header class="hero-section">
             <div class="hero-image">
                 <!-- Imagen con fondo transparente -->
@@ -287,8 +293,8 @@
         let score = 0;
 
         async function cargarDatos() {
-            // Lee el ID inyectado por el SPA, o carga Abraham por defecto
-            const personajeId = window.currentPersonajeId || 'abraham'; 
+            // Lee el ID inyectado por el SPA
+            const personajeId = localStorage.getItem('personajeSeleccionado') || 'abraham'; 
             try {
                 const docRef = doc(db, "directorio_biblico", "personajes", "registros", personajeId);
                 const docSnap = await getDoc(docRef);
