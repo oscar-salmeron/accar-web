@@ -268,13 +268,35 @@
                     document.querySelector('.hero-text .subtitle').innerText = p.subtitulo || '';
                     document.querySelector('.hero-image img').src = `/assets/img/${personajeId}.png`;
 
-                    const f_nombre = (p.ficha_tecnica && p.ficha_tecnica.nombre) ? p.ficha_tecnica.nombre : "Dato no disponible";
+                    // Extraemos los datos exactos directamente del objeto como vienen desde Firebase
+                    const f_nombre = (p.ficha_tecnica && p.ficha_tecnica.nombre) ? p.ficha_tecnica.nombre : (p.nombre || "Dato no disponible");
                     const f_significado = (p.ficha_tecnica && p.ficha_tecnica.significado) ? p.ficha_tecnica.significado : "Dato no disponible";
                     const f_linaje = (p.ficha_tecnica && p.ficha_tecnica.linaje) ? p.ficha_tecnica.linaje : "Dato no disponible";
                     const f_referencia = (p.ficha_tecnica && p.ficha_tecnica.referencia) ? p.ficha_tecnica.referencia : "Dato no disponible";
                     
                     const relato = p.relato_biblico || "Relato no disponible.";
                     const importancia = p.importancia_teologica || "Importancia no disponible.";
+
+                    // Función automática para dividir bloques de texto en párrafos visuales
+                    const formatearTexto = (texto) => {
+                        if (!texto) return "";
+                        // Si el texto ya viene con saltos de línea en el futuro, los respeta
+                        if (texto.includes('\n')) return `<p>${texto.replace(/\n\n/g, '</p><p>').replace(/\n/g, '<br>')}</p>`;
+                        
+                        // Si es un bloque gigante, lo parte por puntos seguidos de mayúscula
+                        const oraciones = texto.split(/\.\s+(?=[A-ZÁÉÍÓÚ¿¡])/);
+                        let html = "";
+                        let bloque = "";
+                        for (let i = 0; i < oraciones.length; i++) {
+                            bloque += oraciones[i] + ". ";
+                            // Agrupa de a 2 oraciones para formar un párrafo agradable a la vista
+                            if ((i + 1) % 2 === 0 || i === oraciones.length - 1) {
+                                html += `<p>${bloque.trim()}</p>`;
+                                bloque = "";
+                            }
+                        }
+                        return html.replace(/\.\.<\/p>/g, '.</p>'); // Limpieza final de puntuación
+                    };
 
                     document.getElementById('main-content').innerHTML = `
                         <h2>1. Ficha Técnica</h2>
@@ -287,9 +309,9 @@
                             </ul>
                         </div>
                         <h2>2. El Relato Bíblico (Hechos Históricos)</h2>
-                        <p>${relato.replace(/\n\n/g, '</p><p>').replace(/\n/g, '<br>')}</p>
+                        ${formatearTexto(relato)}
                         <h2>3. Importancia en el Plan de Salvación (Cristocéntrico y Eclesiológico)</h2>
-                        <p>${importancia.replace(/\n\n/g, '</p><p>').replace(/\n/g, '<br>')}</p>
+                        ${formatearTexto(importancia)}
                     `;
 
                     quizData = p.test || [];
