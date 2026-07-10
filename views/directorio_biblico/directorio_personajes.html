@@ -130,10 +130,6 @@
         }
 
         .accordion-item.active .accordion-content {
-            max-height: 2000px; 
-            padding: 30px;
-            border-top: 1px solid rgba(212, 175, 55, 0.1);
-        }
 
         .accar-grid-container {
             display: grid;
@@ -377,13 +373,6 @@
                         const libroDestino = data.libro ? data.libro : "Genesis"; 
                         
                         const tarjetaHTML = `
-                            <a href="#" onclick="event.preventDefault(); localStorage.setItem('personajeSeleccionado', '${doc.id}'); loadView('/views/directorio_biblico/personaje.html');" class="accar-portrait-card">
-                                <div class="portrait-frame">
-                                    <img src="${imagen}" alt="${data.nombre || 'Personaje'}">
-                                </div>
-                                <h2 class="portrait-name">${data.nombre || 'Desconocido'}</h2>
-                            </a>
-                        `;
 
                         // Lo inyectamos en el grid correspondiente si existe en nuestro HTML
                         if (grids[libroDestino]) {
