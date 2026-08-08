@@ -191,6 +191,7 @@
 
       <!-- ===== INICIO PANEL MOBILE ===== -->
       <div class="accar-mobile-nav-panel" id="accarMobileNavPanel">
+        <div class="accar-mobile-nav-backdrop" onclick="document.getElementById('accarMobileMenuToggle').click();"></div>
         <div class="accar-mobile-nav-card">
           <div class="accar-mobile-nav-list">
 
@@ -198,13 +199,11 @@
 
             <!-- APOLOGÉTICA -->
             <div class="accar-mobile-dropdown">
-              <div class="accar-mobile-dropdown-head">
-                <a href="#" onclick="event.preventDefault(); loadView('views/apologetica.html'); document.getElementById('accarMobileMenuToggle').click();" class="accar-mobile-nav-btn accar-mobile-nav-main">Apologética</a>
-                <button type="button" class="accar-mobile-dropdown-toggle accar-mobile-dropdown-toggle-split" aria-label="Abrir submenú">
-                  <span class="accar-mobile-caret">▾</span>
-                </button>
-              </div>
+              <button type="button" class="accar-mobile-dropdown-toggle">
+                Apologética <span class="accar-mobile-caret">▾</span>
+              </button>
               <div class="accar-mobile-dropdown-menu">
+                <a href="#" onclick="event.preventDefault(); loadView('views/apologetica.html'); document.getElementById('accarMobileMenuToggle').click();" style="color:#D4AF37 !important; font-weight:bold;">→ Ir a Apologética</a>
                 <a href="#" onclick="event.preventDefault(); loadView('views/construccion.html'); document.getElementById('accarMobileMenuToggle').click();">Introducción</a>
                 <a href="#" onclick="event.preventDefault(); loadView('views/construccion.html'); document.getElementById('accarMobileMenuToggle').click();">Defensa de la fe</a>
                 <a href="#" onclick="event.preventDefault(); loadView('views/preguntas-frecuentes.html'); document.getElementById('accarMobileMenuToggle').click();">Preguntas frecuentes</a>
@@ -213,13 +212,11 @@
 
             <!-- FORMACIÓN -->
             <div class="accar-mobile-dropdown">
-              <div class="accar-mobile-dropdown-head">
-                <a href="#" onclick="event.preventDefault(); loadView('views/formacion.html'); document.getElementById('accarMobileMenuToggle').click();" class="accar-mobile-nav-btn accar-mobile-nav-main">Formación</a>
-                <button type="button" class="accar-mobile-dropdown-toggle accar-mobile-dropdown-toggle-split" aria-label="Abrir submenú">
-                  <span class="accar-mobile-caret">▾</span>
-                </button>
-              </div>
+              <button type="button" class="accar-mobile-dropdown-toggle">
+                Formación <span class="accar-mobile-caret">▾</span>
+              </button>
               <div class="accar-mobile-dropdown-menu">
+                <a href="#" onclick="event.preventDefault(); loadView('views/formacion.html'); document.getElementById('accarMobileMenuToggle').click();" style="color:#D4AF37 !important; font-weight:bold;">→ Ir a Formación</a>
                 <a href="#" onclick="event.preventDefault(); loadView('views/doctrina.html'); document.getElementById('accarMobileMenuToggle').click();">Doctrina</a>
                 <a href="#" onclick="event.preventDefault(); loadView('views/sagrada-escritura.html'); document.getElementById('accarMobileMenuToggle').click();">Sagrada Escritura</a>
                 <a href="#" onclick="event.preventDefault(); loadView('views/sacramentos.html'); document.getElementById('accarMobileMenuToggle').click();">Sacramentos</a>
@@ -229,13 +226,11 @@
 
             <!-- HISTORIA -->
             <div class="accar-mobile-dropdown">
-              <div class="accar-mobile-dropdown-head">
-                <a href="#" onclick="event.preventDefault(); loadView('views/construccion.html'); document.getElementById('accarMobileMenuToggle').click();" class="accar-mobile-nav-btn accar-mobile-nav-main">Historia</a>
-                <button type="button" class="accar-mobile-dropdown-toggle accar-mobile-dropdown-toggle-split" aria-label="Abrir submenú">
-                  <span class="accar-mobile-caret">▾</span>
-                </button>
-              </div>
+              <button type="button" class="accar-mobile-dropdown-toggle">
+                Historia <span class="accar-mobile-caret">▾</span>
+              </button>
               <div class="accar-mobile-dropdown-menu">
+                <a href="#" onclick="event.preventDefault(); loadView('views/construccion.html'); document.getElementById('accarMobileMenuToggle').click();" style="color:#D4AF37 !important; font-weight:bold;">→ Ir a Historia</a>
                 <a href="#" onclick="event.preventDefault(); loadView('views/construccion.html'); document.getElementById('accarMobileMenuToggle').click();">Papas</a>
                 <a href="#" onclick="event.preventDefault(); loadView('views/construccion.html'); document.getElementById('accarMobileMenuToggle').click();">Concilios</a>
                 <a href="#" onclick="event.preventDefault(); loadView('views/construccion.html'); document.getElementById('accarMobileMenuToggle').click();">Padres de la Iglesia</a>
@@ -246,13 +241,11 @@
 
             <!-- MULTIMEDIA -->
             <div class="accar-mobile-dropdown">
-              <div class="accar-mobile-dropdown-head">
-                <a href="#" onclick="event.preventDefault(); loadView('views/peliculas.html'); document.getElementById('accarMobileMenuToggle').click();" class="accar-mobile-nav-btn accar-mobile-nav-main">Multimedia</a>
-                <button type="button" class="accar-mobile-dropdown-toggle accar-mobile-dropdown-toggle-split" aria-label="Abrir submenú">
-                  <span class="accar-mobile-caret">▾</span>
-                </button>
-              </div>
+              <button type="button" class="accar-mobile-dropdown-toggle">
+                Multimedia <span class="accar-mobile-caret">▾</span>
+              </button>
               <div class="accar-mobile-dropdown-menu">
+                <a href="#" onclick="event.preventDefault(); loadView('views/peliculas.html'); document.getElementById('accarMobileMenuToggle').click();" style="color:#D4AF37 !important; font-weight:bold;">→ Ir a Multimedia</a>
                 <a href="#" onclick="event.preventDefault(); loadView('views/peliculas.html'); document.getElementById('accarMobileMenuToggle').click();">Películas</a>
                 <a href="#" onclick="event.preventDefault(); loadView('views/construccion.html'); document.getElementById('accarMobileMenuToggle').click();">Documentales</a>
                 <a href="#" onclick="event.preventDefault(); loadView('views/construccion.html'); document.getElementById('accarMobileMenuToggle').click();">Series</a>
