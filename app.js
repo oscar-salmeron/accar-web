@@ -25,7 +25,11 @@ window.loadView = async function(url) {
   const html = await res.text();
   SPA_CONTAINER.innerHTML = html;
   runScripts(SPA_CONTAINER);
-  window.scrollTo({ top: 0, behavior: "smooth" });
+  
+  // Desplazamiento inteligente: En lugar de saltar al tope absoluto,
+  // desliza suavemente hasta el inicio del contenido principal.
+  const offsetTop = SPA_CONTAINER.getBoundingClientRect().top + window.scrollY - 30;
+  window.scrollTo({ top: offsetTop, behavior: "smooth" });
 };
 
 document.addEventListener("DOMContentLoaded", async () => {
