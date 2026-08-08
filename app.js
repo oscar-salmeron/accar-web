@@ -31,10 +31,9 @@ window.loadView = async function(url) {
     // Si es el inicio, subimos al tope absoluto para ver el Ticker y la tarjeta Hero completa
     window.scrollTo({ top: 0, behavior: "smooth" });
   } else {
-    // Si es otra sección, bajamos hasta el contenedor SPA para saltar la imagen del header.
-    // Restamos 38px para compensar el Ticker superior (que es 'sticky'),
-    // evitando que tape la parte superior de la nueva sección.
-    const offsetTop = SPA_CONTAINER.getBoundingClientRect().top + window.scrollY - 38;
+    // Si es otra sección, bajamos EXACTAMENTE hasta donde empieza el contenido.
+    // Al no restar nada, ocultamos por completo el header y su imagen litúrgica.
+    const offsetTop = SPA_CONTAINER.getBoundingClientRect().top + window.scrollY;
     window.scrollTo({ top: offsetTop, behavior: "smooth" });
   }
 };
