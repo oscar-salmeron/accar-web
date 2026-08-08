@@ -26,10 +26,17 @@ window.loadView = async function(url) {
   SPA_CONTAINER.innerHTML = html;
   runScripts(SPA_CONTAINER);
   
-  // Desplazamiento inteligente: En lugar de saltar al tope absoluto,
-  // desliza suavemente hasta el inicio del contenido principal.
-  const offsetTop = SPA_CONTAINER.getBoundingClientRect().top + window.scrollY - 30;
-  window.scrollTo({ top: offsetTop, behavior: "smooth" });
+  // Lógica de desplazamiento inteligente condicionada
+  if (url.includes('inicio.html')) {
+    // Si es el inicio, subimos al tope absoluto para ver el Ticker y la tarjeta Hero completa
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  } else {
+    // Si es otra sección, bajamos hasta el contenedor SPA para saltar la imagen del header.
+    // Restamos 38px para compensar el Ticker superior (que es 'sticky'),
+    // evitando que tape la parte superior de la nueva sección.
+    const offsetTop = SPA_CONTAINER.getBoundingClientRect().top + window.scrollY - 38;
+    window.scrollTo({ top: offsetTop, behavior: "smooth" });
+  }
 };
 
 document.addEventListener("DOMContentLoaded", async () => {
