@@ -5,11 +5,15 @@
   --accar-crema: #f8efd3;
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }
+html, body {
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
+}
 body {
   background: radial-gradient(circle at top, #0f3d3e, #021617);
   background-color: var(--accar-azul);
   font-family: Georgia, serif;
   color: var(--accar-crema);
-  overflow-x: hidden;
 }
 #spa-content { min-height: 80vh; width: 100%; }
