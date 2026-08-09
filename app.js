@@ -26,6 +26,18 @@ window.loadView = async function(url) {
   SPA_CONTAINER.innerHTML = html;
   runScripts(SPA_CONTAINER);
   
+  // --- NUEVO: Cerrar el menú móvil automáticamente al cargar cualquier vista ---
+  const mobileMenuToggle = document.getElementById('accarMobileMenuToggle');
+  const mobileNavPanel = document.getElementById('accarMobileNavPanel');
+  if (mobileNavPanel && mobileNavPanel.classList.contains('active')) {
+    mobileMenuToggle.classList.remove('active');
+    mobileNavPanel.classList.remove('active');
+    mobileMenuToggle.setAttribute('aria-expanded', 'false');
+    // Cierra también los submenús que hayan quedado abiertos
+    document.querySelectorAll('#accarGlobalHeader .accar-mobile-dropdown').forEach(item => item.classList.remove('open'));
+  }
+  // ---------------------------------------------------------------------------
+
   // Lógica de desplazamiento inteligente condicionada
   if (url.includes('inicio.html')) {
     // Si es el inicio, subimos al tope absoluto para ver el Ticker y la tarjeta Hero completa
