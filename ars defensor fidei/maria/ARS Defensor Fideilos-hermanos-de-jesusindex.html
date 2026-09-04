@@ -1,0 +1,2525 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>María tuvo más hijos | Ars Defensor Fidei | ACCAR</title>
+
+  <style>
+    :root{
+      --azul-oscuro:#0f2747;
+      --azul-medio:#163c6b;
+      --azul-claro:#24578f;
+      --dorado:#d4af37;
+      --dorado-2:#e5c96f;
+      --rojo:#8d2f2f;
+      --verde:#355a3a;
+      --morado:#6b4ea2;
+      --texto:#202020;
+      --texto-suave:#4f4a42;
+      --fondo:#f3efe6;
+      --fondo-2:#fbf8f1;
+      --panel:#fffdf8;
+      --panel-2:#f7f1e4;
+      --borde:rgba(28,54,93,.14);
+      --sombra:0 16px 34px rgba(0,0,0,.08);
+      --max:1240px;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:Georgia, "Times New Roman", serif;
+      color:var(--texto);
+      background:linear-gradient(180deg, #f6f1e6 0%, #f3efe6 100%);
+    }
+
+    a{text-decoration:none;color:inherit}
+    img{max-width:100%;display:block}
+
+    .wrap{
+      width:min(var(--max), calc(100% - 28px));
+      margin:0 auto;
+    }
+
+    /* ===== HEADER COMPACTO ===== */
+    .topbar{
+      position:sticky;
+      top:0;
+      z-index:100;
+      border-bottom:1px solid rgba(212,175,55,.35);
+      background:linear-gradient(180deg, rgba(10,27,49,.96), rgba(14,39,71,.96));
+      box-shadow:0 10px 24px rgba(0,0,0,.12);
+      backdrop-filter:blur(6px);
+    }
+
+    .topbar-inner{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:18px;
+      min-height:92px;
+      padding:12px 0;
+    }
+
+    .brand-wrap{
+      min-width:0;
+      display:flex;
+      align-items:center;
+      gap:14px;
+      flex:1 1 auto;
+    }
+
+    .brand-logo{
+      width:66px;
+      min-width:66px;
+      height:66px;
+      border-radius:50%;
+      object-fit:contain;
+      box-shadow:0 8px 18px rgba(0,0,0,.18);
+      background:transparent;
+    }
+
+    .brand{
+      min-width:0;
+      display:flex;
+      flex-direction:column;
+      gap:3px;
+    }
+
+    .brand-kicker{
+      font-size:.82rem;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      color:#e7d8a6;
+      overflow-wrap:anywhere;
+    }
+
+    .brand-title{
+      font-size:1.42rem;
+      line-height:1.08;
+      color:#fff4cf;
+      font-weight:bold;
+      overflow-wrap:anywhere;
+    }
+
+    .brand-subtitle{
+      font-size:.94rem;
+      color:#f3ead1;
+      line-height:1.3;
+      overflow-wrap:anywhere;
+    }
+
+    .top-actions{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+
+    .top-btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-height:46px;
+      padding:0 16px;
+      border-radius:14px;
+      border:1px solid rgba(212,175,55,.72);
+      background:linear-gradient(180deg, #194887, #10335f);
+      color:#fff4cf;
+      font-weight:bold;
+      font-size:.94rem;
+      box-shadow:0 10px 18px rgba(0,0,0,.16), inset 0 1px 0 rgba(255,255,255,.10);
+      transition:.22s ease;
+      text-align:center;
+      line-height:1.2;
+    }
+
+    .top-btn:hover{
+      transform:translateY(-1px);
+      background:linear-gradient(180deg, #e1bd55, #c69a25);
+      color:#241c09;
+    }
+
+    .menu-toggle{
+      display:none;
+      width:54px;
+      height:54px;
+      padding:0;
+      border:none;
+      cursor:pointer;
+      border-radius:16px;
+      background:linear-gradient(180deg, #194887, #10335f);
+      border:1px solid rgba(212,175,55,.72);
+      box-shadow:0 10px 18px rgba(0,0,0,.16), inset 0 1px 0 rgba(255,255,255,.10);
+      flex-shrink:0;
+    }
+
+    .menu-toggle span{
+      display:block;
+      width:24px;
+      height:2.5px;
+      background:#fff4cf;
+      border-radius:999px;
+      margin:5px auto;
+      transition:.24s ease;
+    }
+
+    .menu-toggle.active span:nth-child(1){
+      transform:translateY(7px) rotate(45deg);
+    }
+    .menu-toggle.active span:nth-child(2){
+      opacity:0;
+    }
+    .menu-toggle.active span:nth-child(3){
+      transform:translateY(-8px) rotate(-45deg);
+    }
+
+    .mobile-nav{
+      display:none;
+      padding:0 0 14px;
+    }
+
+    .mobile-nav.active{display:block}
+
+    .mobile-nav-card{
+      border-radius:20px;
+      border:1px solid rgba(212,175,55,.32);
+      background:linear-gradient(180deg, rgba(11,31,63,.66), rgba(11,31,63,.88));
+      box-shadow:var(--sombra);
+      padding:12px;
+    }
+
+    .mobile-nav-grid{
+      display:grid;
+      gap:10px;
+    }
+
+    .mobile-nav-grid a{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      min-height:46px;
+      padding:10px 14px;
+      border-radius:14px;
+      border:1px solid rgba(212,175,55,.62);
+      background:linear-gradient(180deg, #194887, #10335f);
+      color:#fff4cf;
+      font-weight:bold;
+      text-align:center;
+      line-height:1.2;
+    }
+
+    /* ===== CABECERA DEL TEMA ===== */
+    .hero-lite{
+      padding:30px 0 18px;
+    }
+
+    .hero-card{
+      background:linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,252,245,.92));
+      border:1px solid rgba(167,140,74,.24);
+      border-radius:30px;
+      box-shadow:var(--sombra);
+      padding:28px 26px;
+      overflow:hidden;
+    }
+
+    .hero-badges{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-bottom:16px;
+    }
+
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-height:38px;
+      padding:8px 14px;
+      border-radius:999px;
+      font-size:.9rem;
+      font-weight:bold;
+      text-align:center;
+      line-height:1.2;
+    }
+
+    .pill-sistema{
+      background:rgba(212,175,55,.14);
+      border:1px solid rgba(212,175,55,.34);
+      color:#7f6931;
+    }
+
+    .pill-modulo{
+      background:rgba(22,60,107,.08);
+      border:1px solid rgba(22,60,107,.16);
+      color:var(--azul-medio);
+    }
+
+    .hero-card h1{
+      margin:0 0 10px;
+      font-size:clamp(2.1rem, 4vw, 3.35rem);
+      line-height:1.05;
+      color:var(--azul-oscuro);
+      overflow-wrap:anywhere;
+    }
+
+    .hero-summary{
+      margin:0;
+      max-width:1000px;
+      font-size:1.08rem;
+      line-height:1.86;
+      color:var(--texto-suave);
+    }
+
+    .hero-quick{
+      display:grid;
+      grid-template-columns:repeat(3, minmax(0, 1fr));
+      gap:14px;
+      margin-top:20px;
+    }
+
+    .hero-quick .quick-card{
+      background:var(--panel-2);
+      border:1px solid rgba(15,39,71,.10);
+      border-radius:18px;
+      padding:16px;
+      box-shadow:0 10px 22px rgba(0,0,0,.05);
+      min-width:0;
+    }
+
+    .quick-card h3{
+      margin:0 0 8px;
+      font-size:1rem;
+      color:var(--azul-medio);
+    }
+
+    .quick-card p{
+      margin:0;
+      font-size:.98rem;
+      line-height:1.65;
+      color:var(--texto-suave);
+      overflow-wrap:anywhere;
+    }
+
+    /* ===== MINI PANEL OPERATIVO ===== */
+    .nav-shell{
+      padding:0 0 18px;
+    }
+
+    .nav-card{
+      background:linear-gradient(180deg, rgba(255,255,255,.88), rgba(255,250,241,.92));
+      border:1px solid rgba(167,140,74,.22);
+      border-radius:24px;
+      box-shadow:var(--sombra);
+      padding:16px;
+    }
+
+    .nav-note{
+      display:grid;
+      grid-template-columns:repeat(3, minmax(0, 1fr));
+      gap:12px;
+    }
+
+    .nav-note-card{
+      background:var(--panel-2);
+      border:1px solid rgba(15,39,71,.10);
+      border-radius:18px;
+      padding:16px;
+      box-shadow:0 8px 18px rgba(0,0,0,.04);
+      min-width:0;
+    }
+
+    .nav-note-card h3{
+      margin:0 0 8px;
+      font-size:1rem;
+      color:var(--azul-medio);
+    }
+
+    .nav-note-card p{
+      margin:0;
+      font-size:.96rem;
+      line-height:1.64;
+      color:var(--texto-suave);
+    }
+
+    /* ===== CONTENIDO ===== */
+    .main-shell{
+      padding:0 0 56px;
+    }
+
+    .section-box{
+      background:rgba(255,255,255,.82);
+      border:1px solid rgba(167,140,74,.18);
+      border-radius:28px;
+      box-shadow:var(--sombra);
+      padding:28px 26px;
+      margin:0 0 22px;
+      overflow:hidden;
+      scroll-margin-top:110px;
+    }
+
+    .section-title{
+      margin:0 0 18px;
+      font-size:clamp(1.9rem, 4vw, 2.75rem);
+      line-height:1.08;
+      color:var(--azul-oscuro);
+      overflow-wrap:anywhere;
+    }
+
+    .section-box p{
+      margin:0 0 16px;
+      font-size:1.05rem;
+      line-height:1.9;
+      color:var(--texto);
+      overflow-wrap:anywhere;
+    }
+
+    .lead-objecion{
+      border-left:6px solid var(--rojo);
+      background:#fff7f7;
+      padding:18px 18px 16px;
+      border-radius:18px;
+    }
+
+    .lead-objecion h3{
+      margin:0 0 10px;
+      color:var(--rojo);
+      font-size:1.34rem;
+    }
+
+    .lead-apertura{
+      border-left:6px solid var(--azul-claro);
+      background:#f6fbff;
+      padding:18px 18px 16px;
+      border-radius:18px;
+      margin-top:14px;
+    }
+
+    .lead-apertura h3{
+      margin:0 0 10px;
+      color:var(--azul-claro);
+      font-size:1.34rem;
+    }
+
+    .argument-card{
+      border:1px solid rgba(15,39,71,.11);
+      border-radius:24px;
+      background:linear-gradient(180deg, rgba(255,255,255,.94), rgba(252,248,239,.94));
+      box-shadow:0 14px 28px rgba(0,0,0,.06);
+      padding:24px 22px;
+      margin:0 0 22px;
+      overflow:hidden;
+    }
+
+    .argument-card:last-child{margin-bottom:0}
+
+    .argument-kicker{
+      display:inline-block;
+      margin-bottom:10px;
+      padding:8px 14px;
+      border-radius:999px;
+      background:rgba(212,175,55,.14);
+      border:1px solid rgba(212,175,55,.34);
+      color:#7c6630;
+      font-size:.86rem;
+      font-weight:bold;
+      letter-spacing:.04em;
+      text-transform:uppercase;
+    }
+
+    .argument-card h3{
+      margin:0 0 14px;
+      font-size:1.7rem;
+      line-height:1.18;
+      color:var(--azul-oscuro);
+      overflow-wrap:anywhere;
+    }
+
+    .subhead{
+      margin:20px 0 10px;
+      font-size:1.18rem;
+      line-height:1.32;
+      color:var(--azul-medio);
+      overflow-wrap:anywhere;
+    }
+
+    .group-card{
+      margin:16px 0 18px;
+      border:1px solid rgba(15,39,71,.10);
+      border-radius:22px;
+      background:linear-gradient(180deg, rgba(247,250,255,.76), rgba(255,252,245,.86));
+      padding:16px;
+    }
+
+    .group-title{
+      margin:0 0 12px;
+      font-size:1rem;
+      line-height:1.35;
+      color:var(--azul-medio);
+      font-weight:bold;
+    }
+
+    .quote-box{
+      background:#fffdfa;
+      border:1px solid rgba(212,175,55,.34);
+      border-radius:20px;
+      padding:16px 20px 14px 16px;
+      margin:14px 0;
+      box-shadow:0 8px 18px rgba(0,0,0,.04);
+      position:relative;
+      overflow:hidden;
+    }
+
+    .quote-box::after{
+      content:"";
+      position:absolute;
+      right:0;
+      top:0;
+      bottom:0;
+      width:7px;
+      background:var(--dorado);
+    }
+
+    .quote-box.indicator-blue::after{background:var(--azul-claro)}
+    .quote-box.indicator-red::after{background:var(--rojo)}
+    .quote-box.indicator-green::after{background:var(--verde)}
+    .quote-box.indicator-gold::after{background:var(--dorado)}
+    .quote-box.indicator-purple::after{background:var(--morado)}
+
+    .quote-ref{
+      display:block;
+      margin-bottom:10px;
+      font-size:.94rem;
+      font-weight:bold;
+      color:#7f6931;
+      letter-spacing:.02em;
+      padding-right:6px;
+    }
+
+    .quote-text{
+      font-size:1rem;
+      line-height:1.9;
+      color:#27231f;
+      white-space:pre-line;
+      padding-right:6px;
+    }
+
+    .quote-toggle{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-height:42px;
+      margin-top:12px;
+      padding:0 16px;
+      border-radius:14px;
+      border:1px solid rgba(212,175,55,.55);
+      background:linear-gradient(180deg, #194887, #10335f);
+      color:#fff4cf;
+      font-weight:bold;
+      font-size:.94rem;
+      cursor:pointer;
+      transition:.22s ease;
+      line-height:1.2;
+    }
+
+    .quote-toggle:hover{
+      background:linear-gradient(180deg, #e1bd55, #c69a25);
+      color:#241c09;
+    }
+
+    .quote-extra{
+      display:none;
+      margin-top:12px;
+      padding:14px 14px 12px;
+      border-radius:16px;
+      border:1px dashed rgba(15,39,71,.18);
+      background:#f8fafc;
+    }
+
+    .quote-extra.open{display:block}
+
+    .quote-extra h5{
+      margin:0 0 8px;
+      font-size:1rem;
+      color:var(--azul-medio);
+    }
+
+    .quote-extra p{
+      margin:0;
+      font-size:1rem;
+      line-height:1.8;
+      color:var(--texto-suave);
+    }
+
+    .logic-box,
+    .apologetic-box,
+    .father-box,
+    .conclusion-box,
+    .memory-box,
+    .error-box,
+    .study-box{
+      border-radius:20px;
+      padding:18px 18px 16px;
+      margin-top:14px;
+      border:1px solid rgba(15,39,71,.10);
+    }
+
+    .logic-box{
+      background:#f8fbff;
+      border-left:6px solid var(--azul-claro);
+    }
+
+    .apologetic-box{
+      background:#f7fff8;
+      border-left:6px solid var(--verde);
+    }
+
+    .father-box{
+      background:#fffaf0;
+      border-left:6px solid var(--dorado);
+    }
+
+    .conclusion-box{
+      background:#f9f4e8;
+      border-left:6px solid var(--dorado);
+    }
+
+    .memory-box{
+      background:#f7f9ff;
+      border-left:6px solid var(--azul-medio);
+    }
+
+    .error-box{
+      background:#fff7f7;
+      border-left:6px solid var(--rojo);
+    }
+
+    .study-box{
+      background:#fbf8f0;
+      border-left:6px solid #8d6c1f;
+    }
+
+    .box-title{
+      margin:0 0 10px;
+      font-size:1.08rem;
+      line-height:1.3;
+      font-weight:bold;
+      overflow-wrap:anywhere;
+    }
+
+    .logic-box .box-title{color:var(--azul-claro)}
+    .apologetic-box .box-title{color:var(--verde)}
+    .father-box .box-title{color:#8b6b1f}
+    .conclusion-box .box-title{color:#8b6b1f}
+    .memory-box .box-title{color:var(--azul-medio)}
+    .error-box .box-title{color:var(--rojo)}
+    .study-box .box-title{color:#7a5f1c}
+
+    .box-list{
+      margin:0;
+      padding-left:20px;
+    }
+
+    .box-list li{
+      margin:0 0 10px;
+      font-size:1rem;
+      line-height:1.8;
+      overflow-wrap:anywhere;
+    }
+
+    .rapid-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:18px;
+    }
+
+    .rapid-card{
+      background:rgba(255,255,255,.90);
+      border:1px solid rgba(15,39,71,.10);
+      border-radius:22px;
+      box-shadow:0 10px 24px rgba(0,0,0,.05);
+      padding:20px;
+      min-width:0;
+    }
+
+    .rapid-card h3{
+      margin:0 0 12px;
+      font-size:1.34rem;
+      color:var(--azul-oscuro);
+      overflow-wrap:anywhere;
+    }
+
+    .rapid-card p:last-child{margin-bottom:0}
+
+    /* ===== MAPA / TABLA DE PARENTESCO ===== */
+    .genealogy-intro{
+      margin-bottom:18px;
+    }
+
+    .genealogy-grid{
+      display:grid;
+      grid-template-columns:1.15fr .95fr;
+      gap:18px;
+      margin-top:18px;
+    }
+
+    .genealogy-card{
+      background:linear-gradient(180deg, rgba(255,255,255,.96), rgba(252,248,239,.96));
+      border:1px solid rgba(15,39,71,.10);
+      border-radius:24px;
+      box-shadow:0 12px 26px rgba(0,0,0,.05);
+      padding:20px;
+      min-width:0;
+    }
+
+    .genealogy-card h3{
+      margin:0 0 12px;
+      font-size:1.34rem;
+      line-height:1.25;
+      color:var(--azul-oscuro);
+      overflow-wrap:anywhere;
+    }
+
+    .genealogy-card p:last-child{margin-bottom:0}
+
+    .family-tree{
+      display:grid;
+      gap:14px;
+      margin-top:12px;
+    }
+
+    .tree-person{
+      position:relative;
+      border-radius:20px;
+      padding:16px 16px 14px;
+      border:1px solid rgba(15,39,71,.10);
+      background:#fffdfa;
+      box-shadow:0 8px 18px rgba(0,0,0,.04);
+    }
+
+    .tree-person::before{
+      content:"";
+      position:absolute;
+      left:26px;
+      top:-14px;
+      width:2px;
+      height:14px;
+      background:rgba(36,87,143,.28);
+    }
+
+    .tree-person.root::before{display:none}
+
+    .tree-person.root{
+      background:linear-gradient(180deg, rgba(245,250,255,.98), rgba(255,252,244,.98));
+      border:1px solid rgba(36,87,143,.18);
+    }
+
+    .tree-person-title{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      align-items:center;
+      margin-bottom:8px;
+    }
+
+    .tree-name{
+      font-size:1.08rem;
+      font-weight:bold;
+      color:var(--azul-oscuro);
+    }
+
+    .tree-badge{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-height:30px;
+      padding:4px 10px;
+      border-radius:999px;
+      font-size:.82rem;
+      font-weight:bold;
+      line-height:1.15;
+      text-align:center;
+    }
+
+    .tree-badge.azul{
+      background:rgba(36,87,143,.10);
+      border:1px solid rgba(36,87,143,.18);
+      color:var(--azul-medio);
+    }
+
+    .tree-badge.dorado{
+      background:rgba(212,175,55,.14);
+      border:1px solid rgba(212,175,55,.34);
+      color:#7c6630;
+    }
+
+    .tree-badge.verde{
+      background:rgba(53,90,58,.10);
+      border:1px solid rgba(53,90,58,.18);
+      color:var(--verde);
+    }
+
+    .tree-list{
+      margin:0;
+      padding-left:18px;
+    }
+
+    .tree-list li{
+      margin:0 0 8px;
+      font-size:1rem;
+      line-height:1.75;
+      color:var(--texto);
+      overflow-wrap:anywhere;
+    }
+
+    .table-wrap{
+      overflow:auto;
+      border-radius:18px;
+      border:1px solid rgba(15,39,71,.10);
+      background:#fffdfa;
+      box-shadow:0 8px 18px rgba(0,0,0,.04);
+    }
+
+    .relation-table{
+      width:100%;
+      border-collapse:collapse;
+      min-width:760px;
+    }
+
+    .relation-table thead th{
+      background:linear-gradient(180deg, #163c6b, #10335f);
+      color:#fff4cf;
+      font-size:.94rem;
+      line-height:1.35;
+      text-align:left;
+      padding:14px 12px;
+      border-right:1px solid rgba(255,255,255,.12);
+    }
+
+    .relation-table thead th:last-child{border-right:none}
+
+    .relation-table tbody td{
+      vertical-align:top;
+      padding:14px 12px;
+      border-top:1px solid rgba(15,39,71,.08);
+      font-size:.98rem;
+      line-height:1.7;
+      color:var(--texto);
+      background:#fffdfa;
+    }
+
+    .relation-table tbody tr:nth-child(even) td{
+      background:#fcf8ef;
+    }
+
+    .relation-table strong{
+      color:var(--azul-oscuro);
+    }
+
+    .map-note{
+      margin-top:16px;
+    }
+
+    /* ===== INFOGRAFÍA CENTRAL ADF ===== */
+    .adf-infografia-wrap{
+      margin:22px 0 26px;
+    }
+
+    .adf-infografia-img{
+      width:100%;
+      border-radius:22px;
+      box-shadow:0 12px 28px rgba(0,0,0,.08);
+      display:block;
+    }
+
+    .note-card{
+      background:linear-gradient(180deg, rgba(255,255,255,.94), rgba(251,247,238,.94));
+      border:1px dashed rgba(167,140,74,.55);
+      border-radius:22px;
+      padding:20px;
+    }
+
+    .note-toolbar{
+      display:grid;
+      grid-template-columns:1fr auto;
+      gap:12px;
+      align-items:end;
+      margin-top:16px;
+    }
+
+    .note-field label{
+      display:block;
+      margin-bottom:8px;
+      font-size:.94rem;
+      font-weight:bold;
+      color:var(--azul-medio);
+    }
+
+    .note-field textarea{
+      width:100%;
+      min-height:130px;
+      resize:vertical;
+      border-radius:16px;
+      border:1px solid rgba(15,39,71,.16);
+      background:#fffdf8;
+      padding:14px;
+      font-family:inherit;
+      font-size:1rem;
+      line-height:1.7;
+      color:var(--texto);
+      outline:none;
+    }
+
+    .note-field textarea:focus{
+      border-color:rgba(22,60,107,.42);
+      box-shadow:0 0 0 4px rgba(36,87,143,.08);
+    }
+
+    .note-add-btn,
+    .note-clear-btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-height:48px;
+      padding:0 18px;
+      border-radius:14px;
+      border:1px solid rgba(212,175,55,.72);
+      font-weight:bold;
+      font-size:.96rem;
+      cursor:pointer;
+      transition:.22s ease;
+      box-shadow:0 10px 18px rgba(0,0,0,.08);
+      line-height:1.2;
+    }
+
+    .note-add-btn{
+      background:linear-gradient(180deg, #194887, #10335f);
+      color:#fff4cf;
+    }
+
+    .note-add-btn:hover{
+      background:linear-gradient(180deg, #e1bd55, #c69a25);
+      color:#241c09;
+    }
+
+    .note-clear-btn{
+      background:linear-gradient(180deg, #f5ead1, #eadcb6);
+      color:#3a2d13;
+    }
+
+    .note-clear-btn:hover{
+      background:linear-gradient(180deg, #e1bd55, #c69a25);
+      color:#241c09;
+    }
+
+    .note-records{
+      margin-top:18px;
+      max-height:340px;
+      overflow:auto;
+      display:grid;
+      gap:12px;
+      padding-right:4px;
+    }
+
+    .note-entry{
+      background:#fffdfa;
+      border:1px solid rgba(15,39,71,.10);
+      border-left:6px solid var(--dorado);
+      border-radius:16px;
+      padding:14px 14px 12px;
+      box-shadow:0 8px 18px rgba(0,0,0,.04);
+    }
+
+    .note-entry-head{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-bottom:8px;
+    }
+
+    .note-entry-date{
+      font-size:.9rem;
+      font-weight:bold;
+      color:#7c6630;
+    }
+
+    .note-entry-remove{
+      border:none;
+      background:#fff3f3;
+      color:#7c1f1f;
+      border-radius:10px;
+      padding:6px 10px;
+      cursor:pointer;
+      font-weight:bold;
+      font-size:.84rem;
+    }
+
+    .note-entry-text{
+      white-space:pre-line;
+      font-size:1rem;
+      line-height:1.75;
+      color:var(--texto);
+    }
+
+    .final-actions{
+      display:flex;
+      flex-wrap:wrap;
+      justify-content:center;
+      gap:14px;
+      margin-top:22px;
+    }
+
+    .cta-btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-height:52px;
+      padding:0 22px;
+      border-radius:16px;
+      border:1px solid rgba(212,175,55,.72);
+      box-shadow:0 10px 18px rgba(0,0,0,.12);
+      text-align:center;
+      font-weight:bold;
+      font-size:1rem;
+      line-height:1.2;
+      max-width:100%;
+    }
+
+    .cta-btn.azul{
+      background:linear-gradient(180deg, #194887, #10335f);
+      color:#fff4cf;
+    }
+
+    .cta-btn.dorado{
+      background:linear-gradient(180deg, #e1bd55, #c69a25);
+      color:#241c09;
+    }
+
+    .cta-btn:hover{
+      transform:translateY(-1px);
+    }
+
+    /* ===== FOOTER ===== */
+    .footer{
+      padding:0 0 34px;
+    }
+
+    .footer-card{
+      position:relative;
+      border-radius:24px;
+      border:1px solid rgba(167,140,74,.26);
+      background:linear-gradient(180deg, rgba(22,44,88,.96), rgba(17,35,69,.96));
+      box-shadow:var(--sombra);
+      padding:26px 24px;
+      color:#f7edd2;
+      overflow:hidden;
+    }
+
+    .footer-card-pro{
+      background:
+        linear-gradient(180deg, rgba(24,47,92,.92), rgba(16,35,68,.94)),
+        url("../../assets/img/footer_bg_iglesia.webp") center center / cover no-repeat;
+    }
+
+    .footer-top{
+      display:grid;
+      grid-template-columns:1.25fr .8fr .8fr;
+      gap:34px;
+      align-items:start;
+      position:relative;
+      z-index:1;
+    }
+
+    .footer-brand{
+      display:grid;
+      grid-template-columns:96px 1fr;
+      gap:18px;
+      align-items:start;
+    }
+
+    .footer-logo{
+      width:96px;
+      height:96px;
+      object-fit:contain;
+      border-radius:50%;
+      display:block;
+    }
+
+    .footer-brand-copy{
+      min-width:0;
+    }
+
+    .footer-brand-text{
+      margin:0 0 10px;
+      font-size:1rem;
+      line-height:1.7;
+      color:#f5ebd2;
+    }
+
+    .footer-brand-motto{
+      margin:0;
+      font-size:.98rem;
+      line-height:1.7;
+      color:#f0e3bf;
+      font-style:italic;
+    }
+
+    .footer-links-col,
+    .footer-contact-col{
+      min-width:0;
+    }
+
+    .footer-card h4{
+      margin:0 0 12px;
+      font-size:1.3rem;
+      color:#ffd971;
+      overflow-wrap:anywhere;
+    }
+
+    .footer-card p{
+      margin:0 0 10px;
+      font-size:1rem;
+      line-height:1.75;
+      color:#f5ebd2;
+      overflow-wrap:anywhere;
+    }
+
+    .footer-card p:last-child{
+      margin-bottom:0;
+    }
+
+    .footer-links{
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    }
+
+    .footer-links a{
+      color:#f5ebd2;
+      font-size:1rem;
+      line-height:1.5;
+    }
+
+    .footer-links a:hover{
+      color:#ffe8a4;
+    }
+
+    .footer-divider{
+  height:1px;
+  margin:30px 0;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(212,175,55,0.5),
+    transparent
+  );
+}
+
+    .footer-legal{
+      position:relative;
+      z-index:1;
+      text-align:center;
+      color:#eadfb7;
+      font-size:.96rem;
+      line-height:1.7;
+    }
+
+    .footer-legal-pro{
+      max-width:900px;
+      margin:0 auto;
+    }
+
+    @media (max-width:1160px){
+      .top-actions{display:none}
+      .menu-toggle{display:inline-block}
+      .nav-note{grid-template-columns:1fr}
+    }
+
+    @media (max-width:1100px){
+      .hero-quick{grid-template-columns:1fr}
+      .rapid-grid{grid-template-columns:1fr}
+      .genealogy-grid{grid-template-columns:1fr}
+      .footer-top{grid-template-columns:1fr; gap:24px;}
+      .footer-brand{grid-template-columns:78px 1fr; gap:14px;}
+      .footer-logo{width:78px; height:78px;}
+    }
+
+    @media (max-width:860px){
+      .topbar-inner{min-height:80px}
+      .brand-wrap{gap:10px}
+      .brand-logo{
+        width:54px;
+        min-width:54px;
+        height:54px;
+      }
+      .brand-title{font-size:1.08rem}
+      .brand-subtitle{font-size:.84rem}
+      .brand-kicker{font-size:.76rem}
+    }
+
+    @media (max-width:640px){
+      .note-toolbar{
+        grid-template-columns:1fr;
+      }
+    }
+
+    @media (max-width:560px){
+      .wrap{width:min(var(--max), calc(100% - 16px))}
+      .topbar-inner{padding:10px 0}
+      .hero-lite{padding:18px 0 14px}
+      .hero-card{padding:18px 16px}
+      .hero-card h1{font-size:2rem}
+      .hero-summary{font-size:1rem;line-height:1.78}
+      .nav-card{padding:12px}
+      .section-box{padding:18px 16px;border-radius:22px}
+      .argument-card{padding:18px 16px;border-radius:22px}
+      .argument-card h3{font-size:1.42rem}
+      .genealogy-card{padding:18px 16px;border-radius:22px}
+      .section-box p,
+      .quote-text,
+      .box-list li,
+      .footer-card p,
+      .note-entry-text{
+        font-size:1rem;
+        line-height:1.82;
+      }
+      .cta-btn{width:100%}
+      .quote-toggle,
+      .note-add-btn,
+      .note-clear-btn{width:100%}
+      .note-entry-head{align-items:flex-start}
+      .footer-card{
+        padding:20px 16px;
+        border-radius:22px;
+      }
+      .footer-brand{
+        grid-template-columns:1fr;
+      }
+      .footer-logo{
+        width:74px;
+        height:74px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== INICIO HEADER COMPACTO ===== -->
+  <header class="topbar">
+    <div class="wrap">
+      <div class="topbar-inner">
+        <div class="brand-wrap">
+          <img class="brand-logo" src="../../assets/img/logo-accar.png" alt="Logo Apologética ACCAR">
+
+          <div class="brand">
+            <span class="brand-kicker">Apologética Católica Cristiana Apostólica Romana</span>
+            <span class="brand-title">Ars Defensor Fidei</span>
+            <span class="brand-subtitle">Herramienta doctrinal para responder objeciones con Biblia, lógica, tradición y rastreo apologético</span>
+          </div>
+        </div>
+
+        <div class="top-actions">
+          <a class="top-btn" href="#objecion">Objeción</a>
+          <a class="top-btn" href="#argumentos">Argumentos</a>
+          <a class="top-btn" href="#mapa-parentesco">Mapa</a>
+          <a class="top-btn" href="#respuesta-rapida">Respuesta rápida</a>
+          <a class="top-btn" href="#respuesta-estudio">Respuesta estudio</a>
+          <a class="top-btn" href="#errores">Errores</a>
+          <a class="top-btn" href="#frases-clave">Frases clave</a>
+          <a class="top-btn" href="../../index.html">Centro interno</a>
+        </div>
+
+        <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú interno" aria-expanded="false" type="button">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+
+      <div class="mobile-nav" id="mobileNav">
+        <div class="mobile-nav-card">
+          <div class="mobile-nav-grid">
+            <a href="#objecion">Objeción</a>
+            <a href="#contexto-judio">Contexto judío</a>
+            <a href="#mapa-parentesco">Mapa de parentesco</a>
+            <a href="#argumentos">Argumentos</a>
+            <a href="#respuesta-rapida">Respuesta rápida</a>
+            <a href="#respuesta-estudio">Respuesta estudio</a>
+            <a href="#errores">Errores</a>
+            <a href="#frases-clave">Frases clave</a>
+            <a href="../../index.html">Centro interno</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+  <!-- ===== FINAL HEADER COMPACTO ===== -->
+
+  <!-- ===== INICIO CABECERA DEL TEMA ===== -->
+  <section class="hero-lite">
+    <div class="wrap">
+      <div class="hero-card">
+        <div class="hero-badges">
+          <span class="pill pill-sistema">Módulo: María</span>
+          <span class="pill pill-modulo">Ficha doctrinal ACCAR</span>
+        </div>
+
+        <h1>María tuvo más hijos</h1>
+
+        <p class="hero-summary">
+          Esta ficha está diseñada para responder con rapidez, profundidad y orden a una de las objeciones protestantes más frecuentes contra la virginidad perpetua de la Santísima Virgen María. La herramienta permite contestar en debate, sostener estudio prolongado y rastrear bíblicamente a los llamados “hermanos de Jesús” con método apologético ACCAR.
+        </p>
+
+        <div class="hero-quick">
+          <article class="quick-card">
+            <h3>Objetivo inmediato</h3>
+            <p>Desarmar la objeción mostrando que “hermanos” no significa necesariamente hijos de la misma madre, y que los llamados hermanos de Jesús son identificables por otras líneas familiares.</p>
+          </article>
+
+          <article class="quick-card">
+            <h3>Base del tema</h3>
+            <p>Biblia Reina-Valera completa, conexión lógica entre pasajes, explicación doctrinal clara, uso de Juan 19, Lucas 1:34 y apoyo patrístico de San Jerónimo.</p>
+          </article>
+
+          <article class="quick-card">
+            <h3>Uso práctico</h3>
+            <p>Sirve para responder en conversación inmediata, organizar un estudio serio y preparar defensa doctrinal frente a objeciones repetitivas sobre la Virgen María.</p>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- ===== FINAL CABECERA DEL TEMA ===== -->
+
+  <!-- ===== INICIO MINI PANEL OPERATIVO ===== -->
+  <section class="nav-shell">
+    <div class="wrap">
+      <div class="nav-card">
+        <div class="nav-note">
+          <article class="nav-note-card">
+            <h3>Modo de uso ACCAR</h3>
+            <p>Primero rompe la lectura literalista moderna de “hermanos”. Después identifica nombres, madres y líneas familiares. Finalmente remata con Juan 19.</p>
+          </article>
+
+          <article class="nav-note-card">
+            <h3>Herramienta inicial</h3>
+            <p>El contexto cultural judío no es adorno: es la llave para desmontar desde el inicio la falsa equivalencia entre “hermano” y “hijo de la misma madre”.</p>
+          </article>
+
+          <article class="nav-note-card">
+            <h3>Funcionamiento PRO</h3>
+            <p>Cada texto bíblico tiene explicación individual desplegable y las conexiones lógicas permanecen dentro de la misma tarjeta argumental.</p>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- ===== FINAL MINI PANEL OPERATIVO ===== -->
+
+  <!-- ===== INICIO CONTENIDO ===== -->
+  <main class="main-shell">
+    <div class="wrap">
+
+      <!-- ===== INICIO OBJECIÓN ===== -->
+      <section id="objecion" class="section-box">
+        <h2 class="section-title">Objeción protestante y respuesta de apertura</h2>
+
+        <div class="lead-objecion">
+          <h3>Objeción protestante</h3>
+          <p>
+            “La Biblia dice que Jesús tenía hermanos: Jacobo, José, Simón y Judas. Por lo tanto, María tuvo más hijos y no fue siempre virgen.”
+          </p>
+        </div>
+
+        <div class="lead-apertura">
+          <h3>Respuesta breve de apertura</h3>
+          <p>
+            Esa conclusión no se sigue del texto bíblico. En la Escritura, “hermanos” puede significar también parientes cercanos. Además, cuando la Biblia identifica a varios de los llamados “hermanos de Jesús”, muestra que pertenecen a otra línea familiar. Finalmente, Jesús entrega a su Madre al apóstol Juan en la cruz, algo completamente anormal si María hubiera tenido otros hijos propios.
+          </p>
+        </div>
+      </section>
+      <!-- ===== FINAL OBJECIÓN ===== -->
+
+      <!-- ===== INICIO CONTEXTO JUDÍO ===== -->
+      <section id="contexto-judio" class="section-box">
+        <h2 class="section-title">Contexto cultural judío como herramienta apologética inicial</h2>
+
+        <div class="logic-box">
+          <div class="box-title">Clave de lectura semita</div>
+          <p>
+            Antes de entrar a cada pasaje, es necesario recordar que el mundo bíblico no usa siempre los términos familiares con el mismo rigor moderno occidental. En el contexto semita, “hermano” puede abarcar hermanos carnales, sobrinos, primos, parientes cercanos, miembros del mismo clan o incluso relaciones de familia ampliada. Por eso, un argumento que parte simplemente de la palabra “hermanos” ya comienza mal si no estudia el uso bíblico real del término.
+          </p>
+        </div>
+
+        <div class="apologetic-box">
+          <div class="box-title">Uso apologético inmediato</div>
+          <p>
+            Esta sección debe usarse al inicio de la conversación. La secuencia correcta es: primero demostrar que “hermano” no equivale automáticamente a “hijo de la misma madre”; segundo, pedir identificación concreta de los nombres; tercero, rastrear bíblicamente madres y líneas familiares; cuarto, cerrar con Juan 19. Si se hace así, la objeción queda desarmada desde su base metodológica.
+          </p>
+        </div>
+
+        <div class="conclusion-box">
+          <div class="box-title">Conclusión operativa</div>
+          <p>
+            El contexto cultural judío no sustituye la prueba bíblica detallada, pero sí impide que el interlocutor imponga una lectura anacrónica al texto sagrado. En ACCAR, esta pieza funciona como herramienta de apertura apologética.
+          </p>
+        </div>
+      </section>
+      <!-- ===== FINAL CONTEXTO JUDÍO ===== -->
+
+      <!-- ===== INICIO MAPA / TABLA DE PARENTESCO ===== -->
+      <section id="mapa-parentesco" class="section-box">
+        <h2 class="section-title">Mapa visual y tabla de parentesco</h2>
+
+        <div class="genealogy-intro">
+          <p>
+            Este bloque funciona como pieza obligatoria del sistema ADF: no se responde solo con una palabra aislada, sino con nombres concretos, madres identificables y relaciones bíblicas comparadas. La fuerza apologética aquí consiste en mostrar visualmente que los llamados “hermanos de Jesús” no quedan demostrados como hijos de la Santísima Virgen María.
+          </p>
+        </div>
+
+        <div class="adf-infografia-wrap">
+  <img class="adf-infografia-img" src="../../assets/img/info_hermanos_de_jesus.png" alt="Infografía: ¿Tenía Jesús hermanos carnales?">
+</div>
+
+        <div class="genealogy-grid">
+          <article class="genealogy-card">
+            <h3>Esquema visual de líneas familiares</h3>
+
+            <div class="family-tree">
+              <div class="tree-person root">
+                <div class="tree-person-title">
+                  <span class="tree-name">Jesús</span>
+                  <span class="tree-badge dorado">Hijo de la Virgen María</span>
+                </div>
+                <ul class="tree-list">
+                  <li><strong>Madre identificada explícitamente:</strong> María, la Madre de Jesús.</li>
+                  <li><strong>Texto clave:</strong> Juan 19:25-27.</li>
+                  <li><strong>Punto apologético:</strong> en la cruz, Jesús entrega a su Madre a Juan.</li>
+                </ul>
+              </div>
+
+              <div class="tree-person">
+                <div class="tree-person-title">
+                  <span class="tree-name">Jacobo y José</span>
+                  <span class="tree-badge azul">Otra línea materna</span>
+                </div>
+                <ul class="tree-list">
+                  <li><strong>Pasajes de nombres:</strong> Mateo 13:55; Marcos 6:3.</li>
+                  <li><strong>Madre atribuida:</strong> “María la madre de Jacobo y de José” en Mateo 27:56 y Marcos 15:40.</li>
+                  <li><strong>Relación adicional:</strong> Juan 19:25 menciona a María mujer de Cleofas junto a la cruz.</li>
+                </ul>
+              </div>
+
+              <div class="tree-person">
+                <div class="tree-person-title">
+                  <span class="tree-name">Judas</span>
+                  <span class="tree-badge verde">Vinculado a Jacobo</span>
+                </div>
+                <ul class="tree-list">
+                  <li><strong>Pasajes de nombre:</strong> Mateo 13:55; Marcos 6:3.</li>
+                  <li><strong>Autodefinición:</strong> Judas 1:1 se presenta como “hermano de Jacobo”.</li>
+                  <li><strong>Confirmación:</strong> Hechos 1:13 vuelve a mencionar a Judas hermano de Jacobo.</li>
+                </ul>
+              </div>
+
+              <div class="tree-person">
+                <div class="tree-person-title">
+                  <span class="tree-name">Simón</span>
+                  <span class="tree-badge azul">Nombre citado, filiación no atribuida a María Virgen</span>
+                </div>
+                <ul class="tree-list">
+                  <li><strong>Pasajes de nombre:</strong> Mateo 13:55; Marcos 6:3.</li>
+                  <li><strong>Punto apologético:</strong> el texto lo enumera dentro del grupo llamado “hermanos”, pero no lo presenta como hijo de la Virgen María.</li>
+                  <li><strong>Uso correcto:</strong> no afirmar más de lo que el texto dice; basta mostrar que la objeción protestante no prueba maternidad mariana compartida.</li>
+                </ul>
+              </div>
+            </div>
+          </article>
+
+          <article class="genealogy-card">
+            <h3>Tabla rápida de rastreo bíblico</h3>
+
+            <div class="table-wrap">
+              <table class="relation-table">
+                <thead>
+                  <tr>
+                    <th>Nombre</th>
+                    <th>Texto donde aparece como “hermano”</th>
+                    <th>Otro dato bíblico relevante</th>
+                    <th>Conclusión apologética ACCAR</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Jesús</strong></td>
+                    <td>Mateo 13:55; Marcos 6:3</td>
+                    <td>Juan 19:25-27 muestra a María como su Madre y entregada a Juan</td>
+                    <td>Jesús es el único hijo de María presentado con total claridad en esta línea argumental</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Jacobo</strong></td>
+                    <td>Mateo 13:55; Marcos 6:3</td>
+                    <td>Mateo 27:56; Marcos 15:40; Marcos 16:1 lo vinculan a otra María</td>
+                    <td>No queda presentado como hijo de la Virgen María, sino asociado a otra línea familiar</td>
+                  </tr>
+                  <tr>
+                    <td><strong>José</strong></td>
+                    <td>Mateo 13:55; Marcos 6:3</td>
+                    <td>Mateo 27:56; Marcos 15:40 lo vinculan con “María la madre de Jacobo y de José”</td>
+                    <td>La propia Escritura lo reubica fuera de la maternidad directa de la Virgen María</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Judas</strong></td>
+                    <td>Mateo 13:55; Marcos 6:3</td>
+                    <td>Judas 1:1 y Hechos 1:13 lo presentan en relación con Jacobo</td>
+                    <td>Su identificación interna apunta a la misma red familiar rastreada, no a una prueba contra la virginidad perpetua</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Simón</strong></td>
+                    <td>Mateo 13:55; Marcos 6:3</td>
+                    <td>No se ofrece un texto que lo presente como hijo de la Virgen María</td>
+                    <td>La objeción sigue sin probar que sea hijo de María; el nombre solo no basta</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="conclusion-box map-note">
+              <div class="box-title">Clave de uso inmediato</div>
+              <p>
+                En debate, usa este orden: nombra a Jacobo y José, muéstralos en la cruz vinculados a otra María, conecta a Judas con Jacobo, y luego pregunta dónde enseña la Biblia que todos ellos son hijos de la Virgen María. Allí la objeción se queda sin prueba positiva.
+              </p>
+            </div>
+          </article>
+        </div>
+      </section>
+      <!-- ===== FINAL MAPA / TABLA DE PARENTESCO ===== -->
+
+      <!-- ===== INICIO ARGUMENTOS ===== -->
+      <section id="argumentos" class="section-box">
+        <h2 class="section-title">Argumentos mayores</h2>
+
+        <!-- ===== ARGUMENTO 1 ===== -->
+        <article class="argument-card">
+          <span class="argument-kicker">Argumento mayor 1</span>
+          <h3>En la Biblia, “hermanos” no siempre significa hijos de la misma madre</h3>
+
+          <p>
+            El primer error de la objeción consiste en imponer al lenguaje bíblico un uso moderno y rígido de la palabra “hermano”. En la cultura semita, y por extensión en el uso bíblico, el término puede abarcar hermanos carnales, sobrinos, primos, miembros del mismo clan o parientes cercanos. Por eso, no basta con leer la palabra “hermanos” para concluir automáticamente que María tuvo otros hijos.
+          </p>
+
+          <h4 class="subhead">Textos bíblicos completos</h4>
+
+          <div class="group-card">
+            <div class="group-title">Grupo lógico A · “Hermano” usado para parentesco amplio en el Antiguo Testamento</div>
+
+            <div class="quote-box indicator-blue">
+              <span class="quote-ref">Génesis 13:8 — Reina-Valera 1960</span>
+              <div class="quote-text">Entonces Abram dijo a Lot: No haya ahora altercado entre nosotros dos, entre mis pastores y los tuyos, porque somos hermanos.</div>
+              <button class="quote-toggle" type="button">Abrir explicación individual</button>
+              <div class="quote-extra">
+                <h5>Explicación individual</h5>
+                <p>
+                  Aquí Abram llama “hermano” a Lot. Este texto, por sí solo, ya obliga a no imponer a la palabra “hermano” un sentido exclusivamente biológico.
+                </p>
+              </div>
+            </div>
+
+            <div class="quote-box indicator-blue">
+              <span class="quote-ref">Génesis 14:14 — Reina-Valera 1960</span>
+              <div class="quote-text">Oyó Abram que su hermano estaba prisionero, y armó a sus criados, los nacidos en su casa, trescientos dieciocho, y los siguió hasta Dan.</div>
+              <button class="quote-toggle" type="button">Abrir explicación individual</button>
+              <div class="quote-extra">
+                <h5>Explicación individual</h5>
+                <p>
+                  Lot vuelve a ser llamado “hermano”, confirmando el uso familiar amplio del término.
+                </p>
+              </div>
+            </div>
+
+            <div class="quote-box indicator-gold">
+              <span class="quote-ref">Génesis 11:27 — Reina-Valera 1960</span>
+              <div class="quote-text">Estas son las generaciones de Taré: Taré engendró a Abram, a Nacor y a Harán; y Harán engendró a Lot.</div>
+              <button class="quote-toggle" type="button">Abrir explicación individual</button>
+              <div class="quote-extra">
+                <h5>Explicación individual</h5>
+                <p>
+                  Este texto aclara que Lot era hijo de Harán. Por tanto, Lot era sobrino de Abram, no hermano carnal.
+                </p>
+              </div>
+            </div>
+
+            <div class="quote-box indicator-blue">
+              <span class="quote-ref">Génesis 29:15 — Reina-Valera 1960</span>
+              <div class="quote-text">Entonces dijo Labán a Jacob: ¿Por ser mi hermano me servirás de balde? Dime cuál será tu salario.</div>
+              <button class="quote-toggle" type="button">Abrir explicación individual</button>
+              <div class="quote-extra">
+                <h5>Explicación individual</h5>
+                <p>
+                  Labán llama “hermano” a Jacob en un contexto de parentesco familiar más amplio.
+                </p>
+              </div>
+            </div>
+
+            <div class="quote-box indicator-blue">
+              <span class="quote-ref">Génesis 31:23 — Reina-Valera 1960</span>
+              <div class="quote-text">Entonces Labán tomó a sus hermanos consigo, y fue tras Jacob camino de siete días, y le alcanzó en el monte de Galaad.</div>
+              <button class="quote-toggle" type="button">Abrir explicación individual</button>
+              <div class="quote-extra">
+                <h5>Explicación individual</h5>
+                <p>
+                  Aquí “hermanos” designa claramente al grupo familiar o clan que acompaña a Labán, no solamente hermanos carnales.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="group-card">
+            <div class="group-title">Grupo lógico B · Uso amplio de “hermanos” también en el Nuevo Testamento</div>
+
+            <div class="quote-box indicator-purple">
+              <span class="quote-ref">Juan 20:17 — Reina-Valera 1960</span>
+              <div class="quote-text">Jesús le dijo: No me toques, porque aún no he subido a mi Padre; mas ve a mis hermanos, y diles: Subo a mi Padre y a vuestro Padre, a mi Dios y a vuestro Dios.</div>
+              <button class="quote-toggle" type="button">Abrir explicación individual</button>
+              <div class="quote-extra">
+                <h5>Explicación individual</h5>
+                <p>
+                  Cristo llama “hermanos” a sus discípulos. El término en el Nuevo Testamento tampoco queda reducido siempre a la sangre o a la misma madre.
+                </p>
+              </div>
+            </div>
+
+            <div class="quote-box indicator-purple">
+              <span class="quote-ref">Hechos 1:15 — Reina-Valera 1960</span>
+              <div class="quote-text">En aquellos días Pedro se levantó en medio de los hermanos (y los reunidos eran como ciento veinte en número), y dijo:</div>
+              <button class="quote-toggle" type="button">Abrir explicación individual</button>
+              <div class="quote-extra">
+                <h5>Explicación individual</h5>
+                <p>
+                  La comunidad cristiana es llamada “hermanos”. El Nuevo Testamento conserva un uso amplio y no meramente biológico del término.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="logic-box">
+            <div class="box-title">Conexión lógica entre los textos</div>
+            <p>
+              Lot es llamado “hermano” de Abram, aunque Génesis 11:27 deja claro que era su sobrino. Labán llama “hermano” a Jacob dentro de un parentesco ampliado. Y el Nuevo Testamento mismo usa “hermanos” para discípulos y miembros de la comunidad creyente. La Escritura, por tanto, no obliga a entender “hermanos” como “hijos de la misma madre” en todos los casos.
+            </p>
+          </div>
+
+          <div class="apologetic-box">
+            <div class="box-title">Aplicación apologética práctica</div>
+            <p>
+              En conversación, conviene preguntar: “¿La Biblia siempre usa ‘hermano’ para hijos de la misma madre?” Si la otra persona responde que sí, basta llevarla a Abraham y Lot. Si allí acepta que el término puede ser más amplio, entonces ya no puede usar automáticamente la palabra “hermanos de Jesús” como prueba de que María tuvo más hijos.
+            </p>
+          </div>
+
+          <div class="conclusion-box">
+            <div class="box-title">Conclusión del argumento</div>
+            <p>
+              La palabra “hermanos” por sí sola no prueba nada contra la virginidad perpetua de María. Antes de sacar conclusiones, hay que identificar a las personas concretas de las que habla el texto.
+            </p>
+          </div>
+        </article>
+
+        <!-- ===== ARGUMENTO 2 ===== -->
+        <article class="argument-card">
+          <span class="argument-kicker">Argumento mayor 2</span>
+          <h3>Los llamados “hermanos de Jesús” son identificables y no aparecen como hijos de la Virgen María</h3>
+
+          <p>
+            El método apologético clave aquí consiste en hacer lo que manda la buena exégesis: rastrear nombres, madres, padres y pasajes paralelos. No basta con citar que Jesús tenía “hermanos”; hay que preguntar quiénes son, de quién son hijos y cómo reaparecen en la Biblia. Allí la objeción se desarma.
+          </p>
+
+          <h4 class="subhead">Textos bíblicos completos</h4>
+
+          <div class="group-card">
+            <div class="group-title">Grupo lógico A · Nombres citados entre los llamados “hermanos”</div>
+
+            <div class="quote-box indicator-blue">
+              <span class="quote-ref">Mateo 13:55-56 — Reina-Valera 1960</span>
+              <div class="quote-text">¿No es éste el hijo del carpintero? ¿No se llama su madre María, y sus hermanos, Jacobo, José, Simón y Judas? ¿No están todas sus hermanas con nosotros? ¿De dónde, pues, tiene éste todas estas cosas?</div>
+              <button class="quote-toggle" type="button">Abrir explicación individual</button>
+              <div class="quote-extra">
+                <h5>Explicación individual</h5>
+                <p>
+                  Este pasaje presenta los nombres que luego deben ser rastreados. Aquí comienza el trabajo apologético serio.
+                </p>
+              </div>
+            </div>
+
+            <div class="quote-box indicator-blue">
+              <span class="quote-ref">Marcos 6:3 — Reina-Valera 1960</span>
+              <div class="quote-text">¿No es éste el carpintero, hijo de María, hermano de Jacobo, de José, de Judas y de Simón? ¿No están también aquí con nosotros sus hermanas? Y se escandalizaban de él.</div>
+              <button class="quote-toggle" type="button">Abrir explicación individual</button>
+              <div class="quote-extra">
+                <h5>Explicación individual</h5>
+                <p>
+                  Marcos confirma el mismo grupo de nombres. La Biblia no se agota aquí: esos nombres reaparecen en otros textos y deben seguirse.
+                </p>
+              </div>
+            </div>
+
+            <div class="quote-box indicator-red">
+              <span class="quote-ref">Juan 2:12 — Reina-Valera 1960</span>
+              <div class="quote-text">Después de esto descendieron a Capernaum, él, su madre, sus hermanos y sus discípulos; y estuvieron allí no muchos días.</div>
+              <button class="quote-toggle" type="button">Abrir explicación individual</button>
+              <div class="quote-extra">
+                <h5>Explicación individual</h5>
+                <p>
+                  El texto distingue entre “su madre”, “sus hermanos” y “sus discípulos”. Esa forma de hablar no prueba por sí sola maternidad compartida.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="group-card">
+            <div class="group-title">Grupo lógico B · Aparición posterior de Jacobo y José vinculados a otra María</div>
+
+            <div class="quote-box indicator-green">
+              <span class="quote-ref">Mateo 27:55-56 — Reina-Valera 1960</span>
+              <div class="quote-text">Estaban allí muchas mujeres mirando de lejos, las cuales habían seguido a Jesús desde Galilea, sirviéndole, entre las cuales estaban María Magdalena, María la madre de Jacobo y de José, y la madre de los hijos de Zebedeo.</div>
+              <button class="quote-toggle" type="button">Abrir explicación individual</button>
+              <div class="quote-extra">
+                <h5>Explicación individual</h5>
+                <p>
+                  Aquí la Escritura habla expresamente de “María la madre de Jacobo y de José”. Eso es decisivo, porque los nombres coinciden.
+                </p>
+              </div>
+            </div>
+
+            <div class="quote-box indicator-green">
+              <span class="quote-ref">Marcos 15:40 — Reina-Valera 1960</span>
+              <div class="quote-text">También había algunas mujeres mirando de lejos, entre las cuales estaban María Magdalena, María la madre de Jacobo el menor y de José, y Salomé.</div>
+              <button class="quote-toggle" type="button">Abrir explicación individual</button>
+              <div class="quote-extra">
+                <h5>Explicación individual</h5>
+                <p>
+                  Marcos vuelve a unir a Jacobo y José con otra María. La repetición fortalece la identificación.
+                </p>
+              </div>
+            </div>
+
+            <div class="quote-box indicator-gold">
+              <span class="quote-ref">Juan 19:25 — Reina-Valera 1960</span>
+              <div class="quote-text">Estaban junto a la cruz de Jesús su madre, y la hermana de su madre, María mujer de Cleofas, y María Magdalena.</div>
+              <button class="quote-toggle" type="button">Abrir explicación individual</button>
+              <div class="quote-extra">
+                <h5>Explicación individual</h5>
+                <p>
+                  Juan introduce a “María mujer de Cleofas” junto a la cruz. En el cruce de pasajes, esta presencia es fundamental.
+                </p>
+              </div>
+            </div>
+
+            <div class="quote-box indicator-green">
+              <span class="quote-ref">Mateo 28:1 — Reina-Valera 1960</span>
+              <div class="quote-text">Pasado el día de reposo, al amanecer del primer día de la semana, vinieron María Magdalena y la otra María, a ver el sepulcro.</div>
+              <button class="quote-toggle" type="button">Abrir explicación individual</button>
+              <div class="quote-extra">
+                <h5>Explicación individual</h5>
+                <p>
+                  La expresión “la otra María” confirma que la Escritura distingue claramente entre varias Marías.
+                </p>
+              </div>
+            </div>
+
+            <div class="quote-box indicator-green">
+              <span class="quote-ref">Marcos 16:1 — Reina-Valera 1960</span>
+              <div class="quote-text">Cuando pasó el día de reposo, María Magdalena, María la madre de Jacobo, y Salomé, compraron especias aromáticas para ir a ungirle.</div>
+              <button class="quote-toggle" type="button">Abrir explicación individual</button>
+              <div class="quote-extra">
+                <h5>Explicación individual</h5>
+                <p>
+                  La repetición de “María madre de Jacobo” refuerza que este Jacobo no es presentado como hijo de la Virgen María.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="group-card">
+            <div class="group-title">Grupo lógico C · Relación interna entre Jacobo y Judas</div>
+
+            <div class="quote-box indicator-blue">
+              <span class="quote-ref">Judas 1:1 — Reina-Valera 1960</span>
+              <div class="quote-text">Judas, siervo de Jesucristo, y hermano de Jacobo, a los llamados, santificados en Dios Padre, y guardados en Jesucristo:</div>
+              <button class="quote-toggle" type="button">Abrir explicación individual</button>
+              <div class="quote-extra">
+                <h5>Explicación individual</h5>
+                <p>
+                  Judas se identifica como “hermano de Jacobo”, no como hijo de María la Virgen. Esto refuerza una estructura familiar distinta.
+                </p>
+              </div>
+            </div>
+
+            <div class="quote-box indicator-blue">
+              <span class="quote-ref">Hechos 1:13 — Reina-Valera 1960</span>
+              <div class="quote-text">Y entrados, subieron al aposento alto, donde moraban Pedro y Jacobo, Juan, Andrés, Felipe, Tomás, Bartolomé, Mateo, Jacobo hijo de Alfeo, Simón el Zelote y Judas hermano de Jacobo.</div>
+              <button class="quote-toggle" type="button">Abrir explicación individual</button>
+              <div class="quote-extra">
+                <h5>Explicación individual</h5>
+                <p>
+                  La Escritura sigue identificando a Judas por su relación con Jacobo. Esto encaja con el rastreo familiar apologético.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="logic-box">
+            <div class="box-title">Conexión lógica entre los textos</div>
+            <p>
+              En Mateo 13 y Marcos 6 aparecen los nombres Jacobo, José, Simón y Judas entre los llamados “hermanos” de Jesús. Más tarde, en la escena de la cruz, Mateo 27, Marcos 15 y Marcos 16 hablan expresamente de “María la madre de Jacobo y de José”. Juan 19:25 menciona a “María mujer de Cleofas”, y Mateo 28:1 distingue todavía a “la otra María”. Además, Judas 1:1 y Hechos 1:13 vinculan a Judas con Jacobo. Así, la propia Escritura presenta otra línea familiar, lo cual impide identificar automáticamente a Jacobo, José y Judas como hijos de la Santísima Virgen.
+            </p>
+          </div>
+
+          <div class="father-box">
+            <div class="box-title">Apoyo patrístico: San Jerónimo</div>
+            <p>
+              San Jerónimo, en su obra <em>Contra Helvidio</em>, respondió precisamente a la objeción de que María tuvo otros hijos. Su línea central fue que los llamados “hermanos del Señor” eran parientes y que varios de esos nombres deben vincularse a otra María, no a la Virgen. En la tradición latina, este argumento llegó a ser clásico y decisivo.
+            </p>
+          </div>
+
+          <div class="apologetic-box">
+            <div class="box-title">Aplicación apologética práctica</div>
+            <p>
+              No discutas en abstracto. Haz preguntas concretas: “¿Quién era Jacobo? ¿Quién era José? ¿Quién aparece como madre de Jacobo y José en la cruz? ¿Por qué Judas aparece como hermano de Jacobo?” En cuanto el interlocutor ve que la Biblia vincula esos nombres a otra línea familiar, la objeción pierde fuerza.
+            </p>
+          </div>
+
+          <div class="conclusion-box">
+            <div class="box-title">Conclusión del argumento</div>
+            <p>
+              La Escritura no presenta a los llamados “hermanos de Jesús” como hijos de la Virgen María. Al contrario, varios nombres reaparecen ligados a otra María y a otra red familiar, lo cual apoya la interpretación católica de que se trata de parientes cercanos.
+            </p>
+          </div>
+        </article>
+
+        <!-- ===== ARGUMENTO 3 ===== -->
+        <article class="argument-card">
+          <span class="argument-kicker">Argumento mayor 3</span>
+          <h3>Juan 19 demuestra que María no tenía otros hijos propios</h3>
+
+          <p>
+            Este argumento no es secundario: es uno de los más fuertes, porque procede del mismo momento de la cruz. Jesús, al morir, confía su Madre al discípulo amado. Si María hubiera tenido otros hijos carnales, ese gesto sería extraño, jurídicamente impropio y humanamente ofensivo para ellos.
+          </p>
+
+          <h4 class="subhead">Textos bíblicos completos</h4>
+
+          <div class="group-card">
+            <div class="group-title">Grupo lógico A · La entrega de María a Juan y el contexto de los llamados “hermanos”</div>
+
+            <div class="quote-box indicator-red">
+              <span class="quote-ref">Juan 19:26-27 — Reina-Valera 1960</span>
+              <div class="quote-text">Cuando vio Jesús a su madre, y al discípulo a quien él amaba, que estaba presente, dijo a su madre: Mujer, he ahí tu hijo. Después dijo al discípulo: He ahí tu madre. Y desde aquella hora el discípulo la recibió en su casa.</div>
+              <button class="quote-toggle" type="button">Abrir explicación individual</button>
+              <div class="quote-extra">
+                <h5>Explicación individual</h5>
+                <p>
+                  Cristo entrega su Madre a Juan y Juan la recibe en su casa. Si existieran otros hijos propios de María, el gesto sería anómalo.
+                </p>
+              </div>
+            </div>
+
+            <div class="quote-box indicator-blue">
+              <span class="quote-ref">Juan 7:3-5 — Reina-Valera 1960</span>
+              <div class="quote-text">Y le dijeron sus hermanos: Sal de aquí, y vete a Judea, para que también tus discípulos vean las obras que haces. Porque ninguno que procura darse a conocer hace algo en secreto. Si estas cosas haces, manifiéstate al mundo. Porque ni aun sus hermanos creían en él.</div>
+              <button class="quote-toggle" type="button">Abrir explicación individual</button>
+              <div class="quote-extra">
+                <h5>Explicación individual</h5>
+                <p>
+                  Aquí aparecen los llamados “hermanos” sin el rol natural que correspondería a supuestos hijos responsables de su madre.
+                </p>
+              </div>
+            </div>
+
+            <div class="quote-box indicator-green">
+              <span class="quote-ref">Hechos 1:14 — Reina-Valera 1960</span>
+              <div class="quote-text">Todos éstos perseveraban unánimes en oración y ruego, con las mujeres, y con María la madre de Jesús, y con sus hermanos.</div>
+              <button class="quote-toggle" type="button">Abrir explicación individual</button>
+              <div class="quote-extra">
+                <h5>Explicación individual</h5>
+                <p>
+                  Después de la resurrección, María y los “hermanos” aparecen juntos en la comunidad creyente, sin que eso revoque la entrega hecha a Juan.
+                </p>
+              </div>
+            </div>
+
+            <div class="quote-box indicator-purple">
+              <span class="quote-ref">Marcos 3:31-35 — Reina-Valera 1960</span>
+              <div class="quote-text">Vienen después sus hermanos y su madre, y quedándose afuera, enviaron a llamarle. Y la gente que estaba sentada alrededor de él le dijo: Tu madre y tus hermanos están afuera y te buscan. Él les respondió diciendo: ¿Quién es mi madre y mis hermanos? Y mirando a los que estaban sentados alrededor de él, dijo: He aquí mi madre y mis hermanos. Porque todo aquel que hace la voluntad de Dios, ése es mi hermano, y mi hermana, y mi madre.</div>
+              <button class="quote-toggle" type="button">Abrir explicación individual</button>
+              <div class="quote-extra">
+                <h5>Explicación individual</h5>
+                <p>
+                  Cristo mismo muestra que el lenguaje de familia puede ir más allá de la biología y del hogar natural, incluso dentro del contexto evangélico.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="logic-box">
+            <div class="box-title">Conexión lógica entre los textos</div>
+            <p>
+              Juan 19 muestra un acto concreto de entrega filial: Jesús entrega a María a Juan, y Juan la recibe en su casa. Juan 7 muestra que los llamados “hermanos” no tenían todavía una postura de fe clara durante el ministerio público. Hechos 1 muestra a María y a los “hermanos” del Señor entre la comunidad cristiana. Y Marcos 3 recuerda además que el mismo Cristo usa el lenguaje familiar con un alcance más amplio. La escena decisiva sigue siendo la de la cruz: Jesús entrega a María a Juan, no a “sus hermanos”.
+            </p>
+          </div>
+
+          <div class="apologetic-box">
+            <div class="box-title">Aplicación apologética práctica</div>
+            <p>
+              Esta pregunta suele desarmar mucho: “Si María tenía varios hijos más, ¿por qué Jesús no la dejó al cuidado de ellos?” No es una pregunta superficial. Obliga a mirar el texto y a reconocer que la conducta de Cristo en la cruz es incompatible con la idea de que María tuviera otros hijos propios que vivieran como tales.
+            </p>
+          </div>
+
+          <div class="conclusion-box">
+            <div class="box-title">Conclusión del argumento</div>
+            <p>
+              Juan 19 no encaja con la hipótesis protestante. El gesto de Jesús tiene pleno sentido si María no tenía otros hijos propios; por eso la tradición católica ve en este pasaje una confirmación poderosa de su virginidad perpetua.
+            </p>
+          </div>
+        </article>
+
+        <!-- ===== ARGUMENTO 4 ===== -->
+        <article class="argument-card">
+          <span class="argument-kicker">Argumento mayor 4</span>
+          <h3>Lucas 1:34 indica un propósito real de virginidad, no una simple situación pasajera</h3>
+
+          <p>
+            La pregunta de María al ángel no es banal ni redundante. Si María esperaba una vida conyugal ordinaria en el sentido común del matrimonio, la promesa de un hijo no habría necesitado esa clase de pregunta. Sin embargo, María responde de una manera que revela una disposición especial respecto a la virginidad.
+          </p>
+
+          <h4 class="subhead">Textos bíblicos completos</h4>
+
+          <div class="group-card">
+            <div class="group-title">Grupo lógico A · La pregunta de María y el momento previo a la convivencia matrimonial</div>
+
+            <div class="quote-box indicator-purple">
+              <span class="quote-ref">Lucas 1:26-35 — Reina-Valera 1960</span>
+              <div class="quote-text">Al sexto mes el ángel Gabriel fue enviado por Dios a una ciudad de Galilea, llamada Nazaret, a una virgen desposada con un varón que se llamaba José, de la casa de David; y el nombre de la virgen era María. Y entrando el ángel en donde ella estaba, dijo: ¡Salve, muy favorecida! El Señor es contigo; bendita tú entre las mujeres. Mas ella, cuando le vio, se turbó por sus palabras, y pensaba qué salutación sería ésta. Entonces el ángel le dijo: María, no temas, porque has hallado gracia delante de Dios. Y ahora, concebirás en tu vientre, y darás a luz un hijo, y llamarás su nombre JESÚS. Este será grande, y será llamado Hijo del Altísimo; y el Señor Dios le dará el trono de David su padre; y reinará sobre la casa de Jacob para siempre, y su reino no tendrá fin. Entonces María dijo al ángel: ¿Cómo será esto? pues no conozco varón. Respondiendo el ángel, le dijo: El Espíritu Santo vendrá sobre ti, y el poder del Altísimo te cubrirá con su sombra; por lo cual también el Santo Ser que nacerá, será llamado Hijo de Dios.</div>
+              <button class="quote-toggle" type="button">Abrir explicación individual</button>
+              <div class="quote-extra">
+                <h5>Explicación individual</h5>
+                <p>
+                  La pregunta “¿Cómo será esto? pues no conozco varón” tiene peso teológico y revela una disposición virginal singular.
+                </p>
+              </div>
+            </div>
+
+            <div class="quote-box indicator-gold">
+              <span class="quote-ref">Lucas 1:27 — Reina-Valera 1960</span>
+              <div class="quote-text">a una virgen desposada con un varón que se llamaba José, de la casa de David; y el nombre de la virgen era María.</div>
+              <button class="quote-toggle" type="button">Abrir explicación individual</button>
+              <div class="quote-extra">
+                <h5>Explicación individual</h5>
+                <p>
+                  Lucas insiste en llamar “virgen” a María. La insistencia del texto no es casual ni decorativa.
+                </p>
+              </div>
+            </div>
+
+            <div class="quote-box indicator-gold">
+              <span class="quote-ref">Mateo 1:18 — Reina-Valera 1960</span>
+              <div class="quote-text">El nacimiento de Jesucristo fue así: Estando desposada María su madre con José, antes que se juntasen, se halló que había concebido del Espíritu Santo.</div>
+              <button class="quote-toggle" type="button">Abrir explicación individual</button>
+              <div class="quote-extra">
+                <h5>Explicación individual</h5>
+                <p>
+                  Mateo confirma que la concepción se sitúa antes de la vida conyugal ordinaria. Este dato armoniza con la lectura católica de Lucas 1:34.
+                </p>
+              </div>
+            </div>
+
+            <div class="quote-box indicator-purple">
+              <span class="quote-ref">Mateo 1:20-23 — Reina-Valera 1960</span>
+              <div class="quote-text">Y pensando él en esto, he aquí un ángel del Señor le apareció en sueños y le dijo: José, hijo de David, no temas recibir a María tu mujer, porque lo que en ella es engendrado, del Espíritu Santo es. Y dará a luz un hijo, y llamarás su nombre JESÚS, porque él salvará a su pueblo de sus pecados. Todo esto aconteció para que se cumpliese lo dicho por el Señor por medio del profeta, cuando dijo: He aquí, una virgen concebirá y dará a luz un hijo, Y llamarás su nombre Emanuel, que traducido es: Dios con nosotros.</div>
+              <button class="quote-toggle" type="button">Abrir explicación individual</button>
+              <div class="quote-extra">
+                <h5>Explicación individual</h5>
+                <p>
+                  Mateo conecta el misterio de María con la concepción virginal anunciada proféticamente. La virginidad no es un detalle pasajero, sino parte del signo.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="logic-box">
+            <div class="box-title">Conexión lógica entre los textos</div>
+            <p>
+              Lucas subraya dos veces que María era virgen y conserva su pregunta singular al ángel: “¿Cómo será esto? pues no conozco varón.” Esa reacción no suena a una mujer que simplemente espera tener vida matrimonial normal y piensa en un hijo futuro por vía natural. Mateo 1:18 y Mateo 1:20-23 sitúan además la concepción en el marco de una intervención divina y de la profecía de la virgen. Todo esto armoniza con la lectura católica de una virginidad singular y permanente.
+            </p>
+          </div>
+
+          <div class="father-box">
+            <div class="box-title">Apoyo patrístico</div>
+            <p>
+              Los Padres vieron en esta pregunta algo más que una observación biológica. La tradición patrística leyó en Lucas 1:34 un indicio serio de la singular consagración de María. San Jerónimo y otros defensores de la virginidad perpetua insistieron en que la pregunta tendría poco sentido si María hubiera previsto una vida conyugal ordinaria sin más.
+            </p>
+          </div>
+
+          <div class="apologetic-box">
+            <div class="box-title">Aplicación apologética práctica</div>
+            <p>
+              En conversación, puedes plantearlo así: “Si María estaba desposada y simplemente pensaba vivir normalmente como cualquier esposa, ¿por qué pregunta ‘cómo será esto’?” La pregunta de María apunta a algo más profundo que una mera espera natural del matrimonio.
+            </p>
+          </div>
+
+          <div class="conclusion-box">
+            <div class="box-title">Conclusión del argumento</div>
+            <p>
+              Lucas 1:34 no es una prueba aislada, pero sí una pieza teológica muy importante: armoniza perfectamente con la fe de la Iglesia en la virginidad perpetua de María.
+            </p>
+          </div>
+        </article>
+
+        <!-- ===== ARGUMENTO 5 ===== -->
+        <article class="argument-card">
+          <span class="argument-kicker">Argumento mayor 5</span>
+          <h3>“Hasta que” y “primogénito” no prueban que María tuvo más hijos</h3>
+
+          <p>
+            Muchas objeciones descansan en una lectura apresurada de Mateo 1:25 y Lucas 2:7. Se afirma que si José “no la conoció hasta que dio a luz” entonces después sí la conoció; y que si Jesús es “primogénito” entonces vinieron otros hijos más. Ninguna de las dos conclusiones es necesaria.
+          </p>
+
+          <h4 class="subhead">Textos bíblicos completos</h4>
+
+          <div class="group-card">
+            <div class="group-title">Grupo lógico A · “Hasta que” no obliga a un cambio posterior</div>
+
+            <div class="quote-box indicator-red">
+              <span class="quote-ref">Mateo 1:24-25 — Reina-Valera 1960</span>
+              <div class="quote-text">Y despertando José del sueño, hizo como el ángel del Señor le había mandado, y recibió a su mujer. Pero no la conoció hasta que dio a luz a su hijo primogénito; y le puso por nombre JESÚS.</div>
+              <button class="quote-toggle" type="button">Abrir explicación individual</button>
+              <div class="quote-extra">
+                <h5>Explicación individual</h5>
+                <p>
+                  El texto afirma con claridad la virginidad antes del parto. Pero la expresión “hasta que” no obliga, por sí misma, a afirmar una relación posterior.
+                </p>
+              </div>
+            </div>
+
+            <div class="quote-box indicator-red">
+              <span class="quote-ref">2 Samuel 6:23 — Reina-Valera 1960</span>
+              <div class="quote-text">Y Mical hija de Saúl nunca tuvo hijos hasta el día de su muerte.</div>
+              <button class="quote-toggle" type="button">Abrir explicación individual</button>
+              <div class="quote-extra">
+                <h5>Explicación individual</h5>
+                <p>
+                  Este ejemplo es demoledor: decir que Mical no tuvo hijos “hasta el día de su muerte” no significa que los tuvo después.
+                </p>
+              </div>
+            </div>
+
+            <div class="quote-box indicator-red">
+              <span class="quote-ref">Deuteronomio 34:6 — Reina-Valera 1960</span>
+              <div class="quote-text">Y lo enterró en el valle, en la tierra de Moab, enfrente de Bet-peor; y ninguno conoce el lugar de su sepultura hasta hoy.</div>
+              <button class="quote-toggle" type="button">Abrir explicación individual</button>
+              <div class="quote-extra">
+                <h5>Explicación individual</h5>
+                <p>
+                  La expresión “hasta hoy” no exige que después se conociera la sepultura. De nuevo, “hasta” no obliga a un cambio contrario posterior.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="group-card">
+            <div class="group-title">Grupo lógico B · “Primogénito” como título legal del primero que abre matriz</div>
+
+            <div class="quote-box indicator-gold">
+              <span class="quote-ref">Lucas 2:7 — Reina-Valera 1960</span>
+              <div class="quote-text">Y dio a luz a su hijo primogénito, y lo envolvió en pañales, y lo acostó en un pesebre, porque no había lugar para ellos en el mesón.</div>
+              <button class="quote-toggle" type="button">Abrir explicación individual</button>
+              <div class="quote-extra">
+                <h5>Explicación individual</h5>
+                <p>
+                  Aquí “primogénito” no debe leerse con mentalidad moderna aritmética. La palabra puede funcionar como categoría jurídica y cultual.
+                </p>
+              </div>
+            </div>
+
+            <div class="quote-box indicator-gold">
+              <span class="quote-ref">Éxodo 13:2 — Reina-Valera 1960</span>
+              <div class="quote-text">Conságrame todo primogénito. Cualquiera que abre matriz entre los hijos de Israel, así de los hombres como de los animales, mío es.</div>
+              <button class="quote-toggle" type="button">Abrir explicación individual</button>
+              <div class="quote-extra">
+                <h5>Explicación individual</h5>
+                <p>
+                  Éxodo define el sentido legal: primogénito es el primero que abre matriz. No se exige que haya un segundo.
+                </p>
+              </div>
+            </div>
+
+            <div class="quote-box indicator-gold">
+              <span class="quote-ref">Números 18:15 — Reina-Valera 1960</span>
+              <div class="quote-text">Todo lo que abre matriz, de toda carne que ofrecerán a Jehová, así de hombres como de animales, será tuyo; pero harás rescatar el primogénito del hombre; también harás rescatar el primogénito de animal inmundo.</div>
+              <button class="quote-toggle" type="button">Abrir explicación individual</button>
+              <div class="quote-extra">
+                <h5>Explicación individual</h5>
+                <p>
+                  La ley habla del primogénito como categoría jurídica del primero que abre matriz, no como prueba matemática de hijos posteriores.
+                </p>
+              </div>
+            </div>
+
+            <div class="quote-box indicator-purple">
+              <span class="quote-ref">Hebreos 1:6 — Reina-Valera 1960</span>
+              <div class="quote-text">Y otra vez, cuando introduce al Primogénito en el mundo, dice: Adórenle todos los ángeles de Dios.</div>
+              <button class="quote-toggle" type="button">Abrir explicación individual</button>
+              <div class="quote-extra">
+                <h5>Explicación individual</h5>
+                <p>
+                  “Primogénito” puede funcionar también como título de dignidad y preeminencia, no solamente como conteo de hermanos posteriores.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="logic-box">
+            <div class="box-title">Conexión lógica entre los textos</div>
+            <p>
+              En 2 Samuel 6:23 y Deuteronomio 34:6, las expresiones con “hasta” no significan automáticamente que después ocurrió lo contrario. Por tanto, Mateo 1:25 no obliga por sí mismo a un cambio posterior. De igual modo, Lucas 2:7, Éxodo 13:2 y Números 18:15 muestran que “primogénito” es un título legal del primero que abre matriz, mientras Hebreos 1:6 recuerda además que el término puede tener sentido de dignidad y preeminencia. Nada de eso destruye la doctrina católica.
+            </p>
+          </div>
+
+          <div class="apologetic-box">
+            <div class="box-title">Aplicación apologética práctica</div>
+            <p>
+              Una respuesta simple y fuerte es esta: “La palabra ‘hasta’ en la Biblia no siempre indica que después ocurrió lo contrario; y ‘primogénito’ es un término legal del primero que abre matriz, no una prueba de hijos posteriores.” Eso obliga a abandonar una lectura mecánica del texto.
+            </p>
+          </div>
+
+          <div class="conclusion-box">
+            <div class="box-title">Conclusión del argumento</div>
+            <p>
+              Ni Mateo 1:25 ni Lucas 2:7 destruyen la doctrina católica. Leídos en el uso bíblico real, ambos textos son perfectamente compatibles con la virginidad perpetua de la Virgen María.
+            </p>
+          </div>
+        </article>
+
+      </section>
+      <!-- ===== FINAL ARGUMENTOS ===== -->
+
+      <!-- ===== INICIO RESPUESTA RÁPIDA ===== -->
+      <section id="respuesta-rapida" class="section-box">
+        <h2 class="section-title">Respuesta rápida para debate</h2>
+
+        <div class="rapid-grid">
+          <article class="rapid-card">
+            <h3>Versión breve y directa</h3>
+            <p>
+              La palabra “hermanos” en la Biblia no significa siempre hijos de la misma madre. La misma Escritura usa ese término para parientes cercanos. Además, varios de los llamados “hermanos de Jesús”, como Jacobo y José, aparecen vinculados a otra María en los relatos de la cruz. Y si María hubiera tenido más hijos propios, Jesús no la habría entregado a Juan en Juan 19.
+            </p>
+          </article>
+
+          <article class="rapid-card">
+            <h3>Versión de confrontación ordenada</h3>
+            <p>
+              Primero: demuestra que “hermano” puede significar pariente. Segundo: pide identificar bíblicamente a Jacobo y José. Tercero: muestra que hay otra María relacionada con esos nombres. Cuarto: remata con Juan 19, donde Jesús entrega a su Madre a Juan. Esa secuencia suele bastar para romper la objeción.
+            </p>
+          </article>
+        </div>
+      </section>
+      <!-- ===== FINAL RESPUESTA RÁPIDA ===== -->
+
+      <!-- ===== INICIO RESPUESTA DESARROLLADA ===== -->
+      <section id="respuesta-estudio" class="section-box">
+        <h2 class="section-title">Respuesta desarrollada para estudio</h2>
+
+        <div class="study-box">
+          <div class="box-title">Síntesis larga y concatenada</div>
+          <p>
+            La objeción de que María tuvo más hijos parte de una lectura simplista de la palabra “hermanos” y de una identificación deficiente de los personajes. El primer paso serio consiste en admitir que, en el lenguaje bíblico, “hermano” puede indicar parentesco amplio. El segundo paso es rastrear los nombres mencionados en Mateo 13 y Marcos 6; al hacerlo, aparece otra María asociada a Jacobo y José, y además una red interna donde Judas aparece unido a Jacobo. El tercer paso es considerar Juan 19, donde Cristo entrega a su Madre al discípulo amado, lo cual no se entiende si existieran otros hijos propios de María. El cuarto paso es interpretar Lucas 1:34 dentro de la tradición viva de la Iglesia, viendo allí un indicio profundo de virginidad singular. Finalmente, Mateo 1:25 y Lucas 2:7 deben ser leídos según el uso bíblico de “hasta” y “primogénito”, no según prejuicios modernos. En conjunto, la Escritura leída en continuidad con la tradición patrística sostiene la doctrina católica de la virginidad perpetua de María.
+          </p>
+        </div>
+      </section>
+      <!-- ===== FINAL RESPUESTA DESARROLLADA ===== -->
+
+      <!-- ===== INICIO ERRORES ===== -->
+      <section id="errores" class="section-box">
+        <h2 class="section-title">Errores comunes al responder</h2>
+
+        <div class="error-box">
+          <div class="box-title">Errores comunes al responder</div>
+          <ul class="box-list">
+            <li>Decir solamente “eran primos” sin demostrar con textos quiénes son y dónde reaparecen.</li>
+            <li>Omitir Juan 19, que es uno de los pasajes más fuertes del tema.</li>
+            <li>No explicar el uso bíblico amplio de la palabra “hermanos”.</li>
+            <li>Responder solo con tradición sin mostrar la armonía bíblica.</li>
+            <li>Usar versículos recortados o incompletos, debilitando la fuerza apologética.</li>
+          </ul>
+        </div>
+      </section>
+      <!-- ===== FINAL ERRORES ===== -->
+
+      <!-- ===== INICIO FRASES CLAVE ===== -->
+      <section id="frases-clave" class="section-box">
+        <h2 class="section-title">Frases clave para memorizar</h2>
+
+        <div class="memory-box">
+          <div class="box-title">Frases clave para memorizar</div>
+          <ul class="box-list">
+            <li>“En la Biblia, ‘hermanos’ no siempre significa hijos de la misma madre.”</li>
+            <li>“Los nombres de los llamados hermanos de Jesús reaparecen unidos a otra María.”</li>
+            <li>“Si María hubiera tenido otros hijos propios, Jesús no la habría entregado a Juan.”</li>
+            <li>“Lucas 1:34 armoniza con la fe de la Iglesia en la virginidad perpetua.”</li>
+            <li>“Ni ‘hasta que’ ni ‘primogénito’ prueban hijos posteriores.”</li>
+          </ul>
+        </div>
+      </section>
+      <!-- ===== FINAL FRASES CLAVE ===== -->
+
+      <!-- ===== INICIO NOTAS PERSONALES ===== -->
+      <section class="section-box">
+        <h2 class="section-title">Notas personales</h2>
+
+        <div class="note-card">
+          <p>
+            Este espacio queda reservado para observaciones de uso real en debate, objeciones nuevas, respuestas que hayan funcionado mejor y mejoras futuras del tema.
+          </p>
+
+          <div class="note-toolbar">
+            <div class="note-field">
+              <label for="noteInput">Escribe una nueva nota apologética</label>
+              <textarea id="noteInput" placeholder="Ejemplo: hoy funcionó mejor abrir con Abraham y Lot antes de entrar a Juan 19..."></textarea>
+            </div>
+
+            <button class="note-add-btn" id="addNoteBtn" type="button">Guardar nota</button>
+          </div>
+
+          <div class="note-records" id="noteRecords"></div>
+
+          <div class="final-actions">
+            <button class="note-clear-btn" id="clearNotesBtn" type="button">Borrar todas las notas</button>
+          </div>
+        </div>
+
+        <div class="final-actions">
+          <a class="cta-btn azul" href="../index.html">Volver al módulo María</a>
+          <a class="cta-btn dorado" href="../../index.html">Volver al centro interno</a>
+        </div>
+      </section>
+      <!-- ===== FINAL NOTAS PERSONALES ===== -->
+
+    </div>
+  </main>
+  <!-- ===== FINAL CONTENIDO ===== -->
+
+  <!-- ===== INICIO FOOTER ===== -->
+  <footer class="footer">
+    <div class="wrap">
+      <div class="footer-card footer-card-pro">
+        <div class="footer-top">
+          <div class="footer-brand">
+            <img class="footer-logo" src="../../assets/img/logo-accar.png" alt="Logo Apologética ACCAR">
+
+            <div class="footer-brand-copy">
+              <p class="footer-brand-text">
+                Formación, defensa y explicación de la fe católica con fidelidad al Magisterio de la Iglesia.
+              </p>
+
+              <p class="footer-brand-motto">
+                “Defendiendo la fe con verdad, caridad y fundamento apostólico.”
+              </p>
+            </div>
+          </div>
+
+          <div class="footer-links-col">
+            <h4>Enlaces</h4>
+            <div class="footer-links">
+              <a href="#objecion">Objeción</a>
+              <a href="#contexto-judio">Contexto</a>
+              <a href="#mapa-parentesco">Mapa de parentesco</a>
+              <a href="#argumentos">Argumentos</a>
+              <a href="#respuesta-estudio">Respuesta de estudio</a>
+              <a href="#frases-clave">Frases clave</a>
+            </div>
+          </div>
+
+          <div class="footer-contact-col">
+            <h4>Contacto</h4>
+            <p>Herramienta orientativa para formación y consulta apologética.</p>
+            <p>Uso interno doctrinal ACCAR.</p>
+          </div>
+        </div>
+
+        <div class="footer-divider"></div>
+
+<div style="
+  text-align:center;
+  margin-top:10px;
+  padding-top:10px;
+  line-height:1.7;
+  backdrop-filter: blur(3px);
+">
+
+  <p style="
+    margin:6px 0;
+    font-size:14px;
+    opacity:0.85;
+  ">
+    © 2026 Apologética ACCAR. Todos los derechos reservados.
+  </p>
+
+  <p style="
+    margin:4px 0;
+    font-size:13px;
+    color:#d4af37;
+    font-weight:500;
+    letter-spacing:0.4px;
+  ">
+    Diseño y desarrollo por Olgwal Studio Vision
+  </p>
+
+  <p style="
+    margin:6px 0;
+    font-size:14px;
+    opacity:0.9;
+  ">
+    Ars Defensor Fidei · Herramienta interna de formación y combate apologético doctrinal
+  </p>
+
+</div>
+
+    </div>
+  </footer>
+  <!-- ===== FINAL FOOTER ===== -->
+
+  <script>
+    (function(){
+      const menuToggle = document.getElementById("menuToggle");
+      const mobileNav = document.getElementById("mobileNav");
+
+      function closeMenu(){
+        if(!menuToggle || !mobileNav) return;
+        menuToggle.classList.remove("active");
+        menuToggle.setAttribute("aria-expanded", "false");
+        mobileNav.classList.remove("active");
+      }
+
+      function toggleMenu(){
+        if(!menuToggle || !mobileNav) return;
+        const isActive = mobileNav.classList.contains("active");
+        if(isActive){
+          closeMenu();
+        }else{
+          menuToggle.classList.add("active");
+          menuToggle.setAttribute("aria-expanded", "true");
+          mobileNav.classList.add("active");
+        }
+      }
+
+      if(menuToggle){
+        menuToggle.addEventListener("click", toggleMenu);
+      }
+
+      const mobileLinks = document.querySelectorAll(".mobile-nav a");
+      for(let i = 0; i < mobileLinks.length; i++){
+        mobileLinks[i].addEventListener("click", closeMenu);
+      }
+
+      document.addEventListener("click", function(e){
+        if(!menuToggle || !mobileNav) return;
+        if(window.innerWidth > 1160) return;
+
+        const clickedToggle = menuToggle.contains(e.target);
+        const clickedMenu = mobileNav.contains(e.target);
+
+        if(!clickedToggle && !clickedMenu){
+          closeMenu();
+        }
+      });
+
+      window.addEventListener("resize", function(){
+        if(window.innerWidth > 1160){
+          closeMenu();
+        }
+      });
+
+      const quoteButtons = document.querySelectorAll(".quote-toggle");
+      for(let i = 0; i < quoteButtons.length; i++){
+        quoteButtons[i].addEventListener("click", function(){
+          const quoteBox = this.closest(".quote-box");
+          if(!quoteBox) return;
+
+          const extra = quoteBox.querySelector(".quote-extra");
+          if(!extra) return;
+
+          const isOpen = extra.classList.contains("open");
+
+          if(isOpen){
+            extra.classList.remove("open");
+            this.textContent = "Abrir explicación individual";
+          }else{
+            extra.classList.add("open");
+            this.textContent = "Cerrar explicación individual";
+          }
+        });
+      }
+
+      const yearEl = document.getElementById("yearActual");
+      if(yearEl){
+        yearEl.textContent = new Date().getFullYear();
+      }
+
+      const NOTE_STORAGE_KEY = "accar_ars_defensor_fidei_maria_mas_hijos_notas";
+      const noteInput = document.getElementById("noteInput");
+      const addNoteBtn = document.getElementById("addNoteBtn");
+      const clearNotesBtn = document.getElementById("clearNotesBtn");
+      const noteRecords = document.getElementById("noteRecords");
+
+      function getNotes(){
+        try{
+          const raw = localStorage.getItem(NOTE_STORAGE_KEY);
+          if(!raw) return [];
+          const parsed = JSON.parse(raw);
+          return Array.isArray(parsed) ? parsed : [];
+        }catch(error){
+          return [];
+        }
+      }
+
+      function saveNotes(notes){
+        try{
+          localStorage.setItem(NOTE_STORAGE_KEY, JSON.stringify(notes));
+        }catch(error){}
+      }
+
+      function formatDate(dateString){
+        try{
+          const date = new Date(dateString);
+          return date.toLocaleString("es-ES", {
+            year: "numeric",
+            month: "2-digit",
+            day: "2-digit",
+            hour: "2-digit",
+            minute: "2-digit"
+          });
+        }catch(error){
+          return dateString;
+        }
+      }
+
+      function renderNotes(){
+        if(!noteRecords) return;
+
+        const notes = getNotes();
+        noteRecords.innerHTML = "";
+
+        if(notes.length === 0){
+          const empty = document.createElement("div");
+          empty.className = "note-entry";
+          const text = document.createElement("div");
+          text.className = "note-entry-text";
+          text.textContent = "Todavía no hay notas guardadas para esta ficha.";
+          empty.appendChild(text);
+          noteRecords.appendChild(empty);
+          return;
+        }
+
+        for(let i = 0; i < notes.length; i++){
+          const note = notes[i];
+
+          const article = document.createElement("article");
+          article.className = "note-entry";
+
+          const head = document.createElement("div");
+          head.className = "note-entry-head";
+
+          const date = document.createElement("span");
+          date.className = "note-entry-date";
+          date.textContent = formatDate(note.date);
+
+          const removeBtn = document.createElement("button");
+          removeBtn.className = "note-entry-remove";
+          removeBtn.type = "button";
+          removeBtn.textContent = "Eliminar";
+          removeBtn.setAttribute("data-id", note.id);
+
+          const text = document.createElement("div");
+          text.className = "note-entry-text";
+          text.textContent = note.text;
+
+          head.appendChild(date);
+          head.appendChild(removeBtn);
+          article.appendChild(head);
+          article.appendChild(text);
+          noteRecords.appendChild(article);
+        }
+
+        const removeButtons = noteRecords.querySelectorAll(".note-entry-remove");
+        for(let i = 0; i < removeButtons.length; i++){
+          removeButtons[i].addEventListener("click", function(){
+            const id = this.getAttribute("data-id");
+            const notes = getNotes().filter(function(note){
+              return note.id !== id;
+            });
+            saveNotes(notes);
+            renderNotes();
+          });
+        }
+      }
+
+      function addNote(){
+        if(!noteInput) return;
+
+        const text = noteInput.value.trim();
+        if(!text) return;
+
+        const notes = getNotes();
+        notes.unshift({
+          id: String(Date.now()) + "_" + String(Math.floor(Math.random() * 100000)),
+          date: new Date().toISOString(),
+          text: text
+        });
+
+        saveNotes(notes);
+        noteInput.value = "";
+        renderNotes();
+      }
+
+      function clearNotes(){
+        try{
+          localStorage.removeItem(NOTE_STORAGE_KEY);
+        }catch(error){}
+        renderNotes();
+      }
+
+      if(addNoteBtn){
+        addNoteBtn.addEventListener("click", addNote);
+      }
+
+      if(noteInput){
+        noteInput.addEventListener("keydown", function(e){
+          if((e.ctrlKey || e.metaKey) && e.key === "Enter"){
+            addNote();
+          }
+        });
+      }
+
+      if(clearNotesBtn){
+        clearNotesBtn.addEventListener("click", clearNotes);
+      }
+
+      renderNotes();
+    })();
+  </script>
+
+<script>
+function toggleInfografia(){
+  const bloque = document.getElementById("bloqueInfografia");
+  if(bloque.style.display === "none"){
+    bloque.style.display = "block";
+  }else{
+    bloque.style.display = "none";
+  }
+}
+</script>
+</body>
+</html>
