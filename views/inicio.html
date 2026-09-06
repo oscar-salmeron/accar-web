@@ -323,7 +323,9 @@ body {
 
   <div class="accar-noticias-inner">
 
-    <h2>Actualidad de la Iglesia</h2>
+    <div class="accar-heading-card">
+      <h2>Actualidad de la Iglesia</h2>
+    </div>
 
     <p class="accar-noticias-intro">
       Sigue la actualidad eclesial desde fuentes oficiales y confiables, con acceso directo a Vatican News,
@@ -450,27 +452,45 @@ body {
 </section>
 
 <style>
+/* Clase global para encapsular los títulos en tarjetas elegantes */
+.accar-heading-card {
+  display: inline-block;
+  background: linear-gradient(180deg, #0B1B3D 0%, #060e20 100%);
+  border: 1px solid rgba(212,175,55,0.6);
+  border-radius: 20px;
+  padding: 16px 36px;
+  margin-bottom: 30px;
+  box-shadow: 0 15px 30px rgba(0,0,0,0.4), inset 0 2px 10px rgba(255,255,255,0.05);
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.accar-heading-card:hover {
+  transform: translateY(-4px);
+  border-color: #D4AF37;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.5), 0 0 15px rgba(212,175,55,0.2);
+}
+
+.accar-heading-card h2 {
+  margin: 0;
+  font-size: 32px;
+  color: #D4AF37 !important;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.6) !important;
+}
+
 /* Bandeja Flotante Premium */
 .accar-noticias{
   position: relative;
   z-index: 10;
-  padding: 130px 20px; /* Aumento de padding para separar bloques */
+  padding: 130px 20px; 
   background: linear-gradient(180deg, #0B1B3D 0%, #08142b 100%);
   text-align: center;
   border-top: 1px solid rgba(212,175,55,0.2);
-  box-shadow: inset 0 20px 50px rgba(0,0,0,0.5); /* Sombra interna para crear profundidad */
+  box-shadow: inset 0 20px 50px rgba(0,0,0,0.5); 
 }
 
 .accar-noticias-inner {
   max-width: 1180px;
   margin: 0 auto;
-}
-
-.accar-noticias h2{
-  font-size: 36px;
-  margin: 0 0 18px;
-  color: #ffffff;
-  text-shadow: 0 2px 10px rgba(0,0,0,0.6);
 }
 
 .accar-noticias-intro{
@@ -489,16 +509,36 @@ body {
   margin-bottom: 40px;
 }
 
-/* Efecto Cristal (Glassmorphism) para separar del fondo oscuro */
-.accar-noticias-live {
-  background: rgba(255, 255, 255, 0.03); 
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(212,175,55,0.3);
+/* Tarjetas Live y Feed con borde fuerte y doble marco interno */
+.accar-noticias-live,
+.accar-noticias-feed {
+  background: linear-gradient(180deg, #0B1B3D 0%, #060e20 100%);
+  border: 2px solid #d4af37; 
   border-radius: 24px;
   padding: 28px;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+  box-shadow: 0 25px 50px rgba(0,0,0,0.5), inset 0 0 30px rgba(0,0,0,0.3);
   text-align: left;
+  position: relative;
+  transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+}
+
+/* Marco interno dorado idéntico a Reflexión */
+.accar-noticias-live::after,
+.accar-noticias-feed::after {
+  content: '';
+  position: absolute;
+  top: 10px; left: 10px; right: 10px; bottom: 10px;
+  border: 1px solid rgba(212,175,55,0.25);
+  border-radius: 16px;
+  pointer-events: none;
+}
+
+/* Hover espectacular para las tarjetas mayores */
+.accar-noticias-live:hover,
+.accar-noticias-feed:hover {
+  transform: translateY(-6px);
+  border-color: #e4c76a;
+  box-shadow: 0 35px 60px rgba(0,0,0,0.7), 0 0 20px rgba(212,175,55,0.15);
 }
 
 .accar-noticias-live-head {
@@ -539,6 +579,8 @@ body {
   border-radius: 8px; 
   padding: 8px 22px;
   box-shadow: inset 0 2px 6px rgba(0,0,0,0.6); 
+  position: relative;
+  z-index: 2; /* Para que quede sobre el ::after */
 }
 
 .accar-clock-label {
@@ -570,6 +612,8 @@ body {
   margin-bottom: 18px;
   border: 2px solid rgba(212,175,55,0.6) !important;
   box-shadow: 0 20px 40px rgba(0,0,0,0.8), 0 0 15px rgba(212,175,55,0.2) !important;
+  position: relative;
+  z-index: 2;
 }
 
 .accar-live-frame iframe {
@@ -585,18 +629,8 @@ body {
   font-size: 15px;
   line-height: 1.75;
   color: #d1d8e0;
-}
-
-/* El Feed de noticias también se hace Cristal Oscuro para encajar */
-.accar-noticias-feed {
-  background: rgba(255, 255, 255, 0.03);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(212,175,55,0.3);
-  border-radius: 24px;
-  padding: 28px;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-  text-align: left;
+  position: relative;
+  z-index: 2;
 }
 
 .accar-feed-tabs {
@@ -606,6 +640,8 @@ body {
   margin-bottom: 20px;
   padding-bottom: 12px;
   border-bottom: 1px solid rgba(255,255,255,0.1);
+  position: relative;
+  z-index: 2;
 }
 
 .accar-feed-tab {
@@ -628,6 +664,8 @@ body {
   max-height: 380px;
   overflow-y: auto;
   padding-right: 12px;
+  position: relative;
+  z-index: 2;
 }
 
 .accar-feed-scroll::-webkit-scrollbar {
@@ -679,7 +717,6 @@ body {
   font-weight: 600;
 }
 
-/* Quitamos el fondo a la grilla para que las tarjetas floten libres */
 .accar-noticias-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px,1fr));
@@ -691,7 +728,6 @@ body {
   box-shadow: none;
 }
 
-/* Las tarjetas mantienen su Alabastro para dar un contraste exquisito */
 .accar-card {
   background: #fdfbf7; 
   border: 1px solid #d4af37; 
@@ -775,8 +811,8 @@ body {
     padding: 100px 18px;
   }
 
-  .accar-noticias h2{
-    font-size: 32px;
+  .accar-heading-card h2 {
+    font-size: 26px;
   }
 
   .accar-noticias-live,
@@ -799,13 +835,14 @@ body {
 </style>
 <!-- ===== FIN BLOQUE: NOTICIAS ===== -->
 
-
 <!-- ===== INICIO BLOQUE: ACCESOS ===== -->
 <section class="accar-accesos" id="accesos">
 
   <div class="accar-accesos-inner">
 
-    <h2>Explora el contenido</h2>
+    <div class="accar-heading-card">
+      <h2>Explora el contenido</h2>
+    </div>
 
     <div class="accar-accesos-grid">
 
@@ -846,6 +883,31 @@ body {
 </section>
 
 <style>
+/* Clase global garantizada para las tarjetas de título */
+.accar-heading-card {
+  display: inline-block;
+  background: linear-gradient(180deg, #0B1B3D 0%, #060e20 100%);
+  border: 1px solid rgba(212,175,55,0.6);
+  border-radius: 20px;
+  padding: 16px 36px;
+  margin-bottom: 30px;
+  box-shadow: 0 15px 30px rgba(0,0,0,0.4), inset 0 2px 10px rgba(255,255,255,0.05);
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.accar-heading-card:hover {
+  transform: translateY(-4px);
+  border-color: #D4AF37;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.5), 0 0 15px rgba(212,175,55,0.2);
+}
+
+.accar-heading-card h2 {
+  margin: 0;
+  font-size: 32px;
+  color: #D4AF37 !important;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.6) !important;
+}
+
 .accar-accesos {
   position: relative;
   z-index: 9; 
@@ -862,17 +924,11 @@ body {
   margin: 0 auto;
 }
 
-.accar-accesos h2{
-  font-size: 42px;
-  margin: 0 0 50px;
-  color: #ffffff;
-  text-shadow: 0 2px 10px rgba(0,0,0,0.6);
-}
-
 .accar-accesos-grid{
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px,1fr));
   gap: 28px;
+  margin-top: 20px;
 }
 
 .accar-acceso{
@@ -911,9 +967,6 @@ body {
 @media (max-width: 768px){
   .accar-accesos{
     padding: 100px 18px;
-  }
-  .accar-accesos h2{
-    font-size: 34px;
   }
 }
 </style>
