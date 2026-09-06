@@ -1264,7 +1264,8 @@ INICIO BLOQUE 4 — IGLESIA EN AMÉRICA
 <style>
 .accar-world-wrap{
   padding:120px 20px;
-  background:linear-gradient(180deg, #eef3f8 0%, #f7f4ed 100%);
+  background: radial-gradient(circle at center, #030712 0%, #060e20 70%, #0B1B3D 100%);
+  box-shadow: inset 0 20px 50px rgba(0,0,0,0.5);
 }
 
 .accar-world-shell{
@@ -1278,7 +1279,7 @@ INICIO BLOQUE 4 — IGLESIA EN AMÉRICA
   margin:0 auto 54px;
 }
 
-/* Placa Premium (Pedestal) sincronizada con la de arriba */
+/* Placa Premium (Pedestal) */
 .accar-world-kicker{
   display:inline-block;
   margin-bottom:22px;
@@ -1291,21 +1292,19 @@ INICIO BLOQUE 4 — IGLESIA EN AMÉRICA
   font-weight: 800;
   letter-spacing: 1.5px;
   text-transform: uppercase;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.3), inset 0 2px 4px rgba(255,255,255,0.05);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.6), inset 0 2px 4px rgba(255,255,255,0.05);
   transform: translateY(-2px);
 }
 
-/* Título en Blanco Puro para resaltar sobre el fondo azul */
 .accar-world-head h2{
   margin:0 0 14px;
   font-size:54px;
   line-height:1.08;
   color: #ffffff; 
   font-weight:800;
-  text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+  text-shadow: 0 2px 10px rgba(0,0,0,0.8);
 }
 
-/* Subtítulo en Blanco suavizado para fácil lectura */
 .accar-world-head p{
   margin:0;
   font-size:19px;
@@ -1319,33 +1318,34 @@ INICIO BLOQUE 4 — IGLESIA EN AMÉRICA
   gap:26px;
 }
 
-/* Tarjeta Premium en Blanco Alabastro (Borde Oro Sólido) */
+/* Tarjetas de Arquidiócesis (Verde Episcopal Profundo) */
 .accar-world-card{
   position: relative;
   overflow:hidden;
-  background: #fdfbf7; 
-  border: 1px solid #d4af37; /* Borde dorado sólido y fino idéntico al footer */
+  background: linear-gradient(135deg, #0f3621 0%, #081e12 100%);
+  border: 1px solid #d4af37; 
   border-radius:28px;
-  box-shadow: 0 15px 35px rgba(0,0,0,0.3); /* Sombra fuerte para separar del fondo oscuro */
+  box-shadow: 0 15px 35px rgba(0,0,0,0.5), inset 0 0 20px rgba(0,0,0,0.3);
   transition: transform .35s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow .35s ease, border-color .35s ease;
 }
 
-/* Hover Majestuoso */
 .accar-world-card:hover{
   transform:translateY(-10px);
-  box-shadow: 0 30px 60px rgba(0,0,0,0.5), 0 0 20px rgba(212,175,55,0.3); /* Resplandor dorado más fuerte */
-  border-color: #e4c76a; /* Cambia a un dorado más luminoso al pasar el mouse */
+  background: linear-gradient(135deg, #124027 0%, #0a2617 100%);
+  box-shadow: 0 30px 60px rgba(0,0,0,0.8), 0 0 20px rgba(212,175,55,0.3);
+  border-color: #e4c76a; 
 }
 
 .accar-world-card--auto{
-  /* Reseteado para que todas las tarjetas sean consistentes */
+  /* Reseteado */
 }
 
 .accar-world-media{
   position:relative;
   height:230px;
   overflow:hidden;
-  background:linear-gradient(135deg, #0B1B3D 0%, #163a67 100%); /* Fondo preventivo azul */
+  background:linear-gradient(135deg, #0f3621 0%, #081e12 100%);
+  border-bottom: 1px solid rgba(212,175,55,0.3);
 }
 
 .accar-world-media img{
@@ -1357,10 +1357,9 @@ INICIO BLOQUE 4 — IGLESIA EN AMÉRICA
 }
 
 .accar-world-card:hover .accar-world-media img {
-  transform: scale(1.05); /* Zoom sutil en la imagen al hacer hover */
+  transform: scale(1.05); 
 }
 
-/* Etiqueta institucional sobre la imagen */
 .accar-world-badge{
   position:absolute;
   top:18px;
@@ -1371,17 +1370,17 @@ INICIO BLOQUE 4 — IGLESIA EN AMÉRICA
   padding:7px 16px;
   border-radius:999px;
   background: linear-gradient(180deg, #0B1B3D 0%, #060e20 100%);
-  color: #fdfbf7;
-  border: 1px solid rgba(212,175,55,0.6);
+  color: #ffffff;
+  border: 1px solid rgba(212,175,55,0.8);
   font-size:11px;
   font-weight:800;
   letter-spacing: 1px;
   text-transform: uppercase;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.6);
 }
 
 .accar-world-body{
-  padding: 34px 32px 38px; /* Respiración profunda: más margen arriba, lados y abajo */
+  padding: 34px 32px 38px; 
 }
 
 .accar-world-meta{
@@ -1389,7 +1388,7 @@ INICIO BLOQUE 4 — IGLESIA EN AMÉRICA
   justify-content:space-between;
   align-items:center;
   gap:10px;
-  margin-bottom: 20px; /* Más aire antes del título */
+  margin-bottom: 20px; 
 }
 
 .accar-world-country{
@@ -1397,8 +1396,8 @@ INICIO BLOQUE 4 — IGLESIA EN AMÉRICA
   padding:7px 14px;
   border-radius:999px;
   background:rgba(212,175,55,.12);
-  border:1px solid rgba(212,175,55,.35);
-  color:#9f7d1f;
+  border:1px solid rgba(212,175,55,.5);
+  color:#e4c76a;
   font-size:11px;
   font-weight:800;
   letter-spacing:1px;
@@ -1406,7 +1405,7 @@ INICIO BLOQUE 4 — IGLESIA EN AMÉRICA
 }
 
 .accar-world-status{
-  color:#4c4b46;
+  color: rgba(255,255,255,0.7);
   font-size:12px;
   font-weight:700;
   text-transform: uppercase;
@@ -1415,24 +1414,25 @@ INICIO BLOQUE 4 — IGLESIA EN AMÉRICA
 
 .accar-world-body h3{
   margin:0 0 16px;
-  font-size: 25px; /* Tamaño refinado para que no choque con los bordes */
+  font-size: 25px; 
   line-height: 1.25;
-  color: #060e20; 
+  color: #D4AF37; 
   font-weight:800;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.5);
 }
 
 .accar-world-body p{
   margin:0;
-  font-size: 15px; /* Ligeramente más pequeño para sumar elegancia */
-  line-height: 1.8; /* Mayor interlineado para una lectura limpia */
-  color: #2b2b2b; 
+  font-size: 15px; 
+  line-height: 1.8; 
+  color: #fdfbf7; 
 }
 
 .accar-world-actions{
   display:flex;
   flex-wrap:wrap;
   gap:14px;
-  margin-top: 30px; /* Separa los botones del párrafo para que respiren */
+  margin-top: 30px; 
 }
 
 .accar-world-btn-main,
@@ -1452,33 +1452,35 @@ INICIO BLOQUE 4 — IGLESIA EN AMÉRICA
 .accar-world-btn-main,
 .accar-world-btn-main:visited,
 .accar-world-btn-main:focus{
-  background:#030736; /* Azul profundo oficial */
-  color:#ffffff;
-  border: 1px solid rgba(212,175,55,0.4);
+  background:#D4AF37; 
+  color:#030736;
+  border: 1px solid #D4AF37;
+  box-shadow: 0 8px 15px rgba(0,0,0,0.4);
 }
 
 .accar-world-btn-main:hover{
-  background:#D4AF37;
-  border-color:#D4AF37;
+  background:#ffffff;
+  border-color:#ffffff;
   color:#030736;
   transform: translateY(-2px);
-  box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+  box-shadow: 0 12px 20px rgba(0,0,0,0.6);
 }
 
 .accar-world-btn-ghost,
 .accar-world-btn-ghost:visited,
 .accar-world-btn-ghost:focus{
-  background:rgba(3, 7, 54, 0.05);
-  color:#030736;
+  background:rgba(212,175,55,0.1);
+  color:#D4AF37;
   border:1px solid rgba(212,175,55,0.6);
+  box-shadow: 0 8px 15px rgba(0,0,0,0.3);
 }
 
 .accar-world-btn-ghost:hover{
-  background:#030736;
-  color:#ffffff;
-  border-color:#030736;
+  background:#D4AF37;
+  color:#030736;
+  border-color:#D4AF37;
   transform: translateY(-2px);
-  box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+  box-shadow: 0 12px 20px rgba(0,0,0,0.5);
 }
 
 @media(max-width:1100px){
@@ -1509,7 +1511,7 @@ INICIO BLOQUE 4 — IGLESIA EN AMÉRICA
   }
 
   .accar-world-body{
-    padding: 28px 26px 32px; /* Más aire interior en teléfonos */
+    padding: 28px 26px 32px; 
   }
 
   .accar-world-body h3{
