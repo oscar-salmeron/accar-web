@@ -1232,7 +1232,8 @@ INICIO BLOQUE 4 — IGLESIA EN AMÉRICA
 <style>
 .accar-world-wrap{
   padding:120px 20px;
-  background: radial-gradient(circle at center, #030712 0%, #060e20 70%, #0B1B3D 100%);
+  /* El fondo oscuro conecta sin cortes y llega hasta el footer */
+  background: linear-gradient(180deg, #0B1B3D 0%, #030712 100%);
   box-shadow: inset 0 20px 50px rgba(0,0,0,0.5);
 }
 
@@ -1286,21 +1287,20 @@ INICIO BLOQUE 4 — IGLESIA EN AMÉRICA
   gap:26px;
 }
 
-/* Tarjetas de Arquidiócesis (Verde Episcopal Profundo) */
+/* Vuelven las Tarjetas Blanco Alabastro para iluminar el lienzo oscuro */
 .accar-world-card{
   position: relative;
   overflow:hidden;
-  background: linear-gradient(135deg, #0f3621 0%, #081e12 100%);
+  background: #fdfbf7; 
   border: 1px solid #d4af37; 
   border-radius:28px;
-  box-shadow: 0 15px 35px rgba(0,0,0,0.5), inset 0 0 20px rgba(0,0,0,0.3);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.6), 0 0 15px rgba(212,175,55,0.05); 
   transition: transform .35s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow .35s ease, border-color .35s ease;
 }
 
 .accar-world-card:hover{
   transform:translateY(-10px);
-  background: linear-gradient(135deg, #124027 0%, #0a2617 100%);
-  box-shadow: 0 30px 60px rgba(0,0,0,0.8), 0 0 20px rgba(212,175,55,0.3);
+  box-shadow: 0 30px 60px rgba(0,0,0,0.8), 0 0 20px rgba(212,175,55,0.25); 
   border-color: #e4c76a; 
 }
 
@@ -1312,8 +1312,8 @@ INICIO BLOQUE 4 — IGLESIA EN AMÉRICA
   position:relative;
   height:230px;
   overflow:hidden;
-  background:linear-gradient(135deg, #0f3621 0%, #081e12 100%);
-  border-bottom: 1px solid rgba(212,175,55,0.3);
+  background:linear-gradient(135deg, #0B1B3D 0%, #163a67 100%); 
+  border-bottom: 2px solid rgba(212,175,55,0.4);
 }
 
 .accar-world-media img{
@@ -1328,6 +1328,7 @@ INICIO BLOQUE 4 — IGLESIA EN AMÉRICA
   transform: scale(1.05); 
 }
 
+/* Acento Verde Episcopal en la Etiqueta (Badge) */
 .accar-world-badge{
   position:absolute;
   top:18px;
@@ -1337,14 +1338,14 @@ INICIO BLOQUE 4 — IGLESIA EN AMÉRICA
   min-height:36px;
   padding:7px 16px;
   border-radius:999px;
-  background: linear-gradient(180deg, #0B1B3D 0%, #060e20 100%);
+  background: linear-gradient(135deg, #0f3621 0%, #081e12 100%); /* Verde Obispo */
   color: #ffffff;
-  border: 1px solid rgba(212,175,55,0.8);
+  border: 1px solid #d4af37;
   font-size:11px;
   font-weight:800;
   letter-spacing: 1px;
   text-transform: uppercase;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.6);
+  box-shadow: 0 8px 15px rgba(0,0,0,0.6);
 }
 
 .accar-world-body{
@@ -1364,8 +1365,8 @@ INICIO BLOQUE 4 — IGLESIA EN AMÉRICA
   padding:7px 14px;
   border-radius:999px;
   background:rgba(212,175,55,.12);
-  border:1px solid rgba(212,175,55,.5);
-  color:#e4c76a;
+  border:1px solid rgba(212,175,55,.35);
+  color:#9f7d1f;
   font-size:11px;
   font-weight:800;
   letter-spacing:1px;
@@ -1373,7 +1374,7 @@ INICIO BLOQUE 4 — IGLESIA EN AMÉRICA
 }
 
 .accar-world-status{
-  color: rgba(255,255,255,0.7);
+  color:#4c4b46;
   font-size:12px;
   font-weight:700;
   text-transform: uppercase;
@@ -1384,16 +1385,15 @@ INICIO BLOQUE 4 — IGLESIA EN AMÉRICA
   margin:0 0 16px;
   font-size: 25px; 
   line-height: 1.25;
-  color: #D4AF37; 
+  color: #060e20; 
   font-weight:800;
-  text-shadow: 0 2px 4px rgba(0,0,0,0.5);
 }
 
 .accar-world-body p{
   margin:0;
   font-size: 15px; 
   line-height: 1.8; 
-  color: #fdfbf7; 
+  color: #2b2b2b; 
 }
 
 .accar-world-actions{
@@ -1403,6 +1403,7 @@ INICIO BLOQUE 4 — IGLESIA EN AMÉRICA
   margin-top: 30px; 
 }
 
+/* Acento Verde Episcopal en el botón principal */
 .accar-world-btn-main,
 .accar-world-btn-ghost{
   display:inline-flex;
@@ -1414,33 +1415,32 @@ INICIO BLOQUE 4 — IGLESIA EN AMÉRICA
   text-decoration:none;
   font-size:15px;
   font-weight:700;
-  transition:background-color .25s ease, color .25s ease, border-color .25s ease;
+  transition:background-color .25s ease, color .25s ease, border-color .25s ease, transform .25s ease, box-shadow .25s ease;
 }
 
 .accar-world-btn-main,
 .accar-world-btn-main:visited,
 .accar-world-btn-main:focus{
-  background:#D4AF37; 
-  color:#030736;
-  border: 1px solid #D4AF37;
-  box-shadow: 0 8px 15px rgba(0,0,0,0.4);
+  background: linear-gradient(135deg, #0f3621 0%, #081e12 100%); /* Verde Obispo */
+  color:#ffffff;
+  border: 1px solid #d4af37;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
 }
 
 .accar-world-btn-main:hover{
-  background:#ffffff;
-  border-color:#ffffff;
-  color:#030736;
+  background: linear-gradient(135deg, #154c2e 0%, #0a2617 100%);
+  border-color:#D4AF37;
+  color:#D4AF37;
   transform: translateY(-2px);
-  box-shadow: 0 12px 20px rgba(0,0,0,0.6);
+  box-shadow: 0 12px 25px rgba(0,0,0,0.5), 0 0 15px rgba(212,175,55,0.2);
 }
 
 .accar-world-btn-ghost,
 .accar-world-btn-ghost:visited,
 .accar-world-btn-ghost:focus{
-  background:rgba(212,175,55,0.1);
-  color:#D4AF37;
+  background:rgba(3, 7, 54, 0.05);
+  color:#0B1B3D;
   border:1px solid rgba(212,175,55,0.6);
-  box-shadow: 0 8px 15px rgba(0,0,0,0.3);
 }
 
 .accar-world-btn-ghost:hover{
@@ -1448,7 +1448,7 @@ INICIO BLOQUE 4 — IGLESIA EN AMÉRICA
   color:#030736;
   border-color:#D4AF37;
   transform: translateY(-2px);
-  box-shadow: 0 12px 20px rgba(0,0,0,0.5);
+  box-shadow: 0 12px 20px rgba(0,0,0,0.4);
 }
 
 @media(max-width:1100px){
