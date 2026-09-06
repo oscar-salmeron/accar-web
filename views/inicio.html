@@ -346,19 +346,14 @@ body {
             function updateVaticanTime() {
               const timeElement = document.getElementById('vatican-time');
               if (!timeElement) return;
-
-              // Obtenemos la hora exacta en la zona horaria de Europa/Roma
               const romeTime = new Date().toLocaleTimeString('es-ES', {
                 timeZone: 'Europe/Rome',
                 hour: '2-digit',
                 minute: '2-digit',
                 second: '2-digit'
               });
-
               timeElement.textContent = romeTime;
             }
-
-            // Ejecuta el reloj inmediatamente y luego lo actualiza cada segundo
             updateVaticanTime();
             setInterval(updateVaticanTime, 1000);
           })();
@@ -455,36 +450,32 @@ body {
 </section>
 
 <style>
-/* Bandeja Flotante Premium (Blanco Puro) */
-<style>
-/* Bandeja Flotante Premium (Azul Institucional) */
+/* Bandeja Flotante Premium */
 .accar-noticias{
   position: relative;
-  z-index: 10; /* Capa superior */
-  padding:110px 20px;
-  background: linear-gradient(180deg, #060e20 0%, #0B1B3D 100%);
-  text-align:center;
-  border-top: 2px solid #d4af37;
-  border-bottom: 2px solid #d4af37;
-  box-shadow: 0 30px 60px rgba(0,0,0,0.5); /* Sombra 3D */
+  z-index: 10;
+  padding: 130px 20px; /* Aumento de padding para separar bloques */
+  background: linear-gradient(180deg, #0B1B3D 0%, #08142b 100%);
+  text-align: center;
+  border-top: 1px solid rgba(212,175,55,0.2);
+  box-shadow: inset 0 20px 50px rgba(0,0,0,0.5); /* Sombra interna para crear profundidad */
 }
 
 .accar-noticias-inner {
   max-width: 1180px;
   margin: 0 auto;
-  color: #ffffff;
 }
 
 .accar-noticias h2{
   font-size: 36px;
   margin: 0 0 18px;
   color: #ffffff;
-  text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+  text-shadow: 0 2px 10px rgba(0,0,0,0.6);
 }
 
 .accar-noticias-intro{
   max-width: 860px;
-  margin: 0 auto 34px;
+  margin: 0 auto 40px;
   font-size: 17px;
   line-height: 1.8;
   color: rgba(255,255,255,0.85);
@@ -495,22 +486,25 @@ body {
   grid-template-columns: 1.15fr .95fr;
   gap: 24px;
   align-items: stretch;
-  margin-bottom: 30px;
+  margin-bottom: 40px;
 }
 
+/* Efecto Cristal (Glassmorphism) para separar del fondo oscuro */
 .accar-noticias-live {
-  background: linear-gradient(180deg, #0B1B3D 0%, #060e20 100%); /* Azul Mariano profundo */
-  border: 1px solid rgba(212,175,55,0.4); /* Borde Oro Papal */
+  background: rgba(255, 255, 255, 0.03); 
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(212,175,55,0.3);
   border-radius: 24px;
   padding: 28px;
-  box-shadow: 0 25px 50px rgba(0,0,0,0.25); /* Sombra elegante */
+  box-shadow: 0 20px 40px rgba(0,0,0,0.4);
   text-align: left;
 }
 
 .accar-noticias-live-head {
   display: flex;
   align-items: center;
-  justify-content: space-between; /* Esto empuja los elementos a los extremos */
+  justify-content: space-between;
   gap: 12px;
   margin-bottom: 20px;
   flex-wrap: wrap;
@@ -527,27 +521,24 @@ body {
   font-weight: 800;
   letter-spacing: 1px;
   text-transform: uppercase;
-  /* Aquí llamamos a la animación del latido */
   animation: pulseLive 2s infinite; 
 }
 
-/* Animación del latido rojo para el botón EN VIVO */
 @keyframes pulseLive {
   0% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7); }
   70% { box-shadow: 0 0 0 8px rgba(255, 0, 0, 0); }
   100% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0); }
 }
 
-/* Estilos para el nuevo marco del reloj (El Pedestal) */
 .accar-live-clock {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(0, 0, 0, 0.35); 
+  background: rgba(0, 0, 0, 0.4); 
   border: 1px solid rgba(212, 175, 55, 0.3); 
   border-radius: 8px; 
-  padding: 8px 22px; /* Más aire: aumentamos el espacio arriba/abajo y a los lados */
-  box-shadow: inset 0 2px 6px rgba(0,0,0,0.5); 
+  padding: 8px 22px;
+  box-shadow: inset 0 2px 6px rgba(0,0,0,0.6); 
 }
 
 .accar-clock-label {
@@ -555,7 +546,7 @@ body {
   font-size: 11px;
   font-weight: 700;
   text-transform: uppercase;
-  margin-right: 12px; /* Un poco más de separación con los números */
+  margin-right: 12px;
   letter-spacing: 1px;
 }
 
@@ -563,21 +554,12 @@ body {
   color: #D4AF37; 
   font-size: 17px; 
   font-weight: 700;
-  /* Usamos fuente monospaciada para que el 1 y el 0 midan lo mismo */
   font-family: "Courier New", Courier, monospace; 
   letter-spacing: 1.5px;
   text-shadow: 0 0 8px rgba(212,175,55,0.4); 
-  /* Le damos un ancho fijo a los números para que NUNCA empujen la caja */
   display: inline-block;
   min-width: 95px; 
   text-align: right; 
-}
-
-.accar-noticias-live h3 {
-  margin: 0;
-  font-size: 28px;
-  color: #ffffff;
-  text-shadow: 0 2px 4px rgba(0,0,0,0.5);
 }
 
 .accar-live-frame {
@@ -586,9 +568,8 @@ body {
   border-radius: 16px;
   background: #000;
   margin-bottom: 18px;
-  /* Marco Oro Papal y sombra profunda para que resalte sobre el bloque azul */
-  border: 4px solid #D4AF37 !important;
-  box-shadow: 0 30px 60px rgba(0,0,0,0.9), 0 0 25px rgba(212,175,55,0.4) !important;
+  border: 2px solid rgba(212,175,55,0.6) !important;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.8), 0 0 15px rgba(212,175,55,0.2) !important;
 }
 
 .accar-live-frame iframe {
@@ -606,12 +587,15 @@ body {
   color: #d1d8e0;
 }
 
+/* El Feed de noticias también se hace Cristal Oscuro para encajar */
 .accar-noticias-feed {
-  background: #ffffff; /* Blanco puro para máximo contraste */
-  border: 1px solid rgba(212,175,55,0.25);
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(212,175,55,0.3);
   border-radius: 24px;
   padding: 28px;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.06);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.4);
   text-align: left;
 }
 
@@ -621,14 +605,14 @@ body {
   gap: 24px;
   margin-bottom: 20px;
   padding-bottom: 12px;
-  border-bottom: 1px solid rgba(212,175,55,0.15);
+  border-bottom: 1px solid rgba(255,255,255,0.1);
 }
 
 .accar-feed-tab {
   font-size: 13px;
   font-weight: 800;
   letter-spacing: 1px;
-  color: #a4a7ab;
+  color: rgba(255,255,255,0.5);
   text-transform: uppercase;
   cursor: pointer;
   padding-bottom: 4px;
@@ -636,8 +620,8 @@ body {
 }
 
 .accar-feed-tab.active {
-  color: #0B1B3D; /* Azul Mariano */
-  border-bottom: 2px solid #D4AF37; /* Subrayado Oro Papal */
+  color: #D4AF37;
+  border-bottom: 2px solid #D4AF37;
 }
 
 .accar-feed-scroll {
@@ -651,7 +635,7 @@ body {
 }
 
 .accar-feed-scroll::-webkit-scrollbar-track {
-  background: #f4f1e9;
+  background: rgba(0,0,0,0.2);
   border-radius: 10px;
 }
 
@@ -664,14 +648,14 @@ body {
   display: block;
   text-decoration: none;
   padding: 16px 16px 16px 0;
-  border-bottom: 1px solid rgba(0,0,0,0.05);
+  border-bottom: 1px solid rgba(255,255,255,0.1);
   border-left: 3px solid transparent;
   transition: all 0.3s ease;
 }
 
 .accar-feed-item:hover {
   transform: translateX(6px);
-  background: linear-gradient(90deg, rgba(212,175,55,0.05) 0%, transparent 100%);
+  background: linear-gradient(90deg, rgba(212,175,55,0.1) 0%, transparent 100%);
   border-left: 3px solid #D4AF37;
   padding-left: 14px;
   border-radius: 0 8px 8px 0;
@@ -683,7 +667,7 @@ body {
   font-size: 11px;
   font-weight: 800;
   letter-spacing: 0.8px;
-  color: #b3922c;
+  color: #D4AF37;
   text-transform: uppercase;
 }
 
@@ -691,38 +675,30 @@ body {
   display: block;
   font-size: 17px;
   line-height: 1.4;
-  color: #0B1B3D;
+  color: #ffffff;
   font-weight: 600;
 }
 
+/* Quitamos el fondo a la grilla para que las tarjetas floten libres */
 .accar-noticias-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px,1fr));
-  gap: 22px;
-  margin-bottom: 38px;
-  /* --- EL NUEVO "PEDESTAL" CONTENEDOR --- */
-  background: rgba(11, 27, 61, 0.4); 
-  padding: 34px; /* Espacio interior para que actúe como una gran tarjeta */
-  border-radius: 28px;
-  border: 1px solid rgba(212, 175, 55, 0.3); /* Borde sutil */
-  box-shadow: inset 0 4px 15px rgba(0,0,0,0.2); /* Sombra interna para dar profundidad de "bandeja" */
+  gap: 24px;
+  margin-bottom: 46px;
+  padding: 0;
+  background: transparent;
+  border: none;
+  box-shadow: none;
 }
 
-/* Ajuste rápido para que no quede apretado en celular */
-@media (max-width: 768px) {
-  .accar-noticias-grid {
-    padding: 18px;
-    gap: 18px;
-  }
-}
-
+/* Las tarjetas mantienen su Alabastro para dar un contraste exquisito */
 .accar-card {
-  background: #fdfbf7; /* Blanco Alabastro */
-  border: 1px solid #d4af37; /* Borde Oro Papal Sólido */
+  background: #fdfbf7; 
+  border: 1px solid #d4af37; 
   border-radius: 24px;
   padding: 30px;
   text-decoration: none;
-  box-shadow: 0 15px 35px rgba(0,0,0,0.15); /* Sombra Premium */
+  box-shadow: 0 15px 35px rgba(0,0,0,0.5); 
   transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
   position: relative;
   overflow: hidden;
@@ -731,7 +707,6 @@ body {
   justify-content: center;
 }
 
-/* Efecto de borde iluminado arriba al hacer hover */
 .accar-card::before {
   content: '';
   position: absolute;
@@ -744,7 +719,7 @@ body {
 .accar-card:hover {
   transform: translateY(-8px);
   border-color: #e4c76a;
-  box-shadow: 0 25px 50px rgba(11,27,61,0.15), 0 0 15px rgba(212,175,55,0.2);
+  box-shadow: 0 25px 50px rgba(0,0,0,0.7), 0 0 20px rgba(212,175,55,0.2);
 }
 
 .accar-card:hover::before {
@@ -754,39 +729,39 @@ body {
 .accar-card h3 {
   margin: 0 0 12px;
   font-size: 20px;
-  color: #0B1B3D; /* Contraste fuerte institucional */
-  font-weight: 700;
+  color: #0B1B3D;
+  font-weight: 800;
 }
 
 .accar-card p {
   margin: 0;
   font-size: 15px;
   line-height: 1.7;
-  color: #3b4252; /* Gris pizarra oscuro muy legible */
+  color: #3b4252;
 }
 
 .accar-btn-noticias {
   display: inline-block;
-  padding: 16px 38px; /* Un poco más ancho para darle presencia Premium */
-  background: linear-gradient(135deg, #0f3621 0%, #081e12 100%); /* Verde Episcopal oscuro y elegante */
-  color: #F8F9FA; /* Texto blanco perlado */
+  padding: 16px 38px;
+  background: linear-gradient(135deg, #0f3621 0%, #081e12 100%);
+  color: #ffffff;
   text-decoration: none;
   font-weight: 800;
   letter-spacing: 1px;
   text-transform: uppercase;
   font-size: 14px;
   border-radius: 999px;
-  border: 1px solid rgba(212,175,55,0.4); /* Borde Oro Papal sutil */
-  box-shadow: 0 12px 25px rgba(8,30,18,0.3); /* Sombra con el mismo tono verde */
+  border: 1px solid rgba(212,175,55,0.4);
+  box-shadow: 0 12px 25px rgba(0,0,0,0.5);
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
 .accar-btn-noticias:hover {
-  background: linear-gradient(135deg, #154c2e 0%, #0a2617 100%); /* El verde se ilumina ligeramente */
-  color: #D4AF37; /* El texto brilla en oro al pasar el cursor */
+  background: linear-gradient(135deg, #154c2e 0%, #0a2617 100%);
+  color: #D4AF37;
   transform: translateY(-4px);
-  border-color: #D4AF37; /* El borde se enciende */
-  box-shadow: 0 18px 35px rgba(8,30,18,0.4), 0 0 15px rgba(212,175,55,0.15); /* Resplandor dorado alrededor */
+  border-color: #D4AF37;
+  box-shadow: 0 18px 35px rgba(0,0,0,0.6), 0 0 15px rgba(212,175,55,0.2);
 }
 
 @media (max-width: 980px){
@@ -797,7 +772,7 @@ body {
 
 @media (max-width: 768px){
   .accar-noticias{
-    padding: 82px 18px;
+    padding: 100px 18px;
   }
 
   .accar-noticias h2{
@@ -806,7 +781,7 @@ body {
 
   .accar-noticias-live,
   .accar-noticias-feed{
-    padding: 18px;
+    padding: 20px;
   }
 
   .accar-feed-title{
@@ -815,6 +790,10 @@ body {
 
   .accar-live-frame iframe{
     aspect-ratio: 16 / 9;
+  }
+  
+  .accar-noticias-grid {
+    gap: 20px;
   }
 }
 </style>
@@ -869,11 +848,13 @@ body {
 <style>
 .accar-accesos {
   position: relative;
-  z-index: 1; /* Debajo de las noticias */
-  padding: 120px 20px 100px; 
-  /* Fondo Azul Mariano Profundo */
-  background: linear-gradient(180deg, #0B1B3D 0%, #060e20 100%);
+  z-index: 9; 
+  padding: 130px 20px; 
+  /* Gradiente más oscuro para crear nivel de profundidad */
+  background: linear-gradient(180deg, #08142b 0%, #050d1d 100%);
   text-align: center;
+  border-top: 1px solid rgba(212,175,55,0.15);
+  box-shadow: inset 0 20px 50px rgba(0,0,0,0.5);
 }
 
 .accar-accesos-inner{
@@ -884,8 +865,8 @@ body {
 .accar-accesos h2{
   font-size: 42px;
   margin: 0 0 50px;
-  color: #ffffff; /* Texto blanco sobre fondo azul */
-  text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+  color: #ffffff;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.6);
 }
 
 .accar-accesos-grid{
@@ -894,23 +875,22 @@ body {
   gap: 28px;
 }
 
-/* Tarjetas Alabastro sobre fondo azul */
 .accar-acceso{
   position: relative;
   display: block;
   padding: 34px 26px;
   border-radius: 24px;
   background: #fdfbf7;
-  border: 1px solid #d4af37; /* Borde Oro Sólido */
+  border: 1px solid #d4af37;
   text-decoration: none;
-  box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.5);
   transition: transform .35s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow .35s ease, border-color .35s ease;
 }
 
 .accar-acceso:hover{
   background: #ffffff;
   transform: translateY(-8px);
-  box-shadow: 0 25px 50px rgba(0,0,0,0.5), 0 0 15px rgba(212,175,55,0.2);
+  box-shadow: 0 25px 50px rgba(0,0,0,0.7), 0 0 20px rgba(212,175,55,0.2);
   border-color: #e4c76a;
 }
 
@@ -926,6 +906,15 @@ body {
   line-height: 1.65;
   color: #2b2b2b;
   margin: 0;
+}
+
+@media (max-width: 768px){
+  .accar-accesos{
+    padding: 100px 18px;
+  }
+  .accar-accesos h2{
+    font-size: 34px;
+  }
 }
 </style>
 <!-- ===== FIN BLOQUE: ACCESOS ===== -->
@@ -962,16 +951,15 @@ body {
 </section>
 
 <style>
-<style>
 .accar-destacado {
   position: relative;
-  z-index: 5; 
-  padding: 100px 20px 110px; 
-  /* Fondo Azul Institucional */
-  background: linear-gradient(180deg, #060e20 0%, #0B1B3D 100%);
+  z-index: 8; 
+  padding: 130px 20px; 
+  /* Gradiente que desciende al negro casi puro */
+  background: linear-gradient(180deg, #050d1d 0%, #02050a 100%);
   text-align: center;
-  border-top: 2px solid #d4af37; /* Línea dorada separando del azul */
-  box-shadow: 0 -15px 30px rgba(0,0,0,0.3); /* Sombra hacia arriba manchando el azul */
+  border-top: 1px solid rgba(212,175,55,0.15);
+  box-shadow: inset 0 20px 50px rgba(0,0,0,0.5);
 }
 
 .accar-destacado-inner{
@@ -982,9 +970,9 @@ body {
 .accar-destacado h2{
   font-size: 38px;
   margin: 0 0 50px;
-  color: #ffffff; /* Blanco puro */
+  color: #ffffff;
   font-weight: 800;
-  text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+  text-shadow: 0 2px 10px rgba(0,0,0,0.6);
 }
 
 .accar-destacado-grid{
@@ -997,17 +985,17 @@ body {
   display: block;
   padding: 34px 26px;
   border-radius: 24px;
-  background: #ffffff; /* Blanco puro */
-  border: 1px solid #d4af37; /* Oro Papal Sólido */
+  background: #ffffff; 
+  border: 1px solid #d4af37; 
   text-decoration: none;
-  box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.5);
   transition: transform .35s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow .35s ease, border-color .35s ease;
 }
 
 .accar-destacado-card:hover{
   background: #ffffff;
   transform: translateY(-8px);
-  box-shadow: 0 25px 45px rgba(0,0,0,0.15), 0 0 15px rgba(212,175,55,0.2);
+  box-shadow: 0 25px 50px rgba(0,0,0,0.7), 0 0 20px rgba(212,175,55,0.2);
   border-color: #e4c76a;
 }
 
@@ -1023,6 +1011,15 @@ body {
   line-height: 1.68;
   color: #2b2b2b;
   margin: 0;
+}
+
+@media (max-width: 768px){
+  .accar-destacado{
+    padding: 100px 18px;
+  }
+  .accar-destacado h2{
+    font-size: 32px;
+  }
 }
 </style>
 <!-- ===== FIN BLOQUE: DESTACADO ===== -->
@@ -1054,52 +1051,50 @@ body {
 <style>
 .accar-reflexion{
   position: relative;
-  z-index: 6; /* Levanta esta capa sobre la crema */
-  padding: 110px 20px;
-  /* Fondo Azul Marino conectando con el Footer */
-  background: linear-gradient(180deg, #0B1B3D 0%, #09172d 100%); 
+  z-index: 7; 
+  padding: 130px 20px;
+  /* Fondo que sube del negro al azul institucional del Footer para fusionarse perfecto */
+  background: linear-gradient(180deg, #02050a 0%, #09172d 100%) !important; 
   text-align: center;
-  border-top: 2px solid #d4af37; /* Borde oro separador */
-  box-shadow: 0 -15px 30px rgba(0,0,0,0.3); /* Sombra suave hacia arriba */
+  border-top: 1px solid rgba(212,175,55,0.15);
+  box-shadow: inset 0 20px 50px rgba(0,0,0,0.5);
 }
 
 .accar-reflexion-inner {
   max-width: 960px; 
   margin: 0 auto;
   color: #F8F9FA;
-  /* Verde Obispo intacto, tono joya que combina perfecto con el Oro */
-  background: linear-gradient(135deg, #0f3621 0%, #081e12 100%); 
-  border: 2px solid #d4af37; /* Borde Oro Sólido */ 
+  /* Verde Obispo intacto, la Joya de la sección */
+  background: linear-gradient(135deg, #0f3621 0%, #04120b 100%); 
+  border: 2px solid #d4af37; 
   border-radius: 28px;
   padding: 60px 40px;
-  /* Sombra profunda y resplandor interno */
-  box-shadow: 0 25px 50px rgba(0,0,0,0.5), inset 0 0 40px rgba(0,0,0,0.3);
+  box-shadow: 0 35px 60px rgba(0,0,0,0.8), inset 0 0 40px rgba(0,0,0,0.5);
   transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
   position: relative;
 }
 
-/* Doble marco dorado interno (estilo cuadro clásico) */
 .accar-reflexion-inner::after {
   content: '';
   position: absolute;
   top: 12px; left: 12px; right: 12px; bottom: 12px;
-  border: 1px solid rgba(212,175,55,0.2);
+  border: 1px solid rgba(212,175,55,0.3);
   border-radius: 16px;
   pointer-events: none;
 }
 
 .accar-reflexion-inner:hover {
-  background: linear-gradient(135deg, #124027 0%, #0a2617 100%);
+  background: linear-gradient(135deg, #124027 0%, #061c10 100%);
   transform: translateY(-8px);
-  box-shadow: 0 35px 60px rgba(0,0,0,0.6), inset 0 0 50px rgba(212,175,55,0.05);
-  border-color: #e4c76a; /* Se ilumina el borde exterior */
+  box-shadow: 0 45px 70px rgba(0,0,0,0.9), inset 0 0 50px rgba(212,175,55,0.1);
+  border-color: #e4c76a; 
 }
 
 .accar-reflexion h2{
   font-size: 36px;
   margin: 0 0 24px;
-  color: #D4AF37; /* Oro Papal */
-  text-shadow: 0 2px 4px rgba(0,0,0,0.5); /* Sombra para profundidad */
+  color: #D4AF37; 
+  text-shadow: 0 2px 8px rgba(0,0,0,0.8); 
 }
 
 .accar-reflexion-texto{
@@ -1126,7 +1121,7 @@ body {
 
 @media (max-width: 768px){
   .accar-reflexion{
-    padding: 86px 18px;
+    padding: 100px 18px;
   }
 
   .accar-reflexion-inner{
@@ -1151,4 +1146,5 @@ body {
   }
 }
 </style>
+<!-- ===== FIN BLOQUE: REFLEXIÓN ===== -->
 <!-- ===== FIN BLOQUE: REFLEXIÓN ===== -->
