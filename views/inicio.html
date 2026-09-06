@@ -452,37 +452,48 @@ body {
 </section>
 
 <style>
-/* Clase global para encapsular los títulos en tarjetas elegantes */
+/* Los títulos quedan libres y elegantes, sin encierro, sostenidos por un resplandor dorado */
 .accar-heading-card {
   display: inline-block;
-  background: linear-gradient(180deg, #0B1B3D 0%, #060e20 100%);
-  border: 1px solid rgba(212,175,55,0.6);
-  border-radius: 20px;
-  padding: 16px 36px;
-  margin-bottom: 30px;
-  box-shadow: 0 15px 30px rgba(0,0,0,0.4), inset 0 2px 10px rgba(255,255,255,0.05);
-  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid rgba(212,175,55,0.6);
+  border-radius: 0;
+  padding: 0 0 12px 0;
+  margin-bottom: 45px;
+  box-shadow: none;
+  position: relative;
+  transition: border-color 0.3s ease;
 }
 
-.accar-heading-card:hover {
-  transform: translateY(-4px);
-  border-color: #D4AF37;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.5), 0 0 15px rgba(212,175,55,0.2);
+.accar-heading-card::after {
+  content: '';
+  position: absolute;
+  bottom: -2px; left: 25%; right: 25%;
+  height: 2px;
+  background: #D4AF37;
+  box-shadow: 0 0 12px 2px #D4AF37;
 }
 
 .accar-heading-card h2 {
   margin: 0;
-  font-size: 32px;
+  font-size: 38px;
   color: #D4AF37 !important;
-  text-shadow: 0 2px 6px rgba(0,0,0,0.6) !important;
+  text-shadow: 0 0 15px rgba(212,175,55,0.4), 0 2px 4px rgba(0,0,0,0.8) !important;
 }
 
-/* Bandeja Flotante Premium */
+.accar-heading-card:hover {
+  transform: none;
+  box-shadow: none;
+  border-color: rgba(212,175,55,0.9);
+}
+
+/* Fondo radial simulando iluminación desde el centro (luz de velas/santuario) */
 .accar-noticias{
   position: relative;
   z-index: 10;
   padding: 130px 20px; 
-  background: linear-gradient(180deg, #0B1B3D 0%, #08142b 100%);
+  background: radial-gradient(circle at top center, #0B1B3D 0%, #060e20 60%, #030712 100%);
   text-align: center;
   border-top: 1px solid rgba(212,175,55,0.2);
   box-shadow: inset 0 20px 50px rgba(0,0,0,0.5); 
@@ -509,36 +520,34 @@ body {
   margin-bottom: 40px;
 }
 
-/* Tarjetas Live y Feed con borde fuerte y doble marco interno */
+/* Tarjetas Live y Feed con Rojo Cardenalicio profundo para destacarlas sobre el azul */
 .accar-noticias-live,
 .accar-noticias-feed {
-  background: linear-gradient(180deg, #0B1B3D 0%, #060e20 100%);
-  border: 2px solid #d4af37; 
+  background: linear-gradient(180deg, #3A0B14 0%, #170408 100%); 
+  border: 1px solid rgba(212,175,55,0.5); 
   border-radius: 24px;
   padding: 28px;
-  box-shadow: 0 25px 50px rgba(0,0,0,0.5), inset 0 0 30px rgba(0,0,0,0.3);
+  box-shadow: 0 25px 50px rgba(0,0,0,0.7), inset 0 0 40px rgba(0,0,0,0.5);
   text-align: left;
   position: relative;
   transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
 }
 
-/* Marco interno dorado idéntico a Reflexión */
 .accar-noticias-live::after,
 .accar-noticias-feed::after {
   content: '';
   position: absolute;
   top: 10px; left: 10px; right: 10px; bottom: 10px;
-  border: 1px solid rgba(212,175,55,0.25);
+  border: 1px solid rgba(212,175,55,0.15);
   border-radius: 16px;
   pointer-events: none;
 }
 
-/* Hover espectacular para las tarjetas mayores */
 .accar-noticias-live:hover,
 .accar-noticias-feed:hover {
   transform: translateY(-6px);
   border-color: #e4c76a;
-  box-shadow: 0 35px 60px rgba(0,0,0,0.7), 0 0 20px rgba(212,175,55,0.15);
+  box-shadow: 0 35px 60px rgba(0,0,0,0.9), 0 0 20px rgba(212,175,55,0.25);
 }
 
 .accar-noticias-live-head {
@@ -550,37 +559,38 @@ body {
   flex-wrap: wrap;
 }
 
+/* El botón En Vivo pulsa de forma inmersiva y dorada/roja */
 .accar-live-badge {
   display: inline-block;
   padding: 6px 14px;
   border-radius: 999px;
-  background: linear-gradient(90deg, #ff0000 0%, #cc0000 100%); 
+  background: #cc0000; 
   border: 1px solid #ff4d4d;
   color: #ffffff;
   font-size: 12px;
   font-weight: 800;
   letter-spacing: 1px;
   text-transform: uppercase;
-  animation: pulseLive 2s infinite; 
+  animation: pulseLive 1.5s infinite; 
 }
 
 @keyframes pulseLive {
-  0% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7); }
-  70% { box-shadow: 0 0 0 8px rgba(255, 0, 0, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0); }
+  0% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.8), 0 0 10px rgba(212,175,55,0.4); }
+  50% { box-shadow: 0 0 0 8px rgba(255, 0, 0, 0), 0 0 20px rgba(212,175,55,0.8); background: #ff1a1a; }
+  100% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0), 0 0 10px rgba(212,175,55,0.4); }
 }
 
 .accar-live-clock {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(0, 0, 0, 0.4); 
-  border: 1px solid rgba(212, 175, 55, 0.3); 
+  background: rgba(0, 0, 0, 0.5); 
+  border: 1px solid rgba(212, 175, 55, 0.4); 
   border-radius: 8px; 
   padding: 8px 22px;
-  box-shadow: inset 0 2px 6px rgba(0,0,0,0.6); 
+  box-shadow: inset 0 2px 8px rgba(0,0,0,0.8); 
   position: relative;
-  z-index: 2; /* Para que quede sobre el ::after */
+  z-index: 2;
 }
 
 .accar-clock-label {
@@ -611,7 +621,7 @@ body {
   background: #000;
   margin-bottom: 18px;
   border: 2px solid rgba(212,175,55,0.6) !important;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.8), 0 0 15px rgba(212,175,55,0.2) !important;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.9), 0 0 15px rgba(212,175,55,0.2) !important;
   position: relative;
   z-index: 2;
 }
@@ -639,7 +649,7 @@ body {
   gap: 24px;
   margin-bottom: 20px;
   padding-bottom: 12px;
-  border-bottom: 1px solid rgba(255,255,255,0.1);
+  border-bottom: 1px solid rgba(212,175,55,0.3);
   position: relative;
   z-index: 2;
 }
@@ -648,7 +658,7 @@ body {
   font-size: 13px;
   font-weight: 800;
   letter-spacing: 1px;
-  color: rgba(255,255,255,0.5);
+  color: rgba(255,255,255,0.6);
   text-transform: uppercase;
   cursor: pointer;
   padding-bottom: 4px;
@@ -658,6 +668,7 @@ body {
 .accar-feed-tab.active {
   color: #D4AF37;
   border-bottom: 2px solid #D4AF37;
+  text-shadow: 0 0 8px rgba(212,175,55,0.4);
 }
 
 .accar-feed-scroll {
@@ -673,7 +684,7 @@ body {
 }
 
 .accar-feed-scroll::-webkit-scrollbar-track {
-  background: rgba(0,0,0,0.2);
+  background: rgba(0,0,0,0.4);
   border-radius: 10px;
 }
 
@@ -686,7 +697,7 @@ body {
   display: block;
   text-decoration: none;
   padding: 16px 16px 16px 0;
-  border-bottom: 1px solid rgba(255,255,255,0.1);
+  border-bottom: 1px solid rgba(212,175,55,0.15);
   border-left: 3px solid transparent;
   transition: all 0.3s ease;
 }
@@ -728,13 +739,14 @@ body {
   box-shadow: none;
 }
 
+/* Sombra cálida (efecto vela) para el blanco alabastro de las tarjetas inferiores */
 .accar-card {
   background: #fdfbf7; 
   border: 1px solid #d4af37; 
   border-radius: 24px;
   padding: 30px;
   text-decoration: none;
-  box-shadow: 0 15px 35px rgba(0,0,0,0.5); 
+  box-shadow: 0 15px 35px rgba(0,0,0,0.6), 0 0 15px rgba(212,175,55,0.05); 
   transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
   position: relative;
   overflow: hidden;
@@ -755,7 +767,7 @@ body {
 .accar-card:hover {
   transform: translateY(-8px);
   border-color: #e4c76a;
-  box-shadow: 0 25px 50px rgba(0,0,0,0.7), 0 0 20px rgba(212,175,55,0.2);
+  box-shadow: 0 25px 50px rgba(0,0,0,0.8), 0 0 25px rgba(212,175,55,0.2);
 }
 
 .accar-card:hover::before {
@@ -788,7 +800,7 @@ body {
   font-size: 14px;
   border-radius: 999px;
   border: 1px solid rgba(212,175,55,0.4);
-  box-shadow: 0 12px 25px rgba(0,0,0,0.5);
+  box-shadow: 0 12px 25px rgba(0,0,0,0.6), inset 0 0 10px rgba(0,0,0,0.3);
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
@@ -797,7 +809,7 @@ body {
   color: #D4AF37;
   transform: translateY(-4px);
   border-color: #D4AF37;
-  box-shadow: 0 18px 35px rgba(0,0,0,0.6), 0 0 15px rgba(212,175,55,0.2);
+  box-shadow: 0 18px 35px rgba(0,0,0,0.8), 0 0 15px rgba(212,175,55,0.2);
 }
 
 @media (max-width: 980px){
@@ -834,6 +846,7 @@ body {
 }
 </style>
 <!-- ===== FIN BLOQUE: NOTICIAS ===== -->
+
 
 <!-- ===== INICIO BLOQUE: ACCESOS ===== -->
 <section class="accar-accesos" id="accesos">
@@ -883,37 +896,11 @@ body {
 </section>
 
 <style>
-/* Clase global garantizada para las tarjetas de título */
-.accar-heading-card {
-  display: inline-block;
-  background: linear-gradient(180deg, #0B1B3D 0%, #060e20 100%);
-  border: 1px solid rgba(212,175,55,0.6);
-  border-radius: 20px;
-  padding: 16px 36px;
-  margin-bottom: 30px;
-  box-shadow: 0 15px 30px rgba(0,0,0,0.4), inset 0 2px 10px rgba(255,255,255,0.05);
-  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-.accar-heading-card:hover {
-  transform: translateY(-4px);
-  border-color: #D4AF37;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.5), 0 0 15px rgba(212,175,55,0.2);
-}
-
-.accar-heading-card h2 {
-  margin: 0;
-  font-size: 32px;
-  color: #D4AF37 !important;
-  text-shadow: 0 2px 6px rgba(0,0,0,0.6) !important;
-}
-
 .accar-accesos {
   position: relative;
   z-index: 9; 
   padding: 130px 20px; 
-  /* Gradiente más oscuro para crear nivel de profundidad */
-  background: linear-gradient(180deg, #08142b 0%, #050d1d 100%);
+  background: radial-gradient(circle at center, #0B1B3D 0%, #050d1d 70%, #02050a 100%);
   text-align: center;
   border-top: 1px solid rgba(212,175,55,0.15);
   box-shadow: inset 0 20px 50px rgba(0,0,0,0.5);
@@ -939,14 +926,14 @@ body {
   background: #fdfbf7;
   border: 1px solid #d4af37;
   text-decoration: none;
-  box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.6), 0 0 15px rgba(212,175,55,0.05);
   transition: transform .35s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow .35s ease, border-color .35s ease;
 }
 
 .accar-acceso:hover{
   background: #ffffff;
   transform: translateY(-8px);
-  box-shadow: 0 25px 50px rgba(0,0,0,0.7), 0 0 20px rgba(212,175,55,0.2);
+  box-shadow: 0 25px 50px rgba(0,0,0,0.8), 0 0 25px rgba(212,175,55,0.2);
   border-color: #e4c76a;
 }
 
@@ -1006,37 +993,11 @@ body {
 </section>
 
 <style>
-/* Clase global garantizada para las tarjetas de título */
-.accar-heading-card {
-  display: inline-block;
-  background: linear-gradient(180deg, #0B1B3D 0%, #060e20 100%);
-  border: 1px solid rgba(212,175,55,0.6);
-  border-radius: 20px;
-  padding: 16px 36px;
-  margin-bottom: 30px;
-  box-shadow: 0 15px 30px rgba(0,0,0,0.4), inset 0 2px 10px rgba(255,255,255,0.05);
-  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-.accar-heading-card:hover {
-  transform: translateY(-4px);
-  border-color: #D4AF37;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.5), 0 0 15px rgba(212,175,55,0.2);
-}
-
-.accar-heading-card h2 {
-  margin: 0;
-  font-size: 32px;
-  color: #D4AF37 !important;
-  text-shadow: 0 2px 6px rgba(0,0,0,0.6) !important;
-}
-
 .accar-destacado {
   position: relative;
   z-index: 8; 
   padding: 130px 20px; 
-  /* Gradiente que desciende al negro casi puro */
-  background: linear-gradient(180deg, #050d1d 0%, #02050a 100%);
+  background: radial-gradient(circle at center, #08142b 0%, #02050a 70%, #000000 100%);
   text-align: center;
   border-top: 1px solid rgba(212,175,55,0.15);
   box-shadow: inset 0 20px 50px rgba(0,0,0,0.5);
@@ -1061,14 +1022,14 @@ body {
   background: #ffffff; 
   border: 1px solid #d4af37; 
   text-decoration: none;
-  box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.6), 0 0 15px rgba(212,175,55,0.05);
   transition: transform .35s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow .35s ease, border-color .35s ease;
 }
 
 .accar-destacado-card:hover{
   background: #ffffff;
   transform: translateY(-8px);
-  box-shadow: 0 25px 50px rgba(0,0,0,0.7), 0 0 20px rgba(212,175,55,0.2);
+  box-shadow: 0 25px 50px rgba(0,0,0,0.8), 0 0 25px rgba(212,175,55,0.2);
   border-color: #e4c76a;
 }
 
@@ -1093,6 +1054,7 @@ body {
 }
 </style>
 <!-- ===== FIN BLOQUE: DESTACADO ===== -->
+
 
 <!-- ===== INICIO BLOQUE: REFLEXIÓN ===== -->
 <section class="accar-reflexion">
@@ -1122,8 +1084,7 @@ body {
   position: relative;
   z-index: 7; 
   padding: 130px 20px;
-  /* Fondo que sube del negro al azul institucional del Footer para fusionarse perfecto */
-  background: linear-gradient(180deg, #02050a 0%, #09172d 100%) !important; 
+  background: linear-gradient(180deg, #000000 0%, #09172d 100%) !important; 
   text-align: center;
   border-top: 1px solid rgba(212,175,55,0.15);
   box-shadow: inset 0 20px 50px rgba(0,0,0,0.5);
@@ -1133,7 +1094,7 @@ body {
   max-width: 960px; 
   margin: 0 auto;
   color: #F8F9FA;
-  /* Verde Obispo intacto, la Joya de la sección */
+  /* Verde Obispo intacto */
   background: linear-gradient(135deg, #0f3621 0%, #04120b 100%); 
   border: 2px solid #d4af37; 
   border-radius: 28px;
@@ -1215,5 +1176,4 @@ body {
   }
 }
 </style>
-<!-- ===== FIN BLOQUE: REFLEXIÓN ===== -->
 <!-- ===== FIN BLOQUE: REFLEXIÓN ===== -->
