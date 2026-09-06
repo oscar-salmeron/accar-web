@@ -750,8 +750,9 @@ INICIO BLOQUE 3 — NOTICIAS OFICIALES DEL VATICANO (ULTRA PRO + AUTO)
         <a href="https://www.vaticannews.va/es/epg.html"
            target="_blank" rel="noopener noreferrer"
            class="accar-vn-sidecard accar-vn-sidecard--radio">
-          <div class="accar-vn-sidecard__label">📻 RADIO VATICANA EN VIVO</div>
-          <div class="accar-vn-sidecard__title">Escucha la Misa en latín, el Ángelus y podcasts oficiales</div>
+          <img src="../assets/img/logo_radio_vaticana.png" alt="Logo Radio Vaticana" class="accar-radio-logo">
+          <div class="accar-vn-sidecard__label">EN VIVO Y PODCASTS</div>
+          <div class="accar-vn-sidecard__title">Escucha la Misa en latín, el Ángelus y programación oficial</div>
         </a>
 
         <a href="https://press.vatican.va/"
@@ -999,18 +1000,32 @@ vaticannews-widget {
 }
 
 /* Estilo exclusivo para resaltar Radio Vaticana */
-.accar-vn-sidecard--radio{
-  background: linear-gradient(135deg, #0B1B3D 0%, #D4AF37 200%);
-  border-right: 4px solid #ffffff;
+.accar-vn-sidecard--radio {
+  background: #ffffff;
+  border-right: 4px solid #e38226; /* Naranja institucional de Radio Vaticana */
+  display: flex;
+  flex-direction: column;
 }
 
-.accar-vn-sidecard--radio .accar-vn-sidecard__label{
-  color: #D4AF37;
-  text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+.accar-radio-logo {
+  width: 150px;
+  height: auto;
+  margin-bottom: 14px;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.05));
+  transition: transform 0.3s ease;
 }
 
-.accar-vn-sidecard--radio .accar-vn-sidecard__title{
-  color: #ffffff;
+.accar-vn-sidecard:hover .accar-radio-logo {
+  transform: scale(1.05);
+}
+
+.accar-vn-sidecard--radio .accar-vn-sidecard__label {
+  color: #8c7a4c;
+  text-shadow: none;
+}
+
+.accar-vn-sidecard--radio .accar-vn-sidecard__title {
+  color: #243a5a;
 }
 
 .accar-vn-sidecard__label{
