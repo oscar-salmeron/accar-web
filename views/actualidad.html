@@ -678,11 +678,11 @@ INICIO BLOQUE 3 — NOTICIAS OFICIALES DEL VATICANO (ULTRA PRO + AUTO)
         </div>
 
         <div class="accar-vn-ultra__actions">
-          <a href="https://www.vaticannews.va/es.html" target="_blank" rel="noopener noreferrer" class="accar-vn-ultra__btn accar-vn-ultra__btn--primary">
+          <a href="https://www.vaticannews.va/es.html" target="_blank" rel="noopener noreferrer" class="accar-vn-ultra__btn-glow">
             Ver Vatican News
           </a>
 
-          <a href="https://press.vatican.va/" target="_blank" rel="noopener noreferrer" class="accar-vn-ultra__btn accar-vn-ultra__btn--secondary">
+          <a href="https://press.vatican.va/" target="_blank" rel="noopener noreferrer" class="accar-vn-ultra__btn-glow">
             Oficina de Prensa
           </a>
         </div>
@@ -699,7 +699,7 @@ INICIO BLOQUE 3 — NOTICIAS OFICIALES DEL VATICANO (ULTRA PRO + AUTO)
           <div class="accar-vn-sidecard__title">Consulta actividades y programación oficial</div>
         </a>
 
-        <!-- NUEVA TARJETA: RADIO VATICANA (EN VIVO / PODCASTS) -->
+        <!-- TARJETA: RADIO VATICANA (EN VIVO / PODCASTS) -->
         <a href="https://www.vaticannews.va/es/epg.html"
            target="_blank" rel="noopener noreferrer"
            class="accar-vn-sidecard accar-vn-sidecard--radio">
@@ -713,13 +713,6 @@ INICIO BLOQUE 3 — NOTICIAS OFICIALES DEL VATICANO (ULTRA PRO + AUTO)
            class="accar-vn-sidecard">
           <div class="accar-vn-sidecard__label">OFICINA DE PRENSA</div>
           <div class="accar-vn-sidecard__title">Comunicados, boletines y actualizaciones oficiales</div>
-        </a>
-
-        <a href="https://www.vaticannews.va/es/radio-vaticana.html"
-           target="_blank" rel="noopener noreferrer"
-           class="accar-vn-sidecard">
-          <div class="accar-vn-sidecard__label">NOTICIAS EN AUDIO</div>
-          <div class="accar-vn-sidecard__title">Cobertura y presencia informativa oficial</div>
         </a>
 
         <a href="https://www.osservatoreromano.va/es.html"
@@ -852,52 +845,41 @@ vaticannews-widget {
   margin-top:30px;
 }
 
-.accar-vn-ultra__btn{
+/* ===== BOTONES CON DESTELLO VERDE/DORADO ===== */
+.accar-vn-ultra__btn-glow,
+.accar-vn-ultra__btn-glow:link,
+.accar-vn-ultra__btn-glow:visited,
+.accar-vn-ultra__btn-glow:active{
   display:inline-flex;
   align-items:center;
   justify-content:center;
   min-height:52px;
   padding:0 26px;
   border-radius:999px;
-  text-decoration:none;
+  text-decoration:none !important;
   font-size:15px;
   font-weight:700;
-  transition:.25s ease;
-}
-
-.accar-vn-ultra__btn--primary,
-.accar-vn-ultra__btn--primary:visited,
-.accar-vn-ultra__btn--primary:focus{
-  background: linear-gradient(135deg, #0B1B3D 0%, #060e20 100%);
+  line-height:1;
+  letter-spacing:.01em;
+  
+  /* Fondo oscuro translúcido */
+  background: rgba(6, 14, 32, 0.8); 
   color: #ffffff !important;
-  border: 1px solid #d4af37;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.6);
-  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  
+  /* Borde y destello inicial Verde/Dorado */
+  border: 2px solid #154c2e; 
+  box-shadow: 0 0 15px rgba(21, 76, 46, 0.6), 0 0 10px rgba(212, 175, 55, 0.3);
+  
+  transition: all .3s ease;
 }
 
-.accar-vn-ultra__btn--primary:hover{
-  background: #d4af37;
+.accar-vn-ultra__btn-glow:hover,
+.accar-vn-ultra__btn-glow:focus{
+  background: #154c2e;
   border-color: #d4af37;
-  color: #030736 !important;
-  transform: translateY(-4px);
-  box-shadow: 0 12px 25px rgba(0,0,0,0.8), 0 0 15px rgba(212,175,55,0.2);
-}
-
-.accar-vn-ultra__btn--secondary,
-.accar-vn-ultra__btn--secondary:visited,
-.accar-vn-ultra__btn--secondary:focus{
-  background: rgba(255,255,255,0.05);
-  color: #ffffff;
-  border: 1px solid rgba(212,175,55,0.4);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.4);
-}
-
-.accar-vn-ultra__btn--secondary:hover{
-  background: #d4af37;
-  border-color: #d4af37;
-  color: #030736;
-  transform: translateY(-4px);
-  box-shadow: 0 12px 25px rgba(0,0,0,0.6), 0 0 15px rgba(212,175,55,0.2);
+  color: #ffffff !important;
+  box-shadow: 0 0 25px rgba(21, 76, 46, 0.9), 0 0 20px rgba(212, 175, 55, 0.6);
+  transform: translateY(-2px);
 }
 
 .accar-vn-ultra__side{
@@ -943,8 +925,9 @@ vaticannews-widget {
   opacity: 1;
 }
 
+/* Agenda del Papa en Púrpura Magisterial */
 .accar-vn-sidecard--agenda{
-  background:linear-gradient(180deg, #163a67 0%, #0f2d52 100%);
+  background:linear-gradient(180deg, #4A1A23 0%, #2A101C 100%);
   border: 1px solid rgba(212,175,55,0.6);
 }
 
@@ -953,8 +936,9 @@ vaticannews-widget {
   color:#ffffff;
 }
 
+/* Radio Vaticana en Crema/Pergamino */
 .accar-vn-sidecard--radio {
-  background: linear-gradient(180deg, #3A0B14 0%, #170408 100%); /* Rojo Cardenalicio */
+  background: linear-gradient(180deg, #fdfbf7 0%, #f4eee1 100%);
   border: 1px solid rgba(212,175,55,0.6);
   border-right: 4px solid #E87722; 
   display: flex;
@@ -966,7 +950,7 @@ vaticannews-widget {
   height: auto;
   margin-bottom: 16px;
   border-radius: 4px; 
-  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.4));
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
   transition: transform 0.3s ease;
 }
 
@@ -976,11 +960,11 @@ vaticannews-widget {
 
 .accar-vn-sidecard--radio .accar-vn-sidecard__label {
   color: #E87722;
-  text-shadow: 0 2px 4px rgba(0,0,0,0.4);
+  text-shadow: none;
 }
 
 .accar-vn-sidecard--radio .accar-vn-sidecard__title {
-  color: #ffffff;
+  color: #0B1B3D; /* Azul oscuro para leer sobre crema */
 }
 
 .accar-vn-sidecard__label{
@@ -996,7 +980,7 @@ vaticannews-widget {
 .accar-vn-sidecard__title{
   font-size:20px;
   line-height:1.4;
-  color:#0B1B3D;
+  color:#243a5a;
   font-weight:800;
 }
 
