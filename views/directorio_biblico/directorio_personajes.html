@@ -332,32 +332,42 @@
 
         async function cargarPersonajes() {
            const grids = {
-    // Pentateuco (Base Original)
-    "Genesis": document.getElementById('grid-genesis'),
-    "Exodo": document.getElementById('grid-exodo'),
-    "Levitico": document.getElementById('grid-levitico'),
-    "Numeros": document.getElementById('grid-numeros'),
-    "Deuteronomio": document.getElementById('grid-deuteronomio'),
-    
-    // --- EJEMPLO DE EXPANSIÓN (Libros Históricos Católicos) ---
-    "Josue": document.getElementById('grid-josue'),
-    "Jueces": document.getElementById('grid-jueces'),
-    "Rut": document.getElementById('grid-rut'),
-    "1_Samuel": document.getElementById('grid-1_samuel'),
-    "2_Samuel": document.getElementById('grid-2_samuel'),
-    "1_Reyes": document.getElementById('grid-1_reyes'),
-    "2_Reyes": document.getElementById('grid-2_reyes'),
-    "1_Cronicas": document.getElementById('grid-1_cronicas'),
-    "2_Cronicas": document.getElementById('grid-2_cronicas'),
-    "Esdras": document.getElementById('grid-esdras'),
-    "Nehemias": document.getElementById('grid-nehemias'),
-    "Tobias": document.getElementById('grid-tobias'),
-    "Judit": document.getElementById('grid-judit'),
-    "Ester": document.getElementById('grid-ester'),
-    "1_Macabeos": document.getElementById('grid-1_macabeos'),
-    "2_Macabeos": document.getElementById('grid-2_macabeos')
-    // etc.
-};
+                // Pentateuco (Base Original)
+                "Genesis": document.getElementById('grid-genesis'),
+                "Exodo": document.getElementById('grid-exodo'),
+                "Levitico": document.getElementById('grid-levitico'),
+                "Numeros": document.getElementById('grid-numeros'),
+                "Deuteronomio": document.getElementById('grid-deuteronomio'),
+                
+                // Libros Históricos (Expansión)
+                "Josue": document.getElementById('grid-josue'),
+                "Jueces": document.getElementById('grid-jueces'),
+                "Rut": document.getElementById('grid-rut'),
+                "1_Samuel": document.getElementById('grid-1_samuel'),
+                "2_Samuel": document.getElementById('grid-2_samuel'),
+                "1_Reyes": document.getElementById('grid-1_reyes'),
+                "2_Reyes": document.getElementById('grid-2_reyes'),
+                "1_Cronicas": document.getElementById('grid-1_cronicas'),
+                "2_Cronicas": document.getElementById('grid-2_cronicas'),
+                "Esdras": document.getElementById('grid-esdras'),
+                "Nehemias": document.getElementById('grid-nehemias'),
+                "Tobias": document.getElementById('grid-tobias'),
+                "Judit": document.getElementById('grid-judit'),
+                "Ester": document.getElementById('grid-ester'),
+                "1_Macabeos": document.getElementById('grid-1_macabeos'),
+                "2_Macabeos": document.getElementById('grid-2_macabeos')
+            };
+
+            // DICCIONARIO DE REFERENCIAS CRUZADAS
+            // Aquí indicamos qué personajes deben aparecer en otras pestañas además de su libro principal
+            const aparicionesExtra = {
+                "moises": ["Levitico"], 
+                "aaron": ["Levitico"],
+                "nadab": ["Levitico"],
+                "abiu": ["Levitico"],
+                "eleazar": ["Levitico"],
+                "itamar": ["Levitico"]
+            };
 
             // Limpiamos los mensajes de "No hay registros" antes de inyectar
             for (let key in grids) {
@@ -372,12 +382,13 @@
                 } else {
                     querySnapshot.forEach((doc) => {
                         const data = doc.data();
-                        const imagen = `/assets/img/${doc.id}.png`;
+                        const idPersonaje = doc.id;
+                        const imagen = `/assets/img/${idPersonaje}.png`;
                         // Por defecto lo mandamos a Génesis si no tiene el campo "libro"
                         const libroDestino = data.libro ? data.libro : "Genesis"; 
                         
                         const tarjetaHTML = `
-                            <a href="#" onclick="event.preventDefault(); localStorage.setItem('personajeSeleccionado', '${doc.id}'); loadView('/views/directorio_biblico/personaje.html');" class="accar-portrait-card">
+                            <a href="#" onclick="event.preventDefault(); localStorage.setItem('personajeSeleccionado', '${idPersonaje}'); loadView('/views/directorio_biblico/personaje.html');" class="accar-portrait-card">
                                 <div class="portrait-frame">
                                     <img src="${imagen}" alt="${data.nombre || 'Personaje'}" onerror="this.src='https://placehold.co/180x280/050b1a/d4af37?text=Sin+Imagen'">
                                 </div>
@@ -385,12 +396,20 @@
                             </a>
                         `;
 
-                        // Lo inyectamos en el grid correspondiente si existe en nuestro HTML
+                        // 1. Lo inyectamos en el grid PRINCIPAL de la base de datos
                         if (grids[libroDestino]) {
                             grids[libroDestino].innerHTML += tarjetaHTML;
                         } else {
-                            // Si el libro no está en la página web, lo mandamos a Génesis por seguridad
                              grids["Genesis"].innerHTML += tarjetaHTML;
+                        }
+
+                        // 2. Lo inyectamos en las pestañas EXTRAS según nuestro diccionario
+                        if (aparicionesExtra[idPersonaje]) {
+                            aparicionesExtra[idPersonaje].forEach(libroExtra => {
+                                if (grids[libroExtra]) {
+                                    grids[libroExtra].innerHTML += tarjetaHTML;
+                                }
+                            });
                         }
                     });
                     
