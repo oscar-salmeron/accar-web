@@ -1,56 +1,81 @@
 <section class="accar-vestibulo-page accar-documento-page">
   
-  <div class="accar-vestibulo-header">
-    <span class="accar-vestibulo-kicker">Lex Orandi, Lex Credendi</span>
-    <h1 class="accar-vestibulo-title">Custodia Litúrgica: Normas y Corrección</h1>
-    <p class="accar-vestibulo-desc">
-      Análisis canónico y litúrgico para la defensa del altar, el decoro de la Santa Eucaristía y la corrección de abusos.
-    </p>
-    <div class="accar-vestibulo-divider"></div>
+  <!-- ENCABEZADO HERÁLDICO -->
+  <div class="accar-header-heraldico">
+    <img src="../assets/img/ACCAR-DORADO.png" alt="Sello Institucional" class="accar-escudo-lateral">
+    <div class="accar-header-texto">
+      <span class="accar-vestibulo-kicker">Lex Orandi, Lex Credendi</span>
+      <h1 class="accar-vestibulo-title">Custodia Litúrgica: Normas y Corrección</h1>
+      <p class="accar-vestibulo-desc">
+        Análisis canónico y litúrgico para la defensa del altar, el decoro de la Santa Eucaristía y la corrección de abusos.
+      </p>
+    </div>
+    <img src="../assets/img/icono_apologetica_liturgica.png" alt="Sello Custodia Litúrgica" class="accar-escudo-lateral">
+  </div>
+  <div class="accar-vestibulo-divider"></div>
+
+  <!-- VISTA 1: CUADRÍCULA DE CASOS (ÍNDICE) -->
+  <div id="vista-indice" class="accar-indice-grid">
+    
+    <!-- TARJETA CASO 1 -->
+    <div class="accar-caso-card" onclick="mostrarCaso('caso-1')">
+      <div class="accar-caso-numero">Caso 01</div>
+      <h3 class="accar-caso-titulo-tarjeta">Manipulación laical de vasos sagrados</h3>
+      <p class="accar-caso-desc-tarjeta">Análisis y denuncia sobre la purificación y traslado indebido de vasos sagrados por fieles laicos no instituidos.</p>
+      <span class="accar-caso-leer">Leer Documento ➔</span>
+    </div>
+    
+    <!-- Aquí agregaremos las tarjetas del Caso 2, Caso 3, etc. en el futuro -->
+
   </div>
 
-  <!-- INICIO DEL COMPENDIO DE ABUSOS -->
-  <div class="accar-articulo-contenedor">
+  <!-- VISTA 2: DOCUMENTOS (OCULTA POR DEFECTO) -->
+  <div id="vista-documento" style="display: none;">
     
-    <!-- CASO 1: VASOS SAGRADOS -->
-    <div class="accar-articulo-cabecera">
-      <h2 class="accar-articulo-titulo">Caso: Manipulación laical de vasos sagrados sin purificar</h2>
-      <span class="accar-articulo-meta">Derecho Canónico e Instrucción General del Misal Romano</span>
+    <!-- BOTÓN SUPERIOR DE REGRESO -->
+    <div class="accar-navegacion-interna">
+      <button class="accar-btn-volver" onclick="volverIndice()">⮜ Volver al Índice de Casos</button>
     </div>
 
-    <div class="accar-articulo-cuerpo">
+    <!-- CONTENIDO DEL CASO 1 -->
+    <div class="accar-articulo-contenedor" id="caso-1" style="display: none;">
       
-      <h3 class="accar-seccion-titulo">I. Naturaleza de la Infracción</h3>
-      <p>Durante o inmediatamente después de la distribución de la Sagrada Comunión, un fiel laico (monaguillo o servidor del altar ordinario) sin haber recibido la institución formal del acolitado, retira del altar y traslada a la sacristía los vasos sagrados (cáliz, patena, palia y corporal). Estos recipientes son manipulados sin haber sido purificados previamente en el altar por un ministro ordenado, conteniendo aún restos líquidos de la Preciosísima Sangre o fragmentos del Cuerpo de Cristo, lo que representa un peligro inminente de profanación accidental.</p>
+      <div class="accar-articulo-cabecera">
+        <h2 class="accar-articulo-titulo">Caso: Manipulación laical de vasos sagrados sin purificar</h2>
+        <span class="accar-articulo-meta">Derecho Canónico e Instrucción General del Misal Romano</span>
+      </div>
 
-      <h3 class="accar-seccion-titulo">II. Marco Litúrgico (Rúbricas)</h3>
-      <p>La práctica descrita es un abuso litúrgico manifiesto que contraviene directamente las disposiciones de la Iglesia.</p>
-      <ul class="accar-lista-canonica">
-        <li>La <strong>Instrucción General del Misal Romano (IGMR)</strong> en su numeral 279 establece taxativamente que la purificación es competencia exclusiva de ministros específicos: "Los vasos sagrados son purificados por el sacerdote, o por el diácono o por el acólito instituido, después de la Comunión o después de la Misa, en cuanto sea posible en la credencia".</li>
-        <li>Si los vasos no se purifican inmediatamente en el altar, la normativa exige que el sacerdote los deje "sobre el corporal, convenientemente cubiertos" para purificarlos enseguida después de despedir al pueblo, o encargar al diácono o acólito instituido su traslado a la credencia.</li>
-        <li>La instrucción <strong>Redemptionis Sacramentum</strong> prohíbe la asunción indebida de funciones al sentenciar: "Todos los ministros ordenados y los fieles laicos, al desempeñar su función u oficio, harán todo y sólo aquello que les corresponde".</li>
-      </ul>
+      <div class="accar-articulo-cuerpo">
+        <h3 class="accar-seccion-titulo">I. Naturaleza de la Infracción</h3>
+        <p>Durante o inmediatamente después de la distribución de la Sagrada Comunión, un fiel laico (monaguillo o servidor del altar ordinario) sin haber recibido la institución formal del acolitado, retira del altar y traslada a la sacristía los vasos sagrados (cáliz, patena, palia y corporal). Estos recipientes son manipulados sin haber sido purificados previamente en el altar por un ministro ordenado, conteniendo aún restos líquidos de la Preciosísima Sangre o fragmentos del Cuerpo de Cristo, lo que representa un peligro inminente de profanación accidental.</p>
 
-      <h3 class="accar-seccion-titulo">III. Fundamento Canónico</h3>
-      <ul class="accar-lista-canonica">
-        <li><strong>Abolición de la "costumbre":</strong> El Código de Derecho Canónico invalida el argumento de la "costumbre parroquial" para alterar la liturgia. El <strong>Canon 24 § 2</strong> dictamina que "Tampoco puede alcanzar fuerza de ley una costumbre contra ley o extralegal si no es razonable; la costumbre expresamente reprobada por el derecho no es razonable", quedando estas prácticas totalmente suprimidas.</li>
-        <li><strong>Derecho a una liturgia íntegra:</strong> Los actos arbitrarios en el manejo de la Eucaristía lesionan el derecho canónico inalienable de los fieles a que el sacrificio de la Misa se celebre "de forma íntegra [...] conforme a toda la enseñanza del Magisterio de la Iglesia" y según las normas del rito aprobado.</li>
-      </ul>
+        <h3 class="accar-seccion-titulo">II. Marco Litúrgico (Rúbricas)</h3>
+        <p>La práctica descrita es un abuso litúrgico manifiesto que contraviene directamente las disposiciones de la Iglesia.</p>
+        <ul class="accar-lista-canonica">
+          <li>La <strong>Instrucción General del Misal Romano (IGMR)</strong> en su numeral 279 establece taxativamente que la purificación es competencia exclusiva de ministros específicos: "Los vasos sagrados son purificados por el sacerdote, o por el diácono o por el acólito instituido, después de la Comunión o después de la Misa, en cuanto sea posible en la credencia".</li>
+          <li>Si los vasos no se purifican inmediatamente en el altar, la normativa exige que el sacerdote los deje "sobre el corporal, convenientemente cubiertos" para purificarlos enseguida después de despedir al pueblo, o encargar al diácono o acólito instituido su traslado a la credencia.</li>
+          <li>La instrucción <strong>Redemptionis Sacramentum</strong> prohíbe la asunción indebida de funciones al sentenciar: "Todos los ministros ordenados y los fieles laicos, al desempeñar su función u oficio, harán todo y sólo aquello que les corresponde".</li>
+        </ul>
 
-      <h3 class="accar-seccion-titulo">IV. Calificación y Responsabilidad</h3>
-      <ul class="accar-lista-canonica">
-        <li><strong>Calificación:</strong> Se trata de una grave irregularidad que deforma arbitrariamente la celebración litúrgica y atenta contra la unidad del Rito Romano y el decoro del Sacramento.</li>
-        <li><strong>Responsabilidad del Párroco:</strong> Recae directa y gravísimamente sobre el Párroco, quien incumple la obligación estipulada en el <strong>Canon 528 § 2</strong>: "bajo la autoridad del Obispo diocesano, debe moderar el párroco en su parroquia, con la obligación de vigilar para que no se introduzcan abusos".</li>
-        <li><strong>Responsabilidad de los presbíteros celebrantes:</strong> Al obligar o permitir que un laico asuma funciones eucarísticas no permitidas, los celebrantes vacían su propio ministerio de su significado profundo y faltan a las promesas de su sagrada Ordenación.</li>
-      </ul>
+        <h3 class="accar-seccion-titulo">III. Fundamento Canónico</h3>
+        <ul class="accar-lista-canonica">
+          <li><strong>Abolición de la "costumbre":</strong> El Código de Derecho Canónico invalida el argumento de la "costumbre parroquial" para alterar la liturgia. El <strong>Canon 24 § 2</strong> dictamina que "Tampoco puede alcanzar fuerza de ley una costumbre contra ley o extralegal si no es razonable; la costumbre expresamente reprobada por el derecho no es razonable", quedando estas prácticas totalmente suprimidas.</li>
+          <li><strong>Derecho a una liturgia íntegra:</strong> Los actos arbitrarios en el manejo de la Eucaristía lesionan el derecho canónico inalienable de los fieles a que el sacrificio de la Misa se celebre "de forma íntegra [...] conforme a toda la enseñanza del Magisterio de la Iglesia" y según las normas del rito aprobado.</li>
+        </ul>
 
-      <h3 class="accar-seccion-titulo">V. Protocolo de Acción y Denuncia</h3>
-      <p class="accar-instruccion-uso"><em>Instrucciones de uso: Entregar esta misiva de forma física en la oficina parroquial, solicitando acuse de recibo, o enviarla por correo electrónico oficial al Párroco.</em></p>
-      
-      <!-- Contenedor estilizado de la carta -->
-      <div class="accar-carta-contenedor">
-        <button class="accar-btn-copiar" onclick="copiarCartaDenuncia('texto-carta-1')">Copiar texto de la carta 📋</button>
-        <div id="texto-carta-1" class="accar-carta-texto">A la atención del Párroco de la Parroquia [Nombre de la Parroquia]
+        <h3 class="accar-seccion-titulo">IV. Calificación y Responsabilidad</h3>
+        <ul class="accar-lista-canonica">
+          <li><strong>Calificación:</strong> Se trata de una grave irregularidad que deforma arbitrariamente la celebración litúrgica y atenta contra la unidad del Rito Romano y el decoro del Sacramento.</li>
+          <li><strong>Responsabilidad del Párroco:</strong> Recae directa y gravísimamente sobre el Párroco, quien incumple la obligación estipulada en el <strong>Canon 528 § 2</strong>: "bajo la autoridad del Obispo diocesano, debe moderar el párroco en su parroquia, con la obligación de vigilar para que no se introduzcan abusos".</li>
+          <li><strong>Responsabilidad de los presbíteros celebrantes:</strong> Al obligar o permitir que un laico asuma funciones eucarísticas no permitidas, los celebrantes vacían su propio ministerio de su significado profundo y faltan a las promesas de su sagrada Ordenación.</li>
+        </ul>
+
+        <h3 class="accar-seccion-titulo">V. Protocolo de Acción y Denuncia</h3>
+        <p class="accar-instruccion-uso"><em>Instrucciones de uso: Entregar esta misiva de forma física en la oficina parroquial, solicitando acuse de recibo, o enviarla por correo electrónico oficial al Párroco.</em></p>
+        
+        <div class="accar-carta-contenedor">
+          <button class="accar-btn-copiar" onclick="copiarCartaDenuncia('texto-carta-1')">Copiar texto de la carta 📋</button>
+          <div id="texto-carta-1" class="accar-carta-texto">A la atención del Párroco de la Parroquia [Nombre de la Parroquia]
 [Ciudad, Estado]
 
 Ref: Exigencia de cese inmediato de abusos litúrgicos respecto a la manipulación de los vasos sagrados.
@@ -75,28 +100,185 @@ En Cristo Eucaristía,
 
 [Tu Nombre/Firma]
 [Tu Contacto/Correo]</div>
+        </div>
       </div>
-
     </div>
+    
   </div>
-  <!-- FIN DEL COMPENDIO DE ABUSOS -->
-
 </section>
 
-<!-- ESTILOS ESPECÍFICOS PARA EL ARTÍCULO Y LA CARTA -->
+<!-- ESTILOS Y SCRIPT -->
 <style>
-.accar-documento-page {
-  padding-bottom: 100px;
+/* Estilos Base */
+.accar-vestibulo-page {
+  background: linear-gradient(180deg, #02040a 0%, #050b1a 100%);
+  min-height: 100vh;
+  padding: 80px 20px 100px;
+  color: #f5f2eb;
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+/* Encabezado Heráldico Simétrico */
+.accar-header-heraldico {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  max-width: 1100px;
+  margin: 0 auto 40px;
+}
+
+.accar-escudo-lateral {
+  width: 100px;
+  height: auto;
+  filter: drop-shadow(0 10px 15px rgba(0,0,0,0.6));
+}
+
+.accar-header-texto {
+  flex: 1;
+  text-align: center;
+}
+
+.accar-vestibulo-kicker {
+  display: inline-block;
+  font-family: sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  color: #D4AF37;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+  padding-bottom: 5px;
+}
+
+.accar-vestibulo-title {
+  font-size: 42px;
+  font-weight: normal;
+  color: #ffffff;
+  margin: 10px 0 15px 0;
+  text-shadow: 0 4px 15px rgba(0,0,0,0.8);
+}
+
+.accar-vestibulo-desc {
+  font-size: 17px;
+  color: rgba(245, 242, 235, 0.7);
+  line-height: 1.6;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.accar-vestibulo-divider {
+  width: 60px;
+  height: 2px;
+  background: #D4AF37;
+  margin: 0 auto 50px;
+  box-shadow: 0 0 10px #D4AF37;
+}
+
+/* Vista 1: Cuadrícula de Tarjetas */
+.accar-indice-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 30px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.accar-caso-card {
+  background: rgba(11, 22, 48, 0.4);
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  border-radius: 12px;
+  padding: 30px;
+  cursor: pointer;
+  transition: all 0.4s ease;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+  display: flex;
+  flex-direction: column;
+}
+
+.accar-caso-card:hover {
+  background: rgba(11, 22, 48, 0.7);
+  border-color: #D4AF37;
+  transform: translateY(-8px);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.6);
+}
+
+.accar-caso-numero {
+  color: #D4AF37;
+  font-family: sans-serif;
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  opacity: 0.8;
+}
+
+.accar-caso-titulo-tarjeta {
+  color: #ffffff;
+  font-size: 22px;
+  margin: 0 0 15px 0;
+  line-height: 1.3;
+  font-weight: normal;
+}
+
+.accar-caso-desc-tarjeta {
+  color: rgba(245, 242, 235, 0.7);
+  font-size: 15px;
+  line-height: 1.6;
+  margin: 0 0 25px 0;
+  flex: 1;
+}
+
+.accar-caso-leer {
+  color: #ffffff;
+  font-family: sans-serif;
+  font-size: 12px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.5;
+  transition: all 0.3s;
+}
+
+.accar-caso-card:hover .accar-caso-leer {
+  opacity: 1;
+  color: #D4AF37;
+}
+
+/* Vista 2: Navegación y Contenedor del Documento */
+.accar-navegacion-interna {
+  max-width: 850px;
+  margin: 0 auto 20px;
+}
+
+.accar-btn-volver {
+  background: transparent;
+  color: #D4AF37;
+  border: none;
+  font-family: sans-serif;
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  cursor: pointer;
+  padding: 10px 0;
+  transition: color 0.3s;
+}
+
+.accar-btn-volver:hover {
+  color: #ffffff;
 }
 
 .accar-articulo-contenedor {
   max-width: 850px;
-  margin: 0 auto 50px; /* Margen inferior para separar futuros casos */
-  background: rgba(11, 22, 48, 0.4);
-  border: 1px solid rgba(212, 175, 55, 0.2);
+  margin: 0 auto;
+  background: rgba(11, 22, 48, 0.5);
+  border: 1px solid rgba(212, 175, 55, 0.3);
   border-radius: 12px;
   padding: 50px;
-  box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.6);
 }
 
 .accar-articulo-cabecera {
@@ -168,7 +350,7 @@ En Cristo Eucaristía,
   text-align: center;
 }
 
-/* ESTILOS DE LA CARTA PARA COPIAR */
+/* Estilos de la carta */
 .accar-carta-contenedor {
   background: #091024;
   border: 1px solid #D4AF37;
@@ -207,7 +389,18 @@ En Cristo Eucaristía,
   white-space: pre-wrap; 
 }
 
+/* Responsive */
 @media (max-width: 768px) {
+  .accar-header-heraldico {
+    flex-direction: column;
+    gap: 20px;
+  }
+  .accar-escudo-lateral {
+    width: 80px;
+  }
+  .accar-vestibulo-title {
+    font-size: 32px;
+  }
   .accar-articulo-contenedor {
     padding: 30px 20px;
   }
@@ -222,6 +415,35 @@ En Cristo Eucaristía,
 </style>
 
 <script>
+// Funciones del Conmutador de Vistas
+function mostrarCaso(idCaso) {
+  // Ocultar la cuadrícula
+  document.getElementById('vista-indice').style.display = 'none';
+  
+  // Ocultar todos los casos dentro del contenedor de documentos
+  const todosLosCasos = document.querySelectorAll('.accar-articulo-contenedor');
+  todosLosCasos.forEach(caso => caso.style.display = 'none');
+  
+  // Mostrar la vista de documento y el caso específico
+  document.getElementById('vista-documento').style.display = 'block';
+  document.getElementById(idCaso).style.display = 'block';
+  
+  // Subir suavemente la pantalla
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function volverIndice() {
+  // Ocultar la vista de documento
+  document.getElementById('vista-documento').style.display = 'none';
+  
+  // Mostrar la cuadrícula
+  document.getElementById('vista-indice').style.display = 'grid';
+  
+  // Subir suavemente la pantalla
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// Función para copiar la carta
 function copiarCartaDenuncia(idElemento) {
   const texto = document.getElementById(idElemento).innerText;
   const boton = event.target;
