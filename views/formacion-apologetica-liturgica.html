@@ -18,6 +18,7 @@
   <div class="accar-tabs-wrapper">
     <button id="tab-casos" class="accar-tab-btn activa" onclick="alternarSeccion('casos')">🏛️ Casos de Abuso</button>
     <button id="tab-glosario" class="accar-tab-btn" onclick="alternarSeccion('glosario')">📖 Jerarquía y Ministerios</button>
+    <button id="tab-ordenes" class="accar-tab-btn" onclick="alternarSeccion('ordenes')">✝️ Órdenes Religiosas</button>
   </div>
 
   <!-- VISTA: DIRECTORIO DOCTRINAL Y LITÚRGICO (OCULTA INICIALMENTE) -->
@@ -154,6 +155,116 @@
           <li><strong>Definición Teológica:</strong> Incorporado a Cristo por el bautismo, participa a su modo de la función sacerdotal, profética y real de Cristo.</li>
           <li><strong>Función Litúrgica:</strong> Ofrecer la Víctima Inmaculada a Dios Padre, no sólo por manos del sacerdote, sino juntamente con él, desde la nave del templo.</li>
           <li><strong>Límites y Potestad:</strong> La participación activa no significa realizar tareas materiales en el presbiterio. La Iglesia condena radicalmente la "clericalización" del laicado.</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- VISTA 3: ÓRDENES RELIGIOSAS (OCULTA INICIALMENTE) -->
+  <div id="vista-ordenes" class="accar-glosario-grid" style="display: none;">
+    
+    <!-- ORDEN 1 -->
+    <div class="accar-ficha-doctrinal">
+      <div class="accar-ficha-img-box">
+        <img src="../assets/img/orden_benedictinos.png" alt="Benedictinos">
+      </div>
+      <div class="accar-ficha-contenido">
+        <h3>1. Orden de San Benito (Benedictinos/as)</h3>
+        <ul>
+          <li><strong>Carisma:</strong> Búsqueda incesante de Dios bajo el lema <em>Ora et Labora</em>. Voto de estabilidad en el monasterio.</li>
+          <li><strong>Función Litúrgica:</strong> Celebración solemne del Oficio Divino y la Eucaristía, trabajo manual y acogida de huéspedes.</li>
+          <li><strong>Límites y Potestad:</strong> Exención canónica interna bajo un Abad/Abadesa, pero sujetos al Obispo en el culto público y cura de almas diocesana.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ORDEN 2 -->
+    <div class="accar-ficha-doctrinal">
+      <div class="accar-ficha-img-box">
+        <img src="../assets/img/orden_franciscanos.png" alt="Franciscanos">
+      </div>
+      <div class="accar-ficha-contenido">
+        <h3>2. Frailes Menores (Franciscanos/Clarisas)</h3>
+        <ul>
+          <li><strong>Carisma:</strong> Pobreza evangélica radical, minoridad y fraternidad (vivir sin nada propio).</li>
+          <li><strong>Función Litúrgica:</strong> Predicación itinerante y devoción cristocéntrica encarnada (pesebre, cruz, adoración).</li>
+          <li><strong>Límites y Potestad:</strong> Exención pontificia interna, pero carecen de jurisdicción territorial. Para predicar públicamente requieren permiso del Obispo local.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ORDEN 3 -->
+    <div class="accar-ficha-doctrinal">
+      <div class="accar-ficha-img-box">
+        <img src="../assets/img/orden_dominicos.png" alt="Dominicos">
+      </div>
+      <div class="accar-ficha-contenido">
+        <h3>3. Orden de Predicadores (Dominicos/as)</h3>
+        <ul>
+          <li><strong>Carisma:</strong> Proclamación de la Verdad y defensa de la ortodoxia mediante el estudio riguroso.</li>
+          <li><strong>Función Litúrgica:</strong> Contemplar y transmitir lo contemplado. Docencia teológica y propagación del Santo Rosario.</li>
+          <li><strong>Límites y Potestad:</strong> Exención bajo el Maestro de la Orden. Sus parroquias encomendadas se someten a las directrices litúrgicas del prelado diocesano.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ORDEN 4 -->
+    <div class="accar-ficha-doctrinal">
+      <div class="accar-ficha-img-box">
+        <img src="../assets/img/orden_carmelitas.png" alt="Carmelitas">
+      </div>
+      <div class="accar-ficha-contenido">
+        <h3>4. Carmelitas Descalzos</h3>
+        <ul>
+          <li><strong>Carisma:</strong> Unión mística con Dios, oración contemplativa profunda y filiación mariana (Escapulario).</li>
+          <li><strong>Función Litúrgica:</strong> Sacrificio oculto por los sacerdotes. Los frailes dirigen espiritualmente; las monjas sostienen la Iglesia desde el claustro.</li>
+          <li><strong>Límites y Potestad:</strong> Estructura exenta que salvaguarda la estricta clausura papal, vigilados por el Obispo únicamente en el culto eclesial público.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ORDEN 5 -->
+    <div class="accar-ficha-doctrinal">
+      <div class="accar-ficha-img-box">
+        <img src="../assets/img/orden_jesuitas.png" alt="Jesuitas">
+      </div>
+      <div class="accar-ficha-contenido">
+        <h3>5. Compañía de Jesús (Jesuitas)</h3>
+        <ul>
+          <li><strong>Carisma:</strong> Disponibilidad apostólica absoluta, sellada por un cuarto voto de obediencia directa e incondicional al Papa.</li>
+          <li><strong>Función Litúrgica:</strong> Exentos del rezo coral para maximizar la movilidad. Acción en las fronteras intelectuales, misiones y Ejercicios Espirituales.</li>
+          <li><strong>Límites y Potestad:</strong> Amplísima exención papal. Aún así, los presbíteros jesuitas con cargos parroquiales deben obedecer al Obispo diocesano.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ORDEN 6 -->
+    <div class="accar-ficha-doctrinal">
+      <div class="accar-ficha-img-box">
+        <img src="../assets/img/orden_agustinos.png" alt="Agustinos">
+      </div>
+      <div class="accar-ficha-contenido">
+        <h3>6. Orden de San Agustín (Agustinos/as)</h3>
+        <ul>
+          <li><strong>Carisma:</strong> La perfecta vida común, la búsqueda de la verdad y la comunión fraterna (un solo corazón hacia Dios).</li>
+          <li><strong>Función Litúrgica:</strong> Liturgia coral diaria que nutre la contemplación, la docencia y el servicio misionero parroquial.</li>
+          <li><strong>Límites y Potestad:</strong> Autonomía de régimen. Deben obediencia al Ordinario local en sacramentos y predicación pública a los fieles.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ORDEN 7 -->
+    <div class="accar-ficha-doctrinal">
+      <div class="accar-ficha-img-box">
+        <img src="../assets/img/orden_salesianos.png" alt="Salesianos">
+      </div>
+      <div class="accar-ficha-contenido">
+        <h3>7. Familia Salesiana (Salesianos/FMA)</h3>
+        <ul>
+          <li><strong>Carisma:</strong> Caridad pastoral orientada a la juventud mediante la razón, la religión y el amor (Sistema Preventivo).</li>
+          <li><strong>Función Litúrgica:</strong> Liturgia pedagógica, festiva y eucarística. Dirección de oratorios, confesión asidua y devoción mariana.</li>
+          <li><strong>Límites y Potestad:</strong> Instituto pontificio. Operan territorialmente bajo el Obispo, requiriendo sus licencias para el ministerio público y oratorios.</li>
         </ul>
       </div>
     </div>
@@ -1064,27 +1175,37 @@ Confiando en que el temor de Dios y su responsabilidad pastoral le muevan a una 
 </style>
 
 <script>
-// Función para cambiar entre Casos y Glosario
+// Función para cambiar entre Casos, Glosario y Órdenes
 function alternarSeccion(seccion) {
   const btnCasos = document.getElementById('tab-casos');
   const btnGlosario = document.getElementById('tab-glosario');
+  const btnOrdenes = document.getElementById('tab-ordenes');
+  
   const vistaCasos = document.getElementById('vista-indice');
   const vistaGlosario = document.getElementById('vista-glosario');
+  const vistaOrdenes = document.getElementById('vista-ordenes');
   const vistaDocumento = document.getElementById('vista-documento');
 
-  // Ocultar siempre el documento abierto si se hace clic en las pestañas
+  // Ocultar siempre todo
   vistaDocumento.style.display = 'none';
+  vistaCasos.style.display = 'none';
+  vistaGlosario.style.display = 'none';
+  vistaOrdenes.style.display = 'none';
+  
+  btnCasos.classList.remove('activa');
+  btnGlosario.classList.remove('activa');
+  btnOrdenes.classList.remove('activa');
 
+  // Mostrar lo correspondiente
   if (seccion === 'casos') {
     btnCasos.classList.add('activa');
-    btnGlosario.classList.remove('activa');
     vistaCasos.style.display = 'grid';
-    vistaGlosario.style.display = 'none';
   } else if (seccion === 'glosario') {
     btnGlosario.classList.add('activa');
-    btnCasos.classList.remove('activa');
     vistaGlosario.style.display = 'flex';
-    vistaCasos.style.display = 'none';
+  } else if (seccion === 'ordenes') {
+    btnOrdenes.classList.add('activa');
+    vistaOrdenes.style.display = 'flex';
   }
 }
 
