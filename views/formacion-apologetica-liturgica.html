@@ -12,7 +12,153 @@
     </div>
     <img src="../assets/img/icono_apologetica_liturgica.png" alt="Sello Custodia Litúrgica" class="accar-escudo-lateral">
   </div>
-  <div class="accar-vestibulo-divider"></div>
+<div class="accar-vestibulo-divider"></div>
+
+  <!-- CONMUTADOR DE PESTAÑAS SUPERIORES -->
+  <div class="accar-tabs-wrapper">
+    <button id="tab-casos" class="accar-tab-btn activa" onclick="alternarSeccion('casos')">🏛️ Casos de Abuso</button>
+    <button id="tab-glosario" class="accar-tab-btn" onclick="alternarSeccion('glosario')">📖 Jerarquía y Ministerios</button>
+  </div>
+
+  <!-- VISTA: DIRECTORIO DOCTRINAL Y LITÚRGICO (OCULTA INICIALMENTE) -->
+  <div id="vista-glosario" class="accar-glosario-grid" style="display: none;">
+    
+    <!-- FICHA 1 -->
+    <div class="accar-ficha-doctrinal">
+      <div class="accar-ficha-img-box">
+        <img src="../assets/img/ficha_papa.png" alt="El Papa">
+      </div>
+      <div class="accar-ficha-contenido">
+        <h3>1. El Romano Pontífice (El Papa)</h3>
+        <ul>
+          <li><strong>Definición Teológica:</strong> Es el Obispo de la Iglesia Romana, en quien permanece la función que el Señor encomendó singularmente a Pedro, primero entre los Apóstoles, para ser transmitida a sus sucesores.</li>
+          <li><strong>Función Litúrgica:</strong> Es la cabeza del Colegio Episcopal, Vicario de Cristo y Pastor de la Iglesia universal en la tierra.</li>
+          <li><strong>Límites y Potestad:</strong> Posee potestad ordinaria, suprema, plena, inmediata y universal en la Iglesia. Le compete en exclusiva a la Sede Apostólica ordenar la sagrada Liturgia de la Iglesia universal y vigilar que las normas litúrgicas se cumplan con estricta fidelidad.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- FICHA 2 -->
+    <div class="accar-ficha-doctrinal">
+      <div class="accar-ficha-img-box">
+        <img src="../assets/img/ficha_cardenal.png" alt="El Cardenal">
+      </div>
+      <div class="accar-ficha-contenido">
+        <h3>2. El Cardenal</h3>
+        <ul>
+          <li><strong>Definición Teológica:</strong> No es un grado del sacramento del Orden. Los Cardenales constituyen un Colegio peculiar cuya función principal y exclusiva es proveer a la elección del Romano Pontífice.</li>
+          <li><strong>Función Litúrgica:</strong> Asisten al Papa de forma colegial en los Consistorios y de forma personal mediante los distintos oficios que desempeñan en el gobierno de la Iglesia.</li>
+          <li><strong>Límites y Potestad:</strong> Es un título honorífico y de servicio. Para ser creados Cardenales, se elige a varones que hayan recibido al menos el presbiterado.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- FICHA 3 -->
+    <div class="accar-ficha-doctrinal">
+      <div class="accar-ficha-img-box">
+        <img src="../assets/img/ficha_obispo.png" alt="El Obispo">
+      </div>
+      <div class="accar-ficha-contenido">
+        <h3>3. El Obispo</h3>
+        <ul>
+          <li><strong>Definición Teológica:</strong> Es el sucesor directo de los Apóstoles por institución divina. Es constituido como Pastor de la Iglesia en virtud del Espíritu Santo, poseyendo la plenitud del sacramento del Orden.</li>
+          <li><strong>Función Litúrgica:</strong> Es el gran liturgo de su diócesis: el primer dispensador de los misterios de Dios, moderador, promotor y custodio de toda la vida litúrgica.</li>
+          <li><strong>Límites y Potestad:</strong> A él le corresponde dictar normas litúrgicas obligatorias en su territorio. Los presbíteros y diáconos no son sus iguales, sino sus colaboradores.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- FICHA 4 -->
+    <div class="accar-ficha-doctrinal">
+      <div class="accar-ficha-img-box">
+        <img src="../assets/img/ficha_presbitero.png" alt="El Presbítero">
+      </div>
+      <div class="accar-ficha-contenido">
+        <h3>4. El Presbítero (Sacerdote)</h3>
+        <ul>
+          <li><strong>Definición Teológica:</strong> Es colaborador del orden Episcopal. Asume una parte de la solicitud pastoral del Obispo y forma con él un único presbiterio.</li>
+          <li><strong>Función Litúrgica:</strong> Preside al pueblo fiel actuando en la persona de Cristo Cabeza (in persona Christi Capitis). Dirige la oración, proclama el Evangelio y asocia al pueblo en la ofrenda del Sacrificio Eucarístico a Dios Padre.</li>
+          <li><strong>Límites y Potestad:</strong> Está estrictamente subordinado al Obispo. No es dueño de la Liturgia; constituye un abuso gravísimo deformar arbitrariamente la celebración.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- FICHA 5 -->
+    <div class="accar-ficha-doctrinal">
+      <div class="accar-ficha-img-box">
+        <img src="../assets/img/ficha_diacono.png" alt="El Diácono">
+      </div>
+      <div class="accar-ficha-contenido">
+        <h3>5. El Diácono</h3>
+        <ul>
+          <li><strong>Definición Teológica:</strong> Recibe la imposición de las manos no para el sacerdocio, sino para el ministerio. Sirve al pueblo de Dios en comunión con el Obispo y su presbiterio.</li>
+          <li><strong>Función Litúrgica:</strong> Le corresponde proclamar el Evangelio, predicar la homilía (cuando se le delega), proponer las intenciones, asistir en el altar y distribuir la Eucaristía.</li>
+          <li><strong>Límites y Potestad:</strong> Asiste al sacerdote en el altar, pero no consagra ni preside el Sacrificio Eucarístico. Su ordenación es estrictamente para el servicio.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- FICHA 6 -->
+    <div class="accar-ficha-doctrinal">
+      <div class="accar-ficha-img-box">
+        <img src="../assets/img/ficha_acolito.png" alt="Acólito vs Monaguillo">
+      </div>
+      <div class="accar-ficha-contenido">
+        <h3>6. Acólito Instituido vs. Monaguillo</h3>
+        <ul>
+          <li><strong>El Acólito Instituido:</strong> Varón llamado a un ministerio estable mediante un rito litúrgico oficial. Su función es servir al altar, y posee la facultad explícita de purificar los vasos sagrados.</li>
+          <li><strong>El Monaguillo:</strong> Ejerce un servicio temporal, laical y voluntario. En ausencia del acólito instituido, suplen llevando la cruz, los cirios o el incienso.</li>
+          <li><strong>Límites y Potestad:</strong> El monaguillo suple una necesidad logística temporal, pero no posee el ministerio instituido ni está autorizado bajo ninguna circunstancia para purificar los vasos sagrados.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- FICHA 7 -->
+    <div class="accar-ficha-doctrinal">
+      <div class="accar-ficha-img-box">
+        <img src="../assets/img/ficha_lector.png" alt="Lector Instituido vs Voluntario">
+      </div>
+      <div class="accar-ficha-contenido">
+        <h3>7. Lector Instituido vs. Lector Voluntario</h3>
+        <ul>
+          <li><strong>El Lector Instituido:</strong> Fiel designado de modo estable mediante un rito oficial. Su función propia es proclamar las lecturas (excepto el Evangelio) desde el ambón.</li>
+          <li><strong>El Lector Voluntario:</strong> Fiel laico delegado temporalmente. Debe estar preparado espiritual y técnicamente.</li>
+          <li><strong>Límites y Potestad:</strong> La proclamación del Evangelio jamás corresponde al lector (ni instituido ni voluntario), pues es reservada al orden sagrado (diácono, presbítero u obispo).</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- FICHA 8 -->
+    <div class="accar-ficha-doctrinal">
+      <div class="accar-ficha-img-box">
+        <img src="../assets/img/ficha_ministro.png" alt="Ministro Extraordinario">
+      </div>
+      <div class="accar-ficha-contenido">
+        <h3>8. Ministro Extraordinario de la Sagrada Comunión (MESC)</h3>
+        <ul>
+          <li><strong>Definición Teológica:</strong> Es un fiel laico delegado de forma ritual y excepcional para asistir en la distribución de la sagrada Comunión.</li>
+          <li><strong>Función Litúrgica:</strong> Ayudar al celebrante a distribuir el Sacramento única y exclusivamente cuando la necesidad apremiante lo exige.</li>
+          <li><strong>Límites y Potestad:</strong> Su ministerio es estrictamente subsidiario. Sólo es lícito su uso en casos de verdadera emergencia. Tienen prohibido tomar los vasos sagrados por sí mismos del altar.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- FICHA 9 -->
+    <div class="accar-ficha-doctrinal">
+      <div class="accar-ficha-img-box">
+        <img src="../assets/img/ficha_laico.png" alt="Fiel Laico">
+      </div>
+      <div class="accar-ficha-contenido">
+        <h3>9. El Fiel Laico (Sacerdocio Común)</h3>
+        <ul>
+          <li><strong>Definición Teológica:</strong> Incorporado a Cristo por el bautismo, participa a su modo de la función sacerdotal, profética y real de Cristo.</li>
+          <li><strong>Función Litúrgica:</strong> Ofrecer la Víctima Inmaculada a Dios Padre, no sólo por manos del sacerdote, sino juntamente con él, desde la nave del templo.</li>
+          <li><strong>Límites y Potestad:</strong> La participación activa no significa realizar tareas materiales en el presbiterio. La Iglesia condena radicalmente la "clericalización" del laicado.</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
 
   <!-- VISTA 1: CUADRÍCULA DE CASOS (ÍNDICE) -->
   <div id="vista-indice" class="accar-indice-grid">
@@ -547,6 +693,138 @@ Confiando en que el temor de Dios y su responsabilidad pastoral le muevan a una 
   box-shadow: 0 0 10px #D4AF37;
 }
 
+/* Conmutador de Pestañas */
+.accar-tabs-wrapper {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 50px;
+}
+
+.accar-tab-btn {
+  background: rgba(11, 22, 48, 0.6);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  color: rgba(245, 242, 235, 0.7);
+  padding: 12px 30px;
+  font-family: sans-serif;
+  font-size: 14px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.accar-tab-btn:hover {
+  border-color: #D4AF37;
+  color: #D4AF37;
+}
+
+.accar-tab-btn.activa {
+  background: #D4AF37;
+  color: #050b1a;
+  border-color: #D4AF37;
+  box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
+}
+
+/* Vista Glosario Doctrinal */
+.accar-glosario-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  max-width: 1000px;
+  margin: 0 auto 50px;
+}
+
+.accar-ficha-doctrinal {
+  display: flex;
+  background: rgba(11, 22, 48, 0.6);
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+  align-items: stretch;
+}
+
+.accar-ficha-img-box {
+  width: 250px;
+  min-width: 250px;
+  background: #02040a;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-right: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+.accar-ficha-img-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.7;
+  transition: opacity 0.4s;
+}
+
+.accar-ficha-doctrinal:hover .accar-ficha-img-box img {
+  opacity: 1;
+}
+
+.accar-ficha-contenido {
+  padding: 30px;
+  flex: 1;
+}
+
+.accar-ficha-contenido h3 {
+  color: #D4AF37;
+  font-size: 24px;
+  margin: 0 0 15px 0;
+  font-weight: normal;
+}
+
+.accar-ficha-contenido ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.accar-ficha-contenido li {
+  position: relative;
+  padding-left: 20px;
+  margin-bottom: 12px;
+  font-size: 15px;
+  color: rgba(245, 242, 235, 0.85);
+  line-height: 1.6;
+}
+
+.accar-ficha-contenido li strong {
+  color: #ffffff;
+}
+
+.accar-ficha-contenido li::before {
+  content: "▪";
+  position: absolute;
+  left: 0;
+  color: #D4AF37;
+  font-size: 18px;
+  top: -2px;
+}
+
+@media (max-width: 768px) {
+  .accar-ficha-doctrinal {
+    flex-direction: column;
+  }
+  .accar-ficha-img-box {
+    width: 100%;
+    height: 200px;
+    border-right: none;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+  }
+  .accar-tabs-wrapper {
+    flex-direction: column;
+    padding: 0 20px;
+  }
+}
+
 /* Vista 1: Cuadrícula de Tarjetas */
 .accar-indice-grid {
   display: grid;
@@ -786,6 +1064,30 @@ Confiando en que el temor de Dios y su responsabilidad pastoral le muevan a una 
 </style>
 
 <script>
+// Función para cambiar entre Casos y Glosario
+function alternarSeccion(seccion) {
+  const btnCasos = document.getElementById('tab-casos');
+  const btnGlosario = document.getElementById('tab-glosario');
+  const vistaCasos = document.getElementById('vista-indice');
+  const vistaGlosario = document.getElementById('vista-glosario');
+  const vistaDocumento = document.getElementById('vista-documento');
+
+  // Ocultar siempre el documento abierto si se hace clic en las pestañas
+  vistaDocumento.style.display = 'none';
+
+  if (seccion === 'casos') {
+    btnCasos.classList.add('activa');
+    btnGlosario.classList.remove('activa');
+    vistaCasos.style.display = 'grid';
+    vistaGlosario.style.display = 'none';
+  } else if (seccion === 'glosario') {
+    btnGlosario.classList.add('activa');
+    btnCasos.classList.remove('activa');
+    vistaGlosario.style.display = 'flex';
+    vistaCasos.style.display = 'none';
+  }
+}
+
 // Funciones del Conmutador de Vistas
 function mostrarCaso(idCaso) {
   // Ocultar la cuadrícula
