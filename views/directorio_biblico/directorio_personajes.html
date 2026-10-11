@@ -312,6 +312,26 @@
             background: rgba(212, 175, 55, 0.15);
             box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
         }
+
+        /* ESTILOS PARA LAS SUBDIVISIONES DENTRO DE LAS CAJAS MAESTRAS */
+        .sub-section-title {
+            color: #D4AF37;
+            font-size: 14px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin: 30px 0 10px 0;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+            padding-bottom: 8px;
+        }
+
+        .sub-section-desc {
+            color: #94a3b8;
+            font-size: 14px;
+            font-style: italic;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
     </style>
 </head>
 <body>
@@ -386,7 +406,7 @@
         </div>
 
         <!-- ==========================================
-             CAJA MAESTRA 2: LIBROS HISTÓRICOS (PARTE 1)
+             CAJA MAESTRA 2: LIBROS HISTÓRICOS
         =========================================== -->
         <div class="master-accordion-item" id="master-historicos">
             <div class="master-header" onclick="toggleMaster('master-historicos')">
@@ -394,7 +414,7 @@
                     <h2>II. Libros Históricos</h2>
                     <span class="master-icon">+</span>
                 </div>
-                <p class="master-synopsis">Abarcan desde la conquista de la Tierra Prometida bajo el mando de Josué, la época de los Jueces, hasta la instauración y consolidación del reino bajo David.</p>
+                <p class="master-synopsis">Narran la historia del pueblo de Israel desde su entrada a la Tierra Prometida, pasando por la monarquía y el exilio babilónico, hasta la heroica resistencia de los Macabeos.</p>
             </div>
             <div class="master-content">
                 
@@ -403,6 +423,10 @@
                         Leer Introducción Teológica
                     </button>
                 </div>
+
+                <!-- Subdivisión interna -->
+                <div class="sub-section-title">Primera Parte: De la Conquista al Reino de David</div>
+                <p class="sub-section-desc">Abarca los acontecimientos desde la conquista de Canaán bajo el mando de Josué y la época de los Jueces, hasta la instauración y consolidación del reino unido bajo David.</p>
 
                 <div class="accordion-item" id="bloque-josue">
                     <button class="accordion-header" onclick="toggleAccordion('bloque-josue')">
