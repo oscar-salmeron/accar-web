@@ -84,14 +84,16 @@
             border: 1px solid rgba(212, 175, 55, 0.2);
             border-radius: 8px;
             overflow: hidden;
-            background: rgba(11, 22, 48, 0.4);
+            background: rgba(11, 22, 48, 0.15); /* Mucho más transparente */
+            backdrop-filter: blur(2px); /* Efecto cristal sutil */
+            -webkit-backdrop-filter: blur(2px);
             transition: border-color 0.3s ease, box-shadow 0.3s ease;
         }
         
         .accordion-item.active {
             border-color: rgba(212, 175, 55, 0.6);
             box-shadow: 0 5px 20px rgba(0,0,0,0.5);
-            background: rgba(11, 22, 48, 0.6);
+            background: rgba(11, 22, 48, 0.25); /* Transparencia activa */
         }
 
         .accordion-header {
@@ -237,7 +239,9 @@
             border: 1px solid rgba(212, 175, 55, 0.4);
             border-radius: 12px;
             margin-bottom: 30px;
-            background: linear-gradient(145deg, rgba(11, 22, 48, 0.7), rgba(5, 11, 26, 0.9));
+            background: linear-gradient(145deg, rgba(11, 22, 48, 0.25), rgba(5, 11, 26, 0.4)); /* Altamente transparente */
+            backdrop-filter: blur(3px); /* Efecto cristal para resaltar sobre el Arca */
+            -webkit-backdrop-filter: blur(3px);
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
             overflow: hidden;
             transition: all 0.4s ease;
