@@ -361,14 +361,15 @@
             // DICCIONARIO DE REFERENCIAS CRUZADAS
             // Aquí indicamos qué personajes deben aparecer en otras pestañas además de su libro principal
             const aparicionesExtra = {
-                "moises": ["Levitico", "Numeros"], 
-                "aaron": ["Levitico", "Numeros"],
+                "moises": ["Levitico", "Numeros", "Deuteronomio"], 
+                "aaron": ["Levitico", "Numeros", "Deuteronomio"],
                 "nadab": ["Levitico"],
                 "abiu": ["Levitico"],
-                "eleazar": ["Levitico", "Numeros"],
+                "eleazar": ["Levitico", "Numeros", "Deuteronomio", "Josue"],
                 "itamar": ["Levitico", "Numeros"],
-                "josue": ["Numeros"],
-                "maria": ["Numeros"] // Asegúrate de que el ID en Firebase sea "maria" o "miriam" y ajústalo aquí si es necesario.
+                "josue": ["Numeros", "Deuteronomio", "Josue"], 
+                "caleb": ["Numeros", "Deuteronomio", "Josue"],
+                "maria": ["Numeros"] 
             };
 
             // Limpiamos los mensajes de "No hay registros" antes de inyectar
