@@ -210,89 +210,238 @@
             color: #64748b;
             font-size: 12px;
         }
+
+        /* ESTILOS PARA LAS CAJAS MAESTRAS (ANIDADAS) */
+        .master-accordion-item {
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            border-radius: 12px;
+            margin-bottom: 30px;
+            background: linear-gradient(145deg, rgba(11, 22, 48, 0.7), rgba(5, 11, 26, 0.9));
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .master-header {
+            padding: 25px 30px;
+            cursor: pointer;
+            border-bottom: 1px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .master-header:hover {
+            background: rgba(212, 175, 55, 0.05);
+        }
+
+        .master-title-area {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .master-title-area h2 {
+            margin: 0;
+            color: #D4AF37;
+            font-size: 26px;
+            font-weight: normal;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+        }
+
+        .master-synopsis {
+            margin: 0;
+            color: #cbd5e1;
+            font-size: 15px;
+            font-style: italic;
+            line-height: 1.6;
+            max-width: 90%;
+        }
+
+        .master-icon {
+            font-family: monospace;
+            font-size: 28px;
+            color: #D4AF37;
+            transition: transform 0.4s ease;
+        }
+
+        .master-accordion-item.active .master-header {
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .master-accordion-item.active .master-icon {
+            transform: rotate(45deg);
+        }
+
+        .master-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.6s ease-out, padding 0.6s ease;
+            padding: 0 30px;
+        }
+
+        .master-accordion-item.active .master-content {
+            max-height: 15000px;
+            padding: 25px 30px 40px 30px;
+        }
+
+        /* BOTÓN DEL COMPENDIO */
+        .compendio-action {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .btn-compendio {
+            background: transparent;
+            border: 1px solid #D4AF37;
+            color: #D4AF37;
+            padding: 10px 25px;
+            font-family: sans-serif;
+            font-size: 11px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-compendio:hover {
+            background: rgba(212, 175, 55, 0.15);
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+        }
     </style>
 </head>
 <body>
 
     <div class="accar-header">
-        <span class="accar-kicker">Historia de la Salvación</span>
+        <span class="accar-kicker">NOVUM IN VETERE LATET, VETUS IN NOVO PATET</span>
         <h1 class="accar-title">Directorio de Personajes</h1>
         <div class="accar-divider"></div>
     </div>
 
     <div class="accordion-container" id="accordion-root">
         
-        <div class="accordion-item" id="bloque-genesis">
-            <button class="accordion-header" onclick="toggleAccordion('bloque-genesis')">
-                <div>
-                    <span class="title-text">Génesis</span>
-                    <span class="subtitle-text">Los Patriarcas (Abraham, Isaac, Jacob, José)</span>
+        <!-- ==========================================
+             CAJA MAESTRA 1: EL PENTATEUCO
+        =========================================== -->
+        <div class="master-accordion-item active" id="master-pentateuco">
+            <div class="master-header" onclick="toggleMaster('master-pentateuco')">
+                <div class="master-title-area">
+                    <h2>I. El Pentateuco</h2>
+                    <span class="master-icon">+</span>
                 </div>
-                <span class="icon-toggle">+</span>
-            </button>
-            <div class="accordion-content">
-                <div id="grid-genesis" class="accar-grid-container">
-                    <p class="loading-text">Cargando archivo eclesial...</p>
+                <p class="master-synopsis">Los cinco libros fundacionales de la Historia de la Salvación. Narran desde la creación del mundo y la fe de los Patriarcas, hasta la liberación de Egipto y la entrega de la Ley a través de Moisés.</p>
+            </div>
+            <div class="master-content">
+                
+                <div class="compendio-action">
+                    <button class="btn-compendio" onclick="alert('Próximamente: Introducción Teológica al Pentateuco')">
+                        Leer Introducción Teológica
+                    </button>
+                </div>
+
+                <div class="accordion-item" id="bloque-genesis">
+                    <button class="accordion-header" onclick="toggleAccordion('bloque-genesis')">
+                        <div><span class="title-text">Génesis</span><span class="subtitle-text">Los Patriarcas (Abraham, Isaac, Jacob, José)</span></div>
+                        <span class="icon-toggle">+</span>
+                    </button>
+                    <div class="accordion-content"><div id="grid-genesis" class="accar-grid-container"><p class="loading-text">Cargando archivo eclesial...</p></div></div>
+                </div>
+
+                <div class="accordion-item" id="bloque-exodo">
+                    <button class="accordion-header" onclick="toggleAccordion('bloque-exodo')">
+                        <div><span class="title-text">Éxodo</span><span class="subtitle-text">Moisés, Aarón, Josué</span></div>
+                        <span class="icon-toggle">+</span>
+                    </button>
+                    <div class="accordion-content"><div id="grid-exodo" class="accar-grid-container"></div></div>
+                </div>
+                
+                <div class="accordion-item" id="bloque-levitico">
+                    <button class="accordion-header" onclick="toggleAccordion('bloque-levitico')">
+                        <div><span class="title-text">Levítico</span><span class="subtitle-text">Leyes y Sacerdocio</span></div>
+                        <span class="icon-toggle">+</span>
+                    </button>
+                    <div class="accordion-content"><div id="grid-levitico" class="accar-grid-container"></div></div>
+                </div>
+                
+                <div class="accordion-item" id="bloque-numeros">
+                    <button class="accordion-header" onclick="toggleAccordion('bloque-numeros')">
+                        <div><span class="title-text">Números</span><span class="subtitle-text">El Censo y el Desierto</span></div>
+                        <span class="icon-toggle">+</span>
+                    </button>
+                    <div class="accordion-content"><div id="grid-numeros" class="accar-grid-container"></div></div>
+                </div>
+
+                <div class="accordion-item" id="bloque-deuteronomio">
+                    <button class="accordion-header" onclick="toggleAccordion('bloque-deuteronomio')">
+                        <div><span class="title-text">Deuteronomio</span><span class="subtitle-text">La Segunda Ley</span></div>
+                        <span class="icon-toggle">+</span>
+                    </button>
+                    <div class="accordion-content"><div id="grid-deuteronomio" class="accar-grid-container"></div></div>
                 </div>
             </div>
         </div>
 
-        <div class="accordion-item" id="bloque-exodo">
-            <button class="accordion-header" onclick="toggleAccordion('bloque-exodo')">
-                <div>
-                    <span class="title-text">Éxodo</span>
-                    <span class="subtitle-text">Moisés, Aarón, Josué</span>
+        <!-- ==========================================
+             CAJA MAESTRA 2: LIBROS HISTÓRICOS (PARTE 1)
+        =========================================== -->
+        <div class="master-accordion-item" id="master-historicos">
+            <div class="master-header" onclick="toggleMaster('master-historicos')">
+                <div class="master-title-area">
+                    <h2>II. Libros Históricos</h2>
+                    <span class="master-icon">+</span>
                 </div>
-                <span class="icon-toggle">+</span>
-            </button>
-            <div class="accordion-content">
-                <div id="grid-exodo" class="accar-grid-container">
-                    <p class="empty-text">No hay registros disponibles en esta sección por el momento.</p>
-                </div>
+                <p class="master-synopsis">Abarcan desde la conquista de la Tierra Prometida bajo el mando de Josué, la época de los Jueces, hasta la instauración y consolidación del reino bajo David.</p>
             </div>
-        </div>
-        
-        <div class="accordion-item" id="bloque-levitico">
-            <button class="accordion-header" onclick="toggleAccordion('bloque-levitico')">
-                <div>
-                    <span class="title-text">Levítico</span>
-                    <span class="subtitle-text">Leyes y Sacerdocio</span>
+            <div class="master-content">
+                
+                <div class="compendio-action">
+                    <button class="btn-compendio" onclick="alert('Próximamente: Introducción Teológica a los Libros Históricos')">
+                        Leer Introducción Teológica
+                    </button>
                 </div>
-                <span class="icon-toggle">+</span>
-            </button>
-            <div class="accordion-content">
-                <div id="grid-levitico" class="accar-grid-container">
-                    <p class="empty-text">No hay registros disponibles en esta sección por el momento.</p>
-                </div>
-            </div>
-        </div>
-        
-        <div class="accordion-item" id="bloque-numeros">
-            <button class="accordion-header" onclick="toggleAccordion('bloque-numeros')">
-                <div>
-                    <span class="title-text">Números</span>
-                    <span class="subtitle-text">El Censo y el Desierto</span>
-                </div>
-                <span class="icon-toggle">+</span>
-            </button>
-            <div class="accordion-content">
-                <div id="grid-numeros" class="accar-grid-container">
-                    <p class="empty-text">No hay registros disponibles en esta sección por el momento.</p>
-                </div>
-            </div>
-        </div>
 
-        <div class="accordion-item" id="bloque-deuteronomio">
-            <button class="accordion-header" onclick="toggleAccordion('bloque-deuteronomio')">
-                <div>
-                    <span class="title-text">Deuteronomio</span>
-                    <span class="subtitle-text">La Segunda Ley</span>
+                <div class="accordion-item" id="bloque-josue">
+                    <button class="accordion-header" onclick="toggleAccordion('bloque-josue')">
+                        <div><span class="title-text">Josué</span><span class="subtitle-text">La Conquista de Canaán</span></div>
+                        <span class="icon-toggle">+</span>
+                    </button>
+                    <div class="accordion-content"><div id="grid-josue" class="accar-grid-container"></div></div>
                 </div>
-                <span class="icon-toggle">+</span>
-            </button>
-            <div class="accordion-content">
-                <div id="grid-deuteronomio" class="accar-grid-container">
-                    <p class="empty-text">No hay registros disponibles en esta sección por el momento.</p>
+
+                <div class="accordion-item" id="bloque-jueces">
+                    <button class="accordion-header" onclick="toggleAccordion('bloque-jueces')">
+                        <div><span class="title-text">Jueces</span><span class="subtitle-text">Los Libertadores de Israel</span></div>
+                        <span class="icon-toggle">+</span>
+                    </button>
+                    <div class="accordion-content"><div id="grid-jueces" class="accar-grid-container"></div></div>
+                </div>
+
+                <div class="accordion-item" id="bloque-rut">
+                    <button class="accordion-header" onclick="toggleAccordion('bloque-rut')">
+                        <div><span class="title-text">Rut</span><span class="subtitle-text">Fidelidad y Redención</span></div>
+                        <span class="icon-toggle">+</span>
+                    </button>
+                    <div class="accordion-content"><div id="grid-rut" class="accar-grid-container"></div></div>
+                </div>
+
+                <div class="accordion-item" id="bloque-1_samuel">
+                    <button class="accordion-header" onclick="toggleAccordion('bloque-1_samuel')">
+                        <div><span class="title-text">1 Samuel</span><span class="subtitle-text">El Fin de los Jueces y el Rey Saúl</span></div>
+                        <span class="icon-toggle">+</span>
+                    </button>
+                    <div class="accordion-content"><div id="grid-1_samuel" class="accar-grid-container"></div></div>
+                </div>
+
+                <div class="accordion-item" id="bloque-2_samuel">
+                    <button class="accordion-header" onclick="toggleAccordion('bloque-2_samuel')">
+                        <div><span class="title-text">2 Samuel</span><span class="subtitle-text">El Reinado de David</span></div>
+                        <span class="icon-toggle">+</span>
+                    </button>
+                    <div class="accordion-content"><div id="grid-2_samuel" class="accar-grid-container"></div></div>
                 </div>
             </div>
         </div>
@@ -327,6 +476,19 @@
                 bloque.classList.add('active');
                 icono.innerText = "-";
                 icono.style.transform = "rotate(180deg)";
+            }
+        };
+
+        window.toggleMaster = function(idBloque) {
+            const bloque = document.getElementById(idBloque);
+            const icono = bloque.querySelector('.master-icon');
+            
+            if (bloque.classList.contains('active')) {
+                bloque.classList.remove('active');
+                icono.innerText = "+";
+            } else {
+                bloque.classList.add('active');
+                icono.innerText = "-";
             }
         };
 
