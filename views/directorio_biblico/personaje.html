@@ -275,7 +275,12 @@
                     const f_referencia = (p.ficha_tecnica && p.ficha_tecnica.referencia) ? p.ficha_tecnica.referencia : "Dato no disponible";
                     
                     const relato = p.relato_biblico || "Relato no disponible.";
-                    const importancia = p.importancia_teologica || "Importancia no disponible.";
+                    let importancia = p.importancia_teologica || "Importancia no disponible.";
+
+                    // REEMPLAZO AUTOMÁTICO PARA COLOREAR LAS RAMAS TEOLÓGICAS EN DORADO
+                    importancia = importancia.replace(/(Cristológicamente:)/g, '<span style="color: var(--primary);">$1</span>');
+                    importancia = importancia.replace(/(Mariológicamente:)/g, '<span style="color: var(--primary);">$1</span>');
+                    importancia = importancia.replace(/(Eclesiológicamente:)/g, '<span style="color: var(--primary);">$1</span>');
 
                     // Función automática para dividir bloques de texto en párrafos visuales
                     const formatearTexto = (texto) => {
