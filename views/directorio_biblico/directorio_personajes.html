@@ -754,9 +754,6 @@
                         const imagen = `/assets/img/${idPersonaje}.png`;
                         // Por defecto lo mandamos a Génesis si no tiene el campo "libro"
                         const libroDestino = data.libro ? data.libro : "Genesis"; 
-                        
-                        // Ajuste de escala exclusivo para compensar el ancho de las alas de Rafael
-                        const estiloExtra = idPersonaje === 'rafael' ? 'transform: scale(1.35); transform-origin: bottom center;' : '';
 
                         // Ajuste de escala y posición exclusivo para compensar las alas y alinear los pies de Rafael
                         const estiloExtra = idPersonaje === 'rafael' ? 'transform: scale(1.35) translateY(18px); transform-origin: bottom center;' : '';
