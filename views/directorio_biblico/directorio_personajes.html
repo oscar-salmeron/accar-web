@@ -756,7 +756,7 @@
                         const libroDestino = data.libro ? data.libro : "Genesis"; 
 
                         // Ajuste de escala y posición exclusivo para compensar las alas y alinear los pies de Rafael
-                        const estiloExtra = idPersonaje === 'rafael' ? 'transform: scale(1.35) translateY(18px); transform-origin: bottom center;' : '';
+                        const estiloExtra = idPersonaje === 'rafael' ? 'transform: scale(1.35) translateY(28px); transform-origin: bottom center;' : '';
 
                         const tarjetaHTML = `
                             <a href="#" onclick="event.preventDefault(); localStorage.setItem('personajeSeleccionado', '${idPersonaje}'); loadView('/views/directorio_biblico/personaje.html');" class="accar-portrait-card">
