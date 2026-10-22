@@ -636,6 +636,84 @@
             </div>
         </div>
 
+        <!-- ==========================================
+             CAJA MAESTRA 3: LIBROS SAPIENCIALES Y POÉTICOS
+        =========================================== -->
+        <div class="master-accordion-item" id="master-sapienciales">
+            <div class="master-header" onclick="toggleMaster('master-sapienciales')">
+                <div class="master-title-area">
+                    <h2>III. Libros Sapienciales y Poéticos</h2>
+                    <span class="master-icon">+</span>
+                </div>
+                <p class="master-synopsis">Colección de oraciones, cánticos, reflexiones existenciales y consejos prácticos para alcanzar la sabiduría. Enseñan a vivir en el temor de Dios y prefiguran a Cristo como la Sabiduría encarnada.</p>
+            </div>
+            <div class="master-content">
+                
+                <div class="compendio-action">
+                    <button class="btn-compendio" onclick="alert('Próximamente: Introducción Teológica a los Libros Sapienciales')">
+                        Leer Introducción Teológica
+                    </button>
+                </div>
+
+                <div class="accordion-item" id="bloque-job">
+                    <button class="accordion-header" onclick="toggleAccordion('bloque-job')">
+                        <div><span class="title-text">Job</span><span class="subtitle-text">El Misterio del Sufrimiento del Justo</span></div>
+                        <span class="icon-toggle">+</span>
+                    </button>
+                    <div class="accordion-content"><div id="grid-job" class="accar-grid-container"></div></div>
+                </div>
+
+                <div class="accordion-item" id="bloque-salmos">
+                    <button class="accordion-header" onclick="toggleAccordion('bloque-salmos')">
+                        <div><span class="title-text">Salmos</span><span class="subtitle-text">La Oración del Pueblo de Dios</span></div>
+                        <span class="icon-toggle">+</span>
+                    </button>
+                    <div class="accordion-content"><div id="grid-salmos" class="accar-grid-container"></div></div>
+                </div>
+
+                <div class="accordion-item" id="bloque-proverbios">
+                    <button class="accordion-header" onclick="toggleAccordion('bloque-proverbios')">
+                        <div><span class="title-text">Proverbios</span><span class="subtitle-text">La Sabiduría Práctica</span></div>
+                        <span class="icon-toggle">+</span>
+                    </button>
+                    <div class="accordion-content"><div id="grid-proverbios" class="accar-grid-container"></div></div>
+                </div>
+
+                <div class="accordion-item" id="bloque-eclesiastes">
+                    <button class="accordion-header" onclick="toggleAccordion('bloque-eclesiastes')">
+                        <div><span class="title-text">Eclesiastés</span><span class="subtitle-text">La Vanidad de las Cosas Terrenas</span></div>
+                        <span class="icon-toggle">+</span>
+                    </button>
+                    <div class="accordion-content"><div id="grid-eclesiastes" class="accar-grid-container"></div></div>
+                </div>
+
+                <div class="accordion-item" id="bloque-cantar">
+                    <button class="accordion-header" onclick="toggleAccordion('bloque-cantar')">
+                        <div><span class="title-text">Cantar de los Cantares</span><span class="subtitle-text">El Amor de Dios y su Esposa</span></div>
+                        <span class="icon-toggle">+</span>
+                    </button>
+                    <div class="accordion-content"><div id="grid-cantar" class="accar-grid-container"></div></div>
+                </div>
+
+                <div class="accordion-item" id="bloque-sabiduria">
+                    <button class="accordion-header" onclick="toggleAccordion('bloque-sabiduria')">
+                        <div><span class="title-text">Sabiduría</span><span class="subtitle-text">La Inmortalidad y la Justicia</span></div>
+                        <span class="icon-toggle">+</span>
+                    </button>
+                    <div class="accordion-content"><div id="grid-sabiduria" class="accar-grid-container"></div></div>
+                </div>
+
+                <div class="accordion-item" id="bloque-eclesiastico">
+                    <button class="accordion-header" onclick="toggleAccordion('bloque-eclesiastico')">
+                        <div><span class="title-text">Eclesiástico</span><span class="subtitle-text">La Sabiduría en la Vida Cotidiana</span></div>
+                        <span class="icon-toggle">+</span>
+                    </button>
+                    <div class="accordion-content"><div id="grid-eclesiastico" class="accar-grid-container"></div></div>
+                </div>
+
+            </div>
+        </div>
+
     </div>
 
     <script type="module">
@@ -707,7 +785,16 @@
                 "Judit": document.getElementById('grid-judit'),
                 "Ester": document.getElementById('grid-ester'),
                 "1 Macabeos": document.getElementById('grid-1_macabeos'),
-                "2 Macabeos": document.getElementById('grid-2_macabeos')
+                "2 Macabeos": document.getElementById('grid-2_macabeos'),
+                
+                // Libros Sapienciales y Poéticos
+                "Job": document.getElementById('grid-job'),
+                "Salmos": document.getElementById('grid-salmos'),
+                "Proverbios": document.getElementById('grid-proverbios'),
+                "Eclesiastes": document.getElementById('grid-eclesiastes'),
+                "Cantar": document.getElementById('grid-cantar'),
+                "Sabiduria": document.getElementById('grid-sabiduria'),
+                "Eclesiastico": document.getElementById('grid-eclesiastico')
             };
 
            // DICCIONARIO DE REFERENCIAS CRUZADAS
