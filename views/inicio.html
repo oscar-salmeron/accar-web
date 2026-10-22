@@ -848,45 +848,54 @@ body {
 <!-- ===== FIN BLOQUE: NOTICIAS ===== -->
 
 
-<!-- ===== INICIO BLOQUE: ACCESOS ===== -->
-<section class="accar-accesos" id="accesos">
+<!-- ===== INICIO BLOQUE: ESPIRITUALIDAD DIARIA ===== -->
+<section class="accar-espiritualidad" id="espiritualidad">
 
-  <div class="accar-accesos-inner">
+  <div class="accar-espiritualidad-inner">
 
     <div class="accar-heading-card">
-      <h2>Explora el contenido</h2>
+      <h2>Vivir la Liturgia</h2>
     </div>
 
-    <div class="accar-accesos-grid">
+    <div class="accar-espiritualidad-grid">
 
-      <a href="#" onclick="event.preventDefault(); loadView('views/apologetica.html');" class="accar-acceso">
-        <h3>Apologética</h3>
-        <p>Defensa de la fe católica</p>
+      <!-- TARJETA 1: EVANGELIO Y LECTURAS -->
+      <a href="#" onclick="event.preventDefault(); /* Tu función Firebase aquí */" class="accar-liturgia-card">
+        <div class="accar-liturgia-icon">📖</div>
+        <div class="accar-liturgia-content">
+          <h3>Evangelio y Lecturas</h3>
+          <p>Medita la Palabra de Dios correspondiente a la Misa de hoy.</p>
+        </div>
       </a>
 
-      <a href="/formacion.html" class="accar-acceso">
-        <h3>Formación</h3>
-        <p>Crecimiento espiritual y doctrinal</p>
+      <!-- TARJETA 2: LITURGIA DE LAS HORAS -->
+      <a href="#" onclick="event.preventDefault(); /* Tu función Firebase aquí */" class="accar-liturgia-card">
+        <div class="accar-liturgia-icon">📿</div>
+        <div class="accar-liturgia-content">
+          <h3>Liturgia de las Horas</h3>
+          <p>Únete al rezo oficial de la Iglesia: Laudes, Vísperas y Completas.</p>
+        </div>
       </a>
 
-      <a href="/historia.html" class="accar-acceso">
-        <h3>Historia de la Iglesia</h3>
-        <p>Papas, concilios y padres</p>
+      <!-- TARJETA 3: SANTO DEL DÍA (FICHA DINÁMICA) -->
+      <!-- Esta estructura simula cómo Firebase inyectará la imagen y el nombre -->
+      <a href="#" onclick="event.preventDefault(); /* Abrir Modal Santoral */" class="accar-liturgia-card accar-liturgia-card--santo">
+        <div class="accar-santo-bg" style="background-image: url('../assets/img/santa_ursula.webp');"></div>
+        <div class="accar-santo-overlay"></div>
+        <div class="accar-santo-content">
+          <span class="accar-santo-badge">SANTO DEL DÍA</span>
+          <h3 id="dinamico-santo-nombre">Santa Úrsula y compañeras</h3>
+          <p>Mártires que entregaron su vida por defender la pureza y la fe.</p>
+        </div>
       </a>
 
-      <a href="/biblioteca.html" class="accar-acceso">
-        <h3>Biblioteca</h3>
-        <p>Libros, documentos y recursos</p>
-      </a>
-
-      <a href="/multimedia.html" class="accar-acceso">
-        <h3>Multimedia</h3>
-        <p>Películas, series y videos</p>
-      </a>
-
-      <a href="#" onclick="event.preventDefault(); loadView('views/actualidad.html');" class="accar-acceso">
-        <h3>Actualidad</h3>
-        <p>Noticias de la Iglesia</p>
+      <!-- TARJETA 4: CALENDARIO LITÚRGICO -->
+      <a href="#" onclick="event.preventDefault();" class="accar-liturgia-card">
+        <div class="accar-liturgia-icon">📅</div>
+        <div class="accar-liturgia-content">
+          <h3>Calendario Litúrgico</h3>
+          <p>Tiempos, colores y fiestas de precepto del ciclo 2026-2027.</p>
+        </div>
       </a>
 
     </div>
@@ -896,164 +905,187 @@ body {
 </section>
 
 <style>
-.accar-accesos {
+/* Título de la sección */
+.accar-heading-card {
+  display: inline-block;
+  background: linear-gradient(180deg, #0B1B3D 0%, #060e20 100%);
+  border: 1px solid rgba(212,175,55,0.6);
+  border-radius: 20px;
+  padding: 16px 36px;
+  margin-bottom: 40px;
+  box-shadow: 0 15px 30px rgba(0,0,0,0.4), inset 0 2px 10px rgba(255,255,255,0.05);
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.accar-heading-card:hover {
+  transform: translateY(-4px);
+  border-color: #D4AF37;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.5), 0 0 15px rgba(212,175,55,0.2);
+}
+
+.accar-heading-card h2 {
+  margin: 0;
+  font-size: 32px;
+  color: #D4AF37 !important;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.6) !important;
+}
+
+/* Contenedor principal sustituyendo los dos bloques viejos */
+.accar-espiritualidad {
   position: relative;
-  z-index: 9; 
+  z-index: 8; 
   padding: 130px 20px; 
-  background: radial-gradient(circle at center, #0B1B3D 0%, #050d1d 70%, #02050a 100%);
+  /* Mantenemos el degradado profundo que conecta con la Reflexión */
+  background: linear-gradient(180deg, #08142b 0%, #02050a 100%);
   text-align: center;
   border-top: 1px solid rgba(212,175,55,0.15);
   box-shadow: inset 0 20px 50px rgba(0,0,0,0.5);
 }
 
-.accar-accesos-inner{
-  max-width: 1200px;
+.accar-espiritualidad-inner {
+  max-width: 1080px; /* Ancho ajustado para una cuadrícula 2x2 perfecta */
   margin: 0 auto;
 }
 
-.accar-accesos-grid{
+.accar-espiritualidad-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px,1fr));
-  gap: 28px;
-  margin-top: 20px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
+  margin-top: 10px;
 }
 
-.accar-acceso{
+/* Tarjetas base: Blanco Alabastro */
+.accar-liturgia-card {
   position: relative;
-  display: block;
-  padding: 34px 26px;
+  display: flex;
+  align-items: center;
+  text-align: left;
+  gap: 22px;
+  padding: 34px 30px;
   border-radius: 24px;
   background: #fdfbf7;
   border: 1px solid #d4af37;
   text-decoration: none;
-  box-shadow: 0 15px 35px rgba(0,0,0,0.6), 0 0 15px rgba(212,175,55,0.05);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.5);
   transition: transform .35s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow .35s ease, border-color .35s ease;
+  overflow: hidden;
 }
 
-.accar-acceso:hover{
+.accar-liturgia-card:hover {
   background: #ffffff;
   transform: translateY(-8px);
-  box-shadow: 0 25px 50px rgba(0,0,0,0.8), 0 0 25px rgba(212,175,55,0.2);
+  box-shadow: 0 25px 50px rgba(0,0,0,0.7), 0 0 20px rgba(212,175,55,0.2);
   border-color: #e4c76a;
 }
 
-.accar-acceso h3{
+.accar-liturgia-icon {
+  font-size: 42px;
+  line-height: 1;
+  filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
+}
+
+.accar-liturgia-content h3 {
   font-size: 22px;
-  margin: 0 0 12px;
+  margin: 0 0 8px;
   color: #0B1B3D;
   font-weight: 800;
 }
 
-.accar-acceso p{
+.accar-liturgia-content p {
   font-size: 15px;
-  line-height: 1.65;
-  color: #2b2b2b;
+  line-height: 1.6;
+  color: #3b4252;
   margin: 0;
 }
 
-@media (max-width: 768px){
-  .accar-accesos{
-    padding: 100px 18px;
-  }
-}
-</style>
-<!-- ===== FIN BLOQUE: ACCESOS ===== -->
-
-
-<!-- ===== INICIO BLOQUE: DESTACADO ===== -->
-<section class="accar-destacado">
-
-  <div class="accar-destacado-inner">
-
-    <div class="accar-heading-card">
-      <h2>Contenido destacado</h2>
-    </div>
-
-    <div class="accar-destacado-grid">
-
-      <a href="/apologetica/papado.html" class="accar-destacado-card">
-        <h3>El Papado</h3>
-        <p>Fundamento bíblico y patrístico del primado de Pedro.</p>
-      </a>
-
-      <a href="/apologetica/maria.html" class="accar-destacado-card">
-        <h3>Santa María, Madre de Dios</h3>
-        <p>Defensa doctrinal de la Theotokos en la fe católica.</p>
-      </a>
-
-      <a href="/formacion/adoracion.html" class="accar-destacado-card">
-        <h3>Adoración Eucarística</h3>
-        <p>Encuentro real con Cristo en el Santísimo Sacramento.</p>
-      </a>
-
-    </div>
-
-  </div>
-
-</section>
-
-<style>
-.accar-destacado {
-  position: relative;
-  z-index: 8; 
-  padding: 130px 20px; 
-  background: radial-gradient(circle at center, #08142b 0%, #02050a 70%, #000000 100%);
-  text-align: center;
-  border-top: 1px solid rgba(212,175,55,0.15);
-  box-shadow: inset 0 20px 50px rgba(0,0,0,0.5);
-}
-
-.accar-destacado-inner{
-  max-width: 1100px;
-  margin: 0 auto;
-}
-
-.accar-destacado-grid{
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px,1fr));
-  gap: 28px;
-  margin-top: 20px;
-}
-
-.accar-destacado-card{
+/* Tarjeta especial del Santo del Día (Dinámica con imagen) */
+.accar-liturgia-card--santo {
+  padding: 0;
   display: block;
-  padding: 34px 26px;
-  border-radius: 24px;
-  background: #ffffff; 
-  border: 1px solid #d4af37; 
-  text-decoration: none;
-  box-shadow: 0 15px 35px rgba(0,0,0,0.6), 0 0 15px rgba(212,175,55,0.05);
-  transition: transform .35s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow .35s ease, border-color .35s ease;
+  text-align: center;
+  border: 2px solid #d4af37; /* Borde más grueso para resaltar */
 }
 
-.accar-destacado-card:hover{
-  background: #ffffff;
-  transform: translateY(-8px);
-  box-shadow: 0 25px 50px rgba(0,0,0,0.8), 0 0 25px rgba(212,175,55,0.2);
-  border-color: #e4c76a;
+.accar-santo-bg {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-size: cover;
+  background-position: center 20%;
+  transition: transform 0.5s ease;
+  z-index: 1;
 }
 
-.accar-destacado-card h3{
-  font-size: 20px;
-  margin: 0 0 12px;
-  color: #0B1B3D;
+.accar-liturgia-card--santo:hover .accar-santo-bg {
+  transform: scale(1.05); /* Efecto zoom a la foto del santo */
+}
+
+/* Sombra interior para que el texto blanco se lea perfecto siempre */
+.accar-santo-overlay {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: linear-gradient(180deg, rgba(3,7,18,0.2) 0%, rgba(3,7,18,0.9) 100%);
+  z-index: 2;
+}
+
+.accar-santo-content {
+  position: relative;
+  z-index: 3;
+  padding: 34px 20px 24px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.accar-santo-badge {
+  display: inline-block;
+  margin-bottom: 12px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: #cc0000; /* Carmesí / Sangre de los mártires */
+  border: 1px solid #ff4d4d;
+  color: #ffffff;
+  font-size: 10px;
   font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.5);
 }
 
-.accar-destacado-card p{
-  font-size: 15px;
-  line-height: 1.68;
-  color: #2b2b2b;
-  margin: 0;
+.accar-santo-content h3 {
+  color: #D4AF37; /* Nombre del santo en dorado */
+  margin: 0 0 6px;
+  font-size: 24px;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.8);
 }
 
-@media (max-width: 768px){
-  .accar-destacado{
+.accar-santo-content p {
+  color: rgba(255,255,255,0.9);
+  text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+}
+
+/* Responsividad */
+@media (max-width: 900px) {
+  .accar-espiritualidad-grid {
+    grid-template-columns: 1fr;
+  }
+  .accar-liturgia-card--santo {
+    min-height: 220px; /* Para que la imagen se vea bien en celulares */
+  }
+}
+
+@media (max-width: 768px) {
+  .accar-espiritualidad {
     padding: 100px 18px;
+  }
+  .accar-liturgia-card {
+    padding: 24px 20px;
+    gap: 16px;
   }
 }
 </style>
-<!-- ===== FIN BLOQUE: DESTACADO ===== -->
+<!-- ===== FIN BLOQUE: ESPIRITUALIDAD DIARIA ===== -->
 
 
 <!-- ===== INICIO BLOQUE: REFLEXIÓN ===== -->
