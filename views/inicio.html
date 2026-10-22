@@ -350,16 +350,16 @@ body {
       </a>
 
       <script>
-        document.addEventListener('DOMContentLoaded', () => {
-          // 1. Generar la fecha de hoy en formato AAAA-MM-DD
+        // Si usas loadView para cargar inicio.html, setTimeout ayuda a que el script se ejecute
+        setTimeout(() => {
           const hoy = new Date();
           const year = hoy.getFullYear();
           const month = String(hoy.getMonth() + 1).padStart(2, '0');
           const day = String(hoy.getDate()).padStart(2, '0');
           const fechaID = `${year}-${month}-${day}`; 
 
-          // 2. Conectar con Firestore (Requiere que Firebase esté inicializado en el sitio)
-          if (typeof firebase !== 'undefined' && firebase.firestore) {
+          try {
+            // Forzamos la llamada directa. Si firebase no existe, tirará error en consola.
             const db = firebase.firestore();
             db.collection('lecturas_diarias').doc(fechaID).get()
               .then((doc) => {
@@ -371,23 +371,23 @@ body {
                   if(data.semana) document.getElementById('lit-semana').textContent = data.semana;
                   if(data.titulo) document.getElementById('lit-titulo').textContent = data.titulo;
                   
-                  // Cortamos el texto si es muy largo para no desarmar la tarjeta
                   let textoCorto = data.texto;
                   if(textoCorto && textoCorto.length > 95) {
                     textoCorto = textoCorto.substring(0, 95) + '...';
                   }
                   if(textoCorto) document.getElementById('lit-texto').textContent = textoCorto;
                 } else {
-                  // Si no hay lectura subida para hoy, muestra texto genérico
                   document.getElementById('lit-semana').textContent = 'Lectura del día';
-                  document.getElementById('lit-texto').textContent = 'Medita la Palabra de Dios correspondiente a la Santa Misa de hoy.';
+                  document.getElementById('lit-texto').textContent = 'Lectura no encontrada para hoy.';
                 }
               })
               .catch((error) => {
-                console.error("Error al obtener la lectura de Firebase:", error);
+                console.error("Error Firebase:", error);
               });
+          } catch (e) {
+            console.error("Firebase no está inicializado o el objeto 'firebase' no se encuentra en esta vista:", e);
           }
-        });
+        }, 500);
       </script>
 
       <!-- TARJETA 2: LITURGIA DE LAS HORAS (Rojo Carmesí) -->
@@ -766,13 +766,17 @@ TARJETA ESPECIAL: SANTO DEL DÍA (Cuerpo entero a la izq)
   }
   .accar-santo-img-wrap {
     width: 100%;
-    height: 280px; 
+    height: 340px; /* Más altura para cuerpo entero */
     border-right: none;
     border-bottom: 1px solid rgba(212,175,55,0.2);
   }
   .accar-santo-img-wrap img {
-    width: 80%; 
+    width: auto;
+    max-width: 85%;
+    height: 100%; /* Obliga a la imagen a no rebasar el techo */
+    margin-bottom: 0; /* Quita el margen negativo en móviles */
   }
+
   .accar-santo-data {
     width: 100%;
     padding: 30px 20px;
