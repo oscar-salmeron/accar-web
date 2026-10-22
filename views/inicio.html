@@ -369,7 +369,12 @@ body {
                   if(data.anio) document.getElementById('lit-anio').textContent = 'Año ' + data.anio;
                   if(data.color) document.getElementById('lit-color').textContent = data.color;
                   if(data.semana) document.getElementById('lit-semana').textContent = data.semana;
-                  if(data.titulo) document.getElementById('lit-titulo').textContent = data.titulo;
+                  if(data.titulo) {
+                    // Separa la cita bíblica (paréntesis) en una nueva línea con un estilo más sutil
+                    let tituloFormateado = data.titulo.replace(" (", "<br><span style='font-size: 16px; color: #d9bb6a; font-weight: 600; margin-top: 4px; display: inline-block;'>(");
+                    if (data.titulo.includes(" (")) tituloFormateado += "</span>";
+                    document.getElementById('lit-titulo').innerHTML = tituloFormateado;
+                  }
                   
                   let textoCorto = data.texto;
                   if(textoCorto && textoCorto.length > 95) {
