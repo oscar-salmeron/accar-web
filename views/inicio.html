@@ -868,8 +868,19 @@ TARJETA ESPECIAL: SANTO DEL DÍA (Cuerpo entero a la izq)
   <div class="accar-noticias-inner">
 
     <div class="accar-heading-card">
-      <h2>Actualidad de la Iglesia</h2>
+      <h2>Vivir la Liturgia</h2>
+      <p id="fecha-liturgia" style="color: #e4c76a; font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; margin-top: 10px; margin-bottom: 0;"></p>
     </div>
+
+    <script>
+      (function(){
+        const opciones = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
+        let fechaHoy = new Date().toLocaleDateString('es-ES', opciones);
+        // Capitalizar la primera letra del día
+        fechaHoy = fechaHoy.charAt(0).toUpperCase() + fechaHoy.slice(1);
+        document.getElementById('fecha-liturgia').textContent = fechaHoy;
+      })();
+    </script>
 
     <p class="accar-noticias-intro">
       Sigue la actualidad eclesial desde fuentes oficiales y confiables, con acceso directo a Vatican News,
