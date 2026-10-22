@@ -328,9 +328,23 @@ body {
 
   <div class="accar-espiritualidad-inner">
 
-    <div class="accar-heading-card">
+    <!-- Reducimos el margen inferior para que la línea dorada abrace ambos textos -->
+    <div class="accar-heading-card" style="margin-bottom: 12px;">
       <h2>Vivir la Liturgia</h2>
     </div>
+    
+    <!-- Fecha dinámica con el mismo tamaño (38px), color y resplandor del título principal -->
+    <h2 id="fecha-liturgia" style="color: #D4AF37; font-size: 38px; text-shadow: 0 0 15px rgba(212,175,55,0.4), 0 2px 4px rgba(0,0,0,0.8); margin: 0 0 45px 0; font-weight: normal;"></h2>
+
+    <script>
+      (function(){
+        const opciones = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
+        let fechaHoy = new Date().toLocaleDateString('es-ES', opciones);
+        // Convierte la primera letra del día en mayúscula por elegancia ortográfica
+        fechaHoy = fechaHoy.charAt(0).toUpperCase() + fechaHoy.slice(1);
+        document.getElementById('fecha-liturgia').textContent = fechaHoy;
+      })();
+    </script>
 
     <div class="accar-espiritualidad-grid">
 
