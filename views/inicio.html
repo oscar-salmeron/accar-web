@@ -334,20 +334,61 @@ body {
 
     <div class="accar-espiritualidad-grid">
 
-      <!-- TARJETA 1: EVANGELIO Y LECTURAS (Verde Episcopal) -->
-      <a href="#" onclick="event.preventDefault(); loadView('views/construccion.html');" class="accar-lit-card accar-lit-card--verde">
+      <!-- TARJETA 1: EVANGELIO Y LECTURAS (Conexión Firebase) -->
+      <a href="#" onclick="event.preventDefault(); loadView('views/construccion.html');" class="accar-lit-card accar-lit-card--verde" id="tarjeta-evangelio">
         <img src="../assets/img/icono_evangelio_oro.png" class="accar-lit-icon" alt="Evangelio">
         
         <div class="accar-lit-meta">
-          <span>Ciclo</span>
-          <span>Año</span>
-          <span class="dot-color dot-verde">Verde</span>
+          <span id="lit-ciclo">Ciclo</span>
+          <span id="lit-anio">Año</span>
+          <span class="dot-color dot-verde" id="lit-color">Verde</span>
         </div>
-        <span class="accar-lit-subtitle">XXIX Semana del Tiempo Ordinario</span>
+        <span class="accar-lit-subtitle" id="lit-semana">Cargando semana...</span>
         
-        <h3>Evangelio y Lecturas</h3>
-        <p>Medita la Palabra de Dios y las lecturas correspondientes a la Santa Misa de hoy.</p>
+        <h3 id="lit-titulo">Evangelio y Lecturas</h3>
+        <p id="lit-texto">Conectando con el leccionario...</p>
       </a>
+
+      <script>
+        document.addEventListener('DOMContentLoaded', () => {
+          // 1. Generar la fecha de hoy en formato AAAA-MM-DD
+          const hoy = new Date();
+          const year = hoy.getFullYear();
+          const month = String(hoy.getMonth() + 1).padStart(2, '0');
+          const day = String(hoy.getDate()).padStart(2, '0');
+          const fechaID = `${year}-${month}-${day}`; 
+
+          // 2. Conectar con Firestore (Requiere que Firebase esté inicializado en el sitio)
+          if (typeof firebase !== 'undefined' && firebase.firestore) {
+            const db = firebase.firestore();
+            db.collection('lecturas_diarias').doc(fechaID).get()
+              .then((doc) => {
+                if (doc.exists) {
+                  const data = doc.data();
+                  if(data.ciclo) document.getElementById('lit-ciclo').textContent = 'Ciclo ' + data.ciclo;
+                  if(data.anio) document.getElementById('lit-anio').textContent = 'Año ' + data.anio;
+                  if(data.color) document.getElementById('lit-color').textContent = data.color;
+                  if(data.semana) document.getElementById('lit-semana').textContent = data.semana;
+                  if(data.titulo) document.getElementById('lit-titulo').textContent = data.titulo;
+                  
+                  // Cortamos el texto si es muy largo para no desarmar la tarjeta
+                  let textoCorto = data.texto;
+                  if(textoCorto && textoCorto.length > 95) {
+                    textoCorto = textoCorto.substring(0, 95) + '...';
+                  }
+                  if(textoCorto) document.getElementById('lit-texto').textContent = textoCorto;
+                } else {
+                  // Si no hay lectura subida para hoy, muestra texto genérico
+                  document.getElementById('lit-semana').textContent = 'Lectura del día';
+                  document.getElementById('lit-texto').textContent = 'Medita la Palabra de Dios correspondiente a la Santa Misa de hoy.';
+                }
+              })
+              .catch((error) => {
+                console.error("Error al obtener la lectura de Firebase:", error);
+              });
+          }
+        });
+      </script>
 
       <!-- TARJETA 2: LITURGIA DE LAS HORAS (Rojo Carmesí) -->
       <a href="#" onclick="event.preventDefault(); loadView('views/construccion.html');" class="accar-lit-card accar-lit-card--rojo">
