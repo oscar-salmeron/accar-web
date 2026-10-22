@@ -12,8 +12,27 @@
   <main id="spa-content"></main>
   <footer id="siteFooter"></footer>
   
-  <script src="db-multimedia.js"></script>
+  <!-- 1. SDKs de Firebase (Versión Compatibilidad Clásica) -->
+  <script src="https://www.gstatic.com/firebasejs/10.5.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.5.0/firebase-firestore-compat.js"></script>
   
+  <!-- 2. Inicialización de tu base de datos -->
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyDSCSWYM5dgkIfVK-uBe1oWkeU7se4fvFg",
+      authDomain: "accar-web.firebaseapp.com",
+      projectId: "accar-web",
+      storageBucket: "accar-web.firebasestorage.app",
+      messagingSenderId: "249370548582",
+      appId: "1:249370548582:web:6b35298df41771113910a7"
+    };
+    
+    if (!firebase.apps.length) {
+      firebase.initializeApp(firebaseConfig);
+    }
+  </script>
+
+  <script src="db-multimedia.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
