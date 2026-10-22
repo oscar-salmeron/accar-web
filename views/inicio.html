@@ -345,12 +345,68 @@ body {
         </div>
         <span class="accar-lit-subtitle" id="lit-semana">Cargando semana...</span>
         
-        <h3 id="lit-titulo">Evangelio y Lecturas</h3>
-        <p id="lit-texto">Conectando con el leccionario...</p>
+        <!-- Título estático elegante -->
+        <h3 style="margin-bottom: 20px;">Evangelio y Lecturas</h3>
+        
+        <!-- Contenedor dinámico de citas litúrgicas -->
+        <div class="accar-lecturas-lista">
+          <div id="item-primera" class="accar-lectura-item" style="display: none;">
+            <strong>1ª Lectura:</strong> <span id="lit-primera"></span>
+          </div>
+          <div id="item-salmo" class="accar-lectura-item" style="display: none;">
+            <strong>Salmo:</strong> <span id="lit-salmo"></span>
+          </div>
+          <div id="item-segunda" class="accar-lectura-item" style="display: none;">
+            <strong>2ª Lectura:</strong> <span id="lit-segunda"></span>
+          </div>
+          <div id="item-evangelio" class="accar-lectura-item" style="display: none;">
+            <strong>Evangelio:</strong> <span id="lit-evangelio"></span>
+          </div>
+          <p id="lit-mensaje-fallback" style="color: rgba(255,255,255,0.75); font-size: 15px; margin: 0;">Conectando con el leccionario...</p>
+        </div>
       </a>
 
+      <!-- Pequeños estilos para la lista de lecturas -->
+      <style>
+        .accar-lecturas-lista {
+          display: flex;
+          flex-direction: column;
+          gap: 8px;
+          position: relative;
+          z-index: 2;
+          width: 100%;
+          padding: 0 10px;
+        }
+        .accar-lectura-item {
+          font-size: 14px;
+          color: #f8efd3;
+          background: rgba(0,0,0,0.5); /* Fondo oscuro translúcido para contraste */
+          padding: 8px 14px;
+          border-radius: 8px;
+          border: 1px solid rgba(212,175,55,0.25);
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          transition: background 0.3s ease;
+        }
+        .accar-lit-card:hover .accar-lectura-item {
+          background: rgba(0,0,0,0.7);
+          border-color: rgba(212,175,55,0.5);
+        }
+        .accar-lectura-item strong {
+          color: #d9bb6a;
+          font-weight: 800;
+          font-size: 11px;
+          text-transform: uppercase;
+          letter-spacing: 1px;
+        }
+        .accar-lectura-item span {
+          font-weight: 600;
+          letter-spacing: 0.5px;
+        }
+      </style>
+
       <script>
-        // Si usas loadView para cargar inicio.html, setTimeout ayuda a que el script se ejecute
         setTimeout(() => {
           const hoy = new Date();
           const year = hoy.getFullYear();
@@ -359,38 +415,48 @@ body {
           const fechaID = `${year}-${month}-${day}`; 
 
           try {
-            // Forzamos la llamada directa. Si firebase no existe, tirará error en consola.
             const db = firebase.firestore();
             db.collection('lecturas_diarias').doc(fechaID).get()
               .then((doc) => {
                 if (doc.exists) {
                   const data = doc.data();
+                  
+                  // Meta superior
                   if(data.ciclo) document.getElementById('lit-ciclo').textContent = 'Ciclo ' + data.ciclo;
                   if(data.anio) document.getElementById('lit-anio').textContent = 'Año ' + data.anio;
                   if(data.color) document.getElementById('lit-color').textContent = data.color;
                   if(data.semana) document.getElementById('lit-semana').textContent = data.semana;
-                  if(data.titulo) {
-                    // Separa la cita bíblica (paréntesis) en una nueva línea con un estilo más sutil
-                    let tituloFormateado = data.titulo.replace(" (", "<br><span style='font-size: 16px; color: #d9bb6a; font-weight: 600; margin-top: 4px; display: inline-block;'>(");
-                    if (data.titulo.includes(" (")) tituloFormateado += "</span>";
-                    document.getElementById('lit-titulo').innerHTML = tituloFormateado;
-                  }
                   
-                  let textoCorto = data.texto;
-                  if(textoCorto && textoCorto.length > 95) {
-                    textoCorto = textoCorto.substring(0, 95) + '...';
+                  // Ocultamos el mensaje de "Conectando..."
+                  document.getElementById('lit-mensaje-fallback').style.display = 'none';
+
+                  // Llenamos las citas dinámicamente si existen en Firebase
+                  if (data.primera_lectura) {
+                    document.getElementById('lit-primera').textContent = data.primera_lectura;
+                    document.getElementById('item-primera').style.display = 'flex';
                   }
-                  if(textoCorto) document.getElementById('lit-texto').textContent = textoCorto;
+                  if (data.salmo) {
+                    document.getElementById('lit-salmo').textContent = data.salmo;
+                    document.getElementById('item-salmo').style.display = 'flex';
+                  }
+                  if (data.segunda_lectura) {
+                    document.getElementById('lit-segunda').textContent = data.segunda_lectura;
+                    document.getElementById('item-segunda').style.display = 'flex';
+                  }
+                  if (data.evangelio) {
+                    document.getElementById('lit-evangelio').textContent = data.evangelio;
+                    document.getElementById('item-evangelio').style.display = 'flex';
+                  }
                 } else {
                   document.getElementById('lit-semana').textContent = 'Lectura del día';
-                  document.getElementById('lit-texto').textContent = 'Lectura no encontrada para hoy.';
+                  document.getElementById('lit-mensaje-fallback').textContent = 'Lectura no encontrada para hoy.';
                 }
               })
               .catch((error) => {
                 console.error("Error Firebase:", error);
               });
           } catch (e) {
-            console.error("Firebase no está inicializado o el objeto 'firebase' no se encuentra en esta vista:", e);
+            console.error("Firebase no está inicializado.", e);
           }
         }, 500);
       </script>
