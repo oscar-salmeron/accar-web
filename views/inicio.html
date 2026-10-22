@@ -860,12 +860,12 @@ body {
     <div class="accar-espiritualidad-grid">
 
       <!-- TARJETA 1: EVANGELIO Y LECTURAS (Verde Episcopal) -->
-      <a href="#" onclick="event.preventDefault(); /* Integración API aquí */" class="accar-lit-card accar-lit-card--verde">
+      <a href="#" onclick="event.preventDefault(); loadView('views/construccion.html');" class="accar-lit-card accar-lit-card--verde">
         <img src="../assets/img/icono_evangelio_oro.png" class="accar-lit-icon" alt="Evangelio">
         
         <div class="accar-lit-meta">
-          <span>Ciclo A</span>
-          <span>Año II</span>
+          <span>Ciclo</span>
+          <span>Año</span>
           <span class="dot-color dot-verde">Verde</span>
         </div>
         <span class="accar-lit-subtitle">XXIX Semana del Tiempo Ordinario</span>
@@ -875,12 +875,12 @@ body {
       </a>
 
       <!-- TARJETA 2: LITURGIA DE LAS HORAS (Rojo Carmesí) -->
-      <a href="#" onclick="event.preventDefault(); /* Integración Firebase aquí */" class="accar-lit-card accar-lit-card--rojo">
+      <a href="#" onclick="event.preventDefault(); loadView('views/construccion.html');" class="accar-lit-card accar-lit-card--rojo">
         <img src="../assets/img/icono_liturgia_oro.png" class="accar-lit-icon" alt="Liturgia de las Horas">
         
         <div class="accar-lit-meta">
           <span>De la feria</span>
-          <span>Salterio I</span>
+          <span>Salterio</span>
         </div>
         <span class="accar-lit-subtitle">XXIX Semana del Tiempo Ordinario</span>
         
@@ -889,29 +889,29 @@ body {
       </a>
 
       <!-- TARJETA 3: SANTO DEL DÍA (Horizontal, imagen a la izq) -->
-      <a href="#" onclick="event.preventDefault(); /* Abrir Modal Santoral */" class="accar-lit-card accar-lit-card--santo">
+      <a href="#" onclick="event.preventDefault(); loadView('views/construccion.html');" class="accar-lit-card accar-lit-card--santo">
         <div class="accar-santo-img-wrap">
           <!-- Fondo litúrgico dinámico detrás de la imagen -->
           <div class="accar-santo-glow"></div>
-          <img src="../assets/img/santo_dia_placeholder.png" alt="San Ignacio de Antioquía">
+          <img src="../assets/img/santo_dia_placeholder.png" alt="Santo del Día Placeholder">
         </div>
         <div class="accar-santo-data">
           <span class="accar-badge-santo">Santo del Día</span>
-          <span class="accar-santo-fecha">21 de Octubre</span>
+          <!-- Se ha retirado la fecha exacta para mantenerlo como placeholder atemporal -->
           
           <h3 id="dinamico-santo-nombre">San Ignacio de Antioquía</h3>
           <p>Obispo y mártir, Padre Apostólico que entregó heroicamente su vida por Cristo ante las fieras de Roma.</p>
         </div>
       </a>
 
-      <!-- TARJETA 4: CALENDARIO LITÚRGICO (Morado Litúrgico) -->
-      <a href="#" onclick="event.preventDefault();" class="accar-lit-card accar-lit-card--morado">
+      <!-- TARJETA 4: CALENDARIO LITÚRGICO (Efecto Vitral con Colores Litúrgicos) -->
+      <a href="#" onclick="event.preventDefault(); loadView('views/construccion.html');" class="accar-lit-card accar-lit-card--vitral">
         <img src="../assets/img/icono_calendario_oro.png" class="accar-lit-icon" alt="Calendario Litúrgico">
         
         <div class="accar-lit-meta">
-          <span>Ciclo 2026-2027</span>
+          <span>Ciclo Litúrgico</span>
         </div>
-        <span class="accar-lit-subtitle">Año Litúrgico</span>
+        <span class="accar-lit-subtitle">Año Eclesial</span>
         
         <h3>Calendario Litúrgico</h3>
         <p>Consulta los tiempos, colores, santos y fiestas de precepto de la Santa Madre Iglesia.</p>
@@ -1019,16 +1019,28 @@ body {
   opacity: 0.8;
 }
 
+/* Verde Ordinario */
 .accar-lit-card--verde::before {
   background: radial-gradient(circle at top center, rgba(15, 54, 33, 0.8) 0%, transparent 65%);
 }
 
+/* Rojo Mártires/Espíritu Santo */
 .accar-lit-card--rojo::before {
   background: radial-gradient(circle at top center, rgba(115, 15, 25, 0.7) 0%, transparent 65%);
 }
 
-.accar-lit-card--morado::before {
-  background: radial-gradient(circle at top center, rgba(54, 23, 94, 0.7) 0%, transparent 65%);
+/* Efecto Vitral Litúrgico (Todos los colores de las casullas) */
+.accar-lit-card--vitral::before {
+  background: conic-gradient(from 180deg at 50% -10%, 
+              rgba(115,15,25,0.6) 0deg,      /* Rojo - Mártires */
+              rgba(54,23,94,0.6) 72deg,      /* Morado - Penitencia */
+              rgba(212,175,55,0.4) 144deg,   /* Oro/Blanco - Festivo */
+              rgba(15,54,33,0.6) 216deg,     /* Verde - Ordinario */
+              rgba(150,80,110,0.6) 288deg,   /* Rosa - Gaudete/Laetare */
+              rgba(115,15,25,0.6) 360deg);
+  /* Máscara radial para que la luz del vitral se desvanezca en la penumbra */
+  -webkit-mask-image: radial-gradient(circle at top center, black 10%, transparent 80%);
+  mask-image: radial-gradient(circle at top center, black 10%, transparent 80%);
 }
 
 /* Hover Effects Generales */
@@ -1133,6 +1145,125 @@ body {
 /* =========================================================
 TARJETA ESPECIAL: SANTO DEL DÍA (Cuerpo entero a la izq)
 ========================================================= */
+.accar-lit-card--santo {
+  flex-direction: row;
+  align-items: stretch;
+  text-align: left;
+  padding: 0; 
+  background: linear-gradient(135deg, #060e20 0%, #170408 100%); 
+}
+
+/* Contenedor de la imagen a la izquierda */
+.accar-santo-img-wrap {
+  width: 45%;
+  position: relative;
+  display: flex;
+  align-items: flex-end; 
+  justify-content: center;
+  border-right: 1px solid rgba(212,175,55,0.2);
+  overflow: hidden;
+  z-index: 2;
+  background: rgba(255,255,255,0.02);
+}
+
+.accar-santo-glow {
+  position: absolute;
+  bottom: 0; left: 0; right: 0; top: 0;
+  background: radial-gradient(circle at bottom center, rgba(212,175,55,0.2) 0%, transparent 70%);
+  z-index: 1;
+}
+
+.accar-santo-img-wrap img {
+  width: 130%; 
+  height: auto;
+  object-fit: contain;
+  object-position: bottom center;
+  margin-bottom: -15px; 
+  filter: drop-shadow(0 10px 20px rgba(0,0,0,0.8));
+  position: relative;
+  z-index: 2;
+  transition: transform 0.4s ease;
+}
+
+.accar-lit-card--santo:hover .accar-santo-img-wrap img {
+  transform: scale(1.05) translateY(-5px);
+}
+
+/* Información a la derecha */
+.accar-santo-data {
+  width: 55%;
+  padding: 40px 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  z-index: 2;
+}
+
+.accar-badge-santo {
+  background: #cc0000;
+  border: 1px solid #ff4d4d;
+  color: #ffffff;
+  padding: 6px 14px;
+  font-size: 11px;
+  font-weight: 800;
+  border-radius: 50px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 14px;
+  box-shadow: 0 4px 10px rgba(204,0,0,0.4);
+}
+
+.accar-santo-data h3 {
+  color: #D4AF37; 
+  margin: 0 0 6px;
+  font-size: 24px;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+}
+
+.accar-santo-data p {
+  color: rgba(255,255,255,0.9);
+  text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+}
+
+/* Adaptabilidad móvil */
+@media (max-width: 900px) {
+  .accar-espiritualidad-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .accar-espiritualidad {
+    padding: 100px 18px;
+  }
+  .accar-lit-card {
+    padding: 34px 20px;
+    min-height: auto;
+  }
+  
+  /* En móviles, la tarjeta del santo pasa a formato vertical */
+  .accar-lit-card--santo {
+    flex-direction: column;
+  }
+  .accar-santo-img-wrap {
+    width: 100%;
+    height: 280px; 
+    border-right: none;
+    border-bottom: 1px solid rgba(212,175,55,0.2);
+  }
+  .accar-santo-img-wrap img {
+    width: 80%; 
+  }
+  .accar-santo-data {
+    width: 100%;
+    padding: 30px 20px;
+    align-items: center;
+    text-align: center;
+  }
+}
+</style>
+<!-- ===== FIN BLOQUE: ESPIRITUALIDAD DIARIA ===== -->
 .accar-lit-card--santo {
   flex-direction: row;
   align-items: stretch;
