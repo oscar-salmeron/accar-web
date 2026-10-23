@@ -7,72 +7,84 @@ export default async function handler(req, res) {
     });
 
     if (!respuesta.ok) throw new Error(`Error de red (Status: ${respuesta.status})`);
-    
     let html = await respuesta.text();
 
-    // 1. Extraemos el título litúrgico exacto (Ej: "Viernes 29 del tiempo ordinario")
-    let tituloLiturgico = "Liturgia Diaria";
-    const matchTitulo = html.match(/(Lunes|Martes|Miércoles|Jueves|Viernes|Sábado|Domingo)[^<]*(tiempo ordinario|Cuaresma|Adviento|Pascua|Navidad)/i);
-    if (matchTitulo) {
-        tituloLiturgico = matchTitulo[0].trim();
-    }
-
-    // 2. Inteligencia para el Color Litúrgico
-    let colorLiturgico = "Verde";
-    const tituloMin = tituloLiturgico.toLowerCase();
-    if (tituloMin.includes("cuaresma") || tituloMin.includes("adviento")) {
-        colorLiturgico = "Morado";
-    } else if (tituloMin.includes("pascua") || tituloMin.includes("navidad")) {
-        colorLiturgico = "Blanco";
-    }
-
-    // 3. Limpiamos las etiquetas HTML para pasar el bisturí
-    let textoLimpio = html.replace(/<br\s*\/?>/gi, '\n')
-                          .replace(/<\/?[^>]+(>|$)/g, "")
-                          .replace(/&nbsp;/gi, " ");
-
-    // 4. Buscamos las coordenadas exactas de cada lectura
-    const idxL1 = textoLimpio.search(/1ª Lectura|Primera Lectura/i);
-    const idxL2 = textoLimpio.search(/2ª Lectura|Segunda Lectura/i); // Por si es domingo
-    const idxSalmo = textoLimpio.search(/Salmo responsorial|Salmo[:\s]/i);
-    const idxEv = textoLimpio.search(/Texto del Evangelio/i);
+    // 1. CALCULADORA LITÚRGICA (Ciclo, Año, Números Romanos y Color)
+    const year = new Date().getFullYear();
+    const anioLiturgico = year % 2 === 0 ? "AÑO II" : "AÑO I";
     
-    // Buscamos dónde termina el Evangelio (el comentario del sacerdote)
-    const idxFinEv1 = textoLimpio.indexOf("Rev. D.", Math.max(idxEv, 0));
-    const idxFinEv2 = textoLimpio.indexOf("Pensamientos para el", Math.max(idxEv, 0));
-    let idxFin = idxFinEv1 !== -1 ? idxFinEv1 : (idxFinEv2 !== -1 ? idxFinEv2 : textoLimpio.length);
-    if (idxFinEv1 !== -1 && idxFinEv2 !== -1) idxFin = Math.min(idxFinEv1, idxFinEv2);
+    let cicloLiturgico = "CICLO A";
+    if (year % 3 === 2) cicloLiturgico = "CICLO B";
+    if (year % 3 === 0) cicloLiturgico = "CICLO C";
 
-    // Herramienta de extracción y limpieza de saltos de línea
-    const safeExtract = (start, end) => {
-        if (start === -1 || end === -1 || start >= end) return "No disponible.";
-        return textoLimpio.substring(start, end).trim().replace(/\n\s*\n/g, '<br><br>').replace(/\n/g, '<br>');
+    const toRoman = (num) => {
+      const val = [50, 40, 10, 9, 5, 4, 1];
+      const syms = ["L", "XL", "X", "IX", "V", "IV", "I"];
+      let roman = "", i = 0;
+      while(num > 0) {
+        while(num >= val[i]) { roman += syms[i]; num -= val[i]; }
+        i++;
+      }
+      return roman;
     };
 
-    // 5. Cortamos cada sección
-    let tPrimera = "No disponible.";
-    let tSegunda = null;
-    let tSalmo = "No disponible.";
-    let tEvangelio = "No disponible.";
+    // Extraemos y formateamos el título (Ej: "Viernes 29 del tiempo ordinario" -> "XXIX SEMANA DEL TIEMPO ORDINARIO")
+    let tituloFinal = "LITURGIA DIARIA";
+    let colorLiturgico = "VERDE";
+    const titleMatch = html.match(/(Lunes|Martes|Miércoles|Jueves|Viernes|Sábado|Domingo)[^<]*(tiempo ordinario|Cuaresma|Adviento|Pascua|Navidad)/i);
+    
+    if (titleMatch) {
+        let rawTitle = titleMatch[0];
+        const numMatch = rawTitle.match(/\d+/);
+        if (numMatch) {
+            rawTitle = rawTitle.replace(/\d+/, `${toRoman(parseInt(numMatch[0]))} SEMANA`);
+        }
+        tituloFinal = rawTitle.toUpperCase();
 
-    if (idxL1 !== -1) {
-        let finL1 = idxSalmo;
-        if (idxL2 !== -1 && idxL2 < idxSalmo) finL1 = idxL2; // Si hay 2da lectura, cortamos ahí
-        tPrimera = safeExtract(idxL1, finL1);
+        if (tituloFinal.includes("CUARESMA") || tituloFinal.includes("ADVIENTO")) colorLiturgico = "MORADO";
+        else if (tituloFinal.includes("PASCUA") || tituloFinal.includes("NAVIDAD")) colorLiturgico = "BLANCO";
     }
-    if (idxL2 !== -1 && idxSalmo !== -1) tSegunda = safeExtract(idxL2, idxSalmo);
-    if (idxSalmo !== -1 && idxEv !== -1) tSalmo = safeExtract(idxSalmo, idxEv);
-    if (idxEv !== -1 && idxFin !== -1) tEvangelio = safeExtract(idxEv, idxFin);
 
-    // 6. Empaquetamos todo para que los botones de tu app lo reconozcan
+    // 2. EXTRACCIÓN Y LIMPIEZA DE LECTURAS (Bisturí de precisión)
+    // Limpiamos la basura web pero mantenemos los saltos de línea para el orden visual
+    let textoLimpio = html.replace(/<br\s*\/?>/gi, '\n').replace(/<\/?[^>]+(>|$)/g, "").replace(/&nbsp;/gi, " ");
+    
+    // Eliminamos el menú superior que se colaba a veces
+    const inicioReal = textoLimpio.indexOf("1ª Lectura (");
+    if (inicioReal !== -1) textoLimpio = textoLimpio.substring(inicioReal);
+
+    // Encontramos los marcadores exactos
+    const idxL1 = textoLimpio.search(/1ª Lectura \(/i);
+    const idxSalmo = textoLimpio.search(/Salmo responsorial:|Salmo:/i);
+    const idxEv = textoLimpio.search(/Texto del Evangelio \(/i);
+    const idxReflexion = textoLimpio.search(/Rev\. D\.|Pensamientos para el Evangelio/i);
+
+    // Función para extraer y formatear elegantemente los párrafos
+    const extractText = (start, end) => {
+        if (start === -1 || start >= end) return null;
+        let t = textoLimpio.substring(start, end).trim();
+        return t.replace(/\n[ \t]*\n/g, '<br><br>').replace(/\n/g, ' '); // Formato prolijo
+    };
+
+    const tPrimera = extractText(idxL1, idxSalmo !== -1 ? idxSalmo : idxEv);
+    const tSalmo = extractText(idxSalmo, idxEv);
+    const tEvangelio = extractText(idxEv, idxReflexion !== -1 ? idxReflexion : textoLimpio.length);
+    const tReflexion = extractText(idxReflexion, textoLimpio.indexOf("© evangeli.net", idxReflexion));
+
+    // 3. EMPAQUETADO FINAL
     const readings = [];
-    if (tPrimera !== "No disponible.") readings.push({ type: "FR", title: "Primera Lectura", text: tPrimera });
-    if (tSegunda) readings.push({ type: "SR", title: "Segunda Lectura", text: tSegunda });
-    if (tSalmo !== "No disponible.") readings.push({ type: "PS", title: "Salmo Responsorial", text: tSalmo });
-    if (tEvangelio !== "No disponible.") readings.push({ type: "GSP", title: "Evangelio de Hoy", text: tEvangelio });
+    if (tPrimera) readings.push({ type: "FR", title: "Primera Lectura", text: tPrimera });
+    if (tSalmo) readings.push({ type: "PS", title: "Salmo Responsorial", text: tSalmo });
+    if (tEvangelio) readings.push({ type: "GSP", title: "Evangelio de Hoy", text: tEvangelio });
+    if (tReflexion) readings.push({ type: "RE", title: "Reflexión del Día", text: tReflexion });
 
     const datosEstructurados = {
-      fiestas: [{ title: tituloLiturgico, color: colorLiturgico }],
+      fiestas: [{ 
+        title: tituloFinal, 
+        color: colorLiturgico,
+        ciclo: cicloLiturgico,
+        anio: anioLiturgico
+      }],
       readings: readings
     };
 
