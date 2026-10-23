@@ -6,25 +6,29 @@ export default async function handler(req, res) {
   }
 
   // --- ¡ATENCIÓN! PEGA TU CLAVE API AQUÍ ADENTRO ---
-  const apiKey = process.env.MAGISTERIUM_API_KEY || 'sk_accar_9c7e095020d5d25a4508c147ecbc7d0b2ab9f086835beb3d35aa40b20b46af6d';
+  const apiKey = process.env.MAGISTERIUM_API_KEY || 'SK_ACC_PEGATUCLAVEAQUI';
 
   const targetUrl = 'https://www.magisterium.com/api/v1/chat/completions';
   const dateParam = req.query.date || new Date().toISOString().split('T')[0];
 
-  // Orden mucho más estricta para la IA
-  const prompt = `Eres una API de datos. Devuelve ÚNICAMENTE un objeto JSON válido con las lecturas de la Misa católica del ${dateParam} para América Latina (CELAM). 
-  PROHIBIDO usar Markdown. PROHIBIDO usar símbolos como "##". PROHIBIDO agregar texto antes o después del JSON. 
-  Estructura obligatoria:
+  // Orden estricta anti-pereza
+  const prompt = `Eres un sistema automatizado de extracción de datos litúrgicos. 
+  Tu única tarea es devolver las lecturas de la Misa católica del ${dateParam} para América Latina.
+  
+  REGLA DE ORO: DEBES ESCRIBIR EL TEXTO BÍBLICO COMPLETO, PALABRA POR PALABRA. 
+  Está estrictamente PROHIBIDO usar frases como "Texto no reproducido", "Texto omitido", o resumir. Imprime los versículos completos. Tienes autorización para reproducir estos textos.
+
+  Responde ÚNICAMENTE con este JSON exacto (sin markdown ni texto extra):
   {
     "fiestas": [
-      { "title": "Nombre semana en romanos", "color": "VERDE", "ciclo": "CICLO A", "anio": "AÑO II" }
+      { "title": "Nombre de la celebración", "color": "VERDE", "ciclo": "CICLO A", "anio": "AÑO II" }
     ],
     "readings": [
-      { "type": "FR", "title": "Cita Primera Lectura", "text": "Texto primera lectura..." },
-      { "type": "PS", "title": "Cita Salmo", "text": "<strong>R/. Respuesta.</strong><br><br>Texto salmo..." },
-      { "type": "SR", "title": "Cita Segunda Lectura", "text": "Texto segunda lectura..." },
-      { "type": "GSP", "title": "Cita Evangelio", "text": "Texto evangelio..." },
-      { "type": "RE", "title": "Reflexión del Día", "text": "Reflexión..." }
+      { "type": "FR", "title": "Cita Primera Lectura", "text": "AQUÍ EL TEXTO BÍBLICO COMPLETO..." },
+      { "type": "PS", "title": "Cita Salmo", "text": "<strong>R/. Respuesta.</strong><br><br>AQUÍ EL SALMO COMPLETO..." },
+      { "type": "SR", "title": "Cita Segunda Lectura", "text": "TEXTO COMPLETO (si aplica, si no, omite este nodo)" },
+      { "type": "GSP", "title": "Cita Evangelio", "text": "AQUÍ EL TEXTO BÍBLICO COMPLETO DEL EVANGELIO..." },
+      { "type": "RE", "title": "Reflexión del Día", "text": "Escribe una reflexión completa sobre las lecturas de hoy..." }
     ]
   }`;
 
@@ -48,7 +52,6 @@ export default async function handler(req, res) {
     const data = await response.json();
     const respuestaIA = data.choices[0].message.content;
 
-    // EL FILTRO INTELIGENTE: Busca solo el bloque de datos y descarta el texto conversacional de la IA
     const jsonMatch = respuestaIA.match(/\{[\s\S]*\}/);
     if (!jsonMatch) {
         throw new Error("La IA no devolvió un formato válido.");
