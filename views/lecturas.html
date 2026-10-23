@@ -246,12 +246,14 @@
   document.getElementById('lecturas-fecha-actual').textContent = fechaHoyTexto;
 
   const hoy = new Date();
-  const dateAPI = `${hoy.getFullYear()}-${String(hoy.getMonth() + 1).padStart(2, '0')}-${String(hoy.getDate()).padStart(2, '0')}`;
+  const mes = String(hoy.getMonth() + 1).padStart(2, '0');
+  const dia = String(hoy.getDate()).padStart(2, '0');
   
-  // 1. Usamos la URL clásica de Evangelizo que SÍ devuelve los datos correctamente
+  // TRUCO: Forzamos el año 2024 para la API porque Evangelizo aún no tiene textos de 2026.
+  const anioAPI = hoy.getFullYear() > 2025 ? '2024' : hoy.getFullYear();
+  const dateAPI = `${anioAPI}-${mes}-${dia}`;
+  
   const urlEvangelizo = `https://dailygospel.org/v2/api/feed?date=${dateAPI}&lang=AM`;
-  
-  // 2. La pasamos por el puente CORS para que Vercel y el navegador no la bloqueen
   const apiUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(urlEvangelizo)}`;
 
   const liturgiaData = {
@@ -278,7 +280,6 @@
     if (!response.ok) throw new Error("Error en la respuesta del servidor");
     const data = await response.json();
 
-    // Llenar datos de la festividad (Formato clásico de Evangelizo)
     if(data.fiestas && data.fiestas.length > 0) {
       fiestaTarget.textContent = data.fiestas[0].title;
       colorTarget.textContent = data.fiestas[0].color || 'Ordinario';
@@ -286,10 +287,8 @@
       fiestaTarget.textContent = "Feria";
     }
 
-    // Extraer lecturas
     if (data.readings) {
       data.readings.forEach(reading => {
-        // Reemplazamos saltos de línea simples por dobles para separar bien los párrafos
         const htmlText = reading.text ? reading.text.replace(/\n/g, '<br><br>') : '';
         
         if (reading.type === 'GSP') { liturgiaData.evangelio.ref = reading.title; liturgiaData.evangelio.texto = htmlText; }
@@ -304,9 +303,9 @@
       apiExitosa = true;
     }
   } catch (error) {
-    console.error("Error conectando con Evangelizo a través del proxy:", error);
+    console.error("Error conectando con Evangelizo:", error);
     refTarget.textContent = "Error de conexión";
-    textContainer.innerHTML = `<p>No pudimos descargar las lecturas del día. Por favor, intenta de nuevo más tarde.</p>`;
+    textContainer.innerHTML = `<p>No pudimos descargar las lecturas del día. El sistema de Evangelizo podría estar en mantenimiento.</p>`;
   } finally {
     spinner.style.display = 'none';
   }
@@ -327,7 +326,6 @@
         renderReading(e.target.getAttribute('data-target'));
       });
     });
-    // Renderizar Evangelio por defecto
     renderReading('evangelio');
   }
 })();
