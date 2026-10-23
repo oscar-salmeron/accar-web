@@ -16,6 +16,8 @@
       <div class="accar-sidebar-box">
         <h4>Celebramos:</h4>
         <div class="accar-lit-meta-small">
+          <span id="badge-ciclo" class="dot-color">Ciclo A</span>
+          <span id="badge-anio" class="dot-color">Año II</span>
           <span id="lecturas-color-badge" class="dot-color dot-verde">Verde</span>
         </div>
         <p class="accar-lit-fiesta" id="lecturas-fiesta">Cargando celebración...</p>
@@ -29,6 +31,7 @@
           <button class="accar-menu-btn" data-target="primera">Primera lectura</button>
           <button class="accar-menu-btn" data-target="salmo">Salmo</button>
           <button class="accar-menu-btn" data-target="segunda" id="btn-segunda" style="display: none;">Segunda lectura</button>
+          <button class="accar-menu-btn" data-target="reflexion" id="btn-reflexion" style="display: none;">Reflexión</button>
         </nav>
       </div>
 
@@ -260,7 +263,8 @@
     evangelio: { titulo: "Evangelio", ref: "", texto: "Cargando..." },
     primera: { titulo: "Primera Lectura", ref: "", texto: "Cargando..." },
     salmo: { titulo: "Salmo", ref: "", texto: "Cargando..." },
-    segunda: { titulo: "Segunda Lectura", ref: "", texto: "Cargando..." }
+    segunda: { titulo: "Segunda Lectura", ref: "", texto: "Cargando..." },
+    reflexion: { titulo: "Reflexión", ref: "", texto: "Cargando..." }
   };
 
   const spinner = document.getElementById('reading-spinner');
@@ -270,6 +274,8 @@
   const titleTarget = document.getElementById('reading-title');
   const fiestaTarget = document.getElementById('lecturas-fiesta');
   const colorTarget = document.getElementById('lecturas-color-badge');
+  const cicloTarget = document.getElementById('badge-ciclo');
+  const anioTarget = document.getElementById('badge-anio');
   const botones = document.querySelectorAll('.accar-menu-btn');
   
   let apiExitosa = false;
@@ -277,20 +283,16 @@
 
   try {
     const response = await fetch(apiUrl);
-    
-    // DIAGNÓSTICO: Leemos la respuesta como texto crudo primero
     const rawText = await response.text(); 
-    console.log("=== DIAGNÓSTICO: RESPUESTA DEL SERVIDOR ===");
-    console.log(rawText.substring(0, 500)); // Imprimimos los primeros 500 caracteres
     
     if (!response.ok) throw new Error("Error en la respuesta del servidor");
-    
-    // Intentamos procesarlo como JSON
     const data = JSON.parse(rawText);
 
     if(data.fiestas && data.fiestas.length > 0) {
       fiestaTarget.textContent = data.fiestas[0].title;
       colorTarget.textContent = data.fiestas[0].color || 'Ordinario';
+      if(cicloTarget) cicloTarget.textContent = data.fiestas[0].ciclo || '';
+      if(anioTarget) anioTarget.textContent = data.fiestas[0].anio || '';
     } else {
       fiestaTarget.textContent = "Feria";
     }
@@ -306,6 +308,11 @@
           liturgiaData.segunda.ref = reading.title; 
           liturgiaData.segunda.texto = htmlText;
           document.getElementById('btn-segunda').style.display = 'block'; 
+        }
+        else if (reading.type === 'RE') { 
+          liturgiaData.reflexion.ref = reading.title; 
+          liturgiaData.reflexion.texto = htmlText;
+          document.getElementById('btn-reflexion').style.display = 'block'; 
         }
       });
       apiExitosa = true;
