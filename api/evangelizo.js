@@ -4,45 +4,45 @@ export default async function handler(req, res) {
   try {
     const respuesta = await fetch(targetUrl, {
       headers: {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-        'Accept': 'text/html,application/xhtml+xml,application/xml'
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'
       }
     });
 
     if (!respuesta.ok) throw new Error(`Error de red (Status: ${respuesta.status})`);
     
-    const html = await respuesta.text();
+    let html = await respuesta.text();
 
-    // Extractor amplio: busca las clases habituales donde Evangeli.net envuelve su texto
-    const matchTexto = html.match(/<div[^>]*class=["'][^"']*?text_evangelio[^"']*?["'][^>]*>([\s\S]*?)<\/div>/i) 
-                    || html.match(/<div class="code[^>]*>([\s\S]*?)<\/div>/i)
-                    || html.match(/<span class="evangelio[^>]*>([\s\S]*?)<\/span>/i);
+    // 1. Limpiamos absolutamente todo el HTML sobrante para que no estorben las etiquetas ni menús
+    let textoLimpio = html.replace(/<br\s*\/?>/gi, '\n')
+                          .replace(/<\/?[^>]+(>|$)/g, "")
+                          .replace(/&nbsp;/gi, " ");
+
+    // 2. Aplicamos el bisturí: cortamos exactamente desde el título de la lectura hasta el autor
+    let textoCrudo = "No se pudo extraer la lectura exacta.";
     
-    let textoCrudo = "No se pudo extraer la lectura. La estructura de Evangeli.net cambió.";
-
-    if (matchTexto) {
-      textoCrudo = matchTexto[1];
-    } else {
-      // Fallback de emergencia: si no encuentra la clase exacta, extrae los párrafos principales
-      const parrafos = html.match(/<p>([\s\S]{10,})<\/p>/gi);
-      if (parrafos) {
-        textoCrudo = parrafos.slice(0, 3).join('\n\n'); 
-      }
+    const inicio = textoLimpio.indexOf("Texto del Evangelio");
+    const fin1 = textoLimpio.indexOf("Rev. D.", inicio);
+    const fin2 = textoLimpio.indexOf("Pensamientos para el Evangelio", inicio);
+    
+    // Identificamos dónde termina exactamente el Evangelio y empieza el comentario
+    let fin = fin1;
+    if (fin1 === -1 || (fin2 !== -1 && fin2 < fin1)) {
+      fin = fin2;
     }
 
-    // Limpiamos el texto para que se vea impecable en tus tarjetas
-    textoCrudo = textoCrudo.replace(/<br\s*\/?>/gi, '\n');
-    textoCrudo = textoCrudo.replace(/<\/?[^>]+(>|$)/g, "").trim(); 
-    textoCrudo = textoCrudo.replace(/\n\s*\n/g, '<br><br>');
+    if (inicio !== -1 && fin !== -1) {
+      // Extraemos solo la porción sagrada y limpiamos los espacios
+      textoCrudo = textoLimpio.substring(inicio, fin).trim();
+      
+      // Restauramos los párrafos con saltos de línea elegantes para tu diseño web
+      textoCrudo = textoCrudo.replace(/\n\s*\n/g, '<br><br>');
+    }
 
-    // Empaquetamos los datos
     const datosEstructurados = {
-      fiestas: [{ title: "Evangeli.net", color: "Verde" }],
+      fiestas: [{ title: "Liturgia Diaria", color: "Verde" }],
       readings: [
         { type: "GSP", title: "Evangelio de Hoy", text: textoCrudo }
-      ],
-      // Clave espía: nos dirá cómo se llama la clase si falla la extracción
-      debug_html: html.substring(0, 300)
+      ]
     };
 
     res.setHeader('Access-Control-Allow-Origin', '*');
