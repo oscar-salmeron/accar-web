@@ -1,49 +1,48 @@
 export default async function handler(req, res) {
-  // Utilizamos la fuente católica oficial y abierta de Ciudad Redonda
-  const rssUrl = 'https://www.ciudadredonda.org/rss/evangelio.xml';
+  const targetUrl = 'https://evangeli.net/evangelio';
 
   try {
-    const respuesta = await fetch(rssUrl, {
+    const respuesta = await fetch(targetUrl, {
       headers: {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)',
-        'Accept': 'application/rss+xml, application/xml, text/xml'
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+        'Accept': 'text/html,application/xhtml+xml,application/xml'
       }
     });
 
-    if (!respuesta.ok) throw new Error(`Error de red con la nueva fuente (Status: ${respuesta.status})`);
+    if (!respuesta.ok) throw new Error(`Error de red (Status: ${respuesta.status})`);
     
-    const xmlText = await respuesta.text();
+    const html = await respuesta.text();
 
-    // Extraemos el bloque principal del Evangelio de hoy
-    const itemMatch = xmlText.match(/<item>([\s\S]*?)<\/item>/i);
-    let textoCrudo = "No se pudo extraer la lectura.";
-    let titulo = "Evangelio del Día";
+    // Extractor amplio: busca las clases habituales donde Evangeli.net envuelve su texto
+    const matchTexto = html.match(/<div[^>]*class=["'][^"']*?text_evangelio[^"']*?["'][^>]*>([\s\S]*?)<\/div>/i) 
+                    || html.match(/<div class="code[^>]*>([\s\S]*?)<\/div>/i)
+                    || html.match(/<span class="evangelio[^>]*>([\s\S]*?)<\/span>/i);
+    
+    let textoCrudo = "No se pudo extraer la lectura. La estructura de Evangeli.net cambió.";
 
-    if (itemMatch) {
-      const itemXml = itemMatch[1];
-      
-      // Extraemos el título limpiando etiquetas CDATA si existen
-      const titleMatch = itemXml.match(/<title>([\s\S]*?)<\/title>/i);
-      if (titleMatch) {
-        titulo = titleMatch[1].replace(/<!\[CDATA\[|\]\]>/gi, '').trim();
-      }
-
-      // Extraemos el contenido limpiando etiquetas HTML y CDATA
-      const descMatch = itemXml.match(/<description>([\s\S]*?)<\/description>/i);
-      if (descMatch) {
-        textoCrudo = descMatch[1].replace(/<!\[CDATA\[|\]\]>/gi, '');
-        textoCrudo = textoCrudo.replace(/<br\s*\/?>/gi, '\n');
-        textoCrudo = textoCrudo.replace(/<\/?[^>]+(>|$)/g, ""); 
-        textoCrudo = textoCrudo.replace(/\n\s*\n/g, '<br><br>'); // Doble salto para legibilidad
+    if (matchTexto) {
+      textoCrudo = matchTexto[1];
+    } else {
+      // Fallback de emergencia: si no encuentra la clase exacta, extrae los párrafos principales
+      const parrafos = html.match(/<p>([\s\S]{10,})<\/p>/gi);
+      if (parrafos) {
+        textoCrudo = parrafos.slice(0, 3).join('\n\n'); 
       }
     }
 
-    // Construimos el paquete de datos en el formato exacto que espera tu diseño web
+    // Limpiamos el texto para que se vea impecable en tus tarjetas
+    textoCrudo = textoCrudo.replace(/<br\s*\/?>/gi, '\n');
+    textoCrudo = textoCrudo.replace(/<\/?[^>]+(>|$)/g, "").trim(); 
+    textoCrudo = textoCrudo.replace(/\n\s*\n/g, '<br><br>');
+
+    // Empaquetamos los datos
     const datosEstructurados = {
-      fiestas: [{ title: titulo, color: "Verde" }],
+      fiestas: [{ title: "Evangeli.net", color: "Verde" }],
       readings: [
         { type: "GSP", title: "Evangelio de Hoy", text: textoCrudo }
-      ]
+      ],
+      // Clave espía: nos dirá cómo se llama la clase si falla la extracción
+      debug_html: html.substring(0, 300)
     };
 
     res.setHeader('Access-Control-Allow-Origin', '*');
