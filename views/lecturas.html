@@ -240,18 +240,19 @@
 
 <script>
 (async function initLecturas() {
-  // 1. Mostrar la fecha actual en la interfaz
   const opcionesFecha = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
   let fechaHoyTexto = new Date().toLocaleDateString('es-ES', opcionesFecha);
   fechaHoyTexto = fechaHoyTexto.charAt(0).toUpperCase() + fechaHoyTexto.slice(1);
   document.getElementById('lecturas-fecha-actual').textContent = fechaHoyTexto;
 
-  // Formato YYYY-MM-DD para la API
   const hoy = new Date();
   const dateAPI = `${hoy.getFullYear()}-${String(hoy.getMonth() + 1).padStart(2, '0')}-${String(hoy.getDate()).padStart(2, '0')}`;
   
-  // URL de la API pública de Evangelizo
-  const apiUrl = `https://dailygospel.org/v2/api/feed?date=${dateAPI}&lang=AM`;
+  // 1. Endpoint oficial y moderno de Evangelizo (Español América)
+  const urlEvangelizo = `https://open-api.myevangelizo.com/v2/days/${dateAPI}?language=AM`;
+  
+  // 2. Puente CORS para evitar bloqueos del navegador en localhost
+  const apiUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(urlEvangelizo)}`;
 
   const liturgiaData = {
     evangelio: { titulo: "Evangelio", ref: "", texto: "Cargando..." },
@@ -275,46 +276,65 @@
   try {
     const response = await fetch(apiUrl);
     if (!response.ok) throw new Error("Error en la respuesta del servidor");
-    const data = await response.json();
+    
+    const jsonData = await response.json();
+    const data = jsonData.data; // Evangelizo encapsula los datos aquí
 
-    if(data.fiestas && data.fiestas.length > 0) {
-      fiestaTarget.textContent = data.fiestas[0].title;
-      colorTarget.textContent = data.fiestas[0].color || 'Verde';
-    } else {
-      fiestaTarget.textContent = "Feria";
-    }
+    if (data) {
+      // Inyectar título de la celebración litúrgica
+      fiestaTarget.textContent = data.liturgic_title || "Feria";
+      
+      // Traducir color litúrgico al español
+      if(data.color && data.color.name) {
+        const c = data.color.name.toLowerCase();
+        colorTarget.textContent = c === 'green' ? 'Verde' : c === 'red' ? 'Rojo' : c === 'white' ? 'Blanco' : c === 'purple' ? 'Morado' : c === 'rose' ? 'Rosa' : 'Ordinario';
+      }
 
-    if (data.readings) {
-      data.readings.forEach(reading => {
-        const htmlText = reading.text.replace(/\n/g, '<br>');
-        if (reading.type === 'GSP') { liturgiaData.evangelio.ref = reading.title; liturgiaData.evangelio.texto = htmlText; }
-        else if (reading.type === 'FR') { liturgiaData.primera.ref = reading.title; liturgiaData.primera.texto = htmlText; }
-        else if (reading.type === 'PS') { liturgiaData.salmo.ref = reading.title; liturgiaData.salmo.texto = htmlText; }
-        else if (reading.type === 'SR') { 
-          liturgiaData.segunda.ref = reading.title; 
-          liturgiaData.segunda.texto = htmlText;
-          document.getElementById('btn-segunda').style.display = 'block'; 
-        }
-      });
-      apiExitosa = true;
+      // Procesar y distribuir los textos bíblicos
+      if (data.readings && data.readings.length > 0) {
+        data.readings.forEach(reading => {
+          const type = reading.type || '';
+          // Reemplazamos los saltos de línea por <br><br> para que los párrafos se vean limpios y espaciados
+          const htmlText = reading.text ? reading.text.replace(/\n/g, '<br><br>') : 'Texto no disponible.';
+          
+          if (type.includes('gospel')) { 
+            liturgiaData.evangelio.ref = reading.title; 
+            liturgiaData.evangelio.texto = htmlText; 
+          }
+          else if (type.includes('reading_1')) { 
+            liturgiaData.primera.ref = reading.title; 
+            liturgiaData.primera.texto = htmlText; 
+          }
+          else if (type.includes('psalm')) { 
+            liturgiaData.salmo.ref = reading.title; 
+            liturgiaData.salmo.texto = htmlText; 
+          }
+          else if (type.includes('reading_2')) { 
+            liturgiaData.segunda.ref = reading.title; 
+            liturgiaData.segunda.texto = htmlText;
+            document.getElementById('btn-segunda').style.display = 'block'; 
+          }
+        });
+        apiExitosa = true;
+      }
     }
   } catch (error) {
-    console.error("Error conectando con Evangelizo o bloqueado por CORS:", error);
-    refTarget.textContent = "Error de conexión externa";
-    textContainer.innerHTML = `<p>No pudimos descargar las lecturas. Esto ocurre si intentas abrir el archivo localmente (file:///). Por favor, navega desde el menú principal de tu aplicación web.</p>`;
+    console.error("Error de conexión externa:", error);
+    refTarget.textContent = "Error de conexión";
+    textContainer.innerHTML = `<p>Los servidores del leccionario no están respondiendo o hay un bloqueo en la red. Por favor, intenta de nuevo más tarde.</p>`;
   } finally {
     spinner.style.display = 'none';
   }
 
   function renderReading(targetId) {
-    const data = liturgiaData[targetId];
-    lblTarget.textContent = data.titulo.toUpperCase() + " DE HOY";
-    titleTarget.textContent = data.titulo;
-    refTarget.textContent = data.ref;
-    textContainer.innerHTML = `<p>${data.texto}</p>`;
+    const d = liturgiaData[targetId];
+    lblTarget.textContent = d.titulo.toUpperCase() + " DE HOY";
+    titleTarget.textContent = d.titulo;
+    refTarget.textContent = d.ref;
+    textContainer.innerHTML = `<p>${d.texto}</p>`;
   }
 
-  // Activar botones y renderizar solo si la API funcionó
+  // Activar los botones del menú solo si los datos se descargaron correctamente
   if (apiExitosa) {
     botones.forEach(btn => {
       btn.addEventListener('click', (e) => {
@@ -323,6 +343,7 @@
         renderReading(e.target.getAttribute('data-target'));
       });
     });
+    // Iniciar mostrando el Evangelio por defecto
     renderReading('evangelio');
   }
 })();
