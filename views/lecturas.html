@@ -243,74 +243,68 @@
   // 1. Mostrar la fecha actual en la interfaz
   const opcionesFecha = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
   let fechaHoyTexto = new Date().toLocaleDateString('es-ES', opcionesFecha);
+  fechaHoyTexto = fechaHoyTexto.charAt(0).toUpperCase() + fechaHoyTexto.slice(1);
   document.getElementById('lecturas-fecha-actual').textContent = fechaHoyTexto;
 
   // Formato YYYY-MM-DD para la API
   const hoy = new Date();
   const dateAPI = `${hoy.getFullYear()}-${String(hoy.getMonth() + 1).padStart(2, '0')}-${String(hoy.getDate()).padStart(2, '0')}`;
   
-  // URL de la API pública de Evangelizo (AM = Español América)
+  // URL de la API pública de Evangelizo
   const apiUrl = `https://dailygospel.org/v2/api/feed?date=${dateAPI}&lang=AM`;
 
-  // Diccionario para guardar los textos extraídos
   const liturgiaData = {
-    evangelio: { titulo: "Evangelio", ref: "", texto: "No disponible." },
-    primera: { titulo: "Primera Lectura", ref: "", texto: "No disponible." },
-    salmo: { titulo: "Salmo", ref: "", texto: "No disponible." },
-    segunda: { titulo: "Segunda Lectura", ref: "", texto: "No disponible." }
+    evangelio: { titulo: "Evangelio", ref: "", texto: "Cargando..." },
+    primera: { titulo: "Primera Lectura", ref: "", texto: "Cargando..." },
+    salmo: { titulo: "Salmo", ref: "", texto: "Cargando..." },
+    segunda: { titulo: "Segunda Lectura", ref: "", texto: "Cargando..." }
   };
 
   const spinner = document.getElementById('reading-spinner');
   const textContainer = document.getElementById('reading-text');
+  const refTarget = document.getElementById('reading-ref');
+  const lblTarget = document.getElementById('reading-label');
+  const titleTarget = document.getElementById('reading-title');
+  const fiestaTarget = document.getElementById('lecturas-fiesta');
+  const colorTarget = document.getElementById('lecturas-color-badge');
+  const botones = document.querySelectorAll('.accar-menu-btn');
   
+  let apiExitosa = false;
   spinner.style.display = 'block';
 
   try {
     const response = await fetch(apiUrl);
+    if (!response.ok) throw new Error("Error en la respuesta del servidor");
     const data = await response.json();
 
-    // Llenar datos de la festividad
     if(data.fiestas && data.fiestas.length > 0) {
-      document.getElementById('lecturas-fiesta').textContent = data.fiestas[0].title;
-      document.getElementById('lecturas-color-badge').textContent = data.fiestas[0].color || 'Ordinario';
+      fiestaTarget.textContent = data.fiestas[0].title;
+      colorTarget.textContent = data.fiestas[0].color || 'Verde';
+    } else {
+      fiestaTarget.textContent = "Feria";
     }
 
-    // Extraer lecturas del objeto devuelto
     if (data.readings) {
       data.readings.forEach(reading => {
-        // Gospel = GSP, First Reading = FR, Psalm = PS, Second Reading = SR
-        const type = reading.type;
         const htmlText = reading.text.replace(/\n/g, '<br>');
-        
-        if (type === 'GSP') {
-          liturgiaData.evangelio.ref = reading.title;
-          liturgiaData.evangelio.texto = htmlText;
-        } else if (type === 'FR') {
-          liturgiaData.primera.ref = reading.title;
-          liturgiaData.primera.texto = htmlText;
-        } else if (type === 'PS') {
-          liturgiaData.salmo.ref = reading.title;
-          liturgiaData.salmo.texto = htmlText;
-        } else if (type === 'SR') {
-          liturgiaData.segunda.ref = reading.title;
+        if (reading.type === 'GSP') { liturgiaData.evangelio.ref = reading.title; liturgiaData.evangelio.texto = htmlText; }
+        else if (reading.type === 'FR') { liturgiaData.primera.ref = reading.title; liturgiaData.primera.texto = htmlText; }
+        else if (reading.type === 'PS') { liturgiaData.salmo.ref = reading.title; liturgiaData.salmo.texto = htmlText; }
+        else if (reading.type === 'SR') { 
+          liturgiaData.segunda.ref = reading.title; 
           liturgiaData.segunda.texto = htmlText;
-          document.getElementById('btn-segunda').style.display = 'block'; // Mostrar botón solo si hay 2da lectura
+          document.getElementById('btn-segunda').style.display = 'block'; 
         }
       });
+      apiExitosa = true;
     }
   } catch (error) {
-    console.error("Error conectando con Evangelizo:", error);
-    document.getElementById('reading-ref').textContent = "Error de conexión.";
-    textContainer.innerHTML = "<p>No pudimos descargar las lecturas del día. Por favor, revisa tu conexión a internet o intenta más tarde.</p>";
+    console.error("Error conectando con Evangelizo o bloqueado por CORS:", error);
+    refTarget.textContent = "Error de conexión externa";
+    textContainer.innerHTML = `<p>No pudimos descargar las lecturas. Esto ocurre si intentas abrir el archivo localmente (file:///). Por favor, navega desde el menú principal de tu aplicación web.</p>`;
   } finally {
     spinner.style.display = 'none';
   }
-
-  // Lógica para cambiar de lectura al hacer clic en los botones
-  const botones = document.querySelectorAll('.accar-menu-btn');
-  const lblTarget = document.getElementById('reading-label');
-  const titleTarget = document.getElementById('reading-title');
-  const refTarget = document.getElementById('reading-ref');
 
   function renderReading(targetId) {
     const data = liturgiaData[targetId];
@@ -320,16 +314,16 @@
     textContainer.innerHTML = `<p>${data.texto}</p>`;
   }
 
-  botones.forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      botones.forEach(b => b.classList.remove('active'));
-      e.target.classList.add('active');
-      const target = e.target.getAttribute('data-target');
-      renderReading(target);
+  // Activar botones y renderizar solo si la API funcionó
+  if (apiExitosa) {
+    botones.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        botones.forEach(b => b.classList.remove('active'));
+        e.target.classList.add('active');
+        renderReading(e.target.getAttribute('data-target'));
+      });
     });
-  });
-
-  // Renderizar Evangelio por defecto al cargar
-  renderReading('evangelio');
+    renderReading('evangelio');
+  }
 })();
 </script>
