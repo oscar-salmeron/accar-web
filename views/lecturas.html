@@ -43,7 +43,7 @@
       <div class="accar-reading-header">
         <span class="accar-reading-label" id="reading-label">EVANGELIO DE HOY</span>
         <h1 id="reading-title">Evangelio</h1>
-        <h3 id="reading-ref">Conectando con Evangelizo.org...</h3>
+        <h3 id="reading-ref">Conectando con Magisterium...</h3>
       </div>
 
       <div class="accar-reading-body">
@@ -113,8 +113,8 @@
 }
 
 .accar-lit-meta-small span {
-  border: 1px solid rgba(44, 182, 125, 0.6);
-  color: #2cb67d;
+  border: 1px solid rgba(212, 175, 55, 0.6);
+  color: #d4af37;
   font-size: 11px;
   padding: 4px 12px;
   border-radius: 50px;
@@ -252,11 +252,10 @@
   const mes = String(hoy.getMonth() + 1).padStart(2, '0');
   const dia = String(hoy.getDate()).padStart(2, '0');
   
-  // Mantenemos el truco del año 2024 mientras haces pruebas en 2026
-  const anioAPI = hoy.getFullYear() > 2025 ? '2024' : hoy.getFullYear();
+  // Ya no hackeamos el año. Enviamos la fecha real exacta.
+  const anioAPI = hoy.getFullYear();
   const dateAPI = `${anioAPI}-${mes}-${dia}`;
   
-  // Llamamos directamente a tu nuevo puente privado en Vercel
   const apiUrl = `/api/evangelizo?date=${dateAPI}`;
 
   const liturgiaData = {
@@ -278,6 +277,15 @@
   const anioTarget = document.getElementById('badge-anio');
   const botones = document.querySelectorAll('.accar-menu-btn');
   
+  // Mapeo dinámico de colores litúrgicos
+  const coloresLiturgicos = {
+    "VERDE": { bg: "rgba(44, 182, 125, 0.15)", border: "rgba(44, 182, 125, 0.6)", text: "#2cb67d" },
+    "BLANCO": { bg: "rgba(255, 255, 255, 0.15)", border: "rgba(255, 255, 255, 0.6)", text: "#ffffff" },
+    "MORADO": { bg: "rgba(128, 90, 213, 0.15)", border: "rgba(128, 90, 213, 0.6)", text: "#9f7aea" },
+    "ROJO": { bg: "rgba(229, 62, 62, 0.15)", border: "rgba(229, 62, 62, 0.6)", text: "#fc8181" },
+    "ROSADO": { bg: "rgba(237, 100, 166, 0.15)", border: "rgba(237, 100, 166, 0.6)", text: "#fbb6ce" }
+  };
+
   let apiExitosa = false;
   spinner.style.display = 'block';
 
@@ -290,7 +298,17 @@
 
     if(data.fiestas && data.fiestas.length > 0) {
       fiestaTarget.textContent = data.fiestas[0].title;
-      colorTarget.textContent = data.fiestas[0].color || 'Ordinario';
+      
+      const colorTexto = (data.fiestas[0].color || 'VERDE').toUpperCase();
+      colorTarget.textContent = colorTexto;
+      
+      // Aplicar color litúrgico dinámico al botón
+      if (coloresLiturgicos[colorTexto]) {
+        colorTarget.style.color = coloresLiturgicos[colorTexto].text;
+        colorTarget.style.borderColor = coloresLiturgicos[colorTexto].border;
+        colorTarget.style.backgroundColor = coloresLiturgicos[colorTexto].bg;
+      }
+      
       if(cicloTarget) cicloTarget.textContent = data.fiestas[0].ciclo || '';
       if(anioTarget) anioTarget.textContent = data.fiestas[0].anio || '';
     } else {
@@ -318,9 +336,9 @@
       apiExitosa = true;
     }
   } catch (error) {
-    console.error("Error conectando con Evangelizo:", error);
+    console.error("Error conectando con Magisterium:", error);
     refTarget.textContent = "Error de conexión";
-    textContainer.innerHTML = `<p>No pudimos descargar las lecturas del día. El sistema de Evangelizo podría estar en mantenimiento.</p>`;
+    textContainer.innerHTML = `<p>No pudimos descargar las lecturas del día. El sistema de Magisterium podría estar procesando los datos.</p>`;
   } finally {
     spinner.style.display = 'none';
   }
