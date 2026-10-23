@@ -8,7 +8,7 @@ export default async function handler(req, res) {
 
   // --- ¡ATENCIÓN! PEGA TU CLAVE API AQUÍ ---
   // Reemplaza "SK_ACC_..." con la clave real que generaste en Magisterium.
-  const apiKey = process.env.MAGISTERIUM_API_KEY || 'SK_ACC_PEGATUCLAVEAQUI';
+  const apiKey = process.env.MAGISTERIUM_API_KEY || 'sk_accar_9c7e095020d5d25a4508c147ecbc7d0b2ab9f086835beb3d35aa40b20b46af6d';
 
   const targetUrl = 'https://www.magisterium.com/api/v1/chat/completions';
   
