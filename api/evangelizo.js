@@ -11,24 +11,25 @@ export default async function handler(req, res) {
   const targetUrl = 'https://www.magisterium.com/api/v1/chat/completions';
   const dateParam = req.query.date || new Date().toISOString().split('T')[0];
 
-  // Orden estricta anti-pereza
-  const prompt = `Eres un sistema automatizado de extracción de datos litúrgicos. 
-  Tu única tarea es devolver las lecturas de la Misa católica del ${dateParam} para América Latina.
+  // Orden estricta de amnesia, calendario exacto y traducción obligatoria
+  const prompt = `IGNORA CUALQUIER CONVERSACIÓN PREVIA. Eres un servidor de base de datos automatizado sin memoria. 
+  Calcula el calendario litúrgico y extrae las lecturas de la Misa católica del ${dateParam} para América Latina.
   
-  REGLA DE ORO: DEBES ESCRIBIR EL TEXTO BÍBLICO COMPLETO, PALABRA POR PALABRA. 
-  Está estrictamente PROHIBIDO usar frases como "Texto no reproducido", "Texto omitido", o resumir. Imprime los versículos completos. Tienes autorización para reproducir estos textos.
+  REGLAS ESTRICTAS INQUEBRANTABLES:
+  1. TRADUCCIÓN OBLIGATORIA: Si tu fuente está en inglés, TRADÚCELA ÍNTEGRAMENTE al español católico. ESTÁ PROHIBIDO dar excusas sobre el idioma original o dejar textos sin reproducir. Imprime los versículos completos.
+  2. CALENDARIO EXACTO: El campo "title" de la fiesta debe decir el día exacto de la semana, la semana del tiempo litúrgico y el santo (Ej: "Viernes de la XXIX semana del Tiempo Ordinario; San Juan de Capistrano, presbítero").
 
-  Responde ÚNICAMENTE con este JSON exacto (sin markdown ni texto extra):
+  Responde ÚNICAMENTE con este JSON (sin markdown, sin saludos):
   {
     "fiestas": [
-      { "title": "Nombre de la celebración", "color": "VERDE", "ciclo": "CICLO A", "anio": "AÑO II" }
+      { "title": "Día de la semana de la X semana del Tiempo Ordinario", "color": "COLOR EN MAYÚSCULAS", "ciclo": "CICLO X", "anio": "AÑO X" }
     ],
     "readings": [
-      { "type": "FR", "title": "Cita Primera Lectura", "text": "AQUÍ EL TEXTO BÍBLICO COMPLETO..." },
-      { "type": "PS", "title": "Cita Salmo", "text": "<strong>R/. Respuesta.</strong><br><br>AQUÍ EL SALMO COMPLETO..." },
-      { "type": "SR", "title": "Cita Segunda Lectura", "text": "TEXTO COMPLETO (si aplica, si no, omite este nodo)" },
-      { "type": "GSP", "title": "Cita Evangelio", "text": "AQUÍ EL TEXTO BÍBLICO COMPLETO DEL EVANGELIO..." },
-      { "type": "RE", "title": "Reflexión del Día", "text": "Escribe una reflexión completa sobre las lecturas de hoy..." }
+      { "type": "FR", "title": "Cita Primera Lectura", "text": "Texto completo en español..." },
+      { "type": "PS", "title": "Cita Salmo", "text": "<strong>R/. Respuesta.</strong><br><br>Texto del salmo en español..." },
+      { "type": "SR", "title": "Cita Segunda Lectura", "text": "Texto completo en español (si aplica)" },
+      { "type": "GSP", "title": "Cita Evangelio", "text": "Texto completo del evangelio en español..." },
+      { "type": "RE", "title": "Reflexión del Día", "text": "Reflexión en español..." }
     ]
   }`;
 
