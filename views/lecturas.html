@@ -16,11 +16,16 @@
       <div class="accar-sidebar-box">
         <h4>Celebramos:</h4>
         <div class="accar-lit-meta-small">
-          <span id="badge-ciclo" class="dot-color">Ciclo A</span>
-          <span id="badge-anio" class="dot-color">Año II</span>
-          <span id="lecturas-color-badge" class="dot-color dot-verde">Verde</span>
+          <span class="badge-combined">
+            <span id="badge-ciclo">CICLO A</span> &nbsp;|&nbsp; 
+            <span id="badge-anio">AÑO II</span> &nbsp;|&nbsp; 
+            <span id="lecturas-color-badge" class="dot-color">VERDE</span>
+          </span>
         </div>
-        <p class="accar-lit-fiesta" id="lecturas-fiesta">Cargando celebración...</p>
+        <div class="accar-lit-fiesta">
+          <div id="fiesta-semana">Cargando celebración...</div>
+          <div id="fiesta-santo" style="margin-top: 5px; font-size: 13px; color: rgba(255,255,255,0.6);"></div>
+        </div>
       </div>
 
       <!-- Bloque: Menú de Lecturas -->
@@ -112,15 +117,21 @@
   margin-bottom: 12px;
 }
 
-.accar-lit-meta-small span {
-  border: 1px solid rgba(212, 175, 55, 0.6);
-  color: #d4af37;
+.badge-combined {
+  border: 1px solid rgba(212, 175, 55, 0.6); /* Borde dorado único */
+  color: #ffffff; /* Texto blanco por defecto */
   font-size: 11px;
-  padding: 4px 12px;
+  padding: 8px 16px;
   border-radius: 50px;
   text-transform: uppercase;
   font-weight: 800;
+  display: inline-block;
+  letter-spacing: 0.5px;
 }
+.badge-combined span {
+  display: inline-block;
+}
+/* El color se inyectará al span final mediante JS */
 
 .dot-color::before {
   content: '';
@@ -271,19 +282,20 @@
   const refTarget = document.getElementById('reading-ref');
   const lblTarget = document.getElementById('reading-label');
   const titleTarget = document.getElementById('reading-title');
-  const fiestaTarget = document.getElementById('lecturas-fiesta');
+  const semanaTarget = document.getElementById('fiesta-semana');
+  const santoTarget = document.getElementById('fiesta-santo');
   const colorTarget = document.getElementById('lecturas-color-badge');
   const cicloTarget = document.getElementById('badge-ciclo');
   const anioTarget = document.getElementById('badge-anio');
   const botones = document.querySelectorAll('.accar-menu-btn');
   
-  // Mapeo dinámico de colores litúrgicos
+  // Mapeo dinámico: Ahora solo cambia el color del texto y el punto
   const coloresLiturgicos = {
-    "VERDE": { bg: "rgba(44, 182, 125, 0.15)", border: "rgba(44, 182, 125, 0.6)", text: "#2cb67d" },
-    "BLANCO": { bg: "rgba(255, 255, 255, 0.15)", border: "rgba(255, 255, 255, 0.6)", text: "#ffffff" },
-    "MORADO": { bg: "rgba(128, 90, 213, 0.15)", border: "rgba(128, 90, 213, 0.6)", text: "#9f7aea" },
-    "ROJO": { bg: "rgba(229, 62, 62, 0.15)", border: "rgba(229, 62, 62, 0.6)", text: "#fc8181" },
-    "ROSADO": { bg: "rgba(237, 100, 166, 0.15)", border: "rgba(237, 100, 166, 0.6)", text: "#fbb6ce" }
+    "VERDE": "#2cb67d",
+    "BLANCO": "#ffffff",
+    "MORADO": "#9f7aea",
+    "ROJO": "#fc8181",
+    "ROSADO": "#fbb6ce"
   };
 
   let apiExitosa = false;
@@ -297,22 +309,22 @@
     const data = JSON.parse(rawText);
 
     if(data.fiestas && data.fiestas.length > 0) {
-      fiestaTarget.textContent = data.fiestas[0].title;
+      // Inyectar textos separados
+      if(semanaTarget) semanaTarget.textContent = data.fiestas[0].semana || '';
+      if(santoTarget) santoTarget.textContent = data.fiestas[0].santo || '';
       
       const colorTexto = (data.fiestas[0].color || 'VERDE').toUpperCase();
       colorTarget.textContent = colorTexto;
       
-      // Aplicar color litúrgico dinámico al botón
+      // Aplicar color únicamente a la palabra del color y su punto
       if (coloresLiturgicos[colorTexto]) {
-        colorTarget.style.color = coloresLiturgicos[colorTexto].text;
-        colorTarget.style.borderColor = coloresLiturgicos[colorTexto].border;
-        colorTarget.style.backgroundColor = coloresLiturgicos[colorTexto].bg;
+        colorTarget.style.color = coloresLiturgicos[colorTexto];
       }
       
       if(cicloTarget) cicloTarget.textContent = data.fiestas[0].ciclo || '';
       if(anioTarget) anioTarget.textContent = data.fiestas[0].anio || '';
     } else {
-      fiestaTarget.textContent = "Feria";
+      if(semanaTarget) semanaTarget.textContent = "Feria";
     }
 
     if (data.readings) {
