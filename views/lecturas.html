@@ -1,0 +1,335 @@
+<div class="accar-lecturas-view">
+  <div class="accar-lecturas-inner">
+    
+    <!-- COLUMNA IZQUIERDA: MENÚ DE NAVEGACIÓN -->
+    <aside class="accar-lecturas-sidebar">
+      
+      <!-- Bloque: Fecha -->
+      <div class="accar-sidebar-box">
+        <h4>Lecturas de hoy:</h4>
+        <div class="accar-date-badge" id="lecturas-fecha-actual">
+          Cargando fecha...
+        </div>
+      </div>
+
+      <!-- Bloque: Información Litúrgica -->
+      <div class="accar-sidebar-box">
+        <h4>Celebramos:</h4>
+        <div class="accar-lit-meta-small">
+          <span id="lecturas-color-badge" class="dot-color dot-verde">Verde</span>
+        </div>
+        <p class="accar-lit-fiesta" id="lecturas-fiesta">Cargando celebración...</p>
+      </div>
+
+      <!-- Bloque: Menú de Lecturas -->
+      <div class="accar-sidebar-box">
+        <h4>¿Qué quieres leer?</h4>
+        <nav class="accar-lecturas-menu" id="lecturas-menu">
+          <button class="accar-menu-btn active" data-target="evangelio">Evangelio</button>
+          <button class="accar-menu-btn" data-target="primera">Primera lectura</button>
+          <button class="accar-menu-btn" data-target="salmo">Salmo</button>
+          <button class="accar-menu-btn" data-target="segunda" id="btn-segunda" style="display: none;">Segunda lectura</button>
+        </nav>
+      </div>
+
+    </aside>
+
+    <!-- COLUMNA DERECHA: ÁREA DE LECTURA -->
+    <main class="accar-lecturas-content">
+      
+      <div class="accar-reading-header">
+        <span class="accar-reading-label" id="reading-label">EVANGELIO DE HOY</span>
+        <h1 id="reading-title">Evangelio</h1>
+        <h3 id="reading-ref">Conectando con Evangelizo.org...</h3>
+      </div>
+
+      <div class="accar-reading-body">
+        <div class="accar-spinner" id="reading-spinner"></div>
+        <div id="reading-text" class="accar-text-content">
+          <!-- Aquí se inyectará el texto de la lectura -->
+        </div>
+      </div>
+
+    </main>
+
+  </div>
+</div>
+
+<style>
+/* =========================================
+   ESTILOS DE LA VISTA DE LECTURAS
+========================================= */
+.accar-lecturas-view {
+  padding: 120px 20px 60px;
+  background: radial-gradient(circle at top, #0f3d3e 0%, #021617 100%);
+  min-height: 100vh;
+  color: #f8efd3;
+}
+
+.accar-lecturas-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 40px;
+  align-items: start;
+}
+
+/* --- SIDEBAR --- */
+.accar-sidebar-box {
+  background: rgba(9, 23, 45, 0.6);
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  border-radius: 16px;
+  padding: 24px;
+  margin-bottom: 24px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+}
+
+.accar-sidebar-box h4 {
+  color: #fff;
+  font-size: 15px;
+  margin: 0 0 16px 0;
+  font-weight: 700;
+}
+
+.accar-date-badge {
+  background: #2cb67d; /* Verde referencia */
+  color: #000;
+  font-weight: 800;
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.accar-lit-meta-small {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.accar-lit-meta-small span {
+  border: 1px solid rgba(44, 182, 125, 0.6);
+  color: #2cb67d;
+  font-size: 11px;
+  padding: 4px 12px;
+  border-radius: 50px;
+  text-transform: uppercase;
+  font-weight: 800;
+}
+
+.dot-color::before {
+  content: '';
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-right: 6px;
+  background: currentColor;
+}
+
+.accar-lit-fiesta {
+  font-size: 14px;
+  line-height: 1.5;
+  color: rgba(255,255,255,0.8);
+  margin: 0;
+}
+
+/* Menú de Botones */
+.accar-lecturas-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.accar-menu-btn {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: #fff;
+  padding: 14px 20px;
+  border-radius: 8px;
+  text-align: left;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: inherit;
+}
+
+.accar-menu-btn:hover {
+  background: rgba(255,255,255,0.1);
+  border-color: rgba(44, 182, 125, 0.4);
+}
+
+.accar-menu-btn.active {
+  background: #2cb67d;
+  color: #000;
+  border-color: #2cb67d;
+  font-weight: 800;
+  box-shadow: 0 4px 15px rgba(44, 182, 125, 0.3);
+}
+
+/* --- MAIN CONTENT --- */
+.accar-lecturas-content {
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(212, 175, 55, 0.15);
+  border-radius: 24px;
+  padding: 50px;
+}
+
+.accar-reading-label {
+  color: #2cb67d;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 10px;
+}
+
+#reading-title {
+  color: #fff;
+  font-size: 42px;
+  margin: 0 0 10px 0;
+  font-weight: 800;
+}
+
+#reading-ref {
+  color: #a4a7ab;
+  font-size: 18px;
+  margin: 0 0 40px 0;
+  font-weight: normal;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  padding-bottom: 30px;
+}
+
+.accar-text-content {
+  font-size: 18px;
+  line-height: 1.85;
+  color: #e7dcc5;
+}
+
+.accar-text-content p {
+  margin-bottom: 24px;
+}
+
+/* Spinner de carga */
+.accar-spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid rgba(212, 175, 55, 0.2);
+  border-left-color: #d4af37;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 40px auto;
+  display: none;
+}
+@keyframes spin { 100% { transform: rotate(360deg); } }
+
+/* Responsivo */
+@media (max-width: 900px) {
+  .accar-lecturas-inner {
+    grid-template-columns: 1fr;
+  }
+  .accar-lecturas-content {
+    padding: 30px 20px;
+  }
+}
+</style>
+
+<script>
+(async function initLecturas() {
+  // 1. Mostrar la fecha actual en la interfaz
+  const opcionesFecha = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
+  let fechaHoyTexto = new Date().toLocaleDateString('es-ES', opcionesFecha);
+  document.getElementById('lecturas-fecha-actual').textContent = fechaHoyTexto;
+
+  // Formato YYYY-MM-DD para la API
+  const hoy = new Date();
+  const dateAPI = `${hoy.getFullYear()}-${String(hoy.getMonth() + 1).padStart(2, '0')}-${String(hoy.getDate()).padStart(2, '0')}`;
+  
+  // URL de la API pública de Evangelizo (AM = Español América)
+  const apiUrl = `https://dailygospel.org/v2/api/feed?date=${dateAPI}&lang=AM`;
+
+  // Diccionario para guardar los textos extraídos
+  const liturgiaData = {
+    evangelio: { titulo: "Evangelio", ref: "", texto: "No disponible." },
+    primera: { titulo: "Primera Lectura", ref: "", texto: "No disponible." },
+    salmo: { titulo: "Salmo", ref: "", texto: "No disponible." },
+    segunda: { titulo: "Segunda Lectura", ref: "", texto: "No disponible." }
+  };
+
+  const spinner = document.getElementById('reading-spinner');
+  const textContainer = document.getElementById('reading-text');
+  
+  spinner.style.display = 'block';
+
+  try {
+    const response = await fetch(apiUrl);
+    const data = await response.json();
+
+    // Llenar datos de la festividad
+    if(data.fiestas && data.fiestas.length > 0) {
+      document.getElementById('lecturas-fiesta').textContent = data.fiestas[0].title;
+      document.getElementById('lecturas-color-badge').textContent = data.fiestas[0].color || 'Ordinario';
+    }
+
+    // Extraer lecturas del objeto devuelto
+    if (data.readings) {
+      data.readings.forEach(reading => {
+        // Gospel = GSP, First Reading = FR, Psalm = PS, Second Reading = SR
+        const type = reading.type;
+        const htmlText = reading.text.replace(/\n/g, '<br>');
+        
+        if (type === 'GSP') {
+          liturgiaData.evangelio.ref = reading.title;
+          liturgiaData.evangelio.texto = htmlText;
+        } else if (type === 'FR') {
+          liturgiaData.primera.ref = reading.title;
+          liturgiaData.primera.texto = htmlText;
+        } else if (type === 'PS') {
+          liturgiaData.salmo.ref = reading.title;
+          liturgiaData.salmo.texto = htmlText;
+        } else if (type === 'SR') {
+          liturgiaData.segunda.ref = reading.title;
+          liturgiaData.segunda.texto = htmlText;
+          document.getElementById('btn-segunda').style.display = 'block'; // Mostrar botón solo si hay 2da lectura
+        }
+      });
+    }
+  } catch (error) {
+    console.error("Error conectando con Evangelizo:", error);
+    document.getElementById('reading-ref').textContent = "Error de conexión.";
+    textContainer.innerHTML = "<p>No pudimos descargar las lecturas del día. Por favor, revisa tu conexión a internet o intenta más tarde.</p>";
+  } finally {
+    spinner.style.display = 'none';
+  }
+
+  // Lógica para cambiar de lectura al hacer clic en los botones
+  const botones = document.querySelectorAll('.accar-menu-btn');
+  const lblTarget = document.getElementById('reading-label');
+  const titleTarget = document.getElementById('reading-title');
+  const refTarget = document.getElementById('reading-ref');
+
+  function renderReading(targetId) {
+    const data = liturgiaData[targetId];
+    lblTarget.textContent = data.titulo.toUpperCase() + " DE HOY";
+    titleTarget.textContent = data.titulo;
+    refTarget.textContent = data.ref;
+    textContainer.innerHTML = `<p>${data.texto}</p>`;
+  }
+
+  botones.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      botones.forEach(b => b.classList.remove('active'));
+      e.target.classList.add('active');
+      const target = e.target.getAttribute('data-target');
+      renderReading(target);
+    });
+  });
+
+  // Renderizar Evangelio por defecto al cargar
+  renderReading('evangelio');
+})();
+</script>
