@@ -249,12 +249,12 @@
   const mes = String(hoy.getMonth() + 1).padStart(2, '0');
   const dia = String(hoy.getDate()).padStart(2, '0');
   
-  // TRUCO: Forzamos el año 2024 para la API porque Evangelizo aún no tiene textos de 2026.
+  // Mantenemos el truco del año 2024 mientras haces pruebas en 2026
   const anioAPI = hoy.getFullYear() > 2025 ? '2024' : hoy.getFullYear();
   const dateAPI = `${anioAPI}-${mes}-${dia}`;
   
-  const urlEvangelizo = `https://dailygospel.org/v2/api/feed?date=${dateAPI}&lang=AM`;
-  const apiUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(urlEvangelizo)}`;
+  // Llamamos directamente a tu nuevo puente privado en Vercel
+  const apiUrl = `/api/evangelizo?date=${dateAPI}`;
 
   const liturgiaData = {
     evangelio: { titulo: "Evangelio", ref: "", texto: "Cargando..." },
