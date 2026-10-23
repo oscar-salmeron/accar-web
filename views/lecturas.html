@@ -277,8 +277,16 @@
 
   try {
     const response = await fetch(apiUrl);
+    
+    // DIAGNÓSTICO: Leemos la respuesta como texto crudo primero
+    const rawText = await response.text(); 
+    console.log("=== DIAGNÓSTICO: RESPUESTA DEL SERVIDOR ===");
+    console.log(rawText.substring(0, 500)); // Imprimimos los primeros 500 caracteres
+    
     if (!response.ok) throw new Error("Error en la respuesta del servidor");
-    const data = await response.json();
+    
+    // Intentamos procesarlo como JSON
+    const data = JSON.parse(rawText);
 
     if(data.fiestas && data.fiestas.length > 0) {
       fiestaTarget.textContent = data.fiestas[0].title;
