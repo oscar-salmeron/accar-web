@@ -408,8 +408,9 @@
 
         .testament-card img {
             width: 100%;
-            max-width: 440px; /* Tamaño majestuoso para los pergaminos */
-            height: auto;
+            max-width: 440px; 
+            height: 600px; /* Forzamos exactamente el mismo alto para ambas */
+            object-fit: contain; /* Evita que la imagen se deforme o se estire */
             transition: all 0.4s ease;
         }
     </style>
@@ -439,10 +440,10 @@
                 <img src="/assets/img/portada_nuevo.png" alt="Nuevo Testamento">
             </div>
         </div>
-    </div>
+    </div> <!-- Cierra intro-directory -->
 
     <!-- CONTENEDOR DEL ANTIGUO TESTAMENTO (Oculto por defecto) -->
-    <div id="ot-container" style="display: none; width: 100%; display: flex; flex-direction: column; align-items: center;">
+    <div id="ot-container" style="display: none; width: 100%; flex-direction: column; align-items: center;">
         <button class="btn-compendio" onclick="volverInicio()" style="margin-bottom: 30px;">◄ Volver a los Testamentos</button>
         <div class="accordion-container" id="accordion-ot">
         
