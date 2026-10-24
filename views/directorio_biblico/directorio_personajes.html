@@ -409,11 +409,61 @@
         .testament-card img {
             width: 100%;
             max-width: 420px;
-            height: 580px; /* Alto fijo estricto para obligar a que midan lo mismo */
-            object-fit: contain; /* Encaja la imagen sin deformarla ni estirarla */
-            object-position: center; /* Asegura que ambas floten perfectamente al centro */
+            height: 580px; 
+            object-fit: contain; 
+            object-position: center; 
             transition: all 0.4s ease;
         }
+
+        /* ==========================================
+           AJUSTES PARA DISPOSITIVOS MÓVILES
+        ========================================== */
+        @media (max-width: 768px) {
+            /* 1. Evitar que el Header y la página se desborden horizontalmente */
+            html, body {
+                overflow-x: hidden;
+                width: 100%;
+            }
+
+            /* Forzar a que los textos largos del header bajen de línea */
+            * {
+                word-wrap: break-word;
+            }
+
+            /* 2. Apilar los pergaminos uno encima del otro */
+            .testament-selector {
+                flex-direction: column;
+                align-items: center;
+                gap: 40px; /* Separación entre el Antiguo y el Nuevo Testamento */
+            }
+
+            /* 3. Agrandar las imágenes para que luzcan imponentes en móvil */
+            .testament-card {
+                width: 100%;
+                padding: 0;
+            }
+
+            .testament-card img {
+                max-width: 95%; /* Ocupa casi todo el ancho de la pantalla del celular */
+                height: auto; /* Permite que crezca proporcionalmente */
+                max-height: 550px;
+            }
+
+            /* 4. Ajustar un poco el texto apologético para que no sature la pantallita */
+            .apologetic-banner {
+                padding: 15px;
+                margin-bottom: 20px;
+            }
+
+            .apologetic-banner p {
+                font-size: 14px;
+            }
+            
+            .apologetic-banner p strong {
+                font-size: 16px !important;
+            }
+        }
+    </style>
     </style>
 </head>
 <body>
