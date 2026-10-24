@@ -904,9 +904,9 @@
   <section class="hero">
     <div class="wrap hero-inner" style="min-height:auto; padding-top:40px;">
       
-      <!-- Breadcrumb opcional para no perder el rastro -->
-      <nav aria-label="breadcrumb" style="margin-bottom:20px; color:#d4af37; font-size:0.9rem; font-weight:bold;">
-        <a href="https://apologeticaccar.com">Inicio</a> &gt; <a href="https://apologeticaccar.com/lista-de-papas">Papas</a> &gt; <span style="color:#fff4d0;">Papa Francisco</span>
+      <!-- Breadcrumb con enlace SPA correcto -->
+      <nav aria-label="breadcrumb" style="margin-bottom:20px; color:#d4af37; font-size:0.95rem; font-weight:bold;">
+        <a href="#" onclick="event.preventDefault(); loadView('views/lista-de-papas.html');">← Volver al Directorio Pontificio</a>
       </nav>
 
       <div class="hero-card">
@@ -1493,7 +1493,10 @@
     });
 
     function goToPapas(){
-      window.location.href = PAPAS_URL;
+      event.preventDefault();
+      if (typeof loadView === 'function') {
+        loadView('views/lista-de-papas.html');
+      }
     }
 
     const btnPapas = document.getElementById("btnPapas");
