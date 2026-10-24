@@ -415,35 +415,35 @@
             transition: all 0.4s ease;
         }
 
-        /* ==========================================
+       /* ==========================================
            AJUSTES PARA DISPOSITIVOS MÓVILES
         ========================================== */
         @media (max-width: 768px) {
-            /* 1. Evitar que el Header y la página se desborden horizontalmente */
+            /* 1. Evitar desbordamiento global sin romper los contenedores */
             html, body {
                 overflow-x: hidden;
                 width: 100%;
             }
 
-            /* Forzar a que los textos largos del header bajen de línea */
-            * {
-                word-wrap: break-word;
-            }
-            
-            /* CORRECCIÓN ESPECÍFICA PARA EL HEADER GLOBAl */
-            header, .top-bar, .header-container, nav {
-                max-width: 100vw !important;
-                overflow-x: hidden;
+            /* 2. PROTEGER EL TICKER Y EL MENÚ */
+            /* Obligar al ticker superior a mantenerse en una sola línea horizontal */
+            .top-bar, .top-bar *, .ticker-wrap, .ticker-wrap * {
+                white-space: nowrap !important;
             }
 
-            header p, header span, header div, 
-            .top-bar p, .top-bar span,
-            .header-subtitle {
-                white-space: normal !important; /* Obliga al texto a bajar de línea */
-                word-break: break-word;
-                text-align: center;
-                padding-left: 10px;
-                padding-right: 10px;
+            /* Alinear el título "Apologética Católica" a la izquierda y proteger el header */
+            header .logo-container, header .navbar-brand, header h1, header h2 {
+                text-align: left !important;
+            }
+            
+            header, nav, .top-bar {
+                max-width: 100vw !important;
+            }
+
+            /* 3. Forzar el salto de línea SOLO en los textos largos sin dañar la estructura */
+            .header-subtitle, .glass-card p, .hero-content p, .apologetic-banner p {
+                white-space: normal !important;
+                word-wrap: break-word;
             }
 
             /* 2. Apilar los pergaminos uno encima del otro */
