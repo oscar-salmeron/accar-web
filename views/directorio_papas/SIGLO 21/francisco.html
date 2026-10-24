@@ -1447,11 +1447,9 @@
     function showPanel(name){
       panelNames.forEach(panel => {
         const panelEl = document.getElementById("panel-" + panel);
-
         if(panelEl){
           panelEl.classList.toggle("active", panel === name);
         }
-
         document.querySelectorAll('[data-target="' + panel + '"]').forEach(btnEl => {
           btnEl.classList.toggle("active", panel === name);
         });
@@ -1459,16 +1457,17 @@
 
       closeMobileMenu();
       
-      // Encuentra el inicio de la sección principal
-      const mainShell = document.querySelector('.main-shell');
-      // Encuentra el header global de tu sitio (asumiendo que tiene un alto fijo)
+      const navBar = document.querySelector('.hero-nav');
       const siteHeader = document.getElementById('siteHeader'); 
       
-      if (mainShell) {
-        // Calcula la posición exacta, restando la altura del header global para que no lo tape
-        const headerOffset = siteHeader ? siteHeader.offsetHeight : 80; 
-        const elementPosition = mainShell.getBoundingClientRect().top;
-        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+      if (navBar) {
+        // Alinea la vista justo en la barra de botones (hero-nav)
+        const headerOffset = siteHeader ? siteHeader.offsetHeight : 0; 
+        // Obtenemos la posición Y absoluta del contenedor de botones
+        const navPosition = navBar.getBoundingClientRect().top + window.pageYOffset;
+        
+        // Ajustamos restando un margen pequeño para que los botones queden en el borde superior visible
+        const offsetPosition = navPosition - headerOffset - 20;
 
         window.scrollTo({
           top: offsetPosition,
