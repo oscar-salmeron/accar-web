@@ -408,9 +408,10 @@
 
         .testament-card img {
             width: 100%;
-            max-width: 440px; 
-            height: 600px; /* Forzamos exactamente el mismo alto para ambas */
-            object-fit: contain; /* Evita que la imagen se deforme o se estire */
+            max-width: 420px;
+            height: 580px; /* Alto fijo estricto para obligar a que midan lo mismo */
+            object-fit: contain; /* Encaja la imagen sin deformarla ni estirarla */
+            object-position: center; /* Asegura que ambas floten perfectamente al centro */
             transition: all 0.4s ease;
         }
     </style>
