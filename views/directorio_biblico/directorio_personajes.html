@@ -429,6 +429,22 @@
             * {
                 word-wrap: break-word;
             }
+            
+            /* CORRECCIÓN ESPECÍFICA PARA EL HEADER GLOBAl */
+            header, .top-bar, .header-container, nav {
+                max-width: 100vw !important;
+                overflow-x: hidden;
+            }
+
+            header p, header span, header div, 
+            .top-bar p, .top-bar span,
+            .header-subtitle {
+                white-space: normal !important; /* Obliga al texto a bajar de línea */
+                word-break: break-word;
+                text-align: center;
+                padding-left: 10px;
+                padding-right: 10px;
+            }
 
             /* 2. Apilar los pergaminos uno encima del otro */
             .testament-selector {
