@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Directorio de Papas | ACCAR</title>
+  <style>
+    :root {
+      --azul-oscuro: #0c1f3f;
+      --dorado: #d4af37;
+      --texto: #f8efd3;
+      --fondo: #061124;
+    }
+    body {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      background-color: var(--fondo);
+      color: var(--texto);
+    }
+    .wrap {
+      width: min(1000px, calc(100% - 40px));
+      margin: 50px auto;
+    }
+    .page-title {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    .page-title h1 {
+      font-size: 2.8rem;
+      color: var(--dorado);
+      margin: 0 0 10px;
+      font-variant: small-caps;
+    }
+    .page-title p {
+      font-style: italic;
+      color: #a3b8cc;
+      font-size: 1.1rem;
+      margin: 0;
+    }
+    
+    /* Acordeón (Cinta del Siglo) */
+    .century-acc {
+      border: 1px solid rgba(212, 175, 55, 0.4);
+      border-radius: 12px;
+      background: linear-gradient(90deg, rgba(12, 31, 63, 0.9), rgba(6, 17, 36, 0.9));
+      margin-bottom: 20px;
+      overflow: hidden;
+    }
+    .century-header {
+      display: flex;
+      align-items: center;
+      padding: 15px 25px;
+      cursor: pointer;
+      user-select: none;
+    }
+    .century-icon {
+      width: 60px;
+      margin-right: 20px;
+      filter: drop-shadow(0 4px 6px rgba(0,0,0,0.5));
+    }
+    .century-title-box {
+      flex-grow: 1;
+    }
+    .century-title-box h2 {
+      margin: 0;
+      font-size: 1.8rem;
+      color: var(--dorado);
+      font-variant: small-caps;
+    }
+    .century-title-box p {
+      margin: 4px 0 0;
+      font-size: 0.95rem;
+      color: #a3b8cc;
+      font-style: italic;
+    }
+    .century-toggle {
+      font-size: 2rem;
+      color: var(--dorado);
+      transition: transform 0.3s ease;
+    }
+    .century-acc.open .century-toggle {
+      transform: rotate(45deg);
+    }
+    
+    /* Grid de Tarjetas */
+    .century-content {
+      display: none;
+      padding: 25px;
+      background: rgba(8, 18, 35, 0.6);
+      border-top: 1px solid rgba(212, 175, 55, 0.2);
+    }
+    .century-acc.open .century-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+    }
+    
+    /* Tarjeta Papal */
+    .pope-card {
+      background: linear-gradient(180deg, rgba(18, 45, 87, 0.8), rgba(10, 25, 50, 0.9));
+      border: 1px solid rgba(212, 175, 55, 0.3);
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+      display: flex;
+      flex-direction: column;
+    }
+    .pope-img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      border: 2px solid var(--dorado);
+      margin: 0 auto 15px;
+      object-fit: cover;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    }
+    .pope-name {
+      margin: 0 0 5px;
+      font-size: 1.4rem;
+      color: #fff;
+    }
+    .pope-secular {
+      font-size: 0.9rem;
+      color: #a3b8cc;
+      margin: 0 0 10px;
+    }
+    .pope-dates {
+      font-size: 0.95rem;
+      color: var(--dorado);
+      margin-bottom: 20px;
+      flex-grow: 1;
+    }
+    .pope-btn {
+      display: inline-block;
+      padding: 10px 15px;
+      background: transparent;
+      border: 1px solid var(--dorado);
+      color: var(--dorado);
+      text-decoration: none;
+      border-radius: 6px;
+      font-weight: bold;
+      font-size: 0.9rem;
+      transition: all 0.2s;
+    }
+    .pope-btn:hover {
+      background: var(--dorado);
+      color: var(--fondo);
+    }
+    .pope-btn.active-pope {
+      background: linear-gradient(180deg, #d4af37, #aa8822);
+      color: #111;
+      border: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="wrap">
+    <div class="page-title">
+      <h1>Directorio Pontificio</h1>
+      <p>«Ubi Petrus, ibi Ecclesia»</p>
+    </div>
+
+    <!-- SIGLO XXI -->
+    <div class="century-acc open">
+      <div class="century-header" onclick="this.parentElement.classList.toggle('open')">
+        <img src="../img/escudo_vicarius_christi.png" alt="Vicarius Christi" class="century-icon">
+        <div class="century-title-box">
+          <h2>Siglo XXI</h2>
+          <p>2001 – Presente | Desde San Juan Pablo II hasta León XIV</p>
+        </div>
+        <div class="century-toggle">+</div>
+      </div>
+      
+      <div class="century-content">
+        
+        <!-- León XIV -->
+        <article class="pope-card">
+          <img src="../img/267_leone_XIV.png" alt="León XIV" class="pope-img">
+          <h3 class="pope-name">León XIV</h3>
+          <p class="pope-secular">Robert Prevost</p>
+          <p class="pope-dates">2025 – Presente<br><em>Papa Reinante</em></p>
+          <a href="https://www.vatican.va/content/vatican/es.html" target="_blank" class="pope-btn active-pope">Magisterio Actual (Santa Sede) ↗</a>
+        </article>
+
+        <!-- Francisco -->
+        <article class="pope-card">
+          <img src="../img/266_francesco.png" alt="Francisco" class="pope-img">
+          <h3 class="pope-name">Francisco</h3>
+          <p class="pope-secular">Jorge Mario Bergoglio</p>
+          <p class="pope-dates">2013 – 2025</p>
+          <a href="directorio_papas/SIGLO 21/francisco.html" class="pope-btn">Ver Ficha Histórica</a>
+        </article>
+
+        <!-- Benedicto XVI -->
+        <article class="pope-card">
+          <img src="../img/265_benedetto_XVI.png" alt="Benedicto XVI" class="pope-img">
+          <h3 class="pope-name">Benedicto XVI</h3>
+          <p class="pope-secular">Joseph Ratzinger</p>
+          <p class="pope-dates">2005 – 2013</p>
+          <a href="#" class="pope-btn">Ver Ficha Histórica</a>
+        </article>
+
+      </div>
+    </div>
+    
+  </div>
+
+</body>
+</html>
