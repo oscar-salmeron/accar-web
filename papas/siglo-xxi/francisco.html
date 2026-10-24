@@ -900,49 +900,14 @@
 </head>
 <body>
 
-  <!-- ===== INICIO HERO ===== -->
-  <header class="hero">
-    <div class="wrap hero-inner">
-
-      <!-- ===== INICIO BANDA SUPERIOR ===== -->
-      <div class="top-brand">
-        <a href="https://apologeticaccar.com" aria-label="Ir al inicio de Apologética Católica">
-          <img src="../../assets/img/logo-accar.png" alt="Logo ACCAR">
-          <div class="top-brand-text">
-            <span class="line-1">Apologética Católica Cristiana</span>
-            <span class="line-2">Apostólica Romana</span>
-          </div>
-        </a>
-
-        <button
-          type="button"
-          class="mobile-menu-toggle"
-          id="mobileMenuToggle"
-          aria-label="Abrir menú de navegación"
-          aria-expanded="false"
-          aria-controls="mobileNavPanel"
-        >
-          <div>
-            <span></span>
-            <span></span>
-            <span></span>
-          </div>
-        </button>
-      </div>
-
-      <div class="mobile-nav-panel" id="mobileNavPanel">
-        <div class="mobile-nav-card">
-          <div class="mobile-nav-list">
-            <button class="mobile-nav-btn active" type="button" data-target="inicio">Inicio</button>
-            <button class="mobile-nav-btn" type="button" data-target="biografia">Biografía</button>
-            <button class="mobile-nav-btn" type="button" data-target="contexto">Contexto</button>
-            <button class="mobile-nav-btn" type="button" data-target="pontificado">Pontificado</button>
-            <button class="mobile-nav-btn" type="button" data-target="documentos">Documentos</button>
-            <button class="mobile-nav-btn" type="button" id="btnPapasMobile">Papas</button>
-          </div>
-        </div>
-      </div>
-      <!-- ===== FINAL BANDA SUPERIOR ===== -->
+  <!-- ===== INICIO HERO LOCAL (Se ubicará debajo de tu Header Global) ===== -->
+  <section class="hero">
+    <div class="wrap hero-inner" style="min-height:auto; padding-top:40px;">
+      
+      <!-- Breadcrumb opcional para no perder el rastro -->
+      <nav aria-label="breadcrumb" style="margin-bottom:20px; color:#d4af37; font-size:0.9rem; font-weight:bold;">
+        <a href="https://apologeticaccar.com">Inicio</a> &gt; <a href="https://apologeticaccar.com/lista-de-papas">Papas</a> &gt; <span style="color:#fff4d0;">Papa Francisco</span>
+      </nav>
 
       <div class="hero-card">
         <div class="hero-photo">
@@ -1446,57 +1411,7 @@
   </main>
   <!-- ===== FINAL MAIN ===== -->
 
-  <!-- ===== INICIO FOOTER ===== -->
-  <footer class="footer">
-    <div class="wrap footer-inner">
-      <div class="footer-card">
-
-        <div class="footer-top">
-          <div class="footer-col">
-            <div class="footer-brand">
-              <a class="footer-brand-logo" href="https://apologeticaccar.com" aria-label="Ir al inicio de Apologética Católica">
-                <img src="../../assets/img/logo-accar.png" alt="Logo ACCAR">
-              </a>
-
-              <div class="footer-brand-copy">
-                <p>Formación, defensa y explicación de la fe católica con fidelidad al magisterio de la Iglesia.</p>
-                <p><em>“Defendiendo la fe con verdad, caridad y fundamento apostólico.”</em></p>
-              </div>
-            </div>
-          </div>
-
-          <div class="footer-col">
-            <h4>Enlaces</h4>
-            <div class="footer-links">
-              <button type="button" onclick="showPanel('biografia')">Biografía</button>
-              <button type="button" onclick="showPanel('contexto')">Contexto</button>
-              <button type="button" onclick="showPanel('pontificado')">Pontificado</button>
-              <button type="button" onclick="showPanel('documentos')">Documentos</button>
-              <button type="button" id="btnPapasFooter">Papas</button>
-            </div>
-          </div>
-
-          <div class="footer-col contact-col">
-            <h4>Contacto</h4>
-            <div class="footer-contact">
-              <a href="mailto:accar33@icloud.com">accar33@icloud.com</a>
-              <div>Atención orientativa para formación y consulta apologética.</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="footer-divider"></div>
-
-        <div class="footer-legal">
-          © <span id="yearActual"></span> Apologética ACCAR. Todos los derechos reservados.<br>
-          Diseño y Desarrollo por Olgwal Studio Vision<br>
-          Web Development · Digital Strategy
-        </div>
-
-      </div>
-    </div>
-  </footer>
-  <!-- ===== FINAL FOOTER ===== -->
+  <!-- ELIMINADO: Aquí renderizará el Footer Global de tu plataforma -->
 
   <script>
     /* ===== INICIO SCRIPT ===== */
