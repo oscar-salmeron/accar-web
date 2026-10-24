@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    /* ===== RESET Y CONTENEDOR ===== */
+    .historia-wrap {
+      width: min(1180px, calc(100% - 40px));
+      margin: 80px auto;
+      font-family: Georgia, "Times New Roman", serif;
+      color: #f8efd3;
+    }
+
+    /* ===== CABECERA ===== */
+    .historia-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .historia-kicker {
+      display: inline-block;
+      font-size: 0.85rem;
+      font-weight: 800;
+      letter-spacing: 3px;
+      color: #D4AF37;
+      text-transform: uppercase;
+      margin-bottom: 15px;
+    }
+
+    .historia-title {
+      margin: 0 0 15px;
+      font-size: 3.2rem;
+      color: #ffffff;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+      font-weight: normal;
+    }
+
+    .historia-subtitle {
+      max-width: 700px;
+      margin: 0 auto 30px;
+      font-size: 1.1rem;
+      line-height: 1.6;
+      color: #a3b8cc;
+    }
+
+    .historia-divider {
+      width: 60px;
+      height: 2px;
+      background: #D4AF37;
+      margin: 0 auto;
+      box-shadow: 0 0 10px #D4AF37;
+    }
+
+    /* ===== GRID DE TARJETAS ===== */
+    .historia-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 30px;
+      justify-content: center;
+    }
+
+    /* ===== TARJETAS ===== */
+    .historia-card {
+      background: #050d1a;
+      border: 1px solid rgba(212, 175, 55, 0.2);
+      border-radius: 12px;
+      padding: 40px 30px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-decoration: none;
+      transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+      position: relative;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+      cursor: pointer;
+    }
+
+    /* Halo sutil de fondo */
+    .historia-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: radial-gradient(circle at top center, rgba(212,175,55,0.08) 0%, transparent 70%);
+      border-radius: 12px;
+      opacity: 0.5;
+      transition: opacity 0.4s ease;
+      z-index: 1;
+    }
+
+    /* Borde interior (Efecto glow en hover) */
+    .historia-card::after {
+      content: '';
+      position: absolute;
+      top: -1px; left: -1px; right: -1px; bottom: -1px;
+      border-radius: 12px;
+      border: 1px solid #D4AF37;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      box-shadow: inset 0 0 20px rgba(212,175,55,0.2), 0 0 15px rgba(212,175,55,0.4);
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .historia-card:hover {
+      transform: translateY(-8px);
+      background: #081428;
+    }
+
+    .historia-card:hover::before,
+    .historia-card:hover::after {
+      opacity: 1;
+    }
+
+    /* Elementos internos */
+    .historia-icon {
+      width: 90px;
+      height: auto;
+      margin-bottom: 25px;
+      filter: drop-shadow(0 10px 15px rgba(0,0,0,0.8));
+      position: relative;
+      z-index: 3;
+      transition: transform 0.4s ease;
+    }
+
+    .historia-card:hover .historia-icon {
+      transform: scale(1.05) translateY(-4px);
+    }
+
+    .historia-card-title {
+      font-size: 1.8rem;
+      color: #D4AF37;
+      margin: 0 0 15px;
+      position: relative;
+      z-index: 3;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+    }
+
+    .historia-card-desc {
+      font-size: 1rem;
+      line-height: 1.6;
+      color: #b0c4de;
+      margin: 0 0 30px;
+      position: relative;
+      z-index: 3;
+      flex-grow: 1;
+    }
+
+    .historia-acceder {
+      font-size: 0.85rem;
+      font-weight: 800;
+      letter-spacing: 2px;
+      color: #a4a7ab;
+      text-transform: uppercase;
+      position: relative;
+      z-index: 3;
+      transition: color 0.3s ease;
+    }
+
+    .historia-card:hover .historia-acceder {
+      color: #D4AF37;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      .historia-wrap { margin: 40px auto; }
+      .historia-title { font-size: 2.4rem; }
+      .historia-card { padding: 35px 25px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="historia-wrap">
+    
+    <div class="historia-header">
+      <span class="historia-kicker">Historia Magistra Vitae</span>
+      <h1 class="historia-title">Historia de la Iglesia</h1>
+      <p class="historia-subtitle">
+        El devenir de la barca de Pedro a través de los siglos. Conoce a los sucesores del Apóstol, 
+        los concilios que definieron la ortodoxia y los santos Padres que cimentaron nuestra fe.
+      </p>
+      <div class="historia-divider"></div>
+    </div>
+
+    <div class="historia-grid">
+      
+      <!-- TARJETA: PAPAS -->
+      <a href="#" onclick="event.preventDefault(); loadView('views/lista-de-papas.html');" class="historia-card">
+        <img src="assets/img/escudo_vicarius_christi.png" alt="Icono Papas" class="historia-icon">
+        <h2 class="historia-card-title">Papas</h2>
+        <p class="historia-card-desc">
+          Directorio histórico de los Sumos Pontífices, sucesores de San Pedro y Vicarios de Cristo en la tierra.
+        </p>
+        <span class="historia-acceder">Acceder ➔</span>
+      </a>
+
+      <!-- TARJETA: CONCILIOS -->
+      <a href="#" onclick="event.preventDefault(); loadView('views/construccion.html');" class="historia-card">
+        <img src="assets/img/icono_doctrina.png" alt="Icono Concilios" class="historia-icon">
+        <h2 class="historia-card-title">Concilios</h2>
+        <p class="historia-card-desc">
+          Asambleas ecuménicas que, asistidas por el Espíritu Santo, han defendido y proclamado el dogma católico.
+        </p>
+        <span class="historia-acceder">Acceder ➔</span>
+      </a>
+
+      <!-- TARJETA: PADRES DE LA IGLESIA -->
+      <a href="#" onclick="event.preventDefault(); loadView('views/construccion.html');" class="historia-card">
+        <img src="assets/img/icono_biblioteca.png" alt="Icono Padres" class="historia-icon">
+        <h2 class="historia-card-title">Padres de la Iglesia</h2>
+        <p class="historia-card-desc">
+          Grandes teólogos, obispos y mártires de los primeros siglos que cimentaron la sagrada Tradición.
+        </p>
+        <span class="historia-acceder">Acceder ➔</span>
+      </a>
+
+    </div>
+
+  </div>
+
+</body>
+</html>
