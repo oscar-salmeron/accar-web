@@ -1458,7 +1458,23 @@
       });
 
       closeMobileMenu();
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      
+      // Encuentra el inicio de la sección principal
+      const mainShell = document.querySelector('.main-shell');
+      // Encuentra el header global de tu sitio (asumiendo que tiene un alto fijo)
+      const siteHeader = document.getElementById('siteHeader'); 
+      
+      if (mainShell) {
+        // Calcula la posición exacta, restando la altura del header global para que no lo tape
+        const headerOffset = siteHeader ? siteHeader.offsetHeight : 80; 
+        const elementPosition = mainShell.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: "smooth"
+        });
+      }
     }
 
     document.querySelectorAll(".nav-btn").forEach(btn => {
