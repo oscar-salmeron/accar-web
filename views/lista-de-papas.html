@@ -5,152 +5,335 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Directorio de Papas | ACCAR</title>
   <style>
+    /* ===== RESET Y VARIABLES ===== */
     :root {
-      --azul-oscuro: #0c1f3f;
-      --dorado: #d4af37;
-      --texto: #f8efd3;
-      --fondo: #061124;
+      --azul-fondo: #061124;
+      --azul-card: #060e20;
+      --dorado-borde: rgba(212,175,55,0.4);
+      --dorado-texto: #D4AF37;
+      --dorado-brillo: #e4c76a;
+      --texto-claro: #f8efd3;
     }
+
     body {
       margin: 0;
       font-family: Georgia, "Times New Roman", serif;
-      background-color: var(--fondo);
-      color: var(--texto);
+      background: radial-gradient(circle at top center, rgba(11,27,61,0.88) 0%, rgba(6,14,32,0.94) 60%, rgba(3,7,18,0.98) 100%);
+      color: var(--texto-claro);
+      background-attachment: fixed;
+      min-height: 100vh;
     }
+
     .wrap {
-      width: min(1000px, calc(100% - 40px));
-      margin: 50px auto;
+      width: min(1180px, calc(100% - 40px));
+      margin: 60px auto;
     }
+
+    /* ===== CABECERA (HERO) ===== */
     .page-title {
       text-align: center;
-      margin-bottom: 40px;
+      margin-bottom: 50px;
     }
-    .page-title h1 {
-      font-size: 2.8rem;
-      color: var(--dorado);
-      margin: 0 0 10px;
+    
+    .accar-heading-card {
+      display: inline-block;
+      background: transparent;
+      border: none;
+      border-bottom: 2px solid rgba(212,175,55,0.6);
+      padding: 0 0 12px 0;
+      margin-bottom: 15px;
+      position: relative;
+    }
+    
+    .accar-heading-card::after {
+      content: '';
+      position: absolute;
+      bottom: -2px; left: 25%; right: 25%;
+      height: 2px;
+      background: var(--dorado-texto);
+      box-shadow: 0 0 12px 2px var(--dorado-texto);
+    }
+    
+    .accar-heading-card h1 {
+      margin: 0;
+      font-size: 42px;
+      color: var(--dorado-texto);
       font-variant: small-caps;
+      text-shadow: 0 0 15px rgba(212,175,55,0.4), 0 2px 4px rgba(0,0,0,0.8);
     }
+    
     .page-title p {
       font-style: italic;
       color: #a3b8cc;
-      font-size: 1.1rem;
+      font-size: 1.2rem;
       margin: 0;
+      letter-spacing: 1px;
     }
     
-    /* Acordeón (Cinta del Siglo) */
+    /* ===== CINTA DEL ACORDEÓN ===== */
     .century-acc {
-      border: 1px solid rgba(212, 175, 55, 0.4);
-      border-radius: 12px;
-      background: linear-gradient(90deg, rgba(12, 31, 63, 0.9), rgba(6, 17, 36, 0.9));
-      margin-bottom: 20px;
-      overflow: hidden;
+      border: 1px solid var(--dorado-borde);
+      border-radius: 24px;
+      background: linear-gradient(90deg, rgba(12, 31, 63, 0.95), rgba(6, 17, 36, 0.98));
+      margin-bottom: 30px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.6), inset 0 0 20px rgba(0,0,0,0.8);
+      position: relative;
     }
+
+    /* Marco arquitectónico interno de la cinta */
+    .century-acc::before {
+      content: '';
+      position: absolute;
+      top: 8px; left: 8px; right: 8px; bottom: 8px;
+      border: 1px solid rgba(212,175,55,0.15);
+      border-radius: 16px;
+      pointer-events: none;
+    }
+
     .century-header {
       display: flex;
       align-items: center;
-      padding: 15px 25px;
+      padding: 20px 30px;
       cursor: pointer;
       user-select: none;
+      position: relative;
+      z-index: 2;
     }
+
     .century-icon {
-      width: 60px;
-      margin-right: 20px;
-      filter: drop-shadow(0 4px 6px rgba(0,0,0,0.5));
+      width: 80px;
+      margin-right: 25px;
+      filter: drop-shadow(0 10px 15px rgba(0,0,0,0.7));
+      transition: transform 0.4s ease;
     }
+
+    .century-header:hover .century-icon {
+      transform: scale(1.05);
+    }
+
     .century-title-box {
       flex-grow: 1;
     }
+
     .century-title-box h2 {
       margin: 0;
-      font-size: 1.8rem;
-      color: var(--dorado);
+      font-size: 2.2rem;
+      color: var(--dorado-texto);
       font-variant: small-caps;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.8);
     }
+
     .century-title-box p {
-      margin: 4px 0 0;
-      font-size: 0.95rem;
-      color: #a3b8cc;
+      margin: 6px 0 0;
+      font-size: 1rem;
+      color: #a4a7ab;
       font-style: italic;
+      letter-spacing: 0.5px;
     }
+
     .century-toggle {
-      font-size: 2rem;
-      color: var(--dorado);
-      transition: transform 0.3s ease;
+      font-size: 2.5rem;
+      color: var(--dorado-texto);
+      transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      text-shadow: 0 0 10px rgba(212,175,55,0.4);
     }
+    
+    /* El acordeón está CERRADO por defecto. Al abrirse, gira la cruz/icono */
     .century-acc.open .century-toggle {
       transform: rotate(45deg);
+      color: var(--dorado-brillo);
     }
     
-    /* Grid de Tarjetas */
+    /* ===== INTERIOR DEL ACORDEÓN (GRID) ===== */
     .century-content {
       display: none;
-      padding: 25px;
-      background: rgba(8, 18, 35, 0.6);
+      padding: 40px 30px;
+      background: rgba(3, 7, 18, 0.6);
       border-top: 1px solid rgba(212, 175, 55, 0.2);
+      border-bottom-left-radius: 24px;
+      border-bottom-right-radius: 24px;
+      position: relative;
+      z-index: 2;
     }
+
     .century-acc.open .century-content {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      animation: accarFadeIn 0.4s ease;
+    }
+
+    @keyframes accarFadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
     
-    /* Tarjeta Papal */
+    /* ===== TARJETAS PAPALES (Estilo Heráldico) ===== */
     .pope-card {
-      background: linear-gradient(180deg, rgba(18, 45, 87, 0.8), rgba(10, 25, 50, 0.9));
-      border: 1px solid rgba(212, 175, 55, 0.3);
-      border-radius: 12px;
-      padding: 20px;
+      background: var(--azul-card);
+      border: 1px solid var(--dorado-borde);
+      border-radius: 24px;
+      padding: 40px 25px 30px;
       text-align: center;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.6), inset 0 0 20px rgba(0,0,0,0.8);
       display: flex;
       flex-direction: column;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
     }
+
+    /* Halo lumínico de fondo (Efecto vitral sutil dorado) */
+    .pope-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: radial-gradient(circle at top center, rgba(212,175,55, 0.15) 0%, transparent 70%);
+      z-index: 1;
+      opacity: 0.7;
+      transition: opacity 0.4s ease;
+    }
+
+    /* Marco arquitectónico interno doble */
+    .pope-card::after {
+      content: '';
+      position: absolute;
+      top: 12px; left: 12px; right: 12px; bottom: 12px;
+      border: 1px solid rgba(212,175,55,0.15);
+      border-radius: 14px;
+      pointer-events: none;
+      transition: border-color 0.3s ease;
+      z-index: 5;
+    }
+
+    .pope-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 30px 60px rgba(0,0,0,0.8), 0 0 20px rgba(212,175,55,0.25);
+      border-color: var(--dorado-texto);
+    }
+
+    .pope-card:hover::before {
+      opacity: 1;
+    }
+
+    .pope-card:hover::after {
+      border-color: rgba(212,175,55,0.5);
+    }
+
+    /* Retrato Papal (Estilo Mosaico San Pablo Extramuros) */
     .pope-img {
-      width: 120px;
-      height: 120px;
+      width: 140px;
+      height: 140px;
       border-radius: 50%;
-      border: 2px solid var(--dorado);
-      margin: 0 auto 15px;
+      margin: 0 auto 20px;
       object-fit: cover;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+      filter: drop-shadow(0 15px 20px rgba(0,0,0,0.8));
+      position: relative;
+      z-index: 2;
+      transition: transform 0.4s ease;
     }
+
+    .pope-card:hover .pope-img {
+      transform: scale(1.06) translateY(-4px);
+    }
+
+    /* Tipografía de la Tarjeta */
     .pope-name {
-      margin: 0 0 5px;
-      font-size: 1.4rem;
-      color: #fff;
+      margin: 0 0 8px;
+      font-size: 1.8rem;
+      color: #ffffff;
+      font-weight: 800;
+      position: relative;
+      z-index: 2;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.8);
     }
+
     .pope-secular {
-      font-size: 0.9rem;
-      color: #a3b8cc;
-      margin: 0 0 10px;
+      font-size: 1rem;
+      color: #a4a7ab;
+      margin: 0 0 15px;
+      position: relative;
+      z-index: 2;
+      letter-spacing: 0.5px;
     }
+
     .pope-dates {
-      font-size: 0.95rem;
-      color: var(--dorado);
-      margin-bottom: 20px;
+      font-size: 1rem;
+      color: var(--dorado-texto);
+      margin-bottom: 25px;
       flex-grow: 1;
+      position: relative;
+      z-index: 2;
+      font-weight: 600;
+      line-height: 1.5;
     }
+    
+    .pope-reinante {
+      display: block;
+      margin-top: 5px;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #e4c76a;
+      font-weight: 800;
+      background: rgba(0,0,0,0.4);
+      padding: 4px 10px;
+      border-radius: 20px;
+      border: 1px solid rgba(212,175,55,0.3);
+      width: max-content;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* ===== BOTONES ===== */
     .pope-btn {
       display: inline-block;
-      padding: 10px 15px;
+      padding: 14px 24px;
       background: transparent;
-      border: 1px solid var(--dorado);
-      color: var(--dorado);
+      border: 1px solid var(--dorado-borde);
+      color: var(--dorado-texto);
       text-decoration: none;
-      border-radius: 6px;
-      font-weight: bold;
+      border-radius: 999px;
+      font-weight: 800;
       font-size: 0.9rem;
-      transition: all 0.2s;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      position: relative;
+      z-index: 2;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.4);
     }
+
     .pope-btn:hover {
-      background: var(--dorado);
-      color: var(--fondo);
+      background: linear-gradient(135deg, rgba(212,175,55,0.15) 0%, rgba(212,175,55,0.05) 100%);
+      color: var(--dorado-brillo);
+      border-color: var(--dorado-texto);
+      box-shadow: 0 15px 25px rgba(0,0,0,0.6), inset 0 0 10px rgba(212,175,55,0.2);
     }
+
+    /* Botón especial para el Papa Reinante */
     .pope-btn.active-pope {
-      background: linear-gradient(180deg, #d4af37, #aa8822);
-      color: #111;
-      border: none;
+      background: linear-gradient(135deg, #0f3621 0%, #081e12 100%); /* Verde Litúrgico */
+      color: #ffffff;
+      border: 1px solid var(--dorado-borde);
+    }
+    
+    .pope-btn.active-pope:hover {
+      background: linear-gradient(135deg, #154c2e 0%, #0a2617 100%);
+      color: var(--dorado-texto);
+      border-color: var(--dorado-texto);
+      box-shadow: 0 15px 25px rgba(0,0,0,0.8), 0 0 15px rgba(212,175,55,0.2);
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      .wrap { margin: 40px auto; }
+      .accar-heading-card h1 { font-size: 32px; }
+      .century-header { padding: 15px 20px; }
+      .century-icon { width: 60px; margin-right: 15px; }
+      .century-title-box h2 { font-size: 1.8rem; }
+      .century-content { padding: 25px 20px; }
+      .pope-card { padding: 30px 20px 25px; }
     }
   </style>
 </head>
@@ -158,14 +341,17 @@
 
   <div class="wrap">
     <div class="page-title">
-      <h1>Directorio Pontificio</h1>
+      <div class="accar-heading-card">
+        <h1>Directorio Pontificio</h1>
+      </div>
       <p>«Ubi Petrus, ibi Ecclesia»</p>
     </div>
 
-    <!-- SIGLO XXI -->
-    <div class="century-acc open">
+    <!-- SIGLO XXI (El Acordeón ahora inicia SIN la clase "open") -->
+    <div class="century-acc">
+      
       <div class="century-header" onclick="this.parentElement.classList.toggle('open')">
-        <img src="../img/escudo_vicarius_christi.png" alt="Vicarius Christi" class="century-icon">
+        <img src="assets/img/escudo_vicarius_christi_2.png" alt="Escudo Vicarius Christi" class="century-icon">
         <div class="century-title-box">
           <h2>Siglo XXI</h2>
           <p>2001 – Presente | Desde San Juan Pablo II hasta León XIV</p>
@@ -177,28 +363,36 @@
         
         <!-- León XIV -->
         <article class="pope-card">
-          <img src="../img/267_leone_XIV.png" alt="León XIV" class="pope-img">
+          <img src="assets/img/267_leone_XIV_2.png" alt="León XIV" class="pope-img">
           <h3 class="pope-name">León XIV</h3>
           <p class="pope-secular">Robert Prevost</p>
-          <p class="pope-dates">2025 – Presente<br><em>Papa Reinante</em></p>
-          <a href="https://www.vatican.va/content/vatican/es.html" target="_blank" class="pope-btn active-pope">Magisterio Actual (Santa Sede) ↗</a>
+          <div class="pope-dates">
+            2025 – Presente
+            <span class="pope-reinante">Papa Reinante</span>
+          </div>
+          <a href="https://www.vatican.va/content/vatican/es.html" target="_blank" class="pope-btn active-pope">Sitio Oficial (Santa Sede) ↗</a>
         </article>
 
         <!-- Francisco -->
         <article class="pope-card">
-          <img src="../img/266_francesco.png" alt="Francisco" class="pope-img">
+          <img src="assets/img/266_francesco_2.png" alt="Francisco" class="pope-img">
           <h3 class="pope-name">Francisco</h3>
           <p class="pope-secular">Jorge Mario Bergoglio</p>
-          <p class="pope-dates">2013 – 2025</p>
-          <a href="directorio_papas/SIGLO 21/francisco.html" class="pope-btn">Ver Ficha Histórica</a>
+          <div class="pope-dates">
+            2013 – 2025
+          </div>
+          <a href="views/directorio_papas/SIGLO 21/francisco.html" class="pope-btn">Ver Ficha Histórica</a>
         </article>
 
         <!-- Benedicto XVI -->
         <article class="pope-card">
-          <img src="../img/265_benedetto_XVI.png" alt="Benedicto XVI" class="pope-img">
+          <img src="assets/img/265_benedetto_XVI_2.png" alt="Benedicto XVI" class="pope-img">
           <h3 class="pope-name">Benedicto XVI</h3>
           <p class="pope-secular">Joseph Ratzinger</p>
-          <p class="pope-dates">2005 – 2013</p>
+          <div class="pope-dates">
+            2005 – 2013
+          </div>
+          <!-- El enlace cambiará cuando creemos su archivo -->
           <a href="#" class="pope-btn">Ver Ficha Histórica</a>
         </article>
 
