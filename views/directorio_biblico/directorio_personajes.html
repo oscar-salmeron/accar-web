@@ -394,33 +394,23 @@
         .testament-card {
             flex: 1;
             cursor: pointer;
-            border: 1px solid rgba(212, 175, 55, 0.4);
-            border-radius: 12px;
-            background: linear-gradient(145deg, rgba(11, 22, 48, 0.4), rgba(5, 11, 26, 0.6));
-            backdrop-filter: blur(4px);
-            padding: 50px 30px;
+            background: transparent;
+            border: none;
+            padding: 10px;
             text-align: center;
-            transition: all 0.3s ease;
+            transition: transform 0.4s ease, filter 0.4s ease;
         }
 
         .testament-card:hover {
-            background: rgba(212, 175, 55, 0.15);
-            border-color: #D4AF37;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
-            transform: translateY(-5px);
+            transform: translateY(-8px);
+            filter: drop-shadow(0 15px 30px rgba(212, 175, 55, 0.25));
         }
 
-        .testament-card h2 {
-            color: #D4AF37;
-            font-size: 32px;
-            margin: 0 0 15px 0;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.8);
-        }
-
-        .testament-card p {
-            color: #cbd5e1;
-            font-size: 15px;
-            margin: 0;
+        .testament-card img {
+            width: 100%;
+            max-width: 440px; /* Tamaño majestuoso para los pergaminos */
+            height: auto;
+            transition: all 0.4s ease;
         }
     </style>
 </head>
@@ -435,17 +425,18 @@
     <!-- PANTALLA DE INICIO: BANNER Y SELECTOR -->
     <div id="intro-directory">
         <div class="apologetic-banner">
-            <p>"Directorio exegético basado en el canon inalterable de 73 libros, custodiado por la Tradición Apostólica y sellado infaliblemente por la Iglesia Católica desde el Sínodo de Roma (382 d.C.). <strong style="color: #fff; text-shadow: 0 0 5px rgba(212,175,55,0.5);">La historia no miente: la Escritura es católica.</strong>"</p>
+            <p>"Directorio exegético basado en el canon inalterable de 73 libros, custodiado por la Tradición Apostólica y<br>
+            sellado infaliblemente por la Iglesia Católica desde el Sínodo de Roma (382 d.C.)."</p>
+            <br>
+            <p><strong style="color: #fff; text-shadow: 0 0 10px rgba(212,175,55,0.6); font-size: 19px; letter-spacing: 1px;">La historia no miente: la Escritura es católica.</strong></p>
         </div>
 
         <div class="testament-selector">
             <div class="testament-card" onclick="showTestament('ot')">
-                <h2>Antiguo Testamento</h2>
-                <p>46 Libros • La preparación y promesa del Mesías.</p>
+                <img src="/assets/img/portada_antiguo.png" alt="Antiguo Testamento">
             </div>
             <div class="testament-card" onclick="showTestament('nt')">
-                <h2>Nuevo Testamento</h2>
-                <p>27 Libros • La plenitud de la Revelación en Cristo.</p>
+                <img src="/assets/img/portada_nuevo.png" alt="Nuevo Testamento">
             </div>
         </div>
     </div>
@@ -980,16 +971,19 @@
                             </button>
                             <div class="accordion-content"><div id="grid-malaquias" class="accar-grid-container"></div></div>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        </div> <!-- Cierra accordion-ot -->
-    </div> <!-- Cierra ot-container -->
+
+                    </div> <!-- Cierre content Profetas Menores -->
+                </div> <!-- Cierre accordion-item Profetas Menores -->
+
+            </div> <!-- Cierre master-content Libros Profeticos -->
+        </div> <!-- Cierre master-accordion-item Libros Profeticos -->
+
+        </div> <!-- AQUÍ SE CIERRA CORRECTAMENTE EL ACCORDION-OT -->
+    </div> <!-- AQUÍ SE CIERRA CORRECTAMENTE EL OT-CONTAINER (¡Solución del error!) -->
 
 
     <!-- CONTENEDOR DEL NUEVO TESTAMENTO (Oculto por defecto) -->
-    <div id="nt-container" style="display: none; width: 100%; display: flex; flex-direction: column; align-items: center;">
+    <div id="nt-container" style="display: none; width: 100%; flex-direction: column; align-items: center;">
         <button class="btn-compendio" onclick="volverInicio()" style="margin-bottom: 30px;">◄ Volver a los Testamentos</button>
         <div class="accordion-container" id="accordion-nt">
             
