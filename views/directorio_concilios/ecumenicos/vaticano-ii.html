@@ -13,6 +13,7 @@
       --azul-claro:#1d4e89;
       --dorado:#d4af37;
       --dorado-2:#e4c76a;
+      --carmesi-grad: linear-gradient(135deg, #7a1010 0%, #1a0505 100%);
       --texto:#1b1b1b;
       --sombra:0 18px 38px rgba(0,0,0,.18);
       --max:1240px;
@@ -600,9 +601,17 @@
       overflow-wrap:anywhere;
     }
 
+    .acc-item {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .acc-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 22px 42px rgba(0,0,0,.25);
+    }
     .acc-item.open .acc-content{display:block}
     .acc-item.open .acc-trigger{
-      background:linear-gradient(180deg, #1b4d90, #123867);
+      background: var(--carmesi-grad);
+      border-left: 4px solid var(--dorado);
     }
 
     .doc-tags{
@@ -1149,6 +1158,11 @@
         </div>
 
         <div class="section-box">
+          <h3 class="section-subtitle">Análisis Magisterial (Enchiridion Symbolorum)</h3>
+          <div style="background: var(--carmesi-grad); color: #fff; padding: 22px; border-radius: 16px; box-shadow: var(--sombra); margin-bottom: 24px; border-left: 5px solid var(--dorado);">
+            <h4 style="color: var(--dorado); margin: 0 0 10px 0; font-size: 1.3rem;">Contexto Histórico y Rigor Dogmático</h4>
+            <p style="margin: 0; font-size: 1.05rem; line-height: 1.6;"><strong>El error combatido:</strong> El relativismo y la hermenéutica de la ruptura. El magisterio perenne establece que el Concilio reafirma la unicidad de la Iglesia y su doctrina inmutable frente al secularismo moderno, sin ceder a la "dictadura del relativismo"[cite: 3, 4].</p>
+          </div>
           <h3 class="section-subtitle">Claves de lectura</h3>
 
           <div class="feature-grid">
@@ -1480,58 +1494,7 @@
   </main>
   <!-- ===== FINAL MAIN ===== -->
 
-  <!-- ===== INICIO FOOTER ===== -->
-  <footer class="footer">
-    <div class="wrap footer-inner">
-      <div class="footer-card">
-
-        <div class="footer-top">
-          <div class="footer-col">
-            <div class="footer-brand">
-              <a class="footer-brand-logo" href="https://apologeticaccar.com" aria-label="Ir al inicio de Apologética Católica">
-                <img src="../../assets/img/logo-accar.png" alt="Logo ACCAR">
-              </a>
-
-              <div class="footer-brand-copy">
-                <p>Formación, defensa y explicación de la fe católica con fidelidad al magisterio de la Iglesia.</p>
-                <p><em>“Defendiendo la fe con verdad, caridad y fundamento apostólico.”</em></p>
-              </div>
-            </div>
-          </div>
-
-          <div class="footer-col">
-            <h4>Enlaces</h4>
-            <div class="footer-links">
-              <button type="button" onclick="showPanel('historia')">Historia</button>
-              <button type="button" onclick="showPanel('contexto')">Contexto</button>
-              <button type="button" onclick="showPanel('desarrollo')">Desarrollo</button>
-              <button type="button" onclick="showPanel('personajes')">Personajes</button>
-              <button type="button" onclick="showPanel('documentos')">Documentos</button>
-              <button type="button" id="btnConciliosFooter">Concilios</button>
-            </div>
-          </div>
-
-          <div class="footer-col contact-col">
-            <h4>Contacto</h4>
-            <div class="footer-contact">
-              <a href="mailto:accar33@icloud.com">accar33@icloud.com</a>
-              <div>Atención orientativa para formación y consulta apologética.</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="footer-divider"></div>
-
-        <div class="footer-legal">
-          © <span id="yearActual"></span> Apologética ACCAR. Todos los derechos reservados.<br>
-          Diseño y Desarrollo por Olgwal Studio Vision<br>
-          Web Development · Digital Strategy
-        </div>
-
-      </div>
-    </div>
-  </footer>
-  <!-- ===== FINAL FOOTER ===== -->
+  <!-- El Footer ha sido removido por requerimientos de la arquitectura SPA -->
 
   <script>
     /* ===== INICIO SCRIPT ===== */
