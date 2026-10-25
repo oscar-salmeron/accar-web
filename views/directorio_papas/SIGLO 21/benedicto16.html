@@ -467,11 +467,18 @@
     .feature-card{
       background:rgba(255,255,255,.85);
       border:1px solid rgba(15,51,95,.14);
+      border-left:5px solid var(--azul-claro);
       border-radius:18px;
       box-shadow:0 10px 22px rgba(0,0,0,.08);
-      padding:22px;
+      padding:22px 22px 22px 18px;
       min-width:0;
       overflow-wrap:anywhere;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.15);
     }
 
     .feature-card h3,
@@ -621,14 +628,21 @@
       justify-content:center;
       padding:8px 12px;
       border-radius:999px;
-      background:#ecdfb5;
-      color:#463815;
-      border:1px solid rgba(198,154,37,.4);
       font-size:.92rem;
       font-weight:bold;
       max-width:100%;
       overflow-wrap:anywhere;
     }
+
+    /* Jerarquía visual de documentos */
+    .acc-item.doc-enciclica { border-left: 5px solid #8b0000; }
+    .tag-enciclica { background: #fae6e6; color: #8b0000; border: 1px solid rgba(139,0,0,.4); }
+
+    .acc-item.doc-exhortacion { border-left: 5px solid var(--azul-claro); }
+    .tag-exhortacion { background: #e6f0fa; color: var(--azul-oscuro); border: 1px solid rgba(29,78,137,.4); }
+
+    .acc-item.doc-gobierno { border-left: 5px solid var(--dorado); }
+    .tag-gobierno { background: #fcf6e3; color: #5a4a18; border: 1px solid rgba(212,175,55,.6); }
     /* ===== FINAL MAIN ===== */
 
     /* ===== INICIO FOOTER ===== */
@@ -1229,99 +1243,99 @@
 
           <div class="accordion">
 
-            <div class="acc-item open">
+            <div class="acc-item doc-enciclica open">
               <button class="acc-trigger" type="button">
                 <span>Deus caritas est · 25 de diciembre de 2005</span>
                 <span>−</span>
               </button>
               <div class="acc-content">
                 <div class="doc-tags">
-                  <span class="doc-tag">Encíclica</span>
-                  <span class="doc-tag">Amor y Caridad</span>
+                  <span class="doc-tag tag-enciclica">Encíclica</span>
+                  <span class="doc-tag tag-enciclica">Amor y Caridad</span>
                 </div>
                 <p>Su primera encíclica. Una obra maestra que explica la relación entre el amor humano (eros) y el amor divino donado (ágape), demostrando que Dios purifica y eleva el amor verdadero.</p>
               </div>
             </div>
 
-            <div class="acc-item">
+            <div class="acc-item doc-enciclica">
               <button class="acc-trigger" type="button">
                 <span>Spe salvi · 30 de noviembre de 2007</span>
                 <span>+</span>
               </button>
               <div class="acc-content">
                 <div class="doc-tags">
-                  <span class="doc-tag">Encíclica</span>
-                  <span class="doc-tag">Esperanza cristiana</span>
+                  <span class="doc-tag tag-enciclica">Encíclica</span>
+                  <span class="doc-tag tag-enciclica">Esperanza cristiana</span>
                 </div>
                 <p>Sobre la esperanza. Explica cómo la fe ciega en el progreso científico y en el marxismo fracasaron en dar sentido al hombre, recordando que solo la vida eterna y el encuentro con Cristo salvan.</p>
               </div>
             </div>
 
-            <div class="acc-item">
+            <div class="acc-item doc-enciclica">
               <button class="acc-trigger" type="button">
                 <span>Caritas in veritate · 29 de junio de 2009</span>
                 <span>+</span>
               </button>
               <div class="acc-content">
                 <div class="doc-tags">
-                  <span class="doc-tag">Encíclica</span>
-                  <span class="doc-tag">Doctrina Social</span>
+                  <span class="doc-tag tag-enciclica">Encíclica</span>
+                  <span class="doc-tag tag-enciclica">Doctrina Social</span>
                 </div>
                 <p>Su gran documento social. Advierte que el desarrollo económico y tecnológico que no esté iluminado por la caridad en la verdad, corre el riesgo de volverse contra el propio ser humano.</p>
               </div>
             </div>
 
-            <div class="acc-item">
+            <div class="acc-item doc-gobierno">
               <button class="acc-trigger" type="button">
                 <span>Summorum Pontificum · 7 de julio de 2007</span>
                 <span>+</span>
               </button>
               <div class="acc-content">
                 <div class="doc-tags">
-                  <span class="doc-tag">Motu Proprio</span>
-                  <span class="doc-tag">Liturgia Tradicional</span>
+                  <span class="doc-tag tag-gobierno">Motu Proprio</span>
+                  <span class="doc-tag tag-gobierno">Liturgia Tradicional</span>
                 </div>
                 <p>Documento de enorme impacto apologético. Declaró que el Misal de San Pío V nunca fue abrogado, reconociendo el derecho a celebrar esta "Forma Extraordinaria" del Rito Romano.</p>
               </div>
             </div>
 
-            <div class="acc-item">
+            <div class="acc-item doc-exhortacion">
               <button class="acc-trigger" type="button">
                 <span>Sacramentum caritatis · 22 de febrero de 2007</span>
                 <span>+</span>
               </button>
               <div class="acc-content">
                 <div class="doc-tags">
-                  <span class="doc-tag">Exhortación postsinodal</span>
-                  <span class="doc-tag">Eucaristía</span>
+                  <span class="doc-tag tag-exhortacion">Exhortación postsinodal</span>
+                  <span class="doc-tag tag-exhortacion">Eucaristía</span>
                 </div>
                 <p>Aborda el sacramento de la Eucaristía como fuente y culmen de la vida de la Iglesia, exigiendo decoro litúrgico, canto sagrado y un profundo respeto al misterio eucarístico (ars celebrandi).</p>
               </div>
             </div>
 
-            <div class="acc-item">
+            <div class="acc-item doc-exhortacion">
               <button class="acc-trigger" type="button">
                 <span>Verbum Domini · 30 de septiembre de 2010</span>
                 <span>+</span>
               </button>
               <div class="acc-content">
                 <div class="doc-tags">
-                  <span class="doc-tag">Exhortación postsinodal</span>
-                  <span class="doc-tag">Sagrada Escritura</span>
+                  <span class="doc-tag tag-exhortacion">Exhortación postsinodal</span>
+                  <span class="doc-tag tag-exhortacion">Sagrada Escritura</span>
                 </div>
                 <p>Sobre la Palabra de Dios. Enfatiza que la Biblia solo puede interpretarse correctamente dentro de la Tradición viva de la Iglesia y bajo la guía del Magisterio, frenando la exégesis puramente secular.</p>
               </div>
             </div>
 
-            <div class="acc-item">
+            <div class="acc-item doc-gobierno">
               <button class="acc-trigger" type="button">
                 <span>Anglicanorum coetibus · 4 de noviembre de 2009</span>
                 <span>+</span>
               </button>
               <div class="acc-content">
                 <div class="doc-tags">
-                  <span class="doc-tag">Constitución Apostólica</span>
-                  <span class="doc-tag">Ecumenismo</span>
+                  <span class="doc-tag tag-gobierno">Constitución Apostólica</span>
+                  <span class="doc-tag tag-gobierno">Ecumenismo</span>
                 </div>
                 <p>Un hito en la unidad cristiana. Abrió las puertas a los grupos anglicanos que, descontentos con la deriva doctrinal de su comunión, deseaban retornar a la fe católica conservando su identidad.</p>
               </div>
