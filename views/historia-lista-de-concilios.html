@@ -23,24 +23,19 @@
     text-shadow: 0 4px 12px rgba(0,0,0,0.5);
   }
   
+  .dir-divider {
+    width: 280px;
+    height: 2px;
+    margin: 0 auto 15px auto;
+    background: radial-gradient(circle, rgba(212,175,55,1) 0%, rgba(212,175,55,0) 100%);
+    box-shadow: 0 0 8px rgba(212,175,55,0.6);
+  }
+
   .dir-subtitle {
     color: #a3b8cc;
-    font-size: 1.2rem;
+    font-size: 1.25rem;
     font-style: italic;
-    position: relative;
     display: inline-block;
-    padding-top: 15px;
-  }
-  
-  .dir-subtitle::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 150px;
-    height: 1px;
-    background: radial-gradient(circle, rgba(212,175,55,1) 0%, rgba(212,175,55,0) 100%);
   }
 
   .dir-accordion {
@@ -247,7 +242,8 @@
 <div class="dir-concilios-wrapper">
   <div class="dir-header">
     <h1 class="dir-title">Directorio de Concilios</h1>
-    <span class="dir-subtitle">«Visum est enim Spiritui Sancto et nobis» (Hechos 15, 28)</span>
+    <div class="dir-divider"></div>
+    <span class="dir-subtitle">«Ubi Petrus, ibi Ecclesia»</span>
   </div>
 
   <div class="dir-accordion">
