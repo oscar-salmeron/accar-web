@@ -947,7 +947,7 @@
             <button class="nav-btn" data-target="contexto">Contexto</button>
             <button class="nav-btn" data-target="pontificado">Pontificado</button>
             <button class="nav-btn" data-target="documentos">Documentos</button>
-            <button type="button" id="btnPapas">Papas</button>
+            <button class="nav-btn" data-target="apologetica">Apologética</button>
           </div>
         </div>
       </div>
@@ -1413,6 +1413,50 @@
       </section>
       <!-- ===== FINAL PANEL DOCUMENTOS ===== -->
 
+      <!-- ===== INICIO PANEL APOLOGÉTICA ===== -->
+      <section id="panel-apologetica" class="content-panel">
+
+        <div class="section-box">
+          <h2 class="section-title">Aporte a la Apologética y la Tradición</h2>
+          <p>
+            Esta sección destaca las contribuciones de Francisco a la defensa de la fe y la doctrina de la Iglesia, enfocándose en su rechazo a las ideologías modernas y la protección de la dignidad humana desde el Magisterio.
+          </p>
+        </div>
+
+        <div class="section-box">
+          <h3 class="section-subtitle">Puntos clave</h3>
+
+          <div class="feature-grid">
+            <article class="feature-card">
+              <h4>Contra la "Colonización Ideológica"</h4>
+              <p>Denuncia constante y firme contra la imposición de la ideología de género en la educación y las políticas globales, defendiendo la antropología cristiana del hombre y la mujer.</p>
+            </article>
+
+            <article class="feature-card">
+              <h4>Defensa de la Vida Inviolable</h4>
+              <p>Condena enérgica del aborto (comparándolo con "contratar a un sicario") y del descarte de ancianos y enfermos frente a la cultura de la eutanasia.</p>
+            </article>
+
+            <article class="feature-card">
+              <h4>Ministerio del Catequista</h4>
+              <p>Con <em>Antiquum ministerium</em>, institucionalizó el rol del catequista, vital para la formación apologética y la transmisión intacta de la fe a las nuevas generaciones.</p>
+            </article>
+
+            <article class="feature-card">
+              <h4>Fidelidad al depósito de la fe</h4>
+              <p>Reafirmación constante del Credo católico frente a las corrientes secularistas que buscan diluir la divinidad de Cristo y la necesidad de la gracia.</p>
+            </article>
+          </div>
+
+          <div class="cta-row">
+            <a class="cta-link azul" href="https://apologeticaccar.com">Regresar a Apologética Católica</a>
+            <button class="cta-btn dorado" onclick="showPanel('inicio')">Volver al inicio →</button>
+          </div>
+        </div>
+
+      </section>
+      <!-- ===== FINAL PANEL APOLOGÉTICA ===== -->
+
     </div>
   </main>
   <!-- ===== FINAL MAIN ===== -->
@@ -1422,7 +1466,7 @@
   <script>
     /* ===== INICIO SCRIPT AISLADO ===== */
     (function(){
-      const panelNames = ["inicio", "biografia", "contexto", "pontificado", "documentos"];
+      const panelNames = ["inicio", "biografia", "contexto", "pontificado", "documentos", "apologetica"];
       const mobileMenuToggle = document.getElementById("mobileMenuToggle");
       const mobileNavPanel = document.getElementById("mobileNavPanel");
 
@@ -1511,20 +1555,6 @@
           }
         };
       });
-
-      // BOTÓN "PAPAS" INFERIOR CORREGIDO
-      function goToPapas(e){
-        if(e) e.preventDefault();
-        if (typeof loadView === 'function') {
-          loadView('views/historia-lista-de-papas.html');
-        }
-      }
-
-      const btnPapas = document.getElementById("btnPapas");
-      const btnPapasMobile = document.getElementById("btnPapasMobile");
-
-      if(btnPapas) btnPapas.onclick = goToPapas;
-      if(btnPapasMobile) btnPapasMobile.onclick = goToPapas;
 
       if(mobileMenuToggle){
         mobileMenuToggle.onclick = function(e){
