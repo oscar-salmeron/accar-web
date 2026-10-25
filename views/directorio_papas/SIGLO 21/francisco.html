@@ -231,6 +231,13 @@
       border:3px solid rgba(212,175,55,.82);
       background:linear-gradient(180deg, #f7f0dc, #d9c79f);
       box-shadow:0 14px 26px rgba(0,0,0,.28);
+      transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
+      cursor: pointer;
+    }
+
+    .hero-photo img:hover {
+      transform: scale(1.04) translateY(-4px);
+      box-shadow: 0 25px 45px rgba(0,0,0,.5), 0 0 25px rgba(212,175,55,.3);
     }
 
     .hero-pope-badge{
@@ -300,6 +307,14 @@
       min-height:100%;
       box-shadow:inset 0 1px 0 rgba(255,255,255,.05);
       min-width:0;
+      transition: all 0.3s ease;
+    }
+
+    .hero-meta .meta-item:hover {
+      transform: translateY(-5px);
+      background: rgba(255,255,255,.12);
+      border-color: rgba(212,175,55,.8);
+      box-shadow: 0 12px 25px rgba(0,0,0,.4), inset 0 1px 0 rgba(255,255,255,.15);
     }
 
     .hero-meta .meta-label{
@@ -406,11 +421,18 @@
     .highlight-card{
       background:rgba(255,255,255,.85);
       border:1px solid rgba(15,51,95,.14);
+      border-left:5px solid var(--azul-medio);
       border-radius:20px;
       box-shadow:0 10px 22px rgba(0,0,0,.08);
-      padding:22px;
+      padding:22px 22px 22px 18px;
       min-width:0;
       overflow-wrap:anywhere;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .highlight-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.15);
     }
 
     .highlight-card h3,
@@ -467,11 +489,18 @@
     .feature-card{
       background:rgba(255,255,255,.85);
       border:1px solid rgba(15,51,95,.14);
+      border-left:5px solid var(--azul-claro);
       border-radius:18px;
       box-shadow:0 10px 22px rgba(0,0,0,.08);
-      padding:22px;
+      padding:22px 22px 22px 18px;
       min-width:0;
       overflow-wrap:anywhere;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.15);
     }
 
     .feature-card h3,
@@ -499,6 +528,12 @@
       box-shadow:0 10px 22px rgba(0,0,0,.08);
       min-width:0;
       overflow-wrap:anywhere;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .timeline-item:hover {
+      transform: translateX(6px);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.15);
     }
 
     .timeline-item h4{
@@ -621,14 +656,21 @@
       justify-content:center;
       padding:8px 12px;
       border-radius:999px;
-      background:#ecdfb5;
-      color:#463815;
-      border:1px solid rgba(198,154,37,.4);
       font-size:.92rem;
       font-weight:bold;
       max-width:100%;
       overflow-wrap:anywhere;
     }
+
+    /* Jerarquía visual de documentos */
+    .acc-item.doc-enciclica { border-left: 5px solid #8b0000; }
+    .tag-enciclica { background: #fae6e6; color: #8b0000; border: 1px solid rgba(139,0,0,.4); }
+
+    .acc-item.doc-exhortacion { border-left: 5px solid var(--azul-claro); }
+    .tag-exhortacion { background: #e6f0fa; color: var(--azul-oscuro); border: 1px solid rgba(29,78,137,.4); }
+
+    .acc-item.doc-gobierno { border-left: 5px solid var(--dorado); }
+    .tag-gobierno { background: #fcf6e3; color: #5a4a18; border: 1px solid rgba(212,175,55,.6); }
     /* ===== FINAL MAIN ===== */
 
     /* ===== INICIO FOOTER ===== */
@@ -1257,155 +1299,155 @@
 
           <div class="accordion">
 
-            <div class="acc-item open">
+            <div class="acc-item doc-exhortacion open">
               <button class="acc-trigger" type="button">
                 <span>Evangelii gaudium · 24 de noviembre de 2013</span>
                 <span>−</span>
               </button>
               <div class="acc-content">
                 <div class="doc-tags">
-                  <span class="doc-tag">Exhortación apostólica</span>
-                  <span class="doc-tag">Programa del pontificado</span>
+                  <span class="doc-tag tag-exhortacion">Exhortación apostólica</span>
+                  <span class="doc-tag tag-exhortacion">Programa del pontificado</span>
                 </div>
                 <p>Texto programático del pontificado. Presenta la alegría del Evangelio, la conversión misionera, la reforma pastoral y la necesidad de una Iglesia que salga a anunciar a Cristo.</p>
               </div>
             </div>
 
-            <div class="acc-item">
+            <div class="acc-item doc-enciclica">
               <button class="acc-trigger" type="button">
                 <span>Lumen fidei · 29 de junio de 2013</span>
                 <span>+</span>
               </button>
               <div class="acc-content">
                 <div class="doc-tags">
-                  <span class="doc-tag">Encíclica</span>
-                  <span class="doc-tag">Fe</span>
+                  <span class="doc-tag tag-enciclica">Encíclica</span>
+                  <span class="doc-tag tag-enciclica">Fe</span>
                 </div>
                 <p>Encíclica sobre la fe, incluida entre las cuatro encíclicas principales de Francisco.</p>
               </div>
             </div>
 
-            <div class="acc-item">
+            <div class="acc-item doc-gobierno">
               <button class="acc-trigger" type="button">
                 <span>Misericordiae vultus · 11 de abril de 2015</span>
                 <span>+</span>
               </button>
               <div class="acc-content">
                 <div class="doc-tags">
-                  <span class="doc-tag">Bula</span>
-                  <span class="doc-tag">Jubileo de la Misericordia</span>
+                  <span class="doc-tag tag-gobierno">Bula</span>
+                  <span class="doc-tag tag-gobierno">Jubileo de la Misericordia</span>
                 </div>
                 <p>Convocó el Jubileo Extraordinario de la Misericordia y fijó una de las marcas más reconocibles del pontificado.</p>
               </div>
             </div>
 
-            <div class="acc-item">
+            <div class="acc-item doc-enciclica">
               <button class="acc-trigger" type="button">
                 <span>Laudato si’ · 24 de mayo de 2015</span>
                 <span>+</span>
               </button>
               <div class="acc-content">
                 <div class="doc-tags">
-                  <span class="doc-tag">Encíclica</span>
-                  <span class="doc-tag">Ecología integral</span>
+                  <span class="doc-tag tag-enciclica">Encíclica</span>
+                  <span class="doc-tag tag-enciclica">Ecología integral</span>
                 </div>
                 <p>Encíclica sobre el cuidado de la casa común. Integra ambiente, justicia social, responsabilidad moral, cultura y destino de los pobres en una sola visión.</p>
               </div>
             </div>
 
-            <div class="acc-item">
+            <div class="acc-item doc-exhortacion">
               <button class="acc-trigger" type="button">
                 <span>Amoris laetitia · 19 de marzo de 2016</span>
                 <span>+</span>
               </button>
               <div class="acc-content">
                 <div class="doc-tags">
-                  <span class="doc-tag">Exhortación postsinodal</span>
-                  <span class="doc-tag">Familia</span>
+                  <span class="doc-tag tag-exhortacion">Exhortación postsinodal</span>
+                  <span class="doc-tag tag-exhortacion">Familia</span>
                 </div>
                 <p>Amplia reflexión pastoral sobre el amor en la familia, con énfasis en acompañar, discernir e integrar.</p>
               </div>
             </div>
 
-            <div class="acc-item">
+            <div class="acc-item doc-exhortacion">
               <button class="acc-trigger" type="button">
                 <span>Gaudete et exsultate · 19 de marzo de 2018</span>
                 <span>+</span>
               </button>
               <div class="acc-content">
                 <div class="doc-tags">
-                  <span class="doc-tag">Exhortación apostólica</span>
-                  <span class="doc-tag">Santidad</span>
+                  <span class="doc-tag tag-exhortacion">Exhortación apostólica</span>
+                  <span class="doc-tag tag-exhortacion">Santidad</span>
                 </div>
                 <p>Enseña sobre la llamada universal a la santidad en el mundo actual y propone una espiritualidad concreta para la vida ordinaria.</p>
               </div>
             </div>
 
-            <div class="acc-item">
+            <div class="acc-item doc-exhortacion">
               <button class="acc-trigger" type="button">
                 <span>Christus vivit · 25 de marzo de 2019</span>
                 <span>+</span>
               </button>
               <div class="acc-content">
                 <div class="doc-tags">
-                  <span class="doc-tag">Exhortación postsinodal</span>
-                  <span class="doc-tag">Juventud</span>
+                  <span class="doc-tag tag-exhortacion">Exhortación postsinodal</span>
+                  <span class="doc-tag tag-exhortacion">Juventud</span>
                 </div>
                 <p>Texto dirigido a los jóvenes y a todo el pueblo de Dios, con fuerte acento vocacional, misionero y eclesial.</p>
               </div>
             </div>
 
-            <div class="acc-item">
+            <div class="acc-item doc-enciclica">
               <button class="acc-trigger" type="button">
                 <span>Fratelli tutti · 3 de octubre de 2020</span>
                 <span>+</span>
               </button>
               <div class="acc-content">
                 <div class="doc-tags">
-                  <span class="doc-tag">Encíclica</span>
-                  <span class="doc-tag">Fraternidad</span>
+                  <span class="doc-tag tag-enciclica">Encíclica</span>
+                  <span class="doc-tag tag-enciclica">Fraternidad</span>
                 </div>
                 <p>Encíclica sobre la fraternidad y la amistad social. Propone una cultura del encuentro y una fuerte crítica a la indiferencia y al descarte.</p>
               </div>
             </div>
 
-            <div class="acc-item">
+            <div class="acc-item doc-gobierno">
               <button class="acc-trigger" type="button">
                 <span>Antiquum ministerium · 10 de mayo de 2021</span>
                 <span>+</span>
               </button>
               <div class="acc-content">
                 <div class="doc-tags">
-                  <span class="doc-tag">Motu proprio</span>
-                  <span class="doc-tag">Catequista</span>
+                  <span class="doc-tag tag-gobierno">Motu proprio</span>
+                  <span class="doc-tag tag-gobierno">Catequista</span>
                 </div>
                 <p>Instituyó el ministerio de catequista, documento especialmente valioso para una plataforma de formación y apologética católica.</p>
               </div>
             </div>
 
-            <div class="acc-item">
+            <div class="acc-item doc-gobierno">
               <button class="acc-trigger" type="button">
                 <span>Praedicate Evangelium · 19 de marzo de 2022</span>
                 <span>+</span>
               </button>
               <div class="acc-content">
                 <div class="doc-tags">
-                  <span class="doc-tag">Constitución apostólica</span>
-                  <span class="doc-tag">Reforma de la Curia</span>
+                  <span class="doc-tag tag-gobierno">Constitución apostólica</span>
+                  <span class="doc-tag tag-gobierno">Reforma de la Curia</span>
                 </div>
                 <p>Norma mayor de la reforma de la Curia Romana durante su pontificado, orientada a un servicio más claro a la misión evangelizadora.</p>
               </div>
             </div>
 
-            <div class="acc-item">
+            <div class="acc-item doc-enciclica">
               <button class="acc-trigger" type="button">
                 <span>Dilexit nos · 24 de octubre de 2024</span>
                 <span>+</span>
               </button>
               <div class="acc-content">
                 <div class="doc-tags">
-                  <span class="doc-tag">Encíclica</span>
-                  <span class="doc-tag">Corazón de Jesús</span>
+                  <span class="doc-tag tag-enciclica">Encíclica</span>
+                  <span class="doc-tag tag-enciclica">Corazón de Jesús</span>
                 </div>
                 <p>Encíclica sobre el amor humano y divino del Corazón de Jesucristo, incluida entre las cuatro encíclicas principales de Francisco.</p>
               </div>
