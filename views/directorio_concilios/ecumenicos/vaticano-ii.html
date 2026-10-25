@@ -77,6 +77,20 @@
       padding:34px 0 38px;
     }
 
+    .back-link {
+      display: inline-block;
+      margin-bottom: 20px;
+      color: var(--oro-pontificio);
+      font-weight: bold;
+      font-size: 1.05rem;
+      text-decoration: none;
+      transition: color 0.2s ease, transform 0.2s ease;
+    }
+    .back-link:hover {
+      color: #ffd971;
+      transform: translateX(-4px);
+    }
+
     /* ===== INICIO BANDA SUPERIOR ===== */
     .top-brand{
       display:flex;
@@ -935,6 +949,8 @@
   <!-- ===== INICIO HERO (PORTADA DE FICHA) ===== -->
   <section class="hero">
     <div class="wrap hero-inner">
+
+      <a href="#" onclick="event.preventDefault(); loadView('views/historia-lista-de-concilios.html');" class="back-link">← Volver al Directorio de Concilios</a>
 
       <div class="hero-card">
         <div class="hero-photo-wrap">
