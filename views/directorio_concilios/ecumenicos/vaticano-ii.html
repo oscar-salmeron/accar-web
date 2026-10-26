@@ -441,10 +441,33 @@
       transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     }
 
-    .highlight-card:nth-child(4n+1), .feature-card:nth-child(4n+1) { border-left: 5px solid var(--oro-pontificio); }
-    .highlight-card:nth-child(4n+2), .feature-card:nth-child(4n+2) { border-left: 5px solid var(--purpura-cardenal); }
-    .highlight-card:nth-child(4n+3), .feature-card:nth-child(4n+3) { border-left: 5px solid var(--verde-episcopal); }
-    .highlight-card:nth-child(4n+4), .feature-card:nth-child(4n+4) { border-left: 5px solid var(--azul-claro); }
+    /* ===== ASIGNACIÓN DE COLORES LITÚRGICOS POR SECCIÓN ===== */
+    
+    /* Dorado (Verdad, Magisterio, Dogma) */
+    #panel-inicio .section-box, #panel-inicio .highlight-card, #panel-inicio .feature-card,
+    #panel-documentos .section-box, #panel-documentos .highlight-card, #panel-documentos .feature-card,
+    #panel-canones .section-box, #panel-canones .highlight-card, #panel-canones .feature-card {
+      border-left: 5px solid var(--oro-pontificio);
+    }
+    
+    /* Verde (Tiempo Ordinario, Desarrollo Histórico) */
+    #panel-historia .section-box, #panel-historia .highlight-card, #panel-historia .feature-card,
+    #panel-desarrollo .section-box, #panel-desarrollo .highlight-card, #panel-desarrollo .feature-card {
+      border-left: 5px solid var(--verde-episcopal);
+    }
+    
+    /* Azul (Mundo Contemporáneo, Personajes) */
+    #panel-contexto .section-box, #panel-contexto .highlight-card, #panel-contexto .feature-card,
+    #panel-personajes .section-box, #panel-personajes .highlight-card, #panel-personajes .feature-card {
+      border-left: 5px solid var(--azul-claro);
+    }
+    
+    /* Rojo/Púrpura (Herejías, Cisma, Apologética Militante) */
+    #panel-herejias .section-box, #panel-herejias .highlight-card, #panel-herejias .feature-card,
+    #panel-armadura .section-box, #panel-armadura .highlight-card, #panel-armadura .feature-card,
+    #panel-liturgia-cisma .section-box, #panel-liturgia-cisma .highlight-card, #panel-liturgia-cisma .feature-card {
+      border-left: 5px solid var(--purpura-cardenal);
+    }
     
     .highlight-card:hover, .feature-card:hover {
       transform: translateY(-5px);
