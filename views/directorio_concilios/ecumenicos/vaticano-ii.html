@@ -350,28 +350,23 @@
       align-items:stretch;
     }
 
-    .hero-nav button{
-      appearance:none;
-      border:1px solid rgba(212,175,55,.3);
-      border-left:5px solid var(--oro-pontificio); /* Borde permanente 3D */
-      background:linear-gradient(180deg, #194887 0%, #10335f 100%);
-      color:#fff4cf;
-      padding:16px 14px;
-      border-radius:16px;
-      cursor:pointer;
-      box-shadow:0 10px 18px rgba(0,0,0,.18), inset 0 1px 0 rgba(255,255,255,.12);
-      transition:.22s ease;
-      font-weight:bold;
-      font-size:1rem;
-      text-align:center;
-      /* Se elimina nowrap y se centra con flex para que textos largos encajen perfecto */
-      white-space:normal;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      line-height:1.2;
-      min-width:150px;
-      flex:1 1 150px;
+    .hero-nav button {
+      appearance: none;
+      border: 1px solid rgba(212,175,55,.3);
+      border-left: 5px solid var(--oro-pontificio);
+      background: linear-gradient(180deg, #194887 0%, #10335f 100%);
+      color: #fff4cf;
+      padding: 14px 10px; /* Margen interno reducido para igualar alturas */
+      border-radius: 16px;
+      cursor: pointer;
+      box-shadow: 0 10px 18px rgba(0,0,0,.18), inset 0 1px 0 rgba(255,255,255,.12);
+      transition: .22s ease;
+      font-weight: bold;
+      font-size: 0.9rem; /* Letra ligeramente más pequeña para que encajen textos largos */
+      text-align: center;
+      white-space: nowrap; /* Obliga al texto a mantenerse en una sola línea */
+      min-width: 140px; /* Ancho mínimo ajustado */
+      flex: 1 1 140px;
     }
 
     .hero-nav button:hover{
