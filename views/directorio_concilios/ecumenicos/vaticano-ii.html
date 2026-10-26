@@ -430,18 +430,24 @@
     }
 
     .highlight-card, .feature-card {
-      background:rgba(255,255,255,.90);
-      border:1px solid rgba(15,51,95,.14);
-      border-radius:20px;
-      box-shadow:0 10px 22px rgba(0,0,0,.08);
-      padding:22px;
-      min-width:0;
-      overflow-wrap:anywhere;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      background: rgba(255,255,255,.90);
+      border: 1px solid rgba(15,51,95,.14);
+      /* Línea base lateral invisible/transparente para preparar la animación */
+      border-left: 4px solid transparent; 
+      border-radius: 20px;
+      box-shadow: 0 10px 22px rgba(0,0,0,.08);
+      padding: 22px 22px 22px 18px; /* Ajuste para compensar el borde */
+      min-width: 0;
+      overflow-wrap: anywhere;
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     }
+    
     .highlight-card:hover, .feature-card:hover {
       transform: translateY(-5px);
-      box-shadow: var(--sombra);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+      border-color: rgba(212,175,55,0.4);
+      border-left-color: var(--oro-pontificio);
+      background: rgba(255,255,255,.98);
     }
     
     /* Clases de jerarquía visual */
