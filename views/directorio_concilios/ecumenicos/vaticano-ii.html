@@ -352,7 +352,8 @@
 
     .hero-nav button{
       appearance:none;
-      border:1px solid rgba(212,175,55,.7);
+      border:1px solid rgba(212,175,55,.3);
+      border-left:5px solid var(--oro-pontificio); /* Borde permanente 3D */
       background:linear-gradient(180deg, #194887 0%, #10335f 100%);
       color:#fff4cf;
       padding:16px 14px;
@@ -432,11 +433,10 @@
     .highlight-card, .feature-card {
       background: rgba(255,255,255,.90);
       border: 1px solid rgba(15,51,95,.14);
-      /* Línea base lateral invisible/transparente para preparar la animación */
-      border-left: 4px solid transparent; 
+      border-left: 5px solid var(--oro-pontificio); /* Borde oro permanente */
       border-radius: 20px;
       box-shadow: 0 10px 22px rgba(0,0,0,.08);
-      padding: 22px 22px 22px 18px; /* Ajuste para compensar el borde */
+      padding: 22px;
       min-width: 0;
       overflow-wrap: anywhere;
       transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
@@ -475,7 +475,8 @@
     .stat-card{
       background:linear-gradient(180deg, rgba(17,52,99,.98), rgba(14,44,84,.98));
       color:#fff7e8;
-      border:1px solid rgba(212,175,55,.45);
+      border:1px solid rgba(212,175,55,.25);
+      border-left:5px solid #ffd971; /* Acento dorado brillante permanente */
       border-radius:20px;
       padding:20px 16px;
       text-align:center;
@@ -535,7 +536,7 @@
     .timeline-item{
       background:rgba(255,255,255,.84);
       border:1px solid rgba(15,51,95,.12);
-      border-left:5px solid var(--dorado);
+      border-left:5px solid var(--oro-pontificio); /* Variable corregida */
       border-radius:18px;
       padding:20px 20px 18px;
       box-shadow:0 10px 22px rgba(0,0,0,.08);
