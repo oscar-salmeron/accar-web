@@ -1,0 +1,550 @@
+<!-- ===== INICIO DIRECTORIO DE LOS PADRES DE LA IGLESIA ===== -->
+<style>
+  .dir-padres-wrapper {
+    background-color: #081223;
+    padding: 60px 20px;
+    font-family: Georgia, "Times New Roman", serif;
+    color: #fff;
+    min-height: 100vh;
+  }
+  
+  .dir-header {
+    text-align: center;
+    margin-bottom: 50px;
+  }
+  
+  .dir-title {
+    color: #d4af37;
+    font-size: 2.8rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin: 0 0 10px 0;
+    text-shadow: 0 4px 12px rgba(0,0,0,0.5);
+  }
+  
+  .dir-divider {
+    width: 280px;
+    height: 2px;
+    margin: 0 auto 15px auto;
+    background: radial-gradient(circle, rgba(212,175,55,1) 0%, rgba(212,175,55,0) 100%);
+    box-shadow: 0 0 8px rgba(212,175,55,0.6);
+  }
+
+  .dir-subtitle {
+    color: #a3b8cc;
+    font-size: 1.25rem;
+    font-style: italic;
+    display: inline-block;
+  }
+
+  .dir-accordion {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .dir-acc-item {
+    background: linear-gradient(180deg, #0c1f3f 0%, #081223 100%);
+    border: 1px solid rgba(212,175,55,0.4);
+    border-radius: 16px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.3);
+    overflow: hidden;
+    transition: border-color 0.3s ease;
+  }
+
+  .dir-acc-item.active {
+    border-color: rgba(212,175,55,0.8);
+  }
+
+  .dir-acc-trigger {
+    width: 100%;
+    background: transparent;
+    border: none;
+    padding: 25px 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    color: #fff;
+    text-align: left;
+  }
+
+  .dir-acc-trigger-left {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+  }
+
+  .dir-acc-icon-wrap {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.6);
+    background: linear-gradient(135deg, #1d4e89 0%, #0c1f3f 100%);
+    border: 2px solid #d4af37;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    color: #d4af37;
+    flex-shrink: 0;
+  }
+
+  .dir-acc-text h3 {
+    margin: 0 0 8px 0;
+    font-size: 1.8rem;
+    color: #d4af37;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .dir-acc-text p {
+    margin: 0;
+    color: #a3b8cc;
+    font-size: 1.05rem;
+    font-style: italic;
+    line-height: 1.5;
+    max-width: 850px;
+  }
+
+  .dir-acc-toggle-icon {
+    color: #d4af37;
+    font-size: 2.2rem;
+    font-weight: 300;
+    transition: transform 0.3s ease;
+  }
+
+  .dir-acc-content {
+    display: none;
+    padding: 35px;
+    border-top: 1px solid rgba(212,175,55,0.2);
+    background: #060d1a;
+  }
+
+  .dir-acc-item.active .dir-acc-content {
+    display: block;
+    animation: fadeInGrid 0.4s ease forwards;
+  }
+
+  .dir-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+  }
+
+  .dir-card {
+    background: linear-gradient(135deg, #0f2447 0%, #060d1a 100%);
+    border: 1px solid rgba(212,175,55,0.2);
+    border-left: 5px solid #a31f34; /* Rojo por defecto (mártires/cardenal) */
+    border-radius: 12px;
+    padding: 20px;
+    text-align: left;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 25px;
+  }
+
+  /* Variaciones litúrgicas para bordes */
+  .borde-blanco { border-left-color: #f8f0d8; }
+  .borde-oro { border-left-color: #d4af37; }
+
+  .dir-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+    border-color: rgba(212,175,55,0.6);
+  }
+
+  .dir-card-img-wrap {
+    flex: 0 0 140px;
+  }
+
+  .dir-card-img {
+    width: 140px;
+    height: 140px;
+    border-radius: 6px;
+    border: 2px solid #d4af37;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+    object-fit: cover;
+    display: block;
+  }
+
+  .dir-card-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .dir-card h4 {
+    color: #d4af37;
+    font-size: 1.45rem;
+    margin: 0 0 8px 0;
+  }
+
+  .dir-card-sub {
+    color: #a3b8cc;
+    font-size: 0.95rem;
+    margin: 0 0 8px 0;
+  }
+
+  .dir-card-dates {
+    color: #d4af37;
+    font-size: 0.9rem;
+    margin: 0 0 15px 0;
+    font-weight: bold;
+    letter-spacing: 1px;
+  }
+
+  .dir-card-link {
+    color: #a3b8cc;
+    font-size: 0.85rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    transition: color 0.2s ease;
+    margin-top: auto;
+  }
+
+  .dir-card:hover .dir-card-link {
+    color: #d4af37;
+  }
+
+  .seccion-vacia {
+    text-align: center;
+    padding: 40px;
+    color: #a3b8cc;
+    font-size: 1.2rem;
+    font-style: italic;
+    border: 1px dashed rgba(212,175,55,0.3);
+    border-radius: 12px;
+  }
+
+  @keyframes fadeInGrid {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 992px) {
+    .dir-grid { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 768px) {
+    .dir-acc-trigger-left { flex-direction: column; align-items: flex-start; gap: 15px; }
+  }
+
+  @media (max-width: 560px) {
+    .dir-card { flex-direction: column; text-align: center; }
+    .dir-card-img-wrap { flex: 0 0 auto; }
+    .dir-card-img { width: 100%; max-width: 200px; height: auto; margin: 0 auto; }
+  }
+</style>
+
+<div class="dir-padres-wrapper">
+  <div class="dir-header">
+    <h1 class="dir-title">Padres de la Iglesia</h1>
+    <div class="dir-divider"></div>
+    <span class="dir-subtitle">«Columnae veritatis et testes Traditionis»</span>
+  </div>
+
+  <div class="dir-accordion">
+    
+    <!-- CATEGORÍA 1: PADRES APOSTÓLICOS -->
+    <div class="dir-acc-item active">
+      <button class="dir-acc-trigger" onclick="toggleDirAccordion(this)">
+        <div class="dir-acc-trigger-left">
+          <div class="dir-acc-icon-wrap">☧</div>
+          <div class="dir-acc-text">
+            <h3>Padres Apostólicos</h3>
+            <p>La generación de oro. Discípulos directos de los Apóstoles o de sus sucesores inmediatos (Siglo I y principios del II). Son el puente inquebrantable entre el Nuevo Testamento y la Tradición Católica.</p>
+          </div>
+        </div>
+        <span class="dir-acc-toggle-icon">&times;</span>
+      </button>
+      
+      <div class="dir-acc-content" style="display: block;">
+        <div class="dir-grid">
+
+          <div class="dir-card">
+            <div class="dir-card-img-wrap">
+              <img src="assets/img/padre_clemente_de_roma.png" alt="San Clemente de Roma" class="dir-card-img">
+            </div>
+            <div class="dir-card-content">
+              <h4>San Clemente de Roma</h4>
+              <p class="dir-card-sub">Papa (4º Sucesor de San Pedro)</p>
+              <p class="dir-card-dates">Finales del Siglo I</p>
+              <a href="#" onclick="event.preventDefault(); loadView('views/directorio_padres/clemente.html');" class="dir-card-link">Ver Arsenal Apologético →</a>
+            </div>
+          </div>
+
+          <div class="dir-card">
+            <div class="dir-card-img-wrap">
+              <img src="assets/img/padre_ignacio_de_antioquia.png" alt="San Ignacio de Antioquía" class="dir-card-img">
+            </div>
+            <div class="dir-card-content">
+              <h4>San Ignacio de Antioquía</h4>
+              <p class="dir-card-sub">Obispo de Antioquía y Mártir</p>
+              <p class="dir-card-dates">~35 – 107 d.C.</p>
+              <a href="#" onclick="event.preventDefault(); loadView('views/directorio_padres/padre_ignacio_de_antioquia.html');" class="dir-card-link">Ver Arsenal Apologético →</a>
+            </div>
+          </div>
+
+          <div class="dir-card">
+            <div class="dir-card-img-wrap">
+              <img src="assets/img/padre_policarpo_de_esmirna.png" alt="San Policarpo de Esmirna" class="dir-card-img">
+            </div>
+            <div class="dir-card-content">
+              <h4>San Policarpo de Esmirna</h4>
+              <p class="dir-card-sub">Obispo y Mártir (Discípulo de S. Juan)</p>
+              <p class="dir-card-dates">~69 – 155 d.C.</p>
+              <a href="#" onclick="event.preventDefault(); loadView('views/directorio_padres/policarpo.html');" class="dir-card-link">Ver Arsenal Apologético →</a>
+            </div>
+          </div>
+
+          <div class="dir-card borde-blanco">
+            <div class="dir-card-img-wrap">
+              <img src="assets/img/padre_papias_de_hierapolis.png" alt="Papías de Hierápolis" class="dir-card-img">
+            </div>
+            <div class="dir-card-content">
+              <h4>Papías de Hierápolis</h4>
+              <p class="dir-card-sub">Obispo y Recolector de Tradiciones</p>
+              <p class="dir-card-dates">~70 – 163 d.C.</p>
+              <a href="#" onclick="event.preventDefault(); loadView('views/directorio_padres/papias.html');" class="dir-card-link">Ver Arsenal Apologético →</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- CATEGORÍA 2: PADRES GRIEGOS Y APOLOGISTAS -->
+    <div class="dir-acc-item">
+      <button class="dir-acc-trigger" onclick="toggleDirAccordion(this)">
+        <div class="dir-acc-trigger-left">
+          <div class="dir-acc-icon-wrap">AΩ</div>
+          <div class="dir-acc-text">
+            <h3>Padres Griegos y Apologistas</h3>
+            <p>Los titanes de Oriente (Siglos II al IV). Defendieron la fe frente al paganismo filosófico y estructuraron la Cristología y Teología Trinitaria aplastando las grandes herejías.</p>
+          </div>
+        </div>
+        <span class="dir-acc-toggle-icon">+</span>
+      </button>
+      
+      <div class="dir-acc-content">
+        <div class="dir-grid">
+
+          <div class="dir-card">
+            <div class="dir-card-img-wrap">
+              <img src="assets/img/padre_justino_martir.png" alt="San Justino Mártir" class="dir-card-img">
+            </div>
+            <div class="dir-card-content">
+              <h4>San Justino Mártir</h4>
+              <p class="dir-card-sub">Apologista Laico, Filósofo y Mártir</p>
+              <p class="dir-card-dates">~100 – 165 d.C.</p>
+              <a href="#" onclick="event.preventDefault(); loadView('views/directorio_padres/justino.html');" class="dir-card-link">Ver Arsenal Apologético →</a>
+            </div>
+          </div>
+
+          <div class="dir-card borde-blanco">
+            <div class="dir-card-img-wrap">
+              <img src="assets/img/padre_ireneo_de_lyon.png" alt="San Ireneo de Lyon" class="dir-card-img">
+            </div>
+            <div class="dir-card-content">
+              <h4>San Ireneo de Lyon</h4>
+              <p class="dir-card-sub">Obispo (Padre de la Teología Católica)</p>
+              <p class="dir-card-dates">~130 – 202 d.C.</p>
+              <a href="#" onclick="event.preventDefault(); loadView('views/directorio_padres/ireneo.html');" class="dir-card-link">Ver Arsenal Apologético →</a>
+            </div>
+          </div>
+
+          <div class="dir-card borde-blanco">
+            <div class="dir-card-img-wrap">
+              <img src="assets/img/padre_atanasio_de_alejandria.png" alt="San Atanasio de Alejandría" class="dir-card-img">
+            </div>
+            <div class="dir-card-content">
+              <h4>San Atanasio de Alejandría</h4>
+              <p class="dir-card-sub">Obispo, Doctor y Defensor de Nicea</p>
+              <p class="dir-card-dates">~296 – 373 d.C.</p>
+              <a href="#" onclick="event.preventDefault(); loadView('views/directorio_padres/atanasio.html');" class="dir-card-link">Ver Arsenal Apologético →</a>
+            </div>
+          </div>
+
+          <div class="dir-card borde-blanco">
+            <div class="dir-card-img-wrap">
+              <img src="assets/img/padre_basilio_magno.png" alt="San Basilio Magno" class="dir-card-img">
+            </div>
+            <div class="dir-card-content">
+              <h4>San Basilio Magno</h4>
+              <p class="dir-card-sub">Obispo y Doctor (Padre Capadocio)</p>
+              <p class="dir-card-dates">330 – 379 d.C.</p>
+              <a href="#" onclick="event.preventDefault(); loadView('views/directorio_padres/basilio.html');" class="dir-card-link">Ver Arsenal Apologético →</a>
+            </div>
+          </div>
+
+          <div class="dir-card borde-blanco">
+            <div class="dir-card-img-wrap">
+              <img src="assets/img/padre_gregorio_nacianceno.png" alt="San Gregorio Nacianceno" class="dir-card-img">
+            </div>
+            <div class="dir-card-content">
+              <h4>San Gregorio Nacianceno</h4>
+              <p class="dir-card-sub">Obispo y Doctor (Padre Capadocio)</p>
+              <p class="dir-card-dates">329 – 389 d.C.</p>
+              <a href="#" onclick="event.preventDefault(); loadView('views/directorio_padres/gregorio_nacianceno.html');" class="dir-card-link">Ver Arsenal Apologético →</a>
+            </div>
+          </div>
+
+          <div class="dir-card borde-blanco">
+            <div class="dir-card-img-wrap">
+              <img src="assets/img/padre_gregorio_nisa.png" alt="San Gregorio de Nisa" class="dir-card-img">
+            </div>
+            <div class="dir-card-content">
+              <h4>San Gregorio de Nisa</h4>
+              <p class="dir-card-sub">Obispo y Místico (Padre Capadocio)</p>
+              <p class="dir-card-dates">~335 – 395 d.C.</p>
+              <a href="#" onclick="event.preventDefault(); loadView('views/directorio_padres/gregorio_nisa.html');" class="dir-card-link">Ver Arsenal Apologético →</a>
+            </div>
+          </div>
+
+          <div class="dir-card borde-blanco">
+            <div class="dir-card-img-wrap">
+              <img src="assets/img/padre_juan_crisostomo.png" alt="San Juan Crisóstomo" class="dir-card-img">
+            </div>
+            <div class="dir-card-content">
+              <h4>San Juan Crisóstomo</h4>
+              <p class="dir-card-sub">Patriarca de Constantinopla y Doctor</p>
+              <p class="dir-card-dates">347 – 407 d.C.</p>
+              <a href="#" onclick="event.preventDefault(); loadView('views/directorio_padres/juan_crisostomo.html');" class="dir-card-link">Ver Arsenal Apologético →</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- CATEGORÍA 3: PADRES LATINOS -->
+    <div class="dir-acc-item">
+      <button class="dir-acc-trigger" onclick="toggleDirAccordion(this)">
+        <div class="dir-acc-trigger-left">
+          <div class="dir-acc-icon-wrap">V</div>
+          <div class="dir-acc-text">
+            <h3>Padres Latinos</h3>
+            <p>Los cimientos de Occidente (Siglos III al VI). Moldearon la liturgia, la moral, la eclesiología y la disciplina forjando la identidad teológica de la Iglesia Romana.</p>
+          </div>
+        </div>
+        <span class="dir-acc-toggle-icon">+</span>
+      </button>
+      
+      <div class="dir-acc-content">
+        <div class="dir-grid">
+
+          <div class="dir-card">
+            <div class="dir-card-img-wrap">
+              <img src="assets/img/padre_cipriano_de_cartago.png" alt="San Cipriano de Cartago" class="dir-card-img">
+            </div>
+            <div class="dir-card-content">
+              <h4>San Cipriano de Cartago</h4>
+              <p class="dir-card-sub">Obispo, Mártir y Defensor de la Unidad</p>
+              <p class="dir-card-dates">~200 – 258 d.C.</p>
+              <a href="#" onclick="event.preventDefault(); loadView('views/directorio_padres/cipriano.html');" class="dir-card-link">Ver Arsenal Apologético →</a>
+            </div>
+          </div>
+
+          <div class="dir-card borde-blanco">
+            <div class="dir-card-img-wrap">
+              <img src="assets/img/padre_ambrosio_de_milan.png" alt="San Ambrosio de Milán" class="dir-card-img">
+            </div>
+            <div class="dir-card-content">
+              <h4>San Ambrosio de Milán</h4>
+              <p class="dir-card-sub">Obispo y Doctor (Gran Padre Latino)</p>
+              <p class="dir-card-dates">~340 – 397 d.C.</p>
+              <a href="#" onclick="event.preventDefault(); loadView('views/directorio_padres/ambrosio.html');" class="dir-card-link">Ver Arsenal Apologético →</a>
+            </div>
+          </div>
+
+          <div class="dir-card borde-blanco">
+            <div class="dir-card-img-wrap">
+              <img src="assets/img/padre_jeronimo.png" alt="San Jerónimo" class="dir-card-img">
+            </div>
+            <div class="dir-card-content">
+              <h4>San Jerónimo</h4>
+              <p class="dir-card-sub">Presbítero y Doctor (Traductor Bíblico)</p>
+              <p class="dir-card-dates">~347 – 420 d.C.</p>
+              <a href="#" onclick="event.preventDefault(); loadView('views/directorio_padres/jeronimo.html');" class="dir-card-link">Ver Arsenal Apologético →</a>
+            </div>
+          </div>
+
+          <div class="dir-card borde-blanco">
+            <div class="dir-card-img-wrap">
+              <img src="assets/img/padre_agustin_de_hipona.png" alt="San Agustín de Hipona" class="dir-card-img">
+            </div>
+            <div class="dir-card-content">
+              <h4>San Agustín de Hipona</h4>
+              <p class="dir-card-sub">Obispo y Doctor (Gran Padre Latino)</p>
+              <p class="dir-card-dates">354 – 430 d.C.</p>
+              <a href="#" onclick="event.preventDefault(); loadView('views/directorio_padres/agustin.html');" class="dir-card-link">Ver Arsenal Apologético →</a>
+            </div>
+          </div>
+
+          <div class="dir-card borde-oro">
+            <div class="dir-card-img-wrap">
+              <img src="assets/img/padre_gregorio_magno.png" alt="San Gregorio Magno" class="dir-card-img">
+            </div>
+            <div class="dir-card-content">
+              <h4>San Gregorio Magno</h4>
+              <p class="dir-card-sub">Papa y Doctor (Gran Padre Latino)</p>
+              <p class="dir-card-dates">~540 – 604 d.C.</p>
+              <a href="#" onclick="event.preventDefault(); loadView('views/directorio_padres/gregorio_magno.html');" class="dir-card-link">Ver Arsenal Apologético →</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- CATEGORÍA 4: DOCTORES DE LA IGLESIA (FUTURO) -->
+    <div class="dir-acc-item">
+      <button class="dir-acc-trigger" onclick="toggleDirAccordion(this)">
+        <div class="dir-acc-trigger-left">
+          <div class="dir-acc-icon-wrap" style="border-color: #555; color: #888;">☀</div>
+          <div class="dir-acc-text">
+            <h3 style="color: #888;">Doctores de la Iglesia</h3>
+            <p style="color: #666;">Las mentes más brillantes que iluminaron la fe a través de los siglos, cuyos escritos garantizan la pureza inmaculada de la doctrina.</p>
+          </div>
+        </div>
+        <span class="dir-acc-toggle-icon" style="color: #888;">+</span>
+      </button>
+      
+      <div class="dir-acc-content">
+        <div class="seccion-vacia">
+          Próximamente: Fichas maestras en desarrollo. (Santo Tomás de Aquino, San Juan de la Cruz, Santa Teresa de Ávila, entre otros grandes pilares).
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  function toggleDirAccordion(button) {
+    const item = button.closest('.dir-acc-item');
+    const icon = button.querySelector('.dir-acc-toggle-icon');
+    const isActive = item.classList.contains('active');
+    
+    document.querySelectorAll('.dir-acc-item').forEach(acc => {
+      acc.classList.remove('active');
+      acc.querySelector('.dir-acc-toggle-icon').textContent = '+';
+      acc.querySelector('.dir-acc-content').style.display = 'none';
+    });
+
+    if (!isActive) {
+      item.classList.add('active');
+      icon.innerHTML = '&times;';
+      item.querySelector('.dir-acc-content').style.display = 'block';
+    }
+  }
+</script>
+<!-- ===== FINAL DIRECTORIO DE LOS PADRES DE LA IGLESIA ===== -->
