@@ -13,9 +13,29 @@
       --azul-claro:#1d4e89;
       --dorado:#d4af37;
       --dorado-2:#e4c76a;
+      --purpura-cardenal:#a31f34;
       --texto:#1b1b1b;
       --sombra:0 18px 38px rgba(0,0,0,.18);
       --max:1240px;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-bottom: 20px;
+      color: var(--dorado);
+      font-weight: bold;
+      font-size: 1.05rem;
+      text-decoration: none;
+      transition: color 0.2s ease, transform 0.2s ease;
+    }
+    .back-link:hover {
+      color: #ffd971;
+      transform: translateX(-4px);
+    }
+
+    /* Borde Rojo Mártir para las tarjetas */
+    .section-box, .highlight-card, .feature-card {
+      border-left: 5px solid var(--purpura-cardenal) !important;
     }
 
     *{box-sizing:border-box}
@@ -213,8 +233,9 @@
       padding:30px;
       border:1px solid rgba(212,175,55,.42);
       border-radius:30px;
-      background:linear-gradient(180deg, rgba(11,31,63,.54), rgba(11,31,63,.80));
-      backdrop-filter:blur(6px);
+      background:
+        linear-gradient(180deg, rgba(11,31,63,.75), rgba(11,31,63,.90)),
+        url("../../assets/img/bg_padres_iglesia_acccar.png") center center / cover no-repeat;
       box-shadow:var(--sombra);
       overflow:hidden;
     }
@@ -927,50 +948,10 @@
 <body>
 
   <!-- ===== INICIO HERO ===== -->
-  <header class="hero">
+  <section class="hero">
     <div class="wrap hero-inner">
 
-      <!-- ===== INICIO BANDA SUPERIOR ===== -->
-      <div class="top-brand">
-        <a href="https://apologeticaccar.com" aria-label="Ir al inicio de Apologética Católica">
-          <img src="../../assets/img/logo-accar.png" alt="Logo ACCAR">
-          <div class="top-brand-text">
-            <span class="line-1">Apologética Católica Cristiana</span>
-            <span class="line-2">Apostólica Romana</span>
-          </div>
-        </a>
-
-        <button
-          type="button"
-          class="mobile-menu-toggle"
-          id="mobileMenuToggle"
-          aria-label="Abrir menú de navegación"
-          aria-expanded="false"
-          aria-controls="mobileNavPanel"
-        >
-          <div>
-            <span></span>
-            <span></span>
-            <span></span>
-          </div>
-        </button>
-      </div>
-
-      <div class="mobile-nav-panel" id="mobileNavPanel">
-        <div class="mobile-nav-card">
-          <div class="mobile-nav-list">
-            <button class="mobile-nav-btn active" type="button" data-target="inicio">Inicio</button>
-            <button class="mobile-nav-btn" type="button" data-target="vida">Vida</button>
-            <button class="mobile-nav-btn" type="button" data-target="contexto">Contexto</button>
-            <button class="mobile-nav-btn" type="button" data-target="ensenanza">Enseñanza</button>
-            <button class="mobile-nav-btn" type="button" data-target="legado">Legado</button>
-            <button class="mobile-nav-btn" type="button" data-target="escritos">Escritos</button>
-            <a class="mobile-nav-btn" href="https://apologeticaccar.com/biblioteca">Biblioteca</a>
-            <button class="mobile-nav-btn" type="button" id="btnPadresMobile">Padres</button>
-          </div>
-        </div>
-      </div>
-      <!-- ===== FINAL BANDA SUPERIOR ===== -->
+      <a href="#" onclick="event.preventDefault(); loadView('views/directorio-padres.html');" class="back-link">← Volver al Directorio de los Padres de la Iglesia</a>
 
       <div class="hero-card">
         <div class="hero-photo-wrap">
@@ -979,8 +960,8 @@
           </div>
 
           <!-- ===== INICIO BADGE PADRE ===== -->
-          <div class="badge-padre">
-            Padre Apostólico
+          <div class="badge-padre" style="background: var(--purpura-cardenal); color: white;">
+            Padre Apostólico y Mártir
           </div>
           <!-- ===== FINAL BADGE PADRE ===== -->
         </div>
@@ -989,25 +970,25 @@
           <div class="hero-kicker">Sección Padres de la Iglesia · Siglos I-II</div>
           <h1>San Ignacio de Antioquía</h1>
           <p>
-            Obispo de Antioquía y mártir de la Iglesia antigua, San Ignacio de Antioquía es uno de los Padres Apostólicos más luminosos. Sus cartas testimonian con extraordinaria claridad la fe en la Eucaristía, la autoridad del obispo, la unidad visible de la Iglesia y la conciencia católica de los primeros siglos.
+            Obispo de Antioquía y mártir en el Coliseo Romano (aprox. 107 d.C.). Discípulo directo de los Apóstoles San Pedro y San Juan. Sus siete cartas son una bomba apologética: demuestran con pruebas irrefutables del siglo I la Presencia Real en la Eucaristía, la jerarquía monárquica (Obispo, Presbítero, Diácono), la primacía de la Iglesia de Roma y son el primer registro escrito del término <strong>"Iglesia Católica"</strong>.
           </p>
 
           <div class="hero-meta">
             <div class="meta-item">
               <span class="meta-label">Ministerio</span>
-              <span class="meta-value">Obispo de Antioquía y mártir de Cristo.</span>
+              <span class="meta-value">Tercer Obispo de Antioquía (sucedió a San Pedro y a Evodio).</span>
             </div>
             <div class="meta-item">
               <span class="meta-label">Época</span>
-              <span class="meta-value">Finales del siglo I e inicios del siglo II, en cercanía con la generación apostólica.</span>
+              <span class="meta-value">Año 35 al 107 d.C. Generación inmediatamente posterior a Cristo.</span>
             </div>
             <div class="meta-item">
               <span class="meta-label">Obra principal</span>
-              <span class="meta-value">Siete cartas escritas camino al martirio, dirigidas a Iglesias y a San Policarpo.</span>
+              <span class="meta-value">Siete cartas escritas mientras era llevado encadenado hacia su martirio.</span>
             </div>
             <div class="meta-item">
               <span class="meta-label">Importancia</span>
-              <span class="meta-value">Primer autor cristiano conservado que llama explícitamente a la Iglesia “católica”; defensor de la Eucaristía, del episcopado y de la unidad visible.</span>
+              <span class="meta-value">Aniquila el mito protestante de que el catolicismo fue "inventado" por Constantino.</span>
             </div>
           </div>
 
@@ -1015,18 +996,16 @@
             <button class="nav-btn active" data-target="inicio">Inicio</button>
             <button class="nav-btn" data-target="vida">Vida</button>
             <button class="nav-btn" data-target="contexto">Contexto</button>
-            <button class="nav-btn" data-target="ensenanza">Enseñanza</button>
+            <button class="nav-btn" data-target="ensenanza">Enseñanza (Arsenal)</button>
             <button class="nav-btn" data-target="legado">Legado</button>
             <button class="nav-btn" data-target="escritos">Escritos</button>
-            <a href="https://apologeticaccar.com/biblioteca">Biblioteca</a>
-            <button type="button" id="btnPadres">Padres</button>
           </div>
         </div>
       </div>
 
     </div>
-  </header>
-  <!-- ===== FINAL HERO -->
+  </section>
+  <!-- ===== FINAL HERO ===== -->
 
   <!-- ===== INICIO MAIN ===== -->
   <main class="main-shell">
@@ -1036,77 +1015,60 @@
       <section id="panel-inicio" class="content-panel active">
 
         <div class="section-box">
-          <h2 class="section-title">Panorama de San Ignacio de Antioquía</h2>
+          <h2 class="section-title">Panorama Apologético</h2>
           <p>
-            Esta sección inicial funciona como panel-resumen de San Ignacio de Antioquía. Aquí se concentran sus datos fundamentales, su lugar entre los Padres Apostólicos, el valor de sus cartas y su enorme importancia para comprender la eclesiología, la sacramentalidad y la identidad católica de la Iglesia antigua.
+            San Ignacio de Antioquía es el eslabón de oro que conecta a los Apóstoles con la Iglesia primitiva. Leer a San Ignacio es ver el catolicismo en su estado más puro y original, destruyendo por completo la teoría protestante de la "Gran Apostasía". Su obra demuestra que los primeros cristianos ya eran plenamente católicos romanos.
           </p>
 
           <div class="stat-grid">
             <article class="stat-card">
               <span class="stat-number">7</span>
-              <span class="stat-label">Cartas conservadas con reconocimiento universal</span>
+              <span class="stat-label">Cartas conservadas universales</span>
             </article>
 
             <article class="stat-card">
               <span class="stat-number">Antioquía</span>
-              <span class="stat-label">Sede vinculada a su ministerio episcopal</span>
+              <span class="stat-label">Sede de su ministerio episcopal</span>
             </article>
 
             <article class="stat-card">
               <span class="stat-number">Roma</span>
-              <span class="stat-label">Lugar de su martirio según la tradición antigua</span>
+              <span class="stat-label">Lugar de su martirio</span>
             </article>
 
             <article class="stat-card">
-              <span class="stat-number">Siglos I-II</span>
-              <span class="stat-label">Testigo de la Iglesia muy cercana a los apóstoles</span>
+              <span class="stat-number">107 d.C.</span>
+              <span class="stat-label">Año de su coronación como mártir</span>
             </article>
           </div>
         </div>
 
         <div class="section-box">
-          <h3 class="section-subtitle">Claves y referencias rápidas</h3>
-
+          <h3 class="section-subtitle">Hitos Fundamentales</h3>
           <div class="inicio-grid">
             <article class="highlight-card">
-              <h4>Su lugar en la Iglesia primitiva</h4>
-              <p>
-                San Ignacio pertenece a la generación inmediatamente posterior a los apóstoles y aparece como uno de los testigos más poderosos de la fe antigua, especialmente en lo tocante a Iglesia, sacramentos y autoridad.
-              </p>
+              <h4>El término "Iglesia Católica"</h4>
+              <p>Fue el primer autor en la historia en utilizar explícitamente el término <strong>Iglesia Católica</strong> (Universal) para referirse al cuerpo místico fundado por Cristo, sentando las bases de la identidad cristiana frente a las sectas gnósticas locales.</p>
             </article>
 
             <article class="highlight-card">
-              <h4>“Iglesia católica” en San Ignacio</h4>
-              <p>
-                San Ignacio de Antioquía es el primer autor cristiano conservado que aplica explícitamente a la Iglesia el término “católica”. En su Carta a los Esmirniotas escribió: “Dondequiera que aparezca Jesucristo, allí está la Iglesia católica”, dejando un testimonio tempranísimo de la identidad visible y universal de la Iglesia.
-              </p>
+              <h4>Defensor de la Eucaristía</h4>
+              <p>Fulminó el error de que la comunión es un mero "símbolo", afirmando literalmente que la Eucaristía es la carne y la sangre de Jesucristo que padeció por nuestros pecados y resucitó.</p>
             </article>
 
             <article class="highlight-card">
-              <h4>Su testimonio más conocido</h4>
-              <p>
-                Sus siete cartas, escritas durante su camino al martirio, muestran una conciencia cristiana profundamente eclesial, sacramental y jerárquica, en plena armonía con la fe católica.
-              </p>
+              <h4>El Episcopado Monárquico</h4>
+              <p>Destruye la eclesiología evangélica demostrando que la Iglesia primitiva ya poseía una jerarquía de tres grados inamovibles: Obispo, Presbíteros y Diáconos.</p>
             </article>
-
+            
             <article class="highlight-card">
-              <h4>Su valor apologético</h4>
-              <p>
-                San Ignacio es decisivo para demostrar que la Iglesia antigua ya confesaba la centralidad de la Eucaristía, la necesidad de la comunión con el obispo y la existencia visible de la Iglesia católica.
-              </p>
-            </article>
-
-            <article class="highlight-card full-width">
-              <h4>Lectura católica correcta</h4>
-              <p>
-                San Ignacio de Antioquía debe leerse como un testigo privilegiado de la Tradición apostólica, no como un autor aislado, sino como una voz temprana de la Iglesia una, visible y sacramental.
-              </p>
+              <h4>Primacía de la Sede Romana</h4>
+              <p>En su carta a los Romanos, se dirige a esta Iglesia de manera excepcional, llamándola "la que preside en la caridad", reconociendo el honor primacial de Roma desde el siglo I.</p>
             </article>
           </div>
 
           <div class="cta-row">
             <a class="cta-link azul" href="https://apologeticaccar.com">Regresar a Apologética Católica</a>
-            <a class="cta-link dorado" href="https://apologeticaccar.com/biblioteca">Ver escritos en Biblioteca</a>
             <button class="cta-btn dorado" onclick="showPanel('vida')">Entrar a vida →</button>
           </div>
         </div>
@@ -1118,40 +1080,16 @@
       <section id="panel-vida" class="content-panel">
 
         <div class="section-box">
-          <h2 class="section-title">Vida</h2>
+          <h2 class="section-title">Vida y Martirio</h2>
           <p>
-            San Ignacio de Antioquía fue obispo de una de las sedes más importantes del cristianismo antiguo y vivió en un tiempo muy cercano al final de la era apostólica. La tradición cristiana lo reconoce como uno de los Padres Apostólicos, es decir, como un testigo antiguo de la fe recibida de los apóstoles y conservada en la vida de la Iglesia.
+            Conocido como <em>Theophorus</em> ("Portador de Dios"), Ignacio fue el tercer Obispo de Antioquía. La historia atestigua que conoció personalmente a los Apóstoles Pedro y Pablo. Bajo la persecución del emperador Trajano (aprox. 107 d.C.), fue arrestado y condenado a morir devorado por las fieras en el anfiteatro de Roma.
           </p>
           <p>
-            Su figura brilla especialmente por el testimonio de su martirio. Durante su traslado hacia Roma dejó escritas varias cartas que manifiestan no solo su ardiente amor a Cristo, sino también una comprensión profundamente católica de la Iglesia, de la Eucaristía y del ministerio episcopal.
+            Su viaje desde Siria hasta Roma, custodiado por diez crueles soldados a los que él llamaba "leopardos", no fue un camino de derrota, sino una marcha triunfal. En cada parada, las comunidades cristianas de Asia Menor salían a recibirlo. Aprovechó estas paradas para dictar siete cartas monumentales que fortalecieron a las iglesias y les advirtieron contra las herejías incipientes.
           </p>
         </div>
 
         <div class="section-box">
-          <h3 class="section-subtitle">Cronología esencial</h3>
-
-          <div class="timeline">
-            <article class="timeline-item">
-              <h4>Finales del siglo I · Iglesia cercana a los apóstoles</h4>
-              <p>San Ignacio pertenece a una etapa del cristianismo muy próxima a la memoria viva de los apóstoles y a la consolidación de la vida eclesial primitiva.</p>
-            </article>
-
-            <article class="timeline-item">
-              <h4>Ministerio episcopal en Antioquía</h4>
-              <p>Ejerció como obispo de Antioquía, una de las comunidades más relevantes de la Iglesia antigua y de enorme peso en la expansión del cristianismo.</p>
-            </article>
-
-            <article class="timeline-item">
-              <h4>Camino al martirio</h4>
-              <p>Durante su traslado a Roma escribió las cartas por las que hoy es más conocido, en las que exhorta a la unidad, a la fidelidad doctrinal y a la comunión con el obispo.</p>
-            </article>
-
-            <article class="timeline-item">
-              <h4>Recepción en la Iglesia antigua</h4>
-              <p>Sus escritos fueron estimados desde muy temprano como testimonios de altísimo valor para conocer la fe, la disciplina y la vida interior de la Iglesia primitiva.</p>
-            </article>
-          </div>
-
           <div class="cta-row">
             <a class="cta-link azul" href="https://apologeticaccar.com">Regresar a Apologética Católica</a>
             <button class="cta-btn dorado" onclick="showPanel('contexto')">Continuar a contexto →</button>
@@ -1165,47 +1103,22 @@
       <section id="panel-contexto" class="content-panel">
 
         <div class="section-box">
-          <h2 class="section-title">Contexto</h2>
+          <h2 class="section-title">Contexto y Herejías Combatidas</h2>
           <p>
-            San Ignacio vivió en una Iglesia que ya manifestaba una estructura visible, sacramental y jerárquica. No se trataba de comunidades dispersas e independientes en sentido moderno, sino de Iglesias concretas unidas por la misma fe, la misma Eucaristía y la comunión con sus legítimos pastores.
-          </p>
-          <p>
-            Sus cartas revelan además que la Iglesia antigua enfrentaba errores doctrinales, divisiones y tensiones internas, lo que exigía claridad en la enseñanza, firmeza en la disciplina y unidad en torno al obispo y a la fe apostólica.
+            La Iglesia del primer siglo enfrentaba ataques desde dos frentes: la persecución del Imperio Romano (que buscaba destruirla físicamente) y los herejes (que buscaban destruirla doctrinalmente). San Ignacio se enfrentó sin piedad a dos sectas destructivas:
           </p>
         </div>
 
         <div class="section-box">
-          <h3 class="section-subtitle">Claves de lectura</h3>
-
           <div class="feature-grid">
             <article class="feature-card">
-              <h4>Iglesia cercana a la era apostólica</h4>
-              <p>San Ignacio representa una etapa tempranísima en la que la fe cristiana ya se entiende como una comunión concreta, visible y ordenada.</p>
+              <h4>Los <span style="color: #c00000; font-weight: bold;">Docetas</span> (El error gnóstico)</h4>
+              <p>Esta herejía afirmaba que Jesús no tenía un cuerpo físico real, sino que su cuerpo era una "ilusión" o "apariencia" (del griego <em>dokein</em>), y por tanto no sufrió verdaderamente en la cruz. Ignacio los fulminó argumentando que si el sufrimiento de Cristo fue una ilusión, nuestra salvación y la Eucaristía también lo son.</p>
             </article>
 
             <article class="feature-card">
-              <h4>Antioquía y universalidad</h4>
-              <p>Su ministerio en Antioquía lo sitúa en una sede de enorme relevancia para la expansión del Evangelio y para la vida de la Iglesia primitiva.</p>
-            </article>
-
-            <article class="feature-card">
-              <h4>Martirio y testimonio</h4>
-              <p>Sus cartas nacen en el contexto dramático de su camino al martirio, lo que da a sus palabras una fuerza singular de autenticidad y entrega.</p>
-            </article>
-
-            <article class="feature-card">
-              <h4>Disciplina eclesial</h4>
-              <p>San Ignacio insiste en la necesidad de permanecer unidos al obispo, a los presbíteros y a los diáconos para salvaguardar la comunión y la verdad.</p>
-            </article>
-
-            <article class="feature-card">
-              <h4>Defensa contra errores</h4>
-              <p>Sus escritos responden a desviaciones doctrinales que afectaban la comprensión de Cristo, de la Eucaristía y de la vida de la Iglesia.</p>
-            </article>
-
-            <article class="feature-card">
-              <h4>Valor para la apologética</h4>
-              <p>Su testimonio destruye la idea de una Iglesia primitiva invisible o meramente espiritual y muestra una realidad plenamente católica desde fecha muy temprana.</p>
+              <h4>Los <span style="color: #c00000; font-weight: bold;">Judaizantes</span></h4>
+              <p>Grupos que insistían en que los cristianos debían guardar el sábado, la circuncisión y las leyes rituales de Moisés. San Ignacio trazó una línea definitiva: el cristianismo no es una secta judía, el Domingo (Día del Señor) ha reemplazado al sábado judío porque en él resucitó nuestra Vida.</p>
             </article>
           </div>
 
