@@ -94,10 +94,12 @@
     .historia-card:hover {
       transform: translateY(-6px);
       background: #080f1c;
+      /* Se añade un glow exterior dorado suave */
       box-shadow: 
-        0 20px 40px rgba(0,0,0,0.7), 
-        inset 0 45px 55px -30px rgba(212, 175, 55, 0.35);
-      border-color: rgba(212, 175, 55, 0.15);
+        0 20px 40px rgba(0,0,0,0.8),
+        0 0 20px rgba(212, 175, 55, 0.15),
+        inset 0 45px 55px -30px rgba(212, 175, 55, 0.4);
+      border-color: rgba(212, 175, 55, 0.4);
     }
 
     .historia-card:hover::before {
@@ -151,7 +153,8 @@
     }
 
     .historia-card:hover .historia-acceder {
-      color: #D4AF37;
+      color: #ffd971;
+      text-shadow: 0 0 8px rgba(212, 175, 55, 0.6);
     }
 
     /* ===== RESPONSIVE ===== */
