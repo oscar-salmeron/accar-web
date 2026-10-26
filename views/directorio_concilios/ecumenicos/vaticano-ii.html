@@ -364,7 +364,12 @@
       font-weight:bold;
       font-size:1rem;
       text-align:center;
-      white-space:nowrap;
+      /* Se elimina nowrap y se centra con flex para que textos largos encajen perfecto */
+      white-space:normal;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      line-height:1.2;
       min-width:150px;
       flex:1 1 150px;
     }
@@ -1599,7 +1604,14 @@
       });
 
       closeMobileMenu();
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      
+      // Desplazamiento exacto al inicio de la sección Hero (ocultando el header principal)
+      const heroSection = document.querySelector('.hero');
+      if (heroSection) {
+        heroSection.scrollIntoView({ behavior: "smooth", block: "start" });
+      } else {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
     }
 
     document.querySelectorAll(".nav-btn").forEach(btn => {
