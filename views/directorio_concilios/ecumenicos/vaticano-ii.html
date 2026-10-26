@@ -433,7 +433,6 @@
     .highlight-card, .feature-card {
       background: rgba(255,255,255,.90);
       border: 1px solid rgba(15,51,95,.14);
-      border-left: 5px solid var(--oro-pontificio); /* Borde oro permanente */
       border-radius: 20px;
       box-shadow: 0 10px 22px rgba(0,0,0,.08);
       padding: 22px;
@@ -441,12 +440,15 @@
       overflow-wrap: anywhere;
       transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     }
+
+    .highlight-card:nth-child(4n+1), .feature-card:nth-child(4n+1) { border-left: 5px solid var(--oro-pontificio); }
+    .highlight-card:nth-child(4n+2), .feature-card:nth-child(4n+2) { border-left: 5px solid var(--purpura-cardenal); }
+    .highlight-card:nth-child(4n+3), .feature-card:nth-child(4n+3) { border-left: 5px solid var(--verde-episcopal); }
+    .highlight-card:nth-child(4n+4), .feature-card:nth-child(4n+4) { border-left: 5px solid var(--azul-claro); }
     
     .highlight-card:hover, .feature-card:hover {
       transform: translateY(-5px);
       box-shadow: 0 15px 35px rgba(0,0,0,0.15);
-      border-color: rgba(212,175,55,0.4);
-      border-left-color: var(--oro-pontificio);
       background: rgba(255,255,255,.98);
     }
     
@@ -476,12 +478,17 @@
       background:linear-gradient(180deg, rgba(17,52,99,.98), rgba(14,44,84,.98));
       color:#fff7e8;
       border:1px solid rgba(212,175,55,.25);
-      border-left:5px solid #ffd971; /* Acento dorado brillante permanente */
+      border-left:5px solid var(--purpura-cardenal);
       border-radius:20px;
       padding:20px 16px;
       text-align:center;
       box-shadow:0 12px 22px rgba(0,0,0,.15);
       min-width:0;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .stat-card:hover{
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.3);
     }
 
     .stat-number{
@@ -536,12 +543,19 @@
     .timeline-item{
       background:rgba(255,255,255,.84);
       border:1px solid rgba(15,51,95,.12);
-      border-left:5px solid var(--oro-pontificio); /* Variable corregida */
+      border-left:5px solid var(--verde-episcopal);
       border-radius:18px;
       padding:20px 20px 18px;
       box-shadow:0 10px 22px rgba(0,0,0,.08);
       min-width:0;
       overflow-wrap:anywhere;
+      transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+    }
+
+    .timeline-item:hover{
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+      background: rgba(255,255,255,.98);
     }
 
     .timeline-item h4{
