@@ -1715,17 +1715,6 @@
       }
     }
 
-      closeMobileMenu();
-      
-      // Desplazamiento exacto al inicio de la sección Hero (ocultando el header principal)
-      const heroSection = document.querySelector('.hero');
-      if (heroSection) {
-        heroSection.scrollIntoView({ behavior: "smooth", block: "start" });
-      } else {
-        window.scrollTo({ top: 0, behavior: "smooth" });
-      }
-    }
-
     document.querySelectorAll(".nav-btn").forEach(btn => {
       btn.addEventListener("click", function(){
         showPanel(this.dataset.target);
