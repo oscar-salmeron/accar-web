@@ -1691,15 +1691,20 @@
     function showPanel(name){
       panelNames.forEach(panel => {
         const panelEl = document.getElementById("panel-" + panel);
-
         if(panelEl){
           panelEl.classList.toggle("active", panel === name);
         }
-
         document.querySelectorAll('[data-target="' + panel + '"]').forEach(btnEl => {
           btnEl.classList.toggle("active", panel === name);
         });
       });
+      
+      // Desplaza la vista directamente al inicio de la tarjeta del personaje, ocultando el header
+      const heroCard = document.querySelector('.hero-card');
+      if (heroCard) {
+        heroCard.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }
 
       closeMobileMenu();
       
