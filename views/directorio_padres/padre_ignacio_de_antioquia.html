@@ -1476,7 +1476,12 @@
           btnEl.classList.toggle("active", panel === name);
         });
       });
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      
+      // Desplaza la vista directamente al inicio de la tarjeta del personaje, ocultando el header
+      const heroCard = document.querySelector('.hero-card');
+      if (heroCard) {
+        heroCard.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
     }
 
     document.querySelectorAll(".nav-btn").forEach(btn => {
