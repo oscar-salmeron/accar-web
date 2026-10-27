@@ -1665,134 +1665,104 @@
   <!-- El Footer ha sido removido por requerimientos de la arquitectura SPA -->
 
   <script>
-    /* ===== INICIO SCRIPT ===== */
-    const HOME_URL = "https://apologeticaccar.com";
-    const CONCILIOS_URL = "https://apologeticaccar.com/concilios";
-    // Agregamos "liturgia-cisma" al final de la lista para que el script lo reconozca
-    const panelNames = ["inicio", "historia", "contexto", "desarrollo", "personajes", "documentos", "herejias", "canones", "armadura", "liturgia-cisma"];
+    /* ===== INICIO SCRIPT AISLADO ===== */
+    (function(){
+      const panelNames = ["inicio", "historia", "contexto", "desarrollo", "personajes", "documentos", "herejias", "canones", "armadura", "liturgia-cisma"];
+      const mobileMenuToggle = document.getElementById("mobileMenuToggle");
+      const mobileNavPanel = document.getElementById("mobileNavPanel");
 
-    const mobileMenuToggle = document.getElementById("mobileMenuToggle");
-    const mobileNavPanel = document.getElementById("mobileNavPanel");
-
-    function openMobileMenu(){
-      if(!mobileMenuToggle || !mobileNavPanel) return;
-      mobileMenuToggle.classList.add("active");
-      mobileNavPanel.classList.add("active");
-      mobileMenuToggle.setAttribute("aria-expanded", "true");
-    }
-
-    function closeMobileMenu(){
-      if(!mobileMenuToggle || !mobileNavPanel) return;
-      mobileMenuToggle.classList.remove("active");
-      mobileNavPanel.classList.remove("active");
-      mobileMenuToggle.setAttribute("aria-expanded", "false");
-    }
-
-    function toggleMobileMenu(){
-      if(!mobileNavPanel) return;
-      if(mobileNavPanel.classList.contains("active")){
-        closeMobileMenu();
-      }else{
-        openMobileMenu();
+      function openMobileMenu(){
+        if(!mobileMenuToggle || !mobileNavPanel) return;
+        mobileMenuToggle.classList.add("active");
+        mobileNavPanel.classList.add("active");
+        mobileMenuToggle.setAttribute("aria-expanded", "true");
       }
-    }
 
-    function showPanel(name){
-      panelNames.forEach(panel => {
-        const panelEl = document.getElementById("panel-" + panel);
-        if(panelEl){
-          panelEl.classList.toggle("active", panel === name);
+      function closeMobileMenu(){
+        if(!mobileMenuToggle || !mobileNavPanel) return;
+        mobileMenuToggle.classList.remove("active");
+        mobileNavPanel.classList.remove("active");
+        mobileMenuToggle.setAttribute("aria-expanded", "false");
+      }
+
+      function toggleMobileMenu(){
+        if(!mobileNavPanel) return;
+        if(mobileNavPanel.classList.contains("active")){
+          closeMobileMenu();
+        }else{
+          openMobileMenu();
         }
-        document.querySelectorAll('[data-target="' + panel + '"]').forEach(btnEl => {
-          btnEl.classList.toggle("active", panel === name);
-        });
-      });
-      
-      // Desplaza la vista directamente al inicio de la tarjeta del personaje, ocultando el header
-      const heroCard = document.querySelector('.hero-card');
-      if (heroCard) {
-        heroCard.scrollIntoView({ behavior: "smooth", block: "start" });
       }
-    }
 
-    document.querySelectorAll(".nav-btn").forEach(btn => {
-      btn.addEventListener("click", function(){
-        showPanel(this.dataset.target);
-      });
-    });
-
-    document.querySelectorAll(".mobile-nav-btn[data-target]").forEach(btn => {
-      btn.addEventListener("click", function(){
-        showPanel(this.dataset.target);
-      });
-    });
-
-    document.querySelectorAll(".acc-trigger").forEach(trigger => {
-      trigger.addEventListener("click", function(){
-        const item = this.parentElement;
-        const isOpen = item.classList.contains("open");
-
-        document.querySelectorAll(".acc-item").forEach(acc => {
-          acc.classList.remove("open");
-          const symbol = acc.querySelector(".acc-trigger span:last-child");
-          if(symbol) symbol.textContent = "+";
+      function showPanel(name){
+        panelNames.forEach(panel => {
+          const panelEl = document.getElementById("panel-" + panel);
+          if(panelEl){
+            panelEl.classList.toggle("active", panel === name);
+          }
+          document.querySelectorAll('[data-target="' + panel + '"]').forEach(btnEl => {
+            btnEl.classList.toggle("active", panel === name);
+          });
         });
 
-        if(!isOpen){
-          item.classList.add("open");
-          const symbol = item.querySelector(".acc-trigger span:last-child");
-          if(symbol) symbol.textContent = "−";
+        closeMobileMenu();
+
+        const navBar = document.querySelector('.hero-nav');
+        const globalHeader = document.getElementById('accarGlobalHeader'); 
+        
+        if (navBar) {
+          const headerHeight = globalHeader ? globalHeader.offsetHeight : 0;
+          const absoluteY = navBar.getBoundingClientRect().top + window.scrollY;
+          
+          window.scrollTo({
+            top: absoluteY - headerHeight - 10,
+            behavior: "smooth"
+          });
         }
+      }
+
+      document.querySelectorAll(".nav-btn").forEach(btn => {
+        btn.onclick = function(e) {
+          e.preventDefault();
+          showPanel(this.dataset.target);
+        };
       });
-    });
 
-    function goToConcilios(){
-      window.location.href = CONCILIOS_URL;
-    }
+      document.querySelectorAll(".mobile-nav-btn[data-target]").forEach(btn => {
+        btn.onclick = function(e) {
+          e.preventDefault();
+          showPanel(this.dataset.target);
+        };
+      });
 
-    const btnConcilios = document.getElementById("btnConcilios");
-    const btnConciliosMobile = document.getElementById("btnConciliosMobile");
-    const btnConciliosFooter = document.getElementById("btnConciliosFooter");
+      document.querySelectorAll(".acc-trigger").forEach(trigger => {
+        trigger.onclick = function(e) {
+          e.preventDefault();
+          const item = this.parentElement;
+          const isOpen = item.classList.contains("open");
 
-    if(btnConcilios){
-      btnConcilios.addEventListener("click", goToConcilios);
-    }
+          document.querySelectorAll(".acc-item").forEach(acc => {
+            acc.classList.remove("open");
+            const symbol = acc.querySelector(".acc-trigger span:last-child");
+            if(symbol) symbol.textContent = "+";
+          });
 
-    if(btnConciliosMobile){
-      btnConciliosMobile.addEventListener("click", goToConcilios);
-    }
+          if(!isOpen){
+            item.classList.add("open");
+            const symbol = item.querySelector(".acc-trigger span:last-child");
+            if(symbol) symbol.textContent = "−";
+          }
+        };
+      });
 
-    if(btnConciliosFooter){
-      btnConciliosFooter.addEventListener("click", goToConcilios);
-    }
-
-    if(mobileMenuToggle){
-      mobileMenuToggle.addEventListener("click", toggleMobileMenu);
-    }
-
-    document.addEventListener("click", function(e){
-      if(!mobileMenuToggle || !mobileNavPanel) return;
-      if(window.innerWidth > 920) return;
-
-      const clickedInsideMenu = mobileNavPanel.contains(e.target);
-      const clickedToggle = mobileMenuToggle.contains(e.target);
-
-      if(!clickedInsideMenu && !clickedToggle){
-        closeMobileMenu();
+      if(mobileMenuToggle){
+        mobileMenuToggle.onclick = function(e){
+          e.preventDefault();
+          toggleMobileMenu();
+        };
       }
-    });
-
-    window.addEventListener("resize", function(){
-      if(window.innerWidth > 920){
-        closeMobileMenu();
-      }
-    });
-
-    const yearEl = document.getElementById("yearActual");
-    if(yearEl){
-      yearEl.textContent = new Date().getFullYear();
-    }
-    /* ===== FINAL SCRIPT ===== */
+    })();
+    /* ===== FINAL SCRIPT AISLADO ===== */
   </script>
 
 </body>
