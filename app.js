@@ -36,6 +36,11 @@ window.loadView = async function(url) {
     // Cierra también los submenús que hayan quedado abiertos
     document.querySelectorAll('#accarGlobalHeader .accar-mobile-dropdown').forEach(item => item.classList.remove('open'));
   }
+
+  // --- NUEVO: Solución segura para iPad (romper el hover pegado) ---
+  if (document.activeElement) {
+    document.activeElement.blur();
+  }
   // ---------------------------------------------------------------------------
 
   // Lógica de desplazamiento inteligente condicionada
