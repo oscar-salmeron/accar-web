@@ -36,16 +36,24 @@ window.loadView = async function(url) {
     // Cierra también los submenús que hayan quedado abiertos
     document.querySelectorAll('#accarGlobalHeader .accar-mobile-dropdown').forEach(item => item.classList.remove('open'));
   }
-
-  // --- NUEVO: Romper el "hover pegado" de los menús de escritorio en iPad/Tablets ---
-  const desktopDropdowns = document.querySelectorAll('#accarGlobalHeader .accar-dropdown-menu');
-  desktopDropdowns.forEach(menu => {
-    menu.style.display = 'none'; // Lo oculta forzosamente para romper el hover del iPad
-    setTimeout(() => {
-      menu.style.display = ''; // Le devuelve el control al CSS casi instantáneamente
-    }, 50);
-  });
   // ---------------------------------------------------------------------------
 
   // Lógica de desplazamiento inteligente condicionada
   if (url.includes('inicio.html')) {
+    // Si es el inicio, subimos al tope absoluto para ver el Ticker y la tarjeta Hero completa
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  } else {
+    // Si es otra sección, bajamos EXACTAMENTE hasta donde empieza el contenido.
+    // Al no restar nada, ocultamos por completo el header y su imagen litúrgica.
+    const offsetTop = SPA_CONTAINER.getBoundingClientRect().top + window.scrollY;
+    window.scrollTo({ top: offsetTop, behavior: "smooth" });
+  }
+};
+
+document.addEventListener("DOMContentLoaded", async () => {
+  await Promise.all([
+    loadComponent('siteHeader', 'components/header.html'),
+    loadComponent('siteFooter', 'components/footer.html')
+  ]);
+  loadView('views/inicio.html');
+});
