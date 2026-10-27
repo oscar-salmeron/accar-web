@@ -1462,54 +1462,104 @@
   </main>
   <!-- ===== FINAL MAIN ===== -->
 
-  <script>
-    /* ===== INICIO SCRIPT ===== */
-    const panelNames = ["inicio", "vida", "contexto", "ensenanza", "legado", "escritos"];
+  /* ===== INICIO SCRIPT AISLADO ===== */
+    (function(){
+      const panelNames = ["inicio", "vida", "contexto", "ensenanza", "legado", "escritos"];
+      const mobileMenuToggle = document.getElementById("mobileMenuToggle");
+      const mobileNavPanel = document.getElementById("mobileNavPanel");
 
-    function showPanel(name){
-      panelNames.forEach(panel => {
-        const panelEl = document.getElementById("panel-" + panel);
-        if(panelEl){
-          panelEl.classList.toggle("active", panel === name);
-        }
-        document.querySelectorAll('[data-target="' + panel + '"]').forEach(btnEl => {
-          btnEl.classList.toggle("active", panel === name);
-        });
-      });
-      
-      // Desplaza la vista directamente al inicio de la tarjeta del personaje, ocultando el header
-      const heroCard = document.querySelector('.hero-card');
-      if (heroCard) {
-        heroCard.scrollIntoView({ behavior: "smooth", block: "start" });
+      function openMobileMenu(){
+        if(!mobileMenuToggle || !mobileNavPanel) return;
+        mobileMenuToggle.classList.add("active");
+        mobileNavPanel.classList.add("active");
+        mobileMenuToggle.setAttribute("aria-expanded", "true");
       }
-    }
 
-    document.querySelectorAll(".nav-btn").forEach(btn => {
-      btn.addEventListener("click", function(){
-        showPanel(this.dataset.target);
-      });
-    });
+      function closeMobileMenu(){
+        if(!mobileMenuToggle || !mobileNavPanel) return;
+        mobileMenuToggle.classList.remove("active");
+        mobileNavPanel.classList.remove("active");
+        mobileMenuToggle.setAttribute("aria-expanded", "false");
+      }
 
-    document.querySelectorAll(".acc-trigger").forEach(trigger => {
-      trigger.addEventListener("click", function(){
-        const item = this.parentElement;
-        const isOpen = item.classList.contains("open");
+      function toggleMobileMenu(){
+        if(!mobileNavPanel) return;
+        if(mobileNavPanel.classList.contains("active")){
+          closeMobileMenu();
+        }else{
+          openMobileMenu();
+        }
+      }
 
-        document.querySelectorAll(".acc-item").forEach(acc => {
-          acc.classList.remove("open");
-          const symbol = acc.querySelector(".acc-trigger span:last-child");
-          if(symbol) symbol.textContent = "+";
+      function showPanel(name){
+        panelNames.forEach(panel => {
+          const panelEl = document.getElementById("panel-" + panel);
+          if(panelEl){
+            panelEl.classList.toggle("active", panel === name);
+          }
+          document.querySelectorAll('[data-target="' + panel + '"]').forEach(btnEl => {
+            btnEl.classList.toggle("active", panel === name);
+          });
         });
 
-        if(!isOpen){
-          item.classList.add("open");
-          const symbol = item.querySelector(".acc-trigger span:last-child");
-          if(symbol) symbol.textContent = "−";
+        closeMobileMenu();
+
+        const navBar = document.querySelector('.hero-nav');
+        const globalHeader = document.getElementById('accarGlobalHeader'); 
+        
+        if (navBar) {
+          const headerHeight = globalHeader ? globalHeader.offsetHeight : 0;
+          const absoluteY = navBar.getBoundingClientRect().top + window.scrollY;
+          
+          window.scrollTo({
+            top: absoluteY - headerHeight - 10,
+            behavior: "smooth"
+          });
         }
+      }
+
+      document.querySelectorAll(".nav-btn").forEach(btn => {
+        btn.onclick = function(e) {
+          e.preventDefault();
+          showPanel(this.dataset.target);
+        };
       });
-    });
-    /* ===== FINAL SCRIPT ===== */
-  </script>
+
+      document.querySelectorAll(".mobile-nav-btn[data-target]").forEach(btn => {
+        btn.onclick = function(e) {
+          e.preventDefault();
+          showPanel(this.dataset.target);
+        };
+      });
+
+      document.querySelectorAll(".acc-trigger").forEach(trigger => {
+        trigger.onclick = function(e) {
+          e.preventDefault();
+          const item = this.parentElement;
+          const isOpen = item.classList.contains("open");
+
+          document.querySelectorAll(".acc-item").forEach(acc => {
+            acc.classList.remove("open");
+            const symbol = acc.querySelector(".acc-trigger span:last-child");
+            if(symbol) symbol.textContent = "+";
+          });
+
+          if(!isOpen){
+            item.classList.add("open");
+            const symbol = item.querySelector(".acc-trigger span:last-child");
+            if(symbol) symbol.textContent = "−";
+          }
+        };
+      });
+
+      if(mobileMenuToggle){
+        mobileMenuToggle.onclick = function(e){
+          e.preventDefault();
+          toggleMobileMenu();
+        };
+      }
+    })();
+    /* ===== FINAL SCRIPT AISLADO ===== */
 </body>
 </html>
 <!-- ===== FINAL SAN IGNACIO DE ANTIOQUÍA ===== -->
