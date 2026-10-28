@@ -3678,5 +3678,53 @@
     
   </div>
 
+  <script>
+    // 1. LOGICA PARA ACORDEONES QUE SE CIERRAN AUTOMATICAMENTE
+    document.querySelectorAll('.dir-century-header').forEach(header => {
+      // Limpiamos el comportamiento del toggle anterior en el html
+      header.removeAttribute('onclick');
+      
+      header.addEventListener('click', function() {
+        const parentAcc = this.parentElement;
+        const wasOpen = parentAcc.classList.contains('open');
+        
+        // Cerramos absolutamente todos los acordeones
+        document.querySelectorAll('.dir-century-acc').forEach(acc => {
+          acc.classList.remove('open');
+        });
+        
+        // Si no estaba abierto, lo abrimos y hacemos scroll hacia él
+        if (!wasOpen) {
+          parentAcc.classList.add('open');
+          // Pequeño retardo para que el scroll actúe sobre la caja ya abierta
+          setTimeout(() => {
+            this.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }, 200);
+        }
+      });
+    });
+
+    // 2. LOGICA PARA REDIRECCION DE BOTONES
+    document.querySelectorAll('.dir-pope-btn').forEach(btn => {
+      // Tomamos el nombre del papa que está en el <h3> hermano del botón
+      const papaNombre = btn.parentElement.querySelector('.dir-pope-name').innerText.trim();
+      
+      if (papaNombre === 'San Juan Pablo II') {
+        // A San Juan Pablo II le dejamos su ruta real
+        btn.setAttribute('onclick', "event.preventDefault(); loadView('views/directorio_papas/SIGLO 20/juan_pablo_2.html');");
+        btn.innerText = "Ver Ficha Completa ➔";
+      } 
+      else if (papaNombre === 'San Pedro') {
+         // San Pedro mantiene su redirección visual especial pero va a mantenimiento por ahora
+         btn.setAttribute('onclick', "event.preventDefault(); loadView('views/construccion.html');"); 
+      }
+      else {
+        // A todos los demás los mandamos a la página de construcción
+        btn.setAttribute('onclick', "event.preventDefault(); loadView('views/construccion.html');");
+        btn.innerText = "Ficha en Desarrollo ➔";
+      }
+    });
+  </script>
+
 </body>
 </html>
