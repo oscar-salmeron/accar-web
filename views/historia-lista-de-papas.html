@@ -123,6 +123,50 @@
       transform: rotate(45deg);
       color: #e4c76a;
     }
+
+    /* ===== SEPARADOR DE ÉPOCAS HISTÓRICAS ===== */
+    .dir-era-separator {
+      text-align: center;
+      margin: 70px 0 40px;
+      position: relative;
+    }
+    
+    .dir-era-separator h2 {
+      display: inline-block;
+      font-size: 2.2rem;
+      color: #D4AF37;
+      font-variant: small-caps;
+      letter-spacing: 2px;
+      margin: 0;
+      padding: 0 20px;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+      position: relative;
+      z-index: 2;
+    }
+    
+    .dir-era-separator p {
+      color: #a3b8cc;
+      font-style: italic;
+      margin: 8px 0 0;
+      font-size: 1.1rem;
+    }
+    
+    .dir-era-separator::before, .dir-era-separator::after {
+      content: '';
+      position: absolute;
+      top: 22px;
+      width: 25%;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, rgba(212,175,55,0.6), transparent);
+    }
+    
+    .dir-era-separator::before { left: 0; }
+    .dir-era-separator::after { right: 0; }
+
+    @media (max-width: 768px) {
+      .dir-era-separator h2 { font-size: 1.6rem; }
+      .dir-era-separator::before, .dir-era-separator::after { width: 15%; top: 16px; }
+    }
     
     /* ===== INTERIOR DEL ACORDEÓN ===== */
     .dir-century-content {
@@ -293,6 +337,12 @@
         <h1>Directorio Pontificio</h1>
       </div>
       <p>«Ubi Petrus, ibi Ecclesia»</p>
+    </div>
+
+    <!-- SEPARADOR: EDAD CONTEMPORÁNEA -->
+    <div class="dir-era-separator">
+      <h2>Edad Contemporánea</h2>
+      <p>Siglos XIX al XXI · La Iglesia frente a la modernidad y el nuevo milenio</p>
     </div>
 
     <!-- SIGLO XXI -->
