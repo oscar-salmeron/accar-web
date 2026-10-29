@@ -1,0 +1,1454 @@
+<!-- ===== INICIO SAN POLICARPO DE ESMIRNA ===== -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>San Policarpo de Esmirna | ACCAR</title>
+
+  <style>
+    :root{
+      --azul-oscuro:#0c1f3f;
+      --azul-medio:#123867;
+      --azul-claro:#1d4e89;
+      --dorado:#d4af37;
+      --dorado-2:#e4c76a;
+      --purpura-cardenal:#a31f34;
+      --texto:#1b1b1b;
+      --sombra:0 18px 38px rgba(0,0,0,.18);
+      --max:1240px;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-bottom: 20px;
+      color: var(--dorado);
+      font-weight: bold;
+      font-size: 1.05rem;
+      text-decoration: none;
+      transition: color 0.2s ease, transform 0.2s ease;
+    }
+    .back-link:hover {
+      color: #ffd971;
+      transform: translateX(-4px);
+    }
+
+    /* Borde Rojo Mártir para las tarjetas */
+    .section-box, .highlight-card, .feature-card {
+      border-left: 5px solid var(--purpura-cardenal) !important;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      color:var(--texto);
+      font-family:Georgia, "Times New Roman", serif;
+      background:
+        linear-gradient(rgba(8,18,35,.18), rgba(8,18,35,.18)),
+        url("../../assets/img/bg_padres_iglesia_acccar.png") center top / cover fixed no-repeat;
+    }
+
+    img{max-width:100%;display:block}
+    a{text-decoration:none;color:inherit}
+    button{font:inherit}
+    .wrap{
+      width:min(var(--max), calc(100% - 28px));
+      margin:0 auto;
+    }
+
+    .content-panel{display:none}
+    .content-panel.active{
+      display:block;
+      animation:fadeIn .28s ease;
+    }
+
+    @keyframes fadeIn{
+      from{opacity:0;transform:translateY(8px)}
+      to{opacity:1;transform:none}
+    }
+
+    /* ===== INICIO HERO ===== */
+    .hero{
+      position:relative;
+      overflow:hidden;
+      border-bottom:2px solid rgba(212,175,55,.55);
+      background:
+        linear-gradient(180deg, rgba(9,23,45,.08) 0%, rgba(9,23,45,.03) 24%, rgba(9,23,45,.28) 100%);
+    }
+
+    .hero::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        linear-gradient(90deg, rgba(7,17,34,.28) 0%, rgba(7,17,34,.08) 44%, rgba(7,17,34,.22) 100%);
+      pointer-events:none;
+    }
+
+    .hero-inner{
+      position:relative;
+      z-index:1;
+      min-height:760px;
+      padding:34px 0 38px;
+    }
+
+    /* ===== INICIO BANDA SUPERIOR ===== */
+    .top-brand{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      margin-bottom:20px;
+    }
+
+    .top-brand a{
+      display:flex;
+      align-items:center;
+      gap:16px;
+      min-width:0;
+    }
+
+    .top-brand img{
+      width:78px;
+      filter:drop-shadow(0 8px 16px rgba(0,0,0,.28));
+    }
+
+    .top-brand-text{
+      color:#f8f0d8;
+      line-height:1.1;
+      text-shadow:0 4px 16px rgba(0,0,0,.32);
+    }
+
+    .top-brand-text .line-1{
+      display:block;
+      font-size:1.95rem;
+      font-weight:bold;
+    }
+
+    .top-brand-text .line-2{
+      display:block;
+      font-size:1.45rem;
+      margin-top:2px;
+    }
+
+    .mobile-menu-toggle{
+      display:none;
+      align-items:center;
+      justify-content:center;
+      width:56px;
+      height:56px;
+      border-radius:16px;
+      border:1px solid rgba(212,175,55,.72);
+      background:linear-gradient(180deg, rgba(25,72,135,.92), rgba(16,51,95,.92));
+      box-shadow:0 10px 18px rgba(0,0,0,.18), inset 0 1px 0 rgba(255,255,255,.12);
+      cursor:pointer;
+      flex:0 0 auto;
+      padding:0;
+    }
+
+    .mobile-menu-toggle:hover{
+      transform:translateY(-1px);
+      background:linear-gradient(180deg, rgba(29,85,159,.96), rgba(18,56,103,.96));
+    }
+
+    .mobile-menu-toggle span{
+      display:block;
+      width:24px;
+      height:2.5px;
+      background:#fff4cf;
+      border-radius:999px;
+      margin:3px 0;
+      transition:.22s ease;
+    }
+
+    .mobile-menu-toggle.active span:nth-child(1){
+      transform:translateY(8px) rotate(45deg);
+    }
+
+    .mobile-menu-toggle.active span:nth-child(2){
+      opacity:0;
+    }
+
+    .mobile-menu-toggle.active span:nth-child(3){
+      transform:translateY(-8px) rotate(-45deg);
+    }
+
+    .mobile-nav-panel{
+      display:none;
+      margin-bottom:24px;
+    }
+
+    .mobile-nav-panel.active{
+      display:block;
+      animation:fadeIn .24s ease;
+    }
+
+    .mobile-nav-card{
+      border:1px solid rgba(212,175,55,.42);
+      border-radius:22px;
+      background:linear-gradient(180deg, rgba(11,31,63,.60), rgba(11,31,63,.84));
+      backdrop-filter:blur(6px);
+      box-shadow:var(--sombra);
+      padding:14px;
+    }
+
+    .mobile-nav-list{
+      display:grid;
+      gap:10px;
+    }
+
+    .mobile-nav-btn{
+      appearance:none;
+      width:100%;
+      border:1px solid rgba(212,175,55,.7);
+      background:linear-gradient(180deg, #194887 0%, #10335f 100%);
+      color:#fff4cf;
+      padding:15px 14px;
+      border-radius:16px;
+      cursor:pointer;
+      box-shadow:0 10px 18px rgba(0,0,0,.18), inset 0 1px 0 rgba(255,255,255,.12);
+      transition:.22s ease;
+      font-weight:bold;
+      font-size:1rem;
+      text-align:center;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    .mobile-nav-btn.active{
+      background:linear-gradient(180deg, #e1bd55 0%, #c69a25 100%);
+      color:#241c09;
+      box-shadow:0 12px 22px rgba(0,0,0,.2), inset 0 1px 0 rgba(255,255,255,.18);
+    }
+    /* ===== FINAL BANDA SUPERIOR ===== */
+
+    .hero-card{
+      width:100%;
+      display:grid;
+      grid-template-columns:minmax(250px, 330px) 1fr;
+      gap:34px;
+      align-items:center;
+      padding:30px;
+      border:1px solid rgba(212,175,55,.42);
+      border-radius:30px;
+      background:
+        linear-gradient(180deg, rgba(11,31,63,.20), rgba(11,31,63,.55)),
+        url("../../assets/img/bg_padres_iglesia_acccar.png") center center / cover no-repeat;
+      box-shadow:var(--sombra);
+      overflow:hidden;
+    }
+
+    .hero-photo-wrap{
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+    }
+
+    .hero-photo{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    .hero-photo img{
+      width:100%;
+      max-width:290px;
+      border-radius:28px;
+      border:3px solid rgba(212,175,55,.82);
+      background:linear-gradient(180deg, #f7f0dc, #d9c79f);
+      box-shadow:0 14px 26px rgba(0,0,0,.28);
+    }
+
+    /* ===== BADGE PADRE ===== */
+    .badge-padre{
+      margin-top:16px;
+      display:inline-block;
+      padding:10px 22px;
+      border-radius:999px;
+      background:linear-gradient(180deg, #e1bd55, #c69a25);
+      color:#241c09;
+      font-weight:bold;
+      font-size:.95rem;
+      line-height:1.1;
+      text-align:center;
+      box-shadow:0 8px 16px rgba(0,0,0,.18);
+    }
+
+    .hero-copy{
+      color:#fff8e8;
+      min-width:0;
+    }
+
+    .hero-kicker{
+      display:inline-block;
+      margin:0 0 10px;
+      padding:8px 14px;
+      border-radius:999px;
+      border:1px solid rgba(212,175,55,.45);
+      background:rgba(255,255,255,.08);
+      font-size:.95rem;
+      letter-spacing:.02em;
+    }
+
+    .hero-copy h1{
+      margin:0 0 14px;
+      font-size:clamp(2.15rem, 4.2vw, 3.95rem);
+      line-height:1.02;
+      color:#fff4d0;
+      text-shadow:0 5px 18px rgba(0,0,0,.26);
+      overflow-wrap:anywhere;
+    }
+
+    .hero-copy p{
+      margin:0;
+      max-width:820px;
+      font-size:1.08rem;
+      line-height:1.8;
+      color:#f7efd9;
+      overflow-wrap:anywhere;
+    }
+
+    .hero-meta{
+      display:grid;
+      grid-template-columns:repeat(4, 1fr);
+      gap:14px;
+      margin:24px 0 0;
+    }
+
+    .hero-meta .meta-item{
+      padding:16px 16px 18px;
+      border-radius:18px;
+      border:1px solid rgba(212,175,55,.34);
+      background:rgba(255,255,255,.07);
+      min-height:100%;
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.05);
+      min-width:0;
+    }
+
+    .hero-meta .meta-label{
+      display:block;
+      margin-bottom:8px;
+      font-size:.82rem;
+      color:#e7d8a6;
+      text-transform:uppercase;
+      letter-spacing:.06em;
+    }
+
+    .hero-meta .meta-value{
+      font-size:.94rem;
+      line-height:1.55;
+      color:#fff9ec;
+      overflow-wrap:anywhere;
+    }
+
+    .hero-nav{
+      margin-top:24px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      width:100%;
+      justify-content:space-between;
+      align-items:stretch;
+    }
+
+    .hero-nav button,
+    .hero-nav a{
+      appearance:none;
+      border:1px solid rgba(212,175,55,.7);
+      background:linear-gradient(180deg, #194887 0%, #10335f 100%);
+      color:#fff4cf;
+      padding:16px 14px;
+      border-radius:16px;
+      cursor:pointer;
+      box-shadow:0 10px 18px rgba(0,0,0,.18), inset 0 1px 0 rgba(255,255,255,.12);
+      transition:.22s ease;
+      font-weight:bold;
+      font-size:1rem;
+      text-align:center;
+      white-space:nowrap;
+      min-width:150px;
+      flex:1 1 150px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    .hero-nav button:hover,
+    .hero-nav a:hover{
+      transform:translateY(-1px);
+      background:linear-gradient(180deg, #1d559f 0%, #123867 100%);
+    }
+
+    .hero-nav button.active{
+      background:linear-gradient(180deg, #e1bd55 0%, #c69a25 100%);
+      color:#241c09;
+      box-shadow:0 12px 22px rgba(0,0,0,.2), inset 0 1px 0 rgba(255,255,255,.18);
+    }
+    /* ===== FINAL HERO ===== */
+
+    /* ===== INICIO MAIN ===== */
+    .main-shell{
+      background:
+        linear-gradient(rgba(245,239,225,.96), rgba(245,239,225,.97)),
+        url("../../assets/img/textura-footer-pergamino.png") center top / cover repeat;
+      padding:38px 0 52px;
+      overflow-x:hidden;
+    }
+
+    .section-box{
+      background:rgba(255,255,255,.74);
+      border:1px solid rgba(161,127,44,.22);
+      border-radius:24px;
+      box-shadow:var(--sombra);
+      padding:30px;
+      margin:0 0 24px;
+      overflow:hidden;
+    }
+
+    .section-title{
+      margin:0 0 18px;
+      font-size:clamp(2rem, 4vw, 3rem);
+      line-height:1.08;
+      color:var(--azul-oscuro);
+      overflow-wrap:anywhere;
+    }
+
+    .section-subtitle{
+      margin:0 0 16px;
+      font-size:1.6rem;
+      color:var(--azul-oscuro);
+      overflow-wrap:anywhere;
+    }
+
+    .section-box p{
+      margin:0 0 16px;
+      font-size:1.08rem;
+      line-height:1.9;
+      overflow-wrap:anywhere;
+    }
+
+    .inicio-grid{
+      display:grid;
+      grid-template-columns:repeat(2, minmax(0, 1fr));
+      gap:18px;
+      margin-top:8px;
+    }
+
+    .highlight-card{
+      background:rgba(255,255,255,.85);
+      border:1px solid rgba(15,51,95,.14);
+      border-radius:20px;
+      box-shadow:0 10px 22px rgba(0,0,0,.08);
+      padding:22px;
+      min-width:0;
+      overflow-wrap:anywhere;
+    }
+
+    .highlight-card.full-width{
+      grid-column:1 / -1;
+    }
+
+    .highlight-card h3,
+    .highlight-card h4{
+      margin:0 0 12px;
+      color:var(--azul-oscuro);
+      font-size:1.34rem;
+      overflow-wrap:anywhere;
+    }
+
+    .highlight-card p:last-child{margin-bottom:0}
+
+    .stat-grid{
+      display:grid;
+      grid-template-columns:repeat(4, minmax(0, 1fr));
+      gap:16px;
+      margin-top:18px;
+    }
+
+    .stat-card{
+      background:linear-gradient(180deg, rgba(17,52,99,.98), rgba(14,44,84,.98));
+      color:#fff7e8;
+      border:1px solid rgba(212,175,55,.45);
+      border-radius:20px;
+      padding:20px 16px;
+      text-align:center;
+      box-shadow:0 12px 22px rgba(0,0,0,.15);
+      min-width:0;
+    }
+
+    .stat-number{
+      display:block;
+      font-size:2.1rem;
+      line-height:1;
+      color:#ffd971;
+      margin-bottom:10px;
+      font-weight:bold;
+      overflow-wrap:anywhere;
+    }
+
+    .stat-label{
+      font-size:.96rem;
+      line-height:1.55;
+      color:#fff6dd;
+      overflow-wrap:anywhere;
+    }
+
+    .feature-grid{
+      display:grid;
+      grid-template-columns:repeat(2, minmax(0, 1fr));
+      gap:18px;
+    }
+
+    .feature-card{
+      background:rgba(255,255,255,.85);
+      border:1px solid rgba(15,51,95,.14);
+      border-radius:18px;
+      box-shadow:0 10px 22px rgba(0,0,0,.08);
+      padding:22px;
+      min-width:0;
+      overflow-wrap:anywhere;
+    }
+
+    .feature-card h3,
+    .feature-card h4{
+      margin:0 0 12px;
+      color:var(--azul-oscuro);
+      font-size:1.34rem;
+      overflow-wrap:anywhere;
+    }
+
+    .feature-card p:last-child{margin-bottom:0}
+
+    .timeline{
+      display:grid;
+      gap:16px;
+      margin-top:6px;
+    }
+
+    .timeline-item{
+      background:rgba(255,255,255,.84);
+      border:1px solid rgba(15,51,95,.12);
+      border-left:5px solid var(--dorado);
+      border-radius:18px;
+      padding:20px 20px 18px;
+      box-shadow:0 10px 22px rgba(0,0,0,.08);
+      min-width:0;
+      overflow-wrap:anywhere;
+    }
+
+    .timeline-item h4{
+      margin:0 0 10px;
+      font-size:1.24rem;
+      color:var(--azul-oscuro);
+      overflow-wrap:anywhere;
+    }
+
+    .timeline-item p:last-child{margin-bottom:0}
+
+    .cta-row{
+      display:flex;
+      flex-wrap:wrap;
+      gap:14px;
+      justify-content:center;
+      margin-top:18px;
+    }
+
+    .cta-btn,
+    .cta-link{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-width:260px;
+      max-width:100%;
+      padding:15px 22px;
+      border-radius:16px;
+      border:1px solid rgba(212,175,55,.7);
+      box-shadow:0 10px 18px rgba(0,0,0,.16);
+      font-size:1.06rem;
+      font-weight:bold;
+      cursor:pointer;
+      text-align:center;
+      overflow-wrap:anywhere;
+    }
+
+    .cta-btn.azul,
+    .cta-link.azul{
+      background:linear-gradient(180deg,#194887,#10335f);
+      color:#fff4cf;
+    }
+
+    .cta-btn.dorado,
+    .cta-link.dorado{
+      background:linear-gradient(180deg,#e1bd55,#c69a25);
+      color:#241c09;
+    }
+
+    .accordion{
+      display:grid;
+      gap:16px;
+      margin-top:8px;
+    }
+
+    .acc-item{
+      border:1px solid rgba(15,51,95,.12);
+      border-radius:18px;
+      overflow:hidden;
+      background:rgba(255,255,255,.84);
+      box-shadow:0 10px 22px rgba(0,0,0,.08);
+      min-width:0;
+    }
+
+    .acc-trigger{
+      width:100%;
+      border:none;
+      background:linear-gradient(180deg, rgba(17,52,99,.98), rgba(14,44,84,.98));
+      color:#fff4cf;
+      text-align:left;
+      padding:18px 20px;
+      cursor:pointer;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+      font-size:1.1rem;
+      font-weight:bold;
+      min-width:0;
+      overflow-wrap:anywhere;
+    }
+
+    .acc-trigger span:first-child{
+      min-width:0;
+      overflow-wrap:anywhere;
+    }
+
+    .acc-trigger span:last-child{
+      min-width:28px;
+      text-align:center;
+      font-size:1.55rem;
+      line-height:1;
+      color:#e6ca7b;
+      flex-shrink:0;
+    }
+
+    .acc-content{
+      display:none;
+      padding:20px 20px 22px;
+      background:rgba(255,255,255,.92);
+      border-top:1px solid rgba(15,51,95,.12);
+      overflow-wrap:anywhere;
+    }
+
+    .acc-item.open .acc-content{display:block}
+    .acc-item.open .acc-trigger{
+      background:linear-gradient(180deg, #1b4d90, #123867);
+    }
+
+    .doc-tags{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin:10px 0 14px;
+    }
+
+    .doc-tag{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:8px 12px;
+      border-radius:999px;
+      background:#ecdfb5;
+      color:#463815;
+      border:1px solid rgba(198,154,37,.4);
+      font-size:.92rem;
+      font-weight:bold;
+      max-width:100%;
+      overflow-wrap:anywhere;
+    }
+    /* ===== FINAL MAIN ===== */
+
+    /* ===== INICIO FOOTER ===== */
+    .footer{
+      position:relative;
+      overflow:hidden;
+      color:#f8efd3;
+      padding:54px 0 30px;
+      border-top:2px solid rgba(212,175,55,.55);
+      background:
+        linear-gradient(180deg, rgba(8,24,48,.04), rgba(8,24,48,.12)),
+        url("../../assets/img/bg_padres_iglesia_acccar.png") center 88% / cover no-repeat;
+    }
+
+    .footer::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        linear-gradient(90deg, rgba(7,26,54,.38), rgba(12,42,86,.10), rgba(7,26,54,.38));
+      pointer-events:none;
+    }
+
+    .footer-inner{
+      position:relative;
+      z-index:1;
+    }
+
+    .footer-card{
+      border:1px solid rgba(212,175,55,.34);
+      border-radius:28px;
+      padding:30px 28px 24px;
+      background:linear-gradient(180deg, rgba(11,31,63,.54), rgba(11,31,63,.80));
+      backdrop-filter:blur(5px);
+      box-shadow:var(--sombra);
+      overflow:hidden;
+    }
+
+    .footer-top{
+      display:grid;
+      grid-template-columns:1.2fr .8fr .9fr;
+      gap:36px;
+      align-items:start;
+    }
+
+    .footer-brand{
+      display:flex;
+      align-items:flex-start;
+      gap:24px;
+    }
+
+    .footer-brand-logo{
+      flex:0 0 auto;
+    }
+
+    .footer-brand-logo img{
+      width:172px;
+      filter:drop-shadow(0 8px 16px rgba(0,0,0,.22));
+    }
+
+    .footer-brand-copy{
+      padding-top:8px;
+    }
+
+    .footer-brand-copy p{
+      margin:0 0 8px;
+      font-size:.90rem;
+      line-height:1.58;
+      color:#f6ecd0;
+      overflow-wrap:anywhere;
+    }
+
+    .footer-col h4{
+      margin:0 0 14px;
+      color:#ffd971;
+      font-size:1.7rem;
+      overflow-wrap:anywhere;
+    }
+
+    .footer-links{
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    }
+
+    .footer-links a,
+    .footer-links button{
+      background:none;
+      border:none;
+      padding:0;
+      margin:0;
+      text-align:left;
+      color:#f6ecd0;
+      font-family:Georgia, "Times New Roman", serif;
+      font-size:1.05rem;
+      cursor:pointer;
+      overflow-wrap:anywhere;
+    }
+
+    .footer-links a:hover,
+    .footer-links button:hover{
+      color:#ffe8a4;
+    }
+
+    .footer-contact{
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+      color:#f6ecd0;
+      font-size:1.05rem;
+      line-height:1.7;
+      overflow-wrap:anywhere;
+    }
+
+    .footer-contact a{
+      color:#f6ecd0;
+    }
+
+    .footer-contact a:hover{
+      color:#ffe8a4;
+    }
+
+    .footer-divider{
+      width:100%;
+      height:1px;
+      margin:22px 0 18px;
+      background:linear-gradient(90deg, transparent, rgba(212,175,55,.85), transparent);
+    }
+
+    .footer-legal{
+      text-align:center;
+      color:#eadfb7;
+      font-size:1rem;
+      line-height:1.75;
+      overflow-wrap:anywhere;
+    }
+    /* ===== FINAL FOOTER ===== */
+
+    /* ===== INICIO RESPONSIVE ===== */
+    @media (max-width:1180px){
+      .hero-meta{grid-template-columns:repeat(2, 1fr)}
+      .hero-nav{
+        justify-content:center;
+      }
+      .hero-nav button,
+      .hero-nav a{
+        flex:1 1 220px;
+        min-width:220px;
+      }
+      .stat-grid{grid-template-columns:repeat(2, minmax(0, 1fr))}
+      .footer-top{grid-template-columns:1fr 1fr}
+      .footer-col.contact-col{grid-column:1/-1}
+    }
+
+    @media (max-width:920px){
+      .hero{
+        background:
+          linear-gradient(180deg, rgba(9,23,45,.26) 0%, rgba(9,23,45,.16) 26%, rgba(9,23,45,.68) 100%);
+      }
+
+      .hero-inner{
+        min-height:auto;
+        padding:26px 0 34px;
+      }
+
+      .top-brand{
+        justify-content:space-between;
+        align-items:center;
+        text-align:left;
+        gap:12px;
+        margin-bottom:16px;
+      }
+
+      .top-brand a{
+        flex-direction:row;
+        align-items:center;
+        gap:12px;
+        min-width:0;
+        flex:1 1 auto;
+      }
+
+      .top-brand img{width:64px}
+      .top-brand-text .line-1{font-size:1.45rem}
+      .top-brand-text .line-2{font-size:1.05rem}
+
+      .mobile-menu-toggle{
+        display:inline-flex;
+      }
+
+      .hero-card{
+        grid-template-columns:1fr;
+        gap:22px;
+        padding:20px;
+      }
+
+      .hero-copy{text-align:center}
+      .hero-copy p{margin:0 auto}
+
+      .hero-nav{
+        display:flex;
+        flex-direction:column;
+        gap:10px;
+        margin-top:20px;
+      }
+      .hero-nav button{
+        width:100%;
+        min-width:100%;
+        padding:14px;
+        font-size:1.05rem;
+      }
+
+      .inicio-grid,
+      .feature-grid{grid-template-columns:1fr}
+      .highlight-card.full-width{
+        grid-column:auto;
+      }
+      .footer-top{grid-template-columns:1fr}
+      .footer-brand{
+        justify-content:center;
+        text-align:center;
+        flex-direction:column;
+        align-items:center;
+      }
+      .footer-links{align-items:center}
+      .footer-links a,
+      .footer-links button{text-align:center}
+      .footer-col{text-align:center}
+      .footer-contact{align-items:center}
+    }
+
+    @media (max-width:560px){
+      body{background-attachment:scroll}
+      .wrap{width:min(var(--max), calc(100% - 16px))}
+      .top-brand img{width:58px}
+      .top-brand-text .line-1{font-size:1.18rem}
+      .top-brand-text .line-2{font-size:.92rem}
+      .mobile-menu-toggle{
+        width:52px;
+        height:52px;
+        border-radius:14px;
+      }
+      .hero-card{border-radius:22px;padding:16px}
+      .hero-photo img{max-width:220px;border-radius:22px}
+      .hero-kicker{font-size:.85rem}
+      .hero-copy h1{font-size:2.35rem}
+      .hero-copy p{font-size:1rem;line-height:1.72}
+      .hero-meta{grid-template-columns:1fr}
+      .main-shell{padding:22px 0 30px}
+      .section-box{
+        padding:18px;
+        border-radius:20px;
+      }
+      .section-title{font-size:2.05rem}
+      .section-subtitle{font-size:1.32rem}
+      .section-box p,
+      .timeline-item p,
+      .feature-card p,
+      .highlight-card p,
+      .acc-content p,
+      .footer-brand-copy p{
+        font-size:1rem;
+        line-height:1.82;
+      }
+      .stat-grid{grid-template-columns:1fr}
+      .acc-trigger{
+        padding:16px 16px;
+        font-size:1rem;
+      }
+      .cta-btn,.cta-link{
+        min-width:100%;
+      }
+      .footer{
+        padding:32px 0 24px;
+        background:
+          linear-gradient(180deg, rgba(8,24,48,.03), rgba(8,24,48,.10)),
+          url("../../assets/img/bg_padres_iglesia_acccar.png") 52% 92% / cover no-repeat;
+      }
+      .footer-card{padding:20px 16px 18px}
+      .footer-brand-logo img{
+        width:146px;
+      }
+      .footer-col h4{font-size:1.4rem}
+      .footer-legal{font-size:.94rem}
+    }
+    /* ===== FINAL RESPONSIVE ===== */
+  </style>
+</head>
+<body>
+
+  <!-- ===== INICIO HERO ===== -->
+  <section class="hero">
+    <div class="wrap hero-inner">
+
+      <a href="#" onclick="event.preventDefault(); loadView('views/historia-lista-de-padres.html');" class="back-link">← Volver al Directorio de los Padres de la Iglesia</a>
+
+      <div class="hero-card">
+        <div class="hero-photo-wrap">
+          <div class="hero-photo">
+            <img src="../../assets/img/padre_policarpo_de_esmirna.png" alt="San Policarpo de Esmirna">
+          </div>
+
+          <!-- ===== INICIO BADGE PADRE ===== -->
+          <div class="badge-padre" style="background: var(--purpura-cardenal); color: white;">
+            Padre Apostólico, Obispo y Mártir
+          </div>
+          <!-- ===== FINAL BADGE PADRE ===== -->
+        </div>
+
+        <div class="hero-copy">
+          <div class="hero-kicker">Sección Padres de la Iglesia · Siglos I-II</div>
+          <h1>San Policarpo de Esmirna</h1>
+          <p>
+            Obispo de Esmirna y mártir anciano (aprox. 155 d.C.). Discípulo directo del Apóstol San Juan y maestro de San Ireneo de Lyon. Su figura es el puente vivo entre la era apostólica y la Iglesia de finales del siglo II. El relato contemporáneo de su martirio contiene la prueba documental más antigua y demoledora a favor de la práctica católica de venerar las reliquias de los santos.
+          </p>
+
+          <div class="hero-meta">
+            <div class="meta-item">
+              <span class="meta-label">Ministerio</span>
+              <span class="meta-value">Obispo de Esmirna (actual Turquía), consagrado por los propios apóstoles.</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">Época</span>
+              <span class="meta-value">Aprox. 69 - 155 d.C. Testigo ocular de la predicación juanina.</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">Obra principal</span>
+              <span class="meta-value">Epístola a los Filipenses y "El Martirio de San Policarpo".</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">Importancia</span>
+              <span class="meta-value">Evidencia apostólica irrefutable sobre la jerarquía, la Eucaristía y las reliquias.</span>
+            </div>
+          </div>
+
+          <div class="hero-nav">
+            <button class="nav-btn active" data-target="inicio">Inicio</button>
+            <button class="nav-btn" data-target="vida">Vida</button>
+            <button class="nav-btn" data-target="contexto">Contexto</button>
+            <button class="nav-btn" data-target="legado">Legado</button>
+            <!-- Botones más anchos abajo para textos largos -->
+            <button class="nav-btn" data-target="ensenanza" style="flex: 1 1 45%;">Enseñanza (Arsenal Apologético)</button>
+            <button class="nav-btn" data-target="escritos" style="flex: 1 1 45%;">Escritos Inmortales</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+  <!-- ===== FINAL HERO ===== -->
+
+  <!-- ===== INICIO MAIN ===== -->
+  <main class="main-shell">
+    <div class="wrap">
+
+      <!-- ===== INICIO PANEL INICIO ===== -->
+      <section id="panel-inicio" class="content-panel active">
+
+        <div class="section-box">
+          <h2 class="section-title">Panorama Apologético</h2>
+          <p>
+            San Policarpo es la garantía viviente de que la Iglesia Católica del siglo II enseñaba exactamente lo mismo que los Apóstoles del siglo I. Conoció a los testigos oculares del Señor, fue maestro de los grandes apologistas posteriores (como San Ireneo) y entregó su vida en el fuego negándose a maldecir a Cristo.
+          </p>
+          <p>
+            Además, el documento que narra su muerte es una bomba apologética contra el protestantismo, pues demuestra que los primeros cristianos ya veneraban los huesos de los mártires y celebraban la Santa Misa sobre sus tumbas.
+          </p>
+
+          <div class="stat-grid">
+            <article class="stat-card">
+              <span class="stat-number">1</span>
+              <span class="stat-label">Epístola universal conservada (Filipenses)</span>
+            </article>
+
+            <article class="stat-card">
+              <span class="stat-number">Esmirna</span>
+              <span class="stat-label">Sede de su ministerio episcopal</span>
+            </article>
+
+            <article class="stat-card">
+              <span class="stat-number">86</span>
+              <span class="stat-label">Años de servicio a Cristo antes de morir</span>
+            </article>
+
+            <article class="stat-card">
+              <span class="stat-number">155 d.C.</span>
+              <span class="stat-label">Año aproximado de su martirio en la hoguera</span>
+            </article>
+          </div>
+        </div>
+
+        <div class="section-box">
+          <h3 class="section-subtitle">Hitos Fundamentales</h3>
+          <div class="inicio-grid">
+            <article class="highlight-card">
+              <h4>El Eslabón Apostólico</h4>
+              <p>Fue discípulo directo de San Juan Evangelista. Policarpo transmitió a la siguiente generación exactamente lo que escuchó de los labios del apóstol, protegiendo a la Iglesia de las innovaciones gnósticas.</p>
+            </article>
+
+            <article class="highlight-card">
+              <h4>El Martirio y las Reliquias</h4>
+              <p>El texto "Martirio de Policarpo" (escrito en el año 156 d.C.) distingue claramente entre adorar a Cristo (latría) y venerar a los mártires (dulía), detallando cómo los fieles recogieron sus huesos "más valiosos que las piedras preciosas".</p>
+            </article>
+
+            <article class="highlight-card">
+              <h4>La Controversia Pascual</h4>
+              <p>Viajó a Roma para debatir con el Papa Aniceto sobre la fecha correcta para celebrar la Pascua. Aunque no llegaron a un acuerdo en la fecha, demostraron la unidad de la Iglesia al celebrar juntos la Eucaristía.</p>
+            </article>
+            
+            <article class="highlight-card">
+              <h4>El Azote de los Herejes</h4>
+              <p>Era implacable con quienes corrompían el Evangelio. Cuando el hereje Marción se le acercó en Roma pidiendo ser reconocido, Policarpo le respondió en su cara: "Te reconozco como el primogénito de Satanás".</p>
+            </article>
+          </div>
+
+          <div class="cta-row">
+            <a class="cta-link azul" href="https://apologeticaccar.com">Regresar a Apologética Católica</a>
+            <button class="cta-btn dorado" onclick="showPanel('vida')">Entrar a vida →</button>
+          </div>
+        </div>
+
+      </section>
+      <!-- ===== FINAL PANEL INICIO ===== -->
+
+      <!-- ===== INICIO PANEL VIDA ===== -->
+      <section id="panel-vida" class="content-panel">
+
+        <div class="section-box">
+          <h2 class="section-title">Vida y Martirio: Ochenta y Seis Años</h2>
+          <p>
+            San Policarpo nació alrededor del año 69 d.C., apenas unas décadas después de la Resurrección de Cristo. Su vida está íntimamente ligada a la comunidad de Esmirna (en Asia Menor, actual Turquía), una de las Siete Iglesias mencionadas en el libro del Apocalipsis.
+          </p>
+          <p>
+            Su gran valor histórico radica en que fue ordenado Obispo de Esmirna por los propios Apóstoles, específicamente por San Juan, con quien convivió estrechamente en su juventud. San Ireneo, que fue alumno de Policarpo, relataría años después con gran emoción cómo Policarpo solía sentarse a hablar de sus conversaciones con Juan y con otros que habían visto al Señor.
+          </p>
+        </div>
+
+        <div class="section-box">
+          <h3 class="section-subtitle">Del Encuentro en Roma al Fuego del Circo</h3>
+          
+          <div class="feature-grid">
+            <article class="feature-card">
+              <h4>El Viaje Papal (La Pascua)</h4>
+              <p>Ya siendo un anciano venerable (aprox. 154 d.C.), Policarpo viajó a Roma para reunirse con el Papa Aniceto. El motivo principal era discutir la "controversia cuartodecimana", es decir, la fecha exacta en la que debía celebrarse la Pascua.</p>
+              <p>Policarpo defendía la tradición de Asia (celebrar el 14 de Nisán, cayera el día que cayera), basada en San Juan. El Papa Aniceto defendía la tradición romana (celebrar siempre en Domingo), basada en San Pedro y San Pablo.</p>
+              <p>Aunque no se convencieron mutuamente, se separaron en perfecta paz eclesiástica. Para demostrar su absoluta comunión, el Papa Aniceto le cedió a Policarpo el inmenso honor de celebrar la Eucaristía principal en la iglesia de Roma.</p>
+            </article>
+
+            <article class="feature-card">
+              <h4>El Arresto</h4>
+              <p>Al regresar a Esmirna, estalló una brutal persecución pagana. El populacho exigió sangre cristiana en el circo, gritando "¡Búsquese a Policarpo!". Tras esconderse brevemente a petición de sus fieles, fue descubierto en una granja debido a la confesión bajo tortura de un joven esclavo.</p>
+              <p>Cuando los soldados llegaron a arrestarlo, Policarpo no huyó. Les pidió que le dieran una hora para orar, ordenó que les sirvieran comida y bebida, y rezó de pie con tanto fervor que muchos soldados se arrepintieron de haber ido a capturar a un anciano tan santo.</p>
+            </article>
+
+            <article class="feature-card">
+              <h4>"Ochenta y Seis Años"</h4>
+              <p>Fue llevado al estadio ante el procónsul romano, quien se compadeció de su avanzada edad. El magistrado le suplicó que jurara por el genio del César y maldijera a Cristo para salvar su vida.</p>
+              <p>Fue en ese momento cuando Policarpo pronunció una de las frases más inmortales de la historia cristiana: <em>"Ochenta y seis años he servido a Cristo, y ningún mal me ha hecho. ¿Cómo, pues, podré maldecir a mi Rey, que me ha salvado?"</em>.</p>
+            </article>
+
+            <article class="feature-card">
+              <h4>El Milagro de la Hoguera</h4>
+              <p>Condenado a ser quemado vivo, fue atado a un poste. Al encenderse la pira, el fuego hizo un milagro: en lugar de quemarlo, las llamas formaron una especie de bóveda o vela de barco hinchada por el viento alrededor de su cuerpo, protegiéndolo.</p>
+              <p>Desde el fuego emanaba un olor a pan horneado y a incienso fino. Al ver que el fuego no lo consumía, el verdugo recibió la orden de atravesarlo con un puñal. Al hacerlo, la tradición relata que salió una paloma y tanta sangre que apagó el fuego de la hoguera, consumando su glorioso martirio.</p>
+            </article>
+          </div>
+
+          <div class="cta-row" style="margin-top: 24px;">
+            <a class="cta-link azul" href="https://apologeticaccar.com">Regresar a Apologética Católica</a>
+            <button class="cta-btn dorado" onclick="showPanel('contexto')">Continuar a contexto →</button>
+          </div>
+        </div>
+
+      </section>
+      <!-- ===== FINAL PANEL VIDA ===== -->
+
+      <!-- ===== INICIO PANEL CONTEXTO ===== -->
+      <section id="panel-contexto" class="content-panel">
+
+        <div class="section-box">
+          <h2 class="section-title">Contexto y el Gnosticismo</h2>
+          <p>
+            Durante el siglo II, la Iglesia primitiva no solo enfrentó a las bestias del Imperio Romano, sino a los lobos vestidos de oveja que intentaban corromper la doctrina apostólica desde adentro. San Policarpo fue un muro de contención infranqueable contra la herejía.
+          </p>
+        </div>
+
+        <div class="section-box">
+          <div class="feature-grid">
+            <article class="feature-card">
+              <h4>Marción y el Dios del Antiguo Testamento</h4>
+              <p>Marción de Sinope fue uno de los herejes más destructivos de la historia cristiana. Enseñaba que el Dios del Antiguo Testamento (el Creador, severo e iracundo) era un dios inferior y maligno, completamente diferente al Dios del Nuevo Testamento (el Padre de Jesucristo, todo amor y gracia).</p>
+              <p>Por lo tanto, Marción mutiló las Escrituras: rechazó por completo el Antiguo Testamento, purgó los Evangelios de cualquier referencia judía y creó su propio "canon" bíblico, arrastrando a miles de personas a su secta.</p>
+            </article>
+
+            <article class="feature-card">
+              <h4>El "Primogénito de Satanás"</h4>
+              <p>Durante la visita de Policarpo a Roma, se topó cara a cara con el propio Marción. Sabiendo la inmensa autoridad espiritual del Obispo de Esmirna, el hereje se le acercó y le dijo de manera arrogante: <em>"Reconócenos"</em> (exigiendo comunión).</p>
+              <p>Policarpo, lleno de celo apostólico y sin ninguna tolerancia hacia el error doctrinal que condenaba almas, le miró fijamente y le respondió ante todos: <em>"Claro que te reconozco. Te reconozco como el primogénito de Satanás"</em>.</p>
+              <p>Esta anécdota, narrada por su discípulo San Ireneo, demuestra que la Iglesia primitiva no practicaba un ecumenismo relativista; la sana doctrina se defendía con absoluta firmeza frente a los lobos heréticos.</p>
+            </article>
+          </div>
+
+          <div class="cta-row">
+            <a class="cta-link azul" href="https://apologeticaccar.com">Regresar a Apologética Católica</a>
+            <button class="cta-btn dorado" onclick="showPanel('ensenanza')">Continuar a enseñanza →</button>
+          </div>
+        </div>
+
+      </section>
+      <!-- ===== FINAL PANEL CONTEXTO ===== -->
+
+      <!-- ===== INICIO PANEL ENSEÑANZA ===== -->
+      <section id="panel-ensenanza" class="content-panel">
+
+        <div class="section-box">
+          <h2 class="section-title">Enseñanza: El Arsenal Apologético</h2>
+          <p>
+            El testimonio de San Policarpo es una verdadera pesadilla para la teología protestante, que afirma que las prácticas como la veneración de los santos y sus reliquias fueron "inventos medievales" o corrupciones paganas introducidas por Constantino en el siglo IV.
+          </p>
+          <p>
+            A través del documento contemporáneo de su martirio (el acta martirial más antigua y auténtica que conserva la Iglesia) y de su propia epístola, el siglo II nos grita que el catolicismo estaba plenamente formado.
+          </p>
+        </div>
+
+        <div class="section-box">
+          <h3 class="section-subtitle">Doctrinas Católicas en el Siglo II</h3>
+
+          <div class="feature-grid">
+            <article class="feature-card">
+              <h4>1. La Veneración de las Reliquias</h4>
+              <p><strong>El Arma:</strong> Los evangélicos acusan a los católicos de idolatría o necrofilia espiritual por conservar huesos de santos. El texto del año 156 d.C. destruye este mito: <em>"Recogimos sus huesos, de más valor que las piedras preciosas y más estimables que el oro, y los depositamos en el lugar conveniente"</em>.</p>
+              <p>La Iglesia primitiva valoraba físicamente los restos de los mártires porque habían sido templos vivos del Espíritu Santo.</p>
+            </article>
+
+            <article class="feature-card">
+              <h4>2. Latría vs. Dulía (Adoración vs. Veneración)</h4>
+              <p><strong>El Arma:</strong> El "Martirio de Policarpo" establece explícitamente la distinción teológica que el catolicismo usa hoy: <em>"A Cristo le adoramos (latría) como a Hijo de Dios que es; mas a los mártires les tributamos el justo homenaje de nuestro afecto (dulía) como a discípulos e imitadores del Señor"</em>.</p>
+              <p>Es imposible afirmar que los primeros cristianos confundían la adoración a Dios con la veneración a los santos.</p>
+            </article>
+
+            <article class="feature-card">
+              <h4>3. El Culto a los Santos y la Santa Misa</h4>
+              <p><strong>El Arma:</strong> El acta martirial relata la intención de la comunidad de reunirse sobre la tumba de Policarpo: <em>"El Señor nos concederá celebrar el natalicio de su martirio, tanto en memoria de los que ya han sostenido su combate, como para el entrenamiento y preparación de los que tienen que combatir"</em>.</p>
+              <p>Esta es la base absoluta del calendario santoral católico (celebrar el día de la muerte como el "cumpleaños" en el cielo) y de la costumbre eclesiástica de colocar reliquias de santos debajo de los altares donde se celebra la Eucaristía.</p>
+            </article>
+
+            <article class="feature-card">
+              <h4>4. Sucesión Apostólica y Tradición</h4>
+              <p><strong>El Arma:</strong> Policarpo no sacó su doctrina de la libre interpretación de una Biblia impresa (que aún no existía), sino de la Tradición oral recibida. San Ireneo testifica que Policarpo contaba fielmente los milagros y las enseñanzas del Señor <em>"tal como lo había recibido de los testigos oculares del Verbo de Vida, en todo de acuerdo con las Escrituras"</em>.</p>
+            </article>
+          </div>
+
+          <div class="cta-row">
+            <a class="cta-link azul" href="https://apologeticaccar.com">Regresar a Apologética Católica</a>
+            <button class="cta-btn dorado" onclick="showPanel('legado')">Continuar a legado →</button>
+          </div>
+        </div>
+
+      </section>
+      <!-- ===== FINAL PANEL ENSEÑANZA ===== -->
+      
+      <!-- ===== INICIO PANEL LEGADO ===== -->
+      <section id="panel-legado" class="content-panel">
+        <div class="section-box">
+          <h2 class="section-title">El Puente Inquebrantable de la Tradición</h2>
+          <p>
+            El mayor legado de San Policarpo no fue ser un teólogo brillante y prolífico (como San Agustín o Santo Tomás), sino ser un custodio absolutamente fiel y rocoso de lo que se le entregó. Su función providencial en la historia de la Iglesia fue ser la cadena de transmisión segura entre la era de la revelación y la era de la apologética.
+          </p>
+        </div>
+
+        <div class="section-box">
+          <h3 class="section-subtitle">Las Columnas de su Influencia</h3>
+          <div class="feature-grid">
+            <article class="feature-card">
+              <h4>La Formación de San Ireneo</h4>
+              <p>Ireneo de Lyon (el Padre de la Teología Católica) fue oyente directo de Policarpo. Ireneo utilizó el testimonio inquebrantable de su maestro para aplastar a los gnósticos en su famosa obra "Contra las Herejías".</p>
+              <p>La simple existencia de Policarpo permitía a Ireneo decir: <em>"Nosotros podemos enumerar a los que fueron instituidos por los Apóstoles como obispos, y a sus sucesores hasta nosotros... como Policarpo".</em></p>
+            </article>
+            
+            <article class="feature-card">
+              <h4>El Primer Relato Martirial Oficial</h4>
+              <p>La carta enviada por la Iglesia de Esmirna a la Iglesia de Filomelio narrando el "Martirio de Policarpo" creó el género literario de las "Actas de los Mártires".</p>
+              <p>Este documento sentó las bases de la teología del martirio, entendiendo el sufrimiento no como una derrota, sino como una conformación litúrgica perfecta al sacrificio de Cristo (Policarpo es descrito como un cordero a punto de ser inmolado).</p>
+            </article>
+
+            <article class="feature-card">
+              <h4>Combatiente del Docetismo</h4>
+              <p>Al igual que su contemporáneo San Ignacio de Antioquía y su maestro San Juan, Policarpo combatió furiosamente la idea de que Cristo no tuvo un cuerpo real (docetismo). En su carta a los Filipenses escribe: <em>"Todo el que no confiesa que Jesucristo ha venido en carne es un anticristo"</em>, haciendo eco de las mismas palabras de la primera epístola de Juan.</p>
+            </article>
+          </div>
+
+          <div class="cta-row" style="margin-top: 24px;">
+            <a class="cta-link azul" href="https://apologeticaccar.com">Regresar a Apologética Católica</a>
+            <button class="cta-btn dorado" onclick="showPanel('escritos')">Continuar a escritos →</button>
+          </div>
+        </div>
+      </section>
+      <!-- ===== FINAL PANEL LEGADO ===== -->
+
+      <!-- ===== INICIO PANEL ESCRITOS ===== -->
+      <section id="panel-escritos" class="content-panel">
+
+        <div class="section-box">
+          <h2 class="section-title">Escritos y Testimonios Inmortales</h2>
+          <p>
+            A continuación, se presentan los extractos más letales y reveladores tanto de su Epístola a los Filipenses como del relato histórico de su Martirio. Observa las armas doctrinales resaltadas en verde oscuro, que pulverizan los argumentos protestantes contra las prácticas de piedad católica.
+          </p>
+        </div>
+
+        <div class="section-box">
+          <div class="accordion">
+
+            <!-- 1. MARTIRIO - ARRESTO -->
+            <div class="acc-item">
+              <button class="acc-trigger" type="button">
+                <span>El Martirio de Policarpo: El Arresto y el Juicio</span>
+                <span>+</span>
+              </button>
+              <div class="acc-content">
+                <p>El relato histórico del juicio ante el procónsul, donde el anciano Obispo se niega rotundamente a renegar de la fe.</p>
+                <div style="max-height: 400px; overflow-y: auto; padding: 15px; background: rgba(0,0,0,0.03); border-radius: 8px; border: 1px solid rgba(15,51,95,.12); font-size: 0.95rem; line-height: 1.7;">
+                  <p>7. ...Mas él les pidió que le dieran una hora para orar libremente. Se lo concedieron, y poniéndose en pie se puso a orar lleno de la gracia de Dios, de tal manera que por dos horas no pudo callar, y los que le oían estaban pasmados, arrepintiéndose muchos de haber venido contra un anciano tan venerable a los ojos de Dios.</p>
+                  <p>9. A su entrada en el estadio, se oyó una voz del cielo: "Sé fuerte, Policarpo, y pórtate varonilmente". A quien hablaba nadie lo vio; mas la voz la oyeron los nuestros que estaban presentes. Por fin, le hicieron adelantar, y grande fue el alboroto entre los que se enteraron de que Policarpo había sido prendido.</p>
+                  <p>Adelantóse éste, y el procónsul le preguntó si era él Policarpo. Al confesar que sí, intentó persuadirle a renegar, diciéndole: "Ten respeto a tu vejez"; y lo demás que suele seguir a esto: "Jura por el genio del César, cambia de pensar, y di: ¡Mueran los ateos!".</p>
+                  <p>Instando el procónsul y diciéndole: "Jura y te suelto. Maldice a Cristo". Respondió Policarpo: <span style="background-color: #1b4528; color: #ffffff; padding: 2px 6px; border-radius: 4px; font-weight: bold;">"Ochenta y seis años le sirvo, y ningún mal me ha hecho. ¿Cómo puedo yo blasfemar de mi Rey, que me ha salvado?"</span>.</p>
+                  <p>11. "Tengo fieras —dijo el procónsul—, y te arrojaré a ellas si no cambias de pensar." "Llámalas —dijo él—, pues es imposible para nosotros un cambio de lo mejor a lo peor". "Te haré consumir por el fuego, ya que desprecias a las fieras, si no te arrepientes". Pero Policarpo dijo: "Me amenazas con un fuego que arde por una hora y al poco se apaga. E ignoras el fuego del juicio venidero y del castigo eterno, reservado a los impíos. Pero, ¿qué tardas? Trae lo que quieras".</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- 2. MARTIRIO - RELIQUIAS -->
+            <div class="acc-item">
+              <button class="acc-trigger" type="button">
+                <span>El Martirio de Policarpo: Las Reliquias y la Adoración vs. Veneración</span>
+                <span>+</span>
+              </button>
+              <div class="acc-content">
+                <p>El texto apologético más importante del siglo II que aniquila la acusación de que los primeros cristianos no conservaban reliquias ni veneraban a los santos.</p>
+                <div style="max-height: 400px; overflow-y: auto; padding: 15px; background: rgba(0,0,0,0.03); border-radius: 8px; border: 1px solid rgba(15,51,95,.12); font-size: 0.95rem; line-height: 1.7;">
+                  <p>17. Mas el envidioso, maligno y perverso, adversario de la raza de los justos... se las arregló para que el pobre cuerpo no fuera recogido por nosotros, no obstante que muchos lo deseaban ardientemente para tener parte en sus santas reliquias.</p>
+                  <p>Sugirió, pues, a Nicetes, padre de Herodes y hermano de Alce, que suplicara al magistrado a fin de que no le entregara el cuerpo. "No sea —dijo—, que abandonen al crucificado y empiecen a adorar a éste". Y esto lo decían sugeridos y empujados por los judíos, los cuales estuvieron montando guardia al ir nosotros a sacarlo del fuego.</p>
+                  <p><span style="background-color: #1b4528; color: #ffffff; padding: 2px 6px; border-radius: 4px; font-weight: bold;">Ignoraban ellos que a nosotros nos será jamás posible abandonar a Cristo... ni adorar a otro alguno. Porque a Éste (Cristo) le adoramos como a Hijo de Dios que es; mas a los mártires les tributamos el justo homenaje de nuestro afecto como a discípulos e imitadores del Señor.</span></p>
+                  <p>18. Viendo, pues, el centurión la porfía levantada por los judíos, poniendo el cuerpo en medio, como es costumbre entre ellos, lo quemó.</p>
+                  <p><span style="background-color: #1b4528; color: #ffffff; padding: 2px 6px; border-radius: 4px; font-weight: bold;">Así, nosotros recogimos más tarde sus huesos, de más valor que las piedras preciosas y más estimables que el oro, y los depositamos en el lugar conveniente.</span></p>
+                  <p><span style="background-color: #1b4528; color: #ffffff; padding: 2px 6px; border-radius: 4px; font-weight: bold;">Allí, según nos sea posible, reunidos en júbilo y alegría, nos concederá el Señor celebrar el natalicio de su martirio, tanto en memoria de los que ya han sostenido su combate, como para el entrenamiento y preparación de los que tienen que combatir en adelante.</span></p>
+                </div>
+              </div>
+            </div>
+
+            <!-- 3. EPÍSTOLA A LOS FILIPENSES -->
+            <div class="acc-item">
+              <button class="acc-trigger" type="button">
+                <span>Epístola a los Filipenses (Contra los Herejes)</span>
+                <span>+</span>
+              </button>
+              <div class="acc-content">
+                <p>La carta de San Policarpo exhortando a la virtud, la sujeción a los presbíteros y atacando fuertemente el error docetista.</p>
+                <div style="max-height: 400px; overflow-y: auto; padding: 15px; background: rgba(0,0,0,0.03); border-radius: 8px; border: 1px solid rgba(15,51,95,.12); font-size: 0.95rem; line-height: 1.7;">
+                  <p>Policarpo y los presbíteros que están con él, a la Iglesia de Dios que peregrina en Filipos: Misericordia y paz os sean multiplicadas de parte de Dios Todopoderoso y de Jesucristo, nuestro Salvador.</p>
+                  <p>5. Sabiendo, pues, que Dios no puede ser burlado, debemos andar de manera digna de sus mandamientos y de su gloria.</p>
+                  <p>De igual manera, los diáconos deben ser intachables en presencia de Su justicia, como siervos de Dios y de Cristo y no de los hombres; no calumniadores, ni dobles de lengua, no amadores del dinero... Por tanto, es justo abstenerse de todas estas cosas, sometiéndose a los presbíteros y diáconos como a Dios y a Cristo.</p>
+                  <p>7. <span style="background-color: #1b4528; color: #ffffff; padding: 2px 6px; border-radius: 4px; font-weight: bold;">Porque todo aquel que no confiesa que Jesucristo ha venido en la carne, es el anticristo; y todo aquel que no confiesa el testimonio de la cruz, es del diablo; y el que pervierte los oráculos del Señor según sus propias concupiscencias y dice que no hay resurrección ni juicio, es el primogénito de Satanás.</span></p>
+                  <p>Por lo cual, abandonando la vanidad de la multitud y sus falsas doctrinas, volvamos a la palabra que nos fue entregada desde el principio; velando en oración y perseverando en ayunos, rogando al Dios que todo lo ve en nuestras súplicas que no nos deje caer en tentación.</p>
+                  <p>9. Os exhorto a todos a obedecer a la palabra de justicia, y a ejercer toda paciencia, la cual visteis con vuestros propios ojos no sólo en el bienaventurado Ignacio y en Zósimo y en Rufo, sino también en otros de entre vosotros, y en el propio Pablo y en los demás Apóstoles.</p>
+                  <p>13. Me habéis escrito vosotros y también Ignacio para pedirme que, si alguno va a Siria, lleve las cartas de parte vuestra... Con respecto a las cartas de Ignacio, la que nos envió a nosotros, y las demás que teníamos en nuestro poder, os las enviamos tal como solicitasteis; van adjuntas a esta carta, y de ellas podréis sacar gran provecho, pues están llenas de fe y de paciencia.</p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="cta-row" style="margin-top: 24px;">
+            <a class="cta-link azul" href="https://apologeticaccar.com">Regresar a Apologética Católica</a>
+            <button class="cta-btn dorado" onclick="showPanel('inicio')">Volver al inicio →</button>
+          </div>
+        </div>
+
+      </section>
+      <!-- ===== FINAL PANEL ESCRITOS ===== -->
+
+    </div>
+  </main>
+  <!-- ===== FINAL MAIN ===== -->
+
+  <script>
+    /* ===== INICIO SCRIPT AISLADO ===== */
+    (function(){
+      const panelNames = ["inicio", "vida", "contexto", "ensenanza", "legado", "escritos"];
+      const mobileMenuToggle = document.getElementById("mobileMenuToggle");
+      const mobileNavPanel = document.getElementById("mobileNavPanel");
+
+      function openMobileMenu(){
+        if(!mobileMenuToggle || !mobileNavPanel) return;
+        mobileMenuToggle.classList.add("active");
+        mobileNavPanel.classList.add("active");
+        mobileMenuToggle.setAttribute("aria-expanded", "true");
+      }
+
+      function closeMobileMenu(){
+        if(!mobileMenuToggle || !mobileNavPanel) return;
+        mobileMenuToggle.classList.remove("active");
+        mobileNavPanel.classList.remove("active");
+        mobileMenuToggle.setAttribute("aria-expanded", "false");
+      }
+
+      function toggleMobileMenu(){
+        if(!mobileNavPanel) return;
+        if(mobileNavPanel.classList.contains("active")){
+          closeMobileMenu();
+        }else{
+          openMobileMenu();
+        }
+      }
+
+      function showPanel(name){
+        panelNames.forEach(panel => {
+          const panelEl = document.getElementById("panel-" + panel);
+          if(panelEl){
+            panelEl.classList.toggle("active", panel === name);
+          }
+          document.querySelectorAll('[data-target="' + panel + '"]').forEach(btnEl => {
+            btnEl.classList.toggle("active", panel === name);
+          });
+        });
+
+        closeMobileMenu();
+
+        const navBar = document.querySelector('.hero-nav');
+        const globalHeader = document.getElementById('accarGlobalHeader'); 
+        
+        if (navBar) {
+          const headerHeight = globalHeader ? globalHeader.offsetHeight : 0;
+          const absoluteY = navBar.getBoundingClientRect().top + window.scrollY;
+          
+          window.scrollTo({
+            top: absoluteY - headerHeight - 10,
+            behavior: "smooth"
+          });
+        }
+      }
+
+      document.querySelectorAll(".nav-btn").forEach(btn => {
+        btn.onclick = function(e) {
+          e.preventDefault();
+          showPanel(this.dataset.target);
+        };
+      });
+
+      document.querySelectorAll(".mobile-nav-btn[data-target]").forEach(btn => {
+        btn.onclick = function(e) {
+          e.preventDefault();
+          showPanel(this.dataset.target);
+        };
+      });
+
+      document.querySelectorAll(".acc-trigger").forEach(trigger => {
+        trigger.onclick = function(e) {
+          e.preventDefault();
+          const item = this.parentElement;
+          const isOpen = item.classList.contains("open");
+
+          document.querySelectorAll(".acc-item").forEach(acc => {
+            acc.classList.remove("open");
+            const symbol = acc.querySelector(".acc-trigger span:last-child");
+            if(symbol) symbol.textContent = "+";
+          });
+
+          if(!isOpen){
+            item.classList.add("open");
+            const symbol = item.querySelector(".acc-trigger span:last-child");
+            if(symbol) symbol.textContent = "−";
+          }
+        };
+      });
+
+      if(mobileMenuToggle){
+        mobileMenuToggle.onclick = function(e){
+          e.preventDefault();
+          toggleMobileMenu();
+        };
+      }
+    })();
+    /* ===== FINAL SCRIPT AISLADO ===== */
+  </script>
+</body>
+</html>
+<!-- ===== FINAL SAN POLICARPO DE ESMIRNA ===== -->
