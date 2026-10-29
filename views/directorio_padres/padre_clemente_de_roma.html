@@ -653,21 +653,31 @@
       margin:10px 0 14px;
     }
 
-    .doc-tag{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      padding:8px 12px;
-      border-radius:999px;
-      background:#ecdfb5;
-      color:#463815;
-      border:1px solid rgba(198,154,37,.4);
-      font-size:.92rem;
-      font-weight:bold;
-      max-width:100%;
-      overflow-wrap:anywhere;
+    /* Efectos Hover Globales para Foto y Tarjetas */
+    .hero-photo img,
+    .section-box,
+    .highlight-card,
+    .stat-card,
+    .feature-card,
+    .timeline-item,
+    .acc-item {
+      transition: transform 0.3s ease, box-shadow 0.3s ease !important;
     }
-    /* ===== FINAL MAIN ===== */
+
+    .hero-photo img:hover {
+      transform: translateY(-5px) scale(1.02);
+      box-shadow: 0 22px 34px rgba(0,0,0,.35) !important;
+    }
+
+    .section-box:hover,
+    .highlight-card:hover,
+    .stat-card:hover,
+    .feature-card:hover,
+    .timeline-item:hover,
+    .acc-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 32px rgba(0,0,0,0.14) !important;
+    }
 
     /* ===== INICIO FOOTER ===== */
     .footer{
