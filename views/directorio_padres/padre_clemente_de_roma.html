@@ -1,0 +1,1567 @@
+<!-- ===== INICIO SAN IGNACIO DE ANTIOQUÍA ===== -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>San Ignacio de Antioquía | ACCAR</title>
+
+  <style>
+    :root{
+      --azul-oscuro:#0c1f3f;
+      --azul-medio:#123867;
+      --azul-claro:#1d4e89;
+      --dorado:#d4af37;
+      --dorado-2:#e4c76a;
+      --purpura-cardenal:#a31f34;
+      --texto:#1b1b1b;
+      --sombra:0 18px 38px rgba(0,0,0,.18);
+      --max:1240px;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-bottom: 20px;
+      color: var(--dorado);
+      font-weight: bold;
+      font-size: 1.05rem;
+      text-decoration: none;
+      transition: color 0.2s ease, transform 0.2s ease;
+    }
+    .back-link:hover {
+      color: #ffd971;
+      transform: translateX(-4px);
+    }
+
+    /* Borde Rojo Mártir para las tarjetas */
+    .section-box, .highlight-card, .feature-card {
+      border-left: 5px solid var(--purpura-cardenal) !important;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      color:var(--texto);
+      font-family:Georgia, "Times New Roman", serif;
+      background:
+        linear-gradient(rgba(8,18,35,.18), rgba(8,18,35,.18)),
+        url("../../assets/img/bg_padres_iglesia_acccar.png") center top / cover fixed no-repeat;
+    }
+
+    img{max-width:100%;display:block}
+    a{text-decoration:none;color:inherit}
+    button{font:inherit}
+    .wrap{
+      width:min(var(--max), calc(100% - 28px));
+      margin:0 auto;
+    }
+
+    .content-panel{display:none}
+    .content-panel.active{
+      display:block;
+      animation:fadeIn .28s ease;
+    }
+
+    @keyframes fadeIn{
+      from{opacity:0;transform:translateY(8px)}
+      to{opacity:1;transform:none}
+    }
+
+    /* ===== INICIO HERO ===== */
+    .hero{
+      position:relative;
+      overflow:hidden;
+      border-bottom:2px solid rgba(212,175,55,.55);
+      background:
+        linear-gradient(180deg, rgba(9,23,45,.08) 0%, rgba(9,23,45,.03) 24%, rgba(9,23,45,.28) 100%);
+    }
+
+    .hero::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        linear-gradient(90deg, rgba(7,17,34,.28) 0%, rgba(7,17,34,.08) 44%, rgba(7,17,34,.22) 100%);
+      pointer-events:none;
+    }
+
+    .hero-inner{
+      position:relative;
+      z-index:1;
+      min-height:760px;
+      padding:34px 0 38px;
+    }
+
+    /* ===== INICIO BANDA SUPERIOR ===== */
+    .top-brand{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      margin-bottom:20px;
+    }
+
+    .top-brand a{
+      display:flex;
+      align-items:center;
+      gap:16px;
+      min-width:0;
+    }
+
+    .top-brand img{
+      width:78px;
+      filter:drop-shadow(0 8px 16px rgba(0,0,0,.28));
+    }
+
+    .top-brand-text{
+      color:#f8f0d8;
+      line-height:1.1;
+      text-shadow:0 4px 16px rgba(0,0,0,.32);
+    }
+
+    .top-brand-text .line-1{
+      display:block;
+      font-size:1.95rem;
+      font-weight:bold;
+    }
+
+    .top-brand-text .line-2{
+      display:block;
+      font-size:1.45rem;
+      margin-top:2px;
+    }
+
+    .mobile-menu-toggle{
+      display:none;
+      align-items:center;
+      justify-content:center;
+      width:56px;
+      height:56px;
+      border-radius:16px;
+      border:1px solid rgba(212,175,55,.72);
+      background:linear-gradient(180deg, rgba(25,72,135,.92), rgba(16,51,95,.92));
+      box-shadow:0 10px 18px rgba(0,0,0,.18), inset 0 1px 0 rgba(255,255,255,.12);
+      cursor:pointer;
+      flex:0 0 auto;
+      padding:0;
+    }
+
+    .mobile-menu-toggle:hover{
+      transform:translateY(-1px);
+      background:linear-gradient(180deg, rgba(29,85,159,.96), rgba(18,56,103,.96));
+    }
+
+    .mobile-menu-toggle span{
+      display:block;
+      width:24px;
+      height:2.5px;
+      background:#fff4cf;
+      border-radius:999px;
+      margin:3px 0;
+      transition:.22s ease;
+    }
+
+    .mobile-menu-toggle.active span:nth-child(1){
+      transform:translateY(8px) rotate(45deg);
+    }
+
+    .mobile-menu-toggle.active span:nth-child(2){
+      opacity:0;
+    }
+
+    .mobile-menu-toggle.active span:nth-child(3){
+      transform:translateY(-8px) rotate(-45deg);
+    }
+
+    .mobile-nav-panel{
+      display:none;
+      margin-bottom:24px;
+    }
+
+    .mobile-nav-panel.active{
+      display:block;
+      animation:fadeIn .24s ease;
+    }
+
+    .mobile-nav-card{
+      border:1px solid rgba(212,175,55,.42);
+      border-radius:22px;
+      background:linear-gradient(180deg, rgba(11,31,63,.60), rgba(11,31,63,.84));
+      backdrop-filter:blur(6px);
+      box-shadow:var(--sombra);
+      padding:14px;
+    }
+
+    .mobile-nav-list{
+      display:grid;
+      gap:10px;
+    }
+
+    .mobile-nav-btn{
+      appearance:none;
+      width:100%;
+      border:1px solid rgba(212,175,55,.7);
+      background:linear-gradient(180deg, #194887 0%, #10335f 100%);
+      color:#fff4cf;
+      padding:15px 14px;
+      border-radius:16px;
+      cursor:pointer;
+      box-shadow:0 10px 18px rgba(0,0,0,.18), inset 0 1px 0 rgba(255,255,255,.12);
+      transition:.22s ease;
+      font-weight:bold;
+      font-size:1rem;
+      text-align:center;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    .mobile-nav-btn.active{
+      background:linear-gradient(180deg, #e1bd55 0%, #c69a25 100%);
+      color:#241c09;
+      box-shadow:0 12px 22px rgba(0,0,0,.2), inset 0 1px 0 rgba(255,255,255,.18);
+    }
+    /* ===== FINAL BANDA SUPERIOR ===== */
+
+    .hero-card{
+      width:100%;
+      display:grid;
+      grid-template-columns:minmax(250px, 330px) 1fr;
+      gap:34px;
+      align-items:center;
+      padding:30px;
+      border:1px solid rgba(212,175,55,.42);
+      border-radius:30px;
+      background:
+        linear-gradient(180deg, rgba(11,31,63,.20), rgba(11,31,63,.55)),
+        url("../../assets/img/bg_padres_iglesia_acccar.png") center center / cover no-repeat;
+      box-shadow:var(--sombra);
+      overflow:hidden;
+    }
+
+    .hero-photo-wrap{
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+    }
+
+    .hero-photo{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    .hero-photo img{
+      width:100%;
+      max-width:290px;
+      border-radius:28px;
+      border:3px solid rgba(212,175,55,.82);
+      background:linear-gradient(180deg, #f7f0dc, #d9c79f);
+      box-shadow:0 14px 26px rgba(0,0,0,.28);
+    }
+
+    /* ===== BADGE PADRE ===== */
+    .badge-padre{
+      margin-top:16px;
+      display:inline-block;
+      padding:10px 22px;
+      border-radius:999px;
+      background:linear-gradient(180deg, #e1bd55, #c69a25);
+      color:#241c09;
+      font-weight:bold;
+      font-size:.95rem;
+      line-height:1.1;
+      text-align:center;
+      box-shadow:0 8px 16px rgba(0,0,0,.18);
+    }
+
+    .hero-copy{
+      color:#fff8e8;
+      min-width:0;
+    }
+
+    .hero-kicker{
+      display:inline-block;
+      margin:0 0 10px;
+      padding:8px 14px;
+      border-radius:999px;
+      border:1px solid rgba(212,175,55,.45);
+      background:rgba(255,255,255,.08);
+      font-size:.95rem;
+      letter-spacing:.02em;
+    }
+
+    .hero-copy h1{
+      margin:0 0 14px;
+      font-size:clamp(2.15rem, 4.2vw, 3.95rem);
+      line-height:1.02;
+      color:#fff4d0;
+      text-shadow:0 5px 18px rgba(0,0,0,.26);
+      overflow-wrap:anywhere;
+    }
+
+    .hero-copy p{
+      margin:0;
+      max-width:820px;
+      font-size:1.08rem;
+      line-height:1.8;
+      color:#f7efd9;
+      overflow-wrap:anywhere;
+    }
+
+    .hero-meta{
+      display:grid;
+      grid-template-columns:repeat(4, 1fr);
+      gap:14px;
+      margin:24px 0 0;
+    }
+
+    .hero-meta .meta-item{
+      padding:16px 16px 18px;
+      border-radius:18px;
+      border:1px solid rgba(212,175,55,.34);
+      background:rgba(255,255,255,.07);
+      min-height:100%;
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.05);
+      min-width:0;
+    }
+
+    .hero-meta .meta-label{
+      display:block;
+      margin-bottom:8px;
+      font-size:.82rem;
+      color:#e7d8a6;
+      text-transform:uppercase;
+      letter-spacing:.06em;
+    }
+
+    .hero-meta .meta-value{
+      font-size:.94rem;
+      line-height:1.55;
+      color:#fff9ec;
+      overflow-wrap:anywhere;
+    }
+
+    .hero-nav{
+      margin-top:24px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      width:100%;
+      justify-content:space-between;
+      align-items:stretch;
+    }
+
+    .hero-nav button,
+    .hero-nav a{
+      appearance:none;
+      border:1px solid rgba(212,175,55,.7);
+      background:linear-gradient(180deg, #194887 0%, #10335f 100%);
+      color:#fff4cf;
+      padding:16px 14px;
+      border-radius:16px;
+      cursor:pointer;
+      box-shadow:0 10px 18px rgba(0,0,0,.18), inset 0 1px 0 rgba(255,255,255,.12);
+      transition:.22s ease;
+      font-weight:bold;
+      font-size:1rem;
+      text-align:center;
+      white-space:nowrap;
+      min-width:150px;
+      flex:1 1 150px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    .hero-nav button:hover,
+    .hero-nav a:hover{
+      transform:translateY(-1px);
+      background:linear-gradient(180deg, #1d559f 0%, #123867 100%);
+    }
+
+    .hero-nav button.active{
+      background:linear-gradient(180deg, #e1bd55 0%, #c69a25 100%);
+      color:#241c09;
+      box-shadow:0 12px 22px rgba(0,0,0,.2), inset 0 1px 0 rgba(255,255,255,.18);
+    }
+    /* ===== FINAL HERO ===== */
+
+    /* ===== INICIO MAIN ===== */
+    .main-shell{
+      background:
+        linear-gradient(rgba(245,239,225,.96), rgba(245,239,225,.97)),
+        url("../../assets/img/textura-footer-pergamino.png") center top / cover repeat;
+      padding:38px 0 52px;
+      overflow-x:hidden;
+    }
+
+    .section-box{
+      background:rgba(255,255,255,.74);
+      border:1px solid rgba(161,127,44,.22);
+      border-radius:24px;
+      box-shadow:var(--sombra);
+      padding:30px;
+      margin:0 0 24px;
+      overflow:hidden;
+    }
+
+    .section-title{
+      margin:0 0 18px;
+      font-size:clamp(2rem, 4vw, 3rem);
+      line-height:1.08;
+      color:var(--azul-oscuro);
+      overflow-wrap:anywhere;
+    }
+
+    .section-subtitle{
+      margin:0 0 16px;
+      font-size:1.6rem;
+      color:var(--azul-oscuro);
+      overflow-wrap:anywhere;
+    }
+
+    .section-box p{
+      margin:0 0 16px;
+      font-size:1.08rem;
+      line-height:1.9;
+      overflow-wrap:anywhere;
+    }
+
+    .inicio-grid{
+      display:grid;
+      grid-template-columns:repeat(2, minmax(0, 1fr));
+      gap:18px;
+      margin-top:8px;
+    }
+
+    .highlight-card{
+      background:rgba(255,255,255,.85);
+      border:1px solid rgba(15,51,95,.14);
+      border-radius:20px;
+      box-shadow:0 10px 22px rgba(0,0,0,.08);
+      padding:22px;
+      min-width:0;
+      overflow-wrap:anywhere;
+    }
+
+    .highlight-card.full-width{
+      grid-column:1 / -1;
+    }
+
+    .highlight-card h3,
+    .highlight-card h4{
+      margin:0 0 12px;
+      color:var(--azul-oscuro);
+      font-size:1.34rem;
+      overflow-wrap:anywhere;
+    }
+
+    .highlight-card p:last-child{margin-bottom:0}
+
+    .stat-grid{
+      display:grid;
+      grid-template-columns:repeat(4, minmax(0, 1fr));
+      gap:16px;
+      margin-top:18px;
+    }
+
+    .stat-card{
+      background:linear-gradient(180deg, rgba(17,52,99,.98), rgba(14,44,84,.98));
+      color:#fff7e8;
+      border:1px solid rgba(212,175,55,.45);
+      border-radius:20px;
+      padding:20px 16px;
+      text-align:center;
+      box-shadow:0 12px 22px rgba(0,0,0,.15);
+      min-width:0;
+    }
+
+    .stat-number{
+      display:block;
+      font-size:2.1rem;
+      line-height:1;
+      color:#ffd971;
+      margin-bottom:10px;
+      font-weight:bold;
+      overflow-wrap:anywhere;
+    }
+
+    .stat-label{
+      font-size:.96rem;
+      line-height:1.55;
+      color:#fff6dd;
+      overflow-wrap:anywhere;
+    }
+
+    .feature-grid{
+      display:grid;
+      grid-template-columns:repeat(2, minmax(0, 1fr));
+      gap:18px;
+    }
+
+    .feature-card{
+      background:rgba(255,255,255,.85);
+      border:1px solid rgba(15,51,95,.14);
+      border-radius:18px;
+      box-shadow:0 10px 22px rgba(0,0,0,.08);
+      padding:22px;
+      min-width:0;
+      overflow-wrap:anywhere;
+    }
+
+    .feature-card h3,
+    .feature-card h4{
+      margin:0 0 12px;
+      color:var(--azul-oscuro);
+      font-size:1.34rem;
+      overflow-wrap:anywhere;
+    }
+
+    .feature-card p:last-child{margin-bottom:0}
+
+    .timeline{
+      display:grid;
+      gap:16px;
+      margin-top:6px;
+    }
+
+    .timeline-item{
+      background:rgba(255,255,255,.84);
+      border:1px solid rgba(15,51,95,.12);
+      border-left:5px solid var(--dorado);
+      border-radius:18px;
+      padding:20px 20px 18px;
+      box-shadow:0 10px 22px rgba(0,0,0,.08);
+      min-width:0;
+      overflow-wrap:anywhere;
+    }
+
+    .timeline-item h4{
+      margin:0 0 10px;
+      font-size:1.24rem;
+      color:var(--azul-oscuro);
+      overflow-wrap:anywhere;
+    }
+
+    .timeline-item p:last-child{margin-bottom:0}
+
+    .cta-row{
+      display:flex;
+      flex-wrap:wrap;
+      gap:14px;
+      justify-content:center;
+      margin-top:18px;
+    }
+
+    .cta-btn,
+    .cta-link{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-width:260px;
+      max-width:100%;
+      padding:15px 22px;
+      border-radius:16px;
+      border:1px solid rgba(212,175,55,.7);
+      box-shadow:0 10px 18px rgba(0,0,0,.16);
+      font-size:1.06rem;
+      font-weight:bold;
+      cursor:pointer;
+      text-align:center;
+      overflow-wrap:anywhere;
+    }
+
+    .cta-btn.azul,
+    .cta-link.azul{
+      background:linear-gradient(180deg,#194887,#10335f);
+      color:#fff4cf;
+    }
+
+    .cta-btn.dorado,
+    .cta-link.dorado{
+      background:linear-gradient(180deg,#e1bd55,#c69a25);
+      color:#241c09;
+    }
+
+    .accordion{
+      display:grid;
+      gap:16px;
+      margin-top:8px;
+    }
+
+    .acc-item{
+      border:1px solid rgba(15,51,95,.12);
+      border-radius:18px;
+      overflow:hidden;
+      background:rgba(255,255,255,.84);
+      box-shadow:0 10px 22px rgba(0,0,0,.08);
+      min-width:0;
+    }
+
+    .acc-trigger{
+      width:100%;
+      border:none;
+      background:linear-gradient(180deg, rgba(17,52,99,.98), rgba(14,44,84,.98));
+      color:#fff4cf;
+      text-align:left;
+      padding:18px 20px;
+      cursor:pointer;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+      font-size:1.1rem;
+      font-weight:bold;
+      min-width:0;
+      overflow-wrap:anywhere;
+    }
+
+    .acc-trigger span:first-child{
+      min-width:0;
+      overflow-wrap:anywhere;
+    }
+
+    .acc-trigger span:last-child{
+      min-width:28px;
+      text-align:center;
+      font-size:1.55rem;
+      line-height:1;
+      color:#e6ca7b;
+      flex-shrink:0;
+    }
+
+    .acc-content{
+      display:none;
+      padding:20px 20px 22px;
+      background:rgba(255,255,255,.92);
+      border-top:1px solid rgba(15,51,95,.12);
+      overflow-wrap:anywhere;
+    }
+
+    .acc-item.open .acc-content{display:block}
+    .acc-item.open .acc-trigger{
+      background:linear-gradient(180deg, #1b4d90, #123867);
+    }
+
+    .doc-tags{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin:10px 0 14px;
+    }
+
+    .doc-tag{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:8px 12px;
+      border-radius:999px;
+      background:#ecdfb5;
+      color:#463815;
+      border:1px solid rgba(198,154,37,.4);
+      font-size:.92rem;
+      font-weight:bold;
+      max-width:100%;
+      overflow-wrap:anywhere;
+    }
+    /* ===== FINAL MAIN ===== */
+
+    /* ===== INICIO FOOTER ===== */
+    .footer{
+      position:relative;
+      overflow:hidden;
+      color:#f8efd3;
+      padding:54px 0 30px;
+      border-top:2px solid rgba(212,175,55,.55);
+      background:
+        linear-gradient(180deg, rgba(8,24,48,.04), rgba(8,24,48,.12)),
+        url("../../assets/img/bg_padres_iglesia_acccar.png") center 88% / cover no-repeat;
+    }
+
+    .footer::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        linear-gradient(90deg, rgba(7,26,54,.38), rgba(12,42,86,.10), rgba(7,26,54,.38));
+      pointer-events:none;
+    }
+
+    .footer-inner{
+      position:relative;
+      z-index:1;
+    }
+
+    .footer-card{
+      border:1px solid rgba(212,175,55,.34);
+      border-radius:28px;
+      padding:30px 28px 24px;
+      background:linear-gradient(180deg, rgba(11,31,63,.54), rgba(11,31,63,.80));
+      backdrop-filter:blur(5px);
+      box-shadow:var(--sombra);
+      overflow:hidden;
+    }
+
+    .footer-top{
+      display:grid;
+      grid-template-columns:1.2fr .8fr .9fr;
+      gap:36px;
+      align-items:start;
+    }
+
+    .footer-brand{
+      display:flex;
+      align-items:flex-start;
+      gap:24px;
+    }
+
+    .footer-brand-logo{
+      flex:0 0 auto;
+    }
+
+    .footer-brand-logo img{
+      width:172px;
+      filter:drop-shadow(0 8px 16px rgba(0,0,0,.22));
+    }
+
+    .footer-brand-copy{
+      padding-top:8px;
+    }
+
+    .footer-brand-copy p{
+      margin:0 0 8px;
+      font-size:.90rem;
+      line-height:1.58;
+      color:#f6ecd0;
+      overflow-wrap:anywhere;
+    }
+
+    .footer-col h4{
+      margin:0 0 14px;
+      color:#ffd971;
+      font-size:1.7rem;
+      overflow-wrap:anywhere;
+    }
+
+    .footer-links{
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    }
+
+    .footer-links a,
+    .footer-links button{
+      background:none;
+      border:none;
+      padding:0;
+      margin:0;
+      text-align:left;
+      color:#f6ecd0;
+      font-family:Georgia, "Times New Roman", serif;
+      font-size:1.05rem;
+      cursor:pointer;
+      overflow-wrap:anywhere;
+    }
+
+    .footer-links a:hover,
+    .footer-links button:hover{
+      color:#ffe8a4;
+    }
+
+    .footer-contact{
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+      color:#f6ecd0;
+      font-size:1.05rem;
+      line-height:1.7;
+      overflow-wrap:anywhere;
+    }
+
+    .footer-contact a{
+      color:#f6ecd0;
+    }
+
+    .footer-contact a:hover{
+      color:#ffe8a4;
+    }
+
+    .footer-divider{
+      width:100%;
+      height:1px;
+      margin:22px 0 18px;
+      background:linear-gradient(90deg, transparent, rgba(212,175,55,.85), transparent);
+    }
+
+    .footer-legal{
+      text-align:center;
+      color:#eadfb7;
+      font-size:1rem;
+      line-height:1.75;
+      overflow-wrap:anywhere;
+    }
+    /* ===== FINAL FOOTER ===== */
+
+    /* ===== INICIO RESPONSIVE ===== */
+    @media (max-width:1180px){
+      .hero-meta{grid-template-columns:repeat(2, 1fr)}
+      .hero-nav{
+        justify-content:center;
+      }
+      .hero-nav button,
+      .hero-nav a{
+        flex:1 1 220px;
+        min-width:220px;
+      }
+      .stat-grid{grid-template-columns:repeat(2, minmax(0, 1fr))}
+      .footer-top{grid-template-columns:1fr 1fr}
+      .footer-col.contact-col{grid-column:1/-1}
+    }
+
+    @media (max-width:920px){
+      .hero{
+        background:
+          linear-gradient(180deg, rgba(9,23,45,.26) 0%, rgba(9,23,45,.16) 26%, rgba(9,23,45,.68) 100%);
+      }
+
+      .hero-inner{
+        min-height:auto;
+        padding:26px 0 34px;
+      }
+
+      .top-brand{
+        justify-content:space-between;
+        align-items:center;
+        text-align:left;
+        gap:12px;
+        margin-bottom:16px;
+      }
+
+      .top-brand a{
+        flex-direction:row;
+        align-items:center;
+        gap:12px;
+        min-width:0;
+        flex:1 1 auto;
+      }
+
+      .top-brand img{width:64px}
+      .top-brand-text .line-1{font-size:1.45rem}
+      .top-brand-text .line-2{font-size:1.05rem}
+
+      .mobile-menu-toggle{
+        display:inline-flex;
+      }
+
+      .hero-card{
+        grid-template-columns:1fr;
+        gap:22px;
+        padding:20px;
+      }
+
+      .hero-copy{text-align:center}
+      .hero-copy p{margin:0 auto}
+
+      .hero-nav{
+        display:flex;
+        flex-direction:column;
+        gap:10px;
+        margin-top:20px;
+      }
+      .hero-nav button{
+        width:100%;
+        min-width:100%;
+        padding:14px;
+        font-size:1.05rem;
+      }
+
+      .inicio-grid,
+      .feature-grid{grid-template-columns:1fr}
+      .highlight-card.full-width{
+        grid-column:auto;
+      }
+      .footer-top{grid-template-columns:1fr}
+      .footer-brand{
+        justify-content:center;
+        text-align:center;
+        flex-direction:column;
+        align-items:center;
+      }
+      .footer-links{align-items:center}
+      .footer-links a,
+      .footer-links button{text-align:center}
+      .footer-col{text-align:center}
+      .footer-contact{align-items:center}
+    }
+
+    @media (max-width:560px){
+      body{background-attachment:scroll}
+      .wrap{width:min(var(--max), calc(100% - 16px))}
+      .top-brand img{width:58px}
+      .top-brand-text .line-1{font-size:1.18rem}
+      .top-brand-text .line-2{font-size:.92rem}
+      .mobile-menu-toggle{
+        width:52px;
+        height:52px;
+        border-radius:14px;
+      }
+      .hero-card{border-radius:22px;padding:16px}
+      .hero-photo img{max-width:220px;border-radius:22px}
+      .hero-kicker{font-size:.85rem}
+      .hero-copy h1{font-size:2.35rem}
+      .hero-copy p{font-size:1rem;line-height:1.72}
+      .hero-meta{grid-template-columns:1fr}
+      .main-shell{padding:22px 0 30px}
+      .section-box{
+        padding:18px;
+        border-radius:20px;
+      }
+      .section-title{font-size:2.05rem}
+      .section-subtitle{font-size:1.32rem}
+      .section-box p,
+      .timeline-item p,
+      .feature-card p,
+      .highlight-card p,
+      .acc-content p,
+      .footer-brand-copy p{
+        font-size:1rem;
+        line-height:1.82;
+      }
+      .stat-grid{grid-template-columns:1fr}
+      .acc-trigger{
+        padding:16px 16px;
+        font-size:1rem;
+      }
+      .cta-btn,.cta-link{
+        min-width:100%;
+      }
+      .footer{
+        padding:32px 0 24px;
+        background:
+          linear-gradient(180deg, rgba(8,24,48,.03), rgba(8,24,48,.10)),
+          url("../../assets/img/bg_padres_iglesia_acccar.png") 52% 92% / cover no-repeat;
+      }
+      .footer-card{padding:20px 16px 18px}
+      .footer-brand-logo img{
+        width:146px;
+      }
+      .footer-col h4{font-size:1.4rem}
+      .footer-legal{font-size:.94rem}
+    }
+    /* ===== FINAL RESPONSIVE ===== */
+  </style>
+</head>
+<body>
+
+  <!-- ===== INICIO HERO ===== -->
+  <section class="hero">
+    <div class="wrap hero-inner">
+
+      <a href="#" onclick="event.preventDefault(); loadView('views/historia-lista-de-padres.html');" class="back-link">← Volver al Directorio de los Padres de la Iglesia</a>
+
+      <div class="hero-card">
+        <div class="hero-photo-wrap">
+          <div class="hero-photo">
+            <img src="../../assets/img/padre_ignacio_de_antioquia.png" alt="San Ignacio de Antioquía">
+          </div>
+
+          <!-- ===== INICIO BADGE PADRE ===== -->
+          <div class="badge-padre" style="background: var(--purpura-cardenal); color: white;">
+            Padre Apostólico y Mártir
+          </div>
+          <!-- ===== FINAL BADGE PADRE ===== -->
+        </div>
+
+        <div class="hero-copy">
+          <div class="hero-kicker">Sección Padres de la Iglesia · Siglos I-II</div>
+          <h1>San Ignacio de Antioquía</h1>
+          <p>
+            Obispo de Antioquía y mártir en el Coliseo Romano (aprox. 107 d.C.). Discípulo directo de los Apóstoles San Pedro y San Juan. Sus siete cartas son una bomba apologética: demuestran con pruebas irrefutables del siglo I la Presencia Real en la Eucaristía, la jerarquía monárquica (Obispo, Presbítero, Diácono), la primacía de la Iglesia de Roma y son el primer registro escrito del término <strong>"Iglesia Católica"</strong>.
+          </p>
+
+          <div class="hero-meta">
+            <div class="meta-item">
+              <span class="meta-label">Ministerio</span>
+              <span class="meta-value">Tercer Obispo de Antioquía (sucedió a San Pedro y a Evodio).</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">Época</span>
+              <span class="meta-value">Año 35 al 107 d.C. Generación inmediatamente posterior a Cristo.</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">Obra principal</span>
+              <span class="meta-value">Siete cartas escritas mientras era llevado encadenado hacia su martirio.</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">Importancia</span>
+              <span class="meta-value">Aniquila el mito protestante de que el catolicismo fue "inventado" por Constantino.</span>
+            </div>
+          </div>
+
+          <div class="hero-nav">
+            <button class="nav-btn active" data-target="inicio">Inicio</button>
+            <button class="nav-btn" data-target="vida">Vida</button>
+            <button class="nav-btn" data-target="contexto">Contexto</button>
+            <button class="nav-btn" data-target="legado">Legado</button>
+            <!-- Botones más anchos abajo para textos largos -->
+            <button class="nav-btn" data-target="ensenanza" style="flex: 1 1 45%;">Enseñanza (Arsenal Apologético)</button>
+            <button class="nav-btn" data-target="escritos" style="flex: 1 1 45%;">Escritos Inmortales</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+  <!-- ===== FINAL HERO ===== -->
+
+  <!-- ===== INICIO MAIN ===== -->
+  <main class="main-shell">
+    <div class="wrap">
+
+      <!-- ===== INICIO PANEL INICIO ===== -->
+      <section id="panel-inicio" class="content-panel active">
+
+        <div class="section-box">
+          <h2 class="section-title">Panorama Apologético</h2>
+          <p>
+            San Ignacio de Antioquía es el eslabón de oro que conecta a los Apóstoles con la Iglesia primitiva. Leer a San Ignacio es ver el catolicismo en su estado más puro y original, destruyendo por completo la teoría protestante de la "Gran Apostasía". Su obra demuestra que los primeros cristianos ya eran plenamente católicos romanos.
+          </p>
+
+          <div class="stat-grid">
+            <article class="stat-card">
+              <span class="stat-number">7</span>
+              <span class="stat-label">Cartas conservadas universales</span>
+            </article>
+
+            <article class="stat-card">
+              <span class="stat-number">Antioquía</span>
+              <span class="stat-label">Sede de su ministerio episcopal</span>
+            </article>
+
+            <article class="stat-card">
+              <span class="stat-number">Roma</span>
+              <span class="stat-label">Lugar de su martirio</span>
+            </article>
+
+            <article class="stat-card">
+              <span class="stat-number">107 d.C.</span>
+              <span class="stat-label">Año de su coronación como mártir</span>
+            </article>
+          </div>
+        </div>
+
+        <div class="section-box">
+          <h3 class="section-subtitle">Hitos Fundamentales</h3>
+          <div class="inicio-grid">
+            <article class="highlight-card">
+              <h4>El término "Iglesia Católica"</h4>
+              <p>Fue el primer autor en la historia en utilizar explícitamente el término <strong>Iglesia Católica</strong> (Universal) para referirse al cuerpo místico fundado por Cristo, sentando las bases de la identidad cristiana frente a las sectas gnósticas locales.</p>
+            </article>
+
+            <article class="highlight-card">
+              <h4>Defensor de la Eucaristía</h4>
+              <p>Fulminó el error de que la comunión es un mero "símbolo", afirmando literalmente que la Eucaristía es la carne y la sangre de Jesucristo que padeció por nuestros pecados y resucitó.</p>
+            </article>
+
+            <article class="highlight-card">
+              <h4>El Episcopado Monárquico</h4>
+              <p>Destruye la eclesiología evangélica demostrando que la Iglesia primitiva ya poseía una jerarquía de tres grados inamovibles: Obispo, Presbíteros y Diáconos.</p>
+            </article>
+            
+            <article class="highlight-card">
+              <h4>Primacía de la Sede Romana</h4>
+              <p>En su carta a los Romanos, se dirige a esta Iglesia de manera excepcional, llamándola "la que preside en la caridad", reconociendo el honor primacial de Roma desde el siglo I.</p>
+            </article>
+          </div>
+
+          <div class="cta-row">
+            <a class="cta-link azul" href="https://apologeticaccar.com">Regresar a Apologética Católica</a>
+            <button class="cta-btn dorado" onclick="showPanel('vida')">Entrar a vida →</button>
+          </div>
+        </div>
+
+      </section>
+      <!-- ===== FINAL PANEL INICIO ===== -->
+
+      <!-- ===== INICIO PANEL VIDA ===== -->
+      <section id="panel-vida" class="content-panel">
+
+        <div class="section-box">
+          <h2 class="section-title">Vida y Martirio: Trigo de Dios</h2>
+          <p>
+            Conocido desde la antigüedad como <em>Theophorus</em> (el "Portador de Dios"), San Ignacio es una de las figuras más venerables de la generación inmediatamente posterior a Cristo. La tradición histórica, avalada por autores como San Juan Crisóstomo y Teodoreto, confirma que Ignacio fue discípulo directo de los Apóstoles San Pedro y San Juan. 
+          </p>
+          <p>
+            Fue constituido como el segundo o tercer Obispo de Antioquía de Siria (sucediendo a San Pedro y a Evodio)[cite: 122]. Su sede no era un lugar cualquiera: Antioquía era la tercera metrópoli más grande del Imperio Romano, el puente estratégico entre Oriente y Occidente, y la ciudad donde los seguidores de Jesús fueron llamados "cristianos" por primera vez (Hechos 11:26). Desde allí, Ignacio gobernó con celo apostólico durante décadas, consolidando la estructura eclesial y combatiendo las primeras infiltraciones gnósticas.
+          </p>
+        </div>
+
+        <div class="section-box">
+          <h3 class="section-subtitle">La Marcha Triunfal hacia el Coliseo</h3>
+          
+          <div class="feature-grid">
+            <article class="feature-card">
+              <h4>El Arresto bajo Trajano</h4>
+              <p>Hacia el año 106 o 107 d.C., el emperador Trajano regresó triunfante de la conquista de Dacia (actual Rumania). Para celebrar, ordenó 123 días consecutivos de juegos de sangre en Roma, masacrando a más de 10.000 gladiadores y arrojando a incontables cristianos a las fieras[cite: 122]. En este contexto de persecución brutal, Ignacio fue arrestado en Antioquía, juzgado por negarse a adorar a los dioses paganos y condenado a morir en la arena romana.</p>
+            </article>
+
+            <article class="feature-card">
+              <h4>El Calvario y los "Leopardos"</h4>
+              <p>Ignacio, ya anciano, fue obligado a emprender un viaje extenuante por tierra y por mar desde Siria hasta Italia, cargado de cadenas. Fue custodiado por un piquete de diez despiadados soldados romanos de la cohorte Lepidiana. En sus propias palabras, este trato inhumano fue una prueba de fuego: <em>"Vengo atado entre diez leopardos... los cuales, cuanto más amablemente se les trata, peor se comportan"</em>[cite: 122, 143].</p>
+            </article>
+
+            <article class="feature-card">
+              <h4>El Consolador de las Iglesias</h4>
+              <p>Lejos de ser una marcha fúnebre, su traslado se convirtió en una apoteosis apostólica. A su paso por ciudades como Filadelfia, Esmirna y Troas, delegaciones enteras de obispos, presbíteros y fieles acudían a besar sus cadenas y recibir su bendición[cite: 123]. Durante estas paradas, dictó sus inmortales siete cartas para alertar a las iglesias sobre los herejes docetistas y judaizantes, forjando el arsenal apologético más importante del siglo I[cite: 123].</p>
+            </article>
+
+            <article class="feature-card">
+              <h4>El Pan Limpio de Cristo</h4>
+              <p>Al llegar a Roma, rechazó cualquier intento de los cristianos influyentes de la capital para liberarlo. Su espiritualidad eucarística exigía la imitación total de la Pasión de su Señor. En el año 107 d.C., fue arrojado a los leones en el anfiteatro romano, cumpliendo su profecía: <em>"Soy trigo de Dios, y he de ser molido por los dientes de las fieras, para poder ser presentado como pan limpio de Cristo"</em>[cite: 125].</p>
+            </article>
+          </div>
+
+          <div class="cta-row" style="margin-top: 24px;">
+            <a class="cta-link azul" href="https://apologeticaccar.com">Regresar a Apologética Católica</a>
+            <button class="cta-btn dorado" onclick="showPanel('contexto')">Continuar a contexto →</button>
+          </div>
+        </div>
+
+      </section>
+      <!-- ===== FINAL PANEL VIDA ===== -->
+
+      <!-- ===== INICIO PANEL CONTEXTO ===== -->
+      <section id="panel-contexto" class="content-panel">
+
+        <div class="section-box">
+          <h2 class="section-title">Contexto y Herejías Combatidas</h2>
+          <p>
+            La Iglesia del primer siglo enfrentaba ataques desde dos frentes: la persecución del Imperio Romano (que buscaba destruirla físicamente) y los herejes (que buscaban destruirla doctrinalmente). San Ignacio se enfrentó sin piedad a dos sectas destructivas:
+          </p>
+        </div>
+
+        <div class="section-box">
+          <div class="feature-grid">
+            <article class="feature-card">
+              <h4>Los <span style="color: #c00000; font-weight: bold;">Docetas</span> (El error gnóstico)</h4>
+              <p>Esta herejía afirmaba que Jesús no tenía un cuerpo físico real, sino que su cuerpo era una "ilusión" o "apariencia" (del griego <em>dokein</em>), y por tanto no sufrió verdaderamente en la cruz. Ignacio los fulminó argumentando que si el sufrimiento de Cristo fue una ilusión, nuestra salvación y la Eucaristía también lo son.</p>
+            </article>
+
+            <article class="feature-card">
+              <h4>Los <span style="color: #c00000; font-weight: bold;">Judaizantes</span></h4>
+              <p>Grupos que insistían en que los cristianos debían guardar el sábado, la circuncisión y las leyes rituales de Moisés. San Ignacio trazó una línea definitiva: el cristianismo no es una secta judía, el Domingo (Día del Señor) ha reemplazado al sábado judío porque en él resucitó nuestra Vida.</p>
+            </article>
+          </div>
+
+          <div class="cta-row">
+            <a class="cta-link azul" href="https://apologeticaccar.com">Regresar a Apologética Católica</a>
+            <button class="cta-btn dorado" onclick="showPanel('ensenanza')">Continuar a enseñanza →</button>
+          </div>
+        </div>
+
+      </section>
+      <!-- ===== FINAL PANEL CONTEXTO ===== -->
+
+      <!-- ===== INICIO PANEL ENSEÑANZA ===== -->
+      <section id="panel-ensenanza" class="content-panel">
+
+        <div class="section-box">
+          <h2 class="section-title">Enseñanza: El Arsenal Apologético</h2>
+          <p>
+            Si un protestante te dice que la Iglesia Católica fue inventada en el siglo IV por Constantino, ábrele las cartas de San Ignacio de Antioquía del año 107 d.C. Su doctrina es un misil directo contra los postulados fundamentales de la Reforma.
+          </p>
+        </div>
+
+        <div class="section-box">
+          <h3 class="section-subtitle">Doctrinas Católicas en el Siglo I</h3>
+
+          <div class="feature-grid">
+            <article class="feature-card">
+              <h4>1. La Presencia Real en la Eucaristía</h4>
+              <p><strong>El Arma:</strong> Los protestantes dicen que la comunión es "solo un símbolo". San Ignacio escribe sobre los herejes <span style="color: #c00000; font-weight: bold;">docetas</span>: <em>"Se apartan de la Eucaristía y de la oración, porque no confiesan que la Eucaristía es la carne de nuestro Salvador Jesucristo, la misma que padeció por nuestros pecados"</em> (Esmirniotas 7,1). La creencia en la transubstanciación es apostólica.</p>
+            </article>
+
+            <article class="feature-card">
+              <h4>2. El Episcopado Monárquico</h4>
+              <p><strong>El Arma:</strong> Las sectas evangélicas no tienen jerarquía sacramental. Ignacio, en el siglo I, decreta: <em>"Seguid todos al obispo, como Jesucristo al Padre, y al presbiterio como a los apóstoles... Que nadie haga nada referente a la Iglesia sin el obispo"</em> (Esmirniotas 8,1). La jerarquía (Obispo, Sacerdote, Diácono) es innegociable.</p>
+            </article>
+
+            <article class="feature-card">
+              <h4>3. El Primado de la Iglesia de Roma</h4>
+              <p><strong>El Arma:</strong> Los ortodoxos y protestantes niegan la autoridad papal. Sin embargo, Ignacio cambia completamente su tono de mando cuando le escribe a la Iglesia de Roma. No les da órdenes como a las demás, sino que reconoce su superioridad, llamándola la Iglesia <em>"que preside en la región de los romanos"</em> y <em>"la que preside en la caridad"</em> (Romanos, Prólogo).</p>
+            </article>
+
+            <article class="feature-card">
+              <h4>4. El Bautismo y el Domingo</h4>
+              <p><strong>El Arma:</strong> Frente a los sabatistas, Ignacio testifica que los cristianos primitivos <em>"ya no guardan el sábado, sino que viven según el Día del Señor, en el cual nuestra vida brotó por Él"</em> (Magnesios 9,1). Además, establece que el Bautismo y la Eucaristía solo son válidos si se celebran en unidad con el Obispo católico.</p>
+            </article>
+          </div>
+
+          <div class="cta-row">
+            <a class="cta-link azul" href="https://apologeticaccar.com">Regresar a Apologética Católica</a>
+            <button class="cta-btn dorado" onclick="showPanel('legado')">Continuar a legado →</button>
+          </div>
+        </div>
+
+      </section>
+      <!-- ===== FINAL PANEL ENSEÑANZA ===== -->
+      
+      <!-- ===== INICIO PANEL LEGADO ===== -->
+      <section id="panel-legado" class="content-panel">
+        <div class="section-box">
+          <h2 class="section-title">El Fundamento de la Ortodoxia Posterior</h2>
+          <p>
+            El legado de San Ignacio trasciende su glorioso martirio; él es el gran arquitecto temprano de la teología católica. A través de sus escritos, Ignacio cimentó las bases de lo que posteriormente sería la cristología ortodoxa frente a dos frentes letales: los judaizantes (que reducían la nueva alianza a prácticas antiguas) y los <span style="color: #c00000; font-weight: bold;">docetistas</span> (que negaban la realidad de la Encarnación y la Pasión)[cite: 123, 124].
+          </p>
+        </div>
+
+        <div class="section-box">
+          <h3 class="section-subtitle">Las Tres Columnas de su Eclesiología</h3>
+          <div class="feature-grid">
+            <article class="feature-card">
+              <h4>La Jerarquía Tripartita</h4>
+              <p>Ignacio aniquila cualquier teoría moderna de una "iglesia primitiva democrática o invisible". Definió con absoluta claridad que la Iglesia visible se sostiene sobre tres grados ministeriales ineludibles: el <strong>Obispo</strong> (que representa a Dios), el <strong>Presbiterio</strong> (el colegio apostólico) y los <strong>Diáconos</strong>. Quien obra al margen de ellos <em>"no es puro en su conciencia"</em>[cite: 124].</p>
+            </article>
+            
+            <article class="feature-card">
+              <h4>La Eucaristía como Sacrificio</h4>
+              <p>Fue el primero en llamar a la Iglesia "el lugar del sacrificio", vinculando indisolublemente el altar cristiano a la Eucaristía. Demostró que el pan y el vino consagrados no son un recordatorio, sino la <em>"Carne de Cristo, la misma que padeció por nuestros pecados"</em>[cite: 126]. Sin el Obispo legítimo, dictaminó, no hay Eucaristía válida[cite: 127].</p>
+            </article>
+
+            <article class="feature-card">
+              <h4>El Primado Romano</h4>
+              <p>Al dirigirse a la Iglesia de Roma, utiliza un lenguaje único de deferencia, llamándola la Iglesia <em>"puesta a la cabeza de la caridad"</em>[cite: 127]. Siendo él mismo Patriarca de la antiquísima Antioquía (donde por primera vez se les llamó "cristianos"), su humilde sumisión a Roma es un testimonio aplastante de la primacía petrina en el siglo I.</p>
+            </article>
+          </div>
+
+          <div class="cta-row" style="margin-top: 24px;">
+            <a class="cta-link azul" href="https://apologeticaccar.com">Regresar a Apologética Católica</a>
+            <button class="cta-btn dorado" onclick="showPanel('escritos')">Continuar a escritos →</button>
+          </div>
+        </div>
+      </section>
+      <!-- ===== FINAL PANEL LEGADO ===== -->
+
+      <!-- ===== INICIO PANEL ESCRITOS ===== -->
+      <section id="panel-escritos" class="content-panel">
+
+        <div class="section-box">
+          <h2 class="section-title">Las 7 Cartas Inmortales (Textos Completos)</h2>
+          <p>
+            Dictadas rápidamente durante su viacrucis hacia Roma, estas siete cartas conforman el tesoro literario y apologético más letal contra los errores modernos. A continuación, se presenta el texto íntegro de cada epístola, con las armas doctrinales resaltadas en verde oscuro.
+          </p>
+        </div>
+
+        <div class="section-box">
+          <div class="accordion">
+
+            <!-- 1. ESMIRNIOTAS -->
+            <div class="acc-item open">
+              <button class="acc-trigger" type="button">
+                <span>Carta a los Esmirniotas (La Iglesia Universal y la Eucaristía)</span>
+                <span>−</span>
+              </button>
+              <div class="acc-content">
+                <p>Texto decisivo que fulmina a los docetistas y contiene la primera mención escrita de la "Iglesia Universal" (Católica).</p>
+                <div style="max-height: 400px; overflow-y: auto; padding: 15px; background: rgba(0,0,0,0.03); border-radius: 8px; border: 1px solid rgba(15,51,95,.12); font-size: 0.95rem; line-height: 1.7;">
+                  <p>Ignacio, llamado también Teóforo, a la iglesia de Dios el Padre y de Jesucristo el Amado... a la iglesia que está en Esmirna, en Asia...</p>
+                  <p>I. Doy gloria a Jesucristo el Dios que os concede tal sabiduría... plenamente persuadidos por lo que se refiere a nuestro Señor que Él es verdaderamente del linaje de David según la carne, pero Hijo de Dios por la voluntad y poder divinos, verdaderamente nacido de una virgen y bautizado por Juan...</p>
+                  <p>II. Porque Él sufrió todas estas cosas por nosotros; y sufrió verdaderamente, del mismo modo que resucitó verdaderamente; no como algunos que no son creyentes dicen que sufrió en apariencia, y que ellos mismos son mera apariencia.</p>
+                  <p>III. Porque sé y creo que Él estaba en la carne incluso después de la resurrección; y cuando Él se presentó a Pedro y su compañía, les dijo: Poned las manos sobre mí y palpadme, y ved que no soy un demonio sin cuerpo.</p>
+                  <p>IV. Pero os amonesto de estas cosas, queridos, sabiendo que pensáis lo mismo que yo. No obstante, estoy velando siempre sobre vosotros para protegeros de las fieras en forma humana... Porque si estas cosas fueron hechas por nuestro Señor sólo en apariencia, entonces yo también soy un preso en apariencia.</p>
+                  <p>V. Pero ciertas personas, por ignorancia, le niegan... Porque, ¿qué beneficio me produce si un hombre me alaba, pero blasfema de mi Señor, no confesando que Él estaba en la carne?</p>
+                  <p>VI. Que ninguno os engañe. Incluso a los seres celestiales y a los ángeles gloriosos... si no creen en la sangre de Cristo [que es Dios], les aguarda también el juicio. <span style="background-color: #1b4528; color: #ffffff; padding: 2px 6px; border-radius: 4px; font-weight: bold;">Pero observad bien a los que sostienen doctrina extraña... Se abstienen de la eucaristía (acción de gracias) y de la oración, porque ellos no admiten que la eucaristía sea la carne de nuestro Salvador Jesucristo, cuya carne sufrió por nuestros pecados, y a quien el Padre resucitó por su bondad.</span></p>
+                  <p>VII. Así pues, los que contradicen el buen don de Dios perecen por ponerlo en duda. Pero sería conveniente que tuvieran amor, para que también pudieran resucitar.</p>
+                  <p>VIII. Evitad las divisiones, como el comienzo de los males. Seguid todos a vuestro obispo, como Jesucristo siguió al Padre, y al presbiterio como los apóstoles; y respetad a los diáconos, como el mandamiento de Dios. Que nadie haga nada perteneciente a la Iglesia al margen del obispo. Considerad como eucaristía válida la que tiene lugar bajo el obispo o bajo uno a quien él la haya encomendado. <span style="background-color: #1b4528; color: #ffffff; padding: 2px 6px; border-radius: 4px; font-weight: bold;">Allí donde aparezca el obispo, allí debe estar el pueblo; tal como allí donde está Jesús, allí está la iglesia universal (Católica).</span> No es legítimo, aparte del obispo, ni bautizar ni celebrar una fiesta de amor; pero todo lo que él aprueba, esto es agradable también a Dios.</p>
+                  <p>IX. Es razonable, pues, que velemos y seamos sobrios... El que honra al obispo es honrado por Dios; el que hace algo sin el conocimiento del obispo rinde servicio al diablo.</p>
+                  <p>X. Hicisteis bien en recibir a Filón y a Rhaius Agathopus... Mi espíritu os es devoto, y también mis ataduras, que no despreciasteis ni os avergonzasteis de ellas.</p>
+                  <p>XI. Vuestra oración llegó a la iglesia que está en Antioquía de Siria... Por tanto, para que vuestra obra pueda ser perfeccionada... es conveniente que vuestra iglesia designe, para el honor de Dios, un embajador de Dios que vaya hasta Siria.</p>
+                  <p>XII. El amor de los hermanos que están en Troas os saluda; de donde también os escribo por la mano de Burrhus... Saludo a vuestro piadoso obispo y a vuestro venerable presbiterio y a mis consiervos los diáconos.</p>
+                  <p>XIII. Saludo a las casas de mis hermanos con sus esposas e hijos... Pasadlo bien en la gracia de Dios.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- 2. ROMANOS -->
+            <div class="acc-item">
+              <button class="acc-trigger" type="button">
+                <span>Carta a los Romanos (El anhelo del martirio)</span>
+                <span>+</span>
+              </button>
+              <div class="acc-content">
+                <p>Es la única carta en la que no ataca a herejes, sino que suplica a los cristianos influyentes que no usen sus contactos políticos para salvarlo de los leones. Reconoce explícitamente a Roma como la sede primada.</p>
+                <div style="max-height: 400px; overflow-y: auto; padding: 15px; background: rgba(0,0,0,0.03); border-radius: 8px; border: 1px solid rgba(15,51,95,.12); font-size: 0.95rem; line-height: 1.7;">
+                  <p>Ignacio... a la que tiene la presidencia en el territorio de la región de los romanos, siendo digna de Dios... y teniendo la presidencia del amor, andando en la ley de Cristo y llevando el nombre del Padre...</p>
+                  <p>I. Por cuanto como respuesta de mi oración a Dios me ha sido concedido ver vuestros rostros piadosos... Porque temo vuestro mismo amor, que no me cause daño; porque a vosotros os es fácil hacer lo que queréis, pero para mí es difícil alcanzar a Dios, a menos que seáis clementes conmigo.</p>
+                  <p>II. Porque no quisiera que procurarais agradar a los hombres, sino a Dios... no me concedáis otra cosa que el que sea derramado como una libación a Dios en tanto que hay el altar preparado; para que formando vosotros un coro en amor, podáis cantar al Padre en Jesucristo.</p>
+                  <p>III. Nunca habéis recibido a nadie de mala gana; fuisteis los instructores de otros... Rogad, sólo, que yo tenga poder por dentro y por fuera, de modo que no sólo pueda decirlo, sino también desearlo; que pueda no sólo ser llamado cristiano, sino que lo sea de veras.</p>
+                  <p>IV. <span style="background-color: #1b4528; color: #ffffff; padding: 2px 6px; border-radius: 4px; font-weight: bold;">Escribo a todas las iglesias, y hago saber a todos que de mi propio libre albedrío muero por Dios, a menos que vosotros me lo estorbéis. Os exhorto, pues, que no uséis de una bondad fuera de sazón. Dejadme que sea entregado a las fieras puesto que por ellas puedo llegar a Dios. Soy el trigo de Dios, y soy molido por las dentelladas de las fieras, para que pueda ser hallado pan puro de Cristo.</span> Antes atraed a las fieras, para que puedan ser mi sepulcro... No os mando nada, cosa que hicieron Pedro y Pablo. Ellos eran apóstoles, yo soy un reo.</p>
+                  <p>V. Desde Siria hasta Roma he venido luchando con las fieras, por tierra y por mar, de día y de noche, viniendo atado entre diez leopardos, o sea, una compañía de soldados, los cuales, cuanto más amablemente se les trata, peor se comportan. Sin embargo, con sus maltratos paso a ser de modo más completo un discípulo...</p>
+                  <p>VI. Los confines más alejados del universo no me servirán de nada, ni tampoco los reinos de este mundo. Es bueno para mí el morir por Jesucristo, más bien que reinar sobre los extremos más alejados de la tierra... Permitidme ser un imitador de la pasión de mi Dios.</p>
+                  <p>VII. El príncipe de este mundo de buena gana me despedazaría... No habléis de Jesucristo y a pesar de ello deseéis el mundo... <span style="background-color: #1b4528; color: #ffffff; padding: 2px 6px; border-radius: 4px; font-weight: bold;">Deseo el pan de Dios, que es la carne de Cristo, que era del linaje de David; y por bebida deseo su sangre, que es amor incorruptible.</span></p>
+                  <p>VIII. Ya no deseo vivir según la manera de los hombres; y así será si vosotros lo deseáis... Jesucristo, la boca infalible por la que el Padre ha hablado verdaderamente.</p>
+                  <p>IX. Recordad en vuestras oraciones a la iglesia que está en Siria, que tiene a Dios como su pastor en lugar mío.</p>
+                  <p>X. Ahora os escribo estas cosas desde Esmirna por mano de los efesios... Pasadlo bien hasta el fin en la paciente espera de Jesucristo.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- 3. EFESIOS -->
+            <div class="acc-item">
+              <button class="acc-trigger" type="button">
+                <span>Carta a los Efesios</span>
+                <span>+</span>
+              </button>
+              <div class="acc-content">
+                <p>Alaba la obediencia de los efesios a su obispo y les advierte que se alejen de los herejes. Revela a la Eucaristía como la "medicina de la inmortalidad".</p>
+                <div style="max-height: 400px; overflow-y: auto; padding: 15px; background: rgba(0,0,0,0.03); border-radius: 8px; border: 1px solid rgba(15,51,95,.12); font-size: 0.95rem; line-height: 1.7;">
+                  <p>Ignacio... a la Iglesia digna de ser llamada bienaventurada, que está en Éfeso de Asia, mi saludo en Jesucristo...</p>
+                  <p>I. He acogido en Dios vuestro nombre bienamado... Es así que a toda vuestra comunidad he recibido, en el nombre de Dios, en Onésimo, varón de una indecible caridad, vuestro obispo según la carne.</p>
+                  <p>II. Para Burro, mi compañero de servicio, vuestro diácono según Dios... deseo que permanezca a mi lado para haceros honor a vosotros y a vuestro obispo... a fin de que, reunidos en una misma obediencia, sometidos al obispo y al presbiterio, vosotros seáis santificados en todas las cosas.</p>
+                  <p>III. Yo no os doy órdenes como si fuera alguien... Pero ya que la caridad no me permite callar respecto a vosotros, es por eso que he tomado la delantera para exhortaros a caminar de acuerdo con el pensamiento de Dios.</p>
+                  <p>IV. También conviene caminar de acuerdo con el pensamiento de vuestro obispo, lo cual vosotros ya hacéis. Vuestro presbiterio, justamente reputado, digno de Dios, está conforme con su obispo como las cuerdas a la cítara.</p>
+                  <p>V. Si en efecto, yo mismo en tan poco tiempo he adquirido con vuestro obispo una tal familiaridad... <span style="background-color: #1b4528; color: #ffffff; padding: 2px 6px; border-radius: 4px; font-weight: bold;">Que nadie se extravíe; si alguno no está al interior del santuario, se priva del "pan de Dios". Pues si la oración de dos tiene tal fuerza, cuánto más la del obispo con la de toda la Iglesia.</span></p>
+                  <p>VI. Y mientras más vea uno al obispo guardar silencio, más se le debe reverenciar; pues aquél a quien el Señor de la casa envía para administrar su casa, debemos recibirlo como aquél mismo que lo ha enviado.</p>
+                  <p>VII. Porque algunos hombres con perversa astucia tienen el hábito de tomar para todo el Nombre, pero obrando de otro modo y de manera indigna de Dios; a aquellos, debéis evitarlos como a las bestias salvajes. Son perros rabiosos, que muerden a escondidas... No hay más que un solo médico, carnal y espiritual, engendrado y no engendrado, Dios venido en carne, en la muerte vida verdadera, Hijo de María e Hijo de Dios...</p>
+                  <p>VIII. Que nadie, pues, os engañe, como por otra parte, no os dejéis engañar, siendo enteramente de Dios.</p>
+                  <p>IX. Yo he sabido que algunos venidos de allá han pasado por vosotros, portadores de una mala doctrina, pero no les habéis permitido sembrarla entre vosotros, tapasteis vuestros oídos para no recibir lo que ellos siembran...</p>
+                  <p>X. "Orad sin cesar" por los otros hombres, porque hay en ellos esperanza de arrepentirse, para que lleguen a Dios. Permitidles, pues, al menos por vuestras obras, ser vuestros discípulos.</p>
+                  <p>XI. Estos son los últimos tiempos; en adelante avergoncémonos y temamos que la longanimidad de Dios no se torne en nuestra condenación... Fuera de Él que nada tenga valor para vosotros, sino Aquél por quien yo llevo mis cadenas...</p>
+                  <p>XII. Yo sé quién soy y a quién escribo: yo soy un condenado; vosotros, habéis obtenido misericordia; yo estoy en el peligro; vosotros estáis seguros... iniciados en los misterios con Pablo, el santo, quien ha recibido el martirio...</p>
+                  <p>XIII. Poned, pues, empeño en reuniros más frecuentemente para rendir a Dios acciones de gracia y alabanza. Porque cuando vosotros os reunís a menudo, las potestades de Satanás son abatidas...</p>
+                  <p>XIV. Nada de todo eso os está oculto, si vosotros, por Jesucristo, tenéis a la perfección la fe y la caridad, que son el principio y el fin de la vida... Nadie, si profesa la fe, peca; nadie, si posee la caridad, aborrece.</p>
+                  <p>XV. Más vale callar y ser que hablar y no ser. Está bien enseñar, si aquél que habla hace. No hay, pues, más que un solo maestro, aquél que "ha hablado y todo ha sido hecho"...</p>
+                  <p>XVI. No os equivoquéis, hermanos míos: aquellos que corrompen una familia "no heredarán el Reino de Dios". Así, si los que hacen eso son condenados a muerte, ¡cuánto más aquél que corrompe por su mala doctrina la fe de Dios, por la que Jesucristo ha sido crucificado!</p>
+                  <p>XVII. Si el Señor ha recibido una unción sobre su cabeza, es a fin de exhalar para su Iglesia un perfume de incorruptibilidad.</p>
+                  <p>XVIII. Mi espíritu es víctima de la cruz, que es escándalo para los incrédulos, pero para nosotros salvación y vida eterna... Porque nuestro Dios, Jesucristo, ha sido llevado en el seno de María, según la economía divina, nacido "del linaje de David" y del Espíritu Santo.</p>
+                  <p>XIX. Al príncipe de este mundo le ha sido ocultada la virginidad de María, y su alumbramiento, al igual que la muerte del Señor: tres misterios sonoros, que fueron realizados en el silencio de Dios... Entonces fue destruida toda magia, y toda ligadura de malicia abolida...</p>
+                  <p>XX. Si Jesucristo me concede la gracia, por vuestras oraciones... <span style="background-color: #1b4528; color: #ffffff; padding: 2px 6px; border-radius: 4px; font-weight: bold;">para obedecer al obispo y al presbiterio en unidad de mente, rompiendo un mismo pan que es medicina de inmortalidad, antídoto para no morir, y alimento para vivir en Jesucristo por siempre.</span></p>
+                  <p>XXI. Yo soy vuestro rescate, por vosotros y por aquellos que, para honor de Dios, habéis enviado a Esmirna... Rogad por la Iglesia que está en Siria, de donde soy conducido a Roma encadenado...</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- 4. MAGNESIOS -->
+            <div class="acc-item">
+              <button class="acc-trigger" type="button">
+                <span>Carta a los Magnesios (Contra los Judaizantes)</span>
+                <span>+</span>
+              </button>
+              <div class="acc-content">
+                <p>Establece la estructura jerárquica incuestionable y refuta ferozmente a los Judaizantes, probando que la Iglesia guarda el Domingo de Resurrección en lugar del Sábado judío.</p>
+                <div style="max-height: 400px; overflow-y: auto; padding: 15px; background: rgba(0,0,0,0.03); border-radius: 8px; border: 1px solid rgba(15,51,95,.12); font-size: 0.95rem; line-height: 1.7;">
+                  <p>Ignacio... a la iglesia que está en Magnesia junto al Meandro, y le envío abundantes salutaciones en Dios el Padre y en Jesucristo.</p>
+                  <p>I. Cuando me enteré del superabundante buen orden de vuestro amor en los caminos de Dios, me alegré y decidí comunicarme con vosotros en la fe de Jesucristo...</p>
+                  <p>II. Por cuanto, pues, me fue permitido el verlos en la persona de Damas vuestro piadoso obispo y vuestros dignos presbíteros Bassus y Apolonio y mi consiervo el diácono Socio... porque está sometido al obispo como a la gracia de Dios y al presbiterio como a la ley de Jesucristo.</p>
+                  <p>III. Sí, y os corresponde a vosotros también no tomaros libertades por la juventud de vuestro obispo, sino, según el poder de Dios el Padre, rendirle toda reverencia... Porque un hombre no engaña a este obispo que es visible, sino que intenta engañar al otro que es invisible...</p>
+                  <p>IV. Por tanto, es apropiado que no sólo seamos llamados cristianos, sino que lo seamos; tal como algunos tienen el nombre del obispo en sus labios, pero en todo obran aparte del mismo.</p>
+                  <p>V. Siendo así que todas las cosas tienen un final, y estas dos - vida y muerte - están delante de nosotros... los no creyentes la marca del mundo, pero los fieles en amor la marca de Dios el Padre por medio de Jesucristo...</p>
+                  <p>VI. ...os aconsejo que seáis celosos para hacer todas las cosas en buena armonía, el obispo presidiendo a la semejanza de Dios y los presbíteros según la semejanza del concilio de los apóstoles, con los diáconos también que me son muy caros, habiéndoles sido confiado el diaconado de Jesucristo...</p>
+                  <p>VII. Por tanto, tal como el Señor no hizo nada sin el Padre... no hagáis nada vosotros, tampoco, sin el obispo y los presbíteros... Apresuraos a congregaros, como en un solo templo, Dios; como ante un altar, Jesucristo, que vino de un Padre y está con un Padre y ha partido a un Padre.</p>
+                  <p>VIII. No os dejéis seducir por doctrinas extrañas ni por fábulas anticuadas que son sin provecho. Porque si incluso en el día de hoy vivimos según la manera del judaísmo, confesamos que no hemos recibido la gracia...</p>
+                  <p>IX. <span style="background-color: #1b4528; color: #ffffff; padding: 2px 6px; border-radius: 4px; font-weight: bold;">Así pues, si los que habían andado en prácticas antiguas alcanzaron una nueva esperanza, sin observar ya los sábados, sino moldeando sus vidas según el día del Señor, en el cual nuestra vida ha brotado por medio de Él y por medio de su muerte que algunos niegan... si es así, ¿cómo podremos vivir aparte de Él?</span></p>
+                  <p>X. Por tanto, no seamos insensibles a su bondad... Poned a un lado la levadura vil que se había corrompido y agriado y echad mano de la nueva levadura, que es Jesucristo... Es absurdo hablar de Jesucristo y al mismo tiempo practicar el judaísmo. Porque el cristianismo no creyó en el judaísmo, sino el judaísmo en el cristianismo.</p>
+                  <p>XI. Ahora bien, digo estas cosas, queridos... para que no caigáis en los lazos de la doctrina vana; sino estad plenamente persuadidos respecto al nacimiento y la pasión y la resurrección, que tuvieron lugar en el tiempo en que Poncio Pilato era gobernador; porque estas cosas fueron hechas verdadera y ciertamente por Jesucristo nuestra esperanza...</p>
+                  <p>XII. Dejadme que me regocije a causa de vosotros en todas las cosas, si soy digno de ello. Porque, aunque me hallo en prisiones, con todo no soy comparable a ninguno de vosotros que estáis en libertad.</p>
+                  <p>XIII. Que vuestra diligencia sea, pues, confirmada en las ordenanzas del Señor y de los apóstoles... Sed obedientes al obispo y los unos a los otros, como Jesucristo lo era al Padre, y como los apóstoles lo eran a Cristo y al Padre, para que pueda haber unión de la carne y el espíritu.</p>
+                  <p>XIV. Sabiendo que estáis llenos de Dios, os he exhortado brevemente. Recordadme en vuestras oraciones, para que yo pueda llegar a Dios...</p>
+                  <p>XV. Los efesios de Esmirna os saludan, desde donde os estoy escribiendo. Están aquí conmigo para la gloria de Dios... Pasadlo bien en piadosa concordia, y poseed un espíritu firme, que es Jesucristo.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- 5. TRALIANOS -->
+            <div class="acc-item">
+              <button class="acc-trigger" type="button">
+                <span>Carta a los Tralianos</span>
+                <span>+</span>
+              </button>
+              <div class="acc-content">
+                <p>Establece nuevamente que al margen de los tres grados sacerdotales (Obispo, Presbítero y Diácono) no existe verdadera Iglesia Católica.</p>
+                <div style="max-height: 400px; overflow-y: auto; padding: 15px; background: rgba(0,0,0,0.03); border-radius: 8px; border: 1px solid rgba(15,51,95,.12); font-size: 0.95rem; line-height: 1.7;">
+                  <p>Ignacio... a la santa iglesia que está en Tralles de Asia, elegida y digna de Dios...</p>
+                  <p>I. He sabido que tenéis una mente intachable y sois firmes en la paciencia, no como hábito, sino por naturaleza, según me ha informado Polibio vuestro obispo...</p>
+                  <p>II. Porque cuando sois obedientes al obispo como a Jesucristo, es evidente para mí que estáis viviendo no según los hombres sino según Jesucristo... Es necesario, por tanto, como acostumbráis hacer, que no hagáis nada sin el obispo, sino que seáis obedientes también al presbiterio...</p>
+                  <p>III. <span style="background-color: #1b4528; color: #ffffff; padding: 2px 6px; border-radius: 4px; font-weight: bold;">De la misma manera, que todos respeten a los diáconos como a Jesucristo, tal como deben respetar al obispo como tipo que es del Padre y a los presbíteros como concilio de Dios y como colegio de los apóstoles. Aparte de ellos no hay ni aun el nombre de iglesia.</span></p>
+                  <p>IV. Tengo muchos pensamientos profundos en Dios; pero procuro tener mesura, no sea que perezca a causa de mi jactancia... Porque, aunque deseo sufrir, con todo no sé seguro si soy digno de ello: porque la envidia del diablo verdaderamente muchos no la ven, pero contra mí está librando una guerra encarnizada.</p>
+                  <p>V. ¿No soy capaz de escribiros de cosas celestiales? Pero temo que pudiera causaros daño siendo vosotros aún niños. Así que tened paciencia conmigo...</p>
+                  <p>VI. Os exhorto, pues... que toméis sólo el alimento cristiano, y os abstengáis de forraje extraño, que es herejía; porque estos hombres incluso mezclan veneno con Jesucristo...</p>
+                  <p>VII. Estad, pues, en guardia contra estos hombres. Y será así ciertamente si no os envanecéis y si sois inseparables de Dios Jesucristo y del obispo y de las ordenanzas de los apóstoles. El que está dentro del santuario es limpio; el que está fuera del santuario no es limpio; esto es, el que hace algo sin el obispo y el presbiterio y los diáconos, este hombre no tiene limpia la conciencia.</p>
+                  <p>VIII. ...estoy velando sobre vosotros siempre, como amados míos, porque veo con antelación los lazos del diablo. Por tanto, armaos de mansedumbre y cubríos de la fe que es la carne del Señor, y el amor que es la sangre de Jesucristo.</p>
+                  <p>IX. Sed sordos, pues, cuando alguno os hable aparte de Jesucristo, que era de la raza de David, que era el Hijo de María, que verdaderamente nació y comió y bebió y fue ciertamente perseguido bajo Poncio Pilato, fue verdaderamente crucificado y murió a la vista de los que hay en el cielo y los que hay en la tierra y los que hay debajo de la tierra; el cual, además, verdaderamente resucitó de los muertos...</p>
+                  <p>X. Pero si fuera como ciertas personas que no son creyentes, sino impías, y dicen que Él sufrió sólo en apariencia, siendo ellos mismos mera apariencia, ¿por qué, pues, estoy yo en cadenas? Y ¿por qué también deseo enfrentarme con las fieras? Si es así, muero en vano. Verdaderamente estoy mintiendo contra el Señor.</p>
+                  <p>XI. Evitad, pues, estos viles retoños que producen un fruto mortal... Ahora bien, no es posible hallar una cabeza sin miembros, siendo así que Dios promete unión, y esta unión es Él mismo.</p>
+                  <p>XII. Os saludo desde Esmirna, junto con las iglesias de Dios que están presentes conmigo... Porque os conviene a cada uno de vosotros, y de modo más especial a los presbíteros, el alegrar el alma de vuestro obispo en el honor del Padre y en el honor de Jesucristo y de los apóstoles.</p>
+                  <p>XIII. El amor de los esmirneanos y los efesios os saluda. Recordad en vuestras oraciones a la iglesia que está en Siria... Mi espíritu es ofrecido por vosotros, no sólo ahora, sino también cuando llegue a Dios.</p>
+                </div>
+              </div>
+            </div>
+            
+            <!-- 6. FILADELFIOS -->
+            <div class="acc-item">
+              <button class="acc-trigger" type="button">
+                <span>Carta a los Filadelfios</span>
+                <span>+</span>
+              </button>
+              <div class="acc-content">
+                <p>Exige a los filadelfios huir de los cismáticos y advierte contundentemente que la Eucaristía, el Altar y el Obispo son inseparables.</p>
+                <div style="max-height: 400px; overflow-y: auto; padding: 15px; background: rgba(0,0,0,0.03); border-radius: 8px; border: 1px solid rgba(15,51,95,.12); font-size: 0.95rem; line-height: 1.7;">
+                  <p>Ignacio... a la iglesia de Dios el Padre y de Jesucristo, que está en Filadelfia de Asia... iglesia a la cual saludo en la sangre de Jesucristo, que es gozo eterno y permanente; más especialmente si son unánimes con el obispo y los presbíteros que están con él, y con los diáconos...</p>
+                  <p>I. He hallado que este obispo vuestro ostenta el ministerio que pertenece al bienestar común, no por sí mismo o por medio de hombres, ni para vanagloria, sino en el amor de Dios y el Padre y el Señor Jesucristo. Estoy maravillado de su longanimidad; cuyo silencio es más poderoso que el hablar de los otros.</p>
+                  <p>II. Como hijos, pues, de la luz de la verdad, evitad las divisiones y las doctrinas falsas; y allí donde está el pastor, seguidle como ovejas. Porque muchos lobos engañosos con deleites fatales se llevan cautivos a los que corren en la carrera de Dios...</p>
+                  <p>III. Absteneos de las plantas nocivas, que no son cultivadas por Jesucristo, porque no son plantadas por el Padre... Porque todos los que son de Dios y de Jesucristo están con los obispos; y todos los que se arrepientan y entren en la unidad de la Iglesia, éstos también serán de Dios... No os dejéis engañar, hermanos míos. Si alguno sigue a otro que hace un cisma, no heredará el reino de Dios.</p>
+                  <p>IV. <span style="background-color: #1b4528; color: #ffffff; padding: 2px 6px; border-radius: 4px; font-weight: bold;">Sed cuidadosos, pues, observando una eucaristía (porque hay una carne de nuestro Señor Jesucristo y una copa en unión en su sangre; hay un altar, y hay un obispo, junto con el presbiterio y los diáconos mis consiervos), para que todo lo que hagáis sea según Dios.</span></p>
+                  <p>V. Hermanos míos, mi corazón rebosa de amor hacia vosotros; y regocijándome sobremanera velo por vuestra seguridad... refugiándome en el Evangelio como la carne de Jesús, y en los apóstoles como el presbiterio de la Iglesia.</p>
+                  <p>VI. Pero si alguno propone el judaísmo entre vosotros no le escuchéis, porque es mejor escuchar el cristianismo de uno que es circuncidado que escuchar el judaísmo de uno que es incircunciso. Pero si tanto el uno como el otro no os hablan de Jesucristo, yo los tengo como lápidas de cementerio y tumbas de muertos...</p>
+                  <p>VII. Porque aun cuando ciertas personas han deseado engañarme según la carne, con todo, el espíritu no es engañado, siendo de Dios... Porque, cuando estuve entre vosotros, clamé, hablé en voz alta, con la voz propia de Dios: Prestad atención al obispo y al presbiterio y a los diáconos.</p>
+                  <p>VIII. Yo hice, pues, mi parte, como un hombre amante de la unión. Pero allí donde hay división e ira, allí no reside Dios. Ahora bien, el Señor perdona a todos los hombres cuando se arrepienten, si al arrepentirse regresan a la unidad de Dios y al concilio del obispo...</p>
+                  <p>IX. Los sacerdotes también eran buenos, pero mejor es el Sumo Sacerdote al cual se encomienda el lugar santísimo; porque sólo a Él son encomendadas las cosas escondidas de Dios... Pero el Evangelio tiene una preeminencia singular en el advenimiento del Salvador, a saber, nuestro Señor Jesucristo, y su pasión y resurrección.</p>
+                  <p>X. Siendo así que, en respuesta a vuestra oración y a la tierna simpatía que tenéis en Jesucristo, se me ha dicho que la iglesia que está en Antioquía de Siria tiene paz, os corresponde, como iglesia de Dios, el designar a un diácono que vaya allí como embajador de Dios...</p>
+                  <p>XI. Pero, por lo que se refiere a Filón, el diácono de Cilicia, un hombre de buen nombre, que ahora también me sirve a mí en el nombre de Dios, junto con Rhaius Agathopus... éstos dan testimonio en favor vuestro. El Señor los honrará, a saber, Jesucristo, en quien está puesta su esperanza en la carne, el alma y el espíritu, por la fe, el amor y la concordia.</p>
+                </div>
+              </div>
+            </div>
+            
+            <!-- 7. POLICARPO -->
+            <div class="acc-item">
+              <button class="acc-trigger" type="button">
+                <span>Carta a San Policarpo</span>
+                <span>+</span>
+              </button>
+              <div class="acc-content">
+                <p>Aconseja a San Policarpo (otro gigante apostólico, Obispo de Esmirna y discípulo de San Juan) sobre el gobierno pastoral y la vigilancia eclesiástica.</p>
+                <div style="max-height: 400px; overflow-y: auto; padding: 15px; background: rgba(0,0,0,0.03); border-radius: 8px; border: 1px solid rgba(15,51,95,.12); font-size: 0.95rem; line-height: 1.7;">
+                  <p>Ignacio, llamado también Teóforo, a Policarpo, que es obispo de la iglesia de Esmirna, o más bien que tiene por su obispo a Dios el Padre y a Jesucristo, saludos en abundancia.</p>
+                  <p>I. Dando la bienvenida a tu mente piadosa que está afianzada como si fuera en una roca inconmovible, doy gloria sobremanera de que me haya sido concedido ver tu faz intachable... Reivindica tu cargo con toda diligencia de carne y de espíritu. Procura que haya unión, pues no hay nada mejor que ella. Soporta a todos, como el Señor te soporta.</p>
+                  <p>II. Si amas a los entendidos, esto no es nada que haya que agradecérsete. Más bien somete a los más impertinentes por medio de la mansedumbre. No todas las heridas son sanadas por el mismo ungüento... Sé prudente como la serpiente en todas las cosas e inocente siempre como la paloma.</p>
+                  <p>III. No te desmayes por los que parecen ser dignos de crédito y, pese a todo, enseñan doctrina extraña. Mantente firme como un yunque cuando lo golpean. A un gran atleta le corresponde recibir golpes y triunfar... Espera en Aquel que está por encima de toda estación, el Eterno, el Invisible, que se hizo visible por amor a nosotros, el Impalpable, el Impasible, que sufrió por amor a nosotros...</p>
+                  <p>IV. Que no se descuide a las viudas. Después del Señor sé tú su protector. Que no se haga nada sin tu consentimiento; ni hagas nada tú sin el consentimiento de Dios... No desprecies a los esclavos, sean hombres o mujeres. Pero no permitas que éstos se engrían, sino que sirvan más fielmente para la gloria de Dios.</p>
+                  <p>V. Evita las malas artes, o más bien evita incluso la conversación o plática sobre ellas. Di a mis hermanas que amen al Señor y estén contentas con sus maridos en la carne y en el espíritu. De la misma manera encargo a mis hermanos en el nombre de Jesucristo que amen a sus esposas, como el Señor amó a la Iglesia. Si alguno puede permanecer en castidad para honrar la carne del Señor, que lo haga sin jactarse... Es apropiado que todos los hombres y mujeres, también, cuando se casan, se unan con el consentimiento del obispo, para que el matrimonio sea según el Señor y no según concupiscencia.</p>
+                  <p>VI. <span style="background-color: #1b4528; color: #ffffff; padding: 2px 6px; border-radius: 4px; font-weight: bold;">Prestad atención al obispo, para que Dios también os tenga en cuenta. Yo soy afecto a los que están sometidos al obispo, a los presbíteros y a los diáconos. Que me sea concedido el tener mi porción con ellos en la presencia de Dios.</span> Laborad juntos los unos con los otros, luchad juntos, corred juntos, sufrid juntos, reposad juntos, levantaos juntos, como mayordomos y asesores y ministros de Dios. Agradad al Capitán en cuyo ejército servís, del cual también habéis de recibir la paga. Que ninguno sea hallado desertor. Que vuestro bautismo permanezca en vosotros como vuestro escudo; vuestra fe como vuestro yelmo; vuestro amor como vuestra lanza; vuestra paciencia como la armadura del cuerpo.</p>
+                  <p>VII. Siendo así que la iglesia que está en Antioquía de Siria tiene paz, según se me ha informado, por medio de vuestras oraciones, ello ha sido una gran consolación para mí... Te conviene, muy bienaventurado Policarpo, convocar un concilio piadoso y elegir a alguno entre vosotros, a quien tú quieras y que sea celoso también, y que sea digno de llevar el nombre de correo de Dios - para que vaya a Siria y glorifique vuestro celoso amor para la gloria de Dios.</p>
+                  <p>VIII. Como no he podido escribir a todas las iglesias debido a que parto súbitamente de Troas para Neápolis... escribirás tú a las iglesias nombradas delante, como uno que conoce el propósito de Dios... Saludo a todos por nombre... Mis mejores deseos siempre en nuestro Dios Jesucristo, en quien permanecéis en la unidad y supervisión de Dios. Saludo a Alce, un nombre muy querido para mí. Pasadlo bien en el Señor.</p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="cta-row" style="margin-top: 24px;">
+            <a class="cta-link azul" href="https://apologeticaccar.com">Regresar a Apologética Católica</a>
+            <button class="cta-btn dorado" onclick="showPanel('inicio')">Volver al inicio →</button>
+          </div>
+        </div>
+
+      </section>
+      <!-- ===== FINAL PANEL ESCRITOS ===== -->
+
+    </div>
+  </main>
+  <!-- ===== FINAL MAIN ===== -->
+
+  <script>
+    /* ===== INICIO SCRIPT AISLADO ===== */
+    (function(){
+      const panelNames = ["inicio", "vida", "contexto", "ensenanza", "legado", "escritos"];
+      const mobileMenuToggle = document.getElementById("mobileMenuToggle");
+      const mobileNavPanel = document.getElementById("mobileNavPanel");
+
+      function openMobileMenu(){
+        if(!mobileMenuToggle || !mobileNavPanel) return;
+        mobileMenuToggle.classList.add("active");
+        mobileNavPanel.classList.add("active");
+        mobileMenuToggle.setAttribute("aria-expanded", "true");
+      }
+
+      function closeMobileMenu(){
+        if(!mobileMenuToggle || !mobileNavPanel) return;
+        mobileMenuToggle.classList.remove("active");
+        mobileNavPanel.classList.remove("active");
+        mobileMenuToggle.setAttribute("aria-expanded", "false");
+      }
+
+      function toggleMobileMenu(){
+        if(!mobileNavPanel) return;
+        if(mobileNavPanel.classList.contains("active")){
+          closeMobileMenu();
+        }else{
+          openMobileMenu();
+        }
+      }
+
+      function showPanel(name){
+        panelNames.forEach(panel => {
+          const panelEl = document.getElementById("panel-" + panel);
+          if(panelEl){
+            panelEl.classList.toggle("active", panel === name);
+          }
+          document.querySelectorAll('[data-target="' + panel + '"]').forEach(btnEl => {
+            btnEl.classList.toggle("active", panel === name);
+          });
+        });
+
+        closeMobileMenu();
+
+        const navBar = document.querySelector('.hero-nav');
+        const globalHeader = document.getElementById('accarGlobalHeader'); 
+        
+        if (navBar) {
+          const headerHeight = globalHeader ? globalHeader.offsetHeight : 0;
+          const absoluteY = navBar.getBoundingClientRect().top + window.scrollY;
+          
+          window.scrollTo({
+            top: absoluteY - headerHeight - 10,
+            behavior: "smooth"
+          });
+        }
+      }
+
+      document.querySelectorAll(".nav-btn").forEach(btn => {
+        btn.onclick = function(e) {
+          e.preventDefault();
+          showPanel(this.dataset.target);
+        };
+      });
+
+      document.querySelectorAll(".mobile-nav-btn[data-target]").forEach(btn => {
+        btn.onclick = function(e) {
+          e.preventDefault();
+          showPanel(this.dataset.target);
+        };
+      });
+
+      document.querySelectorAll(".acc-trigger").forEach(trigger => {
+        trigger.onclick = function(e) {
+          e.preventDefault();
+          const item = this.parentElement;
+          const isOpen = item.classList.contains("open");
+
+          document.querySelectorAll(".acc-item").forEach(acc => {
+            acc.classList.remove("open");
+            const symbol = acc.querySelector(".acc-trigger span:last-child");
+            if(symbol) symbol.textContent = "+";
+          });
+
+          if(!isOpen){
+            item.classList.add("open");
+            const symbol = item.querySelector(".acc-trigger span:last-child");
+            if(symbol) symbol.textContent = "−";
+          }
+        };
+      });
+
+      if(mobileMenuToggle){
+        mobileMenuToggle.onclick = function(e){
+          e.preventDefault();
+          toggleMobileMenu();
+        };
+      }
+    })();
+    /* ===== FINAL SCRIPT AISLADO ===== */
+  </script>
+</body>
+</html>
+<!-- ===== FINAL SAN IGNACIO DE ANTIOQUÍA ===== -->
