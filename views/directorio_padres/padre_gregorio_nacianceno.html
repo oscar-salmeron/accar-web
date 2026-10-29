@@ -1,10 +1,10 @@
-<!-- ===== INICIO SAN BASILIO MAGNO ===== -->
+<!-- ===== INICIO SAN GREGORIO NACIANCENO ===== -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>San Basilio Magno | ACCAR</title>
+  <title>San Gregorio Nacianceno | ACCAR</title>
 
   <style>
     :root{
@@ -680,290 +680,6 @@
     }
 
     /* ===== FINAL MAIN ===== */
-
-    /* ===== INICIO FOOTER ===== */
-    .footer{
-      position:relative;
-      overflow:hidden;
-      color:#f8efd3;
-      padding:54px 0 30px;
-      border-top:2px solid rgba(212,175,55,.55);
-      background:
-        linear-gradient(180deg, rgba(8,24,48,.04), rgba(8,24,48,.12)),
-        url("../../assets/img/bg_padres_iglesia_acccar.png") center 88% / cover no-repeat;
-    }
-
-    .footer::before{
-      content:"";
-      position:absolute;
-      inset:0;
-      background:
-        linear-gradient(90deg, rgba(7,26,54,.38), rgba(12,42,86,.10), rgba(7,26,54,.38));
-      pointer-events:none;
-    }
-
-    .footer-inner{
-      position:relative;
-      z-index:1;
-    }
-
-    .footer-card{
-      border:1px solid rgba(212,175,55,.34);
-      border-radius:28px;
-      padding:30px 28px 24px;
-      background:linear-gradient(180deg, rgba(11,31,63,.54), rgba(11,31,63,.80));
-      backdrop-filter:blur(5px);
-      box-shadow:var(--sombra);
-      overflow:hidden;
-    }
-
-    .footer-top{
-      display:grid;
-      grid-template-columns:1.2fr .8fr .9fr;
-      gap:36px;
-      align-items:start;
-    }
-
-    .footer-brand{
-      display:flex;
-      align-items:flex-start;
-      gap:24px;
-    }
-
-    .footer-brand-logo{
-      flex:0 0 auto;
-    }
-
-    .footer-brand-logo img{
-      width:172px;
-      filter:drop-shadow(0 8px 16px rgba(0,0,0,.22));
-    }
-
-    .footer-brand-copy{
-      padding-top:8px;
-    }
-
-    .footer-brand-copy p{
-      margin:0 0 8px;
-      font-size:.90rem;
-      line-height:1.58;
-      color:#f6ecd0;
-      overflow-wrap:anywhere;
-    }
-
-    .footer-col h4{
-      margin:0 0 14px;
-      color:#ffd971;
-      font-size:1.7rem;
-      overflow-wrap:anywhere;
-    }
-
-    .footer-links{
-      display:flex;
-      flex-direction:column;
-      gap:10px;
-    }
-
-    .footer-links a,
-    .footer-links button{
-      background:none;
-      border:none;
-      padding:0;
-      margin:0;
-      text-align:left;
-      color:#f6ecd0;
-      font-family:Georgia, "Times New Roman", serif;
-      font-size:1.05rem;
-      cursor:pointer;
-      overflow-wrap:anywhere;
-    }
-
-    .footer-links a:hover,
-    .footer-links button:hover{
-      color:#ffe8a4;
-    }
-
-    .footer-contact{
-      display:flex;
-      flex-direction:column;
-      gap:12px;
-      color:#f6ecd0;
-      font-size:1.05rem;
-      line-height:1.7;
-      overflow-wrap:anywhere;
-    }
-
-    .footer-contact a{
-      color:#f6ecd0;
-    }
-
-    .footer-contact a:hover{
-      color:#ffe8a4;
-    }
-
-    .footer-divider{
-      width:100%;
-      height:1px;
-      margin:22px 0 18px;
-      background:linear-gradient(90deg, transparent, rgba(212,175,55,.85), transparent);
-    }
-
-    .footer-legal{
-      text-align:center;
-      color:#eadfb7;
-      font-size:1rem;
-      line-height:1.75;
-      overflow-wrap:anywhere;
-    }
-    /* ===== FINAL FOOTER ===== */
-
-    /* ===== INICIO RESPONSIVE ===== */
-    @media (max-width:1180px){
-      .hero-meta{grid-template-columns:repeat(2, 1fr)}
-      .hero-nav{
-        justify-content:center;
-      }
-      .hero-nav button,
-      .hero-nav a{
-        flex:1 1 220px;
-        min-width:220px;
-      }
-      .stat-grid{grid-template-columns:repeat(2, minmax(0, 1fr))}
-      .footer-top{grid-template-columns:1fr 1fr}
-      .footer-col.contact-col{grid-column:1/-1}
-    }
-
-    @media (max-width:920px){
-      .hero{
-        background:
-          linear-gradient(180deg, rgba(9,23,45,.26) 0%, rgba(9,23,45,.16) 26%, rgba(9,23,45,.68) 100%);
-      }
-
-      .hero-inner{
-        min-height:auto;
-        padding:26px 0 34px;
-      }
-
-      .top-brand{
-        justify-content:space-between;
-        align-items:center;
-        text-align:left;
-        gap:12px;
-        margin-bottom:16px;
-      }
-
-      .top-brand a{
-        flex-direction:row;
-        align-items:center;
-        gap:12px;
-        min-width:0;
-        flex:1 1 auto;
-      }
-
-      .top-brand img{width:64px}
-      .top-brand-text .line-1{font-size:1.45rem}
-      .top-brand-text .line-2{font-size:1.05rem}
-
-      .mobile-menu-toggle{
-        display:inline-flex;
-      }
-
-      .hero-card{
-        grid-template-columns:1fr;
-        gap:22px;
-        padding:20px;
-      }
-
-      .hero-copy{text-align:center}
-      .hero-copy p{margin:0 auto}
-
-      .hero-nav{
-        display:flex;
-        flex-direction:column;
-        gap:10px;
-        margin-top:20px;
-      }
-      .hero-nav button{
-        width:100%;
-        min-width:100%;
-        padding:14px;
-        font-size:1.05rem;
-      }
-
-      .inicio-grid,
-      .feature-grid{grid-template-columns:1fr}
-      .highlight-card.full-width{
-        grid-column:auto;
-      }
-      .footer-top{grid-template-columns:1fr}
-      .footer-brand{
-        justify-content:center;
-        text-align:center;
-        flex-direction:column;
-        align-items:center;
-      }
-      .footer-links{align-items:center}
-      .footer-links a,
-      .footer-links button{text-align:center}
-      .footer-col{text-align:center}
-      .footer-contact{align-items:center}
-    }
-
-    @media (max-width:560px){
-      body{background-attachment:scroll}
-      .wrap{width:min(var(--max), calc(100% - 16px))}
-      .top-brand img{width:58px}
-      .top-brand-text .line-1{font-size:1.18rem}
-      .top-brand-text .line-2{font-size:.92rem}
-      .mobile-menu-toggle{
-        width:52px;
-        height:52px;
-        border-radius:14px;
-      }
-      .hero-card{border-radius:22px;padding:16px}
-      .hero-photo img{max-width:220px;border-radius:22px}
-      .hero-kicker{font-size:.85rem}
-      .hero-copy h1{font-size:2.35rem}
-      .hero-copy p{font-size:1rem;line-height:1.72}
-      .hero-meta{grid-template-columns:1fr}
-      .main-shell{padding:22px 0 30px}
-      .section-box{
-        padding:18px;
-        border-radius:20px;
-      }
-      .section-title{font-size:2.05rem}
-      .section-subtitle{font-size:1.32rem}
-      .section-box p,
-      .timeline-item p,
-      .feature-card p,
-      .highlight-card p,
-      .acc-content p,
-      .footer-brand-copy p{
-        font-size:1rem;
-        line-height:1.82;
-      }
-      .stat-grid{grid-template-columns:1fr}
-      .acc-trigger{
-        padding:16px 16px;
-        font-size:1rem;
-      }
-      .cta-btn,.cta-link{
-        min-width:100%;
-      }
-      .footer{
-        padding:32px 0 24px;
-        background:
-          linear-gradient(180deg, rgba(8,24,48,.03), rgba(8,24,48,.10)),
-          url("../../assets/img/bg_padres_iglesia_acccar.png") 52% 92% / cover no-repeat;
-      }
-      .footer-card{padding:20px 16px 18px}
-      .footer-brand-logo img{
-        width:146px;
-      }
-      .footer-col h4{font-size:1.4rem}
-      .footer-legal{font-size:.94rem}
-    }
-    /* ===== FINAL RESPONSIVE ===== */
   </style>
 </head>
 <body>
@@ -977,7 +693,7 @@
       <div class="hero-card">
         <div class="hero-photo-wrap">
           <div class="hero-photo">
-            <img src="../../assets/img/padre_basilio_magno.png" alt="San Basilio Magno">
+            <img src="../../assets/img/padre_gregorio_nacianceno.png" alt="San Gregorio Nacianceno">
           </div>
 
           <!-- ===== INICIO BADGE PADRE ===== -->
@@ -989,27 +705,27 @@
 
         <div class="hero-copy">
           <div class="hero-kicker">Sección Padres de la Iglesia · Siglo IV</div>
-          <h1>San Basilio Magno</h1>
+          <h1>San Gregorio Nacianceno</h1>
           <p>
-            El gigante de la caridad y la liturgia (330-379 d.C.). Obispo de Cesarea y el más grande de los tres "Padres Capadocios". Fue el brillante teólogo que destruyó la herejía que negaba que el Espíritu Santo fuera Dios, preparando el terreno para el Credo de Constantinopla. Además de su genio intelectual, fue el primer hombre en la historia en inventar y construir un hospital público gratuito, demostrando que la fe católica es la madre de la asistencia social moderna.
+            Conocido en la Sagrada Tradición como "El Teólogo" (aprox. 329-389 d.C.). Patriarca de Constantinopla y el orador más brillante de los tres Padres Capadocios. Con sus magistrales <em>Cinco Discursos Teológicos</em> aniquiló intelectualmente a las herejías que atacaban a la Trinidad, consolidando para siempre el dogma trinitario ortodoxo en el Concilio de Constantinopla del año 381.
           </p>
 
           <div class="hero-meta">
             <div class="meta-item">
               <span class="meta-label">Ministerio</span>
-              <span class="meta-value">Arzobispo de Cesarea de Capadocia, con autoridad sobre decenas de obispos.</span>
+              <span class="meta-value">Patriarca de Constantinopla y Obispo de Nacianzo. Presidió el II Concilio Ecuménico.</span>
             </div>
             <div class="meta-item">
               <span class="meta-label">Época</span>
-              <span class="meta-value">330 - 379 d.C. Era de la crisis sobre la divinidad del Espíritu Santo.</span>
+              <span class="meta-value">Aprox. 329 - 389 d.C. Época del triunfo definitivo sobre el arrianismo.</span>
             </div>
             <div class="meta-item">
               <span class="meta-label">Obra principal</span>
-              <span class="meta-value">El tratado "Sobre el Espíritu Santo" y la "Regla Monástica".</span>
+              <span class="meta-value">Los "Cinco Discursos Teológicos" (Oraciones Teológicas).</span>
             </div>
             <div class="meta-item">
               <span class="meta-label">Importancia</span>
-              <span class="meta-value">Consolidó el dogma de la Trinidad y redactó la Divina Liturgia de San Basilio.</span>
+              <span class="meta-value">Uno de los únicos tres santos de la historia que lleva el título oficial de "El Teólogo".</span>
             </div>
           </div>
 
@@ -1039,31 +755,31 @@
         <div class="section-box">
           <h2 class="section-title">Panorama Apologético</h2>
           <p>
-            San Basilio es la prueba definitiva de que la Iglesia Católica nunca ha separado la profunda devoción litúrgica y teológica de la caridad práctica hacia los pobres. Su figura destruye el falso dilema protestante y ateo de "más hospitales y menos iglesias", pues fue la misma Iglesia de San Basilio la que inventó los hospitales.
+            San Gregorio Nacianceno es el poeta y el arquitecto intelectual supremo del dogma de la Santísima Trinidad. Si San Atanasio fue el guerrero que resistió los embates de los herejes, Gregorio fue el cirujano que precisó los términos teológicos con una exactitud inigualable.
           </p>
           <p>
-            En el terreno dogmático, Basilio fue el escudo teológico del Espíritu Santo. Cuando las nuevas herejías aceptaron que Cristo era Dios pero rebajaron al Espíritu Santo a la categoría de un "ángel sirviente", Basilio usó la Sagrada Escritura y la Liturgia antigua para demostrar su perfecta consustancialidad y divinidad.
+            Su genialidad para explicar de forma nítida cómo Dios es "Una sustancia en tres Personas" destruye cualquier intento de sectas modernas (como los Testigos de Jehová o los mormones) por tergiversar la naturaleza de Jesucristo o del Espíritu Santo.
           </p>
 
           <div class="stat-grid">
             <article class="stat-card">
-              <span class="stat-number">1</span>
-              <span class="stat-label">Título: El "Grande" (Magno), otorgado por sus contemporáneos</span>
+              <span class="stat-number">3</span>
+              <span class="stat-label">Personas Divinas magistralmente definidas por su teología</span>
             </article>
 
             <article class="stat-card">
-              <span class="stat-number">Cesarea</span>
-              <span class="stat-label">Capital de Capadocia y sede de su arzobispado</span>
+              <span class="stat-number">381 d.C.</span>
+              <span class="stat-label">Presidió el Primer Concilio de Constantinopla</span>
             </article>
 
             <article class="stat-card">
-              <span class="stat-number">373 d.C.</span>
-              <span class="stat-label">Fundación de la "Basiliada" (El primer gran hospital)</span>
+              <span class="stat-number">1 de 3</span>
+              <span class="stat-label">Santos titulados "El Teólogo" (junto a San Juan y Simeón)</span>
             </article>
 
             <article class="stat-card">
-              <span class="stat-number">49</span>
-              <span class="stat-label">Años de vida que le bastaron para cambiar la historia</span>
+              <span class="stat-number">5</span>
+              <span class="stat-label">Discursos Teológicos que cambiaron la historia dogmática</span>
             </article>
           </div>
         </div>
@@ -1072,23 +788,23 @@
           <h3 class="section-subtitle">Hitos Fundamentales</h3>
           <div class="inicio-grid">
             <article class="highlight-card">
-              <h4>El Defensor del Espíritu Santo</h4>
-              <p>Su tratado "De Spiritu Sancto" es la obra cumbre de la teología pneumatológica de la antigüedad. Demostró que al Espíritu Santo se le debe rendir la misma latría (adoración) que al Padre y al Hijo, pues realiza obras que solo Dios puede realizar.</p>
+              <h4>El Teólogo de la Trinidad</h4>
+              <p>Perfeccionó definitivamente el vocabulario teológico griego. Fue él quien estableció la distinción absoluta entre "Ousia" (una sola naturaleza o sustancia divina) e "Hipóstasis" (Tres Personas distintas), fórmula que usamos hasta hoy.</p>
             </article>
 
             <article class="highlight-card">
-              <h4>La Invención del Hospital Público</h4>
-              <p>Construyó un complejo de caridad tan inmenso a las afueras de Cesarea que la gente lo llamaba la "Ciudad Nueva". Incluía hospicios, asilos, orfanatos y el primer hospital con médicos, enfermeros y pabellones especializados (incluyendo para leprosos).</p>
+              <h4>El Rescate de Constantinopla</h4>
+              <p>Fue llamado a la capital del Imperio cuando esta llevaba décadas controlada por los herejes arrianos. Con su predicación paciente y brillante convirtió nuevamente a la ciudad a la ortodoxia católica, llevando al triunfo del Credo.</p>
             </article>
 
             <article class="highlight-card">
-              <h4>El Padre del Monacato Oriental</h4>
-              <p>Escribió las "Reglas" (Mayor y Menor) para organizar la vida de los monjes. En lugar del aislamiento extremo de los ermitaños egipcios, Basilio fundó el monacato comunitario (cenobítico), donde la oración se alternaba con el trabajo intelectual y el servicio a los pobres.</p>
+              <h4>Defensor del Espíritu Santo</h4>
+              <p>Al igual que su íntimo amigo San Basilio Magno, Gregorio fue implacable defendiendo que el Espíritu Santo procede del Padre y es enteramente consustancial, digno de suprema adoración junto al Hijo.</p>
             </article>
             
             <article class="highlight-card">
-              <h4>La Divina Liturgia</h4>
-              <p>Reformó y embelleció la celebración de la Santa Misa. La "Divina Liturgia de San Basilio el Grande" es uno de los ritos eucarísticos más venerables de la historia, y todavía se celebra diez veces al año en todas las Iglesias de rito bizantino (Católicas y Ortodoxas).</p>
+              <h4>El Obispo Poeta y Místico</h4>
+              <p>A diferencia de otros padres más severos o jurídicos, Gregorio escribió profundas autobiografías y hermosos poemas teológicos. Demostró que la verdadera teología no es matemáticas frías, sino un alma enamorada y asombrada ante el misterio de Dios.</p>
             </article>
           </div>
 
@@ -1105,36 +821,34 @@
       <section id="panel-vida" class="content-panel">
 
         <div class="section-box">
-          <h2 class="section-title">Vida: La Fuerza de la Verdad</h2>
+          <h2 class="section-title">Vida: El Intelecto y la Cruz</h2>
           <p>
-            Nacido en el año 330 d.C. en una familia de santos ricos y cultos (su abuela Macrina, sus padres, y sus hermanos Gregorio de Nisa y Pedro de Sebaste están todos canonizados). Basilio recibió la mejor educación del mundo antiguo en Constantinopla y Atenas, donde se hizo íntimo amigo de San Gregorio Nacianceno.
+            Nació en Arianzo, cerca de Nacianzo (Capadocia), en el año 329 d.C. Era hijo de un obispo (San Gregorio el Viejo) y de Santa Nona. Compartió estudios en Atenas con San Basilio Magno, forjando una de las amistades más bellas y célebres de la historia cristiana, unidos por un único objetivo: la búsqueda de la Verdad.
           </p>
         </div>
 
         <div class="section-box">
-          <h3 class="section-subtitle">Del Mundo Pagano al Enfrentamiento Imperial</h3>
+          <h3 class="section-subtitle">Del Silencio al Tumulto Imperial</h3>
           
           <div class="feature-grid">
             <article class="feature-card">
-              <h4>El Abandono del Mundo</h4>
-              <p>A pesar de su brillante carrera como retórico y abogado, fue sacudido por las advertencias espirituales de su hermana, Santa Macrina la Joven. Basilio renunció a toda su riqueza, la repartió entre los pobres y se retiró a vivir como monje en soledad, hasta que la crisis de la Iglesia lo obligó a regresar a la vida pública.</p>
+              <h4>La Huida del Sacerdocio</h4>
+              <p>Gregorio era un hombre de carácter contemplativo que amaba el silencio y la paz del monasterio. Huyó aterrado cuando su padre lo ordenó sacerdote a la fuerza. Sin embargo, luego regresó, entendiendo que no podía negar sus inmensos talentos a la Iglesia, y escribió en justificación su brillante "Defensa de la Huida", un tratado clásico sobre el sacerdocio.</p>
             </article>
 
             <article class="feature-card">
-              <h4>El Enfrentamiento con el Prefecto</h4>
-              <p>Cuando el emperador arriano Valente intentó forzar a Basilio a firmar una fórmula hereje, envió a su terrible prefecto Modesto para amenazarlo. Modesto le advirtió que podía confiscarle sus bienes, desterrarlo, torturarlo o matarlo.</p>
-              <p>Basilio respondió impasible: <em>"Confiscación no asusta al que no tiene nada; destierro no teme quien sabe que toda la tierra es de Dios; las torturas no dolerán mucho a un cuerpo ya medio muerto; y la muerte será un favor, porque me enviará más rápido a Dios"</em>. El prefecto, atónito, confesó que nadie le había hablado así jamás.</p>
+              <h4>El Obispo sin Diócesis Real</h4>
+              <p>Su amigo Basilio lo consagró obispo de Sásima (un pequeño y miserable pueblo fronterizo) por pura estrategia política contra los arrianos. Gregorio detestó la imposición y el bullicio del lugar, negándose a asumir el cargo, pero ayudó fielmente a su anciano padre en la administración de Nacianzo.</p>
             </article>
 
             <article class="feature-card">
-              <h4>La Misa que Doblegó al Emperador</h4>
-              <p>Para someterlo, el mismísimo emperador Valente acudió a la catedral de Cesarea el día de la Epifanía. Esperaba ver a un obispo aterrorizado, pero se encontró con una liturgia de una majestad aplastante: Basilio estaba de pie en el altar, inmóvil como una columna, y el canto de los fieles retumbaba como un trueno.</p>
-              <p>El emperador quedó tan conmocionado por la majestuosidad espiritual del culto católico que tembló y casi se desmaya al acercarse a presentar sus ofrendas, rindiéndose ante la autoridad moral de Basilio.</p>
+              <h4>La Pequeña Capilla de la "Anastasis"</h4>
+              <p>En el 379 d.C., la Iglesia ortodoxa le suplicó que fuera a Constantinopla. La capital imperial llevaba 40 años dominada por los herejes. Cuando Gregorio llegó, los arrianos controlaban todas las grandes basílicas. Él tuvo que empezar celebrando la Misa en una pequeña casa prestada a la que llamó "Anastasis" (Resurrección), porque allí resucitaría la verdadera fe.</p>
             </article>
 
             <article class="feature-card">
-              <h4>El Pastor Consumido</h4>
-              <p>Basilio no solo defendió el dogma, sino que se desgastó físicamente administrando su gigantesca "Ciudad de la Caridad" (la Basiliada), atendiendo leprosos con sus propias manos y organizando la ayuda masiva durante las grandes hambrunas. Murió exhausto a los 49 años, en enero del 379 d.C., siendo llorado tanto por cristianos como por judíos y paganos.</p>
+              <h4>Piedras contra la Verdad</h4>
+              <p>Su predicación en la Anastasis desató la furia de los herejes. Fue apedreado por turbas arrianas durante la liturgia, e incluso un asesino se coló en su habitación para matarlo. A pesar del terror, la deslumbrante elocuencia de Gregorio atrajo a miles de almas, revirtiendo la herejía y preparando la capital para el Concilio Ecuménico.</p>
             </article>
           </div>
 
@@ -1151,24 +865,23 @@
       <section id="panel-contexto" class="content-panel">
 
         <div class="section-box">
-          <h2 class="section-title">Contexto: Los Pneumatómacos (Enemigos del Espíritu)</h2>
+          <h2 class="section-title">Contexto: El Clímax del Combate Trinitario</h2>
           <p>
-            Tras la victoria doctrinal de San Atanasio en Nicea (que definió que Cristo era consustancial al Padre), Satanás lanzó una nueva herejía. Un grupo liderado por Macedonio (obispo de Constantinopla) aceptó que el Hijo era Dios, pero atacó a la Tercera Persona de la Trinidad.
+            La crisis de la Iglesia estaba en su punto más álgido. Ya no solo se atacaba a la divinidad de Jesucristo (como hacían los arrianos), sino que surgieron nuevas herejías aún más sofisticadas que cuestionaban la humanidad de Jesús y atacaban abiertamente al Espíritu Santo.
           </p>
         </div>
 
         <div class="section-box">
           <div class="feature-grid">
             <article class="feature-card">
-              <h4>La Herejía de los Macedonios</h4>
-              <p>A este grupo hereje se les llamó "Pneumatómacos" (literalmente, "los que luchan contra el Espíritu"). Afirmaban que el Espíritu Santo era simplemente una fuerza, una energía divina o un ángel supremo creado por el Hijo, pero en ningún caso Dios mismo.</p>
-              <p>Basaban su argumento en que la Biblia nunca llama explícitamente "Dios" al Espíritu Santo en esos términos exactos, usando esta excusa "biblista" para negar su divinidad.</p>
+              <h4>El Peligro de los Eunomianos</h4>
+              <p>Esta secta racionalista extrema (una rama del arrianismo) afirmaba que la mente humana podía comprender y abarcar a Dios de manera exhaustiva mediante fórmulas lógicas, reduciendo a Dios a un simple concepto. Gregorio los fulminó recordando el inmenso misterio y la trascendencia inabarcable del Creador, enseñando que a Dios se le adora en el misterio, no se le diseca como un cadáver.</p>
             </article>
 
             <article class="feature-card">
-              <h4>La Defensa a través de la Liturgia</h4>
-              <p>San Basilio vio que si el Espíritu Santo era una criatura, no podía santificar las aguas del Bautismo, no podía perdonar los pecados, y nuestro bautismo (realizado "En el nombre del Padre, del Hijo y del Espíritu Santo") sería absurdo, pues mezclaría al Creador con una criatura.</p>
-              <p>Para aplastarlos, Basilio usó el famoso principio católico <em>Lex orandi, lex credendi</em> (la ley de la oración es la ley de la creencia): demostró que la Iglesia ha adorado al Espíritu Santo en su liturgia desde el tiempo de los Apóstoles, y la liturgia de la Iglesia nunca se equivoca.</p>
+              <h4>El Apolinarismo: La Mente de Cristo</h4>
+              <p>El hereje Apolinar enseñó que Jesús sí tenía cuerpo humano, pero no tenía una mente humana ni un alma humana racional; argumentaba que el Verbo divino simplemente ocupó el lugar del cerebro en Jesús.</p>
+              <p>San Gregorio Nacianceno aniquiló esta herejía acuñando uno de los principios teológicos más importantes de la historia: <em>"Lo que no es asumido, no es redimido"</em>. Si Cristo no asumió una mente humana real, entonces la mente humana (que es donde pecamos) no fue sanada ni salvada en la cruz.</p>
             </article>
           </div>
 
@@ -1180,266 +893,3 @@
 
       </section>
       <!-- ===== FINAL PANEL CONTEXTO ===== -->
-
-      <!-- ===== INICIO PANEL ENSEÑANZA ===== -->
-      <section id="panel-ensenanza" class="content-panel">
-
-        <div class="section-box">
-          <h2 class="section-title">Enseñanza: El Arsenal Apologético</h2>
-          <p>
-            San Basilio es una pesadilla para quienes defienden la "Sola Scriptura". Al defender la divinidad del Espíritu Santo, Basilio demostró que la Iglesia no solo se rige por lo que está explícitamente escrito en la Biblia, sino también por las "Tradiciones no escritas" recibidas de los Apóstoles, especialmente aquellas conservadas en la Sagrada Liturgia.
-          </p>
-        </div>
-
-        <div class="section-box">
-          <h3 class="section-subtitle">Doctrinas Católicas en el Siglo IV</h3>
-
-          <div class="feature-grid">
-            <article class="feature-card">
-              <h4>1. La Divinidad del Espíritu Santo</h4>
-              <p><strong>El Arma:</strong> Basilio probó que el Espíritu Santo realiza acciones estrictamente divinas (crea, santifica, da la vida, perdona los pecados). Por lo tanto, si hace lo que hace Dios, es de la misma naturaleza que Dios. Debe ser adorado y glorificado conjuntamente con el Padre y el Hijo.</p>
-            </article>
-
-            <article class="feature-card">
-              <h4>2. La Autoridad de la Tradición</h4>
-              <p><strong>El Arma:</strong> Frente a los herejes que exigían "pruebas solo bíblicas" para cada detalle, Basilio escribió su famoso tratado sobre las costumbres no escritas: persignarse con la señal de la cruz, rezar de pie los domingos, las palabras de la consagración eucarística y la bendición del agua bautismal. Todo esto viene de la Tradición Apostólica, que tiene "la misma fuerza para la piedad" que la Biblia.</p>
-            </article>
-
-            <article class="feature-card">
-              <h4>3. El Bautismo y la Trinidad</h4>
-              <p><strong>El Arma:</strong> Basilio argumentó que no podemos separar en la adoración lo que Dios unió en el Bautismo. Si fuimos bautizados "En el nombre del Padre, del Hijo y del Espíritu Santo", las tres personas comparten el mismo nombre, el mismo honor y la misma divinidad.</p>
-            </article>
-
-            <article class="feature-card">
-              <h4>4. La Función Social de la Iglesia</h4>
-              <p><strong>El Arma:</strong> Basilio destruye el mito moderno de que la Iglesia es una institución puramente espiritual o ajena al sufrimiento humano. Sus famosas homilías sobre la riqueza enseñan claramente el destino universal de los bienes: el pan que te sobra le pertenece al hambriento, y el manto que guardas le pertenece al desnudo.</p>
-            </article>
-          </div>
-
-          <div class="cta-row">
-            <a class="cta-link azul" href="https://apologeticaccar.com">Regresar a Apologética Católica</a>
-            <button class="cta-btn dorado" onclick="showPanel('legado')">Continuar a legado →</button>
-          </div>
-        </div>
-
-      </section>
-      <!-- ===== FINAL PANEL ENSEÑANZA ===== -->
-      
-      <!-- ===== INICIO PANEL LEGADO ===== -->
-      <section id="panel-legado" class="content-panel">
-        <div class="section-box">
-          <h2 class="section-title">El Arquitecto del Monacato y la Liturgia</h2>
-          <p>
-            El legado de San Basilio moldeó para siempre el cristianismo oriental y dejó una huella imborrable en la Iglesia Universal. Su genio no solo fue teológico, sino profundamente práctico y organizativo.
-          </p>
-        </div>
-
-        <div class="section-box">
-          <h3 class="section-subtitle">Las Columnas de su Influencia</h3>
-          <div class="feature-grid">
-            <article class="feature-card">
-              <h4>El Concilio de Constantinopla</h4>
-              <p>Aunque Basilio murió en el 379 d.C., su teología fue la base absoluta del Primer Concilio de Constantinopla (381 d.C.), que añadió la parte final al Credo Niceno-Constantinopolitano que rezamos todos los domingos: <em>"Y en el Espíritu Santo, Señor y dador de vida, que procede del Padre (y del Hijo), que con el Padre y el Hijo recibe una misma adoración y gloria..."</em>.</p>
-            </article>
-            
-            <article class="feature-card">
-              <h4>Las Reglas Monásticas</h4>
-              <p>Redactó las reglas fundamentales de la vida religiosa oriental. Mientras que en Occidente los monjes siguen la Regla de San Benito, casi todos los monjes del Oriente (ortodoxos y católicos orientales) siguen la Regla de San Basilio. Él enseñó que el monje no debe buscar solo su propia salvación en el desierto, sino vivir en comunidad para practicar la caridad con sus hermanos y abrir escuelas y hospitales.</p>
-            </article>
-
-            <article class="feature-card">
-              <h4>La Divina Liturgia de San Basilio</h4>
-              <p>San Basilio unificó, embelleció y escribió los textos de la Santa Misa para su diócesis. Esta "Divina Liturgia" es más larga y teológicamente profunda que la Liturgia de San Juan Crisóstomo, y la Iglesia Bizantina la sigue celebrando solemne y rigurosamente durante los domingos de Cuaresma, el Jueves Santo, la Vigilia Pascual y el día de su fiesta (1 de enero).</p>
-            </article>
-          </div>
-
-          <div class="cta-row" style="margin-top: 24px;">
-            <a class="cta-link azul" href="https://apologeticaccar.com">Regresar a Apologética Católica</a>
-            <button class="cta-btn dorado" onclick="showPanel('escritos')">Continuar a escritos →</button>
-          </div>
-        </div>
-      </section>
-      <!-- ===== FINAL PANEL LEGADO ===== -->
-
-      <!-- ===== INICIO PANEL ESCRITOS ===== -->
-      <section id="panel-escritos" class="content-panel">
-
-        <div class="section-box">
-          <h2 class="section-title">El Tratado sobre el Espíritu Santo y Homilías</h2>
-          <p>
-            A continuación, los pasajes más destructivos de la pluma de San Basilio contra la doctrina de la <em>Sola Scriptura</em> y a favor de la divinidad del Espíritu Santo y la justicia social. Observa las armas doctrinales resaltadas en verde oscuro.
-          </p>
-        </div>
-
-        <div class="section-box">
-          <div class="accordion">
-
-            <!-- 1. LA TRADICION NO ESCRITA -->
-            <div class="acc-item">
-              <button class="acc-trigger" type="button">
-                <span>Tratado sobre el Espíritu Santo (La Sagrada Tradición)</span>
-                <span>+</span>
-              </button>
-              <div class="acc-content">
-                <p>El argumento teológico supremo contra la Sola Scriptura: las prácticas apostólicas esenciales que nunca fueron puestas en la Biblia.</p>
-                <div style="max-height: 400px; overflow-y: auto; padding: 15px; background: rgba(0,0,0,0.03); border-radius: 8px; border: 1px solid rgba(15,51,95,.12); font-size: 0.95rem; line-height: 1.7;">
-                  <p>De los dogmas y mensajes preservados en la Iglesia, algunos los tenemos de la enseñanza escrita, y otros los hemos recibido de la tradición de los Apóstoles, transmitidos a nosotros en el misterio (en secreto).</p>
-                  <p><span style="background-color: #1b4528; color: #ffffff; padding: 2px 6px; border-radius: 4px; font-weight: bold;">Ambos (la Escritura y la Tradición) tienen la misma fuerza para la piedad. Nadie que tenga la menor experiencia en las instituciones eclesiásticas los contradirá.</span></p>
-                  <p>Porque si intentamos rechazar las costumbres no escritas como si no tuvieran gran importancia, estaríamos mutilando el Evangelio en sus partes más vitales. Por ejemplo, para mencionar el primero y más común, ¿quién nos enseñó por escrito a firmar con la señal de la cruz a aquellos que confían en el nombre de nuestro Señor Jesucristo?</p>
-                  <p><span style="background-color: #1b4528; color: #ffffff; padding: 2px 6px; border-radius: 4px; font-weight: bold;">¿Qué escrito nos ha enseñado a volvernos hacia el Oriente en la oración? ¿Cuál de los santos nos dejó por escrito las palabras de la invocación en la consagración del pan eucarístico y de la copa de bendición? Pues no nos contentamos con lo que el Apóstol o el Evangelio relatan, sino que añadimos otras palabras antes y después, de gran fuerza para el misterio, recibidas de enseñanzas no escritas.</span></p>
-                  <p>Bendecimos también el agua del bautismo, el aceite de la unción y al propio bautizado. ¿De qué escritos? ¿No es acaso de una tradición silenciosa y mística?</p>
-                </div>
-              </div>
-            </div>
-
-            <!-- 2. LA DIVINIDAD DEL ESPIRITU SANTO -->
-            <div class="acc-item">
-              <button class="acc-trigger" type="button">
-                <span>Tratado sobre el Espíritu Santo (Divinidad y Adoración)</span>
-                <span>+</span>
-              </button>
-              <div class="acc-content">
-                <p>Basilio destruye la herejía macedoniana argumentando que el Bautismo iguala en divinidad a las Tres Personas.</p>
-                <div style="max-height: 400px; overflow-y: auto; padding: 15px; background: rgba(0,0,0,0.03); border-radius: 8px; border: 1px solid rgba(15,51,95,.12); font-size: 0.95rem; line-height: 1.7;">
-                  <p>Si nuestro Señor, al entregar la fórmula salvadora del bautismo, mandó a los discípulos a bautizar a todas las naciones en el nombre del Padre, del Hijo y del Espíritu Santo, sin desdeñar la comunión con Él... los herejes dicen que no debemos ordenar al Espíritu junto con el Padre y el Hijo, sino rebajarlo a la condición de criatura.</p>
-                  <p><span style="background-color: #1b4528; color: #ffffff; padding: 2px 6px; border-radius: 4px; font-weight: bold;">Por consiguiente, el Espíritu debe ser adorado juntamente con el Padre y con el Hijo, porque Él es de igual honor y gloria. Debemos confesar al Espíritu como Dios, no como a uno de los siervos, sino como al Dueño de todas las cosas.</span></p>
-                  <p>Porque Él es Espíritu santificador; nosotros fuimos bautizados en Él, así como fuimos bautizados en el Padre y en el Hijo. Tal como Él fue asociado con el Padre y el Hijo en el Bautismo, así debe ser asociado a ellos en la glorificación y adoración.</p>
-                </div>
-              </div>
-            </div>
-
-            <!-- 3. LA CARIDAD Y LA RIQUEZA -->
-            <div class="acc-item">
-              <button class="acc-trigger" type="button">
-                <span>Homilía a los Ricos (Justicia Social)</span>
-                <span>+</span>
-              </button>
-              <div class="acc-content">
-                <p>Las severas palabras de San Basilio que sentaron las bases doctrinales del destino universal de los bienes en la Iglesia Católica.</p>
-                <div style="max-height: 400px; overflow-y: auto; padding: 15px; background: rgba(0,0,0,0.03); border-radius: 8px; border: 1px solid rgba(15,51,95,.12); font-size: 0.95rem; line-height: 1.7;">
-                  <p>¿Qué responderás al Juez Supremo, tú que revistes de sedas los muros de tu casa y dejas al pobre desvestido; que adornas a tus caballos y no te dignas mirar al hermano cubierto de harapos?</p>
-                  <p><span style="background-color: #1b4528; color: #ffffff; padding: 2px 6px; border-radius: 4px; font-weight: bold;">El pan que guardas en tu despensa pertenece al hambriento; el abrigo que cuelga inútil en tu guardarropa pertenece al desnudo; los zapatos que se pudren en tus cajones pertenecen al descalzo; el oro que has escondido bajo tierra pertenece al pobre que pasa necesidad.</span></p>
-                  <p><span style="background-color: #1b4528; color: #ffffff; padding: 2px 6px; border-radius: 4px; font-weight: bold;">Estás cometiendo tantas injusticias como personas a las que podrías ayudar y no ayudas.</span> No digas "Este bien es mío", porque has recibido en administración los bienes del Señor, no para tu disfrute exclusivo, sino para distribuirlos.</p>
-                  <p>Quien se apodera para sí de lo que fue creado para todos, no es un propietario, es un ladrón.</p>
-                </div>
-              </div>
-            </div>
-
-          </div>
-
-          <div class="cta-row" style="margin-top: 24px;">
-            <a class="cta-link azul" href="https://apologeticaccar.com">Regresar a Apologética Católica</a>
-            <button class="cta-btn dorado" onclick="showPanel('inicio')">Volver al inicio →</button>
-          </div>
-        </div>
-
-      </section>
-      <!-- ===== FINAL PANEL ESCRITOS ===== -->
-
-    </div>
-  </main>
-  <!-- ===== FINAL MAIN ===== -->
-
-  <script>
-    /* ===== INICIO SCRIPT AISLADO ===== */
-    (function(){
-      const panelNames = ["inicio", "vida", "contexto", "ensenanza", "legado", "escritos"];
-      const mobileMenuToggle = document.getElementById("mobileMenuToggle");
-      const mobileNavPanel = document.getElementById("mobileNavPanel");
-
-      function openMobileMenu(){
-        if(!mobileMenuToggle || !mobileNavPanel) return;
-        mobileMenuToggle.classList.add("active");
-        mobileNavPanel.classList.add("active");
-        mobileMenuToggle.setAttribute("aria-expanded", "true");
-      }
-
-      function closeMobileMenu(){
-        if(!mobileMenuToggle || !mobileNavPanel) return;
-        mobileMenuToggle.classList.remove("active");
-        mobileNavPanel.classList.remove("active");
-        mobileMenuToggle.setAttribute("aria-expanded", "false");
-      }
-
-      function toggleMobileMenu(){
-        if(!mobileNavPanel) return;
-        if(mobileNavPanel.classList.contains("active")){
-          closeMobileMenu();
-        }else{
-          openMobileMenu();
-        }
-      }
-
-      function showPanel(name){
-        panelNames.forEach(panel => {
-          const panelEl = document.getElementById("panel-" + panel);
-          if(panelEl){
-            panelEl.classList.toggle("active", panel === name);
-          }
-          document.querySelectorAll('[data-target="' + panel + '"]').forEach(btnEl => {
-            btnEl.classList.toggle("active", panel === name);
-          });
-        });
-
-        closeMobileMenu();
-
-        const navBar = document.querySelector('.hero-nav');
-        const globalHeader = document.getElementById('accarGlobalHeader'); 
-        
-        if (navBar) {
-          const headerHeight = globalHeader ? globalHeader.offsetHeight : 0;
-          const absoluteY = navBar.getBoundingClientRect().top + window.scrollY;
-          
-          window.scrollTo({
-            top: absoluteY - headerHeight - 10,
-            behavior: "smooth"
-          });
-        }
-      }
-
-      document.querySelectorAll(".nav-btn").forEach(btn => {
-        btn.onclick = function(e) {
-          e.preventDefault();
-          showPanel(this.dataset.target);
-        };
-      });
-
-      document.querySelectorAll(".mobile-nav-btn[data-target]").forEach(btn => {
-        btn.onclick = function(e) {
-          e.preventDefault();
-          showPanel(this.dataset.target);
-        };
-      });
-
-      document.querySelectorAll(".acc-trigger").forEach(trigger => {
-        trigger.onclick = function(e) {
-          e.preventDefault();
-          const item = this.parentElement;
-          const isOpen = item.classList.contains("open");
-
-          document.querySelectorAll(".acc-item").forEach(acc => {
-            acc.classList.remove("open");
-            const symbol = acc.querySelector(".acc-trigger span:last-child");
-            if(symbol) symbol.textContent = "+";
-          });
-
-          if(!isOpen){
-            item.classList.add("open");
-            const symbol = item.querySelector(".acc-trigger span:last-child");
-            if(symbol) symbol.textContent = "−";
-          }
-        };
-      });
-
-      if(mobileMenuToggle){
-        mobileMenuToggle.onclick = function(e){
-          e.preventDefault();
-          toggleMobileMenu();
-        };
-      }
-    })();
-    /* ===== FINAL SCRIPT AISLADO ===== */
-  </script>
-</body>
-</html>
-<!-- ===== FINAL SAN BASILIO MAGNO ===== -->
