@@ -1,10 +1,10 @@
-<!-- ===== INICIO SAN JUAN CRISÓSTOMO ===== -->
+<!-- ===== INICIO SAN CIPRIANO DE CARTAGO ===== -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>San Juan Crisóstomo | ACCAR</title>
+  <title>San Cipriano de Cartago | ACCAR</title>
 
   <style>
     :root{
@@ -33,9 +33,9 @@
       transform: translateX(-4px);
     }
 
-    /* Borde Dorado para Obispo/Doctor */
+    /* Borde Rojo Mártir para las tarjetas */
     .section-box, .highlight-card, .feature-card {
-      border-left: 5px solid var(--dorado) !important;
+      border-left: 5px solid var(--purpura-cardenal) !important;
     }
 
     *{box-sizing:border-box}
@@ -268,8 +268,8 @@
       display:inline-block;
       padding:10px 22px;
       border-radius:999px;
-      background:linear-gradient(180deg, #e1bd55, #c69a25);
-      color:#241c09;
+      background:linear-gradient(180deg, #a31f34, #7a1525);
+      color:#ffffff;
       font-weight:bold;
       font-size:.95rem;
       line-height:1.1;
@@ -531,7 +531,7 @@
     .timeline-item{
       background:rgba(255,255,255,.84);
       border:1px solid rgba(15,51,95,.12);
-      border-left:5px solid var(--dorado);
+      border-left:5px solid var(--purpura-cardenal);
       border-radius:18px;
       padding:20px 20px 18px;
       box-shadow:0 10px 22px rgba(0,0,0,.08);
@@ -680,6 +680,290 @@
     }
 
     /* ===== FINAL MAIN ===== */
+
+    /* ===== INICIO FOOTER ===== */
+    .footer{
+      position:relative;
+      overflow:hidden;
+      color:#f8efd3;
+      padding:54px 0 30px;
+      border-top:2px solid rgba(212,175,55,.55);
+      background:
+        linear-gradient(180deg, rgba(8,24,48,.04), rgba(8,24,48,.12)),
+        url("../../assets/img/bg_padres_iglesia_acccar.png") center 88% / cover no-repeat;
+    }
+
+    .footer::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        linear-gradient(90deg, rgba(7,26,54,.38), rgba(12,42,86,.10), rgba(7,26,54,.38));
+      pointer-events:none;
+    }
+
+    .footer-inner{
+      position:relative;
+      z-index:1;
+    }
+
+    .footer-card{
+      border:1px solid rgba(212,175,55,.34);
+      border-radius:28px;
+      padding:30px 28px 24px;
+      background:linear-gradient(180deg, rgba(11,31,63,.54), rgba(11,31,63,.80));
+      backdrop-filter:blur(5px);
+      box-shadow:var(--sombra);
+      overflow:hidden;
+    }
+
+    .footer-top{
+      display:grid;
+      grid-template-columns:1.2fr .8fr .9fr;
+      gap:36px;
+      align-items:start;
+    }
+
+    .footer-brand{
+      display:flex;
+      align-items:flex-start;
+      gap:24px;
+    }
+
+    .footer-brand-logo{
+      flex:0 0 auto;
+    }
+
+    .footer-brand-logo img{
+      width:172px;
+      filter:drop-shadow(0 8px 16px rgba(0,0,0,.22));
+    }
+
+    .footer-brand-copy{
+      padding-top:8px;
+    }
+
+    .footer-brand-copy p{
+      margin:0 0 8px;
+      font-size:.90rem;
+      line-height:1.58;
+      color:#f6ecd0;
+      overflow-wrap:anywhere;
+    }
+
+    .footer-col h4{
+      margin:0 0 14px;
+      color:#ffd971;
+      font-size:1.7rem;
+      overflow-wrap:anywhere;
+    }
+
+    .footer-links{
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    }
+
+    .footer-links a,
+    .footer-links button{
+      background:none;
+      border:none;
+      padding:0;
+      margin:0;
+      text-align:left;
+      color:#f6ecd0;
+      font-family:Georgia, "Times New Roman", serif;
+      font-size:1.05rem;
+      cursor:pointer;
+      overflow-wrap:anywhere;
+    }
+
+    .footer-links a:hover,
+    .footer-links button:hover{
+      color:#ffe8a4;
+    }
+
+    .footer-contact{
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+      color:#f6ecd0;
+      font-size:1.05rem;
+      line-height:1.7;
+      overflow-wrap:anywhere;
+    }
+
+    .footer-contact a{
+      color:#f6ecd0;
+    }
+
+    .footer-contact a:hover{
+      color:#ffe8a4;
+    }
+
+    .footer-divider{
+      width:100%;
+      height:1px;
+      margin:22px 0 18px;
+      background:linear-gradient(90deg, transparent, rgba(212,175,55,.85), transparent);
+    }
+
+    .footer-legal{
+      text-align:center;
+      color:#eadfb7;
+      font-size:1rem;
+      line-height:1.75;
+      overflow-wrap:anywhere;
+    }
+    /* ===== FINAL FOOTER ===== */
+
+    /* ===== INICIO RESPONSIVE ===== */
+    @media (max-width:1180px){
+      .hero-meta{grid-template-columns:repeat(2, 1fr)}
+      .hero-nav{
+        justify-content:center;
+      }
+      .hero-nav button,
+      .hero-nav a{
+        flex:1 1 220px;
+        min-width:220px;
+      }
+      .stat-grid{grid-template-columns:repeat(2, minmax(0, 1fr))}
+      .footer-top{grid-template-columns:1fr 1fr}
+      .footer-col.contact-col{grid-column:1/-1}
+    }
+
+    @media (max-width:920px){
+      .hero{
+        background:
+          linear-gradient(180deg, rgba(9,23,45,.26) 0%, rgba(9,23,45,.16) 26%, rgba(9,23,45,.68) 100%);
+      }
+
+      .hero-inner{
+        min-height:auto;
+        padding:26px 0 34px;
+      }
+
+      .top-brand{
+        justify-content:space-between;
+        align-items:center;
+        text-align:left;
+        gap:12px;
+        margin-bottom:16px;
+      }
+
+      .top-brand a{
+        flex-direction:row;
+        align-items:center;
+        gap:12px;
+        min-width:0;
+        flex:1 1 auto;
+      }
+
+      .top-brand img{width:64px}
+      .top-brand-text .line-1{font-size:1.45rem}
+      .top-brand-text .line-2{font-size:1.05rem}
+
+      .mobile-menu-toggle{
+        display:inline-flex;
+      }
+
+      .hero-card{
+        grid-template-columns:1fr;
+        gap:22px;
+        padding:20px;
+      }
+
+      .hero-copy{text-align:center}
+      .hero-copy p{margin:0 auto}
+
+      .hero-nav{
+        display:flex;
+        flex-direction:column;
+        gap:10px;
+        margin-top:20px;
+      }
+      .hero-nav button{
+        width:100%;
+        min-width:100%;
+        padding:14px;
+        font-size:1.05rem;
+      }
+
+      .inicio-grid,
+      .feature-grid{grid-template-columns:1fr}
+      .highlight-card.full-width{
+        grid-column:auto;
+      }
+      .footer-top{grid-template-columns:1fr}
+      .footer-brand{
+        justify-content:center;
+        text-align:center;
+        flex-direction:column;
+        align-items:center;
+      }
+      .footer-links{align-items:center}
+      .footer-links a,
+      .footer-links button{text-align:center}
+      .footer-col{text-align:center}
+      .footer-contact{align-items:center}
+    }
+
+    @media (max-width:560px){
+      body{background-attachment:scroll}
+      .wrap{width:min(var(--max), calc(100% - 16px))}
+      .top-brand img{width:58px}
+      .top-brand-text .line-1{font-size:1.18rem}
+      .top-brand-text .line-2{font-size:.92rem}
+      .mobile-menu-toggle{
+        width:52px;
+        height:52px;
+        border-radius:14px;
+      }
+      .hero-card{border-radius:22px;padding:16px}
+      .hero-photo img{max-width:220px;border-radius:22px}
+      .hero-kicker{font-size:.85rem}
+      .hero-copy h1{font-size:2.35rem}
+      .hero-copy p{font-size:1rem;line-height:1.72}
+      .hero-meta{grid-template-columns:1fr}
+      .main-shell{padding:22px 0 30px}
+      .section-box{
+        padding:18px;
+        border-radius:20px;
+      }
+      .section-title{font-size:2.05rem}
+      .section-subtitle{font-size:1.32rem}
+      .section-box p,
+      .timeline-item p,
+      .feature-card p,
+      .highlight-card p,
+      .acc-content p,
+      .footer-brand-copy p{
+        font-size:1rem;
+        line-height:1.82;
+      }
+      .stat-grid{grid-template-columns:1fr}
+      .acc-trigger{
+        padding:16px 16px;
+        font-size:1rem;
+      }
+      .cta-btn,.cta-link{
+        min-width:100%;
+      }
+      .footer{
+        padding:32px 0 24px;
+        background:
+          linear-gradient(180deg, rgba(8,24,48,.03), rgba(8,24,48,.10)),
+          url("../../assets/img/bg_padres_iglesia_acccar.png") 52% 92% / cover no-repeat;
+      }
+      .footer-card{padding:20px 16px 18px}
+      .footer-brand-logo img{
+        width:146px;
+      }
+      .footer-col h4{font-size:1.4rem}
+      .footer-legal{font-size:.94rem}
+    }
+    /* ===== FINAL RESPONSIVE ===== */
   </style>
 </head>
 <body>
@@ -693,39 +977,39 @@
       <div class="hero-card">
         <div class="hero-photo-wrap">
           <div class="hero-photo">
-            <img src="../../assets/img/padre_juan_crisostomo.png" alt="San Juan Crisóstomo">
+            <img src="../../assets/img/padre_cipriano_de_cartago.png" alt="San Cipriano de Cartago">
           </div>
 
           <!-- ===== INICIO BADGE PADRE ===== -->
-          <div class="badge-padre" style="background: var(--dorado); color: var(--azul-oscuro);">
-            Padre Griego, Obispo y Doctor
+          <div class="badge-padre" style="background: var(--purpura-cardenal); color: white;">
+            Padre Latino, Obispo y Mártir
           </div>
           <!-- ===== FINAL BADGE PADRE ===== -->
         </div>
 
         <div class="hero-copy">
-          <div class="hero-kicker">Sección Padres de la Iglesia · Siglo IV</div>
-          <h1>San Juan Crisóstomo</h1>
+          <div class="hero-kicker">Sección Padres de la Iglesia · Siglo III</div>
+          <h1>San Cipriano de Cartago</h1>
           <p>
-            El "Boca de Oro" de la Iglesia (347-407 d.C.). Patriarca de Constantinopla y considerado unánimemente el orador más extraordinario de la antigüedad cristiana. Su implacable predicación contra la corrupción de los ricos y el lujo de la corte le costó el destierro perpetuo por orden de la emperatriz Eudoxia. Sus inmortales homilías sobre la Eucaristía le ganaron el título de <em>"El Doctor de la Eucaristía"</em>, destrozando cualquier duda moderna sobre la Presencia Real de Cristo en el altar.
+            El defensor supremo de la unidad católica (aprox. 200-258 d.C.). Obispo de Cartago y el primer gran líder eclesiástico del norte de África en morir mártir. Cuando los cismas intentaron despedazar a la Iglesia, Cipriano escribió su inmortal tratado <em>Sobre la Unidad de la Iglesia Católica</em>, donde forjó doctrinas que fulminan el protestantismo moderno: "No puede tener a Dios por Padre quien no tiene a la Iglesia por Madre", y "Fuera de la Iglesia no hay salvación".
           </p>
 
           <div class="hero-meta">
             <div class="meta-item">
               <span class="meta-label">Ministerio</span>
-              <span class="meta-value">Patriarca de Constantinopla (la "Nueva Roma"), sede del Imperio Bizantino.</span>
+              <span class="meta-value">Obispo de Cartago (actual Túnez) y Primado <i>de facto</i> del norte de África.</span>
             </div>
             <div class="meta-item">
               <span class="meta-label">Época</span>
-              <span class="meta-value">347 - 407 d.C. Era de la lucha moral contra la corrupción del Imperio cristiano.</span>
+              <span class="meta-value">Aprox. 200 - 258 d.C. Era de brutales persecuciones (Decio y Valeriano).</span>
             </div>
             <div class="meta-item">
               <span class="meta-label">Obra principal</span>
-              <span class="meta-value">"Sobre el Sacerdocio", homilías exegéticas y la "Divina Liturgia".</span>
+              <span class="meta-value">"De Catholicae Ecclesiae Unitate" (Sobre la unidad de la Iglesia Católica).</span>
             </div>
             <div class="meta-item">
               <span class="meta-label">Importancia</span>
-              <span class="meta-value">El mayor predicador de la historia; estructuró el rito litúrgico oriental.</span>
+              <span class="meta-value">Fijó la teología del episcopado: La Iglesia está cimentada sobre los obispos.</span>
             </div>
           </div>
 
@@ -755,31 +1039,31 @@
         <div class="section-box">
           <h2 class="section-title">Panorama Apologético</h2>
           <p>
-            San Juan Crisóstomo es el azote histórico de dos grandes errores modernos: la idea de que la Misa es un mero "símbolo" o recordatorio evangélico, y la falsa doctrina de la teología de la prosperidad (que asocia la riqueza material con la bendición de Dios).
+            San Cipriano es el terror absoluto de la eclesiología protestante (que afirma que la Iglesia es una entidad invisible y dividida en miles de denominaciones). Cipriano demostró bíblica y patristicamente que la Iglesia es una entidad visible, jerárquica y orgánicamente una.
           </p>
           <p>
-            Sus homilías son el testimonio más apabullante y gráfico de la antigüedad sobre la Presencia Real de Jesucristo en la Hostia Consagrada. Crisóstomo hablaba del altar rodeado de coros de ángeles invisibles, exigiendo a sus fieles acercarse a comulgar con terror sagrado y absoluta reverencia.
+            Enseñó de forma implacable que separarse de la jerarquía legítima de los obispos es separarse de Cristo mismo. Un cristiano bautizado, por muy piadoso que parezca, si rompe la comunión con el obispo y se une a un cisma, pierde la salvación, pues el Espíritu Santo no opera en iglesias divididas.
           </p>
 
           <div class="stat-grid">
             <article class="stat-card">
-              <span class="stat-number">Crisóstomo</span>
-              <span class="stat-label">Apodo griego que significa "Boca de Oro" por su elocuencia</span>
+              <span class="stat-number">248 d.C.</span>
+              <span class="stat-label">Año en que fue aclamado Obispo de Cartago</span>
             </article>
 
             <article class="stat-card">
-              <span class="stat-number">900+</span>
-              <span class="stat-label">Homilías y sermones conservados hasta el día de hoy</span>
+              <span class="stat-number">Cartago</span>
+              <span class="stat-label">La metrópoli africana que gobernó espiritualmente</span>
             </article>
 
             <article class="stat-card">
-              <span class="stat-number">Antioquía</span>
-              <span class="stat-label">Ciudad siria donde se forjó como monje y presbítero</span>
+              <span class="stat-number">1</span>
+              <span class="stat-label">Libro definitivo: "De la Unidad de la Iglesia Católica"</span>
             </article>
 
             <article class="stat-card">
-              <span class="stat-number">407 d.C.</span>
-              <span class="stat-label">Murió en el exilio obligado a caminar hasta la extenuación</span>
+              <span class="stat-number">258 d.C.</span>
+              <span class="stat-label">Año de su glorioso martirio por decapitación</span>
             </article>
           </div>
         </div>
@@ -788,23 +1072,23 @@
           <h3 class="section-subtitle">Hitos Fundamentales</h3>
           <div class="inicio-grid">
             <article class="highlight-card">
-              <h4>El Doctor de la Eucaristía</h4>
-              <p>Sus explicaciones sobre la transmutación del pan y el vino son tan explícitas y físicas ("los dientes que muerden la carne inmaculada de Cristo") que es imposible leer a Crisóstomo y mantener una visión protestante de la Santa Cena.</p>
+              <h4>La Maternidad de la Iglesia</h4>
+              <p>Es el creador de la máxima clásica: <em>"No puede tener a Dios por Padre quien no tiene a la Iglesia por Madre"</em>. Demostrando que la salvación personal y la membresía en la Iglesia visible son inseparables.</p>
             </article>
 
             <article class="highlight-card">
-              <h4>El Tratado sobre el Sacerdocio</h4>
-              <p>Escribió "Sobre el Sacerdocio" (De Sacerdotio), el manual clásico del catolicismo que eleva la dignidad del sacerdote católico por encima de los ángeles, precisamente porque el sacerdote tiene el poder absoluto de perdonar pecados y consagrar a Dios en el altar.</p>
+              <h4>La Sede de Pedro</h4>
+              <p>Fue el primero en usar explícitamente la expresión "Cátedra de Pedro" (<em>cathedra Petri</em>) referida a la Iglesia de Roma, señalándola como la iglesia principal (<em>ecclesia principalis</em>) de donde brota la unidad sacerdotal.</p>
             </article>
 
             <article class="highlight-card">
-              <h4>La Divina Liturgia de San Juan</h4>
-              <p>Sintetizó y abrevió la liturgia eucarística. Hoy en día, la "Divina Liturgia de San Juan Crisóstomo" es el rito de celebración de la Santa Misa que utilizan ordinariamente todas las iglesias orientales y ortodoxas en el mundo.</p>
+              <h4>El Dogma "Extra Ecclesiam"</h4>
+              <p>Acuñó la célebre fórmula "Fuera de la Iglesia no hay salvación" (<em>Salus extra ecclesiam non est</em>), refiriéndose a que quienes rechazan a la Iglesia Católica legítima, incluso si mueren martirizados, no pueden entrar al cielo por el pecado de cisma.</p>
             </article>
             
             <article class="highlight-card">
-              <h4>Mártir de la Verdad Moral</h4>
-              <p>Aunque no murió derramando sangre en un circo romano, es considerado mártir por confesar la fe moral. Prefirió perder su sede patriarcal y su vida antes que dejar de predicar contra los abusos, la vanidad y los lujos obscenos de la emperatriz Eudoxia.</p>
+              <h4>El Obispo y la Iglesia</h4>
+              <p>Fijó la eclesiología jerárquica con su axioma: "El obispo está en la Iglesia y la Iglesia en el obispo". Toda congregación que no esté bajo la autoridad de un obispo católico legítimo es una secta falsa.</p>
             </article>
           </div>
 
@@ -821,34 +1105,34 @@
       <section id="panel-vida" class="content-panel">
 
         <div class="section-box">
-          <h2 class="section-title">Vida: La Voz que Hizo Temblar Imperios</h2>
+          <h2 class="section-title">Vida: La Conversión de un Patricio</h2>
           <p>
-            Nacido en Antioquía (Siria) alrededor del año 347 d.C., Juan quedó huérfano de padre al poco tiempo de nacer. Su madre, Santa Antusa, una joven viuda cristiana de 20 años, dedicó su vida entera a formarlo con una pureza moral excepcional. Juan estudió bajo Libanio, el orador pagano más famoso de la época, quien al morir se lamentó diciendo: <em>"Juan habría sido mi sucesor, si los cristianos no nos lo hubieran robado"</em>.
+            Tascio Cecilio Cipriano nació a principios del siglo III en una rica e influyente familia pagana en Cartago (norte de África). Fue un célebre profesor de retórica y un brillante abogado secular, sumergido en los lujos y placeres de la alta sociedad romana.
           </p>
         </div>
 
         <div class="section-box">
-          <h3 class="section-subtitle">Del Desierto al Trono Patriarcal</h3>
+          <h3 class="section-subtitle">Del Lujo al Martirio</h3>
           
           <div class="feature-grid">
             <article class="feature-card">
-              <h4>El Asceta en la Cueva</h4>
-              <p>Rechazando la gloria mundana, Juan huyó al desierto de Siria para vivir como ermitaño durante seis años. Se sometió a un ascetismo tan extremo (ayunando casi continuamente y sin dormir en una cueva helada) que arruinó su sistema digestivo de por vida, lo que lo obligó a regresar a Antioquía, donde fue ordenado sacerdote.</p>
+              <h4>La Sorprendente Conversión</h4>
+              <p>A los 46 años, asqueado del vacío moral del paganismo, conoció a un anciano presbítero llamado Ceciliano. Impresionado por la pureza cristiana, Cipriano pidió el bautismo. El cambio fue tan radical y asombroso que vendió todos sus vastos bienes, los repartió entre los pobres y abrazó el celibato. Su santidad y elocuencia provocaron que el pueblo de Cartago exigiera su consagración como obispo apenas dos años después de ser bautizado (248 d.C.).</p>
             </article>
 
             <article class="feature-card">
-              <h4>El Motín de las Estatuas</h4>
-              <p>En el año 387, el pueblo de Antioquía se amotinó por los altos impuestos y derribó las estatuas del Emperador Teodosio. Esperando una masacre punitiva, la ciudad entró en pánico absoluto. Durante esos días de terror, Juan predicó sus famosas "Homilías de las Estatuas", consolando al pueblo y llamándolos al arrepentimiento. Su elocuencia salvó el espíritu de la ciudad y lo hizo famoso en todo el mundo.</p>
+              <h4>La Persecución de Decio</h4>
+              <p>Poco después de asumir el obispado, el emperador Decio emitió un edicto (año 250) ordenando que todos los ciudadanos del Imperio debían sacrificar a los dioses paganos. A los cristianos que obedecían se les daba un certificado (los <em>Lapsi</em> o "caídos"); a los que se negaban, los torturaban y mataban. Cipriano, viendo que la turba exigía "¡Cipriano a los leones!", se ocultó sabiamente para seguir gobernando a la Iglesia desde la clandestinidad.</p>
             </article>
 
             <article class="feature-card">
-              <h4>El Secuestro a Constantinopla</h4>
-              <p>Su fama era tan inmensa que, cuando el Patriarcado de Constantinopla quedó vacante, el Primer Ministro del Imperio mandó secuestrar literalmente a Juan (sabiendo que la gente de Antioquía nunca lo dejaría ir) y lo llevó bajo escolta militar a la capital para consagrarlo a la fuerza como Patriarca de Constantinopla en el 398 d.C.</p>
+              <h4>El Problema de los Caídos (Lapsi)</h4>
+              <p>Cuando la persecución amainó, miles de cristianos que habían apostatado por miedo pidieron regresar a la Iglesia. Un grupo riguroso decía que jamás se les debía perdonar. Otro grupo laxo decía que debían ser admitidos sin penitencia. Cipriano tomó la postura intermedia, profundamente católica: debían hacer una severa penitencia pública y luego recibir la absolución por medio del obispo.</p>
             </article>
 
             <article class="feature-card">
-              <h4>El Choque con la Emperatriz</h4>
-              <p>Como Patriarca, Juan no se ablandó. Vendió los muebles lujosos del palacio episcopal para construir hospitales y arremetió contra la corrupción del clero y los vicios de la nobleza. Esto enfureció a la emperatriz Eudoxia, famosa por su vanidad e intrigas. Cuando Eudoxia mandó erigir una estatua de plata de ella misma frente a la catedral, Juan predicó: <em>"De nuevo Herodías delira, de nuevo baila y pide la cabeza de Juan en una bandeja"</em>.</p>
+              <h4>El Glorioso Final</h4>
+              <p>En el año 258, bajo una nueva y letal persecución del emperador Valeriano, Cipriano fue arrestado y llevado ante el procónsul. Cuando se le exigió sacrificar, respondió con un simple y cortante: "No lo haré". Al escuchar la sentencia de decapitación, Cipriano exclamó: <em>"¡Gracias a Dios!"</em>. Entregó veinticinco monedas de oro a su propio verdugo como muestra de caridad y fue decapitado ante miles de fieles que empaparon lienzos con su sangre.</p>
             </article>
           </div>
 
@@ -865,23 +1149,23 @@
       <section id="panel-contexto" class="content-panel">
 
         <div class="section-box">
-          <h2 class="section-title">Contexto: La Escuela de Antioquía</h2>
+          <h2 class="section-title">Contexto: El Cisma de Novaciano</h2>
           <p>
-            En la Iglesia antigua existían dos grandes escuelas de interpretación bíblica. La Escuela de Alejandría (de Orígenes y Atanasio) se enfocaba en interpretar la Biblia de forma "alegórica" y mística. En contraste, San Juan Crisóstomo pertenecía a la Escuela de Antioquía.
+            El mayor desafío de Cipriano no fue el paganismo (frente al cual derramó su sangre), sino los "cismas" (las divisiones) generadas por cristianos rebeldes que rompían la comunión con sus obispos para crear sus propias iglesias.
           </p>
         </div>
 
         <div class="section-box">
           <div class="feature-grid">
             <article class="feature-card">
-              <h4>La Exégesis Histórico-Literal</h4>
-              <p>La escuela antioquena se centraba en la interpretación "literal e histórica" de la Biblia. Crisóstomo no buscaba significados ocultos ni fantasiosos en los textos; estudiaba meticulosamente el contexto histórico, la gramática de San Pablo y el mensaje moral directo para aplicarlo a la vida diaria de los fieles.</p>
-              <p>Gracias a este método, San Juan Crisóstomo ha sido reconocido a lo largo de los siglos (incluso por teólogos modernos y protestantes) como el mejor comentarista bíblico de toda la Iglesia antigua.</p>
+              <h4>El Cisma en Roma</h4>
+              <p>En Roma, tras el martirio del Papa Fabián, fue elegido el Papa Cornelio. Sin embargo, un presbítero muy elocuente pero soberbio, llamado Novaciano, rechazó la autoridad del Papa porque Cornelio era partidario de perdonar a los pecadores "caídos". Novaciano se hizo consagrar "Papa" falsamente, dividiendo la Iglesia de Roma y creando una secta que exigía pureza absoluta.</p>
             </article>
 
             <article class="feature-card">
-              <h4>El Peligro del Cesaro-Papismo</h4>
-              <p>La época de Crisóstomo marca el inicio del "Cesaro-Papismo" en Oriente, donde los emperadores bizantinos se creían con el derecho de gobernar la Iglesia y deponer obispos a su antojo. El exilio final de Crisóstomo (organizado por el Emperador y obispos corruptos en el "Sínodo de la Encina") demostró que la Iglesia Oriental corría el riesgo de convertirse en un departamento del Estado, un problema que Roma siempre combatió gracias al Primado Papal.</p>
+              <h4>El Cisma en Cartago</h4>
+              <p>Simultáneamente, en Cartago, un grupo de sacerdotes descontentos con la autoridad de Cipriano formaron su propia iglesia y nombraron a un "anti-obispo" llamado Fortunato. Cipriano se vio rodeado de iglesias "falsas" que aparentaban ser católicas pero no tenían comunión con los sucesores legítimos de los apóstoles.</p>
+              <p>Fue exactamente para combatir estas congregaciones rebeldes que Cipriano escribió su genial obra "De la Unidad de la Iglesia Católica", aniquilando teológicamente el concepto de las iglesias "autónomas" que el protestantismo reviviría trece siglos después.</p>
             </article>
           </div>
 
@@ -900,35 +1184,35 @@
         <div class="section-box">
           <h2 class="section-title">Enseñanza: El Arsenal Apologético</h2>
           <p>
-            San Juan Crisóstomo es el fin definitivo del debate eucarístico. Sus escritos son tan abrumadoramente explícitos sobre la transmutación del pan y del vino que los apologistas protestantes modernos evitan citarlo o intentan espiritualizar forzosamente sus palabras.
+            San Cipriano es el martillo definitivo contra la herejía del relativismo eclesial. Su doctrina aniquila por igual al <strong>protestantismo</strong> (que defiende la farsa de una iglesia "invisible" donde cada quien funda su propia denominación) y al <strong>catolicismo liberal o modernista</strong> (que enseña falsamente que "todas las religiones salvan" o que pertenecer a la Iglesia Católica es algo opcional).
           </p>
           <p>
-            Además, su obra "Sobre el Sacerdocio" es el escudo más poderoso del catolicismo para defender por qué los hombres pecadores (los sacerdotes) tienen el poder real, delegado por Dios, para perdonar los pecados en el confesionario.
+            La enseñanza de Cipriano es dogmática, cruda e innegociable: la Iglesia es una entidad física, visible y jerárquica. Estar fuera de sus límites formales significa estar fuera de la salvación de Cristo. No hay medias tintas.
           </p>
         </div>
 
         <div class="section-box">
-          <h3 class="section-subtitle">Doctrinas Católicas en el Siglo IV</h3>
+          <h3 class="section-subtitle">Doctrinas Católicas en el Siglo III</h3>
 
           <div class="feature-grid">
             <article class="feature-card">
-              <h4>1. La Presencia Real y Física</h4>
-              <p><strong>El Arma:</strong> Crisóstomo fulmina la idea del "pan simbólico". Predica: <em>"¡Cuántos dicen ahora: 'Quisiera ver su forma, su figura, sus vestidos, su calzado'! Pues bien, ¡tú le ves a Él, tú le tocas, tú le comes! [...] Él se nos ha entregado no solo para que le veamos, sino para que le toquemos, le comamos y hundamos nuestros dientes en su carne"</em>.</p>
+              <h4>1. Extra Ecclesiam Nulla Salus</h4>
+              <p><strong>El Arma:</strong> "Fuera de la Iglesia no hay salvación". Cipriano establece el dogma absoluto: así como nadie sobrevivió al diluvio universal fuera del Arca de Noé, absolutamente nadie puede sobrevivir al juicio de Dios fuera de la Iglesia Católica. La comunión visible con los obispos católicos no es un adorno de piedad, es un requisito estricto y de vida o muerte para la salvación eterna.</p>
             </article>
 
             <article class="feature-card">
-              <h4>2. El Poder del Sacerdote (Confesión)</h4>
-              <p><strong>El Arma:</strong> Los evangélicos preguntan: "¿Por qué confesarse con un hombre?". Crisóstomo responde en el siglo IV: <em>"A los sacerdotes se les ha concedido un poder que Dios no quiso dar ni a los ángeles ni a los arcángeles... Lo que los sacerdotes atan aquí abajo, Dios lo ratifica allá arriba. ¿Y no es esto un poder de perdonar pecados? Han recibido el poder no de declarar perdonados los pecados, sino de perdonarlos de verdad"</em>.</p>
+              <h4>2. La Maternidad de la Iglesia</h4>
+              <p><strong>El Arma:</strong> <em>"No puede tener a Dios por Padre quien no tiene a la Iglesia por Madre"</em>. Esta máxima pulveriza la moderna premisa evangélica de "Cristo sí, Iglesia no". Para el cristianismo primitivo, rechazar a la Iglesia visible (el cuerpo) es rechazar y escupir automáticamente a Cristo (la Cabeza).</p>
             </article>
 
             <article class="feature-card">
-              <h4>3. El Sacrificio de la Misa</h4>
-              <p><strong>El Arma:</strong> Crisóstomo establece claramente que la Misa no es una simple cena comunitaria, sino la re-presentación del sacrificio del Calvario: <em>"No ofrecemos un sacrificio distinto, como el sumo sacerdote de antaño, sino siempre el mismo. O mejor dicho, realizamos el memorial de aquel sacrificio"</em>.</p>
+              <h4>3. La Cátedra de San Pedro</h4>
+              <p><strong>El Arma:</strong> Para frenar los cismas y las iglesias independientes, Cipriano apunta directamente a Roma. Enseña que Cristo fundó la Iglesia sobre Pedro para manifestar la unidad. Quien abandona la "Cátedra de Pedro", sobre la cual está cimentada la Iglesia entera, se engaña a sí mismo de forma miserable si cree que sigue dentro del cristianismo.</p>
             </article>
 
             <article class="feature-card">
-              <h4>4. La Petición a los Santos</h4>
-              <p><strong>El Arma:</strong> Demuestra que la Iglesia antigua rezaba a los santos pidiendo su intercesión. Crisóstomo exhortaba a sus fieles a rogar a los mártires: <em>"Aún cuando no tengan voz, su sangre clama... Supliquémosles, pidámosles que sean nuestros protectores"</em>.</p>
+              <h4>4. El Martirio Fuera de la Iglesia es Inútil</h4>
+              <p><strong>El Arma:</strong> Cipriano lleva la eclesiología hasta sus últimas consecuencias: si un cristiano cismático o protestante es torturado y asesinado por el nombre de Jesús, ese martirio no le sirve de nada para salvarse. El pecado de romper la unidad de la Iglesia es tan demoníaco que ni siquiera derramar la propia sangre puede borrarlo.</p>
             </article>
           </div>
 
@@ -944,9 +1228,9 @@
       <!-- ===== INICIO PANEL LEGADO ===== -->
       <section id="panel-legado" class="content-panel">
         <div class="section-box">
-          <h2 class="section-title">El Patrón de los Predicadores</h2>
+          <h2 class="section-title">El Defensor de las Fronteras de Dios</h2>
           <p>
-            El legado de San Juan Crisóstomo es inmenso tanto en la liturgia como en la teología moral. En 1908, el Papa Pío X lo declaró patrono celestial de todos los predicadores cristianos, reconociendo que nunca ha existido en la historia un hombre con tal capacidad de mover los corazones hacia la conversión.
+            El legado de San Cipriano es haber trazado una línea de fuego inquebrantable alrededor de la Iglesia. Definió para siempre que la Iglesia no es una idea abstracta, sino una sociedad estructurada jerárquicamente por los sucesores de los apóstoles.
           </p>
         </div>
 
@@ -954,18 +1238,18 @@
           <h3 class="section-subtitle">Las Columnas de su Influencia</h3>
           <div class="feature-grid">
             <article class="feature-card">
-              <h4>La Divina Liturgia Bizantina</h4>
-              <p>La "Divina Liturgia de San Juan Crisóstomo" es el rito eucarístico más utilizado en todo el cristianismo oriental (incluyendo a las iglesias ortodoxas y a las católicas de rito oriental). Durante más de 1600 años, millones de cristianos han adorado a Dios cada domingo utilizando las oraciones, himnos y anáforas (plegarias eucarísticas) que él estructuró.</p>
+              <h4>El Tratado sobre la Unidad</h4>
+              <p>Su obra <em>De Catholicae Ecclesiae Unitate</em> (Sobre la unidad de la Iglesia Católica) es el primer tratado teológico de la historia dedicado exclusivamente a explicar qué es la Iglesia. Es el manual fundacional de toda la eclesiología cristiana occidental y la refutación más antigua contra la mentalidad sectaria.</p>
             </article>
             
             <article class="feature-card">
-              <h4>El Martirio Moral en el Exilio</h4>
-              <p>Exiliado finalmente por la emperatriz Eudoxia al extremo más inhóspito del Mar Negro, Crisóstomo fue obligado a caminar bajo el sol abrasador y la lluvia hasta la muerte. Su último aliento es un testamento supremo de fe que ha consolado a los cristianos perseguidos durante siglos. Murió diciendo: <em>"Gloria a Dios por todas las cosas"</em>.</p>
+              <h4>La Doctrina del Episcopado</h4>
+              <p>Cipriano formuló el principio de que los obispos son los garantes de la unidad de sus diócesis, pero que todos los obispos del mundo forman un solo "colegio episcopal", indisolublemente unido en torno a la sede primada de Roma. Si un obispo se separa de este colegio, pierde instantáneamente su autoridad apostólica.</p>
             </article>
 
             <article class="feature-card">
-              <h4>El Perdón de Roma y la Reparación</h4>
-              <p>Treinta y un años después de su muerte, la Iglesia de Constantinopla reconoció su terrible pecado al desterrarlo. El emperador Teodosio II (hijo de Eudoxia) hizo traer los huesos de San Juan de vuelta a la capital. El emperador se postró de rodillas ante el ataúd del santo y pidió perdón públicamente por los pecados de sus padres. Roma (el Papa Inocencio I) siempre lo defendió y se negó a reconocer a sus sucesores ilegítimos mientras duró la injusticia.</p>
+              <h4>El Liturgista del Norte de África</h4>
+              <p>Además de su monumental defensa eclesial, Cipriano dejó cartas maravillosas que detallan cómo se celebraba la Misa en el año 250 d.C., exigiendo que se mezcle agua con el vino en el cáliz (representando la unión de Cristo con el pueblo), una práctica que la Iglesia Católica sigue realizando en el ofertorio de cada Misa hasta hoy.</p>
             </article>
           </div>
 
@@ -981,64 +1265,62 @@
       <section id="panel-escritos" class="content-panel">
 
         <div class="section-box">
-          <h2 class="section-title">De Sacerdotio y Homilías Eucarísticas</h2>
+          <h2 class="section-title">De la Unidad de la Iglesia Católica</h2>
           <p>
-            A continuación, los pasajes más gloriosos de la pluma de San Juan Crisóstomo. Observa las armas doctrinales resaltadas en verde oscuro que establecen definitivamente la autoridad sacramental de los sacerdotes y el realismo crudo de la Santa Misa.
+            A continuación, los pasajes más destructivos e implacables de la pluma de San Cipriano. Estas palabras aniquilan brutalmente la idea de la "iglesia invisible" evangélica y destrozan el falso ecumenismo modernista que renuncia a la exclusividad de la salvación católica.
           </p>
         </div>
 
         <div class="section-box">
           <div class="accordion">
 
-            <!-- 1. EL SACERDOCIO Y LA CONFESIÓN -->
+            <!-- 1. LA MADRE IGLESIA Y EL ARCA -->
             <div class="acc-item">
               <button class="acc-trigger" type="button">
-                <span>Sobre el Sacerdocio (El Poder de Perdonar Pecados)</span>
+                <span>Extra Ecclesiam Nulla Salus (El Arca de Noé)</span>
                 <span>+</span>
               </button>
               <div class="acc-content">
-                <p>El argumento teológico supremo contra quienes niegan que los sacerdotes humanos puedan perdonar los pecados en nombre de Dios.</p>
+                <p>La formulación dogmática definitiva: quien abandona la Iglesia Católica abandona las promesas de Cristo y se condena.</p>
                 <div style="max-height: 400px; overflow-y: auto; padding: 15px; background: rgba(0,0,0,0.03); border-radius: 8px; border: 1px solid rgba(15,51,95,.12); font-size: 0.95rem; line-height: 1.7;">
-                  <p>Porque el sacerdocio se ejerce en la tierra, pero pertenece al orden de las cosas celestiales. Y con mucha razón, pues ni el hombre, ni un ángel, ni un arcángel, ni ningún otro poder creado instituyó este orden, sino el Paráclito mismo (el Espíritu Santo).</p>
-                  <p><span style="background-color: #1b4528; color: #ffffff; padding: 2px 6px; border-radius: 4px; font-weight: bold;">A los que habitan en la tierra se les ha encomendado administrar las cosas celestiales, y han recibido un poder que Dios no concedió ni a los ángeles ni a los arcángeles. Pues a estos no se les ha dicho: "Lo que atéis en la tierra quedará atado en los cielos".</span></p>
-                  <p>Los gobernantes de la tierra tienen poder para atar, es cierto, pero solo el cuerpo; en cambio, el poder de los sacerdotes alcanza al alma misma y llega hasta los cielos.</p>
-                  <p><span style="background-color: #1b4528; color: #ffffff; padding: 2px 6px; border-radius: 4px; font-weight: bold;">Lo que los sacerdotes hacen aquí abajo, Dios lo ratifica allá arriba, y el Señor confirma la sentencia de sus siervos. ¿Qué otra cosa les ha dado, sino todo el poder del cielo? Porque dice: "A quienes perdonéis los pecados, les quedan perdonados".</span></p>
-                  <p>¿Qué poder puede ser mayor que este? El Padre ha entregado todo juicio al Hijo; pero veo que el Hijo ha puesto todo este poder en las manos de los sacerdotes.</p>
+                  <p>La esposa de Cristo no puede ser adulterada; es incorrupta y pura. Conoce una sola casa, guarda con casto pudor la santidad de un solo lecho... Quien se separa de la Iglesia se une a una adúltera, y se separa de las promesas de la Iglesia.</p>
+                  <p><span style="background-color: #1b4528; color: #ffffff; padding: 2px 6px; border-radius: 4px; font-weight: bold;">Quien abandona a la Iglesia de Cristo, no alcanzará los premios de Cristo. Se vuelve un extraño, un profano, un enemigo. No puede tener a Dios por Padre quien no tiene a la Iglesia por Madre.</span></p>
+                  <p><span style="background-color: #1b4528; color: #ffffff; padding: 2px 6px; border-radius: 4px; font-weight: bold;">Si alguien pudo salvarse fuera del arca de Noé, entonces se salvará quien esté fuera de la Iglesia.</span></p>
+                  <p>El Señor nos advierte diciendo: "El que no está conmigo está contra mí, y el que no recoge conmigo desparrama". Quien rompe la paz y la concordia de Cristo, obra contra Cristo. Quien recoge en otra parte, fuera de la Iglesia, desparrama la Iglesia de Cristo.</p>
                 </div>
               </div>
             </div>
 
-            <!-- 2. LA PRESENCIA REAL EUCARÍSTICA -->
+            <!-- 2. LA CATEDRA DE PEDRO -->
             <div class="acc-item">
               <button class="acc-trigger" type="button">
-                <span>Homilía sobre el Evangelio de Mateo (La Eucaristía)</span>
+                <span>La Unidad sobre la Cátedra de San Pedro</span>
                 <span>+</span>
               </button>
               <div class="acc-content">
-                <p>Las impresionantes palabras del Crisóstomo que prohíben entender la Eucaristía como un "mero símbolo", exigiendo reconocer que comemos la misma carne del Calvario.</p>
+                <p>Cipriano destruye los cismas independientes afirmando que la única forma de garantizar la unidad es estar adherido a la Cátedra de Roma.</p>
                 <div style="max-height: 400px; overflow-y: auto; padding: 15px; background: rgba(0,0,0,0.03); border-radius: 8px; border: 1px solid rgba(15,51,95,.12); font-size: 0.95rem; line-height: 1.7;">
-                  <p>Por lo tanto, creamos a Dios en todas las cosas y no le contradigamos, aunque lo que diga parezca contrario a nuestra razón y a nuestra vista.</p>
-                  <p><span style="background-color: #1b4528; color: #ffffff; padding: 2px 6px; border-radius: 4px; font-weight: bold;">Porque Su palabra no puede fallar, pero nuestros sentidos son fácilmente engañados. Ya que la Palabra (Cristo) ha dicho: "Este es mi cuerpo", debemos persuadirnos y creer, y mirarlo con los ojos del espíritu.</span></p>
-                  <p>¡Cuántos dicen ahora: 'Quisiera ver su forma, su figura, sus vestidos, su calzado'! Pues bien, ¡tú le ves a Él, tú le tocas, tú le comes!</p>
-                  <p><span style="background-color: #1b4528; color: #ffffff; padding: 2px 6px; border-radius: 4px; font-weight: bold;">Tú deseas ver sus vestidos, pero Él se te entrega a sí mismo, no solo para que lo veas, sino para que lo toques y lo comas, y lo recibas en tu interior. Por tanto, que nadie se acerque con repugnancia, que nadie se acerque con descuido o relajamiento; acerquémonos todos con temor, con fervor, temblando.</span></p>
-                  <p>Piensa en el honor que se te ha concedido, en la mesa a la que te sientas: ¡Nosotros nos alimentamos de aquello mismo a lo que los ángeles miran con temblor y no se atreven a contemplar sin terror a causa de su resplandor!</p>
+                  <p>Sobre uno solo edifica el Señor su Iglesia. Y aunque a todos los apóstoles les da después de su resurrección el mismo poder... sin embargo, para manifestar la unidad, dispuso con su autoridad que el origen de esta misma unidad comenzara por uno solo (Pedro).</p>
+                  <p><span style="background-color: #1b4528; color: #ffffff; padding: 2px 6px; border-radius: 4px; font-weight: bold;">El que no guarda esta unidad de la Iglesia, ¿cree que guarda la fe? El que se rebela contra la Iglesia, el que abandona la Cátedra de Pedro sobre la cual está fundada la Iglesia, ¿puede confiar en que sigue estando en la Iglesia?</span></p>
+                  <p>El episcopado es uno solo, del cual cada obispo posee una parte de un todo indiviso. La Iglesia también es una, la cual, al crecer por su fecundidad, se extiende a una multitud. Así como los rayos del sol son muchos, pero la luz es una sola; y las ramas de un árbol son muchas, pero uno solo es el tronco cimentado en firmes raíces.</p>
+                  <p>Corta un rayo de sol: la luz no se divide. Rompe una rama del árbol: la rama rota no podrá germinar. Corta un arroyo de su fuente: el arroyo se secará. Así la Iglesia... extiende sus ramas por toda la tierra, pero hay una sola Cabeza, un solo origen.</p>
                 </div>
               </div>
             </div>
 
-            <!-- 3. EL SACRIFICIO DE LA MISA -->
+            <!-- 3. EL MARTIRIO DE LOS CISMÁTICOS -->
             <div class="acc-item">
               <button class="acc-trigger" type="button">
-                <span>Homilía sobre Hebreos (El Único Sacrificio)</span>
+                <span>El Martirio en un Cisma No Salva</span>
                 <span>+</span>
               </button>
               <div class="acc-content">
-                <p>Crisóstomo explica cómo la Misa no "repite" ni crucifica a Cristo de nuevo, sino que hace presente el único y eterno sacrificio de la Cruz a través del tiempo.</p>
+                <p>La condena más brutal contra el error protestante y sectario: ni siquiera morir por el nombre de Jesús salva a quien está en rebelión contra el orden episcopal católico.</p>
                 <div style="max-height: 400px; overflow-y: auto; padding: 15px; background: rgba(0,0,0,0.03); border-radius: 8px; border: 1px solid rgba(15,51,95,.12); font-size: 0.95rem; line-height: 1.7;">
-                  <p>¿Qué pues? ¿Acaso nosotros no ofrecemos sacrificios cada día? Ofrecemos, ciertamente, pero haciendo memoria de Su muerte. Y este sacrificio es uno solo, no muchos.</p>
-                  <p><span style="background-color: #1b4528; color: #ffffff; padding: 2px 6px; border-radius: 4px; font-weight: bold;">¿Cómo puede ser uno solo y no muchos, si se ofrece en muchos lugares? Porque el Cristo que se ofrece es uno solo en todas partes; está completo aquí y completo allá, un único Cuerpo.</span></p>
-                  <p><span style="background-color: #1b4528; color: #ffffff; padding: 2px 6px; border-radius: 4px; font-weight: bold;">Por lo tanto, así como Él, aunque es ofrecido en muchos lugares, es un solo Cuerpo y no muchos cuerpos, así también el Sacrificio es uno solo.</span> Es nuestro Sumo Sacerdote quien ofreció el sacrificio que nos purifica. Y nosotros ahora ofrecemos ese mismo sacrificio que entonces se ofreció y que no puede consumirse.</p>
-                  <p>Lo hacemos en memoria de aquello que se hizo entonces, como Él dijo: "Haced esto en memoria mía". No ofrecemos un sacrificio diferente, sino siempre el mismo; o mejor dicho, realizamos un memorial de Su sacrificio.</p>
+                  <p>Se engañan a sí mismos con falsas ilusiones aquellos que, careciendo de la paz con los sacerdotes de Dios, se insinúan y creen que comunican en secreto con ciertos individuos. La Iglesia Católica es una y no está rota ni partida.</p>
+                  <p><span style="background-color: #1b4528; color: #ffffff; padding: 2px 6px; border-radius: 4px; font-weight: bold;">Y si tales hombres (los cismáticos) fueran muertos por confesar el nombre de Cristo, ni su propia sangre podrá lavar esa mancha. El grave e inexpiable pecado de la discordia no se limpia ni con el sufrimiento. No puede ser mártir quien no está en la Iglesia.</span></p>
+                  <p><span style="background-color: #1b4528; color: #ffffff; padding: 2px 6px; border-radius: 4px; font-weight: bold;">Podrán ser entregados a las llamas y al fuego, podrán perder la vida arrojados a las fieras: eso no será la corona de su fe, sino el castigo de su perfidia; ni el final glorioso de una virtud religiosa, sino la muerte debida a la desesperación. Tal persona puede ser asesinada, pero no puede ser coronada.</span></p>
+                  <p>Es imposible que quien ha desgarrado el cuerpo de Cristo y arruinado la unidad del pueblo cristiano tenga paz con Cristo o reciba el premio de Cristo.</p>
                 </div>
               </div>
             </div>
@@ -1160,4 +1442,4 @@
   </script>
 </body>
 </html>
-<!-- ===== FINAL SAN JUAN CRISÓSTOMO ===== -->
+<!-- ===== FINAL SAN CIPRIANO DE CARTAGO ===== -->
