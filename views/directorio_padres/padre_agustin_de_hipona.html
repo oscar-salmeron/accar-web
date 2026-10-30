@@ -387,6 +387,53 @@
       color:#241c09;
       box-shadow:0 12px 22px rgba(0,0,0,.2), inset 0 1px 0 rgba(255,255,255,.18);
     }
+
+    /* Tarjetas para la sección de citas */
+    .cita-card {
+      background:rgba(255,255,255,.85);
+      border:1px solid rgba(15,51,95,.14);
+      border-radius:18px;
+      box-shadow:0 10px 22px rgba(0,0,0,.08);
+      padding:22px;
+      min-width:0;
+      overflow-wrap:anywhere;
+      transition: transform 0.3s ease, box-shadow 0.3s ease !important;
+      position: relative;
+    }
+    
+    .cita-card::before {
+      content: '"';
+      position: absolute;
+      top: 5px;
+      left: 15px;
+      font-size: 4rem;
+      color: rgba(212,175,55,0.2);
+      font-family: Georgia, serif;
+      pointer-events: none;
+    }
+
+    .cita-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.15) !important;
+    }
+
+    .cita-texto {
+      font-size: 1.15rem;
+      font-style: italic;
+      color: var(--azul-oscuro);
+      line-height: 1.6;
+      margin-bottom: 12px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .cita-fuente {
+      font-size: 0.9rem;
+      color: #666;
+      text-align: right;
+      font-weight: bold;
+    }
+
     /* ===== FINAL HERO ===== */
 
     /* ===== INICIO MAIN ===== */
@@ -729,14 +776,15 @@
             </div>
           </div>
 
+          <!-- SECCIÓN AÑADIDA: Pestaña de Citas y Aforismos -->
           <div class="hero-nav">
             <button class="nav-btn active" data-target="inicio">Inicio</button>
             <button class="nav-btn" data-target="vida">Vida</button>
             <button class="nav-btn" data-target="contexto">Contexto</button>
             <button class="nav-btn" data-target="legado">Legado</button>
-            <!-- Botones más anchos abajo para textos largos -->
-            <button class="nav-btn" data-target="ensenanza" style="flex: 1 1 45%;">Enseñanza (Arsenal Apologético)</button>
-            <button class="nav-btn" data-target="escritos" style="flex: 1 1 45%;">Escritos Inmortales</button>
+            <button class="nav-btn" data-target="ensenanza">Enseñanza (Arsenal Apologético)</button>
+            <button class="nav-btn" data-target="escritos">Escritos Inmortales</button>
+            <button class="nav-btn" data-target="citas" style="flex: 1 1 100%; background: linear-gradient(180deg, #1d4e89, #0c1f3f);">Citas y Aforismos</button>
           </div>
         </div>
       </div>
@@ -1045,13 +1093,105 @@
           </div>
 
           <div class="cta-row" style="margin-top: 24px;">
+            <button class="cta-btn dorado" onclick="showPanel('citas')">Ver Citas y Aforismos Inmortales →</button>
+          </div>
+        </div>
+
+      </section>
+      <!-- ===== FINAL PANEL ESCRITOS ===== -->
+
+      <!-- ===== INICIO PANEL CITAS ===== -->
+      <section id="panel-citas" class="content-panel">
+        
+        <div class="section-box">
+          <h2 class="section-title">Citas y Aforismos Inmortales</h2>
+          <p>
+            San Agustín es el Padre de la Iglesia más citado en la historia del cristianismo. Sus frases, forjadas en el fuego de su propia conversión y su lucha contra las herejías, son dagas espirituales perfectas tanto para la meditación personal como para la defensa pública de la fe.
+          </p>
+        </div>
+
+        <div class="section-box">
+          <h3 class="section-subtitle">Sobre la Iglesia y la Verdad</h3>
+          <div class="feature-grid">
+            <article class="cita-card">
+              <p class="cita-texto">"Roma ha hablado; el caso está cerrado (Roma locuta, causa finita est)."</p>
+              <p class="cita-fuente">— Sermón 131, 10</p>
+            </article>
+            
+            <article class="cita-card">
+              <p class="cita-texto">"No creería en el Evangelio, si a ello no me moviera la autoridad de la Iglesia Católica."</p>
+              <p class="cita-fuente">— Contra la Carta de Maniqueo, 5,6</p>
+            </article>
+            
+            <article class="cita-card">
+              <p class="cita-texto">"Quien no tiene a la Iglesia por madre, no puede tener a Dios por Padre."</p>
+              <p class="cita-fuente">— El Combate Cristiano</p>
+            </article>
+            
+            <article class="cita-card">
+              <p class="cita-texto">"Equivocarse es humano, pero perseverar en el error es diabólico."</p>
+              <p class="cita-fuente">— Sermones</p>
+            </article>
+          </div>
+        </div>
+
+        <div class="section-box">
+          <h3 class="section-subtitle">Sobre Dios y el Alma</h3>
+          <div class="feature-grid">
+            <article class="cita-card">
+              <p class="cita-texto">"Nos hiciste, Señor, para ti, y nuestro corazón está inquieto hasta que descanse en ti."</p>
+              <p class="cita-fuente">— Confesiones I, 1, 1</p>
+            </article>
+            
+            <article class="cita-card">
+              <p class="cita-texto">"¡Tarde te amé, Hermosura tan antigua y tan nueva, tarde te amé! Y tú estabas dentro de mí y yo afuera."</p>
+              <p class="cita-fuente">— Confesiones X, 27</p>
+            </article>
+            
+            <article class="cita-card">
+              <p class="cita-texto">"Dios no manda cosas imposibles, sino que al mandar te enseña a que hagas lo que puedes y a que pidas lo que no puedes."</p>
+              <p class="cita-fuente">— Sobre la Naturaleza y la Gracia</p>
+            </article>
+            
+            <article class="cita-card">
+              <p class="cita-texto">"El que te creó sin ti, no te salvará sin ti."</p>
+              <p class="cita-fuente">— Sermón 169</p>
+            </article>
+          </div>
+        </div>
+
+        <div class="section-box">
+          <h3 class="section-subtitle">Sobre el Amor y la Virtud</h3>
+          <div class="feature-grid">
+            <article class="cita-card">
+              <p class="cita-texto">"Ama y haz lo que quieras. Si callas, calla por amor; si gritas, grita por amor; si corriges, corrige por amor; si perdonas, perdona por amor."</p>
+              <p class="cita-fuente">— Comentario a la Epístola de San Juan</p>
+            </article>
+            
+            <article class="cita-card">
+              <p class="cita-texto">"La medida del amor es amar sin medida."</p>
+              <p class="cita-fuente">— Carta 109</p>
+            </article>
+            
+            <article class="cita-card">
+              <p class="cita-texto">"Canta y camina. No te detengas, no retrocedas, no te desvíes."</p>
+              <p class="cita-fuente">— Sermón 256</p>
+            </article>
+            
+            <article class="cita-card">
+              <p class="cita-texto">"La soberbia no es grandeza, sino hinchazón; y lo que está hinchado parece grande pero no está sano."</p>
+              <p class="cita-fuente">— Epístolas</p>
+            </article>
+          </div>
+          
+          <div class="cta-row" style="margin-top: 24px;">
             <a class="cta-link azul" href="https://apologeticaccar.com">Regresar a Apologética Católica</a>
             <button class="cta-btn dorado" onclick="showPanel('inicio')">Volver al inicio →</button>
           </div>
         </div>
 
       </section>
-      <!-- ===== FINAL PANEL ESCRITOS ===== -->
+      <!-- ===== FINAL PANEL CITAS ===== -->
 
     </div>
   </main>
@@ -1060,7 +1200,8 @@
   <script>
     /* ===== INICIO SCRIPT AISLADO ===== */
     (function(){
-      const panelNames = ["inicio", "vida", "contexto", "ensenanza", "legado", "escritos"];
+      // SE AÑADIÓ "citas" AL ARRAY DE PANELES
+      const panelNames = ["inicio", "vida", "contexto", "ensenanza", "legado", "escritos", "citas"];
       const mobileMenuToggle = document.getElementById("mobileMenuToggle");
       const mobileNavPanel = document.getElementById("mobileNavPanel");
 
