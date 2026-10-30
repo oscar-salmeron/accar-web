@@ -1,0 +1,1160 @@
+<!-- ===== INICIO SAN JERÓNIMO ===== -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>San Jerónimo | ACCAR</title>
+
+  <style>
+    :root{
+      --azul-oscuro:#0c1f3f;
+      --azul-medio:#123867;
+      --azul-claro:#1d4e89;
+      --dorado:#d4af37;
+      --dorado-2:#e4c76a;
+      --purpura-cardenal:#a31f34;
+      --texto:#1b1b1b;
+      --sombra:0 18px 38px rgba(0,0,0,.18);
+      --max:1240px;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-bottom: 20px;
+      color: var(--dorado);
+      font-weight: bold;
+      font-size: 1.05rem;
+      text-decoration: none;
+      transition: color 0.2s ease, transform 0.2s ease;
+    }
+    .back-link:hover {
+      color: #ffd971;
+      transform: translateX(-4px);
+    }
+
+    /* Borde Dorado para Obispo/Doctor */
+    .section-box, .highlight-card, .feature-card {
+      border-left: 5px solid var(--dorado) !important;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      color:var(--texto);
+      font-family:Georgia, "Times New Roman", serif;
+      background:
+        linear-gradient(rgba(8,18,35,.18), rgba(8,18,35,.18)),
+        url("../../assets/img/bg_padres_iglesia_acccar.png") center top / cover fixed no-repeat;
+    }
+
+    img{max-width:100%;display:block}
+    a{text-decoration:none;color:inherit}
+    button{font:inherit}
+    .wrap{
+      width:min(var(--max), calc(100% - 28px));
+      margin:0 auto;
+    }
+
+    .content-panel{display:none}
+    .content-panel.active{
+      display:block;
+      animation:fadeIn .28s ease;
+    }
+
+    @keyframes fadeIn{
+      from{opacity:0;transform:translateY(8px)}
+      to{opacity:1;transform:none}
+    }
+
+    /* ===== INICIO HERO ===== */
+    .hero{
+      position:relative;
+      overflow:hidden;
+      border-bottom:2px solid rgba(212,175,55,.55);
+      background:
+        linear-gradient(180deg, rgba(9,23,45,.08) 0%, rgba(9,23,45,.03) 24%, rgba(9,23,45,.28) 100%);
+    }
+
+    .hero::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        linear-gradient(90deg, rgba(7,17,34,.28) 0%, rgba(7,17,34,.08) 44%, rgba(7,17,34,.22) 100%);
+      pointer-events:none;
+    }
+
+    .hero-inner{
+      position:relative;
+      z-index:1;
+      min-height:760px;
+      padding:34px 0 38px;
+    }
+
+    /* ===== INICIO BANDA SUPERIOR ===== */
+    .top-brand{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      margin-bottom:20px;
+    }
+
+    .top-brand a{
+      display:flex;
+      align-items:center;
+      gap:16px;
+      min-width:0;
+    }
+
+    .top-brand img{
+      width:78px;
+      filter:drop-shadow(0 8px 16px rgba(0,0,0,.28));
+    }
+
+    .top-brand-text{
+      color:#f8f0d8;
+      line-height:1.1;
+      text-shadow:0 4px 16px rgba(0,0,0,.32);
+    }
+
+    .top-brand-text .line-1{
+      display:block;
+      font-size:1.95rem;
+      font-weight:bold;
+    }
+
+    .top-brand-text .line-2{
+      display:block;
+      font-size:1.45rem;
+      margin-top:2px;
+    }
+
+    .mobile-menu-toggle{
+      display:none;
+      align-items:center;
+      justify-content:center;
+      width:56px;
+      height:56px;
+      border-radius:16px;
+      border:1px solid rgba(212,175,55,.72);
+      background:linear-gradient(180deg, rgba(25,72,135,.92), rgba(16,51,95,.92));
+      box-shadow:0 10px 18px rgba(0,0,0,.18), inset 0 1px 0 rgba(255,255,255,.12);
+      cursor:pointer;
+      flex:0 0 auto;
+      padding:0;
+    }
+
+    .mobile-menu-toggle:hover{
+      transform:translateY(-1px);
+      background:linear-gradient(180deg, rgba(29,85,159,.96), rgba(18,56,103,.96));
+    }
+
+    .mobile-menu-toggle span{
+      display:block;
+      width:24px;
+      height:2.5px;
+      background:#fff4cf;
+      border-radius:999px;
+      margin:3px 0;
+      transition:.22s ease;
+    }
+
+    .mobile-menu-toggle.active span:nth-child(1){
+      transform:translateY(8px) rotate(45deg);
+    }
+
+    .mobile-menu-toggle.active span:nth-child(2){
+      opacity:0;
+    }
+
+    .mobile-menu-toggle.active span:nth-child(3){
+      transform:translateY(-8px) rotate(-45deg);
+    }
+
+    .mobile-nav-panel{
+      display:none;
+      margin-bottom:24px;
+    }
+
+    .mobile-nav-panel.active{
+      display:block;
+      animation:fadeIn .24s ease;
+    }
+
+    .mobile-nav-card{
+      border:1px solid rgba(212,175,55,.42);
+      border-radius:22px;
+      background:linear-gradient(180deg, rgba(11,31,63,.60), rgba(11,31,63,.84));
+      backdrop-filter:blur(6px);
+      box-shadow:var(--sombra);
+      padding:14px;
+    }
+
+    .mobile-nav-list{
+      display:grid;
+      gap:10px;
+    }
+
+    .mobile-nav-btn{
+      appearance:none;
+      width:100%;
+      border:1px solid rgba(212,175,55,.7);
+      background:linear-gradient(180deg, #194887 0%, #10335f 100%);
+      color:#fff4cf;
+      padding:15px 14px;
+      border-radius:16px;
+      cursor:pointer;
+      box-shadow:0 10px 18px rgba(0,0,0,.18), inset 0 1px 0 rgba(255,255,255,.12);
+      transition:.22s ease;
+      font-weight:bold;
+      font-size:1rem;
+      text-align:center;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    .mobile-nav-btn.active{
+      background:linear-gradient(180deg, #e1bd55 0%, #c69a25 100%);
+      color:#241c09;
+      box-shadow:0 12px 22px rgba(0,0,0,.2), inset 0 1px 0 rgba(255,255,255,.18);
+    }
+    /* ===== FINAL BANDA SUPERIOR ===== */
+
+    .hero-card{
+      width:100%;
+      display:grid;
+      grid-template-columns:minmax(250px, 330px) 1fr;
+      gap:34px;
+      align-items:center;
+      padding:30px;
+      border:1px solid rgba(212,175,55,.42);
+      border-radius:30px;
+      background:
+        linear-gradient(180deg, rgba(11,31,63,.20), rgba(11,31,63,.55)),
+        url("../../assets/img/bg_padres_iglesia_acccar.png") center center / cover no-repeat;
+      box-shadow:var(--sombra);
+      overflow:hidden;
+    }
+
+    .hero-photo-wrap{
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+    }
+
+    .hero-photo{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    .hero-photo img{
+      width:100%;
+      max-width:290px;
+      border-radius:28px;
+      border:3px solid rgba(212,175,55,.82);
+      background:linear-gradient(180deg, #f7f0dc, #d9c79f);
+      box-shadow:0 14px 26px rgba(0,0,0,.28);
+    }
+
+    /* ===== BADGE PADRE ===== */
+    .badge-padre{
+      margin-top:16px;
+      display:inline-block;
+      padding:10px 22px;
+      border-radius:999px;
+      background:linear-gradient(180deg, #e1bd55, #c69a25);
+      color:#241c09;
+      font-weight:bold;
+      font-size:.95rem;
+      line-height:1.1;
+      text-align:center;
+      box-shadow:0 8px 16px rgba(0,0,0,.18);
+    }
+
+    .hero-copy{
+      color:#fff8e8;
+      min-width:0;
+    }
+
+    .hero-kicker{
+      display:inline-block;
+      margin:0 0 10px;
+      padding:8px 14px;
+      border-radius:999px;
+      border:1px solid rgba(212,175,55,.45);
+      background:rgba(255,255,255,.08);
+      font-size:.95rem;
+      letter-spacing:.02em;
+    }
+
+    .hero-copy h1{
+      margin:0 0 14px;
+      font-size:clamp(2.15rem, 4.2vw, 3.95rem);
+      line-height:1.02;
+      color:#fff4d0;
+      text-shadow:0 5px 18px rgba(0,0,0,.26);
+      overflow-wrap:anywhere;
+    }
+
+    .hero-copy p{
+      margin:0;
+      max-width:820px;
+      font-size:1.08rem;
+      line-height:1.8;
+      color:#f7efd9;
+      overflow-wrap:anywhere;
+    }
+
+    .hero-meta{
+      display:grid;
+      grid-template-columns:repeat(4, 1fr);
+      gap:14px;
+      margin:24px 0 0;
+    }
+
+    .hero-meta .meta-item{
+      padding:16px 16px 18px;
+      border-radius:18px;
+      border:1px solid rgba(212,175,55,.34);
+      background:rgba(255,255,255,.07);
+      min-height:100%;
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.05);
+      min-width:0;
+    }
+
+    .hero-meta .meta-label{
+      display:block;
+      margin-bottom:8px;
+      font-size:.82rem;
+      color:#e7d8a6;
+      text-transform:uppercase;
+      letter-spacing:.06em;
+    }
+
+    .hero-meta .meta-value{
+      font-size:.94rem;
+      line-height:1.55;
+      color:#fff9ec;
+      overflow-wrap:anywhere;
+    }
+
+    .hero-nav{
+      margin-top:24px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      width:100%;
+      justify-content:space-between;
+      align-items:stretch;
+    }
+
+    .hero-nav button,
+    .hero-nav a{
+      appearance:none;
+      border:1px solid rgba(212,175,55,.7);
+      background:linear-gradient(180deg, #194887 0%, #10335f 100%);
+      color:#fff4cf;
+      padding:16px 14px;
+      border-radius:16px;
+      cursor:pointer;
+      box-shadow:0 10px 18px rgba(0,0,0,.18), inset 0 1px 0 rgba(255,255,255,.12);
+      transition:.22s ease;
+      font-weight:bold;
+      font-size:1rem;
+      text-align:center;
+      white-space:nowrap;
+      min-width:150px;
+      flex:1 1 150px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    .hero-nav button:hover,
+    .hero-nav a:hover{
+      transform:translateY(-1px);
+      background:linear-gradient(180deg, #1d559f 0%, #123867 100%);
+    }
+
+    .hero-nav button.active{
+      background:linear-gradient(180deg, #e1bd55 0%, #c69a25 100%);
+      color:#241c09;
+      box-shadow:0 12px 22px rgba(0,0,0,.2), inset 0 1px 0 rgba(255,255,255,.18);
+    }
+    /* ===== FINAL HERO ===== */
+
+    /* ===== INICIO MAIN ===== */
+    .main-shell{
+      background:
+        linear-gradient(rgba(245,239,225,.96), rgba(245,239,225,.97)),
+        url("../../assets/img/textura-footer-pergamino.png") center top / cover repeat;
+      padding:38px 0 52px;
+      overflow-x:hidden;
+    }
+
+    .section-box{
+      background:rgba(255,255,255,.74);
+      border:1px solid rgba(161,127,44,.22);
+      border-radius:24px;
+      box-shadow:var(--sombra);
+      padding:30px;
+      margin:0 0 24px;
+      overflow:hidden;
+    }
+
+    .section-title{
+      margin:0 0 18px;
+      font-size:clamp(2rem, 4vw, 3rem);
+      line-height:1.08;
+      color:var(--azul-oscuro);
+      overflow-wrap:anywhere;
+    }
+
+    .section-subtitle{
+      margin:0 0 16px;
+      font-size:1.6rem;
+      color:var(--azul-oscuro);
+      overflow-wrap:anywhere;
+    }
+
+    .section-box p{
+      margin:0 0 16px;
+      font-size:1.08rem;
+      line-height:1.9;
+      overflow-wrap:anywhere;
+    }
+
+    .inicio-grid{
+      display:grid;
+      grid-template-columns:repeat(2, minmax(0, 1fr));
+      gap:18px;
+      margin-top:8px;
+    }
+
+    .highlight-card{
+      background:rgba(255,255,255,.85);
+      border:1px solid rgba(15,51,95,.14);
+      border-radius:20px;
+      box-shadow:0 10px 22px rgba(0,0,0,.08);
+      padding:22px;
+      min-width:0;
+      overflow-wrap:anywhere;
+    }
+
+    .highlight-card.full-width{
+      grid-column:1 / -1;
+    }
+
+    .highlight-card h3,
+    .highlight-card h4{
+      margin:0 0 12px;
+      color:var(--azul-oscuro);
+      font-size:1.34rem;
+      overflow-wrap:anywhere;
+    }
+
+    .highlight-card p:last-child{margin-bottom:0}
+
+    .stat-grid{
+      display:grid;
+      grid-template-columns:repeat(4, minmax(0, 1fr));
+      gap:16px;
+      margin-top:18px;
+    }
+
+    .stat-card{
+      background:linear-gradient(180deg, rgba(17,52,99,.98), rgba(14,44,84,.98));
+      color:#fff7e8;
+      border:1px solid rgba(212,175,55,.45);
+      border-radius:20px;
+      padding:20px 16px;
+      text-align:center;
+      box-shadow:0 12px 22px rgba(0,0,0,.15);
+      min-width:0;
+    }
+
+    .stat-number{
+      display:block;
+      font-size:2.1rem;
+      line-height:1;
+      color:#ffd971;
+      margin-bottom:10px;
+      font-weight:bold;
+      overflow-wrap:anywhere;
+    }
+
+    .stat-label{
+      font-size:.96rem;
+      line-height:1.55;
+      color:#fff6dd;
+      overflow-wrap:anywhere;
+    }
+
+    .feature-grid{
+      display:grid;
+      grid-template-columns:repeat(2, minmax(0, 1fr));
+      gap:18px;
+    }
+
+    .feature-card{
+      background:rgba(255,255,255,.85);
+      border:1px solid rgba(15,51,95,.14);
+      border-radius:18px;
+      box-shadow:0 10px 22px rgba(0,0,0,.08);
+      padding:22px;
+      min-width:0;
+      overflow-wrap:anywhere;
+    }
+
+    .feature-card h3,
+    .feature-card h4{
+      margin:0 0 12px;
+      color:var(--azul-oscuro);
+      font-size:1.34rem;
+      overflow-wrap:anywhere;
+    }
+
+    .feature-card p:last-child{margin-bottom:0}
+
+    .timeline{
+      display:grid;
+      gap:16px;
+      margin-top:6px;
+    }
+
+    .timeline-item{
+      background:rgba(255,255,255,.84);
+      border:1px solid rgba(15,51,95,.12);
+      border-left:5px solid var(--dorado);
+      border-radius:18px;
+      padding:20px 20px 18px;
+      box-shadow:0 10px 22px rgba(0,0,0,.08);
+      min-width:0;
+      overflow-wrap:anywhere;
+    }
+
+    .timeline-item h4{
+      margin:0 0 10px;
+      font-size:1.24rem;
+      color:var(--azul-oscuro);
+      overflow-wrap:anywhere;
+    }
+
+    .timeline-item p:last-child{margin-bottom:0}
+
+    .cta-row{
+      display:flex;
+      flex-wrap:wrap;
+      gap:14px;
+      justify-content:center;
+      margin-top:18px;
+    }
+
+    .cta-btn,
+    .cta-link{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-width:260px;
+      max-width:100%;
+      padding:15px 22px;
+      border-radius:16px;
+      border:1px solid rgba(212,175,55,.7);
+      box-shadow:0 10px 18px rgba(0,0,0,.16);
+      font-size:1.06rem;
+      font-weight:bold;
+      cursor:pointer;
+      text-align:center;
+      overflow-wrap:anywhere;
+    }
+
+    .cta-btn.azul,
+    .cta-link.azul{
+      background:linear-gradient(180deg,#194887,#10335f);
+      color:#fff4cf;
+    }
+
+    .cta-btn.dorado,
+    .cta-link.dorado{
+      background:linear-gradient(180deg,#e1bd55,#c69a25);
+      color:#241c09;
+    }
+
+    .accordion{
+      display:grid;
+      gap:16px;
+      margin-top:8px;
+    }
+
+    .acc-item{
+      border:1px solid rgba(15,51,95,.12);
+      border-radius:18px;
+      overflow:hidden;
+      background:rgba(255,255,255,.84);
+      box-shadow:0 10px 22px rgba(0,0,0,.08);
+      min-width:0;
+    }
+
+    .acc-trigger{
+      width:100%;
+      border:none;
+      background:linear-gradient(180deg, rgba(17,52,99,.98), rgba(14,44,84,.98));
+      color:#fff4cf;
+      text-align:left;
+      padding:18px 20px;
+      cursor:pointer;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+      font-size:1.1rem;
+      font-weight:bold;
+      min-width:0;
+      overflow-wrap:anywhere;
+    }
+
+    .acc-trigger span:first-child{
+      min-width:0;
+      overflow-wrap:anywhere;
+    }
+
+    .acc-trigger span:last-child{
+      min-width:28px;
+      text-align:center;
+      font-size:1.55rem;
+      line-height:1;
+      color:#e6ca7b;
+      flex-shrink:0;
+    }
+
+    .acc-content{
+      display:none;
+      padding:20px 20px 22px;
+      background:rgba(255,255,255,.92);
+      border-top:1px solid rgba(15,51,95,.12);
+      overflow-wrap:anywhere;
+    }
+
+    .acc-item.open .acc-content{display:block}
+    .acc-item.open .acc-trigger{
+      background:linear-gradient(180deg, #1b4d90, #123867);
+    }
+
+    .doc-tags{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin:10px 0 14px;
+    }
+
+    /* Efectos Hover Globales para Foto y Tarjetas */
+    .hero-photo img,
+    .section-box,
+    .highlight-card,
+    .stat-card,
+    .feature-card,
+    .timeline-item,
+    .acc-item {
+      transition: transform 0.3s ease, box-shadow 0.3s ease !important;
+    }
+
+    .hero-photo img:hover {
+      transform: translateY(-5px) scale(1.02);
+      box-shadow: 0 22px 34px rgba(0,0,0,.35) !important;
+    }
+
+    .section-box:hover,
+    .highlight-card:hover,
+    .stat-card:hover,
+    .feature-card:hover,
+    .timeline-item:hover,
+    .acc-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 32px rgba(0,0,0,0.14) !important;
+    }
+
+    /* ===== FINAL MAIN ===== */
+  </style>
+</head>
+<body>
+
+  <!-- ===== INICIO HERO ===== -->
+  <section class="hero">
+    <div class="wrap hero-inner">
+
+      <a href="#" onclick="event.preventDefault(); loadView('views/historia-lista-de-padres.html');" class="back-link">← Volver al Directorio de los Padres de la Iglesia</a>
+
+      <div class="hero-card">
+        <div class="hero-photo-wrap">
+          <div class="hero-photo">
+            <img src="../../assets/img/padre_jeronimo.png" alt="San Jerónimo">
+          </div>
+
+          <!-- ===== INICIO BADGE PADRE ===== -->
+          <div class="badge-padre" style="background: var(--dorado); color: var(--azul-oscuro);">
+            Padre Latino, Presbítero y Doctor
+          </div>
+          <!-- ===== FINAL BADGE PADRE ===== -->
+        </div>
+
+        <div class="hero-copy">
+          <div class="hero-kicker">Sección Padres de la Iglesia · Siglo IV</div>
+          <h1>San Jerónimo</h1>
+          <p>
+            El león de la traducción bíblica (aprox. 347-420 d.C.). Presbítero de temperamento volcánico y el erudito más implacable de la Iglesia antigua. Por mandato del Papa Dámaso I, Jerónimo se retiró a una cueva en Belén para traducir toda la Biblia desde sus lenguas originales (hebreo, arameo y griego) al latín popular, creando la mítica "Vulgata". Su obra dotó a la civilización occidental de la Palabra de Dios y destruye por completo el falso mito protestante de que la Iglesia Católica "ocultó" o "prohibió" la lectura de la Biblia.
+          </p>
+
+          <div class="hero-meta">
+            <div class="meta-item">
+              <span class="meta-label">Ministerio</span>
+              <span class="meta-value">Presbítero, ermitaño en Belén y secretario personal del Papa Dámaso I.</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">Época</span>
+              <span class="meta-value">Aprox. 347 - 420 d.C. Era de la fijación definitiva del Canon Bíblico.</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">Obra principal</span>
+              <span class="meta-value">La "Vulgata" (Traducción de la Biblia) y "De Viris Illustribus".</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">Importancia</span>
+              <span class="meta-value">El mayor filólogo y biblista de la historia cristiana; formó la Biblia occidental.</span>
+            </div>
+          </div>
+
+          <div class="hero-nav">
+            <button class="nav-btn active" data-target="inicio">Inicio</button>
+            <button class="nav-btn" data-target="vida">Vida</button>
+            <button class="nav-btn" data-target="contexto">Contexto</button>
+            <button class="nav-btn" data-target="legado">Legado</button>
+            <!-- Botones más anchos abajo para textos largos -->
+            <button class="nav-btn" data-target="ensenanza" style="flex: 1 1 45%;">Enseñanza (Arsenal Apologético)</button>
+            <button class="nav-btn" data-target="escritos" style="flex: 1 1 45%;">Escritos Inmortales</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+  <!-- ===== FINAL HERO ===== -->
+
+  <!-- ===== INICIO MAIN ===== -->
+  <main class="main-shell">
+    <div class="wrap">
+
+      <!-- ===== INICIO PANEL INICIO ===== -->
+      <section id="panel-inicio" class="content-panel active">
+
+        <div class="section-box">
+          <h2 class="section-title">Panorama Apologético</h2>
+          <p>
+            San Jerónimo es una pieza letal contra el protestantismo. Los evangélicos que hoy se aferran a su Biblia (de 66 libros) ignoran que fue exactamente el trabajo de este monje católico, respaldado por la autoridad de los Concilios Africanos y del Papa, lo que definió y preservó los textos sagrados durante más de mil años antes de que Martín Lutero intentara mutilarlos.
+          </p>
+          <p>
+            Su célebre advertencia: <em>"Ignorar las Escrituras es ignorar a Cristo"</em>, desmiente categóricamente la leyenda negra de que la Iglesia medieval prohibía a los fieles conocer el Evangelio. Jerónimo tradujo la Biblia al "latín vulgar" (la <em>Vulgata</em>) precisamente para que el pueblo común de su tiempo, que ya no hablaba griego ni hebreo, pudiera entender la voz de Dios.
+          </p>
+
+          <div class="stat-grid">
+            <article class="stat-card">
+              <span class="stat-number">23</span>
+              <span class="stat-label">Años enteros dedicó a la traducción monumental de la Vulgata</span>
+            </article>
+
+            <article class="stat-card">
+              <span class="stat-number">Belén</span>
+              <span class="stat-label">La cueva sagrada donde vivió y tradujo junto a la cuna de Cristo</span>
+            </article>
+
+            <article class="stat-card">
+              <span class="stat-number">382 d.C.</span>
+              <span class="stat-label">El Papa Dámaso le ordena revisar y traducir las Escrituras</span>
+            </article>
+
+            <article class="stat-card">
+              <span class="stat-number">73</span>
+              <span class="stat-label">Libros que componen el Canon definitivo de la Biblia Católica</span>
+            </article>
+          </div>
+        </div>
+
+        <div class="section-box">
+          <h3 class="section-subtitle">Hitos Fundamentales</h3>
+          <div class="inicio-grid">
+            <article class="highlight-card">
+              <h4>La Vulgata Latina</h4>
+              <p>Rechazó las traducciones latinas imperfectas de su época (la Vetus Latina) y se fue a vivir a Oriente para aprender el hebreo original de los rabinos. Su traducción es la obra filológica más gigantesca de un solo hombre en la antigüedad.</p>
+            </article>
+
+            <article class="highlight-card">
+              <h4>El Culto a las Reliquias</h4>
+              <p>Destruyó intelectualmente al hereje Vigilancio, quien se burlaba de los católicos por venerar los huesos de los mártires y las reliquias. Jerónimo demostró que honrar los restos de los santos no es adorar huesos, sino venerar templos vivos del Espíritu Santo.</p>
+            </article>
+
+            <article class="highlight-card">
+              <h4>La Defensa de la Virginidad</h4>
+              <p>Pulverizó los argumentos del hereje Joviniano (quien igualaba el matrimonio a la virginidad) y de Helvidio (quien negaba la virginidad perpetua de María). Jerónimo blindó la excelencia de la vida monástica y el celibato consagrado.</p>
+            </article>
+            
+            <article class="highlight-card">
+              <h4>El Secretario Papal</h4>
+              <p>A pesar de su carácter rudo e intolerante con la ignorancia, su inmenso talento fue reconocido por el Papa Dámaso, quien lo convirtió en su secretario personal para resolver las disputas teológicas más espinosas de Roma y el Oriente.</p>
+            </article>
+          </div>
+
+          <div class="cta-row">
+            <a class="cta-link azul" href="https://apologeticaccar.com">Regresar a Apologética Católica</a>
+            <button class="cta-btn dorado" onclick="showPanel('vida')">Entrar a vida →</button>
+          </div>
+        </div>
+
+      </section>
+      <!-- ===== FINAL PANEL INICIO ===== -->
+
+      <!-- ===== INICIO PANEL VIDA ===== -->
+      <section id="panel-vida" class="content-panel">
+
+        <div class="section-box">
+          <h2 class="section-title">Vida: El León de Dalmacia</h2>
+          <p>
+            Eusebio Hierónimo nació en Estridón (Dalmacia, actual Croacia) en el seno de una familia cristiana acomodada. Fue enviado a Roma para estudiar gramática, retórica y filosofía, donde se dejó arrastrar temporalmente por los placeres mundanos, aunque siempre compensaba sus excesos visitando las catacumbas de los mártires los domingos, aterrado por el pensamiento del infierno.
+          </p>
+        </div>
+
+        <div class="section-box">
+          <h3 class="section-subtitle">El Sueño del Ciceroniano y el Desierto</h3>
+          
+          <div class="feature-grid">
+            <article class="feature-card">
+              <h4>El Juicio de Dios en un Sueño</h4>
+              <p>Jerónimo amaba apasionadamente a los autores paganos, especialmente a Cicerón, más que a la Biblia (cuyo estilo le parecía tosco). En el año 374, contrajo una fiebre mortal. En su delirio, soñó que comparecía ante el tribunal de Cristo. Cuando afirmó ser cristiano, el Juez le respondió: <em>"Mientes. Eres ciceroniano, no cristiano. Pues donde está tu tesoro, allí está tu corazón"</em>. Este terrorífico sueño cambió su vida para siempre.</p>
+            </article>
+
+            <article class="feature-card">
+              <h4>La Flagelación de la Carne</h4>
+              <p>Tras su conversión absoluta, huyó al espantoso desierto de Calcis (Siria). Para domar sus violentas tentaciones carnales, se impuso penitencias brutales (golpeándose el pecho con una piedra, como se le representa a menudo) y se obligó a estudiar hebreo (un idioma áspero y difícil) para disciplinar su mente soberbia.</p>
+            </article>
+
+            <article class="feature-card">
+              <h4>El Exilio en la Cueva de Cristo</h4>
+              <p>Tras servir al Papa Dámaso en Roma, sus sarcasmos implacables contra la hipocresía y los lujos de los sacerdotes y las damas romanas le ganaron innumerables enemigos. A la muerte del Papa, fue forzado a abandonar Roma. Se estableció definitivamente en Belén (Tierra Santa), en una cueva adyacente a la Gruta de la Natividad, donde pasó los últimos 34 años de su vida traduciendo la Biblia.</p>
+            </article>
+
+            <article class="feature-card">
+              <h4>Un Santo Difícil</h4>
+              <p>Jerónimo no era un santo "dulce". Tenía un temperamento volcánico, era sarcástico, impaciente y no perdonaba la estupidez teológica. Llegó a insultar duramente a otros grandes santos (como a San Agustín y San Ambrosio) durante disputas exegéticas. Sin embargo, su feroz amor por Cristo y su aplastante honestidad purificaron su alma al fuego vivo.</p>
+            </article>
+          </div>
+
+          <div class="cta-row" style="margin-top: 24px;">
+            <a class="cta-link azul" href="https://apologeticaccar.com">Regresar a Apologética Católica</a>
+            <button class="cta-btn dorado" onclick="showPanel('contexto')">Continuar a contexto →</button>
+          </div>
+        </div>
+
+      </section>
+      <!-- ===== FINAL PANEL VIDA ===== -->
+
+      <!-- ===== INICIO PANEL CONTEXTO ===== -->
+      <section id="panel-contexto" class="content-panel">
+
+        <div class="section-box">
+          <h2 class="section-title">Contexto: El Caos de las Traducciones</h2>
+          <p>
+            En el siglo IV, el cristianismo enfrentaba una crisis masiva de información sagrada. El griego (el idioma original del Nuevo Testamento) estaba dejando de hablarse en Occidente, que ahora usaba el latín. Como no había una traducción oficial, docenas de copistas habían hecho sus propias versiones rudimentarias en latín (conocidas como la <em>Vetus Latina</em>).
+          </p>
+        </div>
+
+        <div class="section-box">
+          <div class="feature-grid">
+            <article class="feature-card">
+              <h4>La Babilonia de los Textos</h4>
+              <p>El Papa Dámaso se dio cuenta de un peligro mortal: las copias latinas circulantes estaban llenas de errores de traducción, omisiones e interpolaciones. <em>"Hay tantas versiones de la Biblia como manuscritos"</em>, se quejaba Jerónimo. Si no se fijaba un texto estándar y preciso, los herejes podrían alterar los versículos para justificar sus doctrinas venenosas.</p>
+            </article>
+
+            <article class="feature-card">
+              <h4>La Autoridad del Papa y el Canon</h4>
+              <p>En el Concilio de Roma (382 d.C.), el Papa Dámaso promulgó la lista oficial (el Canon) de los 73 libros inspirados de la Biblia (incluyendo los 7 deuterocanónicos que los protestantes quitarían mil años después). Inmediatamente, le encomendó a Jerónimo (su secretario) la tarea titánica de tomar esos 73 libros, descartar las copias malas, e ir a las fuentes hebreas y griegas más antiguas para fijar el texto sagrado definitivo para la Iglesia de Occidente.</p>
+            </article>
+          </div>
+
+          <div class="cta-row">
+            <a class="cta-link azul" href="https://apologeticaccar.com">Regresar a Apologética Católica</a>
+            <button class="cta-btn dorado" onclick="showPanel('ensenanza')">Continuar a enseñanza →</button>
+          </div>
+        </div>
+
+      </section>
+      <!-- ===== FINAL PANEL CONTEXTO ===== -->
+
+      <!-- ===== INICIO PANEL ENSEÑANZA ===== -->
+      <section id="panel-ensenanza" class="content-panel">
+
+        <div class="section-box">
+          <h2 class="section-title">Enseñanza: El Arsenal Apologético</h2>
+          <p>
+            San Jerónimo es un baluarte inexpugnable contra la herejía protestante. A quienes atacan a la Iglesia por honrar a los santos, Jerónimo les responde con ironía cortante y teología profunda, demostrando que venerar reliquias es una práctica católica desde el primer siglo.
+          </p>
+          <p>
+            Además, su célebre debate teológico sobre la "Cátedra de Pedro" demuestra que los grandes eruditos de la antigüedad cristiana consideraban absolutamente indispensable estar en sumisión al Obispo de Roma para ser considerado parte de la Iglesia.
+          </p>
+        </div>
+
+        <div class="section-box">
+          <h3 class="section-subtitle">Doctrinas Católicas en el Siglo IV</h3>
+
+          <div class="feature-grid">
+            <article class="feature-card">
+              <h4>1. La Comunión con el Papa</h4>
+              <p><strong>El Arma:</strong> Cuando las herejías destrozaron la unidad en Oriente, Jerónimo (estando en el desierto sirio) no sabía a qué facción unirse. Escribió al Papa Dámaso estableciendo el dogma romano: <em>"Yo no sigo a ningún primado sino a Cristo; por eso estoy en comunión con vuestra beatitud, es decir, con la Cátedra de Pedro. Sé que sobre esa piedra está edificada la Iglesia"</em>.</p>
+            </article>
+
+            <article class="feature-card">
+              <h4>2. La Veneración de las Reliquias</h4>
+              <p><strong>El Arma:</strong> El hereje Vigilancio afirmó (exactamente igual que los protestantes de hoy) que honrar los huesos de los mártires era "idolatría" y adoración de cenizas. Jerónimo lo destrozó: <em>"Nosotros no adoramos las reliquias de los mártires... las veneramos para adorar a Aquel de quien son mártires. Honramos a los siervos para que el honor recaiga sobre el Señor"</em>.</p>
+            </article>
+
+            <article class="feature-card">
+              <h4>3. La Virginidad Perpetua de María</h4>
+              <p><strong>El Arma:</strong> Contra el hereje Helvidio, quien usaba los versículos bíblicos sobre "los hermanos de Jesús" para afirmar que María tuvo más hijos, Jerónimo usó su inmenso conocimiento filológico hebreo y griego. Demostró incontrovertiblemente que en la Biblia el término "hermanos" se usa para primos y parientes cercanos, blindando el dogma <em>Semper Virgo</em>.</p>
+            </article>
+
+            <article class="feature-card">
+              <h4>4. La Intercesión de los Santos</h4>
+              <p><strong>El Arma:</strong> Vigilancio enseñaba que los muertos duermen y no pueden rezar por nosotros. Jerónimo respondió: <em>"Si los Apóstoles y Mártires, estando aún en el cuerpo, podían orar por otros cuando todavía debían preocuparse por sí mismos, ¡cuánto más ahora después de sus coronas, victorias y triunfos!"</em>.</p>
+            </article>
+          </div>
+
+          <div class="cta-row">
+            <a class="cta-link azul" href="https://apologeticaccar.com">Regresar a Apologética Católica</a>
+            <button class="cta-btn dorado" onclick="showPanel('legado')">Continuar a legado →</button>
+          </div>
+        </div>
+
+      </section>
+      <!-- ===== FINAL PANEL ENSEÑANZA ===== -->
+      
+      <!-- ===== INICIO PANEL LEGADO ===== -->
+      <section id="panel-legado" class="content-panel">
+        <div class="section-box">
+          <h2 class="section-title">El Padre de la Biblia Occidental</h2>
+          <p>
+            El legado de San Jerónimo es, literalmente, el libro más importante de la civilización occidental: La Biblia Latina. Su erudición aplastante sentó las bases para el estudio exegético en la Iglesia Católica por el resto de los siglos.
+          </p>
+        </div>
+
+        <div class="section-box">
+          <h3 class="section-subtitle">Las Columnas de su Influencia</h3>
+          <div class="feature-grid">
+            <article class="feature-card">
+              <h4>La Vulgata Latina</h4>
+              <p>La Biblia traducida por Jerónimo (la Vulgata) fue la edición oficial de toda la Iglesia de Occidente durante más de 1,500 años. El Concilio de Trento (siglo XVI) la declaró "auténtica" y libre de error dogmático, y fue el texto a partir del cual se realizaron casi todas las primeras traducciones a los idiomas modernos (inglés, español, francés).</p>
+            </article>
+            
+            <article class="feature-card">
+              <h4>El Primer Historiador de Literatura</h4>
+              <p>Escribió "De Viris Illustribus" (Sobre Hombres Ilustres), una colección de 135 biografías de autores y santos cristianos desde San Pedro hasta su propia época. Este libro probó ante los intelectuales paganos (que acusaban a los cristianos de ser ignorantes) que la Iglesia poseía a los pensadores, filósofos y escritores más brillantes del mundo.</p>
+            </article>
+
+            <article class="feature-card">
+              <h4>El Protector del Canon Católico</h4>
+              <p>Aunque Jerónimo tuvo inicialmente dudas académicas (influenciado por los rabinos judíos de Palestina) sobre los 7 libros Deuterocanónicos (Macabeos, Sabiduría, Tobías, etc.), se sometió con obediencia a la autoridad del Papa Dámaso y de los Concilios Africanos, traduciendo e incluyendo esos libros en la Vulgata. Esto prueba que en el catolicismo, la autoridad del Magisterio de la Iglesia está por encima del juicio privado del mejor erudito.</p>
+            </article>
+          </div>
+
+          <div class="cta-row" style="margin-top: 24px;">
+            <a class="cta-link azul" href="https://apologeticaccar.com">Regresar a Apologética Católica</a>
+            <button class="cta-btn dorado" onclick="showPanel('escritos')">Continuar a escritos →</button>
+          </div>
+        </div>
+      </section>
+      <!-- ===== FINAL PANEL LEGADO ===== -->
+
+      <!-- ===== INICIO PANEL ESCRITOS ===== -->
+      <section id="panel-escritos" class="content-panel">
+
+        <div class="section-box">
+          <h2 class="section-title">Cartas y Tratados Polémicos</h2>
+          <p>
+            A continuación, los pasajes más gloriosos y cortantes de la pluma de San Jerónimo. Observa las armas doctrinales resaltadas en verde oscuro que defienden el Papado, aniquilan la iconoclasia (el rechazo a las reliquias) y protegen el misterio virginal de María.
+          </p>
+        </div>
+
+        <div class="section-box">
+          <div class="accordion">
+
+            <!-- 1. LA CATEDRA DE PEDRO -->
+            <div class="acc-item">
+              <button class="acc-trigger" type="button">
+                <span>Carta 15 al Papa Dámaso (El Primado Romano)</span>
+                <span>+</span>
+              </button>
+              <div class="acc-content">
+                <p>El inmenso teólogo se somete al Papa, declarando que la comunión con Roma es el único criterio seguro de ortodoxia cristiana.</p>
+                <div style="max-height: 400px; overflow-y: auto; padding: 15px; background: rgba(0,0,0,0.03); border-radius: 8px; border: 1px solid rgba(15,51,95,.12); font-size: 0.95rem; line-height: 1.7;">
+                  <p>Como Oriente, destrozado por las facciones, desgarra la túnica inconsútil (sin costuras) del Señor... he decidido que debo consultar a la Cátedra de Pedro, y a aquella fe que fue alabada por los labios del Apóstol (Romanos 1:8).</p>
+                  <p><span style="background-color: #1b4528; color: #ffffff; padding: 2px 6px; border-radius: 4px; font-weight: bold;">No sigo a ningún líder más que a Cristo, y por lo tanto no comulgo con nadie más que con tu Bendición, es decir, con la Cátedra de Pedro. Pues sé que sobre esta piedra está edificada la Iglesia.</span></p>
+                  <p><span style="background-color: #1b4528; color: #ffffff; padding: 2px 6px; border-radius: 4px; font-weight: bold;">Quien come el Cordero fuera de esta casa, es un profano. Si alguien no está en el Arca de Noé, perecerá cuando prevalezca el diluvio.</span></p>
+                  <p>Yo no conozco a Vitalis; rechazo a Melecio; no tengo nada que ver con Paulino (obispos orientales en disputa). Quien no recoge contigo, desparrama; el que no es de Cristo, es del Anticristo.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- 2. LA VENERACIÓN DE RELIQUIAS -->
+            <div class="acc-item">
+              <button class="acc-trigger" type="button">
+                <span>Contra Vigilancio (La Defensa de las Reliquias y los Santos)</span>
+                <span>+</span>
+              </button>
+              <div class="acc-content">
+                <p>Jerónimo tritura el argumento (usado hoy por los evangélicos) de que honrar los restos físicos de los santos es un acto de idolatría.</p>
+                <div style="max-height: 400px; overflow-y: auto; padding: 15px; background: rgba(0,0,0,0.03); border-radius: 8px; border: 1px solid rgba(15,51,95,.12); font-size: 0.95rem; line-height: 1.7;">
+                  <p>Me dices que hay gentes que encienden velas a plena luz del día delante de las tumbas de los mártires y besan el polvo de sus huesos. ¿Acaso el Obispo de Roma hace mal cuando ofrece sacrificios al Señor sobre los venerables huesos —las reliquias, como ustedes los llamarían; yo prefiero llamarlos los "restos"— de Pedro y Pablo?</p>
+                  <p><span style="background-color: #1b4528; color: #ffffff; padding: 2px 6px; border-radius: 4px; font-weight: bold;">Nosotros, ciertamente, no adoramos las reliquias de los mártires; más aún, no adoramos al sol, a la luna, ni a los ángeles, para no servir a la criatura antes que al Creador. Nosotros honramos y veneramos las reliquias de los mártires para adorar a Aquel por quien fueron mártires.</span></p>
+                  <p><span style="background-color: #1b4528; color: #ffffff; padding: 2px 6px; border-radius: 4px; font-weight: bold;">Honramos a los siervos, para que el honor tributado a ellos recaiga sobre el Señor, que dice: "El que os recibe a vosotros, a mí me recibe".</span></p>
+                  <p>Dices en tu libelo que mientras vivimos podemos orar los unos por los otros, pero que una vez muertos ninguna oración será escuchada... Si los Apóstoles y Mártires, mientras estaban aún en la carne, podían orar por otros cuando todavía tenían que cuidarse por sí mismos, ¡cuánto más ahora que ya tienen la corona, la victoria y el triunfo!</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- 3. LA VIRGINIDAD PERPETUA DE MARÍA -->
+            <div class="acc-item">
+              <button class="acc-trigger" type="button">
+                <span>Contra Helvidio (La virginidad perpetua de María)</span>
+                <span>+</span>
+              </button>
+              <div class="acc-content">
+                <p>Jerónimo usa la lingüística bíblica para destrozar la herejía de que María tuvo otros hijos carnales con San José.</p>
+                <div style="max-height: 400px; overflow-y: auto; padding: 15px; background: rgba(0,0,0,0.03); border-radius: 8px; border: 1px solid rgba(15,51,95,.12); font-size: 0.95rem; line-height: 1.7;">
+                  <p>Dices, Helvidio, que el Evangelio menciona a los "hermanos" del Señor, y de ahí concluyes que María tuvo otros hijos. Te responderé brevemente mostrando que en las Sagradas Escrituras hay cuatro maneras de llamar a alguien "hermano": por naturaleza, por nacionalidad, por parentesco y por afecto.</p>
+                  <p><span style="background-color: #1b4528; color: #ffffff; padding: 2px 6px; border-radius: 4px; font-weight: bold;">En cuanto al parentesco, Abraham llamó "hermano" a Lot, aunque Lot era hijo de su hermano (sobrino). Así también la Escritura llama "hermanos del Señor" a sus parientes (primos), según el modismo hebreo de referirse a toda la familia ampliada bajo el mismo término.</span></p>
+                  <p><span style="background-color: #1b4528; color: #ffffff; padding: 2px 6px; border-radius: 4px; font-weight: bold;">Nosotros confesamos no solo que María fue siempre virgen, sino también que el propio José, para ser digno de ser llamado el esposo de María, conservó la virginidad.</span></p>
+                  <p>¿Crees tú, ciego y temerario, que el vientre inmaculado que llevó al Hijo de Dios, el vientre que fue santificado por el Espíritu Santo, iba a ser usado después para nacimientos humanos ordinarios? Afirmar esto es la locura más extrema.</p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="cta-row" style="margin-top: 24px;">
+            <a class="cta-link azul" href="https://apologeticaccar.com">Regresar a Apologética Católica</a>
+            <button class="cta-btn dorado" onclick="showPanel('inicio')">Volver al inicio →</button>
+          </div>
+        </div>
+
+      </section>
+      <!-- ===== FINAL PANEL ESCRITOS ===== -->
+
+    </div>
+  </main>
+  <!-- ===== FINAL MAIN ===== -->
+
+  <script>
+    /* ===== INICIO SCRIPT AISLADO ===== */
+    (function(){
+      const panelNames = ["inicio", "vida", "contexto", "ensenanza", "legado", "escritos"];
+      const mobileMenuToggle = document.getElementById("mobileMenuToggle");
+      const mobileNavPanel = document.getElementById("mobileNavPanel");
+
+      function openMobileMenu(){
+        if(!mobileMenuToggle || !mobileNavPanel) return;
+        mobileMenuToggle.classList.add("active");
+        mobileNavPanel.classList.add("active");
+        mobileMenuToggle.setAttribute("aria-expanded", "true");
+      }
+
+      function closeMobileMenu(){
+        if(!mobileMenuToggle || !mobileNavPanel) return;
+        mobileMenuToggle.classList.remove("active");
+        mobileNavPanel.classList.remove("active");
+        mobileMenuToggle.setAttribute("aria-expanded", "false");
+      }
+
+      function toggleMobileMenu(){
+        if(!mobileNavPanel) return;
+        if(mobileNavPanel.classList.contains("active")){
+          closeMobileMenu();
+        }else{
+          openMobileMenu();
+        }
+      }
+
+      function showPanel(name){
+        panelNames.forEach(panel => {
+          const panelEl = document.getElementById("panel-" + panel);
+          if(panelEl){
+            panelEl.classList.toggle("active", panel === name);
+          }
+          document.querySelectorAll('[data-target="' + panel + '"]').forEach(btnEl => {
+            btnEl.classList.toggle("active", panel === name);
+          });
+        });
+
+        closeMobileMenu();
+
+        const navBar = document.querySelector('.hero-nav');
+        const globalHeader = document.getElementById('accarGlobalHeader'); 
+        
+        if (navBar) {
+          const headerHeight = globalHeader ? globalHeader.offsetHeight : 0;
+          const absoluteY = navBar.getBoundingClientRect().top + window.scrollY;
+          
+          window.scrollTo({
+            top: absoluteY - headerHeight - 10,
+            behavior: "smooth"
+          });
+        }
+      }
+
+      document.querySelectorAll(".nav-btn").forEach(btn => {
+        btn.onclick = function(e) {
+          e.preventDefault();
+          showPanel(this.dataset.target);
+        };
+      });
+
+      document.querySelectorAll(".mobile-nav-btn[data-target]").forEach(btn => {
+        btn.onclick = function(e) {
+          e.preventDefault();
+          showPanel(this.dataset.target);
+        };
+      });
+
+      document.querySelectorAll(".acc-trigger").forEach(trigger => {
+        trigger.onclick = function(e) {
+          e.preventDefault();
+          const item = this.parentElement;
+          const isOpen = item.classList.contains("open");
+
+          document.querySelectorAll(".acc-item").forEach(acc => {
+            acc.classList.remove("open");
+            const symbol = acc.querySelector(".acc-trigger span:last-child");
+            if(symbol) symbol.textContent = "+";
+          });
+
+          if(!isOpen){
+            item.classList.add("open");
+            const symbol = item.querySelector(".acc-trigger span:last-child");
+            if(symbol) symbol.textContent = "−";
+          }
+        };
+      });
+
+      if(mobileMenuToggle){
+        mobileMenuToggle.onclick = function(e){
+          e.preventDefault();
+          toggleMobileMenu();
+        };
+      }
+    })();
+    /* ===== FINAL SCRIPT AISLADO ===== */
+  </script>
+</body>
+</html>
+<!-- ===== FINAL SAN JERÓNIMO ===== -->
