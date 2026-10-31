@@ -24,9 +24,12 @@ export default async function handler(req, res) {
         throw new Error('Error de conexión con la fuente litúrgica: ' + response.status);
     }
 
-    const rawText = await response.text();
+    let rawText = await response.text();
     
-    // EXTRACCIÓN QUIRÚRGICA: Buscamos el inicio y fin exacto del objeto JSON
+    // 1. Aplanador: Reemplazamos los saltos de línea ocultos que rompen el evaluador
+    rawText = rawText.replace(/\r?\n/g, ' ');
+    
+    // 2. Extracción Quirúrgica: Aislamos exclusivamente el bloque de datos
     const startIndex = rawText.indexOf('{');
     const endIndex = rawText.lastIndexOf('}');
     
@@ -34,11 +37,10 @@ export default async function handler(req, res) {
         throw new Error("No se pudo extraer la estructura de datos de Universalis.");
     }
 
-    // Cortamos exclusivamente el JSON puro para evitar tokens inválidos
-    const cleanJsonString = rawText.substring(startIndex, endIndex + 1);
+    const objText = rawText.substring(startIndex, endIndex + 1);
     
-    // Parseo nativo 100% seguro
-    const dayData = JSON.parse(cleanJsonString);
+    // 3. Evaluador Nativo: Procesa el código JavaScript de Universalis tolerando comillas simples
+    const dayData = eval('(' + objText + ')');
 
     let colorTexto = "VERDE";
     if (dayData.color) {
@@ -96,7 +98,7 @@ export default async function handler(req, res) {
           semana: semana, 
           santo: santo, 
           color: colorTexto, 
-          ciclo: "CICLO A", // Datos fijos temporales
+          ciclo: "CICLO A", 
           anio: "AÑO II"
         }
       ],
