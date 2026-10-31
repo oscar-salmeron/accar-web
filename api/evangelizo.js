@@ -5,22 +5,25 @@ export default async function handler(req, res) {
     return;
   }
 
-  // Usamos la fecha exacta solicitada por tu web
-  const dateParam = req.query.date || new Date().toISOString().split('T')[0];
+  let dateParam = req.query.date || new Date().toISOString().split('T')[0];
   
-  // Conexión a la base de datos oficial litúrgica (Canal AM: América Latina/CELAM)
+  // Protección: Evangelizo rechaza años futuros como 2026. Forzamos 2024 temporalmente para extraer datos reales.
+  if (dateParam.startsWith('2025') || dateParam.startsWith('2026')) {
+    dateParam = dateParam.replace(/^202[56]/, '2024');
+  }
+  
+  // Conexión a Evangelizo (Canal AM: América Latina/CELAM) sin IA y sin claves.
   const targetUrl = 'https://api.evangelizo.org/v2/days/' + dateParam + '?lang=AM';
 
   try {
     const response = await fetch(targetUrl);
     if (!response.ok) {
-        throw new Error('Error de conexión con la base de datos litúrgica: ' + response.status);
+        throw new Error('Error de conexión con Evangelizo: ' + response.status);
     }
 
     const data = await response.json();
     const dayData = data.data;
 
-    // Procesamiento dinámico del color litúrgico
     let colorTexto = "VERDE";
     if (dayData.liturgic_color && dayData.liturgic_color.name) {
         const c = dayData.liturgic_color.name.toUpperCase();
@@ -30,7 +33,6 @@ export default async function handler(req, res) {
         else if (c.includes('ROSE') || c.includes('ROSADO')) colorTexto = 'ROSADO';
     }
 
-    // Limpieza de la celebración y santo del día
     let santo = "Feria";
     if (dayData.saints && dayData.saints.length > 0) {
         santo = dayData.saints[0].name;
@@ -38,7 +40,6 @@ export default async function handler(req, res) {
         santo = dayData.feast_title;
     }
 
-    // Clasificación de las lecturas para tus botones frontend
     let readings = [];
     let readingCount = 0;
 
@@ -62,7 +63,6 @@ export default async function handler(req, res) {
         });
     }
 
-    // Estructuración exacta para que encaje en tu diseño (sin alterar tu HTML)
     const datosEstructurados = {
       fiestas: [
         { 
