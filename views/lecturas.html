@@ -50,7 +50,7 @@
         <h1 id="reading-title">Evangelio</h1>
         <h3 id="reading-ref">Conectando con el Leccionario...</h3>
         
-        <!-- Desktop Share Button -->
+        <!-- Botón de compartir en escritorio -->
         <button class="accar-btn-compartir" onclick="shareContent()">
             Compartir lectura
         </button>
@@ -66,6 +66,20 @@
     </main>
 
   </div>
+</div>
+
+<!-- Menú fijo inferior para móviles -->
+<div class="accar-mobile-nav-container">
+    <button class="accar-mobile-share-btn" onclick="shareContent()">
+        Lleva este contenido a más almas <span>^</span>
+    </button>
+    <div class="accar-mobile-menu-scroll" id="lecturas-menu-mobile">
+        <button class="accar-menu-btn active" data-target="evangelio">Evangelio</button>
+        <button class="accar-menu-btn" data-target="primera">1ª Lectura</button>
+        <button class="accar-menu-btn" data-target="salmo">Salmo</button>
+        <button class="accar-menu-btn" data-target="segunda" id="btn-segunda-mobile" style="display: none;">2ª Lectura</button>
+        <button class="accar-menu-btn" data-target="reflexion" id="btn-reflexion-mobile" style="display: none;">Reflexión</button>
+    </div>
 </div>
 
 <!-- Mobile Sticky Nav Container -->
@@ -244,7 +258,7 @@
   padding-bottom: 30px;
 }
 
-/* Compartir Button Desktop */
+/* Estilo del Botón Compartir Escritorio */
 .accar-btn-compartir {
   background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
   color: white;
@@ -290,18 +304,22 @@
 }
 @keyframes spin { 100% { transform: rotate(360deg); } }
 
-/* Mobile Sticky Bottom Bar */
+/* Ocultar barra inferior en escritorio */
 .accar-mobile-nav-container {
     display: none;
 }
 
-/* Responsivo */
+/* Responsivo y Barra Móvil */
 @media (max-width: 900px) {
+  .accar-lecturas-view {
+    padding-bottom: 140px; /* Evita que el contenido quede tapado por el menú inferior */
+  }
+
   .accar-lecturas-inner {
     grid-template-columns: 1fr;
   }
   
-  /* Escondemos el menu "Que quieres leer" original en sidebar */
+  /* Oculta el menú lateral izquierdo original "¿Qué quieres leer?" */
   .accar-sidebar-box:nth-child(3) {
       display: none;
   }
@@ -310,11 +328,12 @@
     padding: 30px 20px;
   }
   
+  /* Oculta botón de compartir de escritorio */
   .accar-btn-compartir {
-      display: none; /* Hide desktop share btn on mobile */
+      display: none; 
   }
 
-  /* Show Sticky Mobile Nav */
+  /* Muestra el menú fijo inferior */
   .accar-mobile-nav-container {
       display: flex;
       flex-direction: column;
@@ -322,7 +341,7 @@
       bottom: 0;
       left: 0;
       width: 100%;
-      background: #1a1a2e; /* Dark matching background */
+      background: #1a1a2e;
       z-index: 1000;
       border-top: 1px solid rgba(255,255,255,0.1);
       box-shadow: 0 -5px 20px rgba(0,0,0,0.5);
@@ -344,7 +363,7 @@
   }
   
   .accar-mobile-share-btn span {
-      background: #8b5cf6; /* Purple circle */
+      background: #8b5cf6; 
       color: white;
       width: 20px;
       height: 20px;
@@ -360,7 +379,6 @@
       overflow-x: auto;
       padding: 15px;
       gap: 10px;
-      /* Hide scrollbar */
       scrollbar-width: none; 
       -ms-overflow-style: none;  
   }
@@ -387,6 +405,36 @@
 </style>
 
 <script>
+// Función para Compartir
+function shareContent() {
+    const title = document.getElementById('reading-title').textContent;
+    const ref = document.getElementById('reading-ref').textContent;
+    
+    const tempDiv = document.createElement('div');
+    tempDiv.innerHTML = document.getElementById('reading-text').innerHTML;
+    let textBody = tempDiv.textContent || tempDiv.innerText || "";
+    
+    if (textBody.length > 300) {
+        textBody = textBody.substring(0, 300) + '...';
+    }
+
+    const shareData = {
+        title: `ACCAR - ${title}`,
+        text: `*${title}*\n${ref}\n\n${textBody}\n\nLee completa en:`,
+        url: window.location.href, 
+    };
+
+    if (navigator.share) {
+        navigator.share(shareData)
+            .then(() => console.log('Contenido compartido con éxito'))
+            .catch((error) => console.log('Error al compartir', error));
+    } else {
+        navigator.clipboard.writeText(`${shareData.text} ${shareData.url}`)
+            .then(() => alert('¡Enlace y lectura copiados al portapapeles!'))
+            .catch(err => console.error('Error al copiar texto: ', err));
+    }
+}
+
 (async function initLecturas() {
   const opcionesFecha = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
   let fechaHoyTexto = new Date().toLocaleDateString('es-ES', opcionesFecha);
@@ -397,7 +445,6 @@
   const mes = String(hoy.getMonth() + 1).padStart(2, '0');
   const dia = String(hoy.getDate()).padStart(2, '0');
   
-  // Ya no hackeamos el año. Enviamos la fecha real exacta.
   const anioAPI = hoy.getFullYear();
   const dateAPI = `${anioAPI}-${mes}-${dia}`;
   
@@ -421,9 +468,9 @@
   const colorTarget = document.getElementById('lecturas-color-badge');
   const cicloTarget = document.getElementById('badge-ciclo');
   const anioTarget = document.getElementById('badge-anio');
+  
   const botones = document.querySelectorAll('.accar-menu-btn');
   
-  // Mapeo dinámico: Ahora solo cambia el color del texto y el punto
   const coloresLiturgicos = {
     "VERDE": "#2cb67d",
     "BLANCO": "#ffffff",
@@ -443,14 +490,19 @@
     const data = JSON.parse(rawText);
 
     if(data.fiestas && data.fiestas.length > 0) {
-      // Inyectar textos separados
-      if(semanaTarget) semanaTarget.textContent = data.fiestas[0].semana || '';
+      
+      // Limpiamos "Celebramos"
+      let semanaLimpia = data.fiestas[0].semana || '';
+      if(semanaLimpia.includes('Lecturas y Evangelio de la\n')) {
+          semanaLimpia = semanaLimpia.replace('Lecturas y Evangelio de la\n', '');
+      }
+
+      if(semanaTarget) semanaTarget.textContent = semanaLimpia;
       if(santoTarget) santoTarget.textContent = data.fiestas[0].santo || '';
       
       const colorTexto = (data.fiestas[0].color || 'VERDE').toUpperCase();
       colorTarget.textContent = colorTexto;
       
-      // Aplicar color únicamente a la palabra del color y su punto
       if (coloresLiturgicos[colorTexto]) {
         colorTarget.style.color = coloresLiturgicos[colorTexto];
       }
@@ -472,11 +524,13 @@
           liturgiaData.segunda.ref = reading.title; 
           liturgiaData.segunda.texto = htmlText;
           document.getElementById('btn-segunda').style.display = 'block'; 
+          document.getElementById('btn-segunda-mobile').style.display = 'block'; 
         }
         else if (reading.type === 'RE') { 
           liturgiaData.reflexion.ref = reading.title; 
           liturgiaData.reflexion.texto = htmlText;
           document.getElementById('btn-reflexion').style.display = 'block'; 
+          document.getElementById('btn-reflexion-mobile').style.display = 'block'; 
         }
       });
       apiExitosa = true;
@@ -500,12 +554,23 @@
   if (apiExitosa) {
     botones.forEach(btn => {
       btn.addEventListener('click', (e) => {
+        const target = e.target.getAttribute('data-target');
+        
+        // Quita 'active' de todos los botones
         botones.forEach(b => b.classList.remove('active'));
-        e.target.classList.add('active');
-        renderReading(e.target.getAttribute('data-target'));
+        
+        // Sincroniza el botón de escritorio y el de móvil
+        document.querySelectorAll(`.accar-menu-btn[data-target="${target}"]`).forEach(b => b.classList.add('active'));
+        
+        renderReading(target);
+        
+        // Efecto visual: Sube al tope si estamos en móvil para ver la lectura
+        if (window.innerWidth <= 900) {
+           document.querySelector('.accar-lecturas-content').scrollIntoView({ behavior: 'smooth' });
+        }
       });
     });
-    renderReading('evangelio');
+    renderReading('evangelio'); // Carga el Evangelio por defecto
   }
 })();
 </script>
