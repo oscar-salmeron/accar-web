@@ -6,9 +6,8 @@ export default async function handler(req, res) {
   }
 
   const dateParam = req.query.date || new Date().toISOString().split('T')[0];
-  
-  // Apuntamos al portal tradicional que expone el texto crudo en su código fuente
-  const targetUrl = `https://www.ciudadredonda.org/calendario-lecturas/evangelio-del-dia/?f=${dateParam}`;
+  // Regresamos a tu fuente preferida, ahora con el extractor calibrado al milímetro
+  const targetUrl = `https://evangelizacion.org.mx/evangelio-de-hoy/?date=${dateParam}`;
 
   try {
     const response = await fetch(targetUrl, {
@@ -20,12 +19,16 @@ export default async function handler(req, res) {
     });
 
     if (!response.ok) {
-        throw new Error('Error al conectar con la fuente litúrgica.');
+        throw new Error('Error de red al conectar con la fuente.');
     }
 
     const htmlCrudo = await response.text();
 
-    // 1. DESTRUCCIÓN DEL ENTORNO: Borramos encabezados, scripts y menús para evitar palabras basura
+    // 1. EXTRAER LA SEMANA: Capturamos el título principal (Ej: "Evangelio y Lecturas del Sábado...")
+    let tituloEventoMatch = htmlCrudo.match(/<h1[^>]*>([^<]+)<\/h1>/i);
+    let semanaInfo = tituloEventoMatch ? tituloEventoMatch[1].trim() : "Tiempo Ordinario";
+
+    // 2. DESTRUIR BASURA Y APLANAR TEXTO
     let bodyHtml = htmlCrudo
         .replace(/<head[^>]*>[\s\S]*?<\/head>/gi, '')
         .replace(/<nav[^>]*>[\s\S]*?<\/nav>/gi, '')
@@ -34,53 +37,85 @@ export default async function handler(req, res) {
         .replace(/<script[^>]*>[\s\S]*?<\/script>/gi, '')
         .replace(/<style[^>]*>[\s\S]*?<\/style>/gi, '');
 
-    // 2. CONVERSIÓN A TEXTO PLANO
     let textoPlano = bodyHtml
         .replace(/<\/(div|p|h[1-6]|li|article|section)>/gi, '\n\n')
         .replace(/<br\s*\/?>/gi, '\n')
-        .replace(/<[^>]+>/g, '') // Elimina etiquetas restantes
+        .replace(/<[^>]+>/g, '')
         .replace(/&nbsp;/gi, ' ')
-        .replace(/&aacute;/gi, 'á').replace(/&eacute;/gi, 'é').replace(/&iacute;/gi, 'í').replace(/&oacute;/gi, 'ó').replace(/&uacute;/gi, 'ú').replace(/&ntilde;/gi, 'ñ')
-        .replace(/&[#a-z0-9]+;/gi, ''); // Borra entidades HTML extrañas
+        .replace(/&aacute;/gi, 'á').replace(/&eacute;/gi, 'é').replace(/&iacute;/gi, 'í')
+        .replace(/&oacute;/gi, 'ó').replace(/&uacute;/gi, 'ú').replace(/&ntilde;/gi, 'ñ')
+        .replace(/&[#a-z0-9]+;/gi, '');
 
-    textoPlano = textoPlano.replace(/[ \t]+/g, ' ').replace(/\n\s*\n/g, '\n\n').trim();
+    // Convertimos el texto en una lista de líneas individuales
+    let paragraphs = textoPlano.split('\n')
+        .map(p => p.trim())
+        .filter(p => p.length > 0);
 
-    // 3. EXTRACCIÓN QUIRÚRGICA: Calibrada para la estructura de Ciudad Redonda
-    const extraerSeccion = (texto, regexInicioStr, limitesFinStr) => {
-        const regexInicio = new RegExp(`(^|\\n)\\s*${regexInicioStr}.*?\\n`, 'i');
-        const match = texto.match(regexInicio);
-        if (!match) return null;
-
-        const inicio = match.index + match[0].length;
-        let fin = texto.length;
-
-        for (const limite of limitesFinStr) {
-            const regexLimite = new RegExp(`(^|\\n)\\s*${limite}`, 'i');
-            const matchLimite = texto.substring(inicio).match(regexLimite);
-            if (matchLimite) {
-                const posibleFin = inicio + matchLimite.index;
-                if (posibleFin < fin) fin = posibleFin;
+    // 3. EXTRAER EL SANTO: Buscamos desde abajo hacia arriba la línea descriptiva del día
+    let santoInfo = "Santo del Día";
+    for (let i = paragraphs.length - 1; i >= 0; i--) {
+        let p = paragraphs[i];
+        if ((p.includes("Semana") || p.includes("Memoria") || p.includes("Fiesta") || p.includes("Solemnidad")) && p.includes(".")) {
+            if (p.length < 150 && !p.includes("Evangelio")) {
+                santoInfo = p;
+                break;
             }
         }
+    }
 
-        let contenido = texto.substring(inicio, fin).trim();
-        return contenido.replace(/\n\n/g, '<br><br>').replace(/\n/g, '<br>');
+    // 4. MOTOR QUIRÚRGICO DE LECTURAS
+    const extractReading = (headerName) => {
+        let idx = -1;
+        // Buscamos dónde está exactamente la cabecera (Primera Lectura, Salmo, etc.)
+        for (let i = 0; i < paragraphs.length; i++) {
+            let p = paragraphs[i].toUpperCase();
+            if (p === headerName.toUpperCase() || (headerName === "SALMO" && p.includes("SALMO"))) {
+                idx = i;
+                break;
+            }
+        }
+        if (idx === -1) return null;
+
+        // ¡EL TRUCO!: La línea inmediatamente después de la cabecera es la CITA, la mandamos al Header (title)
+        let title = paragraphs[idx + 1];
+        let textArr = [];
+
+        // Palabras de freno para dejar de copiar el cuerpo del texto
+        let stops = ["PALABRA DE DIOS", "PALABRA DEL SEÑOR", "PRIMERA LECTURA", "SEGUNDA LECTURA", "SALMO", "EVANGELIO", "COMPARTIR ESTE EVENTO", "CALENDARIO"];
+
+        // Copiamos el texto párrafo por párrafo hasta toparnos con una palabra de freno
+        for (let i = idx + 2; i < paragraphs.length; i++) {
+            let p = paragraphs[i];
+            if (stops.some(s => p.toUpperCase().includes(s))) {
+                break;
+            }
+            textArr.push(p);
+        }
+
+        return {
+            title: title,
+            // Unimos todos los párrafos con el doble salto de línea que solicitaste
+            text: textArr.join('<br><br>')
+        };
     };
 
-    // Palabras clave de búsqueda adaptadas a la nueva fuente
-    const primeraLectura = extraerSeccion(textoPlano, '(?:Primera lectura|Lectura del libro)', ['Salmo', 'Evangelio', 'Segunda lectura']);
-    const salmo = extraerSeccion(textoPlano, '(?:Salmo responsorial|Salmo)', ['Evangelio', 'Segunda lectura']);
-    const evangelio = extraerSeccion(textoPlano, '(?:Evangelio)', ['Comentario', 'Homilía', 'Reflexión', 'Copyright']);
+    // Ejecutamos la cirugía
+    const primeraLectura = extractReading("Primera Lectura");
+    const segundaLectura = extractReading("Segunda Lectura");
+    const salmo = extractReading("Salmo");
+    const evangelio = extractReading("Evangelio");
 
     let readings = [];
 
-    if (primeraLectura) readings.push({ type: 'FR', title: "Primera Lectura", text: primeraLectura });
-    if (salmo) readings.push({ type: 'PS', title: "Salmo Responsorial", text: salmo });
+    // Empaquetamos las lecturas listas para el frontend
+    if (primeraLectura) readings.push({ type: 'FR', title: primeraLectura.title, text: primeraLectura.text });
+    if (salmo) readings.push({ type: 'PS', title: salmo.title, text: salmo.text });
+    if (segundaLectura) readings.push({ type: 'SR', title: segundaLectura.title, text: segundaLectura.text });
     
     if (evangelio) {
-        readings.push({ type: 'GSP', title: "Evangelio", text: evangelio });
+        readings.push({ type: 'GSP', title: evangelio.title, text: evangelio.text });
     } else {
-        readings.push({ type: 'GSP', title: "Evangelio", text: "No se pudo extraer el texto de la nueva fuente estática. Es posible que no haya lecturas disponibles para esta fecha." });
+        readings.push({ type: 'GSP', title: "Evangelio no encontrado", text: "No se pudo aislar el texto de la base de datos." });
     }
 
     readings.push({
@@ -92,8 +127,8 @@ export default async function handler(req, res) {
     const datosEstructurados = {
       fiestas: [
         { 
-          semana: "Tiempo Ordinario", 
-          santo: "Santo del Día", 
+          semana: semanaInfo, 
+          santo: santoInfo, 
           color: "VERDE", 
           ciclo: "CICLO A", 
           anio: "AÑO II"
