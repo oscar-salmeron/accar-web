@@ -6,7 +6,9 @@ export default async function handler(req, res) {
   }
 
   const dateParam = req.query.date || new Date().toISOString().split('T')[0];
-  const targetUrl = `https://evangelizacion.org.mx/evangelio-de-hoy/?date=${dateParam}`;
+  
+  // VOLVEMOS A CIUDAD REDONDA (La fuente que sí te funcionó y no tiene bloqueos)
+  const targetUrl = `https://www.ciudadredonda.org/calendario-lecturas/evangelio-del-dia/?f=${dateParam}`;
 
   try {
     const response = await fetch(targetUrl, {
@@ -16,76 +18,87 @@ export default async function handler(req, res) {
       }
     });
 
-    if (!response.ok) throw new Error('Error al conectar.');
+    if (!response.ok) throw new Error('Error al conectar con la fuente.');
 
     const htmlCrudo = await response.text();
 
-    // 1. Limpieza estricta de menús y scripts ANTES de tocar el texto
+    // 1. Limpieza básica para borrar código oculto
     let bodyHtml = htmlCrudo
         .replace(/<head[^>]*>[\s\S]*?<\/head>/gi, '')
         .replace(/<nav[^>]*>[\s\S]*?<\/nav>/gi, '')
         .replace(/<header[^>]*>[\s\S]*?<\/header>/gi, '')
         .replace(/<footer[^>]*>[\s\S]*?<\/footer>/gi, '')
         .replace(/<script[^>]*>[\s\S]*?<\/script>/gi, '')
-        .replace(/<style[^>]*>[\s\S]*?<\/style>/gi, '')
-        .replace(/<form[^>]*>[\s\S]*?<\/form>/gi, '');
+        .replace(/<style[^>]*>[\s\S]*?<\/style>/gi, '');
 
-    // 2. Convertimos TODO a un texto plano continuo
+    // Convertimos a texto leyendo los saltos de línea de la página original
     let textoPlano = bodyHtml
         .replace(/<\/(div|p|h[1-6]|li|article|section)>/gi, '\n')
         .replace(/<br\s*\/?>/gi, '\n')
         .replace(/<[^>]+>/g, '')
         .replace(/&nbsp;/gi, ' ')
-        .replace(/&[a-z]+;/gi, ''); // Borra entidades raras
+        .replace(/&aacute;/gi, 'á').replace(/&eacute;/gi, 'é').replace(/&iacute;/gi, 'í')
+        .replace(/&oacute;/gi, 'ó').replace(/&uacute;/gi, 'ú').replace(/&ntilde;/gi, 'ñ')
+        .replace(/&[#a-z0-9]+;/gi, '');
 
-    // Colapsamos los múltiples saltos de línea en uno solo para que sea fácil de leer
-    textoPlano = textoPlano.replace(/\r/g, '').replace(/[ \t]+/g, ' ').replace(/\n\s*\n/g, '\n').trim();
+    // Separamos en un arreglo de líneas limpias
+    let lineas = textoPlano.split('\n').map(l => l.trim()).filter(l => l.length > 0);
 
-    // 3. LIMPIEZA DE "CELEBRAMOS"
+    // 2. EXTRACCIÓN DE SEMANA Y SANTO EXACTOS
     let semanaInfo = "Tiempo Ordinario";
-    let semanaMatch = textoPlano.match(/(?:Semana|Tiempo Ordinario|Pascua|Cuaresma|Adviento)[^\n]*/i);
-    if (semanaMatch) {
-        semanaInfo = semanaMatch[0].trim();
-        // Borramos el texto duplicado "Ciclo A Año II Color Verde" si la página web origen lo incrusta aquí
-        semanaInfo = semanaInfo.replace(/Ciclo[\s\S]*?Color:\s*[A-Za-z]+/i, '').trim();
+    let santoInfo = "Santo del Día";
+
+    // Buscamos la línea final descriptiva (Ej: "Sábado de la XXX Semana del Tiempo Ordinario. Santa María en sábado")
+    for (let i = lineas.length - 1; i >= 0; i--) {
+        let l = lineas[i];
+        if ((l.includes("Semana") || l.includes("Domingo") || l.includes("Tiempo")) && l.includes(".")) {
+            let partes = l.split('.');
+            semanaInfo = partes[0].trim();
+            santoInfo = partes.slice(1).join('.').trim();
+            break;
+        }
     }
 
-    let santoInfo = "Santo del Día";
-    let santoMatch = textoPlano.match(/Santo del día:[^\n]*/i);
-    if (santoMatch) santoInfo = santoMatch[0].replace(/Santo del día:/i, '').trim();
+    // 3. BISTURÍ DIGITAL PARA SEPARAR LECTURAS
+    const extraerLectura = (tituloBuscado, palabrasParada) => {
+        // Busca exactamente la palabra "Primera Lectura", "Salmo" o "Evangelio"
+        let idx = lineas.findIndex(l => l.toUpperCase() === tituloBuscado.toUpperCase());
+        if (idx === -1) return null;
 
-    // 4. EXTRACTOR DE BLOQUE GIGANTE (Infalible)
-    const extraerBloque = (regexInicio, regexFin) => {
-        let matchInicio = textoPlano.match(regexInicio);
-        if (!matchInicio) return null;
+        // La línea que le sigue es la cita (Ej: "Lectura de la carta del apóstol...")
+        let cita = lineas[idx + 1];
+        let texto = [];
 
-        let inicioStr = matchInicio.index + matchInicio[0].length;
-        let restoDelTexto = textoPlano.substring(inicioStr).trim();
+        // Extrae los párrafos hasta topar con la siguiente lectura o el final
+        for (let i = idx + 2; i < lineas.length; i++) {
+            let l = lineas[i];
+            let lUpper = l.toUpperCase();
 
-        let matchFin = restoDelTexto.match(regexFin);
-        let seccionCruda = matchFin ? restoDelTexto.substring(0, matchFin.index) : restoDelTexto;
+            if (palabrasParada.some(p => lUpper === p.toUpperCase())) break;
+            
+            // Freno final oficial
+            if (lUpper.includes("PALABRA DE DIOS") || lUpper.includes("PALABRA DEL SEÑOR")) {
+                texto.push(l);
+                break;
+            }
+            texto.push(l);
+        }
 
-        // Cortamos el texto justo antes de que empiece la publicidad de suscripciones
-        seccionCruda = seccionCruda.split(/(Recibir por email|Suscríbete|Lleva este contenido|Compartir este evento)/i)[0].trim();
-
-        if (!seccionCruda) return null;
-
-        // La primera línea será la cita, el resto es el texto separado por párrafos
-        let lineas = seccionCruda.split('\n').map(l => l.trim()).filter(l => l.length > 0);
         return {
-            title: lineas[0],
-            text: lineas.slice(1).join('<br><br>')
+            title: cita,
+            text: texto.join('<br><br>') // Une los párrafos con el doble espacio
         };
     };
 
-    // Cortamos los bloques exactamente entre sus títulos
-    const primeraLectura = extraerBloque(/\bPrimera Lectura\b/i, /\bSalmo(?: Responsorial)?\b/i);
-    const salmo = extraerBloque(/\bSalmo(?: Responsorial)?\b/i, /\b(?:Evangelio|Segunda Lectura)\b/i);
-    const evangelio = extraerBloque(/\bEvangelio\b/i, /\b(?:Reflexión|Credo|Oración|Palabra del Señor)\b/i);
+    const primeraLectura = extraerLectura("Primera Lectura", ["Salmo"]);
+    const salmo = extraerLectura("Salmo", ["Evangelio", "Segunda Lectura"]);
+    const segundaLectura = extraerLectura("Segunda Lectura", ["Evangelio", "Salmo"]);
+    const evangelio = extraerLectura("Evangelio", ["Compartir este evento", "Calendario", "Evangelio de mañana"]);
 
     let readings = [];
     if (primeraLectura) readings.push({ type: 'FR', title: primeraLectura.title, text: primeraLectura.text });
     if (salmo) readings.push({ type: 'PS', title: salmo.title, text: salmo.text });
+    if (segundaLectura) readings.push({ type: 'SR', title: segundaLectura.title, text: segundaLectura.text });
     if (evangelio) readings.push({ type: 'GSP', title: evangelio.title, text: evangelio.text });
 
     readings.push({
