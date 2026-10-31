@@ -24,27 +24,30 @@ export default async function handler(req, res) {
         throw new Error('Error de conexión con la fuente litúrgica: ' + response.status);
     }
 
-    let rawText = await response.text();
+    const rawText = await response.text();
     
-    // Limpiador agresivo: Quita la función envoltorio y escapa caracteres problemáticos invisibles
-    rawText = rawText.replace(/^universalisCallback\(/, '').replace(/\);?$/, '').trim();
-    // Limpiamos comillas dobles no escapadas dentro de las lecturas que rompen el JSON
-    rawText = rawText.replace(/\\"/g, "'").replace(/(?<!\\)"/g, '\\"').replace(/^\\"/, '"').replace(/\\"$/, '"'); 
-    // Aseguramos formato JSON válido mediante Regex antes del parseo profundo
-    const jsonMatch = rawText.match(/\{[\s\S]*\}/);
-    if (!jsonMatch) throw new Error("Formato devuelto incomprensible");
+    // EXTRACCIÓN QUIRÚRGICA: Buscamos el inicio y fin exacto del objeto JSON
+    const startIndex = rawText.indexOf('{');
+    const endIndex = rawText.lastIndexOf('}');
+    
+    if (startIndex === -1 || endIndex === -1) {
+        throw new Error("No se pudo extraer la estructura de datos de Universalis.");
+    }
 
-    // Convertimos el texto sanitizado
-    const dayData = new Function("return " + jsonMatch[0])();
+    // Cortamos exclusivamente el JSON puro para evitar tokens inválidos
+    const cleanJsonString = rawText.substring(startIndex, endIndex + 1);
+    
+    // Parseo nativo 100% seguro
+    const dayData = JSON.parse(cleanJsonString);
 
     let colorTexto = "VERDE";
     if (dayData.color) {
         const c = dayData.color.toUpperCase();
-        if (c.includes('WHITE')) colorTexto = 'BLANCO';
-        else if (c.includes('RED')) colorTexto = 'ROJO';
-        else if (c.includes('PURPLE') || c.includes('VIOLET')) colorTexto = 'MORADO';
-        else if (c.includes('ROSE')) colorTexto = 'ROSADO';
-        else if (c.includes('GREEN')) colorTexto = 'VERDE';
+        if (c.includes('WHITE') || c.includes('BLANCO')) colorTexto = 'BLANCO';
+        else if (c.includes('RED') || c.includes('ROJO')) colorTexto = 'ROJO';
+        else if (c.includes('PURPLE') || c.includes('VIOLET') || c.includes('MORADO')) colorTexto = 'MORADO';
+        else if (c.includes('ROSE') || c.includes('ROSADO')) colorTexto = 'ROSADO';
+        else if (c.includes('GREEN') || c.includes('VERDE')) colorTexto = 'VERDE';
     }
 
     const santo = dayData.day || "Feria";
@@ -93,7 +96,7 @@ export default async function handler(req, res) {
           semana: semana, 
           santo: santo, 
           color: colorTexto, 
-          ciclo: "CICLO A", 
+          ciclo: "CICLO A", // Datos fijos temporales
           anio: "AÑO II"
         }
       ],
