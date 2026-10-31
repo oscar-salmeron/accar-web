@@ -20,80 +20,92 @@ export default async function handler(req, res) {
 
     const htmlCrudo = await response.text();
 
+    // 1. Aislar solo el contenido útil para evitar leer menús
     let main = htmlCrudo.split('<main')[1] || htmlCrudo;
     main = main.split('</main>')[0] || main;
 
+    // 2. Limpieza total de HTML, convirtiendo bloques en saltos de línea
     let texto = main
-        .replace(/<\/(p|div|h[1-6]|li|article|section)>/gi, ' ')
-        .replace(/<br\s*\/?>/gi, ' ')
+        .replace(/<\/(p|div|h[1-6]|li|article|section)>/gi, '\n\n')
+        .replace(/<br\s*\/?>/gi, '\n\n')
         .replace(/<[^>]+>/g, '') 
         .replace(/&nbsp;/gi, ' ')
         .replace(/&aacute;/gi, 'á').replace(/&eacute;/gi, 'é').replace(/&iacute;/gi, 'í')
         .replace(/&oacute;/gi, 'ó').replace(/&uacute;/gi, 'ú').replace(/&ntilde;/gi, 'ñ')
         .replace(/&[a-zA-Z]+;/gi, '');
 
-    // Limpiamos los espacios dobles para tener texto fluido
-    texto = texto.replace(/\s{2,}/g, ' ').trim();
+    // 3. Crear un arreglo de párrafos limpios
+    let lineas = texto.split('\n').map(l => l.trim()).filter(l => l.length > 0);
 
-    // ESTILO GRAMATICAL: Rompe el bloque sólido en párrafos elegantes después de los puntos.
-    const formatearEstructura = (parrafo) => {
-        if (!parrafo) return "";
-        // Busca una palabra, seguida de puntuación (., .», ?!, etc.), un espacio y una letra mayúscula
-        return parrafo.replace(/([a-záéíóúñ]{2,}[.»”?!]{1,2})\s+(?=[A-ZÁÉÍÓÚÑ¿¡])/gi, (match, p1) => {
-            return p1 + '<br><br>';
-        });
-    };
-
-    let lineas = texto.split(/(?=Primera Lectura|Salmo|Segunda Lectura|Evangelio|Comentario al Evangelio)/i);
-
-    // CELEBRAMOS: Tres filas estrictas con salto de texto nativo (\n) para evitar que salgan códigos raros en pantalla
+    // 4. SECCIÓN CELEBRAMOS (Formato estricto de filas sin etiquetas HTML)
     let semanaFinal = "Lecturas y Evangelio de la\nTiempo Ordinario";
     let santoFinal = "Santo del Día";
 
-    let textoGlobal = lineas[0] || texto;
-    let infoMatch = textoGlobal.match(/([IVXLCDM]+\s+Semana\s+del\s+Tiempo\s+Ordinario|Domingo[^\.]+)\.\s*(.*)/i);
-    
-    if (infoMatch) {
-        semanaFinal = `Lecturas y Evangelio de la\n${infoMatch[1].trim()}`;
-        santoFinal = infoMatch[2].trim() || "Feria";
+    let infoIdx = lineas.findIndex(l => (l.includes("Semana") || l.includes("Domingo")) && l.includes("."));
+    if (infoIdx !== -1) {
+        let partes = lineas[infoIdx].split('.');
+        let rawSemana = partes[0].trim();
+        santoFinal = partes.slice(1).join('.').trim() || "Feria";
+
+        // Extraer exactamente el número romano y la semana
+        let match = rawSemana.match(/[IVXLCDM]+\s+Semana\s+del\s+Tiempo\s+Ordinario/i);
+        if (match) {
+            semanaFinal = `Lecturas y Evangelio de la\n${match[0]}`;
+        } else {
+            semanaFinal = `Lecturas y Evangelio de la\n${rawSemana}`;
+        }
     }
 
-    const extraerSeccion = (tituloExacto) => {
-        let bloque = lineas.find(l => l.trim().toUpperCase().startsWith(tituloExacto.toUpperCase()));
-        if (!bloque) return null;
+    // 5. EXTRACTOR QUIRÚRGICO (Búsqueda por línea idéntica para no confundir títulos)
+    const extraerLectura = (tituloExacto, paradas) => {
+        let idx = lineas.findIndex(l => l.toUpperCase() === tituloExacto.toUpperCase());
+        if (idx === -1) return null;
 
-        let partes = bloque.split(':');
-        let tituloCita = partes[0].trim();
-        let contenido = partes.slice(1).join(':').trim();
-        
-        // Freno oficial
-        let textoLimpio = contenido.split(/Palabra de Dios|Palabra del Señor|Liturgia|Calendario|Síguenos/i)[0].trim();
+        let cita = lineas[idx + 1];
+        let parrafos = [];
+
+        for (let i = idx + 2; i < lineas.length; i++) {
+            let lUpper = lineas[i].toUpperCase();
+
+            // Si choca con otra sección, corta.
+            if (paradas.some(p => lUpper === p.toUpperCase() || lUpper.includes(p.toUpperCase()))) {
+                break;
+            }
+
+            // Si encuentra el cierre natural, lo guarda y corta.
+            if (lUpper.includes("PALABRA DE DIOS") || lUpper.includes("PALABRA DEL SEÑOR")) {
+                parrafos.push(lineas[i]);
+                break;
+            }
+
+            parrafos.push(lineas[i]);
+        }
 
         return {
-            title: tituloCita,
-            text: formatearEstructura(textoLimpio)
+            title: cita,
+            text: parrafos.join('<br><br>') // Esto garantiza la separación de párrafos en el frontend
         };
     };
 
-    const primeraLectura = extraerSeccion("Primera Lectura");
-    const salmo = extraerSeccion("Salmo");
-    const segundaLectura = extraerSeccion("Segunda Lectura");
-    const evangelio = extraerSeccion("Evangelio");
-    const reflexion = extraerSeccion("Comentario al Evangelio");
+    const primeraLectura = extraerLectura("Primera Lectura", ["Salmo"]);
+    const salmo = extraerLectura("Salmo", ["Evangelio", "Segunda Lectura"]);
+    const evangelio = extraerLectura("Evangelio", ["Comentario al Evangelio", "Liturgia", "Calendario"]);
+    const reflexion = extraerLectura("Comentario al Evangelio", ["Liturgia", "Calendario", "Síguenos"]);
 
-    // Corrección estricta del título del Salmo
+    // 6. CORRECCIONES FINALES DE TEXTO
     if (salmo && salmo.title) {
-        salmo.title = salmo.title.replace(/^Sal(?:mo)?\s*/i, 'Salmo responsorial ');
+        salmo.title = salmo.title.replace(/^Sal\s+/i, 'Salmo responsorial ');
     }
 
     let readings = [];
     if (primeraLectura) readings.push({ type: 'FR', title: primeraLectura.title, text: primeraLectura.text });
     if (salmo) readings.push({ type: 'PS', title: salmo.title, text: salmo.text });
-    if (segundaLectura) readings.push({ type: 'SR', title: segundaLectura.title, text: segundaLectura.text });
     if (evangelio) readings.push({ type: 'GSP', title: evangelio.title, text: evangelio.text });
 
+    // Insertar la Reflexión (Comentario) con los párrafos unidos correctamente
     if (reflexion && reflexion.text.length > 20) {
-        readings.push({ type: 'RE', title: "Comentario al Evangelio", text: reflexion.text });
+        let textoReflexionCompleto = reflexion.title + "<br><br>" + reflexion.text;
+        readings.push({ type: 'RE', title: "Comentario al Evangelio", text: textoReflexionCompleto });
     } else {
         readings.push({ type: 'RE', title: "Reflexión", text: "La liturgia de hoy nos invita a meditar la Palabra y llevarla a la vida." });
     }
