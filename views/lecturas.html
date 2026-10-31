@@ -72,6 +72,8 @@
   background: radial-gradient(circle at top, #0f3d3e 0%, #021617 100%);
   min-height: 100vh;
   color: #f8efd3;
+  /* Add padding bottom on mobile to ensure content isn't hidden behind the sticky bar */
+  padding-bottom: 140px; 
 }
 
 .accar-lecturas-inner {
@@ -101,7 +103,7 @@
 }
 
 .accar-date-badge {
-  background: #2cb67d; /* Verde referencia */
+  background: #2cb67d; 
   color: #000;
   font-weight: 800;
   padding: 12px 16px;
@@ -118,8 +120,8 @@
 }
 
 .badge-combined {
-  border: 1px solid rgba(212, 175, 55, 0.6); /* Borde dorado único */
-  color: #d4af37; /* Todo el texto y separadores en dorado */
+  border: 1px solid rgba(212, 175, 55, 0.6); 
+  color: #d4af37; 
   font-size: 11px;
   padding: 8px 16px;
   border-radius: 50px;
@@ -131,7 +133,6 @@
 .badge-combined span {
   display: inline-block;
 }
-/* El color se inyectará al span final mediante JS */
 
 .dot-color::before {
   content: '';
@@ -150,7 +151,7 @@
   margin: 0;
 }
 
-/* Menú de Botones */
+/* Menú de Botones (Desktop) */
 .accar-lecturas-menu {
   display: flex;
   flex-direction: column;
@@ -192,6 +193,12 @@
   padding: 50px;
 }
 
+.accar-reading-header {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
 .accar-reading-label {
   color: #2cb67d;
   font-size: 12px;
@@ -218,6 +225,29 @@
   padding-bottom: 30px;
 }
 
+/* Compartir Button Desktop */
+.accar-btn-compartir {
+  background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 15px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  transition: opacity 0.3s ease;
+  align-self: flex-start;
+}
+
+.accar-btn-compartir:hover {
+  opacity: 0.9;
+}
+
 .accar-text-content {
   font-size: 18px;
   line-height: 1.85;
@@ -241,13 +271,98 @@
 }
 @keyframes spin { 100% { transform: rotate(360deg); } }
 
+/* Mobile Sticky Bottom Bar */
+.accar-mobile-nav-container {
+    display: none;
+}
+
 /* Responsivo */
 @media (max-width: 900px) {
   .accar-lecturas-inner {
     grid-template-columns: 1fr;
   }
+  
+  /* Escondemos el menu "Que quieres leer" original en sidebar */
+  .accar-sidebar-box:nth-child(3) {
+      display: none;
+  }
+
   .accar-lecturas-content {
     padding: 30px 20px;
+  }
+  
+  .accar-btn-compartir {
+      display: none; /* Hide desktop share btn on mobile */
+  }
+
+  /* Show Sticky Mobile Nav */
+  .accar-mobile-nav-container {
+      display: flex;
+      flex-direction: column;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: #1a1a2e; /* Dark matching background */
+      z-index: 1000;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      box-shadow: 0 -5px 20px rgba(0,0,0,0.5);
+  }
+  
+  .accar-mobile-share-btn {
+      background: linear-gradient(90deg, #2b3950, #1e293b);
+      color: #94a3b8;
+      border: none;
+      padding: 12px;
+      text-align: center;
+      font-weight: 600;
+      font-size: 14px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  
+  .accar-mobile-share-btn span {
+      background: #8b5cf6; /* Purple circle */
+      color: white;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 10px;
+  }
+
+  .accar-mobile-menu-scroll {
+      display: flex;
+      overflow-x: auto;
+      padding: 15px;
+      gap: 10px;
+      /* Hide scrollbar */
+      scrollbar-width: none; 
+      -ms-overflow-style: none;  
+  }
+  
+  .accar-mobile-menu-scroll::-webkit-scrollbar {
+    display: none;
+  }
+
+  .accar-mobile-menu-scroll .accar-menu-btn {
+      flex: 0 0 auto;
+      padding: 10px 20px;
+      border-radius: 50px;
+      text-align: center;
+      white-space: nowrap;
+      background: rgba(255,255,255,0.1);
+      border: none;
+  }
+  
+  .accar-mobile-menu-scroll .accar-menu-btn.active {
+      background: #2cb67d;
+      color: #000;
   }
 }
 </style>
