@@ -24,7 +24,6 @@
         </div>
         <div class="accar-lit-fiesta">
           <div id="fiesta-semana">Cargando celebración...</div>
-          <div id="fiesta-santo" style="margin-top: 5px; font-size: 13px; color: rgba(255,255,255,0.6);"></div>
         </div>
       </div>
 
@@ -435,6 +434,7 @@ function shareContent() {
     }
 }
 
+<script>
 (async function initLecturas() {
   const opcionesFecha = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
   let fechaHoyTexto = new Date().toLocaleDateString('es-ES', opcionesFecha);
@@ -479,6 +479,17 @@ function shareContent() {
     "ROSADO": "#fbb6ce"
   };
 
+  // Función para aplicar saltos de párrafo inteligentemente
+  const formatearGramatica = (texto) => {
+      if (!texto) return '';
+      // Si el texto ya trae saltos de línea de la API, los usamos
+      if (texto.includes('\n')) return texto.replace(/\n/g, '<br><br>');
+      
+      // Si es un bloque sólido, busca puntos, signos de interrogación o exclamación 
+      // seguidos de un espacio y una letra mayúscula para forzar el salto de párrafo.
+      return texto.replace(/([a-záéíóúñ]{2,}[.»”?!]{1,2})\s+(?=[A-ZÁÉÍÓÚÑ¿¡])/gi, '$1<br><br>');
+  };
+
   let apiExitosa = false;
   spinner.style.display = 'block';
 
@@ -515,7 +526,7 @@ function shareContent() {
 
     if (data.readings) {
       data.readings.forEach(reading => {
-        const htmlText = reading.text ? reading.text.replace(/\n/g, '<br><br>') : '';
+        const htmlText = formatearGramatica(reading.text);
         
         if (reading.type === 'GSP') { liturgiaData.evangelio.ref = reading.title; liturgiaData.evangelio.texto = htmlText; }
         else if (reading.type === 'FR') { liturgiaData.primera.ref = reading.title; liturgiaData.primera.texto = htmlText; }
@@ -536,9 +547,9 @@ function shareContent() {
       apiExitosa = true;
     }
   } catch (error) {
-    console.error("Error conectando con Magisterium:", error);
+    console.error("Error conectando al Leccionario:", error);
     refTarget.textContent = "Error de conexión";
-    textContainer.innerHTML = `<p>No pudimos descargar las lecturas del día. El sistema de Magisterium podría estar procesando los datos.</p>`;
+    textContainer.innerHTML = `<p>No pudimos descargar las lecturas del día. El sistema de la fuente original podría estar procesando los datos.</p>`;
   } finally {
     spinner.style.display = 'none';
   }
@@ -556,21 +567,21 @@ function shareContent() {
       btn.addEventListener('click', (e) => {
         const target = e.target.getAttribute('data-target');
         
-        // Quita 'active' de todos los botones
+        // Remove active class from ALL buttons
         botones.forEach(b => b.classList.remove('active'));
         
-        // Sincroniza el botón de escritorio y el de móvil
+        // Add active class to corresponding buttons in BOTH menus (desktop & mobile)
         document.querySelectorAll(`.accar-menu-btn[data-target="${target}"]`).forEach(b => b.classList.add('active'));
         
         renderReading(target);
         
-        // Efecto visual: Sube al tope si estamos en móvil para ver la lectura
+        // Scroll to top of content on mobile so they see what changed
         if (window.innerWidth <= 900) {
            document.querySelector('.accar-lecturas-content').scrollIntoView({ behavior: 'smooth' });
         }
       });
     });
-    renderReading('evangelio'); // Carga el Evangelio por defecto
+    renderReading('evangelio'); // Default load
   }
 })();
 </script>
