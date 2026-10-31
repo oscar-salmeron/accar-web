@@ -450,11 +450,51 @@ body {
               cardElement.classList.add(`accar-lit-card--${fiesta.color.toLowerCase()}`);
               
               let shortSemana = fiesta.semana;
+              let semanaSalterioTexto = "Salterio";
+              let tomoTexto = "Tomo IV";
+
               if (shortSemana.includes('\n')) {
                    shortSemana = shortSemana.split('\n')[1].trim();
               }
               document.getElementById('lit-semana').textContent = shortSemana;
-            }
+              
+              // Actualizar datos de la tarjeta del Breviario
+              const brevSemanaEl = document.getElementById('brev-semana');
+              if(brevSemanaEl) brevSemanaEl.textContent = shortSemana;
+
+              // Extraer número de semana del texto (ej: "XXX Semana" -> 30)
+              const numMatch = shortSemana.match(/([IVXLCDM]+)\s+Semana/i);
+              if (numMatch) {
+                const romano = numMatch[1].toUpperCase();
+                let numeroSemana = 0;
+                
+                // Conversión básica de los números romanos más comunes para el T.O. (hasta 34)
+                const romanosMap = { I:1, V:5, X:10, L:50 };
+                for (let i = 0; i < romano.length; i++) {
+                    const actual = romanosMap[romano[i]];
+                    const siguiente = romanosMap[romano[i+1]];
+                    if (siguiente && actual < siguiente) {
+                        numeroSemana -= actual;
+                    } else {
+                        numeroSemana += actual;
+                    }
+                }
+                
+                // Calcular semana del salterio (1 a 4)
+                let semanaSalterio = numeroSemana % 4;
+                if (semanaSalterio === 0) semanaSalterio = 4;
+                semanaSalterioTexto = `Salterio ${semanaSalterio}ª Sem.`;
+                
+                // Determinar Tomo (T.O. semanas 1-11 = Tomo III, semanas 12-34 = Tomo IV)
+                if (shortSemana.toLowerCase().includes("ordinario")) {
+                    tomoTexto = numeroSemana < 12 ? "Tomo III" : "Tomo IV";
+                }
+              }
+              
+              const brevSalterioEl = document.getElementById('brev-salterio');
+              const brevTomoEl = document.getElementById('brev-tomo');
+              if(brevSalterioEl) brevSalterioEl.textContent = semanaSalterioTexto;
+              if(brevTomoEl) brevTomoEl.textContent = tomoTexto;
 
             document.getElementById('lit-mensaje-fallback').style.display = 'none';
 
@@ -506,14 +546,14 @@ body {
       </script>
 
       <!-- TARJETA 2: LITURGIA DE LAS HORAS (Rojo Carmesí) -->
-      <a href="#" onclick="event.preventDefault(); loadView('views/construccion.html');" class="accar-lit-card accar-lit-card--rojo">
+      <a href="#" onclick="event.preventDefault(); loadView('views/breviario.html');" class="accar-lit-card accar-lit-card--rojo" id="tarjeta-breviario">
         <img src="../assets/img/icono_liturgia_oro.png" class="accar-lit-icon" alt="Liturgia de las Horas">
         
         <div class="accar-lit-meta">
-          <span>De la feria</span>
-          <span>Salterio</span>
+          <span id="brev-tomo">Tomo IV</span>
+          <span id="brev-salterio">Salterio</span>
         </div>
-        <span class="accar-lit-subtitle">XXIX Semana del Tiempo Ordinario</span>
+        <span class="accar-lit-subtitle" id="brev-semana">Cargando semana...</span>
         
         <h3>Liturgia de las Horas</h3>
         <p>Únete al rezo oficial de la Iglesia: Oficio de Lectura, Laudes, Vísperas y Completas.</p>
