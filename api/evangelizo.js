@@ -6,8 +6,6 @@ export default async function handler(req, res) {
   }
 
   const dateParam = req.query.date || new Date().toISOString().split('T')[0];
-  
-  // VOLVEMOS A CIUDAD REDONDA (La fuente que sí te funcionó y no tiene bloqueos)
   const targetUrl = `https://www.ciudadredonda.org/calendario-lecturas/evangelio-del-dia/?f=${dateParam}`;
 
   try {
@@ -22,78 +20,89 @@ export default async function handler(req, res) {
 
     const htmlCrudo = await response.text();
 
-    // 1. Limpieza básica para borrar código oculto
-    let bodyHtml = htmlCrudo
-        .replace(/<head[^>]*>[\s\S]*?<\/head>/gi, '')
-        .replace(/<nav[^>]*>[\s\S]*?<\/nav>/gi, '')
-        .replace(/<header[^>]*>[\s\S]*?<\/header>/gi, '')
-        .replace(/<footer[^>]*>[\s\S]*?<\/footer>/gi, '')
-        .replace(/<script[^>]*>[\s\S]*?<\/script>/gi, '')
-        .replace(/<style[^>]*>[\s\S]*?<\/style>/gi, '');
+    // 1. LIMPIEZA INTELIGENTE: Nos enfocamos solo en el contenido principal para evitar basura
+    let bodyHtml = htmlCrudo.split('<main')[1] || htmlCrudo;
+    bodyHtml = bodyHtml.split('<footer')[0] || bodyHtml;
 
-    // Convertimos a texto leyendo los saltos de línea de la página original
-    let textoPlano = bodyHtml
-        .replace(/<\/(div|p|h[1-6]|li|article|section)>/gi, '\n')
+    // Protegemos los párrafos: Los cierres de párrafo se vuelven doble salto (\n\n) y los <br> un salto simple (\n)
+    let textWithBreaks = bodyHtml
+        .replace(/<\/(p|div|section|article|h[1-6])>/gi, '\n\n')
         .replace(/<br\s*\/?>/gi, '\n')
-        .replace(/<[^>]+>/g, '')
+        .replace(/<[^>]+>/g, '') // Borramos el resto de etiquetas HTML
         .replace(/&nbsp;/gi, ' ')
-        .replace(/&aacute;/gi, 'á').replace(/&eacute;/gi, 'é').replace(/&iacute;/gi, 'í')
-        .replace(/&oacute;/gi, 'ó').replace(/&uacute;/gi, 'ú').replace(/&ntilde;/gi, 'ñ')
-        .replace(/&[#a-z0-9]+;/gi, '');
+        .replace(/&[a-z]+;/gi, ''); // Limpiamos entidades raras
 
-    // Separamos en un arreglo de líneas limpias
-    let lineas = textoPlano.split('\n').map(l => l.trim()).filter(l => l.length > 0);
+    // Dividimos el texto en "bloques" reales de párrafos
+    let blocks = textWithBreaks.split('\n\n')
+        .map(b => b.trim())
+        .filter(b => b.length > 0);
 
-    // 2. EXTRACCIÓN DE SEMANA Y SANTO EXACTOS
-    let semanaInfo = "Tiempo Ordinario";
+    // 2. FORMATEO EXACTO DE "CELEBRAMOS"
+    let semanaInfo = "Lecturas y Evangelio de la<br>Tiempo Ordinario";
     let santoInfo = "Santo del Día";
 
-    // Buscamos la línea final descriptiva (Ej: "Sábado de la XXX Semana del Tiempo Ordinario. Santa María en sábado")
-    for (let i = lineas.length - 1; i >= 0; i--) {
-        let l = lineas[i];
-        if ((l.includes("Semana") || l.includes("Domingo") || l.includes("Tiempo")) && l.includes(".")) {
-            let partes = l.split('.');
-            semanaInfo = partes[0].trim();
-            santoInfo = partes.slice(1).join('.').trim();
-            break;
+    // Buscamos la línea descriptiva (Ej: "Sábado de la XXX Semana del Tiempo Ordinario. Santa María...")
+    let infoLine = blocks.find(b => (b.includes("Semana") || b.includes("Domingo") || b.includes("Tiempo")) && b.includes("."));
+    if (infoLine) {
+        let partes = infoLine.split('.');
+        let cruda = partes[0].trim(); // Antes del punto
+        santoInfo = partes.slice(1).join('.').trim() || "Feria";
+
+        // Extraemos solo el número romano y la semana
+        let matchSemana = cruda.match(/(?:[IVXLCDM]+\s+Semana\s+del\s+Tiempo\s+Ordinario|Domingo.*)/i);
+        if (matchSemana) {
+            semanaInfo = `Lecturas y Evangelio de la<br>${matchSemana[0]}`;
+        } else {
+            semanaInfo = `Lecturas y Evangelio de la<br>${cruda}`;
         }
     }
 
-    // 3. BISTURÍ DIGITAL PARA SEPARAR LECTURAS
+    // 3. MOTOR EXTRACTOR CON PÁRRAFOS PERFECTOS
     const extraerLectura = (tituloBuscado, palabrasParada) => {
-        // Busca exactamente la palabra "Primera Lectura", "Salmo" o "Evangelio"
-        let idx = lineas.findIndex(l => l.toUpperCase() === tituloBuscado.toUpperCase());
+        // Encontramos el título (ej. "Primera Lectura")
+        let idx = blocks.findIndex(b => b.toUpperCase().includes(tituloBuscado.toUpperCase()) && b.length < 50);
         if (idx === -1) return null;
 
-        // La línea que le sigue es la cita (Ej: "Lectura de la carta del apóstol...")
-        let cita = lineas[idx + 1];
-        let texto = [];
+        let cita = blocks[idx + 1];
+        let textBlocks = [];
 
-        // Extrae los párrafos hasta topar con la siguiente lectura o el final
-        for (let i = idx + 2; i < lineas.length; i++) {
-            let l = lineas[i];
-            let lUpper = l.toUpperCase();
+        // Agrupamos los párrafos siguientes
+        for (let i = idx + 2; i < blocks.length; i++) {
+            let b = blocks[i];
+            let bUpper = b.toUpperCase();
 
-            if (palabrasParada.some(p => lUpper === p.toUpperCase())) break;
-            
-            // Freno final oficial
-            if (lUpper.includes("PALABRA DE DIOS") || lUpper.includes("PALABRA DEL SEÑOR")) {
-                texto.push(l);
+            // Freno si empieza otra lectura
+            if (palabrasParada.some(p => bUpper.includes(p.toUpperCase()) && b.length < 50)) break;
+
+            // Freno final en la aclamación
+            if (bUpper.includes("PALABRA DE DIOS") || bUpper.includes("PALABRA DEL SEÑOR")) {
+                textBlocks.push(b);
                 break;
             }
-            texto.push(l);
+            textBlocks.push(b);
         }
 
         return {
             title: cita,
-            text: texto.join('<br><br>') // Une los párrafos con el doble espacio
+            // Unimos los bloques con salto doble de párrafo, y respetamos los saltos simples internos (como en los Salmos)
+            text: textBlocks.join('<br><br>').replace(/\n/g, '<br>')
         };
     };
 
+    // Extraemos las secciones
     const primeraLectura = extraerLectura("Primera Lectura", ["Salmo"]);
     const salmo = extraerLectura("Salmo", ["Evangelio", "Segunda Lectura"]);
     const segundaLectura = extraerLectura("Segunda Lectura", ["Evangelio", "Salmo"]);
-    const evangelio = extraerLectura("Evangelio", ["Compartir este evento", "Calendario", "Evangelio de mañana"]);
+    const evangelio = extraerLectura("Evangelio", ["Comentario", "Compartir", "Calendario"]);
+    
+    // Extraemos el Comentario de los Padres/Teólogos como Reflexión
+    const reflexion = extraerLectura("Comentario", ["Compartir", "Evangelio de", "Síguenos"]);
+
+    // 4. CORRECCIONES DE TEXTO FINALES
+    if (salmo && salmo.title) {
+        // Cambia "Sal 41" por "Salmo responsorial 41"
+        salmo.title = salmo.title.replace(/^Sal\s+/i, 'Salmo responsorial ');
+    }
 
     let readings = [];
     if (primeraLectura) readings.push({ type: 'FR', title: primeraLectura.title, text: primeraLectura.text });
@@ -101,11 +110,16 @@ export default async function handler(req, res) {
     if (segundaLectura) readings.push({ type: 'SR', title: segundaLectura.title, text: segundaLectura.text });
     if (evangelio) readings.push({ type: 'GSP', title: evangelio.title, text: evangelio.text });
 
-    readings.push({
-        type: 'RE',
-        title: "Reflexión del Día",
-        text: "La liturgia de hoy nos invita a meditar sobre la Palabra proclamada y a llevarla a la práctica en nuestra vida diaria."
-    });
+    // Inyectamos la reflexión dinámica si existe, o dejamos una genérica
+    if (reflexion && reflexion.text.length > 20) {
+        readings.push({ type: 'RE', title: "Comentario al Evangelio", text: reflexion.text });
+    } else {
+        readings.push({
+            type: 'RE',
+            title: "Reflexión del Día",
+            text: "La liturgia de hoy nos invita a meditar sobre la Palabra proclamada y a llevarla a la práctica en nuestra vida diaria."
+        });
+    }
 
     res.status(200).json({
       fiestas: [{ semana: semanaInfo, santo: santoInfo, color: "VERDE", ciclo: "CICLO A", anio: "AÑO II" }],
