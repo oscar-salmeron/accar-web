@@ -5,15 +5,10 @@ export default async function handler(req, res) {
     return;
   }
 
-  // Recibimos la fecha de tu web
   const dateParam = req.query.date || new Date().toISOString().split('T')[0];
-  
-  // Apuntamos directamente a la fuente sugerida (América Latina)
-  // Pasamos la fecha como parámetro por si el sitio lo soporta nativamente en la URL
   const targetUrl = `https://evangelizacion.org.mx/evangelio-de-hoy/?date=${dateParam}`;
 
   try {
-    // Entramos disfrazados de navegador para evitar bloqueos
     const response = await fetch(targetUrl, {
       method: 'GET',
       headers: {
@@ -28,55 +23,66 @@ export default async function handler(req, res) {
 
     const htmlCrudo = await response.text();
 
-    // LIMPIEZA INTELIGENTE: Transformamos el HTML en texto puro, respetando los párrafos
-    let textoLimpio = htmlCrudo
-        .replace(/<\/(p|div|h[1-6])>/gi, '\n\n') // Convierte cierres de bloque en saltos de línea doble (para los párrafos)
-        .replace(/<br\s*\/?>/gi, '\n') // Convierte etiquetas br en saltos simples
-        .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '') // Borra código Javascript interno
-        .replace(/<style\b[^<]*(?:(?!<\/style>)<[^<]*)*<\/style>/gi, '') // Borra estilos
-        .replace(/<[^>]+>/g, '') // Elimina cualquier otra etiqueta HTML restante
-        .replace(/&nbsp;/gi, ' ') // Limpia espacios en blanco HTML
-        .replace(/&aacute;/gi, 'á').replace(/&eacute;/gi, 'é').replace(/&iacute;/gi, 'í').replace(/&oacute;/gi, 'ó').replace(/&uacute;/gi, 'ú').replace(/&ntilde;/gi, 'ñ');
+    // 1. DESTRUCCIÓN DEL ENTORNO: Borramos menús, cabeza y pies de página para no extraer basura como "Donar" o "Inicio"
+    let bodyHtml = htmlCrudo
+        .replace(/<head[^>]*>[\s\S]*?<\/head>/gi, '')
+        .replace(/<nav[^>]*>[\s\S]*?<\/nav>/gi, '')
+        .replace(/<header[^>]*>[\s\S]*?<\/header>/gi, '')
+        .replace(/<footer[^>]*>[\s\S]*?<\/footer>/gi, '')
+        .replace(/<script[^>]*>[\s\S]*?<\/script>/gi, '')
+        .replace(/<style[^>]*>[\s\S]*?<\/style>/gi, '');
 
-    // EXTRACCIÓN DE SECCIONES (Buscamos las palabras clave en el texto)
-    const extraerSeccion = (textoCompleto, inicioPalabra, finPalabras) => {
-        const regexInicio = new RegExp(inicioPalabra, 'i');
-        const matchInicio = textoCompleto.match(regexInicio);
-        if (!matchInicio) return null;
+    // 2. CONVERSIÓN A TEXTO PLANO: Mantenemos la estructura de párrafos
+    let textoPlano = bodyHtml
+        .replace(/<\/(div|p|h[1-6]|li|article|section)>/gi, '\n\n')
+        .replace(/<br\s*\/?>/gi, '\n')
+        .replace(/<[^>]+>/g, '') // Elimina todas las etiquetas restantes
+        .replace(/&nbsp;/gi, ' ')
+        .replace(/&aacute;/gi, 'á').replace(/&eacute;/gi, 'é').replace(/&iacute;/gi, 'í').replace(/&oacute;/gi, 'ó').replace(/&uacute;/gi, 'ú').replace(/&ntilde;/gi, 'ñ')
+        .replace(/&[#a-z0-9]+;/gi, ''); // Borra entidades raras
 
-        const inicioIndex = matchInicio.index + matchInicio[0].length;
-        let finIndex = textoCompleto.length;
+    // Limpiamos los saltos de línea excesivos
+    textoPlano = textoPlano.replace(/[ \t]+/g, ' ').replace(/\n\s*\n/g, '\n\n').trim();
 
-        for (const finPalabra of finPalabras) {
-            const matchFin = textoCompleto.substring(inicioIndex).match(new RegExp(finPalabra, 'i'));
-            if (matchFin) {
-                const tempFin = inicioIndex + matchFin.index;
-                if (tempFin < finIndex) finIndex = tempFin;
+    // 3. EXTRACCIÓN QUIRÚRGICA POR PÁRRAFOS
+    const extraerSeccion = (texto, titulo, limitesFin) => {
+        // Busca el título al principio de una línea para evitar falsos positivos
+        const regexTitulo = new RegExp(`(^|\\n)\\s*${titulo}.*?\\n`, 'i');
+        const match = texto.match(regexTitulo);
+        if (!match) return null;
+
+        const inicio = match.index + match[0].length;
+        let fin = texto.length;
+
+        // Marcamos el límite para que deje de copiar cuando encuentre la siguiente lectura o el pie de página
+        for (const limite of limitesFin) {
+            const regexLimite = new RegExp(`(^|\\n)\\s*${limite}`, 'i');
+            const matchLimite = texto.substring(inicio).match(regexLimite);
+            if (matchLimite) {
+                const posibleFin = inicio + matchLimite.index;
+                if (posibleFin < fin) fin = posibleFin;
             }
         }
 
-        let bloque = textoCompleto.substring(inicioIndex, finIndex).trim();
-        // Convertimos los saltos de línea de texto a HTML para tu frontend
-        return bloque.replace(/(?:\r\n|\r|\n){2,}/g, '<br><br>');
+        let contenido = texto.substring(inicio, fin).trim();
+        // Convertimos de vuelta a HTML puro para inyectarlo bonito en tu frontend
+        return contenido.replace(/\n\n/g, '<br><br>').replace(/\n/g, '<br>');
     };
 
-    // Buscamos los bloques exactos en el documento
-    const primeraLectura = extraerSeccion(textoLimpio, 'Primera Lectura', ['Salmo', 'Evangelio', 'Segunda Lectura', 'Reflexión']);
-    const salmo = extraerSeccion(textoLimpio, 'Salmo Responsorial|Salmo', ['Evangelio', 'Segunda Lectura', 'Reflexión', 'Comentario']);
-    const evangelio = extraerSeccion(textoLimpio, 'Evangelio', ['Reflexión', 'Comentario', 'Oración', 'Propósito']);
+    // Aplicamos los límites exactos de esa página web para extraer solo la Escritura
+    const primeraLectura = extraerSeccion(textoPlano, 'Primera Lectura', ['Salmo', 'Evangelio', 'Reflexión']);
+    const salmo = extraerSeccion(textoPlano, 'Salmo', ['Evangelio', 'Segunda Lectura', 'Reflexión']);
+    const evangelio = extraerSeccion(textoPlano, 'Evangelio', ['Reflexión', 'Comentario', 'Lleva este contenido', 'Oración', 'Credo']);
 
     let readings = [];
 
-    if (primeraLectura) {
-        readings.push({ type: 'FR', title: "Primera Lectura", text: primeraLectura });
-    }
-    if (salmo) {
-        readings.push({ type: 'PS', title: "Salmo Responsorial", text: salmo });
-    }
+    if (primeraLectura) readings.push({ type: 'FR', title: "Primera Lectura", text: primeraLectura });
+    if (salmo) readings.push({ type: 'PS', title: "Salmo Responsorial", text: salmo });
+    
     if (evangelio) {
         readings.push({ type: 'GSP', title: "Evangelio", text: evangelio });
     } else {
-        readings.push({ type: 'GSP', title: "Evangelio", text: "No se pudo extraer el texto. El sitio podría estar protegido." });
+        readings.push({ type: 'GSP', title: "Evangelio", text: "No se pudo encontrar el texto. Es posible que el portal haya cambiado su estructura interna o no tenga lectura para hoy." });
     }
 
     readings.push({
@@ -85,7 +91,6 @@ export default async function handler(req, res) {
         text: "La liturgia de hoy nos invita a meditar sobre la Palabra proclamada y a llevarla a la práctica en nuestra vida diaria."
     });
 
-    // Formato de la tarjeta "Celebramos" (Se pueden afinar más tarde si la web origen los entrega limpios)
     const datosEstructurados = {
       fiestas: [
         { 
