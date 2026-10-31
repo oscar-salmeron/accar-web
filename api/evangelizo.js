@@ -5,72 +5,92 @@ export default async function handler(req, res) {
     return;
   }
 
-  let dateParam = req.query.date || new Date().toISOString().split('T')[0];
+  // Recibimos la fecha (ej. 2026-10-30)
+  const rawDate = req.query.date || new Date().toISOString().split('T')[0];
+  // Formateamos para Universalis (ej. 20261030)
+  const formattedDate = rawDate.replace(/-/g, '');
   
-  // Protección: Evangelizo rechaza años futuros como 2026. Forzamos 2024 temporalmente para extraer datos reales.
-  if (dateParam.startsWith('2025') || dateParam.startsWith('2026')) {
-    dateParam = dateParam.replace(/^202[56]/, '2024');
-  }
-  
-  // Conexión a Evangelizo (Canal AM: América Latina/CELAM) sin IA y sin claves.
-  const targetUrl = 'https://api.evangelizo.org/v2/days/' + dateParam + '?lang=AM';
+  // Endpoint público de Universalis en español (Europa/América Latina estándar)
+  const targetUrl = `https://www.universalis.com/es-es/${formattedDate}/jsonpmass.js`;
 
   try {
     const response = await fetch(targetUrl);
     if (!response.ok) {
-        throw new Error('Error de conexión con Evangelizo: ' + response.status);
+        throw new Error('Error de conexión con la fuente litúrgica: ' + response.status);
     }
 
-    const data = await response.json();
-    const dayData = data.data;
+    // Universalis devuelve un JSONP (envuelto en una función), lo limpiamos para convertirlo en JSON puro
+    let rawText = await response.text();
+    rawText = rawText.replace(/^universalisCallback\(/, '').replace(/\);$/, '');
+    
+    const dayData = JSON.parse(rawText);
 
+    // Mapeo dinámico del color
     let colorTexto = "VERDE";
-    if (dayData.liturgic_color && dayData.liturgic_color.name) {
-        const c = dayData.liturgic_color.name.toUpperCase();
-        if (c.includes('WHITE') || c.includes('BLANCO')) colorTexto = 'BLANCO';
-        else if (c.includes('RED') || c.includes('ROJO')) colorTexto = 'ROJO';
-        else if (c.includes('PURPLE') || c.includes('MORADO') || c.includes('VIOLET')) colorTexto = 'MORADO';
-        else if (c.includes('ROSE') || c.includes('ROSADO')) colorTexto = 'ROSADO';
+    if (dayData.color) {
+        const c = dayData.color.toUpperCase();
+        if (c === 'WHITE') colorTexto = 'BLANCO';
+        else if (c === 'RED') colorTexto = 'ROJO';
+        else if (c === 'PURPLE') colorTexto = 'MORADO';
+        else if (c === 'ROSE') colorTexto = 'ROSADO';
+        else if (c === 'GREEN') colorTexto = 'VERDE';
     }
 
-    let santo = "Feria";
-    if (dayData.saints && dayData.saints.length > 0) {
-        santo = dayData.saints[0].name;
-    } else if (dayData.feast_title) {
-        santo = dayData.feast_title;
-    }
+    // Mapeo del día y celebración
+    const santo = dayData.day || "Feria";
+    const semana = dayData.date || "Tiempo Ordinario";
 
+    // Reconstruimos el array de lecturas según lo exige tu diseño HTML
     let readings = [];
-    let readingCount = 0;
 
-    if (dayData.readings) {
-        dayData.readings.forEach(r => {
-            let tipo = 'RE';
-            if (r.type === 'reading') {
-                readingCount++;
-                tipo = readingCount === 1 ? 'FR' : 'SR';
-            } else if (r.type === 'psalm') {
-                tipo = 'PS';
-            } else if (r.type === 'gospel') {
-                tipo = 'GSP';
-            }
-
-            readings.push({
-                type: tipo,
-                title: r.title || '',
-                text: r.text || 'Texto no disponible.'
-            });
+    // Primera Lectura
+    if (dayData.Mass_R1) {
+        readings.push({
+            type: 'FR',
+            title: dayData.Mass_R1.source || "Primera Lectura",
+            text: dayData.Mass_R1.text || "Texto no disponible."
         });
     }
+    // Salmo
+    if (dayData.Mass_Ps) {
+        readings.push({
+            type: 'PS',
+            title: dayData.Mass_Ps.source || "Salmo Responsorial",
+            text: dayData.Mass_Ps.text || "Texto no disponible."
+        });
+    }
+    // Segunda Lectura (solo si aplica el día)
+    if (dayData.Mass_R2) {
+        readings.push({
+            type: 'SR',
+            title: dayData.Mass_R2.source || "Segunda Lectura",
+            text: dayData.Mass_R2.text || "Texto no disponible."
+        });
+    }
+    // Evangelio
+    if (dayData.Mass_G) {
+        readings.push({
+            type: 'GSP',
+            title: dayData.Mass_G.source || "Evangelio",
+            text: dayData.Mass_G.text || "Texto no disponible."
+        });
+    }
+
+    // Reflexión simulada o genérica, ya que Universalis entrega solo los textos sagrados
+    readings.push({
+        type: 'RE',
+        title: "Reflexión del Día",
+        text: "La liturgia de hoy nos invita a meditar sobre la Palabra proclamada y a llevarla a la práctica en nuestra vida diaria."
+    });
 
     const datosEstructurados = {
       fiestas: [
         { 
-          semana: dayData.liturgic_title || "Tiempo Ordinario", 
+          semana: semana, 
           santo: santo, 
           color: colorTexto, 
-          ciclo: "CICLO " + (dayData.liturgic_cycle || "A"), 
-          anio: "AÑO " + (dayData.liturgic_year || "II")
+          ciclo: "CICLO A", // Estos datos se pueden estandarizar desde el frontend o dejarlos fijos temporalmente
+          anio: "AÑO II"
         }
       ],
       readings: readings
