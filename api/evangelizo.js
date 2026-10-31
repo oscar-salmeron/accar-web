@@ -16,80 +16,101 @@ export default async function handler(req, res) {
       }
     });
 
-    if (!response.ok) {
-        throw new Error('Error de red al conectar con la fuente.');
-    }
+    if (!response.ok) throw new Error('Error de red al conectar con la fuente.');
 
     const htmlCrudo = await response.text();
 
-    // 1. LIMPIEZA DRÁSTICA: Eliminamos navegación y pie de página para aislar el contenido central
+    // 1. LIMPIEZA DRÁSTICA: Destruimos menús, pies de página y formularios de suscripción desde la raíz
     let bodyHtml = htmlCrudo
         .replace(/<head[^>]*>[\s\S]*?<\/head>/gi, '')
         .replace(/<nav[^>]*>[\s\S]*?<\/nav>/gi, '')
         .replace(/<header[^>]*>[\s\S]*?<\/header>/gi, '')
         .replace(/<footer[^>]*>[\s\S]*?<\/footer>/gi, '')
         .replace(/<script[^>]*>[\s\S]*?<\/script>/gi, '')
-        .replace(/<style[^>]*>[\s\S]*?<\/style>/gi, '');
+        .replace(/<style[^>]*>[\s\S]*?<\/style>/gi, '')
+        .replace(/<form[^>]*>[\s\S]*?<\/form>/gi, ''); 
 
+    // Convertimos a texto plano respetando la separación de bloques
     let textoPlano = bodyHtml
-        .replace(/<\/(div|p|h[1-6]|li|article|section)>/gi, '\n')
+        .replace(/<\/(div|p|h[1-6]|li|article|section)>/gi, '\n\n')
         .replace(/<br\s*\/?>/gi, '\n')
-        .replace(/<[^>]+>/g, '') // Quita todas las etiquetas HTML restantes
+        .replace(/<[^>]+>/g, '') 
         .replace(/&nbsp;/gi, ' ')
         .replace(/&aacute;/gi, 'á').replace(/&eacute;/gi, 'é').replace(/&iacute;/gi, 'í')
         .replace(/&oacute;/gi, 'ó').replace(/&uacute;/gi, 'ú').replace(/&ntilde;/gi, 'ñ')
         .replace(/&[#a-z0-9]+;/gi, '');
 
-    // 2. CONVERSIÓN A LÍNEAS: Limpiamos espacios y separamos cada línea individualmente
-    let lineas = textoPlano.split('\n')
-        .map(l => l.trim())
+    // 2. CONVERSIÓN A PÁRRAFOS 
+    let lineas = textoPlano.split('\n\n')
+        .map(l => l.replace(/\n/g, ' ').replace(/[ \t]+/g, ' ').trim())
         .filter(l => l.length > 0);
 
-    // 3. EXTRACCIÓN DE SEMANA
+    // 3. FILTRO ANTIMANCHAS: Borramos toda la basura de UI, suscripciones y donaciones
+    const palabrasBasura = [
+        "Recibir por email", "Recibir por WhatsApp", "Recibir por Telegram", 
+        "Suscríbete", "Tu nombre", "Tu correo", "Quiero recibir noticias", 
+        "Suscribirme ahora", "¡Todo listo!", "Entendido", "Lleva este contenido a más almas", 
+        "Únete a la misión", "Selecciona un monto", "MXN", "Donar ahora", "Compartir este evento",
+        "No hay eventos", "Evangelio de mañana", "Evangelio del domingo", "Calendario", "Ver detalle"
+    ];
+
+    lineas = lineas.filter(l => {
+        let lUpper = l.toUpperCase();
+        return !palabrasBasura.some(pb => lUpper.includes(pb.toUpperCase()));
+    });
+
+    // 4. EXTRACCIÓN DE SEMANA Y SANTO
     let semanaInfo = "Tiempo Ordinario";
     let santoInfo = "Santo del Día";
-    // Busca una línea larga descriptiva
-    let idxSemana = lineas.findIndex(l => (l.includes("Semana") || l.includes("Lecturas del")) && l.length > 15 && l.length < 150);
+    
+    let idxSemana = lineas.findIndex(l => (l.includes("Semana") || l.includes("Lecturas del")) && l.length > 10 && l.length < 150);
     if (idxSemana !== -1) {
         semanaInfo = lineas[idxSemana];
-        // Intentar atrapar el santo en la línea siguiente
-        if (lineas[idxSemana + 1] && lineas[idxSemana + 1].length < 100 && !lineas[idxSemana + 1].includes("Lectura")) {
-            santoInfo = lineas[idxSemana + 1];
+        // Atrapamos al santo en la línea siguiente, asegurando que no sea un título litúrgico
+        let posibleSanto = lineas[idxSemana + 1];
+        if (posibleSanto && posibleSanto.length < 100 && !posibleSanto.toUpperCase().includes("LECTURA") && !posibleSanto.toUpperCase().includes("EVANGELIO")) {
+            santoInfo = posibleSanto;
         }
     }
 
-    // 4. MOTOR INTELIGENTE DE LECTURAS (Resistente a fallos de formato)
-    const extraerBloqueSeguro = (palabrasClave, paradas) => {
-        // Encuentra la cabecera (una línea corta que contiene la palabra clave)
-        let idx = lineas.findIndex(l => palabrasClave.some(pc => l.toUpperCase().includes(pc.toUpperCase())) && l.length <= 40);
-        if (idx === -1) return null;
+    // 5. MOTOR DE EXTRACCIÓN POR BLOQUES
+    const extraerBloque = (claves, paradas) => {
+        // Encontramos el título (ej. "Primera Lectura")
+        let startIdx = lineas.findIndex(l => claves.some(c => l.toUpperCase() === c.toUpperCase() || (l.toUpperCase().includes(c.toUpperCase()) && l.length <= 35)));
+        if (startIdx === -1) return null;
 
-        // La línea siguiente siempre es la cita bíblica
-        let title = lineas[idx + 1] || palabrasClave[0];
+        // La cita bíblica siempre queda en la línea siguiente tras limpiar la basura
+        let title = lineas[startIdx + 1];
         let textLines = [];
 
-        // Extraemos los párrafos hasta toparnos con una frase de parada
-        for (let i = idx + 2; i < lineas.length; i++) {
-            let current = lineas[i].toUpperCase();
+        // Copiamos los párrafos hasta chocar con un límite
+        for (let i = startIdx + 2; i < lineas.length; i++) {
+            let p = lineas[i];
+            let pUpper = p.toUpperCase();
             
-            let esParada = paradas.some(p => current.includes(p.toUpperCase())) && lineas[i].length <= 40;
-            let esPalabraDios = current.includes("PALABRA DE DIOS") || current.includes("PALABRA DEL SEÑOR");
-            
-            if (esParada || esPalabraDios) {
+            // Freno si empieza la siguiente lectura o la reflexión
+            if (paradas.some(parada => pUpper === parada.toUpperCase() || (pUpper.includes(parada.toUpperCase()) && p.length <= 35))) {
                 break;
             }
-            textLines.push(lineas[i]);
+
+            // Freno final si dice "Palabra de Dios"
+            if (pUpper.includes("PALABRA DE DIOS") || pUpper.includes("PALABRA DEL SEÑOR")) {
+                textLines.push(p);
+                break;
+            }
+
+            textLines.push(p);
         }
 
         return {
-            title: title,
+            title: title || claves[0],
             text: textLines.join('<br><br>')
         };
     };
 
-    const primeraLectura = extraerBloqueSeguro(["Primera Lectura"], ["Salmo", "Evangelio", "Segunda Lectura"]);
-    const salmo = extraerBloqueSeguro(["Salmo"], ["Evangelio", "Segunda Lectura"]);
-    const evangelio = extraerBloqueSeguro(["Evangelio"], ["Credo", "Oración", "Propósito", "Compartir", "Calendario"]);
+    const primeraLectura = extraerBloque(["Primera Lectura"], ["Salmo", "Evangelio", "Segunda Lectura", "Reflexión"]);
+    const salmo = extraerBloque(["Salmo", "Salmo Responsorial"], ["Evangelio", "Segunda Lectura", "Reflexión"]);
+    const evangelio = extraerBloque(["Evangelio"], ["Reflexión", "Comentario", "Oración"]);
 
     let readings = [];
     if (primeraLectura) readings.push({ type: 'FR', title: primeraLectura.title, text: primeraLectura.text });
@@ -98,8 +119,7 @@ export default async function handler(req, res) {
     if (evangelio) {
         readings.push({ type: 'GSP', title: evangelio.title, text: evangelio.text });
     } else {
-        // FALLBACK DE EMERGENCIA: Si no halla el título, inyecta un bloque crudo en lugar de dejar la tarjeta vacía
-        readings.push({ type: 'GSP', title: "Evangelio del Día", text: lineas.slice(0, 30).join('<br><br>') });
+        readings.push({ type: 'GSP', title: "Evangelio", text: "El texto del Evangelio no pudo ser procesado correctamente." });
     }
 
     readings.push({
