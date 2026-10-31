@@ -5,16 +5,12 @@ export default async function handler(req, res) {
     return;
   }
 
-  // Recibimos la fecha (ej. 2026-10-30)
   const rawDate = req.query.date || new Date().toISOString().split('T')[0];
-  // Formateamos para Universalis (ej. 20261030)
   const formattedDate = rawDate.replace(/-/g, '');
   
-  // Endpoint público de Universalis en español (Europa/América Latina estándar)
   const targetUrl = `https://www.universalis.com/es-es/${formattedDate}/jsonpmass.js`;
 
   try {
-    // AQUÍ ESTÁ EL DISFRAZ: Nos presentamos ante el servidor como si fuéramos el navegador Google Chrome desde Windows
     const response = await fetch(targetUrl, {
       method: 'GET',
       headers: {
@@ -28,31 +24,34 @@ export default async function handler(req, res) {
         throw new Error('Error de conexión con la fuente litúrgica: ' + response.status);
     }
 
-    // Universalis devuelve un JSONP (envuelto en una función), lo limpiamos para convertirlo en JSON puro
     let rawText = await response.text();
-    rawText = rawText.replace(/^universalisCallback\(/, '').replace(/\);$/, '');
     
-    const dayData = JSON.parse(rawText);
+    // Limpiador agresivo: Quita la función envoltorio y escapa caracteres problemáticos invisibles
+    rawText = rawText.replace(/^universalisCallback\(/, '').replace(/\);?$/, '').trim();
+    // Limpiamos comillas dobles no escapadas dentro de las lecturas que rompen el JSON
+    rawText = rawText.replace(/\\"/g, "'").replace(/(?<!\\)"/g, '\\"').replace(/^\\"/, '"').replace(/\\"$/, '"'); 
+    // Aseguramos formato JSON válido mediante Regex antes del parseo profundo
+    const jsonMatch = rawText.match(/\{[\s\S]*\}/);
+    if (!jsonMatch) throw new Error("Formato devuelto incomprensible");
 
-    // Mapeo dinámico del color
+    // Convertimos el texto sanitizado
+    const dayData = new Function("return " + jsonMatch[0])();
+
     let colorTexto = "VERDE";
     if (dayData.color) {
         const c = dayData.color.toUpperCase();
-        if (c === 'WHITE') colorTexto = 'BLANCO';
-        else if (c === 'RED') colorTexto = 'ROJO';
-        else if (c === 'PURPLE') colorTexto = 'MORADO';
-        else if (c === 'ROSE') colorTexto = 'ROSADO';
-        else if (c === 'GREEN') colorTexto = 'VERDE';
+        if (c.includes('WHITE')) colorTexto = 'BLANCO';
+        else if (c.includes('RED')) colorTexto = 'ROJO';
+        else if (c.includes('PURPLE') || c.includes('VIOLET')) colorTexto = 'MORADO';
+        else if (c.includes('ROSE')) colorTexto = 'ROSADO';
+        else if (c.includes('GREEN')) colorTexto = 'VERDE';
     }
 
-    // Mapeo del día y celebración
     const santo = dayData.day || "Feria";
     const semana = dayData.date || "Tiempo Ordinario";
 
-    // Reconstruimos el array de lecturas según lo exige tu diseño HTML
     let readings = [];
 
-    // Primera Lectura
     if (dayData.Mass_R1) {
         readings.push({
             type: 'FR',
@@ -60,7 +59,6 @@ export default async function handler(req, res) {
             text: dayData.Mass_R1.text || "Texto no disponible."
         });
     }
-    // Salmo
     if (dayData.Mass_Ps) {
         readings.push({
             type: 'PS',
@@ -68,7 +66,6 @@ export default async function handler(req, res) {
             text: dayData.Mass_Ps.text || "Texto no disponible."
         });
     }
-    // Segunda Lectura (solo si aplica el día)
     if (dayData.Mass_R2) {
         readings.push({
             type: 'SR',
@@ -76,7 +73,6 @@ export default async function handler(req, res) {
             text: dayData.Mass_R2.text || "Texto no disponible."
         });
     }
-    // Evangelio
     if (dayData.Mass_G) {
         readings.push({
             type: 'GSP',
@@ -85,7 +81,6 @@ export default async function handler(req, res) {
         });
     }
 
-    // Reflexión simulada, ya que Universalis solo entrega textos sagrados
     readings.push({
         type: 'RE',
         title: "Reflexión del Día",
@@ -98,7 +93,7 @@ export default async function handler(req, res) {
           semana: semana, 
           santo: santo, 
           color: colorTexto, 
-          ciclo: "CICLO A", // Datos fijos temporales
+          ciclo: "CICLO A", 
           anio: "AÑO II"
         }
       ],
