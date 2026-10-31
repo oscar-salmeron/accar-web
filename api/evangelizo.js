@@ -14,7 +14,16 @@ export default async function handler(req, res) {
   const targetUrl = `https://www.universalis.com/es-es/${formattedDate}/jsonpmass.js`;
 
   try {
-    const response = await fetch(targetUrl);
+    // AQUÍ ESTÁ EL DISFRAZ: Nos presentamos ante el servidor como si fuéramos el navegador Google Chrome desde Windows
+    const response = await fetch(targetUrl, {
+      method: 'GET',
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+        'Accept': 'application/javascript, */*',
+        'Accept-Language': 'es-ES,es;q=0.9'
+      }
+    });
+
     if (!response.ok) {
         throw new Error('Error de conexión con la fuente litúrgica: ' + response.status);
     }
@@ -76,7 +85,7 @@ export default async function handler(req, res) {
         });
     }
 
-    // Reflexión simulada o genérica, ya que Universalis entrega solo los textos sagrados
+    // Reflexión simulada, ya que Universalis solo entrega textos sagrados
     readings.push({
         type: 'RE',
         title: "Reflexión del Día",
@@ -89,7 +98,7 @@ export default async function handler(req, res) {
           semana: semana, 
           santo: santo, 
           color: colorTexto, 
-          ciclo: "CICLO A", // Estos datos se pueden estandarizar desde el frontend o dejarlos fijos temporalmente
+          ciclo: "CICLO A", // Datos fijos temporales
           anio: "AÑO II"
         }
       ],
