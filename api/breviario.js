@@ -7,7 +7,7 @@ export default async function handler(req, res) {
 
   // Parámetro de la hora litúrgica (ufficio, laudi, media, vespri, compieta)
   const hora = req.query.hora || 'laudi';
-  const targetUrl = `https://www.ibreviary.com/m2/breviario_testo.php?s=${hora}&lang=es`;
+  const targetUrl = 'https://www.ibreviary.com/m2/breviario_testo.php?s=' + hora + '&lang=es';
 
   try {
     const response = await fetch(targetUrl, {
