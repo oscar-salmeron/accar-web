@@ -25,11 +25,8 @@ export default async function handler(req, res) {
     }
 
     let rawText = await response.text();
-    
-    // 1. Aplanador: Reemplazamos los saltos de línea ocultos que rompen el evaluador
     rawText = rawText.replace(/\r?\n/g, ' ');
     
-    // 2. Extracción Quirúrgica: Aislamos exclusivamente el bloque de datos
     const startIndex = rawText.indexOf('{');
     const endIndex = rawText.lastIndexOf('}');
     
@@ -38,9 +35,18 @@ export default async function handler(req, res) {
     }
 
     const objText = rawText.substring(startIndex, endIndex + 1);
-    
-    // 3. Evaluador Nativo: Procesa el código JavaScript de Universalis tolerando comillas simples
     const dayData = eval('(' + objText + ')');
+
+    // Limpiador sanitario: Elimina etiquetas HTML y decodifica símbolos especiales
+    const limpiarHTML = (html) => {
+        if (!html) return "Texto no disponible.";
+        let text = html.replace(/<br\s*[\/]?>/gi, '\n'); // Mantiene saltos de línea
+        text = text.replace(/<[^>]+>/g, ''); // Borra todas las etiquetas
+        text = text.replace(/&#x([0-9a-fA-F]+);/gi, (match, hex) => String.fromCharCode(parseInt(hex, 16)));
+        text = text.replace(/&#([0-9]+);/g, (match, dec) => String.fromCharCode(dec));
+        text = text.replace(/&nbsp;/gi, ' ');
+        return text.trim();
+    };
 
     let colorTexto = "VERDE";
     if (dayData.color) {
@@ -52,37 +58,37 @@ export default async function handler(req, res) {
         else if (c.includes('GREEN') || c.includes('VERDE')) colorTexto = 'VERDE';
     }
 
-    const santo = dayData.day || "Feria";
-    const semana = dayData.date || "Tiempo Ordinario";
+    const santo = limpiarHTML(dayData.day) || "Feria";
+    const semana = limpiarHTML(dayData.date) || "Tiempo Ordinario";
 
     let readings = [];
 
     if (dayData.Mass_R1) {
         readings.push({
             type: 'FR',
-            title: dayData.Mass_R1.source || "Primera Lectura",
-            text: dayData.Mass_R1.text || "Texto no disponible."
+            title: limpiarHTML(dayData.Mass_R1.source) || "Primera Lectura",
+            text: limpiarHTML(dayData.Mass_R1.text)
         });
     }
     if (dayData.Mass_Ps) {
         readings.push({
             type: 'PS',
-            title: dayData.Mass_Ps.source || "Salmo Responsorial",
-            text: dayData.Mass_Ps.text || "Texto no disponible."
+            title: limpiarHTML(dayData.Mass_Ps.source) || "Salmo Responsorial",
+            text: limpiarHTML(dayData.Mass_Ps.text)
         });
     }
     if (dayData.Mass_R2) {
         readings.push({
             type: 'SR',
-            title: dayData.Mass_R2.source || "Segunda Lectura",
-            text: dayData.Mass_R2.text || "Texto no disponible."
+            title: limpiarHTML(dayData.Mass_R2.source) || "Segunda Lectura",
+            text: limpiarHTML(dayData.Mass_R2.text)
         });
     }
     if (dayData.Mass_G) {
         readings.push({
             type: 'GSP',
-            title: dayData.Mass_G.source || "Evangelio",
-            text: dayData.Mass_G.text || "Texto no disponible."
+            title: limpiarHTML(dayData.Mass_G.source) || "Evangelio",
+            text: limpiarHTML(dayData.Mass_G.text)
         });
     }
 
