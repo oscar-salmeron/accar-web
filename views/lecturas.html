@@ -81,20 +81,6 @@
     </div>
 </div>
 
-<!-- Mobile Sticky Nav Container -->
-<div class="accar-mobile-nav-container">
-    <button class="accar-mobile-share-btn" onclick="shareContent()">
-        Lleva este contenido a más almas <span>^</span>
-    </button>
-    <div class="accar-mobile-menu-scroll" id="lecturas-menu-mobile">
-        <button class="accar-menu-btn active" data-target="evangelio">Evangelio</button>
-        <button class="accar-menu-btn" data-target="primera">1ª Lectura</button>
-        <button class="accar-menu-btn" data-target="salmo">Salmo</button>
-        <button class="accar-menu-btn" data-target="segunda" id="btn-segunda-mobile" style="display: none;">2ª Lectura</button>
-        <button class="accar-menu-btn" data-target="reflexion" id="btn-reflexion-mobile" style="display: none;">Reflexión</button>
-    </div>
-</div>
-
 <style>
 /* =========================================
    ESTILOS DE LA VISTA DE LECTURAS
@@ -434,7 +420,6 @@ function shareContent() {
     }
 }
 
-<script>
 (async function initLecturas() {
   const opcionesFecha = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
   let fechaHoyTexto = new Date().toLocaleDateString('es-ES', opcionesFecha);
@@ -464,7 +449,6 @@ function shareContent() {
   const lblTarget = document.getElementById('reading-label');
   const titleTarget = document.getElementById('reading-title');
   const semanaTarget = document.getElementById('fiesta-semana');
-  const santoTarget = document.getElementById('fiesta-santo');
   const colorTarget = document.getElementById('lecturas-color-badge');
   const cicloTarget = document.getElementById('badge-ciclo');
   const anioTarget = document.getElementById('badge-anio');
@@ -482,11 +466,7 @@ function shareContent() {
   // Función para aplicar saltos de párrafo inteligentemente
   const formatearGramatica = (texto) => {
       if (!texto) return '';
-      // Si el texto ya trae saltos de línea de la API, los usamos
       if (texto.includes('\n')) return texto.replace(/\n/g, '<br><br>');
-      
-      // Si es un bloque sólido, busca puntos, signos de interrogación o exclamación 
-      // seguidos de un espacio y una letra mayúscula para forzar el salto de párrafo.
       return texto.replace(/([a-záéíóúñ]{2,}[.»”?!]{1,2})\s+(?=[A-ZÁÉÍÓÚÑ¿¡])/gi, '$1<br><br>');
   };
 
@@ -502,14 +482,14 @@ function shareContent() {
 
     if(data.fiestas && data.fiestas.length > 0) {
       
-      // Limpiamos "Celebramos"
+      // Limpiamos el texto de la semana para asegurar que solo quede la designación romana
       let semanaLimpia = data.fiestas[0].semana || '';
-      if(semanaLimpia.includes('Lecturas y Evangelio de la\n')) {
-          semanaLimpia = semanaLimpia.replace('Lecturas y Evangelio de la\n', '');
-      }
+      semanaLimpia = semanaLimpia.replace(/Lecturas y Evangelio de la\s*\n?/i, '').trim();
 
-      if(semanaTarget) semanaTarget.textContent = semanaLimpia;
-      if(santoTarget) santoTarget.textContent = data.fiestas[0].santo || '';
+      // INYECCIÓN DE LAS DOS LÍNEAS EXACTAS
+      if(semanaTarget) {
+          semanaTarget.innerHTML = `Lecturas y Evangelio del día<br><span style="font-size: 14px; color: rgba(255,255,255,0.7); display: inline-block; margin-top: 6px;">${semanaLimpia}</span>`;
+      }
       
       const colorTexto = (data.fiestas[0].color || 'VERDE').toUpperCase();
       colorTarget.textContent = colorTexto;
@@ -521,7 +501,7 @@ function shareContent() {
       if(cicloTarget) cicloTarget.textContent = data.fiestas[0].ciclo || '';
       if(anioTarget) anioTarget.textContent = data.fiestas[0].anio || '';
     } else {
-      if(semanaTarget) semanaTarget.textContent = "Feria";
+      if(semanaTarget) semanaTarget.innerHTML = `Lecturas y Evangelio del día<br><span style="font-size: 14px; color: rgba(255,255,255,0.7); display: inline-block; margin-top: 6px;">Feria</span>`;
     }
 
     if (data.readings) {
@@ -566,22 +546,16 @@ function shareContent() {
     botones.forEach(btn => {
       btn.addEventListener('click', (e) => {
         const target = e.target.getAttribute('data-target');
-        
-        // Remove active class from ALL buttons
         botones.forEach(b => b.classList.remove('active'));
-        
-        // Add active class to corresponding buttons in BOTH menus (desktop & mobile)
         document.querySelectorAll(`.accar-menu-btn[data-target="${target}"]`).forEach(b => b.classList.add('active'));
-        
         renderReading(target);
         
-        // Scroll to top of content on mobile so they see what changed
         if (window.innerWidth <= 900) {
            document.querySelector('.accar-lecturas-content').scrollIntoView({ behavior: 'smooth' });
         }
       });
     });
-    renderReading('evangelio'); // Default load
+    renderReading('evangelio'); 
   }
 })();
 </script>
