@@ -421,56 +421,77 @@ body {
       </style>
 
       <script>
-        setTimeout(() => {
-          const hoy = new Date();
-          const year = hoy.getFullYear();
-          const month = String(hoy.getMonth() + 1).padStart(2, '0');
-          const day = String(hoy.getDate()).padStart(2, '0');
-          const fechaID = `${year}-${month}-${day}`; 
-
+        setTimeout(async () => {
           try {
-            const db = firebase.firestore();
-            db.collection('lecturas_diarias').doc(fechaID).get()
-              .then((doc) => {
-                if (doc.exists) {
-                  const data = doc.data();
-                  
-                  // Meta superior
-                  if(data.ciclo) document.getElementById('lit-ciclo').textContent = 'Ciclo ' + data.ciclo;
-                  if(data.anio) document.getElementById('lit-anio').textContent = 'Año ' + data.anio;
-                  if(data.color) document.getElementById('lit-color').textContent = data.color;
-                  if(data.semana) document.getElementById('lit-semana').textContent = data.semana;
-                  
-                  // Ocultamos el mensaje de "Conectando..."
-                  document.getElementById('lit-mensaje-fallback').style.display = 'none';
+            // 1. Armamos la fecha local exacta
+            const today = new Date();
+            const year = today.getFullYear();
+            const month = String(today.getMonth() + 1).padStart(2, '0');
+            const day = String(today.getDate()).padStart(2, '0');
+            const formattedDate = `${year}-${month}-${day}`;
 
-                  // Llenamos las citas dinámicamente si existen en Firebase
-                  if (data.primera_lectura) {
-                    document.getElementById('lit-primera').textContent = data.primera_lectura;
+            // 2. Conectamos a nuestra API en Vercel
+            const response = await fetch(`/api/evangelizo?date=${formattedDate}`);
+            if (!response.ok) throw new Error("Error en la conexión con la API");
+            
+            const data = await response.json();
+
+            // 3. Inyectamos los Badges (Ciclo, Año, Color) y la Semana
+            if (data.fiestas && data.fiestas.length > 0) {
+              const fiesta = data.fiestas[0];
+              
+              document.getElementById('lit-ciclo').textContent = fiesta.ciclo;
+              document.getElementById('lit-anio').textContent = fiesta.anio;
+              document.getElementById('lit-color').textContent = fiesta.color.toUpperCase();
+              
+              // Cambia el color del punto dinámicamente
+              const colorElement = document.getElementById('lit-color');
+              colorElement.className = 'dot-color';
+              colorElement.classList.add(`dot-${fiesta.color.toLowerCase()}`);
+
+              // Cambia el resplandor de fondo de la tarjeta dinámicamente
+              const cardElement = document.getElementById('tarjeta-evangelio');
+              cardElement.className = 'accar-lit-card';
+              cardElement.classList.add(`accar-lit-card--${fiesta.color.toLowerCase()}`);
+              
+              // Extraemos SÓLO la segunda línea (Ej: "XXX Semana del Tiempo Ordinario")
+              let shortSemana = fiesta.semana;
+              if (shortSemana.includes('\n')) {
+                   shortSemana = shortSemana.split('\n')[1].trim();
+              }
+              document.getElementById('lit-semana').textContent = shortSemana;
+            }
+
+            // Ocultamos el mensaje de "Conectando..."
+            document.getElementById('lit-mensaje-fallback').style.display = 'none';
+
+            // 4. Inyectamos las citas bíblicas extraídas
+            if (data.readings && data.readings.length > 0) {
+              data.readings.forEach(reading => {
+                  let citationStr = reading.title;
+                  if (citationStr.endsWith(':')) citationStr = citationStr.slice(0, -1).trim();
+
+                  if (reading.type === 'FR') {
+                    document.getElementById('lit-primera').textContent = citationStr;
                     document.getElementById('item-primera').style.display = 'flex';
-                  }
-                  if (data.salmo) {
-                    document.getElementById('lit-salmo').textContent = data.salmo;
+                  } else if (reading.type === 'PS') {
+                    document.getElementById('lit-salmo').textContent = citationStr;
                     document.getElementById('item-salmo').style.display = 'flex';
-                  }
-                  if (data.segunda_lectura) {
-                    document.getElementById('lit-segunda').textContent = data.segunda_lectura;
+                  } else if (reading.type === 'SR') {
+                    document.getElementById('lit-segunda').textContent = citationStr;
                     document.getElementById('item-segunda').style.display = 'flex';
-                  }
-                  if (data.evangelio) {
-                    document.getElementById('lit-evangelio').textContent = data.evangelio;
+                  } else if (reading.type === 'GSP') {
+                    document.getElementById('lit-evangelio').textContent = citationStr;
                     document.getElementById('item-evangelio').style.display = 'flex';
                   }
-                } else {
-                  document.getElementById('lit-semana').textContent = 'Lectura del día';
-                  document.getElementById('lit-mensaje-fallback').textContent = 'Lectura no encontrada para hoy.';
-                }
-              })
-              .catch((error) => {
-                console.error("Error Firebase:", error);
               });
-          } catch (e) {
-            console.error("Firebase no está inicializado.", e);
+            }
+          } catch (error) {
+            console.error("Error al cargar la liturgia:", error);
+            document.getElementById('lit-semana').textContent = 'Lectura del día';
+            const fallbackMsg = document.getElementById('lit-mensaje-fallback');
+            fallbackMsg.textContent = 'Lectura no encontrada para hoy.';
+            fallbackMsg.style.display = 'block';
           }
         }, 500);
       </script>
