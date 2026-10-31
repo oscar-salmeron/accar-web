@@ -364,6 +364,9 @@ body {
         
         <!-- Contenedor dinámico de citas litúrgicas -->
         <div class="accar-lecturas-lista">
+          <div id="item-evangelio" class="accar-lectura-item" style="display: none;">
+            <strong>Evangelio:</strong> <span id="lit-evangelio"></span>
+          </div>
           <div id="item-primera" class="accar-lectura-item" style="display: none;">
             <strong>1ª Lectura:</strong> <span id="lit-primera"></span>
           </div>
@@ -372,9 +375,6 @@ body {
           </div>
           <div id="item-segunda" class="accar-lectura-item" style="display: none;">
             <strong>2ª Lectura:</strong> <span id="lit-segunda"></span>
-          </div>
-          <div id="item-evangelio" class="accar-lectura-item" style="display: none;">
-            <strong>Evangelio:</strong> <span id="lit-evangelio"></span>
           </div>
           <p id="lit-mensaje-fallback" style="color: rgba(255,255,255,0.75); font-size: 15px; margin: 0;">Conectando con el leccionario...</p>
         </div>
@@ -423,20 +423,17 @@ body {
       <script>
         setTimeout(async () => {
           try {
-            // 1. Armamos la fecha local exacta
             const today = new Date();
             const year = today.getFullYear();
             const month = String(today.getMonth() + 1).padStart(2, '0');
             const day = String(today.getDate()).padStart(2, '0');
             const formattedDate = `${year}-${month}-${day}`;
 
-            // 2. Conectamos a nuestra API en Vercel
             const response = await fetch(`/api/evangelizo?date=${formattedDate}`);
             if (!response.ok) throw new Error("Error en la conexión con la API");
             
             const data = await response.json();
 
-            // 3. Inyectamos los Badges (Ciclo, Año, Color) y la Semana
             if (data.fiestas && data.fiestas.length > 0) {
               const fiesta = data.fiestas[0];
               
@@ -444,17 +441,14 @@ body {
               document.getElementById('lit-anio').textContent = fiesta.anio;
               document.getElementById('lit-color').textContent = fiesta.color.toUpperCase();
               
-              // Cambia el color del punto dinámicamente
               const colorElement = document.getElementById('lit-color');
               colorElement.className = 'dot-color';
               colorElement.classList.add(`dot-${fiesta.color.toLowerCase()}`);
 
-              // Cambia el resplandor de fondo de la tarjeta dinámicamente
               const cardElement = document.getElementById('tarjeta-evangelio');
               cardElement.className = 'accar-lit-card';
               cardElement.classList.add(`accar-lit-card--${fiesta.color.toLowerCase()}`);
               
-              // Extraemos SÓLO la segunda línea (Ej: "XXX Semana del Tiempo Ordinario")
               let shortSemana = fiesta.semana;
               if (shortSemana.includes('\n')) {
                    shortSemana = shortSemana.split('\n')[1].trim();
@@ -462,16 +456,34 @@ body {
               document.getElementById('lit-semana').textContent = shortSemana;
             }
 
-            // Ocultamos el mensaje de "Conectando..."
             document.getElementById('lit-mensaje-fallback').style.display = 'none';
 
-            // 4. Inyectamos las citas bíblicas extraídas
             if (data.readings && data.readings.length > 0) {
               data.readings.forEach(reading => {
                   let citationStr = reading.title;
                   if (citationStr.endsWith(':')) citationStr = citationStr.slice(0, -1).trim();
 
-                  if (reading.type === 'FR') {
+                  // BISTURÍ DE TEXTOS: Borra toda la introducción protocolar
+                  citationStr = citationStr
+                      .replace(/Lectura del santo evangelio según san\s+/i, 'San ')
+                      .replace(/Lectura del santo evangelio según\s+/i, '')
+                      .replace(/Lectura de la carta del apóstol san Pablo a los\s+/i, '')
+                      .replace(/Lectura de la carta del apóstol san Pablo a\s+/i, '')
+                      .replace(/Lectura de la primera carta del apóstol san Pablo a los\s+/i, '1 ')
+                      .replace(/Lectura de la segunda carta del apóstol san Pablo a los\s+/i, '2 ')
+                      .replace(/Lectura de la carta a los\s+/i, '')
+                      .replace(/Lectura del libro de los\s+/i, '')
+                      .replace(/Lectura del libro del\s+/i, '')
+                      .replace(/Lectura del libro de\s+/i, '')
+                      .replace(/Lectura de los\s+/i, '')
+                      .replace(/Lectura de la\s+/i, '')
+                      .trim();
+
+                  // Mapeamos los datos a su respectiva fila
+                  if (reading.type === 'GSP') {
+                    document.getElementById('lit-evangelio').textContent = citationStr;
+                    document.getElementById('item-evangelio').style.display = 'flex';
+                  } else if (reading.type === 'FR') {
                     document.getElementById('lit-primera').textContent = citationStr;
                     document.getElementById('item-primera').style.display = 'flex';
                   } else if (reading.type === 'PS') {
@@ -480,9 +492,6 @@ body {
                   } else if (reading.type === 'SR') {
                     document.getElementById('lit-segunda').textContent = citationStr;
                     document.getElementById('item-segunda').style.display = 'flex';
-                  } else if (reading.type === 'GSP') {
-                    document.getElementById('lit-evangelio').textContent = citationStr;
-                    document.getElementById('item-evangelio').style.display = 'flex';
                   }
               });
             }
