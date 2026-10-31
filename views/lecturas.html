@@ -48,7 +48,12 @@
       <div class="accar-reading-header">
         <span class="accar-reading-label" id="reading-label">EVANGELIO DE HOY</span>
         <h1 id="reading-title">Evangelio</h1>
-        <h3 id="reading-ref">Conectando con Magisterium...</h3>
+        <h3 id="reading-ref">Conectando con el Leccionario...</h3>
+        
+        <!-- Desktop Share Button -->
+        <button class="accar-btn-compartir" onclick="shareContent()">
+            Compartir lectura
+        </button>
       </div>
 
       <div class="accar-reading-body">
@@ -61,6 +66,20 @@
     </main>
 
   </div>
+</div>
+
+<!-- Mobile Sticky Nav Container -->
+<div class="accar-mobile-nav-container">
+    <button class="accar-mobile-share-btn" onclick="shareContent()">
+        Lleva este contenido a más almas <span>^</span>
+    </button>
+    <div class="accar-mobile-menu-scroll" id="lecturas-menu-mobile">
+        <button class="accar-menu-btn active" data-target="evangelio">Evangelio</button>
+        <button class="accar-menu-btn" data-target="primera">1ª Lectura</button>
+        <button class="accar-menu-btn" data-target="salmo">Salmo</button>
+        <button class="accar-menu-btn" data-target="segunda" id="btn-segunda-mobile" style="display: none;">2ª Lectura</button>
+        <button class="accar-menu-btn" data-target="reflexion" id="btn-reflexion-mobile" style="display: none;">Reflexión</button>
+    </div>
 </div>
 
 <style>
