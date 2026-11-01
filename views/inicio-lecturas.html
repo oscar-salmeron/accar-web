@@ -515,19 +515,40 @@ function shareContent() {
     "ROSADO": "#fbb6ce"
   };
 
-  // Función para aplicar saltos de párrafo y pintar de rojo rúbricas/citas
+  // Función para aplicar saltos de párrafo, separar la "R/." y repetir la antífona
   const formatearGramatica = (texto) => {
       if (!texto) return '';
-      let textoFormateado = texto;
       
-      // Pintar de rojo TODAS las "R/." o "R." (Responsorio) sin importar dónde estén
+      // 1. Limpiamos temporalmente los saltos de línea para analizarlos bien
+      let textoFormateado = texto.replace(/<br\s*\/?>/gi, '\n');
+      
+      // 2. Extraer la antífona (el texto que acompaña a la primera R/.)
+      let antifona = "";
+      const matchAntifona = textoFormateado.match(/(?:R\/\.|R\.)\s*([^\n]+)/);
+      if (matchAntifona && matchAntifona[1].length > 5) {
+          antifona = matchAntifona[1].trim();
+      }
+
+      // 3. Forzar que cualquier "R/." que esté pegada a otra frase salte a una nueva línea
+      textoFormateado = textoFormateado.replace(/\s*(R\/\.|R\.)\s*/g, '\n$1 ');
+
+      // 4. Si capturamos la antífona, rellenar las "R/." que quedaron solas con el texto completo
+      if (antifona) {
+          let regexSola = new RegExp(`(R\\/\\.|R\\.)(?=\\s*\\n|\\s*$)`, 'g');
+          textoFormateado = textoFormateado.replace(regexSola, `$1 ${antifona}`);
+      }
+
+      // 5. Pintar de rojo las "R/."
       textoFormateado = textoFormateado.replace(/(R\/\.|R\.)/g, '<span class="texto-rojo">$1</span>');
       
-      // Pintar de rojo los números de las citas bíblicas entre paréntesis (ej. (5,1-12))
+      // 6. Pintar de rojo las citas bíblicas
       textoFormateado = textoFormateado.replace(/(\(\d+.*?\))/g, '<span class="texto-rojo">$1</span>');
       
-      if (textoFormateado.includes('\n')) return textoFormateado.replace(/\n/g, '<br><br>');
-      return textoFormateado.replace(/([a-záéíóúñ]{2,}[.»”?!]{1,2})\s+(?=[A-ZÁÉÍÓÚÑ¿¡])/gi, '$1<br><br>');
+      // 7. Reconstruir los párrafos limpios con el espaciado correcto
+      return textoFormateado.split('\n')
+          .map(linea => linea.trim())
+          .filter(linea => linea.length > 0)
+          .join('<br><br>');
   };
 
   // --- Lógicas Visuales de Controles ---
