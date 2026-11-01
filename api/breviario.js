@@ -62,13 +62,9 @@ export default async function handler(req, res) {
 
     let contenido = $('body').html();
 
-    // 4. Limpieza de colores negros forzados e inyección de rúbricas rojas
+    // 4. Dejar el HTML intacto para que el CSS del frontend controle los colores exactos
     let textoFiltrado = contenido
-        .replace(/Tamaño:\s*A\s*A\s*A/gi, '') // Elimina el texto muerto de tamaño original
-        .replace(/color\s*=\s*["']?(black|#000000)["']?/gi, '') // Elimina el atributo black
-        .replace(/color:\s*(black|#000000);?/gi, '') // Elimina estilos CSS black
-        .replace(/color\s*=\s*["']?red["']?/gi, 'style="color: #ff4d4d; font-weight: 600;"')
-        .replace(/color:\s*red;?/gi, 'color: #ff4d4d; font-weight: 600;')
+        .replace(/Tamaño:\s*A\s*A\s*A/gi, '') 
         .trim();
 
     res.status(200).json({ html: textoFiltrado });
