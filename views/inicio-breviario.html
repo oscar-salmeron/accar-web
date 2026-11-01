@@ -28,6 +28,11 @@
         <button class="accar-text-btn btn-size" data-size="22px">A+</button>
       </div>
 
+      <!-- Botón compartir (Escritorio) -->
+      <button class="accar-btn-compartir" id="btn-share-desktop" onclick="shareBreviario()" style="display: none; margin-bottom: 20px;">
+          Compartir liturgia
+      </button>
+
       <div class="accar-spinner" id="brev-spinner" style="display: none;"></div>
       <div id="brev-text" class="accar-brev-text theme-light">
         <p style="text-align: center; opacity: 0.7; padding: 40px 0;">Selecciona una hora litúrgica para comenzar a rezar.</p>
@@ -38,6 +43,20 @@
     </div>
 
   </div>
+</div>
+
+<!-- Menú fijo inferior para móviles -->
+<div class="accar-mobile-nav-container" id="brev-mobile-nav">
+    <button class="accar-mobile-share-btn" onclick="shareBreviario()">
+        Lleva esta liturgia a más almas <span>^</span>
+    </button>
+    <div class="accar-mobile-menu-scroll" id="brev-menu-mobile">
+        <button class="accar-brev-btn active" data-hora="ufficio">Oficio</button>
+        <button class="accar-brev-btn" data-hora="laudi">Laudes</button>
+        <button class="accar-brev-btn" data-hora="media">Intermedia</button>
+        <button class="accar-brev-btn" data-hora="vespri">Vísperas</button>
+        <button class="accar-brev-btn" data-hora="compieta">Completas</button>
+    </div>
 </div>
 
 <style>
@@ -158,6 +177,98 @@
   font-weight: 600;
 }
 
+/* --- BOTONES DE COMPARTIR --- */
+.accar-btn-compartir {
+  background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: bold;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  transition: opacity 0.3s ease;
+}
+.accar-btn-compartir:hover { opacity: 0.9; }
+
+/* --- MENÚ MÓVIL --- */
+.accar-mobile-nav-container { display: none; }
+
+@media (max-width: 900px) {
+  .accar-container { padding-bottom: 140px; }
+  .accar-brev-botonera { display: none; } /* Oculta la botonera de escritorio */
+  .accar-btn-compartir { display: none !important; } /* Oculta el botón de escritorio en móvil */
+
+  .accar-mobile-nav-container {
+      display: flex !important;
+      flex-direction: column;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: #1a1a2e;
+      z-index: 1000;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      box-shadow: 0 -5px 20px rgba(0,0,0,0.5);
+  }
+  
+  .accar-mobile-share-btn {
+      background: linear-gradient(90deg, #2b3950, #1e293b);
+      color: #94a3b8;
+      border: none;
+      padding: 12px;
+      text-align: center;
+      font-weight: 600;
+      font-size: 14px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  
+  .accar-mobile-share-btn span {
+      background: #8b5cf6; 
+      color: white;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 10px;
+  }
+
+  .accar-mobile-menu-scroll {
+      display: flex;
+      overflow-x: auto;
+      padding: 15px;
+      gap: 10px;
+      scrollbar-width: none; 
+      -ms-overflow-style: none;  
+  }
+  
+  .accar-mobile-menu-scroll::-webkit-scrollbar { display: none; }
+  .accar-mobile-menu-scroll .accar-brev-btn {
+      flex: 0 0 auto;
+      padding: 10px 20px;
+      border-radius: 50px;
+      text-align: center;
+      white-space: nowrap;
+      background: rgba(255,255,255,0.1);
+      border: none;
+      color: #fff;
+  }
+  .accar-mobile-menu-scroll .accar-brev-btn.active {
+      background: #d4af37;
+      color: #000;
+  }
+}
+
 /* --- BOTÓN REGRESAR ARRIBA --- */
 .accar-back-top {
   display: block;
@@ -189,6 +300,33 @@
 </style>
 
 <script>
+let currentLiturgiaTitle = "Liturgia de las Horas";
+
+function shareBreviario() {
+    const tempDiv = document.createElement('div');
+    tempDiv.innerHTML = document.getElementById('brev-text').innerHTML;
+    let textBody = tempDiv.textContent || tempDiv.innerText || "";
+    
+    if (textBody.length > 300) {
+        textBody = textBody.substring(0, 300) + '...';
+    }
+
+    const shareData = {
+        title: `ACCAR - ${currentLiturgiaTitle}`,
+        text: `*${currentLiturgiaTitle}*\n\n${textBody}\n\nLee completa en:`,
+        url: window.location.href, 
+    };
+
+    if (navigator.share) {
+        navigator.share(shareData)
+            .catch((error) => console.log('Error al compartir', error));
+    } else {
+        navigator.clipboard.writeText(`${shareData.text} ${shareData.url}`)
+            .then(() => alert('¡Enlace y liturgia copiados al portapapeles!'))
+            .catch(err => console.error('Error al copiar texto: ', err));
+    }
+}
+
 (async function initBreviario() {
   const opcionesFecha = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
   let fechaHoyTexto = new Date().toLocaleDateString('es-ES', opcionesFecha);
@@ -263,11 +401,18 @@
       }
   });
 
-  async function loadHora(horaParam) {
+  const btnShareDesktop = document.getElementById('btn-share-desktop');
+
+  async function loadHora(horaParam, btnElement) {
       spinner.style.display = 'block';
       textContainer.style.display = 'none';
       barraControles.style.display = 'none'; 
       btnBackTop.style.display = 'none'; 
+      if(btnShareDesktop) btnShareDesktop.style.display = 'none';
+      
+      if(btnElement) {
+          currentLiturgiaTitle = btnElement.textContent.trim();
+      }
       
       try {
           const response = await fetch(`/api/breviario?hora=${horaParam}`);
@@ -278,7 +423,8 @@
           if(data.html && data.html.length > 50) {
              textContainer.innerHTML = data.html;
              barraControles.style.display = 'flex'; 
-             btnBackTop.style.display = 'block'; // Muestra el botón de regresar
+             btnBackTop.style.display = 'block'; 
+             if(btnShareDesktop) btnShareDesktop.style.display = 'inline-flex';
           } else {
              textContainer.innerHTML = "<p style='text-align:center;'>La liturgia de las horas no está disponible aún en la fuente.</p>";
           }
@@ -292,10 +438,23 @@
 
   botonesMenu.forEach(btn => {
       btn.addEventListener('click', (e) => {
-          botonesMenu.forEach(b => b.classList.remove('active'));
-          e.target.classList.add('active');
-          const hora = e.target.getAttribute('data-hora');
-          loadHora(hora);
+          const targetHora = e.target.getAttribute('data-hora');
+          
+          // Sincronizar estado visual de los botones (escritorio y móvil)
+          botonesMenu.forEach(b => {
+              if (b.getAttribute('data-hora') === targetHora) {
+                  b.classList.add('active');
+              } else {
+                  b.classList.remove('active');
+              }
+          });
+          
+          loadHora(targetHora, e.target);
+          
+          // En móvil, hacer scroll suave al contenido tras hacer clic
+          if (window.innerWidth <= 900) {
+              document.querySelector('.accar-brev-content-area').scrollIntoView({ behavior: 'smooth' });
+          }
       });
   });
 
