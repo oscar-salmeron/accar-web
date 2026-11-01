@@ -41,15 +41,24 @@
 
     </aside>
 
-    <!-- COLUMNA DERECHA: ÁREA DE LECTURA -->
+    <!-- COLUMNA DERECHA: ÁREA DE LECTURA (TEMA BEIGE POR DEFECTO COMO BREVIARIO) -->
     <main class="accar-lecturas-content">
       
+      <!-- Barra de herramientas (Estilo Breviario) -->
+      <div class="accar-text-controls" id="lecturas-text-controls" style="display: none;">
+        <button class="accar-text-btn" id="btn-theme-toggle" title="Cambiar a fondo oscuro">🌙 Fondo Oscuro</button>
+        <div style="flex-grow: 1;"></div>
+        <span class="accar-text-controls-label">Tamaño:</span>
+        <button class="accar-text-btn btn-size active" data-size="15px">A-</button>
+        <button class="accar-text-btn btn-size" data-size="18px">A</button>
+        <button class="accar-text-btn btn-size" data-size="22px">A+</button>
+      </div>
+
       <div class="accar-reading-header">
         <span class="accar-reading-label" id="reading-label">EVANGELIO DE HOY</span>
         <h1 id="reading-title">Evangelio</h1>
         <h3 id="reading-ref">Conectando con el Leccionario...</h3>
         
-        <!-- Botón de compartir en escritorio -->
         <button class="accar-btn-compartir" onclick="shareContent()">
             Compartir lectura
         </button>
@@ -57,10 +66,13 @@
 
       <div class="accar-reading-body">
         <div class="accar-spinner" id="reading-spinner"></div>
-        <div id="reading-text" class="accar-text-content">
+        <div id="reading-text" class="accar-text-content theme-light">
           <!-- Aquí se inyectará el texto de la lectura -->
         </div>
       </div>
+      
+      <!-- Botón de regresar arriba -->
+      <button id="btn-back-top" class="accar-back-top" style="display: none;">⬆ Volver al menú</button>
 
     </main>
 
@@ -90,7 +102,6 @@
   background: radial-gradient(circle at top, #0f3d3e 0%, #021617 100%);
   min-height: 100vh;
   color: #f8efd3;
-  /* Add padding bottom on mobile to ensure content isn't hidden behind the sticky bar */
   padding-bottom: 140px; 
 }
 
@@ -148,10 +159,7 @@
   display: inline-block;
   letter-spacing: 0.5px;
 }
-.badge-combined span {
-  display: inline-block;
-}
-
+.badge-combined span { display: inline-block; }
 .dot-color::before {
   content: '';
   display: inline-block;
@@ -169,13 +177,7 @@
   margin: 0;
 }
 
-/* Menú de Botones (Desktop) */
-.accar-lecturas-menu {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
+.accar-lecturas-menu { display: flex; flex-direction: column; gap: 10px; }
 .accar-menu-btn {
   background: rgba(255,255,255,0.05);
   border: 1px solid rgba(255,255,255,0.1);
@@ -189,12 +191,10 @@
   transition: all 0.3s ease;
   font-family: inherit;
 }
-
 .accar-menu-btn:hover {
   background: rgba(255,255,255,0.1);
   border-color: rgba(44, 182, 125, 0.4);
 }
-
 .accar-menu-btn.active {
   background: #2cb67d;
   color: #000;
@@ -203,20 +203,53 @@
   box-shadow: 0 4px 15px rgba(44, 182, 125, 0.3);
 }
 
-/* --- MAIN CONTENT --- */
+/* --- MAIN CONTENT (AREA LECTURA) --- */
 .accar-lecturas-content {
-  background: rgba(0, 0, 0, 0.25);
+  background: #1a1c29;
   border: 1px solid rgba(212, 175, 55, 0.15);
   border-radius: 24px;
   padding: 50px;
 }
 
+/* BARRA DE HERRAMIENTAS (CLONADA DEL BREVIARIO) */
+.accar-text-controls {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+  padding-bottom: 15px;
+}
+.accar-text-controls-label {
+  font-size: 14px;
+  color: rgba(255,255,255,0.6);
+  font-weight: 600;
+}
+.accar-text-btn {
+  background: transparent;
+  border: 1px solid rgba(212, 175, 55, 0.4);
+  color: #e7dcc5;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.accar-text-btn:hover { background: rgba(212, 175, 55, 0.1); }
+.accar-text-btn.active {
+  background: #d4af37;
+  color: #1a1c29;
+  border-color: #d4af37;
+}
+
+/* ENCABEZADOS DE LECTURA */
 .accar-reading-header {
     display: flex;
     flex-direction: column;
     position: relative;
+    margin-bottom: 20px;
 }
-
 .accar-reading-label {
   color: #2cb67d;
   font-size: 12px;
@@ -226,24 +259,21 @@
   display: block;
   margin-bottom: 10px;
 }
-
 #reading-title {
-  color: #fff;
+  color: #d4af37;
   font-size: 42px;
   margin: 0 0 10px 0;
   font-weight: 800;
 }
-
 #reading-ref {
   color: #a4a7ab;
   font-size: 18px;
-  margin: 0 0 40px 0;
+  margin: 0 0 20px 0;
   font-weight: normal;
   border-bottom: 1px solid rgba(255,255,255,0.1);
-  padding-bottom: 30px;
+  padding-bottom: 20px;
 }
 
-/* Estilo del Botón Compartir Escritorio */
 .accar-btn-compartir {
   background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
   color: white;
@@ -253,7 +283,7 @@
   font-size: 13px;
   font-weight: bold;
   cursor: pointer;
-  margin-top: 15px;
+  margin-top: 5px;
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -261,19 +291,45 @@
   transition: opacity 0.3s ease;
   align-self: flex-start;
 }
+.accar-btn-compartir:hover { opacity: 0.9; }
 
-.accar-btn-compartir:hover {
-  opacity: 0.9;
-}
-
+/* ESTILOS DE TEXTO - MODO OSCURO (Base) */
 .accar-text-content {
-  font-size: 18px;
+  font-size: 15px; /* Tamaño pequeño por defecto */
   line-height: 1.85;
-  color: #e7dcc5;
+  color: #e7dcc5 !important;
+  transition: all 0.3s ease;
+  padding: 15px;
+  border-radius: 8px;
 }
+.accar-text-content p { margin-bottom: 24px; }
+.accar-text-content b, .accar-text-content strong { color: #d4af37; }
 
-.accar-text-content p {
-  margin-bottom: 24px;
+/* MODO BEIGE (Activo por defecto desde el HTML con theme-light) */
+.accar-text-content.theme-light {
+  background-color: #fdf6e3 !important; 
+  color: #1a1c29 !important;
+  padding: 25px;
+  box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
+}
+.accar-text-content.theme-light b, .accar-text-content.theme-light strong { color: #8b0000; }
+
+/* Botón Regresar Arriba */
+.accar-back-top {
+  display: block;
+  margin: 30px auto 10px auto;
+  background-color: transparent;
+  border: 1px solid #d4af37;
+  color: #d4af37;
+  padding: 10px 25px;
+  border-radius: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.accar-back-top:hover {
+  background-color: #d4af37;
+  color: #1a1c29;
 }
 
 /* Spinner de carga */
@@ -290,35 +346,16 @@
 @keyframes spin { 100% { transform: rotate(360deg); } }
 
 /* Ocultar barra inferior en escritorio */
-.accar-mobile-nav-container {
-    display: none;
-}
+.accar-mobile-nav-container { display: none; }
 
 /* Responsivo y Barra Móvil */
 @media (max-width: 900px) {
-  .accar-lecturas-view {
-    padding-bottom: 140px; /* Evita que el contenido quede tapado por el menú inferior */
-  }
+  .accar-lecturas-view { padding-bottom: 140px; }
+  .accar-lecturas-inner { grid-template-columns: 1fr; }
+  .accar-sidebar-box:nth-child(3) { display: none; }
+  .accar-lecturas-content { padding: 30px 20px; }
+  .accar-btn-compartir { display: none; }
 
-  .accar-lecturas-inner {
-    grid-template-columns: 1fr;
-  }
-  
-  /* Oculta el menú lateral izquierdo original "¿Qué quieres leer?" */
-  .accar-sidebar-box:nth-child(3) {
-      display: none;
-  }
-
-  .accar-lecturas-content {
-    padding: 30px 20px;
-  }
-  
-  /* Oculta botón de compartir de escritorio */
-  .accar-btn-compartir {
-      display: none; 
-  }
-
-  /* Muestra el menú fijo inferior */
   .accar-mobile-nav-container {
       display: flex;
       flex-direction: column;
@@ -368,10 +405,7 @@
       -ms-overflow-style: none;  
   }
   
-  .accar-mobile-menu-scroll::-webkit-scrollbar {
-    display: none;
-  }
-
+  .accar-mobile-menu-scroll::-webkit-scrollbar { display: none; }
   .accar-mobile-menu-scroll .accar-menu-btn {
       flex: 0 0 auto;
       padding: 10px 20px;
@@ -381,7 +415,6 @@
       background: rgba(255,255,255,0.1);
       border: none;
   }
-  
   .accar-mobile-menu-scroll .accar-menu-btn.active {
       background: #2cb67d;
       color: #000;
@@ -454,6 +487,10 @@ function shareContent() {
   const anioTarget = document.getElementById('badge-anio');
   
   const botones = document.querySelectorAll('.accar-menu-btn');
+  const barraControles = document.getElementById('lecturas-text-controls');
+  const botonesTamano = document.querySelectorAll('.btn-size');
+  const btnThemeToggle = document.getElementById('btn-theme-toggle');
+  const btnBackTop = document.getElementById('btn-back-top');
   
   const coloresLiturgicos = {
     "VERDE": "#2cb67d",
@@ -470,6 +507,35 @@ function shareContent() {
       return texto.replace(/([a-záéíóúñ]{2,}[.»”?!]{1,2})\s+(?=[A-ZÁÉÍÓÚÑ¿¡])/gi, '$1<br><br>');
   };
 
+  // --- Lógicas Visuales de Controles ---
+  
+  // Regresar Arriba
+  btnBackTop.addEventListener('click', () => {
+      document.querySelector('.accar-lecturas-sidebar').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+
+  // Tamaño de texto
+  botonesTamano.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+          botonesTamano.forEach(b => b.classList.remove('active'));
+          e.target.classList.add('active');
+          textContainer.style.fontSize = e.target.getAttribute('data-size');
+      });
+  });
+
+  // Cambio de Color (Beige por defecto a Oscuro)
+  let isLightMode = true;
+  btnThemeToggle.addEventListener('click', () => {
+      isLightMode = !isLightMode;
+      if (isLightMode) {
+          textContainer.classList.add('theme-light');
+          btnThemeToggle.innerHTML = '🌙 Fondo Oscuro';
+      } else {
+          textContainer.classList.remove('theme-light');
+          btnThemeToggle.innerHTML = '☀️ Fondo Claro';
+      }
+  });
+
   let apiExitosa = false;
   spinner.style.display = 'block';
 
@@ -481,12 +547,9 @@ function shareContent() {
     const data = JSON.parse(rawText);
 
     if(data.fiestas && data.fiestas.length > 0) {
-      
-      // Limpiamos el texto de la semana para asegurar que solo quede la designación romana
       let semanaLimpia = data.fiestas[0].semana || '';
       semanaLimpia = semanaLimpia.replace(/Lecturas y Evangelio de la\s*\n?/i, '').trim();
 
-      // INYECCIÓN DE LAS DOS LÍNEAS EXACTAS
       if(semanaTarget) {
           semanaTarget.innerHTML = `Lecturas y Evangelio del día<br><span style="font-size: 14px; color: rgba(255,255,255,0.7); display: inline-block; margin-top: 6px;">${semanaLimpia}</span>`;
       }
@@ -494,10 +557,7 @@ function shareContent() {
       const colorTexto = (data.fiestas[0].color || 'VERDE').toUpperCase();
       colorTarget.textContent = colorTexto;
       
-      if (coloresLiturgicos[colorTexto]) {
-        colorTarget.style.color = coloresLiturgicos[colorTexto];
-      }
-      
+      if (coloresLiturgicos[colorTexto]) colorTarget.style.color = coloresLiturgicos[colorTexto];
       if(cicloTarget) cicloTarget.textContent = data.fiestas[0].ciclo || '';
       if(anioTarget) anioTarget.textContent = data.fiestas[0].anio || '';
     } else {
@@ -540,6 +600,10 @@ function shareContent() {
     titleTarget.textContent = d.titulo;
     refTarget.textContent = d.ref;
     textContainer.innerHTML = `<p>${d.texto}</p>`;
+    
+    // Mostrar controles de UI solo cuando hay texto
+    barraControles.style.display = 'flex';
+    btnBackTop.style.display = 'block';
   }
 
   if (apiExitosa) {
