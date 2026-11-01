@@ -20,10 +20,12 @@
     <div class="accar-brev-content-area">
       <!-- Barra de herramientas de lectura (Oculta por defecto) -->
       <div class="accar-text-controls" id="brev-text-controls" style="display: none;">
-        <span class="accar-text-controls-label">Tamaño del texto:</span>
-        <button class="accar-text-btn" data-size="15px">A-</button>
-        <button class="accar-text-btn active" data-size="18px">A</button>
-        <button class="accar-text-btn" data-size="22px">A+</button>
+        <button class="accar-text-btn" id="btn-theme-toggle" title="Cambiar a fondo claro">☀️ Fondo Claro</button>
+        <div style="flex-grow: 1;"></div>
+        <span class="accar-text-controls-label">Tamaño:</span>
+        <button class="accar-text-btn btn-size" data-size="15px">A-</button>
+        <button class="accar-text-btn btn-size active" data-size="18px">A</button>
+        <button class="accar-text-btn btn-size" data-size="22px">A+</button>
       </div>
 
       <div class="accar-spinner" id="brev-spinner" style="display: none;"></div>
@@ -115,18 +117,42 @@
   border-color: #d4af37;
 }
 
-/* --- ÁREA DE TEXTO LECTURA --- */
+/* --- ÁREA DE TEXTO LECTURA (Tema Oscuro por Defecto) --- */
 .accar-brev-text {
   font-size: 18px; 
   line-height: 1.8;
   color: #e7dcc5 !important;
-  transition: font-size 0.3s ease;
+  transition: all 0.3s ease;
+  padding: 10px;
+  border-radius: 8px;
 }
-.accar-brev-text font[color="black"],
-.accar-brev-text font[color="#000000"],
-.accar-brev-text span[style*="color: black"],
-.accar-brev-text span[style*="color:#000000"] {
+/* Convertimos las etiquetas negras originales a Crema, y las rojas a Rojo Brillante */
+.accar-brev-text font[color="black"], .accar-brev-text font[color="#000000"],
+.accar-brev-text span[style*="black"] {
   color: #e7dcc5 !important; 
+}
+.accar-brev-text font[color="red"], .accar-brev-text font[color="#ff0000"],
+.accar-brev-text span[style*="red"] {
+  color: #ff4d4d !important;
+  font-weight: 600;
+}
+
+/* --- TEMA CLARO (Fondo Beige Estilo Breviario) --- */
+.accar-brev-text.theme-light {
+  background-color: #fdf6e3 !important; 
+  color: #1a1c29 !important;
+  padding: 25px;
+  box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
+}
+/* En fondo claro, las etiquetas negras van oscuras y las rojas un poco más sangre para mejor lectura */
+.accar-brev-text.theme-light font[color="black"], .accar-brev-text.theme-light font[color="#000000"],
+.accar-brev-text.theme-light span[style*="black"] {
+  color: #1a1c29 !important; 
+}
+.accar-brev-text.theme-light font[color="red"], .accar-brev-text.theme-light font[color="#ff0000"],
+.accar-brev-text.theme-light span[style*="red"] {
+  color: #b91c1c !important;
+  font-weight: 600;
 }
 .accar-spinner {
   border: 4px solid rgba(255, 255, 255, 0.1);
@@ -184,14 +210,29 @@
   const spinner = document.getElementById('brev-spinner');
   const botonesMenu = document.querySelectorAll('.accar-brev-btn');
   const barraControles = document.getElementById('brev-text-controls');
-  const botonesTamano = document.querySelectorAll('.accar-text-btn');
+  const botonesTamano = document.querySelectorAll('.btn-size');
+  const btnThemeToggle = document.getElementById('btn-theme-toggle');
 
+  // Lógica de tamaño
   botonesTamano.forEach(btn => {
       btn.addEventListener('click', (e) => {
           botonesTamano.forEach(b => b.classList.remove('active'));
           e.target.classList.add('active');
           textContainer.style.fontSize = e.target.getAttribute('data-size');
       });
+  });
+
+  // Lógica de Cambio de Color (Oscuro a Beige)
+  let isLightMode = false;
+  btnThemeToggle.addEventListener('click', () => {
+      isLightMode = !isLightMode;
+      if (isLightMode) {
+          textContainer.classList.add('theme-light');
+          btnThemeToggle.innerHTML = '🌙 Fondo Oscuro';
+      } else {
+          textContainer.classList.remove('theme-light');
+          btnThemeToggle.innerHTML = '☀️ Fondo Claro';
+      }
   });
 
   async function loadHora(horaParam) {
