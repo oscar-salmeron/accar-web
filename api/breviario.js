@@ -5,48 +5,58 @@ export default async function handler(req, res) {
     return;
   }
 
-  const horaParams = {
-      'ufficio': 'readings',
-      'laudi': 'lauds',
-      'media': 'terce', // Usaremos Tercia como predeterminada para hora intermedia
-      'vespri': 'vespers',
-      'compieta': 'compline'
-  };
-
-  const horaReq = req.query.hora || 'laudi';
-  const apiHora = horaParams[horaReq] || 'lauds';
+  const hora = req.query.hora || 'laudi';
   
-  // Utilizamos una fuente alternativa estable (Liturgy API) o similar que permita CORS/Server requests
-  const targetUrl = `https://universalis.com/es-ES/${apiHora}.json`;
+  // 1. URL original de iBreviary con los textos perfectos
+  const targetUrl = 'https://www.ibreviary.com/m2/breviario_testo.php?s=' + hora + '&lang=es';
+  
+  // 2. Puente proxy (AllOrigins) para evitar que iBreviary bloquee a Vercel
+  const proxyUrl = 'https://api.allorigins.win/get?url=' + encodeURIComponent(targetUrl);
 
   try {
-    const response = await fetch(targetUrl, {
+    const response = await fetch(proxyUrl, {
       method: 'GET',
       headers: {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)',
-        'Accept': 'application/json'
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'
       }
     });
 
-    if (!response.ok) {
-        throw new Error('Error al conectar con el servicio litúrgico.');
-    }
+    if (!response.ok) throw new Error('Error al conectar con el puente proxy.');
 
+    // AllOrigins devuelve un JSON seguro con una propiedad "contents"
     const data = await response.json();
     
-    if (!data.text) {
-        throw new Error('Respuesta vacía del servidor.');
+    if (!data.contents) throw new Error('Respuesta vacía del servidor origen.');
+
+    const htmlCrudo = data.contents;
+
+    // 3. Extracción del texto del breviario
+    let main = htmlCrudo;
+    if (main.includes('data-role="content"')) {
+        main = main.split('data-role="content"')[1];
+        main = main.substring(main.indexOf('>') + 1);
+        if (main.includes('data-role="footer"')) {
+            main = main.split('data-role="footer"')[0];
+        }
+    } else if (main.includes('<body')) {
+        main = main.split('<body')[1];
+        main = main.substring(main.indexOf('>') + 1);
+        main = main.split('</body>')[0];
     }
 
-    // Convertimos la respuesta JSON en HTML preservando saltos de línea y rúbricas (texto entre asteriscos suele ser rúbrica)
-    let textoFormateado = data.text
-        .replace(/\n/g, '<br><br>')
-        .replace(/\*(.*?)\*/g, '<span style="color: #ff4d4d; font-weight: 600;">$1</span>') // Rúbricas en rojo
-        .replace(/V\./g, '<span style="color: #ff4d4d; font-weight: 600;">V.</span>')
-        .replace(/R\./g, '<span style="color: #ff4d4d; font-weight: 600;">R.</span>')
-        .replace(/Ant\./g, '<span style="color: #ff4d4d; font-weight: 600;">Ant.</span>');
+    // 4. Limpieza respetando las rúbricas rojas
+    let textoFiltado = main
+        .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '') 
+        .replace(/<style\b[^<]*(?:(?!<\/style>)<[^<]*)*<\/style>/gi, '')    
+        .replace(/<div data-role="header"[^>]*>([\s\S]*?)<\/div>/gi, '')    
+        .replace(/<a [^>]*>([\s\S]*?)<\/a>/gi, '$1')                        
+        .replace(/<img[^>]*>/gi, '')                                        
+        .replace(/<link[^>]*>/gi, '')                                       
+        .trim();
 
-    res.status(200).json({ html: `<p>${textoFormateado}</p>` });
+    textoFiltado = textoFiltado.replace(/(<\/div>\s*)+$/i, '');
+
+    res.status(200).json({ html: textoFiltado });
 
   } catch (error) {
     console.error("Error en breviario.js:", error.message);
