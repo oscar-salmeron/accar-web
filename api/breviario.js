@@ -32,8 +32,8 @@ export default async function handler(req, res) {
   let mes = parts.find(p => p.type === 'month').value.replace(/\./g, '').toLowerCase().substring(0, 3);
   if (mes === 'set') mes = 'sep'; // GitHub Pages usa "sep"
   
-  // 2. Extraer el día exacto sin ceros iniciales (ej. "1" en lugar de "01")
-  const dia = parts.find(p => p.type === 'day').value;
+  // 2. Extraer el día con cero inicial (ej. "01" en lugar de "1")
+  const dia = parts.find(p => p.type === 'day').value.padStart(2, '0');
 
   // Ruta dinámica sin bloqueos de servidor
   const targetUrl = `https://liturgiadelashoras.github.io/sync/${year}/${mes}/${dia}/${horaWeb}.htm`;
