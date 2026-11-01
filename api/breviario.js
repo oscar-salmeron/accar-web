@@ -7,11 +7,11 @@ export default async function handler(req, res) {
 
   const hora = req.query.hora || 'laudi';
   
-  // 1. URL original de iBreviary con los textos perfectos
-  const targetUrl = 'https://www.ibreviary.com/m2/breviario_testo.php?s=' + hora + '&lang=es';
+  // 1. Enlace principal activo de iBreviary (breviario_testo.php está muerto)
+  const targetUrl = 'https://www.ibreviary.com/m2/breviario.php?s=' + hora + '&lang=es';
   
-  // 2. Puente proxy (AllOrigins) para evitar que iBreviary bloquee a Vercel
-  const proxyUrl = 'https://api.allorigins.win/get?url=' + encodeURIComponent(targetUrl);
+  // 2. Proxy estable que devuelve HTML puro y evade bloqueos de Vercel
+  const proxyUrl = 'https://api.codetabs.com/v1/proxy?quest=' + encodeURIComponent(targetUrl);
 
   try {
     const response = await fetch(proxyUrl, {
@@ -21,14 +21,14 @@ export default async function handler(req, res) {
       }
     });
 
-    if (!response.ok) throw new Error('Error al conectar con el puente proxy.');
+    if (!response.ok) throw new Error('Error al conectar con el servidor.');
 
-    // AllOrigins devuelve un JSON seguro con una propiedad "contents"
-    const data = await response.json();
+    const htmlCrudo = await response.text();
     
-    if (!data.contents) throw new Error('Respuesta vacía del servidor origen.');
-
-    const htmlCrudo = data.contents;
+    // Verificación de seguridad por si la página no existe
+    if (htmlCrudo.includes('404 Page Not Found') || htmlCrudo.length < 100) {
+        throw new Error('La liturgia de esta hora no está disponible en la fuente.');
+    }
 
     // 3. Extracción del texto del breviario
     let main = htmlCrudo;
@@ -44,7 +44,7 @@ export default async function handler(req, res) {
         main = main.split('</body>')[0];
     }
 
-    // 4. Limpieza respetando las rúbricas rojas
+    // 4. Limpieza respetando estrictamente las rúbricas rojas
     let textoFiltado = main
         .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '') 
         .replace(/<style\b[^<]*(?:(?!<\/style>)<[^<]*)*<\/style>/gi, '')    
