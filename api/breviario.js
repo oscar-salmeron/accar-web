@@ -6,32 +6,59 @@ export default async function handler(req, res) {
   }
 
   const hora = req.query.hora || 'laudi';
-  const targetUrl = 'https://www.ibreviary.com/m2/breviario_testo.php?s=' + hora + '&lang=es';
+  // 1. Pegamos a la página principal abierta, NO al enlace móvil bloqueado
+  const mainUrl = 'https://www.ibreviary.com/m2/breviario.php?lang=es';
 
   try {
-    const response = await fetch(targetUrl, {
+    const response = await fetch(mainUrl, {
       method: 'GET',
       headers: {
-        'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 16_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.6 Mobile/15E148 Safari/604.1',
-        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-        'Accept-Language': 'es-ES,es;q=0.9',
-        'Cache-Control': 'no-cache',
-        'Connection': 'keep-alive'
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
       }
     });
 
     if (!response.ok) {
-        console.error(`iBreviary respondió con estado: ${response.status}`);
-        throw new Error('Error al conectar con la fuente oficial.');
+        throw new Error('Error al conectar con la portada del Breviario.');
     }
 
     const htmlCrudo = await response.text();
 
-    if (!htmlCrudo || htmlCrudo.length < 100) {
-        throw new Error('Respuesta vacía del servidor.');
+    // 2. Buscamos el enlace real que iBreviary generó hoy para esa hora específica
+    // Ejemplo de cómo lo escriben ellos: <a href="breviario_testo.php?s=laudi">Laudes</a>
+    const regex = new RegExp(`href="([^"]+\\.php\\?s=${hora}[^"]*)"`, 'i');
+    const match = htmlCrudo.match(regex);
+
+    if (!match) {
+        throw new Error('No se encontró la hora litúrgica en la página principal.');
     }
 
-    let main = htmlCrudo;
+    // 3. Construimos la URL completa para el texto
+    let targetUrl = match[1];
+    if (!targetUrl.startsWith('http')) {
+        targetUrl = 'https://www.ibreviary.com/m2/' + targetUrl;
+    }
+
+    // Aseguramos el idioma
+    if (!targetUrl.includes('lang=')) {
+        targetUrl += '&lang=es';
+    }
+
+    // 4. Hacemos la segunda petición al texto con la URL válida obtenida
+    const textResponse = await fetch(targetUrl, {
+      method: 'GET',
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
+        'Referer': mainUrl // Esto es vital para engañar a su sistema de seguridad
+      }
+    });
+
+    if (!textResponse.ok) {
+        throw new Error('Error al descargar el texto de la hora litúrgica.');
+    }
+
+    const htmlTextoCrudo = await textResponse.text();
+
+    let main = htmlTextoCrudo;
     if (main.includes('data-role="content"')) {
         main = main.split('data-role="content"')[1];
         main = main.substring(main.indexOf('>') + 1);
