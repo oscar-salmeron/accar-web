@@ -42,7 +42,7 @@
     </aside>
 
     <!-- COLUMNA DERECHA: ÁREA DE LECTURA (TEMA BEIGE POR DEFECTO COMO BREVIARIO) -->
-    <main class="accar-lecturas-content">
+    <main class="accar-lecturas-content theme-light" id="main-content-area">
       
       <!-- Barra de herramientas (Estilo Breviario) -->
       <div class="accar-text-controls" id="lecturas-text-controls" style="display: none;">
@@ -66,7 +66,7 @@
 
       <div class="accar-reading-body">
         <div class="accar-spinner" id="reading-spinner"></div>
-        <div id="reading-text" class="accar-text-content theme-light">
+        <div id="reading-text" class="accar-text-content">
           <!-- Aquí se inyectará el texto de la lectura -->
         </div>
       </div>
@@ -209,9 +209,15 @@
   border: 1px solid rgba(212, 175, 55, 0.15);
   border-radius: 24px;
   padding: 50px;
+  transition: background-color 0.3s ease;
 }
 
-/* BARRA DE HERRAMIENTAS (CLONADA DEL BREVIARIO) */
+/* LA TARJETA COMPLETA EN MODO BEIGE */
+.accar-lecturas-content.theme-light {
+  background-color: #fdf6e3;
+}
+
+/* BARRA DE HERRAMIENTAS */
 .accar-text-controls {
   display: flex;
   justify-content: flex-end;
@@ -242,6 +248,12 @@
   color: #1a1c29;
   border-color: #d4af37;
 }
+
+/* ADAPTACIÓN DE COLORES AL MODO BEIGE (Títulos y Botones) */
+.accar-lecturas-content.theme-light .accar-text-controls-label { color: #1a1c29; }
+.accar-lecturas-content.theme-light .accar-text-btn { color: #1a1c29; border-color: rgba(26,28,41,0.2); }
+.accar-lecturas-content.theme-light #reading-title { color: #8b0000; }
+.accar-lecturas-content.theme-light #reading-ref { color: #4a5568; border-bottom: 1px solid rgba(0,0,0,0.1); }
 
 /* ENCABEZADOS DE LECTURA */
 .accar-reading-header {
@@ -295,24 +307,27 @@
 
 /* ESTILOS DE TEXTO - MODO OSCURO (Base) */
 .accar-text-content {
-  font-size: 15px; /* Tamaño pequeño por defecto */
+  font-size: 15px; 
   line-height: 1.85;
   color: #e7dcc5 !important;
   transition: all 0.3s ease;
-  padding: 15px;
-  border-radius: 8px;
 }
 .accar-text-content p { margin-bottom: 24px; }
 .accar-text-content b, .accar-text-content strong { color: #d4af37; }
 
-/* MODO BEIGE (Activo por defecto desde el HTML con theme-light) */
-.accar-text-content.theme-light {
-  background-color: #fdf6e3 !important; 
-  color: #1a1c29 !important;
-  padding: 25px;
-  box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
+/* ESTILOS DE TEXTO - MODO BEIGE */
+.accar-lecturas-content.theme-light .accar-text-content { color: #1a1c29 !important; }
+.accar-lecturas-content.theme-light .accar-text-content b, 
+.accar-lecturas-content.theme-light .accar-text-content strong { color: #8b0000; }
+
+/* ESTILOS PARA LAS RÚBRICAS Y NÚMEROS EN ROJO */
+.texto-rojo {
+    color: #ff4d4d;
+    font-weight: bold;
 }
-.accar-text-content.theme-light b, .accar-text-content.theme-light strong { color: #8b0000; }
+.accar-lecturas-content.theme-light .texto-rojo {
+    color: #b91c1c; /* Un rojo más oscuro para que resalte en el beige */
+}
 
 /* Botón Regresar Arriba */
 .accar-back-top {
@@ -500,11 +515,19 @@ function shareContent() {
     "ROSADO": "#fbb6ce"
   };
 
-  // Función para aplicar saltos de párrafo inteligentemente
+  // Función para aplicar saltos de párrafo y pintar de rojo rúbricas/citas
   const formatearGramatica = (texto) => {
       if (!texto) return '';
-      if (texto.includes('\n')) return texto.replace(/\n/g, '<br><br>');
-      return texto.replace(/([a-záéíóúñ]{2,}[.»”?!]{1,2})\s+(?=[A-ZÁÉÍÓÚÑ¿¡])/gi, '$1<br><br>');
+      let textoFormateado = texto;
+      
+      // Pintar de rojo "R/." o "R." (Responsorio) al inicio de las frases
+      textoFormateado = textoFormateado.replace(/^(R\/\.|R\.)/gim, '<span class="texto-rojo">$1</span>');
+      
+      // Pintar de rojo los números de las citas bíblicas entre paréntesis (ej. (5,1-12))
+      textoFormateado = textoFormateado.replace(/(\(\d+.*?\))/g, '<span class="texto-rojo">$1</span>');
+      
+      if (textoFormateado.includes('\n')) return textoFormateado.replace(/\n/g, '<br><br>');
+      return textoFormateado.replace(/([a-záéíóúñ]{2,}[.»”?!]{1,2})\s+(?=[A-ZÁÉÍÓÚÑ¿¡])/gi, '$1<br><br>');
   };
 
   // --- Lógicas Visuales de Controles ---
@@ -523,15 +546,16 @@ function shareContent() {
       });
   });
 
-  // Cambio de Color (Beige por defecto a Oscuro)
+  // Cambio de Color (Beige por defecto a Oscuro en TODA la tarjeta)
+  const mainContentArea = document.getElementById('main-content-area');
   let isLightMode = true;
   btnThemeToggle.addEventListener('click', () => {
       isLightMode = !isLightMode;
       if (isLightMode) {
-          textContainer.classList.add('theme-light');
+          mainContentArea.classList.add('theme-light');
           btnThemeToggle.innerHTML = '🌙 Fondo Oscuro';
       } else {
-          textContainer.classList.remove('theme-light');
+          mainContentArea.classList.remove('theme-light');
           btnThemeToggle.innerHTML = '☀️ Fondo Claro';
       }
   });
