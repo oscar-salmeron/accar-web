@@ -32,6 +32,9 @@
       <div id="brev-text" class="accar-brev-text">
         <p style="text-align: center; color: rgba(255,255,255,0.5); padding: 40px 0;">Selecciona una hora litúrgica para comenzar a rezar.</p>
       </div>
+      
+      <!-- Botón de regresar arriba (Oculto por defecto) -->
+      <button id="btn-back-top" class="accar-back-top" style="display: none;">⬆ Volver al menú</button>
     </div>
 
   </div>
@@ -154,6 +157,25 @@
   color: #b91c1c !important;
   font-weight: 600;
 }
+
+/* --- BOTÓN REGRESAR ARRIBA --- */
+.accar-back-top {
+  display: block;
+  margin: 30px auto 10px auto;
+  background-color: transparent;
+  border: 1px solid #d4af37;
+  color: #d4af37;
+  padding: 10px 25px;
+  border-radius: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.accar-back-top:hover {
+  background-color: #d4af37;
+  color: #1a1c29;
+}
+
 .accar-spinner {
   border: 4px solid rgba(255, 255, 255, 0.1);
   border-left-color: #d4af37;
@@ -212,6 +234,12 @@
   const barraControles = document.getElementById('brev-text-controls');
   const botonesTamano = document.querySelectorAll('.btn-size');
   const btnThemeToggle = document.getElementById('btn-theme-toggle');
+  const btnBackTop = document.getElementById('btn-back-top');
+
+  // Lógica de Regresar Arriba
+  btnBackTop.addEventListener('click', () => {
+      document.querySelector('.accar-brev-botonera').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
 
   // Lógica de tamaño
   botonesTamano.forEach(btn => {
@@ -239,6 +267,7 @@
       spinner.style.display = 'block';
       textContainer.style.display = 'none';
       barraControles.style.display = 'none'; 
+      btnBackTop.style.display = 'none'; 
       
       try {
           const response = await fetch(`/api/breviario?hora=${horaParam}`);
@@ -249,6 +278,7 @@
           if(data.html && data.html.length > 50) {
              textContainer.innerHTML = data.html;
              barraControles.style.display = 'flex'; 
+             btnBackTop.style.display = 'block'; // Muestra el botón de regresar
           } else {
              textContainer.innerHTML = "<p style='text-align:center;'>La liturgia de las horas no está disponible aún en la fuente.</p>";
           }
