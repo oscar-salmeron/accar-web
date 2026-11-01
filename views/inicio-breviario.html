@@ -1,50 +1,87 @@
-<div class="accar-breviario-view">
-  <div class="accar-breviario-inner">
+<div class="accar-container">
+  <div class="accar-card">
     
-    <!-- CABECERA LITÚRGICA (Estilo Ordo Colombiano) -->
-    <div class="accar-brev-header" id="brev-header-container">
-      <div class="accar-brev-header-content">
-        <h2 id="brev-fecha-titulo">Cargando Liturgia...</h2>
-        <p class="accar-brev-subtitle" id="brev-semana-titulo"></p>
-      </div>
+    <!-- CABECERA DINÁMICA -->
+    <div id="brev-header-container" class="accar-brev-header">
+      <h2 id="brev-fecha-titulo">Cargando fecha...</h2>
+      <p id="brev-semana-titulo">Cargando semana...</p>
     </div>
 
-    <!-- CONTENEDOR PRINCIPAL: MENÚ Y ÁREA DE LECTURA -->
-    <div class="accar-brev-main">
-      
-      <!-- MENÚ DE HORAS (Botones anchos) -->
-      <nav class="accar-brev-menu" id="brev-menu">
-        <button class="accar-brev-btn active" data-hora="ufficio">Oficio de lectura</button>
-        <button class="accar-brev-btn" data-hora="laudi">Laudes</button>
-        <button class="accar-brev-btn" data-hora="media">Hora Intermedia</button>
-        <button class="accar-brev-btn" data-hora="vespri">Vísperas</button>
-        <button class="accar-brev-btn" data-hora="compieta">Completas</button>
-      </nav>
+    <!-- BOTONERA DE HORAS -->
+    <div class="accar-brev-botonera">
+      <button class="accar-brev-btn" data-hora="ufficio">Oficio de lectura</button>
+      <button class="accar-brev-btn" data-hora="laudi">Laudes</button>
+      <button class="accar-brev-btn" data-hora="media">Hora Intermedia</button>
+      <button class="accar-brev-btn" data-hora="vespri">Vísperas</button>
+      <button class="accar-brev-btn" data-hora="compieta">Completas</button>
+    </div>
 
-      <!-- ÁREA DE LECTURA DE LA HORA SELECCIONADA -->
-      <div class="accar-brev-content-area">
-        
-        <!-- Barra de herramientas de lectura (Oculta por defecto hasta que cargue el texto) -->
-        <div class="accar-text-controls" id="brev-text-controls" style="display: none;">
-          <span class="accar-text-controls-label">Tamaño del texto:</span>
-          <button class="accar-text-btn" data-size="15px">A-</button>
-          <button class="accar-text-btn active" data-size="18px">A</button>
-          <button class="accar-text-btn" data-size="22px">A+</button>
-        </div>
-
-        <div class="accar-spinner" id="brev-spinner" style="display: none;"></div>
-        <div id="brev-text" class="accar-brev-text">
-          <p style="text-align: center; color: rgba(255,255,255,0.5); padding: 40px 0;">Selecciona una hora litúrgica para comenzar a rezar.</p>
-        </div>
+    <!-- ÁREA DE LECTURA -->
+    <div class="accar-brev-content-area">
+      <!-- Barra de herramientas de lectura (Oculta por defecto) -->
+      <div class="accar-text-controls" id="brev-text-controls" style="display: none;">
+        <span class="accar-text-controls-label">Tamaño del texto:</span>
+        <button class="accar-text-btn" data-size="15px">A-</button>
+        <button class="accar-text-btn active" data-size="18px">A</button>
+        <button class="accar-text-btn" data-size="22px">A+</button>
       </div>
 
+      <div class="accar-spinner" id="brev-spinner" style="display: none;"></div>
+      <div id="brev-text" class="accar-brev-text">
+        <p style="text-align: center; color: rgba(255,255,255,0.5); padding: 40px 0;">Selecciona una hora litúrgica para comenzar a rezar.</p>
+      </div>
     </div>
 
   </div>
 </div>
 
 <style>
-/* ... (MANTÉN TUS ESTILOS ACTUALES ARRIBA DE ESTO) ... */
+/* --- ESTILOS PRINCIPALES RESTAURADOS --- */
+.accar-container {
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+.accar-card {
+  background-color: #1a1c29;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 12px;
+  padding: 20px;
+}
+.accar-brev-header {
+  background-color: #2cb67d;
+  padding: 20px;
+  border-radius: 12px;
+  text-align: center;
+  margin-bottom: 20px;
+  transition: background-color 0.3s ease;
+}
+.accar-brev-header h2 { color: white; margin: 0 0 5px 0; font-size: 22px; font-weight: bold;}
+.accar-brev-header p { color: white; margin: 0; font-size: 14px; text-transform: uppercase; font-weight: bold; }
+
+.accar-brev-botonera {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.accar-brev-btn {
+  background-color: #f8f9fa;
+  border: none;
+  padding: 15px;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 16px;
+  color: #1a1c29;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.accar-brev-btn:hover { background-color: #e2e8f0; }
+.accar-brev-btn.active {
+  background-color: #d4af37;
+  color: white;
+  box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+}
 
 /* --- BARRA DE TAMAÑO DE TEXTO --- */
 .accar-text-controls {
@@ -56,13 +93,11 @@
   border-bottom: 1px solid rgba(212, 175, 55, 0.2);
   padding-bottom: 15px;
 }
-
 .accar-text-controls-label {
   font-size: 14px;
   color: rgba(255,255,255,0.6);
   font-weight: 600;
 }
-
 .accar-text-btn {
   background: transparent;
   border: 1px solid rgba(212, 175, 55, 0.4);
@@ -73,32 +108,36 @@
   cursor: pointer;
   transition: all 0.2s ease;
 }
-
-.accar-text-btn:hover {
-  background: rgba(212, 175, 55, 0.1);
-}
-
+.accar-text-btn:hover { background: rgba(212, 175, 55, 0.1); }
 .accar-text-btn.active {
   background: #d4af37;
   color: #1a1c29;
   border-color: #d4af37;
 }
 
-/* --- ÁREA DE TEXTO CON COLOR CREMA FORZADO --- */
+/* --- ÁREA DE TEXTO LECTURA --- */
 .accar-brev-text {
-  font-size: 18px; /* Tamaño base por defecto */
+  font-size: 18px; 
   line-height: 1.8;
   color: #e7dcc5 !important;
   transition: font-size 0.3s ease;
 }
-
-/* Regla de escudo por si se filtra algún color negro de la fuente original */
 .accar-brev-text font[color="black"],
 .accar-brev-text font[color="#000000"],
 .accar-brev-text span[style*="color: black"],
 .accar-brev-text span[style*="color:#000000"] {
   color: #e7dcc5 !important; 
 }
+.accar-spinner {
+  border: 4px solid rgba(255, 255, 255, 0.1);
+  border-left-color: #d4af37;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+  margin: 20px auto;
+}
+@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 </style>
 
 <script>
@@ -147,7 +186,6 @@
   const barraControles = document.getElementById('brev-text-controls');
   const botonesTamano = document.querySelectorAll('.accar-text-btn');
 
-  // Funcionalidad para cambiar el tamaño del texto
   botonesTamano.forEach(btn => {
       btn.addEventListener('click', (e) => {
           botonesTamano.forEach(b => b.classList.remove('active'));
@@ -159,7 +197,7 @@
   async function loadHora(horaParam) {
       spinner.style.display = 'block';
       textContainer.style.display = 'none';
-      barraControles.style.display = 'none'; // Ocultar controles mientras carga
+      barraControles.style.display = 'none'; 
       
       try {
           const response = await fetch(`/api/breviario?hora=${horaParam}`);
@@ -169,7 +207,7 @@
           
           if(data.html && data.html.length > 50) {
              textContainer.innerHTML = data.html;
-             barraControles.style.display = 'flex'; // Mostrar controles de tamaño si hay texto
+             barraControles.style.display = 'flex'; 
           } else {
              textContainer.innerHTML = "<p style='text-align:center;'>La liturgia de las horas no está disponible aún en la fuente.</p>";
           }
