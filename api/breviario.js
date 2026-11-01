@@ -7,51 +7,67 @@ export default async function handler(req, res) {
     return;
   }
 
-  const hora = req.query.hora || 'laudi';
-  // FUENTE ESTRICTA: iBreviary (versión móvil que es más fácil de limpiar)
-  const targetUrl = `https://www.ibreviary.com/m2/breviario.php?s=${hora}&lang=es`;
+  const horaParam = req.query.hora || 'laudi';
+
+  // 1. Mapeo de la nomenclatura exacta de Hispanoamérica en el repositorio
+  const mapHoras = {
+    'ufficio': 'oficio',
+    'laudi': 'laudes',
+    'media': 'sexta', // Usaremos Sexta como representante de Hora Intermedia
+    'vespri': 'visperas',
+    'compieta': 'completas'
+  };
+  const horaWeb = mapHoras[horaParam];
+
+  // 2. Construcción de la ruta dinámica (Ej: 2026/oct/31/laudes.htm)
+  const hoy = new Date();
+  const year = hoy.getFullYear();
+  const meses = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'];
+  const mes = meses[hoy.getMonth()];
+  const dia = String(hoy.getDate()).padStart(2, '0');
+
+  const targetUrl = `https://liturgiadelashoras.github.io/sync/${year}/${mes}/${dia}/${horaWeb}.htm`;
 
   try {
+    // Extracción limpia desde GitHub Pages (cero bloqueos de servidor)
     const response = await fetch(targetUrl, {
       method: 'GET',
-      headers: {
-        'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 16_6 like Mac OS X) AppleWebKit/605.1.15',
-        'Accept': 'text/html'
-      }
+      headers: { 'User-Agent': 'Mozilla/5.0' }
     });
 
-    if (!response.ok) throw new Error(`iBreviary bloqueó la conexión: ${response.status}`);
+    if (!response.ok) {
+        throw new Error('La liturgia hispanoamericana no está disponible aún para hoy.');
+    }
 
-    const html = await response.text();
-    const $ = cheerio.load(html);
+    const htmlCrudo = await response.text();
+    const $ = cheerio.load(htmlCrudo);
 
-    // iBreviary móvil encierra el texto principal en este div
-    let contenido = $('div[data-role="content"]').html();
+    // 3. Limpieza de interfaz original para adaptar el texto a tu diseño oscuro
+    $('script').remove();
+    $('style').remove();
+    $('link').remove();
+    $('title').remove();
+    $('meta').remove();
+    $('img').remove();
+    $('table').remove(); // Quita la cabecera gris del repositorio
     
-    // Si por alguna razón falla, agarramos el body entero
-    if (!contenido) {
-        contenido = $('body').html();
-    }
+    // Desactivar hipervínculos para evitar que el usuario salga de tu aplicación
+    $('a').each(function() {
+      $(this).replaceWith($(this).html());
+    });
 
-    if (!contenido || contenido.length < 50) {
-        throw new Error('No se pudo extraer el texto del breviario.');
-    }
+    let contenido = $('body').html();
 
-    // Limpieza de interfaz de la app, pero conservamos todo el HTML que da el color rojo a las rúbricas
+    // 4. Inyección de estilos de tu sitio (Rúbricas rojas sobre fondo oscuro)
     let textoFiltrado = contenido
-        .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '')
-        .replace(/<style\b[^<]*(?:(?!<\/style>)<[^<]*)*<\/style>/gi, '')
-        .replace(/<div data-role="header"[^>]*>([\s\S]*?)<\/div>/gi, '')
-        .replace(/<div data-role="footer"[^>]*>([\s\S]*?)<\/div>/gi, '')
-        .replace(/<a [^>]*>([\s\S]*?)<\/a>/gi, '$1') // Quita enlaces pero deja el texto
-        .replace(/<img[^>]*>/gi, '')
-        .replace(/<link[^>]*>/gi, '')
+        .replace(/color\s*=\s*["']?red["']?/gi, 'style="color: #ff4d4d; font-weight: 600;"')
+        .replace(/color:\s*red;?/gi, 'color: #ff4d4d; font-weight: 600;')
         .trim();
 
     res.status(200).json({ html: textoFiltrado });
 
   } catch (error) {
-    console.error("Error en breviario.js:", error.message);
+    console.error("Error al obtener liturgia hispanoamericana:", error.message);
     res.status(500).json({ error: error.message });
   }
 }
