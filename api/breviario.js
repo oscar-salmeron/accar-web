@@ -7,54 +7,48 @@ export default async function handler(req, res) {
     return;
   }
 
-  // Mapeo de horas litúrgicas a las rutas de Ciudad Redonda
-  const horaParam = req.query.hora || 'laudi';
-  const rutasCiudadRedonda = {
-      'ufficio': 'oficio-de-lectura',
-      'laudi': 'laudes',
-      'media': 'hora-intermedia',
-      'vespri': 'visperas',
-      'compieta': 'completas'
-  };
-  
-  const rutaHora = rutasCiudadRedonda[horaParam] || 'laudes';
-  const targetUrl = `https://www.ciudadredonda.org/calendario-lecturas/${rutaHora}`;
+  const hora = req.query.hora || 'laudi';
+  // FUENTE ESTRICTA: iBreviary (versión móvil que es más fácil de limpiar)
+  const targetUrl = `https://www.ibreviary.com/m2/breviario.php?s=${hora}&lang=es`;
 
   try {
     const response = await fetch(targetUrl, {
       method: 'GET',
       headers: {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+        'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 16_6 like Mac OS X) AppleWebKit/605.1.15',
         'Accept': 'text/html'
       }
     });
 
-    if (!response.ok) {
-        throw new Error(`Error al conectar con la fuente (Status: ${response.status})`);
+    if (!response.ok) throw new Error(`iBreviary bloqueó la conexión: ${response.status}`);
+
+    const html = await response.text();
+    const $ = cheerio.load(html);
+
+    // iBreviary móvil encierra el texto principal en este div
+    let contenido = $('div[data-role="content"]').html();
+    
+    // Si por alguna razón falla, agarramos el body entero
+    if (!contenido) {
+        contenido = $('body').html();
     }
-
-    const htmlCrudo = await response.text();
-    const $ = cheerio.load(htmlCrudo);
-
-    // Ciudad Redonda guarda el texto litúrgico dentro de la etiqueta <article>
-    let contenido = $('article').html();
 
     if (!contenido || contenido.length < 50) {
-        throw new Error('No se encontró el texto litúrgico para esta hora.');
+        throw new Error('No se pudo extraer el texto del breviario.');
     }
 
-    // Limpieza y formateo: mantenemos los párrafos, negritas y aplicamos el estilo rojo a las rúbricas
-    let textoFormateado = contenido
-        .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '') // Elimina scripts
-        .replace(/<style\b[^<]*(?:(?!<\/style>)<[^<]*)*<\/style>/gi, '')    // Elimina estilos
-        .replace(/<a[^>]*>(.*?)<\/a>/gi, '$1')                              // Quita hipervínculos
-        // Colorear rúbricas comunes en rojo
-        .replace(/\b(V\.)/g, '<span style="color: #ff4d4d; font-weight: 600;">V.</span>')
-        .replace(/\b(R\.)/g, '<span style="color: #ff4d4d; font-weight: 600;">R.</span>')
-        .replace(/\b(Ant\.)/g, '<span style="color: #ff4d4d; font-weight: 600;">Ant.</span>')
-        .replace(/\b(Oremos\.)/g, '<span style="color: #ff4d4d; font-weight: 600;">Oremos.</span>');
+    // Limpieza de interfaz de la app, pero conservamos todo el HTML que da el color rojo a las rúbricas
+    let textoFiltrado = contenido
+        .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '')
+        .replace(/<style\b[^<]*(?:(?!<\/style>)<[^<]*)*<\/style>/gi, '')
+        .replace(/<div data-role="header"[^>]*>([\s\S]*?)<\/div>/gi, '')
+        .replace(/<div data-role="footer"[^>]*>([\s\S]*?)<\/div>/gi, '')
+        .replace(/<a [^>]*>([\s\S]*?)<\/a>/gi, '$1') // Quita enlaces pero deja el texto
+        .replace(/<img[^>]*>/gi, '')
+        .replace(/<link[^>]*>/gi, '')
+        .trim();
 
-    res.status(200).json({ html: textoFormateado });
+    res.status(200).json({ html: textoFiltrado });
 
   } catch (error) {
     console.error("Error en breviario.js:", error.message);
