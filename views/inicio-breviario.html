@@ -20,7 +20,7 @@
     <div class="accar-brev-content-area">
       <!-- Barra de herramientas de lectura (Oculta por defecto) -->
       <div class="accar-text-controls" id="brev-text-controls" style="display: none;">
-        <button class="accar-text-btn" id="btn-theme-toggle" title="Cambiar a fondo claro">☀️ Fondo Claro</button>
+        <button class="accar-text-btn" id="btn-theme-toggle" title="Cambiar a fondo oscuro">🌙 Fondo Oscuro</button>
         <div style="flex-grow: 1;"></div>
         <span class="accar-text-controls-label">Tamaño:</span>
         <button class="accar-text-btn btn-size" data-size="15px">A-</button>
@@ -29,8 +29,8 @@
       </div>
 
       <div class="accar-spinner" id="brev-spinner" style="display: none;"></div>
-      <div id="brev-text" class="accar-brev-text">
-        <p style="text-align: center; color: rgba(255,255,255,0.5); padding: 40px 0;">Selecciona una hora litúrgica para comenzar a rezar.</p>
+      <div id="brev-text" class="accar-brev-text theme-light">
+        <p style="text-align: center; opacity: 0.7; padding: 40px 0;">Selecciona una hora litúrgica para comenzar a rezar.</p>
       </div>
       
       <!-- Botón de regresar arriba (Oculto por defecto) -->
@@ -250,8 +250,8 @@
       });
   });
 
-  // Lógica de Cambio de Color (Oscuro a Beige)
-  let isLightMode = false;
+  // Lógica de Cambio de Color (Beige por defecto a Oscuro)
+  let isLightMode = true;
   btnThemeToggle.addEventListener('click', () => {
       isLightMode = !isLightMode;
       if (isLightMode) {
