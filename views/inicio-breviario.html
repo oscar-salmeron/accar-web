@@ -23,9 +23,17 @@
 
       <!-- ÁREA DE LECTURA DE LA HORA SELECCIONADA -->
       <div class="accar-brev-content-area">
+        
+        <!-- Barra de herramientas de lectura (Oculta por defecto hasta que cargue el texto) -->
+        <div class="accar-text-controls" id="brev-text-controls" style="display: none;">
+          <span class="accar-text-controls-label">Tamaño del texto:</span>
+          <button class="accar-text-btn" data-size="15px">A-</button>
+          <button class="accar-text-btn active" data-size="18px">A</button>
+          <button class="accar-text-btn" data-size="22px">A+</button>
+        </div>
+
         <div class="accar-spinner" id="brev-spinner" style="display: none;"></div>
         <div id="brev-text" class="accar-brev-text">
-          <!-- Aquí se inyectará el texto con formato de iBreviary -->
           <p style="text-align: center; color: rgba(255,255,255,0.5); padding: 40px 0;">Selecciona una hora litúrgica para comenzar a rezar.</p>
         </div>
       </div>
@@ -36,155 +44,60 @@
 </div>
 
 <style>
-/* =========================================
-   ESTILOS DE LA VISTA DEL BREVIARIO
-========================================= */
-.accar-breviario-view {
-  padding: 120px 20px 60px;
-  background: radial-gradient(circle at top, #1a1c29 0%, #0d0f16 100%);
-  min-height: 100vh;
-  color: #f8efd3;
-}
+/* ... (MANTÉN TUS ESTILOS ACTUALES ARRIBA DE ESTO) ... */
 
-.accar-breviario-inner {
-  max-width: 900px; 
-  margin: 0 auto;
+/* --- BARRA DE TAMAÑO DE TEXTO --- */
+.accar-text-controls {
   display: flex;
-  flex-direction: column;
-  gap: 30px;
-}
-
-/* --- CABECERA ESTILO ORDO --- */
-.accar-brev-header {
-  background-color: #2cb67d; 
-  border-radius: 16px;
-  padding: 24px 30px;
-  text-align: center;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.4);
-  transition: background-color 0.4s ease;
-}
-
-.accar-brev-header-content h2 {
-  margin: 0 0 8px 0;
-  font-size: 24px;
-  font-weight: 800;
-  color: #ffffff;
-  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
-}
-
-.accar-brev-subtitle {
-  margin: 0;
-  font-size: 15px;
-  font-weight: 600;
-  color: rgba(255,255,255,0.9);
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-
-/* --- CONTENEDOR DE MENÚ Y LECTURA --- */
-.accar-brev-main {
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(212, 175, 55, 0.15);
-  border-radius: 20px;
-  padding: 30px;
-}
-
-/* --- MENÚ DE HORAS --- */
-.accar-brev-menu {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  margin-bottom: 40px;
-}
-
-.accar-brev-btn {
-  background: rgba(255, 255, 255, 0.95);
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  color: #1a1c29;
-  padding: 18px 24px;
-  border-radius: 12px;
-  text-align: center;
-  font-size: 16px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-}
-
-.accar-brev-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 15px rgba(0,0,0,0.2);
-}
-
-.accar-brev-btn.active {
-  background: #d4af37; 
-  color: #ffffff;
-  border-color: #d4af37;
-  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
-}
-
-/* --- ÁREA DE TEXTO (HEREDANDO FORMATO DE IBREVIARY) --- */
-.accar-brev-text {
-  font-size: 18px;
-  line-height: 1.8;
-  color: #e7dcc5;
-}
-
-/* Reglas vitales para respetar las rúbricas rojas de iBreviary */
-.accar-brev-text font[color="red"],
-.accar-brev-text .rubrica, 
-.accar-brev-text span[style*="color: red"],
-.accar-brev-text span[style*="color:red"] {
-  color: #ff4d4d !important; 
-  font-weight: 600;
-}
-
-/* Separación de estrofas de salmos */
-.accar-brev-text p {
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
   margin-bottom: 20px;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+  padding-bottom: 15px;
 }
 
-/* Centrado de títulos internos del breviario */
-.accar-brev-text h1, .accar-brev-text h2, .accar-brev-text h3 {
-  text-align: center;
-  color: #d4af37;
-  margin-top: 30px;
-  margin-bottom: 15px;
+.accar-text-controls-label {
+  font-size: 14px;
+  color: rgba(255,255,255,0.6);
+  font-weight: 600;
 }
 
-/* Spinner de carga */
-.accar-spinner {
-  width: 40px;
-  height: 40px;
-  border: 4px solid rgba(212, 175, 55, 0.2);
-  border-left-color: #d4af37;
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-  margin: 40px auto;
+.accar-text-btn {
+  background: transparent;
+  border: 1px solid rgba(212, 175, 55, 0.4);
+  color: #e7dcc5;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
-@keyframes spin { 100% { transform: rotate(360deg); } }
 
-/* Responsivo */
-@media (max-width: 768px) {
-  .accar-breviario-view {
-    padding: 100px 15px 40px;
-  }
-  .accar-brev-header {
-    padding: 20px;
-  }
-  .accar-brev-header-content h2 {
-    font-size: 20px;
-  }
-  .accar-brev-main {
-    padding: 20px 15px;
-  }
-  .accar-brev-btn {
-    padding: 14px 20px;
-    font-size: 15px;
-  }
-  .accar-brev-text {
-    font-size: 16px;
-  }
+.accar-text-btn:hover {
+  background: rgba(212, 175, 55, 0.1);
+}
+
+.accar-text-btn.active {
+  background: #d4af37;
+  color: #1a1c29;
+  border-color: #d4af37;
+}
+
+/* --- ÁREA DE TEXTO CON COLOR CREMA FORZADO --- */
+.accar-brev-text {
+  font-size: 18px; /* Tamaño base por defecto */
+  line-height: 1.8;
+  color: #e7dcc5 !important;
+  transition: font-size 0.3s ease;
+}
+
+/* Regla de escudo por si se filtra algún color negro de la fuente original */
+.accar-brev-text font[color="black"],
+.accar-brev-text font[color="#000000"],
+.accar-brev-text span[style*="color: black"],
+.accar-brev-text span[style*="color:#000000"] {
+  color: #e7dcc5 !important; 
 }
 </style>
 
@@ -200,7 +113,6 @@
   
   headerFecha.textContent = fechaHoyTexto;
 
-  // 1. Obtener la metadata litúrgica desde tu endpoint actual (evangelizo) para pintar la cabecera
   try {
       const today = new Date();
       const dateAPI = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
@@ -209,24 +121,14 @@
           const dataMeta = await responseMeta.json();
           if (dataMeta.fiestas && dataMeta.fiestas.length > 0) {
               const fiesta = dataMeta.fiestas[0];
-              
-              // Limpiar la semana para mostrar solo la designación romana
               let semanaLimpia = fiesta.semana || '';
               semanaLimpia = semanaLimpia.replace(/Lecturas y Evangelio de la\s*\n?/i, '').trim();
               headerSemana.textContent = `${semanaLimpia} (${fiesta.anio || ''})`;
               
-              // Aplicar color a la cabecera
-              const coloresHex = {
-                  "VERDE": "#2cb67d",
-                  "BLANCO": "#e2e8f0",
-                  "MORADO": "#6b21a8",
-                  "ROJO": "#b91c1c",
-                  "ROSADO": "#f472b6"
-              };
+              const coloresHex = { "VERDE": "#2cb67d", "BLANCO": "#e2e8f0", "MORADO": "#6b21a8", "ROJO": "#b91c1c", "ROSADO": "#f472b6" };
               const colorLiturgico = fiesta.color ? fiesta.color.toUpperCase() : 'VERDE';
               if (coloresHex[colorLiturgico]) {
                   headerContainer.style.backgroundColor = coloresHex[colorLiturgico];
-                  // Si el color es blanco, oscurecer el texto para que se lea
                   if(colorLiturgico === 'BLANCO') {
                       headerContainer.style.color = '#1a1c29';
                       headerContainer.querySelector('h2').style.color = '#1a1c29';
@@ -236,41 +138,52 @@
           }
       }
   } catch (err) {
-      console.log("No se pudo cargar la metadata para la cabecera.", err);
+      console.log("Error al cargar metadatos.", err);
   }
 
-  // 2. Lógica para cargar los textos de las Horas desde la nueva API
   const textContainer = document.getElementById('brev-text');
   const spinner = document.getElementById('brev-spinner');
-  const botones = document.querySelectorAll('.accar-brev-btn');
+  const botonesMenu = document.querySelectorAll('.accar-brev-btn');
+  const barraControles = document.getElementById('brev-text-controls');
+  const botonesTamano = document.querySelectorAll('.accar-text-btn');
+
+  // Funcionalidad para cambiar el tamaño del texto
+  botonesTamano.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+          botonesTamano.forEach(b => b.classList.remove('active'));
+          e.target.classList.add('active');
+          textContainer.style.fontSize = e.target.getAttribute('data-size');
+      });
+  });
 
   async function loadHora(horaParam) {
       spinner.style.display = 'block';
       textContainer.style.display = 'none';
+      barraControles.style.display = 'none'; // Ocultar controles mientras carga
       
       try {
           const response = await fetch(`/api/breviario?hora=${horaParam}`);
-          if (!response.ok) throw new Error("Error del servidor");
+          if (!response.ok) throw new Error("Error del servidor interno");
           
           const data = await response.json();
           
           if(data.html && data.html.length > 50) {
              textContainer.innerHTML = data.html;
+             barraControles.style.display = 'flex'; // Mostrar controles de tamaño si hay texto
           } else {
-             textContainer.innerHTML = "<p style='text-align:center;'>El texto de esta hora aún no está disponible para el día de hoy en la fuente oficial.</p>";
+             textContainer.innerHTML = "<p style='text-align:center;'>La liturgia de las horas no está disponible aún en la fuente.</p>";
           }
       } catch (error) {
-          textContainer.innerHTML = "<p style='text-align:center; color: #ff4d4d;'>Ocurrió un error al cargar el breviario. Por favor intenta de nuevo más tarde.</p>";
+          textContainer.innerHTML = "<p style='text-align:center; color: #ff4d4d;'>Ocurrió un error al cargar el texto de la liturgia.</p>";
       } finally {
           spinner.style.display = 'none';
           textContainer.style.display = 'block';
       }
   }
 
-  // Event Listeners para los botones
-  botones.forEach(btn => {
+  botonesMenu.forEach(btn => {
       btn.addEventListener('click', (e) => {
-          botones.forEach(b => b.classList.remove('active'));
+          botonesMenu.forEach(b => b.classList.remove('active'));
           e.target.classList.add('active');
           const hora = e.target.getAttribute('data-hora');
           loadHora(hora);
