@@ -53,6 +53,7 @@ export default async function handler(req, res) {
 
     // 3. Limpieza de toda la interfaz y tablas del repositorio original
     $('script, style, link, title, meta, img, table').remove();
+    $('div[align="right"]').remove(); // Esto elimina el texto "tamaño: A A A" original de raíz
     
     // Destruir hipervínculos internos para evitar clics accidentales
     $('a').each(function() {
