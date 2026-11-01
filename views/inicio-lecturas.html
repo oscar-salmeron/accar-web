@@ -520,8 +520,8 @@ function shareContent() {
       if (!texto) return '';
       let textoFormateado = texto;
       
-      // Pintar de rojo "R/." o "R." (Responsorio) al inicio de las frases
-      textoFormateado = textoFormateado.replace(/^(R\/\.|R\.)/gim, '<span class="texto-rojo">$1</span>');
+      // Pintar de rojo TODAS las "R/." o "R." (Responsorio) sin importar dónde estén
+      textoFormateado = textoFormateado.replace(/(R\/\.|R\.)/g, '<span class="texto-rojo">$1</span>');
       
       // Pintar de rojo los números de las citas bíblicas entre paréntesis (ej. (5,1-12))
       textoFormateado = textoFormateado.replace(/(\(\d+.*?\))/g, '<span class="texto-rojo">$1</span>');
