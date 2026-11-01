@@ -14,6 +14,11 @@
       <button class="accar-brev-btn" data-hora="media">Hora Intermedia</button>
       <button class="accar-brev-btn" data-hora="vespri">Vísperas</button>
       <button class="accar-brev-btn" data-hora="compieta">Completas</button>
+      
+      <!-- Botón compartir integrado en el menú de escritorio -->
+      <button class="accar-btn-compartir" id="btn-share-desktop" onclick="shareBreviario()" style="display: none; justify-content: center; margin-top: 10px;">
+          Compartir liturgia
+      </button>
     </div>
 
     <!-- ÁREA DE LECTURA -->
@@ -27,11 +32,6 @@
         <button class="accar-text-btn btn-size" data-size="18px">A</button>
         <button class="accar-text-btn btn-size" data-size="22px">A+</button>
       </div>
-
-      <!-- Botón compartir (Escritorio) -->
-      <button class="accar-btn-compartir" id="btn-share-desktop" onclick="shareBreviario()" style="display: none; margin-bottom: 20px;">
-          Compartir liturgia
-      </button>
 
       <div class="accar-spinner" id="brev-spinner" style="display: none;"></div>
       <div id="brev-text" class="accar-brev-text theme-light">
