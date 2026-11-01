@@ -213,7 +213,7 @@
               // Limpiar la semana para mostrar solo la designación romana
               let semanaLimpia = fiesta.semana || '';
               semanaLimpia = semanaLimpia.replace(/Lecturas y Evangelio de la\s*\n?/i, '').trim();
-              headerSemana.textContent = `${semanaLimpia} (Año ${fiesta.anio || ''})`;
+              headerSemana.textContent = `${semanaLimpia} (${fiesta.anio || ''})`;
               
               // Aplicar color a la cabecera
               const coloresHex = {
