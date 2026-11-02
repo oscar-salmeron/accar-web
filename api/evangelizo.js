@@ -75,7 +75,7 @@ export default async function handler(req, res) {
 
     const romanoTomo = numSemana > 17 ? 'IV' : 'III';
     
-    const semanaFinal = `Semana ${numSemana} del Tiempo Ordinario`;
+    const semanaFinal = `${romanoSemana} Semana del Tiempo Ordinario`;
 
     let infoIdx = lineas.findIndex(l => (l.includes("Semana") || l.includes("Domingo")) && l.includes("."));
     if (infoIdx !== -1) {
@@ -102,16 +102,21 @@ export default async function handler(req, res) {
         return { title: cita, text: parrafos.join('<br><br>') };
     };
 
-    const primeraLectura = extraerLectura("Primera Lectura", ["Salmo"]);
-    const salmo = extraerLectura("Salmo", ["Evangelio", "Segunda Lectura"]);
+    const primeraLectura = extraerLectura("Primera Lectura", ["Salmo", "Salmo responsorial"]);
+    const salmo = extraerLectura("Salmo", ["Segunda Lectura", "Evangelio", "Aleluya"]);
+    const segundaLectura = extraerLectura("Segunda Lectura", ["Evangelio", "Aleluya"]);
     const evangelio = extraerLectura("Evangelio", ["Comentario al Evangelio", "Liturgia", "Calendario"]);
     const reflexion = extraerLectura("Comentario al Evangelio", ["Liturgia", "Calendario", "Síguenos"]);
 
-    if (salmo && salmo.title) salmo.title = salmo.title.replace(/^Sal\s+/i, 'Salmo responsorial ');
+    // Forzamos que quede solo como "responsorial X" para no saturar móviles
+    if (salmo && salmo.title) {
+        salmo.title = salmo.title.replace(/^(Salmo responsorial|Salmo|Sal)\s+/i, 'responsorial ');
+    }
 
     let readings = [];
     if (primeraLectura) readings.push({ type: 'FR', title: primeraLectura.title, text: primeraLectura.text });
     if (salmo) readings.push({ type: 'PS', title: salmo.title, text: salmo.text });
+    if (segundaLectura) readings.push({ type: 'SR', title: segundaLectura.title, text: segundaLectura.text });
     if (evangelio) readings.push({ type: 'GSP', title: evangelio.title, text: evangelio.text });
 
     if (reflexion && reflexion.text.length > 20) {
