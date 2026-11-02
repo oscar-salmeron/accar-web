@@ -108,16 +108,42 @@ export default async function handler(req, res) {
     const evangelio = extraerLectura("Evangelio", ["Comentario al Evangelio", "Liturgia", "Calendario"]);
     const reflexion = extraerLectura("Comentario al Evangelio", ["Liturgia", "Calendario", "Síguenos"]);
 
+    // Función "bisturí" para abreviar títulos largos de las lecturas
+    const limpiarTitulo = (titulo) => {
+        if (!titulo) return "";
+        let t = titulo;
+        t = t.replace(/Lectura del santo evangelio según san\s+/i, 'San ');
+        t = t.replace(/Lectura del santo evangelio según\s+/i, '');
+        t = t.replace(/Lectura de la primera carta del apóstol san\s+/i, '1ra San ');
+        t = t.replace(/Lectura de la segunda carta del apóstol san\s+/i, '2da San ');
+        t = t.replace(/Lectura de la tercera carta del apóstol san\s+/i, '3ra San ');
+        t = t.replace(/Lectura de la primera carta del apóstol\s+/i, '1ra ');
+        t = t.replace(/Lectura de la segunda carta del apóstol\s+/i, '2da ');
+        t = t.replace(/Lectura de la primera carta de san\s+/i, '1ra San ');
+        t = t.replace(/Lectura de la segunda carta de san\s+/i, '2da San ');
+        t = t.replace(/Lectura de la carta del apóstol san Pablo a los\s+/i, '');
+        t = t.replace(/Lectura de la carta del apóstol san Pablo a\s+/i, '');
+        t = t.replace(/Lectura de la carta a los\s+/i, '');
+        t = t.replace(/Lectura del libro de los\s+/i, '');
+        t = t.replace(/Lectura del libro del\s+/i, '');
+        t = t.replace(/Lectura del libro de\s+/i, '');
+        t = t.replace(/Lectura de los\s+/i, '');
+        t = t.replace(/Lectura de la\s+/i, '');
+        // Quitar dos puntos finales si existen
+        if (t.endsWith(':')) t = t.slice(0, -1).trim();
+        return t;
+    };
+
     // Forzamos que quede solo como "responsorial X" para no saturar móviles
     if (salmo && salmo.title) {
         salmo.title = salmo.title.replace(/^(Salmo responsorial|Salmo|Sal)\s+/i, 'responsorial ');
     }
 
     let readings = [];
-    if (primeraLectura) readings.push({ type: 'FR', title: primeraLectura.title, text: primeraLectura.text });
+    if (primeraLectura) readings.push({ type: 'FR', title: limpiarTitulo(primeraLectura.title), text: primeraLectura.text });
     if (salmo) readings.push({ type: 'PS', title: salmo.title, text: salmo.text });
-    if (segundaLectura) readings.push({ type: 'SR', title: segundaLectura.title, text: segundaLectura.text });
-    if (evangelio) readings.push({ type: 'GSP', title: evangelio.title, text: evangelio.text });
+    if (segundaLectura) readings.push({ type: 'SR', title: limpiarTitulo(segundaLectura.title), text: segundaLectura.text });
+    if (evangelio) readings.push({ type: 'GSP', title: limpiarTitulo(evangelio.title), text: evangelio.text });
 
     if (reflexion && reflexion.text.length > 20) {
         let textoReflexionCompleto = reflexion.title + "<br><br>" + reflexion.text;
