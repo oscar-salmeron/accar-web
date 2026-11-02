@@ -22,19 +22,18 @@ export default async function handler(req, res) {
   let year, monthNumber, day;
 
   if (fechaParam) {
-    // Si viene del selector (formato YYYY-MM-DD), extraemos directamente sin usar objetos Date
-    // Esto evita CUALQUIER error de zona horaria
+    // Si viene del selector (formato YYYY-MM-DD)
     const partesFecha = fechaParam.split('-');
     year = partesFecha[0];
     monthNumber = parseInt(partesFecha[1], 10);
-    day = parseInt(partesFecha[2], 10).toString(); // Quitamos ceros iniciales (ej. 01 -> 1)
+    day = partesFecha[2]; // Conservamos el formato original con cero inicial (ej. "01")
   } else {
     // Si no hay parámetro, calculamos hoy en Bogotá
     const formatter = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Bogota' });
     const partesHoy = formatter.format(new Date()).split('-');
     year = partesHoy[0];
     monthNumber = parseInt(partesHoy[1], 10);
-    day = parseInt(partesHoy[2], 10).toString();
+    day = partesHoy[2]; // Conservamos el formato original con cero inicial
   }
 
   // 2. Mapear el número del mes a las 3 letras exactas que usa GitHub Pages
