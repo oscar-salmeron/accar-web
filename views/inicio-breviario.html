@@ -112,7 +112,6 @@
   outline: none;
   cursor: pointer;
 }
-/* Cambiar el color del ícono del calendario en Webkit (Chrome/Safari) */
 .accar-date-input::-webkit-calendar-picker-indicator {
     filter: invert(1);
     cursor: pointer;
@@ -235,8 +234,8 @@
 
 @media (max-width: 900px) {
   .accar-container { padding-bottom: 140px; }
-  .accar-brev-botonera { display: none; } /* Oculta la botonera de escritorio */
-  .accar-btn-compartir { display: none !important; } /* Oculta el botón de escritorio en móvil */
+  .accar-brev-botonera { display: none; } 
+  .accar-btn-compartir { display: none !important; } 
 
   .accar-mobile-nav-container {
       display: flex !important;
@@ -362,21 +361,20 @@ function shareBreviario() {
     }
 }
 
-(async function initBreviario() {
+// Ensure DOM is fully loaded before executing initialization
+document.addEventListener('DOMContentLoaded', async function initBreviario() {
   const opcionesFecha = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
   const headerFecha = document.getElementById('brev-fecha-titulo');
   const headerSemana = document.getElementById('brev-semana-titulo');
   const headerContainer = document.getElementById('brev-header-container');
   const datePicker = document.getElementById('brev-date-picker');
   
-  // Variables globales para la fecha seleccionada
   let selectedDateString = ""; 
   let currentActiveHora = null;
 
   // 1. Configurar la fecha inicial (Hoy en Bogotá)
   const hoyStr = new Date().toLocaleDateString('en-CA', { timeZone: 'America/Bogota' }); 
   
-  // Asegurar que datePicker exista antes de asignarle valor
   if(datePicker) {
       datePicker.value = hoyStr;
       
@@ -401,7 +399,7 @@ function shareBreviario() {
       
       const fechaObj = new Date(`${fechaYYYYMMDD}T12:00:00`);
       let fechaTexto = fechaObj.toLocaleDateString('es-ES', opcionesFecha);
-      headerFecha.textContent = fechaTexto.charAt(0).toUpperCase() + fechaTexto.slice(1);
+      if(headerFecha) headerFecha.textContent = fechaTexto.charAt(0).toUpperCase() + fechaTexto.slice(1);
 
       try {
           const responseMeta = await fetch(`/api/evangelizo?date=${fechaYYYYMMDD}`);
@@ -411,20 +409,23 @@ function shareBreviario() {
                   const fiesta = dataMeta.fiestas[0];
                   let semanaLimpia = fiesta.semana || '';
                   semanaLimpia = semanaLimpia.replace(/Lecturas y Evangelio de la\s*\n?/i, '').trim();
-                  headerSemana.textContent = `${semanaLimpia} (${fiesta.anio || ''})`;
+                  if(headerSemana) {
+                      headerSemana.textContent = `${semanaLimpia} (${fiesta.anio || ''})`;
+                      headerSemana.style.display = 'block';
+                  }
                   
                   const coloresHex = { "VERDE": "#2cb67d", "BLANCO": "#e2e8f0", "MORADO": "#6b21a8", "ROJO": "#b91c1c", "ROSADO": "#f472b6" };
                   const colorLiturgico = fiesta.color ? fiesta.color.toUpperCase() : 'VERDE';
-                  if (coloresHex[colorLiturgico]) {
+                  if (coloresHex[colorLiturgico] && headerContainer) {
                       headerContainer.style.backgroundColor = coloresHex[colorLiturgico];
                       if(colorLiturgico === 'BLANCO') {
                           headerContainer.style.color = '#1a1c29';
-                          headerContainer.querySelector('h2').style.color = '#1a1c29';
-                          headerContainer.querySelector('p').style.color = '#1a1c29';
+                          if(headerFecha) headerFecha.style.color = '#1a1c29';
+                          if(headerSemana) headerSemana.style.color = '#1a1c29';
                       } else {
                           headerContainer.style.color = 'white';
-                          headerContainer.querySelector('h2').style.color = 'white';
-                          headerContainer.querySelector('p').style.color = 'white';
+                          if(headerFecha) headerFecha.style.color = 'white';
+                          if(headerSemana) headerSemana.style.color = 'white';
                       }
                   }
               }
@@ -443,67 +444,70 @@ function shareBreviario() {
   const btnBackTop = document.getElementById('btn-back-top');
 
   // Lógica de Regresar Arriba
-  btnBackTop.addEventListener('click', () => {
-      document.querySelector('.accar-brev-botonera').scrollIntoView({ behavior: 'smooth', block: 'start' });
-  });
+  if(btnBackTop) {
+      btnBackTop.addEventListener('click', () => {
+          document.querySelector('.accar-brev-botonera').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+  }
 
   // Lógica de tamaño
   botonesTamano.forEach(btn => {
       btn.addEventListener('click', (e) => {
           botonesTamano.forEach(b => b.classList.remove('active'));
           e.target.classList.add('active');
-          textContainer.style.fontSize = e.target.getAttribute('data-size');
+          if(textContainer) textContainer.style.fontSize = e.target.getAttribute('data-size');
       });
   });
 
   // Lógica de Cambio de Color (Beige por defecto a Oscuro)
   let isLightMode = true;
-  btnThemeToggle.addEventListener('click', () => {
-      isLightMode = !isLightMode;
-      if (isLightMode) {
-          textContainer.classList.add('theme-light');
-          btnThemeToggle.innerHTML = '🌙 Fondo Oscuro';
-      } else {
-          textContainer.classList.remove('theme-light');
-          btnThemeToggle.innerHTML = '☀️ Fondo Claro';
-      }
-  });
+  if(btnThemeToggle) {
+      btnThemeToggle.addEventListener('click', () => {
+          isLightMode = !isLightMode;
+          if (isLightMode) {
+              if(textContainer) textContainer.classList.add('theme-light');
+              btnThemeToggle.innerHTML = '🌙 Fondo Oscuro';
+          } else {
+              if(textContainer) textContainer.classList.remove('theme-light');
+              btnThemeToggle.innerHTML = '☀️ Fondo Claro';
+          }
+      });
+  }
 
   const btnShareDesktop = document.getElementById('btn-share-desktop');
 
   async function loadHora(horaParam, btnElement) {
-      spinner.style.display = 'block';
-      textContainer.style.display = 'none';
-      barraControles.style.display = 'none'; 
-      btnBackTop.style.display = 'none'; 
+      if(spinner) spinner.style.display = 'block';
+      if(textContainer) textContainer.style.display = 'none';
+      if(barraControles) barraControles.style.display = 'none'; 
+      if(btnBackTop) btnBackTop.style.display = 'none'; 
       if(btnShareDesktop) btnShareDesktop.style.display = 'none';
       
       if(btnElement) {
           currentLiturgiaTitle = btnElement.textContent.trim();
       }
       
-      currentActiveHora = horaParam; // Guardamos la hora activa
+      currentActiveHora = horaParam;
       
       try {
-          // Incluimos la fecha seleccionada en la petición
           const response = await fetch(`/api/breviario?hora=${horaParam}&fecha=${selectedDateString}`);
           if (!response.ok) throw new Error("Error del servidor interno");
           
           const data = await response.json();
           
           if(data.html && data.html.length > 50) {
-             textContainer.innerHTML = data.html;
-             barraControles.style.display = 'flex'; 
-             btnBackTop.style.display = 'block'; 
+             if(textContainer) textContainer.innerHTML = data.html;
+             if(barraControles) barraControles.style.display = 'flex'; 
+             if(btnBackTop) btnBackTop.style.display = 'block'; 
              if(btnShareDesktop) btnShareDesktop.style.display = 'inline-flex';
           } else {
-             textContainer.innerHTML = "<p style='text-align:center;'>La liturgia de las horas no está disponible aún en la fuente.</p>";
+             if(textContainer) textContainer.innerHTML = "<p style='text-align:center;'>La liturgia de las horas no está disponible aún en la fuente.</p>";
           }
       } catch (error) {
-          textContainer.innerHTML = "<p style='text-align:center; color: #ff4d4d;'>Ocurrió un error al cargar el texto de la liturgia.</p>";
+          if(textContainer) textContainer.innerHTML = "<p style='text-align:center; color: #ff4d4d;'>Ocurrió un error al cargar el texto de la liturgia.</p>";
       } finally {
-          spinner.style.display = 'none';
-          textContainer.style.display = 'block';
+          if(spinner) spinner.style.display = 'none';
+          if(textContainer) textContainer.style.display = 'block';
       }
   }
 
@@ -511,7 +515,6 @@ function shareBreviario() {
       btn.addEventListener('click', (e) => {
           const targetHora = e.target.getAttribute('data-hora');
           
-          // Sincronizar estado visual de los botones (escritorio y móvil)
           botonesMenu.forEach(b => {
               if (b.getAttribute('data-hora') === targetHora) {
                   b.classList.add('active');
@@ -522,12 +525,12 @@ function shareBreviario() {
           
           loadHora(targetHora, e.target);
           
-          // En móvil, hacer scroll suave al contenido tras hacer clic
           if (window.innerWidth <= 900) {
-              document.querySelector('.accar-brev-content-area').scrollIntoView({ behavior: 'smooth' });
+              const contentArea = document.querySelector('.accar-brev-content-area');
+              if(contentArea) contentArea.scrollIntoView({ behavior: 'smooth' });
           }
       });
   });
 
-})();
+});
 </script>
