@@ -449,52 +449,18 @@ body {
               cardElement.className = 'accar-lit-card';
               cardElement.classList.add(`accar-lit-card--${fiesta.color.toLowerCase()}`);
               
-              let shortSemana = fiesta.semana;
-              let semanaSalterioTexto = "Salterio";
-              let tomoTexto = "Tomo IV";
-
-              if (shortSemana.includes('\n')) {
-                   shortSemana = shortSemana.split('\n')[1].trim();
-              }
-              document.getElementById('lit-semana').textContent = shortSemana;
+              // Usamos directamente los datos calculados desde el servidor
+              const textoSemana = fiesta.semana.toUpperCase();
               
-              // Actualizar datos de la tarjeta del Breviario
+              document.getElementById('lit-semana').textContent = textoSemana;
+              
               const brevSemanaEl = document.getElementById('brev-semana');
-              if(brevSemanaEl) brevSemanaEl.textContent = shortSemana;
-
-              // Extraer número de semana del texto (ej: "XXX Semana" -> 30)
-              const numMatch = shortSemana.match(/([IVXLCDM]+)\s+Semana/i);
-              if (numMatch) {
-                const romano = numMatch[1].toUpperCase();
-                let numeroSemana = 0;
-                
-                // Conversión básica de los números romanos más comunes para el T.O. (hasta 34)
-                const romanosMap = { I:1, V:5, X:10, L:50 };
-                for (let i = 0; i < romano.length; i++) {
-                    const actual = romanosMap[romano[i]];
-                    const siguiente = romanosMap[romano[i+1]];
-                    if (siguiente && actual < siguiente) {
-                        numeroSemana -= actual;
-                    } else {
-                        numeroSemana += actual;
-                    }
-                }
-                
-                // Calcular semana del salterio (1 a 4)
-                let semanaSalterio = numeroSemana % 4;
-                if (semanaSalterio === 0) semanaSalterio = 4;
-                semanaSalterioTexto = `Salterio ${semanaSalterio}ª Sem.`;
-                
-                // Determinar Tomo (T.O. semanas 1-11 = Tomo III, semanas 12-34 = Tomo IV)
-                if (shortSemana.toLowerCase().includes("ordinario")) {
-                    tomoTexto = numeroSemana < 12 ? "Tomo III" : "Tomo IV";
-                }
-              }
+              if(brevSemanaEl) brevSemanaEl.textContent = textoSemana;
               
               const brevSalterioEl = document.getElementById('brev-salterio');
               const brevTomoEl = document.getElementById('brev-tomo');
-              if(brevSalterioEl) brevSalterioEl.textContent = semanaSalterioTexto;
-              if(brevTomoEl) brevTomoEl.textContent = tomoTexto;
+              if(brevSalterioEl) brevSalterioEl.textContent = fiesta.salterio;
+              if(brevTomoEl) brevTomoEl.textContent = fiesta.tomo;
             }
 
             document.getElementById('lit-mensaje-fallback').style.display = 'none';
@@ -556,8 +522,14 @@ body {
         </div>
         <span class="accar-lit-subtitle" id="brev-semana">Cargando semana...</span>
         
-        <h3>Liturgia de las Horas</h3>
-        <p>Únete al rezo oficial de la Iglesia: Oficio de Lectura, Laudes, Vísperas y Completas.</p>
+        <h3 style="margin-bottom: 20px;">Liturgia de las Horas</h3>
+        
+        <div class="accar-lecturas-lista" style="padding: 0;">
+          <p style="color: rgba(255,255,255,0.75); font-size: 15px; line-height: 1.6; margin: 0 0 15px 0;">Únete al rezo oficial de la Iglesia: Oficio de Lectura, Laudes, Vísperas y Completas.</p>
+          <p style="color: rgba(255,255,255,0.5); font-size: 13px; font-style: italic; line-height: 1.5; margin: 0; padding-top: 15px; border-top: 1px solid rgba(212,175,55,0.2);">
+            "La Liturgia de las Horas es verdaderamente la voz de la Esposa misma que habla al Esposo... es la oración de Cristo, con su Cuerpo, al Padre." (SC 84)
+          </p>
+        </div>
       </a>
 
       <!-- TARJETA 3: SANTO DEL DÍA (Horizontal, imagen a la izq) -->
