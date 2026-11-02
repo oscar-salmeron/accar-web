@@ -1,5 +1,4 @@
 export default async function handler(req, res) {
-  // Destrucción total del caché para garantizar la lectura de hoy
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
   res.setHeader('Pragma', 'no-cache');
@@ -10,7 +9,7 @@ export default async function handler(req, res) {
     return;
   }
 
-  // Forzar estrictamente la zona horaria de Bogotá (UTC-5)
+  // Se usa la fecha actual de America/Bogota
   const formatter = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Bogota' });
   const dateParam = formatter.format(new Date()); 
 
@@ -77,12 +76,20 @@ export default async function handler(req, res) {
     if(numSemana === 34) romanoSalterio = 'II';
     const romanoTomo = numSemana > 17 ? 'IV' : 'III';
     
-    const semanaFinal = `${romanoSemana} Semana del Tiempo Ordinario`;
+    let semanaFinal = `${romanoSemana} Semana del Tiempo Ordinario`;
 
     let infoIdx = lineas.findIndex(l => (l.includes("Semana") || l.includes("Domingo") || l.includes("Solemnidad") || l.includes("Fiesta")) && l.includes("."));
     if (infoIdx !== -1) {
         let partes = lineas[infoIdx].split('.');
         santoFinal = partes.slice(1).join('.').trim() || "Feria";
+        // Override semanaFinal with actual label from the source if found
+        let rawSemana = partes[0].trim();
+        let match = rawSemana.match(/[IVXLCDM]+\s+Semana\s+del\s+Tiempo\s+Ordinario/i);
+        if (match) {
+            semanaFinal = `${match[0]}`;
+        } else {
+            semanaFinal = `${rawSemana}`;
+        }
     }
 
     const extraerLectura = (tituloExacto, paradas) => {
@@ -147,6 +154,8 @@ export default async function handler(req, res) {
     if (reflexion && reflexion.text.length > 20) {
         let textoReflexionCompleto = reflexion.title + "<br><br>" + reflexion.text;
         readings.push({ type: 'RE', title: "Comentario al Evangelio", text: textoReflexionCompleto });
+    } else {
+        readings.push({ type: 'RE', title: "Reflexión", text: "La liturgia de hoy nos invita a meditar la Palabra y llevarla a la vida." });
     }
 
     res.status(200).json({
