@@ -4,11 +4,17 @@
     <!-- COLUMNA IZQUIERDA: MENÚ DE NAVEGACIÓN -->
     <aside class="accar-lecturas-sidebar">
       
-      <!-- Bloque: Fecha -->
+      <!-- Bloque: Selector de Fecha -->
       <div class="accar-sidebar-box">
-        <h4>Lecturas de hoy:</h4>
+        <h4 style="margin-bottom: 8px;">Seleccionar fecha:</h4>
+        <div class="accar-date-picker-container" style="margin-bottom: 15px;">
+            <input type="date" id="lecturas-date-picker" class="accar-date-input">
+        </div>
         <div class="accar-date-badge" id="lecturas-fecha-actual">
           Cargando fecha...
+        </div>
+        <div id="fiesta-semana-calendario" style="text-align: center; margin-top: 10px; font-size: 13px; font-weight: 700; color: #a4a7ab; text-transform: uppercase;">
+            Cargando...
         </div>
       </div>
 
@@ -129,6 +135,29 @@
   font-size: 15px;
   margin: 0 0 16px 0;
   font-weight: 700;
+}
+
+/* ESTILOS DEL SELECTOR DE FECHA */
+.accar-date-picker-container {
+  display: flex;
+  justify-content: center;
+}
+.accar-date-input {
+  background-color: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  color: white;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-family: inherit;
+  font-weight: bold;
+  outline: none;
+  cursor: pointer;
+  width: 100%;
+  text-align: center;
+}
+.accar-date-input::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+    cursor: pointer;
 }
 
 .accar-date-badge {
@@ -470,26 +499,29 @@ function shareContent() {
 
 (async function initLecturas() {
   const opcionesFecha = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
-  let fechaHoyTexto = new Date().toLocaleDateString('es-ES', opcionesFecha);
-  fechaHoyTexto = fechaHoyTexto.charAt(0).toUpperCase() + fechaHoyTexto.slice(1);
-  document.getElementById('lecturas-fecha-actual').textContent = fechaHoyTexto;
-
-  const hoy = new Date();
-  const mes = String(hoy.getMonth() + 1).padStart(2, '0');
-  const dia = String(hoy.getDate()).padStart(2, '0');
+  const fechaBadge = document.getElementById('lecturas-fecha-actual');
+  const datePicker = document.getElementById('lecturas-date-picker');
+  const semanaCalendario = document.getElementById('fiesta-semana-calendario');
   
-  const anioAPI = hoy.getFullYear();
-  const dateAPI = `${anioAPI}-${mes}-${dia}`;
-  
-  const apiUrl = `/api/evangelizo?date=${dateAPI}`;
-
-  const liturgiaData = {
+  let liturgiaData = {
     evangelio: { titulo: "Evangelio", ref: "", texto: "Cargando..." },
     primera: { titulo: "Primera Lectura", ref: "", texto: "Cargando..." },
     salmo: { titulo: "Salmo", ref: "", texto: "Cargando..." },
     segunda: { titulo: "Segunda Lectura", ref: "", texto: "Cargando..." },
     reflexion: { titulo: "Reflexión", ref: "", texto: "Cargando..." }
   };
+
+  // Configurar fecha inicial inmediatamente y actualizar DOM
+  const hoyStr = new Date().toLocaleDateString('en-CA', { timeZone: 'America/Bogota' }); 
+  if(datePicker) datePicker.value = hoyStr;
+  
+  function setFechaVisual(fechaStr) {
+      const fechaObj = new Date(`${fechaStr}T12:00:00`);
+      let fechaTexto = fechaObj.toLocaleDateString('es-ES', opcionesFecha);
+      if(fechaBadge) fechaBadge.textContent = fechaTexto.charAt(0).toUpperCase() + fechaTexto.slice(1);
+  }
+  
+  setFechaVisual(hoyStr);
 
   const spinner = document.getElementById('reading-spinner');
   const textContainer = document.getElementById('reading-text');
@@ -584,90 +616,127 @@ function shareContent() {
       }
   });
 
-  let apiExitosa = false;
-  spinner.style.display = 'block';
+  let activeTab = 'evangelio';
 
-  try {
-    const response = await fetch(apiUrl);
-    const rawText = await response.text(); 
-    
-    if (!response.ok) throw new Error("Error en la respuesta del servidor");
-    const data = JSON.parse(rawText);
+  async function cargarLecturas(fechaYYYYMMDD) {
+      spinner.style.display = 'block';
+      textContainer.innerHTML = '';
+      refTarget.textContent = 'Cargando...';
+      titleTarget.textContent = '...';
+      
+      // Reiniciar botones dinámicos
+      document.getElementById('btn-segunda').style.display = 'none';
+      document.getElementById('btn-segunda-mobile').style.display = 'none';
+      document.getElementById('btn-reflexion').style.display = 'none';
+      document.getElementById('btn-reflexion-mobile').style.display = 'none';
+      
+      liturgiaData = {
+          evangelio: { titulo: "Evangelio", ref: "", texto: "No disponible" },
+          primera: { titulo: "Primera Lectura", ref: "", texto: "No disponible" },
+          salmo: { titulo: "Salmo responsorial", ref: "", texto: "No disponible" },
+          segunda: { titulo: "Segunda Lectura", ref: "", texto: "No disponible" },
+          reflexion: { titulo: "Reflexión", ref: "", texto: "No disponible" }
+      };
 
-    if(data.fiestas && data.fiestas.length > 0) {
-      let semanaLimpia = data.fiestas[0].semana || '';
-      semanaLimpia = semanaLimpia.replace(/Lecturas y Evangelio de la\s*\n?/i, '').trim();
+      try {
+          const response = await fetch(`/api/evangelizo?date=${fechaYYYYMMDD}`);
+          const rawText = await response.text(); 
+          if (!response.ok) throw new Error("Error en la respuesta");
+          const data = JSON.parse(rawText);
 
-      if(semanaTarget) {
-          semanaTarget.innerHTML = `Lecturas y Evangelio del día<br><span style="font-size: 14px; color: rgba(255,255,255,0.7); display: inline-block; margin-top: 6px;">${semanaLimpia}</span>`;
+          if(data.fiestas && data.fiestas.length > 0) {
+              const semanaLimpia = data.fiestas[0].semana || 'Feria';
+              if(semanaTarget) {
+                  semanaTarget.innerHTML = `Lecturas y Evangelio del día<br><span style="font-size: 14px; color: rgba(255,255,255,0.7); display: inline-block; margin-top: 6px;">${semanaLimpia}</span>`;
+              }
+              if(semanaCalendario) {
+                  semanaCalendario.textContent = semanaLimpia;
+              }
+              
+              const colorTexto = (data.fiestas[0].color || 'VERDE').toUpperCase();
+              colorTarget.textContent = colorTexto;
+              if (coloresLiturgicos[colorTexto]) colorTarget.style.color = coloresLiturgicos[colorTexto];
+              if(cicloTarget) cicloTarget.textContent = data.fiestas[0].ciclo || '';
+              if(anioTarget) anioTarget.textContent = data.fiestas[0].anio || '';
+          }
+
+          if (data.readings) {
+              data.readings.forEach(reading => {
+                  const htmlText = formatearGramatica(reading.text);
+                  if (reading.type === 'GSP') { liturgiaData.evangelio.ref = reading.title; liturgiaData.evangelio.texto = htmlText; }
+                  else if (reading.type === 'FR') { liturgiaData.primera.ref = reading.title; liturgiaData.primera.texto = htmlText; }
+                  else if (reading.type === 'PS') { liturgiaData.salmo.ref = reading.title; liturgiaData.salmo.texto = htmlText; }
+                  else if (reading.type === 'SR') { 
+                      liturgiaData.segunda.ref = reading.title; 
+                      liturgiaData.segunda.texto = htmlText;
+                      document.getElementById('btn-segunda').style.display = 'block'; 
+                      document.getElementById('btn-segunda-mobile').style.display = 'block'; 
+                  }
+                  else if (reading.type === 'RE') { 
+                      liturgiaData.reflexion.ref = reading.title; 
+                      liturgiaData.reflexion.texto = htmlText;
+                      document.getElementById('btn-reflexion').style.display = 'block'; 
+                      document.getElementById('btn-reflexion-mobile').style.display = 'block'; 
+                  }
+              });
+          }
+          
+          renderReading(activeTab);
+          
+      } catch (error) {
+          refTarget.textContent = "Error de conexión";
+          textContainer.innerHTML = `<p>No pudimos descargar las lecturas del día. El sistema de la fuente original podría estar procesando los datos.</p>`;
+      } finally {
+          spinner.style.display = 'none';
       }
-      
-      const colorTexto = (data.fiestas[0].color || 'VERDE').toUpperCase();
-      colorTarget.textContent = colorTexto;
-      
-      if (coloresLiturgicos[colorTexto]) colorTarget.style.color = coloresLiturgicos[colorTexto];
-      if(cicloTarget) cicloTarget.textContent = data.fiestas[0].ciclo || '';
-      if(anioTarget) anioTarget.textContent = data.fiestas[0].anio || '';
-    } else {
-      if(semanaTarget) semanaTarget.innerHTML = `Lecturas y Evangelio del día<br><span style="font-size: 14px; color: rgba(255,255,255,0.7); display: inline-block; margin-top: 6px;">Feria</span>`;
-    }
-
-    if (data.readings) {
-      data.readings.forEach(reading => {
-        const htmlText = formatearGramatica(reading.text);
-        
-        if (reading.type === 'GSP') { liturgiaData.evangelio.ref = reading.title; liturgiaData.evangelio.texto = htmlText; }
-        else if (reading.type === 'FR') { liturgiaData.primera.ref = reading.title; liturgiaData.primera.texto = htmlText; }
-        else if (reading.type === 'PS') { liturgiaData.salmo.ref = reading.title; liturgiaData.salmo.texto = htmlText; }
-        else if (reading.type === 'SR') { 
-          liturgiaData.segunda.ref = reading.title; 
-          liturgiaData.segunda.texto = htmlText;
-          document.getElementById('btn-segunda').style.display = 'block'; 
-          document.getElementById('btn-segunda-mobile').style.display = 'block'; 
-        }
-        else if (reading.type === 'RE') { 
-          liturgiaData.reflexion.ref = reading.title; 
-          liturgiaData.reflexion.texto = htmlText;
-          document.getElementById('btn-reflexion').style.display = 'block'; 
-          document.getElementById('btn-reflexion-mobile').style.display = 'block'; 
-        }
-      });
-      apiExitosa = true;
-    }
-  } catch (error) {
-    console.error("Error conectando al Leccionario:", error);
-    refTarget.textContent = "Error de conexión";
-    textContainer.innerHTML = `<p>No pudimos descargar las lecturas del día. El sistema de la fuente original podría estar procesando los datos.</p>`;
-  } finally {
-    spinner.style.display = 'none';
   }
 
   function renderReading(targetId) {
-    const d = liturgiaData[targetId];
-    lblTarget.textContent = d.titulo.toUpperCase() + " DE HOY";
-    titleTarget.textContent = d.titulo;
-    refTarget.textContent = d.ref;
-    textContainer.innerHTML = `<p>${d.texto}</p>`;
-    
-    // Mostrar controles de UI solo cuando hay texto
-    barraControles.style.display = 'flex';
-    btnBackTop.style.display = 'block';
+      activeTab = targetId;
+      const d = liturgiaData[targetId];
+      // Si seleccionaron una pestaña (ej. Segunda) que en otro día no existe, volvemos a Evangelio
+      if (d.texto === "No disponible" && targetId !== 'evangelio') {
+          return renderReading('evangelio');
+      }
+      
+      botones.forEach(b => b.classList.remove('active'));
+      document.querySelectorAll(`.accar-menu-btn[data-target="${activeTab}"]`).forEach(b => b.classList.add('active'));
+
+      let labelDisplay = d.titulo.toUpperCase();
+      if(labelDisplay === "SALMO RESPONSORIAL") labelDisplay = "SALMO";
+      
+      lblTarget.textContent = labelDisplay + " DE HOY";
+      titleTarget.textContent = d.titulo;
+      refTarget.textContent = d.ref;
+      textContainer.innerHTML = `<p>${d.texto}</p>`;
+      
+      barraControles.style.display = 'flex';
+      btnBackTop.style.display = 'block';
   }
 
-  if (apiExitosa) {
-    botones.forEach(btn => {
+  botones.forEach(btn => {
       btn.addEventListener('click', (e) => {
-        const target = e.target.getAttribute('data-target');
-        botones.forEach(b => b.classList.remove('active'));
-        document.querySelectorAll(`.accar-menu-btn[data-target="${target}"]`).forEach(b => b.classList.add('active'));
-        renderReading(target);
-        
-        if (window.innerWidth <= 900) {
-           document.querySelector('.accar-lecturas-content').scrollIntoView({ behavior: 'smooth' });
-        }
+          const target = e.target.getAttribute('data-target');
+          renderReading(target);
+          if (window.innerWidth <= 900) {
+              document.querySelector('.accar-lecturas-content').scrollIntoView({ behavior: 'smooth' });
+          }
       });
-    });
-    renderReading('evangelio'); 
+  });
+
+  // Evento de cambio de calendario
+  if(datePicker) {
+      datePicker.addEventListener('change', (e) => {
+          const nuevaFecha = e.target.value;
+          if (nuevaFecha) {
+              setFechaVisual(nuevaFecha);
+              cargarLecturas(nuevaFecha);
+          }
+      });
   }
+
+  // Carga inicial
+  cargarLecturas(hoyStr);
+
 })();
 </script>
