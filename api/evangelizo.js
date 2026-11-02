@@ -30,14 +30,18 @@ export default async function handler(req, res) {
 
   const calcularSemanaLiturgica = (fecha) => {
       const d = new Date(`${fecha}T12:00:00Z`);
-      const year = d.getFullYear();
+      // Anclar el cálculo al domingo de esta semana para evitar saltos adelantados
+      const domingoActual = new Date(d);
+      domingoActual.setDate(domingoActual.getDate() - domingoActual.getDay());
+
+      const year = domingoActual.getFullYear();
       let cristoRey = new Date(`${year}-11-26T12:00:00Z`);
       while (cristoRey.getDay() !== 0) cristoRey.setDate(cristoRey.getDate() - 1);
       
-      const diffTime = cristoRey.getTime() - d.getTime();
-      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+      const diffTime = cristoRey.getTime() - domingoActual.getTime();
+      const diffWeeks = Math.round(diffTime / (1000 * 60 * 60 * 24 * 7));
       
-      let weekNumber = 34 - Math.floor(diffDays / 7);
+      let weekNumber = 34 - diffWeeks;
       if (weekNumber < 1) weekNumber = 1;
       if (weekNumber > 34) weekNumber = 34;
       return weekNumber;
@@ -173,8 +177,12 @@ export default async function handler(req, res) {
                 .replace(/&nbsp;/gi, ' ')
                 .trim();
             
-            // Tomamos los primeros párrafos sustanciales como la reflexión
-            let parrafosHomilia = textoLimpio.split('\n\n').filter(p => p.length > 50).slice(0, 5).join('<br><br>');
+            // Tomamos los primeros párrafos y los unimos con saltos puros para no chocar con el frontend
+            let parrafosHomilia = textoLimpio.split('\n\n')
+                .map(p => p.trim())
+                .filter(p => p.length > 50)
+                .slice(0, 5)
+                .join('\n\n');
             
             if (parrafosHomilia.length > 50) {
                 readings.push({ type: 'RE', title: "Comentario al Evangelio", text: parrafosHomilia });
