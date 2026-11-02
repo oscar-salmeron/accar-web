@@ -468,11 +468,18 @@ function shareContent() {
 
 (async function initLecturas() {
   const opcionesFecha = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
-  let fechaHoyTexto = new Date().toLocaleDateString('es-ES', opcionesFecha);
+  const today = new Date();
+  let fechaHoyTexto = today.toLocaleDateString('es-ES', opcionesFecha);
   fechaHoyTexto = fechaHoyTexto.charAt(0).toUpperCase() + fechaHoyTexto.slice(1);
   document.getElementById('lecturas-fecha-actual').textContent = fechaHoyTexto;
 
-  const apiUrl = `/api/evangelizo`;
+  // Forzamos la fecha exacta del dispositivo local y la enviamos en la URL
+  const year = today.getFullYear();
+  const month = String(today.getMonth() + 1).padStart(2, '0');
+  const day = String(today.getDate()).padStart(2, '0');
+  const formattedDate = `${year}-${month}-${day}`;
+  
+  const apiUrl = `/api/evangelizo?date=${formattedDate}`;
 
   const liturgiaData = {
     evangelio: { titulo: "Evangelio", ref: "", texto: "Cargando..." },
