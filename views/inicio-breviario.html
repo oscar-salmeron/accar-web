@@ -361,8 +361,7 @@ function shareBreviario() {
     }
 }
 
-// Ensure DOM is fully loaded before executing initialization
-document.addEventListener('DOMContentLoaded', async function initBreviario() {
+(async function initBreviario() {
   const opcionesFecha = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
   const headerFecha = document.getElementById('brev-fecha-titulo');
   const headerSemana = document.getElementById('brev-semana-titulo');
@@ -532,5 +531,5 @@ document.addEventListener('DOMContentLoaded', async function initBreviario() {
       });
   });
 
-});
+})();
 </script>
