@@ -361,175 +361,183 @@ function shareBreviario() {
     }
 }
 
-(async function initBreviario() {
-  const opcionesFecha = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
-  const headerFecha = document.getElementById('brev-fecha-titulo');
-  const headerSemana = document.getElementById('brev-semana-titulo');
-  const headerContainer = document.getElementById('brev-header-container');
-  const datePicker = document.getElementById('brev-date-picker');
-  
-  let selectedDateString = ""; 
-  let currentActiveHora = null;
+document.addEventListener('DOMContentLoaded', () => {
+    // 1. Inicialización de Elementos del DOM
+    const opcionesFecha = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
+    const headerFecha = document.getElementById('brev-fecha-titulo');
+    const headerSemana = document.getElementById('brev-semana-titulo');
+    const headerContainer = document.getElementById('brev-header-container');
+    const datePicker = document.getElementById('brev-date-picker');
+    const textContainer = document.getElementById('brev-text');
+    const spinner = document.getElementById('brev-spinner');
+    const botonesMenu = document.querySelectorAll('.accar-brev-btn');
+    const barraControles = document.getElementById('brev-text-controls');
+    const botonesTamano = document.querySelectorAll('.btn-size');
+    const btnThemeToggle = document.getElementById('btn-theme-toggle');
+    const btnBackTop = document.getElementById('btn-back-top');
+    const btnShareDesktop = document.getElementById('btn-share-desktop');
+    
+    let selectedDateString = ""; 
+    let currentActiveHora = null;
 
-  // 1. Configurar la fecha inicial (Hoy en Bogotá)
-  const hoyStr = new Date().toLocaleDateString('en-CA', { timeZone: 'America/Bogota' }); 
-  
-  if(datePicker) {
-      datePicker.value = hoyStr;
-      
-      // 2. Evento para cuando el usuario cambia la fecha
-      datePicker.addEventListener('change', (e) => {
-          const nuevaFecha = e.target.value;
-          if (nuevaFecha) {
-              actualizarCabecera(nuevaFecha);
-              if (currentActiveHora) {
-                  const activeBtn = document.querySelector(`.accar-brev-btn.active`);
-                  loadHora(currentActiveHora, activeBtn);
-              }
-          }
-      });
-  }
+    // 2. Configurar fecha inicial inmediatamente y actualizar DOM
+    const hoyStr = new Date().toLocaleDateString('en-CA', { timeZone: 'America/Bogota' }); 
+    if(datePicker) {
+        datePicker.value = hoyStr;
+    }
+    
+    // Función síncrona para actualizar solo el texto de la fecha rápida y visualmente
+    function setFechaVisual(fechaStr) {
+        const fechaObj = new Date(`${fechaStr}T12:00:00`);
+        let fechaTexto = fechaObj.toLocaleDateString('es-ES', opcionesFecha);
+        if(headerFecha) {
+            headerFecha.textContent = fechaTexto.charAt(0).toUpperCase() + fechaTexto.slice(1);
+        }
+    }
 
-  // Cargar cabecera inicial
-  actualizarCabecera(hoyStr);
+    // Establecemos la fecha visual de arranque para que no diga "Cargando fecha..."
+    setFechaVisual(hoyStr);
+    
+    // Y lanzamos la petición a la API de Evangelizo de forma independiente
+    cargarMetadatos(hoyStr);
+    selectedDateString = hoyStr;
 
-  async function actualizarCabecera(fechaYYYYMMDD) {
-      selectedDateString = fechaYYYYMMDD;
-      
-      const fechaObj = new Date(`${fechaYYYYMMDD}T12:00:00`);
-      let fechaTexto = fechaObj.toLocaleDateString('es-ES', opcionesFecha);
-      if(headerFecha) headerFecha.textContent = fechaTexto.charAt(0).toUpperCase() + fechaTexto.slice(1);
+    // 3. Evento de cambio de calendario
+    if(datePicker) {
+        datePicker.addEventListener('change', (e) => {
+            const nuevaFecha = e.target.value;
+            if (nuevaFecha) {
+                selectedDateString = nuevaFecha;
+                setFechaVisual(nuevaFecha);
+                cargarMetadatos(nuevaFecha);
+                
+                if (currentActiveHora) {
+                    const activeBtn = Array.from(botonesMenu).find(b => b.classList.contains('active'));
+                    loadHora(currentActiveHora, activeBtn);
+                }
+            }
+        });
+    }
 
-      try {
-          const responseMeta = await fetch(`/api/evangelizo?date=${fechaYYYYMMDD}`);
-          if (responseMeta.ok) {
-              const dataMeta = await responseMeta.json();
-              if (dataMeta.fiestas && dataMeta.fiestas.length > 0) {
-                  const fiesta = dataMeta.fiestas[0];
-                  let semanaLimpia = fiesta.semana || '';
-                  semanaLimpia = semanaLimpia.replace(/Lecturas y Evangelio de la\s*\n?/i, '').trim();
-                  if(headerSemana) {
-                      headerSemana.textContent = `${semanaLimpia} (${fiesta.anio || ''})`;
-                      headerSemana.style.display = 'block';
-                  }
-                  
-                  const coloresHex = { "VERDE": "#2cb67d", "BLANCO": "#e2e8f0", "MORADO": "#6b21a8", "ROJO": "#b91c1c", "ROSADO": "#f472b6" };
-                  const colorLiturgico = fiesta.color ? fiesta.color.toUpperCase() : 'VERDE';
-                  if (coloresHex[colorLiturgico] && headerContainer) {
-                      headerContainer.style.backgroundColor = coloresHex[colorLiturgico];
-                      if(colorLiturgico === 'BLANCO') {
-                          headerContainer.style.color = '#1a1c29';
-                          if(headerFecha) headerFecha.style.color = '#1a1c29';
-                          if(headerSemana) headerSemana.style.color = '#1a1c29';
-                      } else {
-                          headerContainer.style.color = 'white';
-                          if(headerFecha) headerFecha.style.color = 'white';
-                          if(headerSemana) headerSemana.style.color = 'white';
-                      }
-                  }
-              }
-          }
-      } catch (err) {
-          console.log("Error al cargar metadatos.", err);
-      }
-  }
+    // 4. Función aislada para llamar a Evangelizo
+    async function cargarMetadatos(fechaYYYYMMDD) {
+        try {
+            const responseMeta = await fetch(`/api/evangelizo?date=${fechaYYYYMMDD}`);
+            if (responseMeta.ok) {
+                const dataMeta = await responseMeta.json();
+                if (dataMeta.fiestas && dataMeta.fiestas.length > 0) {
+                    const fiesta = dataMeta.fiestas[0];
+                    let semanaLimpia = fiesta.semana || '';
+                    semanaLimpia = semanaLimpia.replace(/Lecturas y Evangelio de la\s*\n?/i, '').trim();
+                    if(headerSemana) {
+                        headerSemana.textContent = `${semanaLimpia} (${fiesta.anio || ''})`;
+                        headerSemana.style.display = 'block';
+                    }
+                    
+                    const coloresHex = { "VERDE": "#2cb67d", "BLANCO": "#e2e8f0", "MORADO": "#6b21a8", "ROJO": "#b91c1c", "ROSADO": "#f472b6" };
+                    const colorLiturgico = fiesta.color ? fiesta.color.toUpperCase() : 'VERDE';
+                    if (coloresHex[colorLiturgico] && headerContainer) {
+                        headerContainer.style.backgroundColor = coloresHex[colorLiturgico];
+                        if(colorLiturgico === 'BLANCO') {
+                            headerContainer.style.color = '#1a1c29';
+                            if(headerFecha) headerFecha.style.color = '#1a1c29';
+                            if(headerSemana) headerSemana.style.color = '#1a1c29';
+                        } else {
+                            headerContainer.style.color = 'white';
+                            if(headerFecha) headerFecha.style.color = 'white';
+                            if(headerSemana) headerSemana.style.color = 'white';
+                        }
+                    }
+                }
+            }
+        } catch (err) {
+            console.log("Error al cargar metadatos.", err);
+        }
+    }
 
-  const textContainer = document.getElementById('brev-text');
-  const spinner = document.getElementById('brev-spinner');
-  const botonesMenu = document.querySelectorAll('.accar-brev-btn');
-  const barraControles = document.getElementById('brev-text-controls');
-  const botonesTamano = document.querySelectorAll('.btn-size');
-  const btnThemeToggle = document.getElementById('btn-theme-toggle');
-  const btnBackTop = document.getElementById('btn-back-top');
+    // 5. Carga de la liturgia
+    async function loadHora(horaParam, btnElement) {
+        if(spinner) spinner.style.display = 'block';
+        if(textContainer) textContainer.style.display = 'none';
+        if(barraControles) barraControles.style.display = 'none'; 
+        if(btnBackTop) btnBackTop.style.display = 'none'; 
+        if(btnShareDesktop) btnShareDesktop.style.display = 'none';
+        
+        if(btnElement) {
+            currentLiturgiaTitle = btnElement.textContent.trim();
+        }
+        currentActiveHora = horaParam;
+        
+        try {
+            const response = await fetch(`/api/breviario?hora=${horaParam}&fecha=${selectedDateString}`);
+            if (!response.ok) throw new Error("Error del servidor interno");
+            
+            const data = await response.json();
+            
+            if(data.html && data.html.length > 50) {
+               if(textContainer) textContainer.innerHTML = data.html;
+               if(barraControles) barraControles.style.display = 'flex'; 
+               if(btnBackTop) btnBackTop.style.display = 'block'; 
+               if(btnShareDesktop) btnShareDesktop.style.display = 'inline-flex';
+            } else {
+               if(textContainer) textContainer.innerHTML = "<p style='text-align:center;'>La liturgia de las horas no está disponible aún en la fuente.</p>";
+            }
+        } catch (error) {
+            if(textContainer) textContainer.innerHTML = "<p style='text-align:center; color: #ff4d4d;'>Ocurrió un error al cargar el texto de la liturgia.</p>";
+        } finally {
+            if(spinner) spinner.style.display = 'none';
+            if(textContainer) textContainer.style.display = 'block';
+        }
+    }
 
-  // Lógica de Regresar Arriba
-  if(btnBackTop) {
-      btnBackTop.addEventListener('click', () => {
-          document.querySelector('.accar-brev-botonera').scrollIntoView({ behavior: 'smooth', block: 'start' });
-      });
-  }
+    // 6. Controles de UI
+    botonesMenu.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            const targetHora = e.target.getAttribute('data-hora');
+            
+            botonesMenu.forEach(b => {
+                if (b.getAttribute('data-hora') === targetHora) {
+                    b.classList.add('active');
+                } else {
+                    b.classList.remove('active');
+                }
+            });
+            
+            loadHora(targetHora, e.target);
+            
+            if (window.innerWidth <= 900) {
+                const contentArea = document.querySelector('.accar-brev-content-area');
+                if(contentArea) contentArea.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+    });
 
-  // Lógica de tamaño
-  botonesTamano.forEach(btn => {
-      btn.addEventListener('click', (e) => {
-          botonesTamano.forEach(b => b.classList.remove('active'));
-          e.target.classList.add('active');
-          if(textContainer) textContainer.style.fontSize = e.target.getAttribute('data-size');
-      });
-  });
+    if(btnBackTop) {
+        btnBackTop.addEventListener('click', () => {
+            document.querySelector('.accar-brev-botonera').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+    }
 
-  // Lógica de Cambio de Color (Beige por defecto a Oscuro)
-  let isLightMode = true;
-  if(btnThemeToggle) {
-      btnThemeToggle.addEventListener('click', () => {
-          isLightMode = !isLightMode;
-          if (isLightMode) {
-              if(textContainer) textContainer.classList.add('theme-light');
-              btnThemeToggle.innerHTML = '🌙 Fondo Oscuro';
-          } else {
-              if(textContainer) textContainer.classList.remove('theme-light');
-              btnThemeToggle.innerHTML = '☀️ Fondo Claro';
-          }
-      });
-  }
+    botonesTamano.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            botonesTamano.forEach(b => b.classList.remove('active'));
+            e.target.classList.add('active');
+            if(textContainer) textContainer.style.fontSize = e.target.getAttribute('data-size');
+        });
+    });
 
-  const btnShareDesktop = document.getElementById('btn-share-desktop');
-
-  async function loadHora(horaParam, btnElement) {
-      if(spinner) spinner.style.display = 'block';
-      if(textContainer) textContainer.style.display = 'none';
-      if(barraControles) barraControles.style.display = 'none'; 
-      if(btnBackTop) btnBackTop.style.display = 'none'; 
-      if(btnShareDesktop) btnShareDesktop.style.display = 'none';
-      
-      if(btnElement) {
-          currentLiturgiaTitle = btnElement.textContent.trim();
-      }
-      
-      currentActiveHora = horaParam;
-      
-      try {
-          const response = await fetch(`/api/breviario?hora=${horaParam}&fecha=${selectedDateString}`);
-          if (!response.ok) throw new Error("Error del servidor interno");
-          
-          const data = await response.json();
-          
-          if(data.html && data.html.length > 50) {
-             if(textContainer) textContainer.innerHTML = data.html;
-             if(barraControles) barraControles.style.display = 'flex'; 
-             if(btnBackTop) btnBackTop.style.display = 'block'; 
-             if(btnShareDesktop) btnShareDesktop.style.display = 'inline-flex';
-          } else {
-             if(textContainer) textContainer.innerHTML = "<p style='text-align:center;'>La liturgia de las horas no está disponible aún en la fuente.</p>";
-          }
-      } catch (error) {
-          if(textContainer) textContainer.innerHTML = "<p style='text-align:center; color: #ff4d4d;'>Ocurrió un error al cargar el texto de la liturgia.</p>";
-      } finally {
-          if(spinner) spinner.style.display = 'none';
-          if(textContainer) textContainer.style.display = 'block';
-      }
-  }
-
-  botonesMenu.forEach(btn => {
-      btn.addEventListener('click', (e) => {
-          const targetHora = e.target.getAttribute('data-hora');
-          
-          botonesMenu.forEach(b => {
-              if (b.getAttribute('data-hora') === targetHora) {
-                  b.classList.add('active');
-              } else {
-                  b.classList.remove('active');
-              }
-          });
-          
-          loadHora(targetHora, e.target);
-          
-          if (window.innerWidth <= 900) {
-              const contentArea = document.querySelector('.accar-brev-content-area');
-              if(contentArea) contentArea.scrollIntoView({ behavior: 'smooth' });
-          }
-      });
-  });
-
-})();
+    let isLightMode = true;
+    if(btnThemeToggle) {
+        btnThemeToggle.addEventListener('click', () => {
+            isLightMode = !isLightMode;
+            if (isLightMode) {
+                if(textContainer) textContainer.classList.add('theme-light');
+                btnThemeToggle.innerHTML = '🌙 Fondo Oscuro';
+            } else {
+                if(textContainer) textContainer.classList.remove('theme-light');
+                btnThemeToggle.innerHTML = '☀️ Fondo Claro';
+            }
+        });
+    }
+});
 </script>
