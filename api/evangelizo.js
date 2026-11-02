@@ -5,7 +5,16 @@ export default async function handler(req, res) {
     return;
   }
 
-  const dateParam = req.query.date || new Date().toISOString().split('T')[0];
+  // Aseguramos el formato exacto de fecha que espera la API externa (YYYY-MM-DD)
+  let dateParam = req.query.date;
+  if (!dateParam) {
+    const today = new Date();
+    const tzOffset = -5 * 60; // Forzamos huso horario Bogotá (UTC-5) para evitar desfases
+    const localTime = new Date(today.getTime() + tzOffset * 60 * 1000);
+    dateParam = localTime.toISOString().split('T')[0];
+  }
+
+  // La URL debe inyectar la fecha correctamente
   const targetUrl = `https://www.ciudadredonda.org/calendario-lecturas/evangelio-del-dia/?f=${dateParam}`;
 
   const toRoman = (num) => {
@@ -63,14 +72,11 @@ export default async function handler(req, res) {
     let santoFinal = "Feria";
     let colorLiturgico = "VERDE";
     
-    // Cálculo seguro del tiempo ordinario
     const numSemana = calcularSemanaLiturgica(dateParam);
     const romanoSemana = toRoman(numSemana);
     
-    // Cálculo de Salterio y Tomo basado en el número de semana
     const numSalterio = ((numSemana - 1) % 4) + 1;
     let romanoSalterio = toRoman(numSalterio);
-    // Si estamos en la semana 34, el salterio es el 2.
     if(numSemana === 34) romanoSalterio = 'II';
 
     const romanoTomo = numSemana > 17 ? 'IV' : 'III';
@@ -92,23 +98,29 @@ export default async function handler(req, res) {
 
         for (let i = idx + 2; i < lineas.length; i++) {
             let lUpper = lineas[i].toUpperCase();
-            if (paradas.some(p => lUpper === p.toUpperCase() || lUpper.includes(p.toUpperCase()))) break;
+            
+            // Verificamos si la línea actual coincide con alguna de las palabras de parada
+            if (paradas.some(p => lUpper === p.toUpperCase() || lUpper.includes(p.toUpperCase()))) {
+                 break;
+            }
+            
             if (lUpper.includes("PALABRA DE DIOS") || lUpper.includes("PALABRA DEL SEÑOR")) {
                 parrafos.push(lineas[i]);
                 break;
             }
             parrafos.push(lineas[i]);
         }
+        
         return { title: cita, text: parrafos.join('<br><br>') };
     };
 
-    const primeraLectura = extraerLectura("Primera Lectura", ["Salmo", "Salmo responsorial"]);
-    const salmo = extraerLectura("Salmo", ["Segunda Lectura", "Evangelio", "Aleluya"]);
-    const segundaLectura = extraerLectura("Segunda Lectura", ["Evangelio", "Aleluya"]);
-    const evangelio = extraerLectura("Evangelio", ["Comentario al Evangelio", "Liturgia", "Calendario"]);
+    // Ampliamos los puntos de parada para asegurar la captura de todas las secciones
+    const primeraLectura = extraerLectura("Primera Lectura", ["Salmo", "Salmo responsorial", "Segunda Lectura", "Evangelio"]);
+    const salmo = extraerLectura("Salmo", ["Segunda Lectura", "Evangelio", "Aleluya", "Aclamación"]);
+    const segundaLectura = extraerLectura("Segunda Lectura", ["Evangelio", "Aleluya", "Aclamación"]);
+    const evangelio = extraerLectura("Evangelio", ["Comentario al Evangelio", "Liturgia", "Calendario", "Síguenos"]);
     const reflexion = extraerLectura("Comentario al Evangelio", ["Liturgia", "Calendario", "Síguenos"]);
 
-    // Función "bisturí" para abreviar títulos largos de las lecturas
     const limpiarTitulo = (titulo) => {
         if (!titulo) return "";
         let t = titulo;
@@ -129,21 +141,19 @@ export default async function handler(req, res) {
         t = t.replace(/Lectura del libro de\s+/i, '');
         t = t.replace(/Lectura de los\s+/i, '');
         t = t.replace(/Lectura de la\s+/i, '');
-        // Quitar dos puntos finales si existen
         if (t.endsWith(':')) t = t.slice(0, -1).trim();
         return t;
     };
 
-    // Forzamos que quede solo como "responsorial X" para no saturar móviles
     if (salmo && salmo.title) {
         salmo.title = salmo.title.replace(/^(Salmo responsorial|Salmo|Sal)\s+/i, 'responsorial ');
     }
 
     let readings = [];
-    if (primeraLectura) readings.push({ type: 'FR', title: limpiarTitulo(primeraLectura.title), text: primeraLectura.text });
-    if (salmo) readings.push({ type: 'PS', title: salmo.title, text: salmo.text });
-    if (segundaLectura) readings.push({ type: 'SR', title: limpiarTitulo(segundaLectura.title), text: segundaLectura.text });
-    if (evangelio) readings.push({ type: 'GSP', title: limpiarTitulo(evangelio.title), text: evangelio.text });
+    if (primeraLectura && primeraLectura.title) readings.push({ type: 'FR', title: limpiarTitulo(primeraLectura.title), text: primeraLectura.text });
+    if (salmo && salmo.title) readings.push({ type: 'PS', title: salmo.title, text: salmo.text });
+    if (segundaLectura && segundaLectura.title) readings.push({ type: 'SR', title: limpiarTitulo(segundaLectura.title), text: segundaLectura.text });
+    if (evangelio && evangelio.title) readings.push({ type: 'GSP', title: limpiarTitulo(evangelio.title), text: evangelio.text });
 
     if (reflexion && reflexion.text.length > 20) {
         let textoReflexionCompleto = reflexion.title + "<br><br>" + reflexion.text;
