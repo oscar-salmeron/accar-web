@@ -9,9 +9,10 @@ export default async function handler(req, res) {
     return;
   }
 
-  // Se usa la fecha actual de America/Bogota
+  // Captura la fecha enviada por el frontend, con fallback por si acaso
+  const rawDate = req.query?.date || req.url.split('date=')[1]?.split('&')[0];
   const formatter = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Bogota' });
-  const dateParam = formatter.format(new Date()); 
+  const dateParam = rawDate || formatter.format(new Date()); 
 
   const targetUrl = `https://www.ciudadredonda.org/calendario-lecturas/evangelio-del-dia/?f=${dateParam}&_t=${Date.now()}`;
 
@@ -71,9 +72,13 @@ export default async function handler(req, res) {
     
     const numSemana = calcularSemanaLiturgica(dateParam);
     const romanoSemana = toRoman(numSemana);
-    const numSalterio = ((numSemana - 1) % 4) + 1;
+    
+    // Cálculo exacto del Salterio (Ciclos de 4 semanas)
+    let numSalterio = numSemana % 4;
+    if (numSalterio === 0) numSalterio = 4; // Las semanas múltiples de 4 son Salterio IV
+    
     let romanoSalterio = toRoman(numSalterio);
-    if(numSemana === 34) romanoSalterio = 'II';
+    if(numSemana === 34) romanoSalterio = 'II'; // Cristo Rey siempre usa Salterio II (o propio)
     const romanoTomo = numSemana > 17 ? 'IV' : 'III';
     
     let semanaFinal = `${romanoSemana} Semana del Tiempo Ordinario`;
@@ -151,10 +156,35 @@ export default async function handler(req, res) {
     if (segundaLectura && segundaLectura.title) readings.push({ type: 'SR', title: limpiarTitulo(segundaLectura.title), text: segundaLectura.text });
     if (evangelio && evangelio.title) readings.push({ type: 'GSP', title: limpiarTitulo(evangelio.title), text: evangelio.text });
 
-    if (reflexion && reflexion.text.length > 20) {
-        let textoReflexionCompleto = reflexion.title + "<br><br>" + reflexion.text;
-        readings.push({ type: 'RE', title: "Comentario al Evangelio", text: textoReflexionCompleto });
-    } else {
+    // Fetch Secundario: Comentario/Homilía del Día
+    try {
+        const urlHomilia = `https://www.ciudadredonda.org/comentario-homilia-hoy/?f=${dateParam}`;
+        const homiliaRes = await fetch(urlHomilia);
+        if (homiliaRes.ok) {
+            const htmlHomilia = await homiliaRes.text();
+            let mainHomilia = htmlHomilia.split('<main')[1] || htmlHomilia;
+            mainHomilia = mainHomilia.split('</main>')[0] || mainHomilia;
+            
+            // Extraer solo el texto útil evitando etiquetas sucias
+            let textoLimpio = mainHomilia
+                .replace(/<\/(p|div|h[1-6]|li|article|section)>/gi, '\n\n')
+                .replace(/<br\s*\/?>/gi, '\n\n')
+                .replace(/<[^>]+>/g, '')
+                .replace(/&nbsp;/gi, ' ')
+                .trim();
+            
+            // Tomamos los primeros párrafos sustanciales como la reflexión
+            let parrafosHomilia = textoLimpio.split('\n\n').filter(p => p.length > 50).slice(0, 5).join('<br><br>');
+            
+            if (parrafosHomilia.length > 50) {
+                readings.push({ type: 'RE', title: "Comentario al Evangelio", text: parrafosHomilia });
+            } else {
+                readings.push({ type: 'RE', title: "Reflexión", text: "La liturgia de hoy nos invita a meditar la Palabra." });
+            }
+        } else {
+            readings.push({ type: 'RE', title: "Reflexión", text: "Homilía no disponible para esta fecha." });
+        }
+    } catch (e) {
         readings.push({ type: 'RE', title: "Reflexión", text: "La liturgia de hoy nos invita a meditar la Palabra y llevarla a la vida." });
     }
 
