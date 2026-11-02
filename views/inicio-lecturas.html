@@ -4,17 +4,11 @@
     <!-- COLUMNA IZQUIERDA: MENÚ DE NAVEGACIÓN -->
     <aside class="accar-lecturas-sidebar">
       
-      <!-- Bloque: Selector de Fecha -->
+      <!-- Bloque: Fecha -->
       <div class="accar-sidebar-box">
-        <h4 style="margin-bottom: 8px;">Seleccionar fecha:</h4>
-        <div class="accar-date-picker-container" style="margin-bottom: 15px;">
-            <input type="date" id="lecturas-date-picker" class="accar-date-input">
-        </div>
+        <h4>Lecturas de hoy:</h4>
         <div class="accar-date-badge" id="lecturas-fecha-actual">
           Cargando fecha...
-        </div>
-        <div id="fiesta-semana-calendario" style="text-align: center; margin-top: 10px; font-size: 13px; font-weight: 700; color: #a4a7ab; text-transform: uppercase;">
-            Cargando...
         </div>
       </div>
 
@@ -135,29 +129,6 @@
   font-size: 15px;
   margin: 0 0 16px 0;
   font-weight: 700;
-}
-
-/* ESTILOS DEL SELECTOR DE FECHA */
-.accar-date-picker-container {
-  display: flex;
-  justify-content: center;
-}
-.accar-date-input {
-  background-color: rgba(255, 255, 255, 0.2);
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  color: white;
-  padding: 8px 12px;
-  border-radius: 8px;
-  font-family: inherit;
-  font-weight: bold;
-  outline: none;
-  cursor: pointer;
-  width: 100%;
-  text-align: center;
-}
-.accar-date-input::-webkit-calendar-picker-indicator {
-    filter: invert(1);
-    cursor: pointer;
 }
 
 .accar-date-badge {
@@ -355,7 +326,7 @@
     font-weight: bold;
 }
 .accar-lecturas-content.theme-light .texto-rojo {
-    color: #b91c1c; /* Un rojo más oscuro para que resalte en el beige */
+    color: #b91c1c; 
 }
 
 /* Botón Regresar Arriba */
@@ -467,7 +438,6 @@
 </style>
 
 <script>
-// Función para Compartir
 function shareContent() {
     const title = document.getElementById('reading-title').textContent;
     const ref = document.getElementById('reading-ref').textContent;
@@ -488,7 +458,6 @@ function shareContent() {
 
     if (navigator.share) {
         navigator.share(shareData)
-            .then(() => console.log('Contenido compartido con éxito'))
             .catch((error) => console.log('Error al compartir', error));
     } else {
         navigator.clipboard.writeText(`${shareData.text} ${shareData.url}`)
@@ -499,29 +468,26 @@ function shareContent() {
 
 (async function initLecturas() {
   const opcionesFecha = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
-  const fechaBadge = document.getElementById('lecturas-fecha-actual');
-  const datePicker = document.getElementById('lecturas-date-picker');
-  const semanaCalendario = document.getElementById('fiesta-semana-calendario');
+  let fechaHoyTexto = new Date().toLocaleDateString('es-ES', opcionesFecha);
+  fechaHoyTexto = fechaHoyTexto.charAt(0).toUpperCase() + fechaHoyTexto.slice(1);
+  document.getElementById('lecturas-fecha-actual').textContent = fechaHoyTexto;
+
+  const hoy = new Date();
+  const mes = String(hoy.getMonth() + 1).padStart(2, '0');
+  const dia = String(hoy.getDate()).padStart(2, '0');
   
-  let liturgiaData = {
+  const anioAPI = hoy.getFullYear();
+  const dateAPI = `${anioAPI}-${mes}-${dia}`;
+  
+  const apiUrl = `/api/evangelizo?date=${dateAPI}`;
+
+  const liturgiaData = {
     evangelio: { titulo: "Evangelio", ref: "", texto: "Cargando..." },
     primera: { titulo: "Primera Lectura", ref: "", texto: "Cargando..." },
     salmo: { titulo: "Salmo", ref: "", texto: "Cargando..." },
     segunda: { titulo: "Segunda Lectura", ref: "", texto: "Cargando..." },
     reflexion: { titulo: "Reflexión", ref: "", texto: "Cargando..." }
   };
-
-  // Configurar fecha inicial inmediatamente y actualizar DOM
-  const hoyStr = new Date().toLocaleDateString('en-CA', { timeZone: 'America/Bogota' }); 
-  if(datePicker) datePicker.value = hoyStr;
-  
-  function setFechaVisual(fechaStr) {
-      const fechaObj = new Date(`${fechaStr}T12:00:00`);
-      let fechaTexto = fechaObj.toLocaleDateString('es-ES', opcionesFecha);
-      if(fechaBadge) fechaBadge.textContent = fechaTexto.charAt(0).toUpperCase() + fechaTexto.slice(1);
-  }
-  
-  setFechaVisual(hoyStr);
 
   const spinner = document.getElementById('reading-spinner');
   const textContainer = document.getElementById('reading-text');
@@ -547,53 +513,37 @@ function shareContent() {
     "ROSADO": "#fbb6ce"
   };
 
-  // Función para aplicar saltos de párrafo, separar la "R/." y repetir la antífona
   const formatearGramatica = (texto) => {
       if (!texto) return '';
-      
-      // 1. Limpiamos temporalmente los saltos de línea para analizarlos bien
       let textoFormateado = texto.replace(/<br\s*\/?>/gi, '\n');
-      
-      // 2. RECUPERAR LOS SALTOS DEL EVANGELIO: Convertir puntos y seguidos en saltos de línea
       textoFormateado = textoFormateado.replace(/([a-záéíóúñ]{2,}[.»”?!]{1,2})\s+(?=[A-ZÁÉÍÓÚÑ¿¡])/gi, '$1\n');
       
-      // 3. Extraer la antífona (el texto que acompaña a la primera R/.)
       let antifona = "";
       const matchAntifona = textoFormateado.match(/(?:R\/\.|R\.)\s*([^\n]+)/);
       if (matchAntifona && matchAntifona[1].length > 5) {
           antifona = matchAntifona[1].trim();
       }
 
-      // 4. Forzar que cualquier "R/." que esté pegada a otra frase salte a una nueva línea
       textoFormateado = textoFormateado.replace(/\s*(R\/\.|R\.)\s*/g, '\n$1 ');
 
-      // 5. Si capturamos la antífona, rellenar las "R/." que quedaron solas con el texto completo
       if (antifona) {
           let regexSola = new RegExp(`(R\\/\\.|R\\.)(?=\\s*\\n|\\s*$)`, 'g');
           textoFormateado = textoFormateado.replace(regexSola, `$1 ${antifona}`);
       }
 
-      // 6. Pintar de rojo las "R/."
       textoFormateado = textoFormateado.replace(/(R\/\.|R\.)/g, '<span class="texto-rojo">$1</span>');
-      
-      // 7. Pintar de rojo las citas bíblicas
       textoFormateado = textoFormateado.replace(/(\(\d+.*?\))/g, '<span class="texto-rojo">$1</span>');
       
-      // 8. Reconstruir los párrafos limpios con el espaciado correcto
       return textoFormateado.split('\n')
           .map(linea => linea.trim())
           .filter(linea => linea.length > 0)
           .join('<br><br>');
   };
-
-  // --- Lógicas Visuales de Controles ---
   
-  // Regresar Arriba
   btnBackTop.addEventListener('click', () => {
       document.querySelector('.accar-lecturas-sidebar').scrollIntoView({ behavior: 'smooth', block: 'start' });
   });
 
-  // Tamaño de texto
   botonesTamano.forEach(btn => {
       btn.addEventListener('click', (e) => {
           botonesTamano.forEach(b => b.classList.remove('active'));
@@ -602,7 +552,6 @@ function shareContent() {
       });
   });
 
-  // Cambio de Color (Beige por defecto a Oscuro en TODA la tarjeta)
   const mainContentArea = document.getElementById('main-content-area');
   let isLightMode = true;
   btnThemeToggle.addEventListener('click', () => {
@@ -616,127 +565,89 @@ function shareContent() {
       }
   });
 
-  let activeTab = 'evangelio';
+  let apiExitosa = false;
+  spinner.style.display = 'block';
 
-  async function cargarLecturas(fechaYYYYMMDD) {
-      spinner.style.display = 'block';
-      textContainer.innerHTML = '';
-      refTarget.textContent = 'Cargando...';
-      titleTarget.textContent = '...';
-      
-      // Reiniciar botones dinámicos
-      document.getElementById('btn-segunda').style.display = 'none';
-      document.getElementById('btn-segunda-mobile').style.display = 'none';
-      document.getElementById('btn-reflexion').style.display = 'none';
-      document.getElementById('btn-reflexion-mobile').style.display = 'none';
-      
-      liturgiaData = {
-          evangelio: { titulo: "Evangelio", ref: "", texto: "No disponible" },
-          primera: { titulo: "Primera Lectura", ref: "", texto: "No disponible" },
-          salmo: { titulo: "Salmo responsorial", ref: "", texto: "No disponible" },
-          segunda: { titulo: "Segunda Lectura", ref: "", texto: "No disponible" },
-          reflexion: { titulo: "Reflexión", ref: "", texto: "No disponible" }
-      };
+  try {
+    const response = await fetch(apiUrl);
+    const rawText = await response.text(); 
+    
+    if (!response.ok) throw new Error("Error en la respuesta del servidor");
+    const data = JSON.parse(rawText);
 
-      try {
-          const response = await fetch(`/api/evangelizo?date=${fechaYYYYMMDD}`);
-          const rawText = await response.text(); 
-          if (!response.ok) throw new Error("Error en la respuesta");
-          const data = JSON.parse(rawText);
+    if(data.fiestas && data.fiestas.length > 0) {
+      let semanaLimpia = data.fiestas[0].semana || '';
+      semanaLimpia = semanaLimpia.replace(/Lecturas y Evangelio de la\s*\n?/i, '').trim();
 
-          if(data.fiestas && data.fiestas.length > 0) {
-              const semanaLimpia = data.fiestas[0].semana || 'Feria';
-              if(semanaTarget) {
-                  semanaTarget.innerHTML = `Lecturas y Evangelio del día<br><span style="font-size: 14px; color: rgba(255,255,255,0.7); display: inline-block; margin-top: 6px;">${semanaLimpia}</span>`;
-              }
-              if(semanaCalendario) {
-                  semanaCalendario.textContent = semanaLimpia;
-              }
-              
-              const colorTexto = (data.fiestas[0].color || 'VERDE').toUpperCase();
-              colorTarget.textContent = colorTexto;
-              if (coloresLiturgicos[colorTexto]) colorTarget.style.color = coloresLiturgicos[colorTexto];
-              if(cicloTarget) cicloTarget.textContent = data.fiestas[0].ciclo || '';
-              if(anioTarget) anioTarget.textContent = data.fiestas[0].anio || '';
-          }
-
-          if (data.readings) {
-              data.readings.forEach(reading => {
-                  const htmlText = formatearGramatica(reading.text);
-                  if (reading.type === 'GSP') { liturgiaData.evangelio.ref = reading.title; liturgiaData.evangelio.texto = htmlText; }
-                  else if (reading.type === 'FR') { liturgiaData.primera.ref = reading.title; liturgiaData.primera.texto = htmlText; }
-                  else if (reading.type === 'PS') { liturgiaData.salmo.ref = reading.title; liturgiaData.salmo.texto = htmlText; }
-                  else if (reading.type === 'SR') { 
-                      liturgiaData.segunda.ref = reading.title; 
-                      liturgiaData.segunda.texto = htmlText;
-                      document.getElementById('btn-segunda').style.display = 'block'; 
-                      document.getElementById('btn-segunda-mobile').style.display = 'block'; 
-                  }
-                  else if (reading.type === 'RE') { 
-                      liturgiaData.reflexion.ref = reading.title; 
-                      liturgiaData.reflexion.texto = htmlText;
-                      document.getElementById('btn-reflexion').style.display = 'block'; 
-                      document.getElementById('btn-reflexion-mobile').style.display = 'block'; 
-                  }
-              });
-          }
-          
-          renderReading(activeTab);
-          
-      } catch (error) {
-          refTarget.textContent = "Error de conexión";
-          textContainer.innerHTML = `<p>No pudimos descargar las lecturas del día. El sistema de la fuente original podría estar procesando los datos.</p>`;
-      } finally {
-          spinner.style.display = 'none';
+      if(semanaTarget) {
+          semanaTarget.innerHTML = `Lecturas y Evangelio del día<br><span style="font-size: 14px; color: rgba(255,255,255,0.7); display: inline-block; margin-top: 6px;">${semanaLimpia}</span>`;
       }
+      
+      const colorTexto = (data.fiestas[0].color || 'VERDE').toUpperCase();
+      colorTarget.textContent = colorTexto;
+      
+      if (coloresLiturgicos[colorTexto]) colorTarget.style.color = coloresLiturgicos[colorTexto];
+      if(cicloTarget) cicloTarget.textContent = data.fiestas[0].ciclo || '';
+      if(anioTarget) anioTarget.textContent = data.fiestas[0].anio || '';
+    } else {
+      if(semanaTarget) semanaTarget.innerHTML = `Lecturas y Evangelio del día<br><span style="font-size: 14px; color: rgba(255,255,255,0.7); display: inline-block; margin-top: 6px;">Feria</span>`;
+    }
+
+    if (data.readings) {
+      data.readings.forEach(reading => {
+        const htmlText = formatearGramatica(reading.text);
+        
+        if (reading.type === 'GSP') { liturgiaData.evangelio.ref = reading.title; liturgiaData.evangelio.texto = htmlText; }
+        else if (reading.type === 'FR') { liturgiaData.primera.ref = reading.title; liturgiaData.primera.texto = htmlText; }
+        else if (reading.type === 'PS') { liturgiaData.salmo.ref = reading.title; liturgiaData.salmo.texto = htmlText; }
+        else if (reading.type === 'SR') { 
+          liturgiaData.segunda.ref = reading.title; 
+          liturgiaData.segunda.texto = htmlText;
+          document.getElementById('btn-segunda').style.display = 'block'; 
+          document.getElementById('btn-segunda-mobile').style.display = 'block'; 
+        }
+        else if (reading.type === 'RE') { 
+          liturgiaData.reflexion.ref = reading.title; 
+          liturgiaData.reflexion.texto = htmlText;
+          document.getElementById('btn-reflexion').style.display = 'block'; 
+          document.getElementById('btn-reflexion-mobile').style.display = 'block'; 
+        }
+      });
+      apiExitosa = true;
+    }
+  } catch (error) {
+    console.error("Error conectando al Leccionario:", error);
+    refTarget.textContent = "Error de conexión";
+    textContainer.innerHTML = `<p>No pudimos descargar las lecturas del día.</p>`;
+  } finally {
+    spinner.style.display = 'none';
   }
 
   function renderReading(targetId) {
-      activeTab = targetId;
-      const d = liturgiaData[targetId];
-      // Si seleccionaron una pestaña (ej. Segunda) que en otro día no existe, volvemos a Evangelio
-      if (d.texto === "No disponible" && targetId !== 'evangelio') {
-          return renderReading('evangelio');
-      }
-      
-      botones.forEach(b => b.classList.remove('active'));
-      document.querySelectorAll(`.accar-menu-btn[data-target="${activeTab}"]`).forEach(b => b.classList.add('active'));
-
-      let labelDisplay = d.titulo.toUpperCase();
-      if(labelDisplay === "SALMO RESPONSORIAL") labelDisplay = "SALMO";
-      
-      lblTarget.textContent = labelDisplay + " DE HOY";
-      titleTarget.textContent = d.titulo;
-      refTarget.textContent = d.ref;
-      textContainer.innerHTML = `<p>${d.texto}</p>`;
-      
-      barraControles.style.display = 'flex';
-      btnBackTop.style.display = 'block';
+    const d = liturgiaData[targetId];
+    lblTarget.textContent = d.titulo.toUpperCase() + " DE HOY";
+    titleTarget.textContent = d.titulo;
+    refTarget.textContent = d.ref;
+    textContainer.innerHTML = `<p>${d.texto}</p>`;
+    
+    barraControles.style.display = 'flex';
+    btnBackTop.style.display = 'block';
   }
 
-  botones.forEach(btn => {
+  if (apiExitosa) {
+    botones.forEach(btn => {
       btn.addEventListener('click', (e) => {
-          const target = e.target.getAttribute('data-target');
-          renderReading(target);
-          if (window.innerWidth <= 900) {
-              document.querySelector('.accar-lecturas-content').scrollIntoView({ behavior: 'smooth' });
-          }
+        const target = e.target.getAttribute('data-target');
+        botones.forEach(b => b.classList.remove('active'));
+        document.querySelectorAll(`.accar-menu-btn[data-target="${target}"]`).forEach(b => b.classList.add('active'));
+        renderReading(target);
+        
+        if (window.innerWidth <= 900) {
+           document.querySelector('.accar-lecturas-content').scrollIntoView({ behavior: 'smooth' });
+        }
       });
-  });
-
-  // Evento de cambio de calendario
-  if(datePicker) {
-      datePicker.addEventListener('change', (e) => {
-          const nuevaFecha = e.target.value;
-          if (nuevaFecha) {
-              setFechaVisual(nuevaFecha);
-              cargarLecturas(nuevaFecha);
-          }
-      });
+    });
+    renderReading('evangelio'); 
   }
-
-  // Carga inicial
-  cargarLecturas(hoyStr);
-
 })();
 </script>
