@@ -364,41 +364,74 @@ function shareBreviario() {
 
 (async function initBreviario() {
   const opcionesFecha = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
-  let fechaHoyTexto = new Date().toLocaleDateString('es-ES', opcionesFecha);
-  fechaHoyTexto = fechaHoyTexto.charAt(0).toUpperCase() + fechaHoyTexto.slice(1);
-  
   const headerFecha = document.getElementById('brev-fecha-titulo');
   const headerSemana = document.getElementById('brev-semana-titulo');
   const headerContainer = document.getElementById('brev-header-container');
+  const datePicker = document.getElementById('brev-date-picker');
   
-  headerFecha.textContent = fechaHoyTexto;
+  // Variables globales para la fecha seleccionada
+  let selectedDateString = ""; 
+  let currentActiveHora = null;
 
-  try {
-      const today = new Date();
-      const dateAPI = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
-      const responseMeta = await fetch(`/api/evangelizo?date=${dateAPI}`);
-      if (responseMeta.ok) {
-          const dataMeta = await responseMeta.json();
-          if (dataMeta.fiestas && dataMeta.fiestas.length > 0) {
-              const fiesta = dataMeta.fiestas[0];
-              let semanaLimpia = fiesta.semana || '';
-              semanaLimpia = semanaLimpia.replace(/Lecturas y Evangelio de la\s*\n?/i, '').trim();
-              headerSemana.textContent = `${semanaLimpia} (${fiesta.anio || ''})`;
-              
-              const coloresHex = { "VERDE": "#2cb67d", "BLANCO": "#e2e8f0", "MORADO": "#6b21a8", "ROJO": "#b91c1c", "ROSADO": "#f472b6" };
-              const colorLiturgico = fiesta.color ? fiesta.color.toUpperCase() : 'VERDE';
-              if (coloresHex[colorLiturgico]) {
-                  headerContainer.style.backgroundColor = coloresHex[colorLiturgico];
-                  if(colorLiturgico === 'BLANCO') {
-                      headerContainer.style.color = '#1a1c29';
-                      headerContainer.querySelector('h2').style.color = '#1a1c29';
-                      headerContainer.querySelector('p').style.color = '#1a1c29';
+  // 1. Configurar la fecha inicial (Hoy en Bogotá)
+  const hoyStr = new Date().toLocaleDateString('en-CA', { timeZone: 'America/Bogota' }); 
+  
+  // Asegurar que datePicker exista antes de asignarle valor
+  if(datePicker) {
+      datePicker.value = hoyStr;
+      
+      // 2. Evento para cuando el usuario cambia la fecha
+      datePicker.addEventListener('change', (e) => {
+          const nuevaFecha = e.target.value;
+          if (nuevaFecha) {
+              actualizarCabecera(nuevaFecha);
+              if (currentActiveHora) {
+                  const activeBtn = document.querySelector(`.accar-brev-btn.active`);
+                  loadHora(currentActiveHora, activeBtn);
+              }
+          }
+      });
+  }
+
+  // Cargar cabecera inicial
+  actualizarCabecera(hoyStr);
+
+  async function actualizarCabecera(fechaYYYYMMDD) {
+      selectedDateString = fechaYYYYMMDD;
+      
+      const fechaObj = new Date(`${fechaYYYYMMDD}T12:00:00`);
+      let fechaTexto = fechaObj.toLocaleDateString('es-ES', opcionesFecha);
+      headerFecha.textContent = fechaTexto.charAt(0).toUpperCase() + fechaTexto.slice(1);
+
+      try {
+          const responseMeta = await fetch(`/api/evangelizo?date=${fechaYYYYMMDD}`);
+          if (responseMeta.ok) {
+              const dataMeta = await responseMeta.json();
+              if (dataMeta.fiestas && dataMeta.fiestas.length > 0) {
+                  const fiesta = dataMeta.fiestas[0];
+                  let semanaLimpia = fiesta.semana || '';
+                  semanaLimpia = semanaLimpia.replace(/Lecturas y Evangelio de la\s*\n?/i, '').trim();
+                  headerSemana.textContent = `${semanaLimpia} (${fiesta.anio || ''})`;
+                  
+                  const coloresHex = { "VERDE": "#2cb67d", "BLANCO": "#e2e8f0", "MORADO": "#6b21a8", "ROJO": "#b91c1c", "ROSADO": "#f472b6" };
+                  const colorLiturgico = fiesta.color ? fiesta.color.toUpperCase() : 'VERDE';
+                  if (coloresHex[colorLiturgico]) {
+                      headerContainer.style.backgroundColor = coloresHex[colorLiturgico];
+                      if(colorLiturgico === 'BLANCO') {
+                          headerContainer.style.color = '#1a1c29';
+                          headerContainer.querySelector('h2').style.color = '#1a1c29';
+                          headerContainer.querySelector('p').style.color = '#1a1c29';
+                      } else {
+                          headerContainer.style.color = 'white';
+                          headerContainer.querySelector('h2').style.color = 'white';
+                          headerContainer.querySelector('p').style.color = 'white';
+                      }
                   }
               }
           }
+      } catch (err) {
+          console.log("Error al cargar metadatos.", err);
       }
-  } catch (err) {
-      console.log("Error al cargar metadatos.", err);
   }
 
   const textContainer = document.getElementById('brev-text');
@@ -449,8 +482,11 @@ function shareBreviario() {
           currentLiturgiaTitle = btnElement.textContent.trim();
       }
       
+      currentActiveHora = horaParam; // Guardamos la hora activa
+      
       try {
-          const response = await fetch(`/api/breviario?hora=${horaParam}`);
+          // Incluimos la fecha seleccionada en la petición
+          const response = await fetch(`/api/breviario?hora=${horaParam}&fecha=${selectedDateString}`);
           if (!response.ok) throw new Error("Error del servidor interno");
           
           const data = await response.json();
