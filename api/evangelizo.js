@@ -9,12 +9,15 @@ export default async function handler(req, res) {
     return;
   }
 
-  // Captura la fecha enviada por el frontend, con fallback por si acaso
+  // Captura estricta de la fecha que manda el frontend
   const rawDate = req.query?.date || req.url.split('date=')[1]?.split('&')[0];
   const formatter = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Bogota' });
   const dateParam = rawDate || formatter.format(new Date()); 
 
-  const targetUrl = `https://www.ciudadredonda.org/calendario-lecturas/evangelio-del-dia/?f=${dateParam}&_t=${Date.now()}`;
+  // Ajuste de URL: Ciudad redonda usa este formato exacto para fechas pasadas/futuras
+  const partesFecha = dateParam.split('-');
+  const urlPath = `${partesFecha[0]}/${partesFecha[1]}/${partesFecha[2]}`;
+  const targetUrl = `https://www.ciudadredonda.org/calendario-lecturas/evangelio-del-dia/?f=${dateParam}`;
 
   const toRoman = (num) => {
     const lookup = {X:10, IX:9, V:5, IV:4, I:1};
@@ -30,7 +33,6 @@ export default async function handler(req, res) {
 
   const calcularSemanaLiturgica = (fecha) => {
       const d = new Date(`${fecha}T12:00:00Z`);
-      // Anclar el cálculo al domingo de esta semana para evitar saltos adelantados
       const domingoActual = new Date(d);
       domingoActual.setDate(domingoActual.getDate() - domingoActual.getDay());
 
@@ -47,6 +49,14 @@ export default async function handler(req, res) {
       return weekNumber;
   };
 
+  // Función Quirúrgica: Destruye scripts, estilos y código fuente ANTES de procesar texto
+  const aniquilarCodigo = (html) => {
+      return html
+        .replace(/<script[\s\S]*?<\/script>/gi, '')
+        .replace(/<style[\s\S]*?<\/style>/gi, '')
+        .replace(/<!--[\s\S]*?-->/g, '');
+  };
+
   try {
     const response = await fetch(targetUrl, {
       method: 'GET',
@@ -55,7 +65,8 @@ export default async function handler(req, res) {
 
     if (!response.ok) throw new Error('Error al conectar.');
 
-    const htmlCrudo = await response.text();
+    let htmlCrudo = await response.text();
+    htmlCrudo = aniquilarCodigo(htmlCrudo); // Limpieza profunda
 
     let main = htmlCrudo.split('<main')[1] || htmlCrudo;
     main = main.split('</main>')[0] || main;
@@ -67,9 +78,12 @@ export default async function handler(req, res) {
         .replace(/&nbsp;/gi, ' ')
         .replace(/&aacute;/gi, 'á').replace(/&eacute;/gi, 'é').replace(/&iacute;/gi, 'í')
         .replace(/&oacute;/gi, 'ó').replace(/&uacute;/gi, 'ú').replace(/&ntilde;/gi, 'ñ')
-        .replace(/&[a-zA-Z]+;/gi, '');
+        .trim();
 
-    let lineas = texto.split('\n').map(l => l.trim()).filter(l => l.length > 0);
+    // Filtramos líneas residuales de código javascript (var, document, etc)
+    let lineas = texto.split('\n')
+        .map(l => l.trim())
+        .filter(l => l.length > 0 && !l.includes('document.') && !l.includes('var et_'));
 
     let santoFinal = "Feria";
     let colorLiturgico = "VERDE";
@@ -77,12 +91,11 @@ export default async function handler(req, res) {
     const numSemana = calcularSemanaLiturgica(dateParam);
     const romanoSemana = toRoman(numSemana);
     
-    // Cálculo exacto del Salterio (Ciclos de 4 semanas)
     let numSalterio = numSemana % 4;
-    if (numSalterio === 0) numSalterio = 4; // Las semanas múltiples de 4 son Salterio IV
+    if (numSalterio === 0) numSalterio = 4;
     
     let romanoSalterio = toRoman(numSalterio);
-    if(numSemana === 34) romanoSalterio = 'II'; // Cristo Rey siempre usa Salterio II (o propio)
+    if(numSemana === 34) romanoSalterio = 'II';
     const romanoTomo = numSemana > 17 ? 'IV' : 'III';
     
     let semanaFinal = `${romanoSemana} Semana del Tiempo Ordinario`;
@@ -91,7 +104,6 @@ export default async function handler(req, res) {
     if (infoIdx !== -1) {
         let partes = lineas[infoIdx].split('.');
         santoFinal = partes.slice(1).join('.').trim() || "Feria";
-        // Override semanaFinal with actual label from the source if found
         let rawSemana = partes[0].trim();
         let match = rawSemana.match(/[IVXLCDM]+\s+Semana\s+del\s+Tiempo\s+Ordinario/i);
         if (match) {
@@ -117,14 +129,13 @@ export default async function handler(req, res) {
             }
             parrafos.push(lineas[i]);
         }
-        return { title: cita, text: parrafos.join('<br><br>') };
+        return { title: cita, text: parrafos.join('\n\n') }; // Usamos \n\n limpio
     };
 
     const primeraLectura = extraerLectura("Primera Lectura", ["Salmo", "Salmo responsorial"]);
     const salmo = extraerLectura("Salmo", ["Segunda Lectura", "Evangelio", "Aleluya", "Aclamación"]);
     const segundaLectura = extraerLectura("Segunda Lectura", ["Evangelio", "Aleluya", "Aclamación"]);
     const evangelio = extraerLectura("Evangelio", ["Comentario al Evangelio", "Liturgia", "Calendario", "Síguenos"]);
-    const reflexion = extraerLectura("Comentario al Evangelio", ["Liturgia", "Calendario", "Síguenos"]);
 
     const limpiarTitulo = (titulo) => {
         if (!titulo) return "";
@@ -165,11 +176,12 @@ export default async function handler(req, res) {
         const urlHomilia = `https://www.ciudadredonda.org/comentario-homilia-hoy/?f=${dateParam}`;
         const homiliaRes = await fetch(urlHomilia);
         if (homiliaRes.ok) {
-            const htmlHomilia = await homiliaRes.text();
+            let htmlHomilia = await homiliaRes.text();
+            htmlHomilia = aniquilarCodigo(htmlHomilia); // Limpiamos scripts de la homilía también
+
             let mainHomilia = htmlHomilia.split('<main')[1] || htmlHomilia;
             mainHomilia = mainHomilia.split('</main>')[0] || mainHomilia;
             
-            // Extraer solo el texto útil evitando etiquetas sucias
             let textoLimpio = mainHomilia
                 .replace(/<\/(p|div|h[1-6]|li|article|section)>/gi, '\n\n')
                 .replace(/<br\s*\/?>/gi, '\n\n')
@@ -177,12 +189,11 @@ export default async function handler(req, res) {
                 .replace(/&nbsp;/gi, ' ')
                 .trim();
             
-            // Tomamos los primeros párrafos y los unimos con saltos puros para no chocar con el frontend
             let parrafosHomilia = textoLimpio.split('\n\n')
                 .map(p => p.trim())
-                .filter(p => p.length > 50)
+                .filter(p => p.length > 50 && !p.includes("document.") && !p.includes("var et_")) // Filtro extra de seguridad
                 .slice(0, 5)
-                .join('\n\n');
+                .join('<br><br>');
             
             if (parrafosHomilia.length > 50) {
                 readings.push({ type: 'RE', title: "Comentario al Evangelio", text: parrafosHomilia });
