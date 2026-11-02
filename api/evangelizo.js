@@ -1,13 +1,20 @@
 export default async function handler(req, res) {
+  // Destrucción total del caché para garantizar la lectura de hoy
   res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+  res.setHeader('Pragma', 'no-cache');
+  res.setHeader('Expires', '0');
+
   if (req.method === 'OPTIONS') {
     res.status(200).end();
     return;
   }
 
-  // Restaurada la lógica original que te funcionaba perfecto
-  const dateParam = req.query.date || new Date().toISOString().split('T')[0];
-  const targetUrl = `https://www.ciudadredonda.org/calendario-lecturas/evangelio-del-dia/?f=${dateParam}`;
+  // Forzar estrictamente la zona horaria de Bogotá (UTC-5)
+  const formatter = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Bogota' });
+  const dateParam = formatter.format(new Date()); 
+
+  const targetUrl = `https://www.ciudadredonda.org/calendario-lecturas/evangelio-del-dia/?f=${dateParam}&_t=${Date.now()}`;
 
   const toRoman = (num) => {
     const lookup = {X:10, IX:9, V:5, IV:4, I:1};
@@ -33,16 +40,13 @@ export default async function handler(req, res) {
       let weekNumber = 34 - Math.floor(diffDays / 7);
       if (weekNumber < 1) weekNumber = 1;
       if (weekNumber > 34) weekNumber = 34;
-
       return weekNumber;
   };
 
   try {
     const response = await fetch(targetUrl, {
       method: 'GET',
-      headers: {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
-      }
+      headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)' }
     });
 
     if (!response.ok) throw new Error('Error al conectar.');
@@ -64,29 +68,21 @@ export default async function handler(req, res) {
     let lineas = texto.split('\n').map(l => l.trim()).filter(l => l.length > 0);
 
     let santoFinal = "Feria";
+    let colorLiturgico = "VERDE";
     
-    // Mantenemos el cálculo de Tomo y Salterio para que tu página de Inicio no falle
     const numSemana = calcularSemanaLiturgica(dateParam);
     const romanoSemana = toRoman(numSemana);
     const numSalterio = ((numSemana - 1) % 4) + 1;
     let romanoSalterio = toRoman(numSalterio);
     if(numSemana === 34) romanoSalterio = 'II';
     const romanoTomo = numSemana > 17 ? 'IV' : 'III';
-
-    let semanaFinal = `${romanoSemana} Semana del Tiempo Ordinario`;
+    
+    const semanaFinal = `${romanoSemana} Semana del Tiempo Ordinario`;
 
     let infoIdx = lineas.findIndex(l => (l.includes("Semana") || l.includes("Domingo") || l.includes("Solemnidad") || l.includes("Fiesta")) && l.includes("."));
     if (infoIdx !== -1) {
         let partes = lineas[infoIdx].split('.');
-        let rawSemana = partes[0].trim();
         santoFinal = partes.slice(1).join('.').trim() || "Feria";
-
-        let match = rawSemana.match(/[IVXLCDM]+\s+Semana\s+del\s+Tiempo\s+Ordinario/i);
-        if (match) {
-            semanaFinal = `${match[0]}`;
-        } else {
-            semanaFinal = `${rawSemana}`;
-        }
     }
 
     const extraerLectura = (tituloExacto, paradas) => {
@@ -98,11 +94,7 @@ export default async function handler(req, res) {
 
         for (let i = idx + 2; i < lineas.length; i++) {
             let lUpper = lineas[i].toUpperCase();
-
-            if (paradas.some(p => lUpper === p.toUpperCase() || lUpper.includes(p.toUpperCase()))) {
-                break;
-            }
-
+            if (paradas.some(p => lUpper === p.toUpperCase() || lUpper.includes(p.toUpperCase()))) break;
             if (lUpper.includes("PALABRA DE DIOS") || lUpper.includes("PALABRA DEL SEÑOR")) {
                 parrafos.push(lineas[i]);
                 break;
@@ -113,8 +105,8 @@ export default async function handler(req, res) {
     };
 
     const primeraLectura = extraerLectura("Primera Lectura", ["Salmo", "Salmo responsorial"]);
-    const salmo = extraerLectura("Salmo", ["Segunda Lectura", "Evangelio", "Aleluya"]);
-    const segundaLectura = extraerLectura("Segunda Lectura", ["Evangelio", "Aleluya"]);
+    const salmo = extraerLectura("Salmo", ["Segunda Lectura", "Evangelio", "Aleluya", "Aclamación"]);
+    const segundaLectura = extraerLectura("Segunda Lectura", ["Evangelio", "Aleluya", "Aclamación"]);
     const evangelio = extraerLectura("Evangelio", ["Comentario al Evangelio", "Liturgia", "Calendario", "Síguenos"]);
     const reflexion = extraerLectura("Comentario al Evangelio", ["Liturgia", "Calendario", "Síguenos"]);
 
@@ -147,21 +139,26 @@ export default async function handler(req, res) {
     }
 
     let readings = [];
-    if (primeraLectura) readings.push({ type: 'FR', title: limpiarTitulo(primeraLectura.title), text: primeraLectura.text });
-    if (salmo) readings.push({ type: 'PS', title: salmo.title, text: salmo.text });
-    // Sólo viaja si existe:
-    if (segundaLectura) readings.push({ type: 'SR', title: limpiarTitulo(segundaLectura.title), text: segundaLectura.text });
-    if (evangelio) readings.push({ type: 'GSP', title: limpiarTitulo(evangelio.title), text: evangelio.text });
+    if (primeraLectura && primeraLectura.title) readings.push({ type: 'FR', title: limpiarTitulo(primeraLectura.title), text: primeraLectura.text });
+    if (salmo && salmo.title) readings.push({ type: 'PS', title: salmo.title, text: salmo.text });
+    if (segundaLectura && segundaLectura.title) readings.push({ type: 'SR', title: limpiarTitulo(segundaLectura.title), text: segundaLectura.text });
+    if (evangelio && evangelio.title) readings.push({ type: 'GSP', title: limpiarTitulo(evangelio.title), text: evangelio.text });
 
     if (reflexion && reflexion.text.length > 20) {
         let textoReflexionCompleto = reflexion.title + "<br><br>" + reflexion.text;
         readings.push({ type: 'RE', title: "Comentario al Evangelio", text: textoReflexionCompleto });
-    } else {
-        readings.push({ type: 'RE', title: "Reflexión", text: "La liturgia de hoy nos invita a meditar la Palabra y llevarla a la vida." });
     }
 
     res.status(200).json({
-      fiestas: [{ semana: semanaFinal, santo: santoFinal, color: "VERDE", ciclo: "CICLO A", anio: "AÑO II", tomo: `TOMO ${romanoTomo}`, salterio: `SALTERIO ${romanoSalterio}` }],
+      fiestas: [{ 
+          semana: semanaFinal, 
+          santo: santoFinal, 
+          color: colorLiturgico, 
+          ciclo: "CICLO A", 
+          anio: "AÑO II",
+          tomo: `TOMO ${romanoTomo}`,
+          salterio: `SALTERIO ${romanoSalterio}`
+      }],
       readings: readings
     });
 
