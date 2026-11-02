@@ -361,7 +361,7 @@ function shareBreviario() {
     }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+(async function initBreviario() {
     // 1. Inicialización de Elementos del DOM
     const opcionesFecha = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
     const headerFecha = document.getElementById('brev-fecha-titulo');
@@ -539,5 +539,5 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
-});
+})();
 </script>
