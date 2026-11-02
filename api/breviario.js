@@ -17,15 +17,24 @@ export default async function handler(req, res) {
   };
   const horaWeb = mapHoras[horaParam];
 
-  // 1. Forzar huso horario de América Latina para que Vercel no se adelante al día siguiente
+  // 1. Obtener la fecha solicitada o usar la de hoy en Bogotá
+  const fechaParam = req.query.fecha; 
+  let fechaObjetivo = new Date();
+  
+  if (fechaParam) {
+    // Si viene una fecha, la ajustamos para que se lea en la zona local correcta
+    // Añadimos 'T12:00:00' para evitar desfases de zona horaria al crear el objeto Date
+    fechaObjetivo = new Date(`${fechaParam}T12:00:00`); 
+  }
+
   const formatter = new Intl.DateTimeFormat('es-CO', {
-    timeZone: 'America/Bogota',
+    timeZone: 'America/Bogota', // Siempre forzamos a Bogotá para consistencia
     year: 'numeric',
     month: 'short',
     day: 'numeric'
   });
   
-  const parts = formatter.formatToParts(new Date());
+  const parts = formatter.formatToParts(fechaObjetivo);
   const year = parts.find(p => p.type === 'year').value;
   
   // Limpieza del mes (le quita el punto si lo trae y toma 3 letras: "nov.", "oct.")
