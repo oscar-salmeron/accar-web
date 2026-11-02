@@ -428,7 +428,18 @@ function shareBreviario() {
                 if (dataMeta.fiestas && dataMeta.fiestas.length > 0) {
                     const fiesta = dataMeta.fiestas[0];
                     let semanaLimpia = fiesta.semana || '';
+                    // Extraemos solo el texto relevante de la semana, limpiando el prefijo
                     semanaLimpia = semanaLimpia.replace(/Lecturas y Evangelio de la\s*\n?/i, '').trim();
+                    // Si la cadena original tenía un número romano, aseguramos que se muestre
+                    if (!semanaLimpia.toUpperCase().includes('SEMANA')) {
+                        // Intentamos extraer el número romano de la cadena original si es posible
+                        const match = (fiesta.semana || '').match(/([IVXLCDM]+)\s+Semana/i);
+                        if (match) {
+                            semanaLimpia = `${match[1]} Semana del ${semanaLimpia}`;
+                        } else {
+                            semanaLimpia = `Semana del ${semanaLimpia}`;
+                        }
+                    }
                     if(headerSemana) {
                         headerSemana.textContent = `${semanaLimpia} (${fiesta.anio || ''})`;
                         headerSemana.style.display = 'block';
