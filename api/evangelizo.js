@@ -60,10 +60,10 @@ export default async function handler(req, res) {
     const semanaFinal = `${romanoSemana} Semana del Tiempo Ordinario`;
 
     let readings = [];
-    if (dataEWTN.lecturas.primera) readings.push({ type: 'FR', title: dataEWTN.lecturas.primera.titulo, text: dataEWTN.lecturas.primera.texto });
-    if (dataEWTN.lecturas.salmo) readings.push({ type: 'PS', title: dataEWTN.lecturas.salmo.titulo, text: dataEWTN.lecturas.salmo.texto });
-    if (dataEWTN.lecturas.segunda) readings.push({ type: 'SR', title: dataEWTN.lecturas.segunda.titulo, text: dataEWTN.lecturas.segunda.texto });
-    if (dataEWTN.lecturas.evangelio) readings.push({ type: 'GSP', title: dataEWTN.lecturas.evangelio.titulo, text: dataEWTN.lecturas.evangelio.texto });
+    if (dataEWTN.lecturas.primera) readings.push({ type: 'FR', title: dataEWTN.lecturas.primera.titulo, referencia: dataEWTN.lecturas.primera.referencia, text: dataEWTN.lecturas.primera.texto });
+    if (dataEWTN.lecturas.salmo) readings.push({ type: 'PS', title: dataEWTN.lecturas.salmo.titulo, referencia: dataEWTN.lecturas.salmo.referencia, text: dataEWTN.lecturas.salmo.texto });
+    if (dataEWTN.lecturas.segunda) readings.push({ type: 'SR', title: dataEWTN.lecturas.segunda.titulo, referencia: dataEWTN.lecturas.segunda.referencia, text: dataEWTN.lecturas.segunda.texto });
+    if (dataEWTN.lecturas.evangelio) readings.push({ type: 'GSP', title: dataEWTN.lecturas.evangelio.titulo, referencia: dataEWTN.lecturas.evangelio.referencia, text: dataEWTN.lecturas.evangelio.texto });
 
     res.status(200).json({
       fiestas: [{ 
