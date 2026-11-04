@@ -9,15 +9,12 @@ export default async function handler(req, res) {
     return;
   }
 
-  // 1. Captura estricta de la fecha que manda el frontend
   const rawDate = req.query?.date || req.url.split('date=')[1]?.split('&')[0];
   const formatter = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Bogota' });
   const dateParam = rawDate || formatter.format(new Date()); 
 
-  // 2. ¡NUEVA CONEXIÓN A TU BASE DE DATOS EN GITHUB!
   const targetUrl = `https://raw.githubusercontent.com/oscar-salmeron/accar-leccionario-script/refs/heads/main/datos/${dateParam}.json`;
 
-  // Funciones auxiliares para el Breviario (Liturgia de las Horas)
   const toRoman = (num) => {
     const lookup = {X:10, IX:9, V:5, IV:4, I:1};
     let roman = '';
@@ -43,17 +40,14 @@ export default async function handler(req, res) {
   };
 
   try {
-    // 3. Obtener el archivo JSON del día directamente
     const response = await fetch(targetUrl);
     if (!response.ok) throw new Error('Lecturas no encontradas en la base de datos.');
 
     const dataEWTN = await response.json();
 
-    // 4. Extraer el color y fiesta exactos de EWTN
     const colorLiturgico = dataEWTN.color || "VERDE";
-    const fiestaTexto = dataEWTN.fiesta || "Feria";
+    const fiestaRaw = (dataEWTN.fiesta || "").trim(); 
     
-    // Cálculos de Liturgia de las horas
     const numSemana = calcularSemanaLiturgica(dateParam);
     const romanoSemana = toRoman(numSemana);
     let numSalterio = numSemana % 4;
@@ -62,21 +56,20 @@ export default async function handler(req, res) {
     if(numSemana === 34) romanoSalterio = 'II';
     const romanoTomo = numSemana > 17 ? 'IV' : 'III';
     
+    // Aquí aseguramos la semana siempre
     const semanaFinal = `${romanoSemana} Semana del Tiempo Ordinario`;
 
-    // 5. Transformar las lecturas al formato que usa tu frontend ACCAR
     let readings = [];
     if (dataEWTN.lecturas.primera) readings.push({ type: 'FR', title: dataEWTN.lecturas.primera.titulo, text: dataEWTN.lecturas.primera.texto });
     if (dataEWTN.lecturas.salmo) readings.push({ type: 'PS', title: dataEWTN.lecturas.salmo.titulo, text: dataEWTN.lecturas.salmo.texto });
     if (dataEWTN.lecturas.segunda) readings.push({ type: 'SR', title: dataEWTN.lecturas.segunda.titulo, text: dataEWTN.lecturas.segunda.texto });
     if (dataEWTN.lecturas.evangelio) readings.push({ type: 'GSP', title: dataEWTN.lecturas.evangelio.titulo, text: dataEWTN.lecturas.evangelio.texto });
 
-    // 6. Respuesta limpia y rapidísima al frontend
     res.status(200).json({
       fiestas: [{ 
-          semana: fiestaTexto !== "" ? fiestaTexto : semanaFinal, 
-          santo: fiestaTexto, 
-          color: colorLiturgico, // ¡El color dinámico!
+          semana: semanaFinal, 
+          santo: fiestaRaw !== "" ? fiestaRaw : "Feria", 
+          color: colorLiturgico, 
           ciclo: "CICLO A", 
           anio: "AÑO II",
           tomo: `TOMO ${romanoTomo}`,
