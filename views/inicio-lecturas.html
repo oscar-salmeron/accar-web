@@ -459,8 +459,7 @@ function shareContent() {
     };
 
     if (navigator.share) {
-        navigator.share(shareData)
-            .catch((error) => console.log('Error al compartir', error));
+        navigator.share(shareData).catch((error) => console.log('Error al compartir', error));
     } else {
         navigator.clipboard.writeText(`${shareData.text} ${shareData.url}`)
             .then(() => alert('¡Enlace y lectura copiados al portapapeles!'))
@@ -515,20 +514,22 @@ function shareContent() {
     "NEGRO": "#4a4a4a"
   };
 
-  // Punto 3 y 5: Limpieza profunda de números y formateo de párrafos
-  const formatearGramatica = (textoArray) => {
-      if (!textoArray || !Array.isArray(textoArray)) return '';
+  const formatearGramatica = (textoRAW) => {
+      if (!textoRAW) return '';
+      let textoLimpio = typeof textoRAW === 'string' ? textoRAW : textoRAW.join(' ');
       
-      // Unimos el array de párrafos y limpiamos los números de versículos (ej. "1", "25", "12a")
-      let textoLimpio = textoArray.map(p => {
-          // Eliminar números al inicio o dentro del párrafo seguidos de mayúscula o minúscula
-          return p.replace(/\b\d+[a-z]?\s*/g, '').trim();
-      }).join('<br><br>');
+      // Borrar números pegados a palabras (Ej. "17Al llegar")
+      textoLimpio = textoLimpio.replace(/\b\d+[a-z]?([A-ZÁÉÍÓÚÑ¿¡])/g, '$1'); 
+      // Borrar números sueltos (Ej. "1 De David")
+      textoLimpio = textoLimpio.replace(/(^|\s)\d+[a-z]?\s+/g, ' ');
 
-      // Formatear las respuestas del salmo
+      // Separar en párrafos después de un punto seguido
+      textoLimpio = textoLimpio.replace(/([a-záéíóúñ]{2,}[.»”?!]{1,2})\s+(?=[A-ZÁÉÍÓÚÑ¿¡])/g, '$1<br><br>');
+      
+      // Colorear respuestas del salmo
       textoLimpio = textoLimpio.replace(/(R\/\.|R\.)/g, '<span class="texto-rojo">$1</span>');
       
-      return textoLimpio;
+      return textoLimpio.trim();
   };
 
   btnBackTop.addEventListener('click', () => {
@@ -565,13 +566,11 @@ function shareContent() {
 
     if(data.fiestas && data.fiestas.length > 0) {
       const fiesta = data.fiestas[0];
-      
-      // Punto 6: Sincronización Litúrgica en la barra lateral
-      const textoSemana = fiesta.semana.toUpperCase();
+      const textoSemana = fiesta.semana ? fiesta.semana.toUpperCase() : "";
       const textoSanto = fiesta.santo ? fiesta.santo.toUpperCase() : "FERIA";
       
       if(semanaTarget) {
-          semanaTarget.innerHTML = `Lecturas y Evangelio del día<br><span style="font-size: 14px; color: rgba(255,255,255,0.7); display: inline-block; margin-top: 6px;">${textoSemana}</span>`;
+          semanaTarget.innerHTML = `Lecturas y Evangelio del día<br><span style="font-size: 13px; color: rgba(255,255,255,0.7); display: inline-block; margin-top: 6px; font-weight: bold;">${textoSemana}</span>`;
       }
       
       const colorTexto = (fiesta.color || 'VERDE').toUpperCase();
@@ -585,37 +584,29 @@ function shareContent() {
 
     if (data.readings) {
       data.readings.forEach(reading => {
-        // En tu nueva API, el texto ya viene como array, se lo pasamos al formateador
         const htmlText = formatearGramatica(reading.text);
-        
-        // Punto 4: Usar el title completo en lugar de "Evangelio"
         const tituloLimpio = reading.title.replace(/:\s*$/, "");
         
         if (reading.type === 'GSP') { 
-            liturgiaData.evangelio.titulo = "Evangelio"; 
-            liturgiaData.evangelio.ref = tituloLimpio; 
+            liturgiaData.evangelio.titulo = tituloLimpio; 
             liturgiaData.evangelio.texto = htmlText; 
         }
         else if (reading.type === 'FR') { 
-            liturgiaData.primera.titulo = "Primera Lectura"; 
-            liturgiaData.primera.ref = tituloLimpio; 
+            liturgiaData.primera.titulo = tituloLimpio; 
             liturgiaData.primera.texto = htmlText; 
         }
         else if (reading.type === 'PS') { 
-            liturgiaData.salmo.titulo = "Salmo"; 
-            liturgiaData.salmo.ref = tituloLimpio; 
+            liturgiaData.salmo.titulo = tituloLimpio; 
             liturgiaData.salmo.texto = htmlText; 
         }
         else if (reading.type === 'SR') { 
-          liturgiaData.segunda.titulo = "Segunda Lectura";
-          liturgiaData.segunda.ref = tituloLimpio; 
+          liturgiaData.segunda.titulo = tituloLimpio;
           liturgiaData.segunda.texto = htmlText;
           document.getElementById('btn-segunda').style.display = 'block'; 
           document.getElementById('btn-segunda-mobile').style.display = 'block'; 
         }
         else if (reading.type === 'RE') { 
-          liturgiaData.reflexion.titulo = "Reflexión";
-          liturgiaData.reflexion.ref = tituloLimpio; 
+          liturgiaData.reflexion.titulo = tituloLimpio;
           liturgiaData.reflexion.texto = htmlText;
           document.getElementById('btn-reflexion').style.display = 'block'; 
           document.getElementById('btn-reflexion-mobile').style.display = 'block'; 
@@ -634,10 +625,17 @@ function shareContent() {
   function renderReading(targetId) {
     const d = liturgiaData[targetId];
     lblTarget.textContent = d.titulo.toUpperCase() + " DE HOY";
-    titleTarget.textContent = d.titulo; // Ejemplo: "Evangelio"
-    refTarget.textContent = d.ref;      // Ejemplo: "Santo evangelio según San Lucas 14, 25-33"
-    textContainer.innerHTML = `<p>${d.texto}</p>`;
+    titleTarget.textContent = d.titulo; 
     
+    // Si no hay cita, ocultamos el subtitulo para que quede elegante y no se repita
+    if (!d.ref || d.ref === d.titulo) {
+        refTarget.style.display = 'none';
+    } else {
+        refTarget.style.display = 'block';
+        refTarget.textContent = d.ref;
+    }
+    
+    textContainer.innerHTML = `<p>${d.texto}</p>`;
     barraControles.style.display = 'flex';
     btnBackTop.style.display = 'block';
   }
