@@ -584,30 +584,36 @@ function shareContent() {
 
     if (data.readings) {
       data.readings.forEach(reading => {
-        const htmlText = formatearGramatica(reading.text);
-        const tituloLimpio = reading.title.replace(/:\s*$/, "");
+        
+        let textoLimpio = typeof reading.text === 'string' ? reading.text : reading.text.join('<br><br>');
+        textoLimpio = textoLimpio.replace(/(R\/\.|R\.)/g, '<span class="texto-rojo">$1</span>');
         
         if (reading.type === 'GSP') { 
-            liturgiaData.evangelio.titulo = tituloLimpio; 
-            liturgiaData.evangelio.texto = htmlText; 
+            liturgiaData.evangelio.titulo = "Evangelio"; 
+            liturgiaData.evangelio.ref = reading.referencia; 
+            liturgiaData.evangelio.texto = textoLimpio; 
         }
         else if (reading.type === 'FR') { 
-            liturgiaData.primera.titulo = tituloLimpio; 
-            liturgiaData.primera.texto = htmlText; 
+            liturgiaData.primera.titulo = "Primera Lectura"; 
+            liturgiaData.primera.ref = reading.referencia; 
+            liturgiaData.primera.texto = textoLimpio; 
         }
         else if (reading.type === 'PS') { 
-            liturgiaData.salmo.titulo = tituloLimpio; 
-            liturgiaData.salmo.texto = htmlText; 
+            liturgiaData.salmo.titulo = "Salmo"; 
+            liturgiaData.salmo.ref = reading.referencia || "Salmo Responsorial"; 
+            liturgiaData.salmo.texto = textoLimpio; 
         }
         else if (reading.type === 'SR') { 
-          liturgiaData.segunda.titulo = tituloLimpio;
-          liturgiaData.segunda.texto = htmlText;
+          liturgiaData.segunda.titulo = "Segunda Lectura";
+          liturgiaData.segunda.ref = reading.referencia; 
+          liturgiaData.segunda.texto = textoLimpio;
           document.getElementById('btn-segunda').style.display = 'block'; 
           document.getElementById('btn-segunda-mobile').style.display = 'block'; 
         }
         else if (reading.type === 'RE') { 
-          liturgiaData.reflexion.titulo = tituloLimpio;
-          liturgiaData.reflexion.texto = htmlText;
+          liturgiaData.reflexion.titulo = "Reflexión";
+          liturgiaData.reflexion.ref = reading.referencia; 
+          liturgiaData.reflexion.texto = textoLimpio;
           document.getElementById('btn-reflexion').style.display = 'block'; 
           document.getElementById('btn-reflexion-mobile').style.display = 'block'; 
         }
@@ -633,6 +639,9 @@ function shareContent() {
     } else {
         refTarget.style.display = 'block';
         refTarget.textContent = d.ref;
+        // Aquí forzamos la raya separadora
+        refTarget.style.borderBottom = '1px solid rgba(0,0,0,0.1)';
+        refTarget.style.paddingBottom = '20px';
     }
     
     textContainer.innerHTML = `<p>${d.texto}</p>`;
