@@ -437,12 +437,10 @@ body {
             if (data.fiestas && data.fiestas.length > 0) {
               const fiesta = data.fiestas[0];
               
-              // 1. Asignar metadatos litúrgicos
               document.getElementById('lit-ciclo').textContent = fiesta.ciclo;
               document.getElementById('lit-anio').textContent = fiesta.anio;
               document.getElementById('lit-color').textContent = fiesta.color.toUpperCase();
               
-              // 2. Color dinámico en el punto y la tarjeta
               const colorElement = document.getElementById('lit-color');
               colorElement.className = 'dot-color';
               colorElement.classList.add(`dot-${fiesta.color.toLowerCase()}`);
@@ -451,29 +449,26 @@ body {
               cardElement.className = 'accar-lit-card';
               cardElement.classList.add(`accar-lit-card--${fiesta.color.toLowerCase()}`);
               
-              // 3. Gestión de la Semana y el Santo/Feria
-              // Separamos la semana litúrgica del santo o feria
-              const textoSemana = fiesta.semana.toUpperCase();
+              // Extraer Semana y Fiesta
+              const textoSemana = fiesta.semana ? fiesta.semana.toUpperCase() : "";
               const textoSanto = fiesta.santo ? fiesta.santo.toUpperCase() : "FERIA";
               
-              // Inyectar la semana bajo la fecha principal (Punto 1)
+              // Inyectar la semana bajo la fecha principal
               const fechaPrincipal = document.getElementById('fecha-liturgia');
-              if (fechaPrincipal && textoSemana !== textoSanto) {
-                  // Si no existe, creamos el subtítulo de la semana
+              if (fechaPrincipal && textoSemana) {
                   if (!document.getElementById('semana-liturgia')) {
                       const semanaEl = document.createElement('h4');
                       semanaEl.id = 'semana-liturgia';
-                      semanaEl.style = 'color: #a4a7ab; font-size: 14px; margin: -35px 0 45px 0; font-weight: 600; letter-spacing: 1px; text-transform: uppercase;';
+                      semanaEl.style = 'color: #a4a7ab; font-size: 13px; margin: -35px 0 45px 0; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;';
                       fechaPrincipal.after(semanaEl);
                   }
                   document.getElementById('semana-liturgia').textContent = textoSemana;
               }
               
-              // Dejar solo Feria o el Santo en la tarjeta
-              document.getElementById('lit-semana').textContent = textoSanto === textoSemana ? "FERIA" : textoSanto;
-              
+              // Solo Feria o Santo en las tarjetas
+              document.getElementById('lit-semana').textContent = textoSanto;
               const brevSemanaEl = document.getElementById('brev-semana');
-              if(brevSemanaEl) brevSemanaEl.textContent = textoSanto === textoSemana ? "FERIA" : textoSanto;
+              if(brevSemanaEl) brevSemanaEl.textContent = textoSanto;
               
               const brevSalterioEl = document.getElementById('brev-salterio');
               const brevTomoEl = document.getElementById('brev-tomo');
@@ -485,11 +480,8 @@ body {
 
             if (data.readings && data.readings.length > 0) {
               data.readings.forEach(reading => {
-                  // Punto 2: Restauramos la referencia bíblica completa, quitando la cirugía agresiva
                   let citationStr = reading.title || "";
-                  if (citationStr.endsWith(':')) citationStr = citationStr.slice(0, -1).trim();
-
-                  // Mapeamos los datos a su respectiva fila
+                  
                   if (reading.type === 'GSP') {
                     document.getElementById('lit-evangelio').textContent = citationStr;
                     document.getElementById('item-evangelio').style.display = 'flex';
