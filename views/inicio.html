@@ -449,23 +449,36 @@ body {
               cardElement.className = 'accar-lit-card';
               cardElement.classList.add(`accar-lit-card--${fiesta.color.toLowerCase()}`);
               
-              // Extraer Semana y Fiesta
-              const textoSemana = fiesta.semana ? fiesta.semana.toUpperCase() : "";
+              // 1. Formatear Semana a minúsculas
+              const textoSemanaObj = fiesta.semana || '';
+              const partes = textoSemanaObj.split(' ');
+              const numRomano = partes.shift() || ''; 
+              const resto = partes.join(' ').toLowerCase(); 
+              const restoCapitalizado = resto.charAt(0).toUpperCase() + resto.slice(1);
+              const semanaFormateada = `${numRomano} ${restoCapitalizado}`.trim();
+              
+              // 2. Santo del Día
               const textoSanto = fiesta.santo ? fiesta.santo.toUpperCase() : "FERIA";
               
-              // Inyectar la semana bajo la fecha principal
+              // 3. Inyectar Semana y Santo bajo la fecha principal
               const fechaPrincipal = document.getElementById('fecha-liturgia');
-              if (fechaPrincipal && textoSemana) {
+              if (fechaPrincipal && textoSemanaObj) {
                   if (!document.getElementById('semana-liturgia')) {
                       const semanaEl = document.createElement('h4');
                       semanaEl.id = 'semana-liturgia';
-                      semanaEl.style = 'color: #a4a7ab; font-size: 13px; margin: -35px 0 45px 0; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;';
+                      semanaEl.style = 'color: #a4a7ab; font-size: 13px; margin: -35px 0 45px 0; font-weight: 700; letter-spacing: 1px;';
                       fechaPrincipal.after(semanaEl);
                   }
-                  document.getElementById('semana-liturgia').textContent = textoSemana;
+                  
+                  // Si no es Feria, mostramos el Santo debajo de la semana
+                  if (textoSanto !== "FERIA") {
+                      document.getElementById('semana-liturgia').innerHTML = `${semanaFormateada}<br><span style="color: #D4AF37; font-size: 11px; display: inline-block; margin-top: 5px;">${textoSanto}</span>`;
+                  } else {
+                      document.getElementById('semana-liturgia').innerHTML = semanaFormateada;
+                  }
               }
               
-              // Solo Feria o Santo en las tarjetas
+              // 4. Solo Santo en las tarjetas
               document.getElementById('lit-semana').textContent = textoSanto;
               const brevSemanaEl = document.getElementById('brev-semana');
               if(brevSemanaEl) brevSemanaEl.textContent = textoSanto;
@@ -478,21 +491,24 @@ body {
 
             document.getElementById('lit-mensaje-fallback').style.display = 'none';
 
+            // 5. Inyectar Referencias Bíblicas en las filas
             if (data.readings && data.readings.length > 0) {
               data.readings.forEach(reading => {
-                  let citationStr = reading.title || "";
-                  
+                  let refLimpia = reading.referencia || reading.title || "";
+                  if (refLimpia.endsWith(':')) refLimpia = refLimpia.slice(0, -1).trim();
+
                   if (reading.type === 'GSP') {
-                    document.getElementById('lit-evangelio').textContent = citationStr;
+                    document.getElementById('lit-evangelio').textContent = refLimpia;
                     document.getElementById('item-evangelio').style.display = 'flex';
                   } else if (reading.type === 'FR') {
-                    document.getElementById('lit-primera').textContent = citationStr;
+                    document.getElementById('lit-primera').textContent = refLimpia;
                     document.getElementById('item-primera').style.display = 'flex';
                   } else if (reading.type === 'PS') {
-                    document.getElementById('lit-salmo').textContent = citationStr;
+                    let refSalmo = refLimpia.replace(/Salmo\s*/i, '').trim();
+                    document.getElementById('lit-salmo').textContent = `Responsorial ${refSalmo}`;
                     document.getElementById('item-salmo').style.display = 'flex';
                   } else if (reading.type === 'SR') {
-                    document.getElementById('lit-segunda').textContent = citationStr;
+                    document.getElementById('lit-segunda').textContent = refLimpia;
                     document.getElementById('item-segunda').style.display = 'flex';
                   }
               });
@@ -751,7 +767,7 @@ body {
 }
 
 .dot-verde::before { background: #28a745; }
-.dot-blanco { color: #ffffff !important; }
+.dot-blanco { color: #ffffff !important; border-color: rgba(255,255,255,0.5) !important; }
 .dot-blanco::before { background: #ffffff !important; box-shadow: inset 0 1px 3px rgba(0,0,0,0.5), 0 0 4px rgba(255,255,255,0.8); }
 
 /* Textos de las tarjetas */
