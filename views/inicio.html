@@ -460,7 +460,7 @@ body {
               // 2. Santo del Día
               const textoSanto = fiesta.santo ? fiesta.santo.toUpperCase() : "FERIA";
               
-              // 3. Inyectar Semana y Santo bajo la fecha principal
+              // 3. Inyectar SOLO la Semana bajo la fecha principal
               const fechaPrincipal = document.getElementById('fecha-liturgia');
               if (fechaPrincipal && textoSemanaObj) {
                   if (!document.getElementById('semana-liturgia')) {
@@ -469,13 +469,7 @@ body {
                       semanaEl.style = 'color: #a4a7ab; font-size: 13px; margin: -35px 0 45px 0; font-weight: 700; letter-spacing: 1px;';
                       fechaPrincipal.after(semanaEl);
                   }
-                  
-                  // Si no es Feria, mostramos el Santo debajo de la semana
-                  if (textoSanto !== "FERIA") {
-                      document.getElementById('semana-liturgia').innerHTML = `${semanaFormateada}<br><span style="color: #D4AF37; font-size: 11px; display: inline-block; margin-top: 5px;">${textoSanto}</span>`;
-                  } else {
-                      document.getElementById('semana-liturgia').innerHTML = semanaFormateada;
-                  }
+                  document.getElementById('semana-liturgia').innerHTML = semanaFormateada;
               }
               
               // 4. Solo Santo en las tarjetas
