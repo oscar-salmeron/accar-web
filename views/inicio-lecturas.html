@@ -474,26 +474,7 @@ function shareContent() {
 
 (async function initLecturas() {
   const opcionesFecha = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
-  const today = new Date();
-  let fechaHoyTexto = today.toLocaleDateString('es-ES', opcionesFecha);
-  fechaHoyTexto = fechaHoyTexto.charAt(0).toUpperCase() + fechaHoyTexto.slice(1);
-  document.getElementById('lecturas-fecha-actual').textContent = fechaHoyTexto;
-
-  const year = today.getFullYear();
-  const month = String(today.getMonth() + 1).padStart(2, '0');
-  const day = String(today.getDate()).padStart(2, '0');
-  const formattedDate = `${year}-${month}-${day}`;
   
-  const apiUrl = `/api/evangelizo?date=${formattedDate}`;
-
-  const liturgiaData = {
-    evangelio: { titulo: "Evangelio", ref: "", texto: "Cargando..." },
-    primera: { titulo: "Primera Lectura", ref: "", texto: "Cargando..." },
-    salmo: { titulo: "Salmo", ref: "", texto: "Cargando..." },
-    segunda: { titulo: "Segunda Lectura", ref: "", texto: "Cargando..." },
-    reflexion: { titulo: "Reflexión", ref: "", texto: "Cargando..." }
-  };
-
   const spinner = document.getElementById('reading-spinner');
   const textContainer = document.getElementById('reading-text');
   const refTarget = document.getElementById('reading-ref');
@@ -503,13 +484,17 @@ function shareContent() {
   const colorTarget = document.getElementById('lecturas-color-badge');
   const cicloTarget = document.getElementById('badge-ciclo');
   const anioTarget = document.getElementById('badge-anio');
+  const datePicker = document.getElementById('lecturas-date-picker');
   
   const botones = document.querySelectorAll('.accar-menu-btn');
   const barraControles = document.getElementById('lecturas-text-controls');
   const botonesTamano = document.querySelectorAll('.btn-size');
   const btnThemeToggle = document.getElementById('btn-theme-toggle');
   const btnBackTop = document.getElementById('btn-back-top');
-  
+
+  let liturgiaData = {};
+  let currentTarget = 'evangelio'; // Guarda la lectura actual seleccionada
+
   const coloresLiturgicos = {
     "VERDE": "#2cb67d",
     "BLANCO": "#ffffff",
@@ -519,24 +504,182 @@ function shareContent() {
     "NEGRO": "#4a4a4a"
   };
 
-  const formatearGramatica = (textoRAW) => {
-      if (!textoRAW) return '';
-      let textoLimpio = typeof textoRAW === 'string' ? textoRAW : textoRAW.join(' ');
-      
-      // Borrar números pegados a palabras (Ej. "17Al llegar")
-      textoLimpio = textoLimpio.replace(/\b\d+[a-z]?([A-ZÁÉÍÓÚÑ¿¡])/g, '$1'); 
-      // Borrar números sueltos (Ej. "1 De David")
-      textoLimpio = textoLimpio.replace(/(^|\s)\d+[a-z]?\s+/g, ' ');
+  // 1. Establecer fecha de hoy al iniciar el calendario
+  let currentDate = new Date().toLocaleDateString('en-CA', { timeZone: 'America/Bogota' });
+  if (datePicker) {
+      datePicker.value = currentDate;
+  }
 
-      // Separar en párrafos después de un punto seguido
-      textoLimpio = textoLimpio.replace(/([a-záéíóúñ]{2,}[.»”?!]{1,2})\s+(?=[A-ZÁÉÍÓÚÑ¿¡])/g, '$1<br><br>');
+  // 2. Función Principal de Carga (se ejecuta al inicio y al cambiar el calendario)
+  async function cargarLecturas(fechaYYYYMMDD) {
+      let apiExitosa = false;
+      spinner.style.display = 'block';
+      textContainer.innerHTML = '';
+      barraControles.style.display = 'none';
       
-      // Colorear respuestas del salmo
-      textoLimpio = textoLimpio.replace(/(R\/\.|R\.)/g, '<span class="texto-rojo">$1</span>');
-      
-      return textoLimpio.trim();
-  };
+      // Limpiar estructura de datos
+      liturgiaData = {
+        evangelio: { titulo: "Evangelio", ref: "", texto: "Cargando..." },
+        primera: { titulo: "Primera Lectura", ref: "", texto: "Cargando..." },
+        salmo: { titulo: "Salmo", ref: "", texto: "Cargando..." },
+        segunda: { titulo: "Segunda Lectura", ref: "", texto: "Cargando..." },
+        reflexion: { titulo: "Reflexión", ref: "", texto: "Cargando..." }
+      };
 
+      // Ocultar botones opcionales
+      document.getElementById('btn-segunda').style.display = 'none';
+      document.getElementById('btn-segunda-mobile').style.display = 'none';
+      document.getElementById('btn-reflexion').style.display = 'none';
+      document.getElementById('btn-reflexion-mobile').style.display = 'none';
+
+      // Actualizar fecha visual en pantalla
+      const fechaObj = new Date(`${fechaYYYYMMDD}T12:00:00`);
+      let fechaTexto = fechaObj.toLocaleDateString('es-ES', opcionesFecha);
+      document.getElementById('lecturas-fecha-actual').textContent = fechaTexto.charAt(0).toUpperCase() + fechaTexto.slice(1);
+
+      try {
+        const response = await fetch(`/api/evangelizo?date=${fechaYYYYMMDD}`);
+        const data = await response.json();
+
+        if(data.fiestas && data.fiestas.length > 0) {
+          const fiesta = data.fiestas[0];
+          
+          const textoSemanaObj = fiesta.semana || '';
+          const partes = textoSemanaObj.split(' ');
+          const numRomano = partes.shift() || ''; 
+          const resto = partes.join(' ').toLowerCase(); 
+          const restoCapitalizado = resto.charAt(0).toUpperCase() + resto.slice(1);
+          const semanaFormateada = `${numRomano} ${restoCapitalizado}`.trim();
+          
+          const textoSanto = fiesta.santo && fiesta.santo.toUpperCase() !== "FERIA" ? fiesta.santo : "";
+
+          if(semanaTarget) {
+              let htmlInner = `Lecturas y Evangelio del día<br><span style="font-size: 13px; color: #2cb67d; display: inline-block; margin-top: 6px; font-weight: bold;">${semanaFormateada}</span>`;
+              if (textoSanto) {
+                  htmlInner += `<br><span style="font-size: 12px; color: #d4af37; display: inline-block; margin-top: 4px;">${textoSanto}</span>`;
+              }
+              semanaTarget.innerHTML = htmlInner;
+          }
+          
+          const colorTexto = (fiesta.color || 'VERDE').toUpperCase();
+          colorTarget.textContent = colorTexto;
+          colorTarget.className = `dot-color dot-${colorTexto.toLowerCase()}`;
+          
+          if (coloresLiturgicos[colorTexto]) colorTarget.style.color = coloresLiturgicos[colorTexto];
+          if(cicloTarget) cicloTarget.textContent = fiesta.ciclo || '';
+          if(anioTarget) anioTarget.textContent = fiesta.anio || '';
+
+          // Lógica de colores dinámicos
+          const paletaBotones = {
+              "VERDE":  { bg: "#2cb67d", text: "#000" },
+              "BLANCO": { bg: "#ffffff", text: "#1a1c29" },
+              "ROJO":   { bg: "#dc2626", text: "#ffffff" },
+              "MORADO": { bg: "#7e22ce", text: "#ffffff" },
+              "ROSADO": { bg: "#f472b6", text: "#1a1c29" }
+          };
+          const themeBtn = paletaBotones[colorTexto] || paletaBotones["VERDE"];
+          
+          const dateBadge = document.getElementById('lecturas-fecha-actual');
+          if (dateBadge) {
+              dateBadge.style.backgroundColor = themeBtn.bg;
+              dateBadge.style.color = themeBtn.text;
+          }
+          
+          const updateMenuColors = () => {
+              document.querySelectorAll('.accar-menu-btn').forEach(b => {
+                  if (b.classList.contains('active')) {
+                      b.style.backgroundColor = themeBtn.bg;
+                      b.style.color = themeBtn.text;
+                      b.style.borderColor = themeBtn.bg;
+                  } else {
+                      b.style.backgroundColor = 'rgba(255,255,255,0.05)';
+                      b.style.color = '#fff';
+                      b.style.borderColor = 'rgba(255,255,255,0.1)';
+                  }
+              });
+          };
+          
+          updateMenuColors();
+          botones.forEach(btn => btn.addEventListener('click', () => setTimeout(updateMenuColors, 50)));
+        }
+
+        if (data.readings) {
+          data.readings.forEach(reading => {
+            let textoLimpio = typeof reading.text === 'string' ? reading.text : reading.text.join('<br><br>');
+            textoLimpio = textoLimpio.replace(/(R\/\.|R\.)/g, '<span class="texto-rojo">$1</span>');
+            
+            if (reading.type === 'GSP') { 
+                liturgiaData.evangelio.titulo = "Evangelio"; 
+                liturgiaData.evangelio.ref = reading.referencia; 
+                liturgiaData.evangelio.texto = textoLimpio; 
+            }
+            else if (reading.type === 'FR') { 
+                liturgiaData.primera.titulo = "Primera Lectura"; 
+                liturgiaData.primera.ref = reading.referencia; 
+                liturgiaData.primera.texto = textoLimpio; 
+            }
+            else if (reading.type === 'PS') { 
+                liturgiaData.salmo.titulo = "Salmo"; 
+                liturgiaData.salmo.ref = reading.referencia || "Salmo Responsorial"; 
+                liturgiaData.salmo.texto = textoLimpio; 
+            }
+            else if (reading.type === 'SR') { 
+              liturgiaData.segunda.titulo = "Segunda Lectura";
+              liturgiaData.segunda.ref = reading.referencia; 
+              liturgiaData.segunda.texto = textoLimpio;
+              document.getElementById('btn-segunda').style.display = 'block'; 
+              document.getElementById('btn-segunda-mobile').style.display = 'block'; 
+            }
+            else if (reading.type === 'RE') { 
+              liturgiaData.reflexion.titulo = "Reflexión";
+              liturgiaData.reflexion.ref = reading.referencia; 
+              liturgiaData.reflexion.texto = textoLimpio;
+              document.getElementById('btn-reflexion').style.display = 'block'; 
+              document.getElementById('btn-reflexion-mobile').style.display = 'block'; 
+            }
+          });
+          apiExitosa = true;
+        }
+      } catch (error) {
+        console.error("Error conectando al Leccionario:", error);
+        refTarget.textContent = "Error de conexión";
+        textContainer.innerHTML = `<p>No pudimos descargar las lecturas del día.</p>`;
+      } finally {
+        spinner.style.display = 'none';
+      }
+
+      if (apiExitosa) {
+          // Restaurar visualmente la lectura previamente seleccionada
+          botones.forEach(b => b.classList.remove('active'));
+          document.querySelectorAll(`.accar-menu-btn[data-target="${currentTarget}"]`).forEach(b => b.classList.add('active'));
+          renderReading(currentTarget);
+      }
+  }
+
+  // 3. Renderizar la lectura seleccionada
+  function renderReading(targetId) {
+    const d = liturgiaData[targetId];
+    // Evitar errores si no existe la lectura seleccionada
+    if (!d || d.texto === "Cargando...") return;
+    
+    lblTarget.textContent = d.titulo.toUpperCase() + " DE HOY";
+    titleTarget.textContent = d.titulo; 
+    
+    if (!d.ref || d.ref === d.titulo) {
+        refTarget.style.display = 'none';
+    } else {
+        refTarget.style.display = 'block';
+        refTarget.textContent = d.ref;
+        refTarget.style.borderBottom = '1px solid rgba(0,0,0,0.1)';
+        refTarget.style.paddingBottom = '20px';
+    }
+    
+    textContainer.innerHTML = `<p>${d.texto}</p>`;
+    barraControles.style.display = 'flex';
+    btnBackTop.style.display = 'block';
+  }
+
+  // 4. Listeners Generales
   btnBackTop.addEventListener('click', () => {
       document.querySelector('.accar-lecturas-sidebar').scrollIntoView({ behavior: 'smooth', block: 'start' });
   });
@@ -562,156 +705,31 @@ function shareContent() {
       }
   });
 
-  let apiExitosa = false;
-  spinner.style.display = 'block';
-
-  try {
-    const response = await fetch(apiUrl);
-    const data = await response.json();
-
-    if(data.fiestas && data.fiestas.length > 0) {
-      const fiesta = data.fiestas[0];
-      
-      const textoSemanaObj = fiesta.semana || '';
-      const partes = textoSemanaObj.split(' ');
-      const numRomano = partes.shift() || ''; 
-      const resto = partes.join(' ').toLowerCase(); 
-      const restoCapitalizado = resto.charAt(0).toUpperCase() + resto.slice(1);
-      const semanaFormateada = `${numRomano} ${restoCapitalizado}`.trim();
-      
-      const textoSanto = fiesta.santo && fiesta.santo.toUpperCase() !== "FERIA" ? fiesta.santo : "";
-
-      if(semanaTarget) {
-          // Restaurado: Semana en verde (#2cb67d) inmutable y Santo en dorado (#d4af37).
-          let htmlInner = `Lecturas y Evangelio del día<br><span style="font-size: 13px; color: #2cb67d; display: inline-block; margin-top: 6px; font-weight: bold;">${semanaFormateada}</span>`;
-          if (textoSanto) {
-              htmlInner += `<br><span style="font-size: 12px; color: #d4af37; display: inline-block; margin-top: 4px;">${textoSanto}</span>`;
-          }
-          semanaTarget.innerHTML = htmlInner;
-      }
-      
-      const colorTexto = (fiesta.color || 'VERDE').toUpperCase();
-      colorTarget.textContent = colorTexto;
-      colorTarget.className = `dot-color dot-${colorTexto.toLowerCase()}`;
-      
-      if (coloresLiturgicos[colorTexto]) colorTarget.style.color = coloresLiturgicos[colorTexto];
-      if(cicloTarget) cicloTarget.textContent = fiesta.ciclo || '';
-      if(anioTarget) anioTarget.textContent = fiesta.anio || '';
-
-      const paletaBotones = {
-          "VERDE":  { bg: "#2cb67d", text: "#000" },
-          "BLANCO": { bg: "#ffffff", text: "#1a1c29" },
-          "ROJO":   { bg: "#dc2626", text: "#ffffff" },
-          "MORADO": { bg: "#7e22ce", text: "#ffffff" },
-          "ROSADO": { bg: "#f472b6", text: "#1a1c29" }
-      };
-      const themeBtn = paletaBotones[colorTexto] || paletaBotones["VERDE"];
-      
-      const dateBadge = document.getElementById('lecturas-fecha-actual');
-      if (dateBadge) {
-          dateBadge.style.backgroundColor = themeBtn.bg;
-          dateBadge.style.color = themeBtn.text;
-      }
-      
-      const updateMenuColors = () => {
-          document.querySelectorAll('.accar-menu-btn').forEach(b => {
-              if (b.classList.contains('active')) {
-                  b.style.backgroundColor = themeBtn.bg;
-                  b.style.color = themeBtn.text;
-                  b.style.borderColor = themeBtn.bg;
-              } else {
-                  b.style.backgroundColor = 'rgba(255,255,255,0.05)';
-                  b.style.color = '#fff';
-                  b.style.borderColor = 'rgba(255,255,255,0.1)';
-              }
-          });
-      };
-      
-      updateMenuColors();
-      botones.forEach(btn => btn.addEventListener('click', () => setTimeout(updateMenuColors, 50)));
-    }
-
-    if (data.readings) {
-      data.readings.forEach(reading => {
-        
-        let textoLimpio = typeof reading.text === 'string' ? reading.text : reading.text.join('<br><br>');
-        textoLimpio = textoLimpio.replace(/(R\/\.|R\.)/g, '<span class="texto-rojo">$1</span>');
-        
-        if (reading.type === 'GSP') { 
-            liturgiaData.evangelio.titulo = "Evangelio"; 
-            liturgiaData.evangelio.ref = reading.referencia; 
-            liturgiaData.evangelio.texto = textoLimpio; 
-        }
-        else if (reading.type === 'FR') { 
-            liturgiaData.primera.titulo = "Primera Lectura"; 
-            liturgiaData.primera.ref = reading.referencia; 
-            liturgiaData.primera.texto = textoLimpio; 
-        }
-        else if (reading.type === 'PS') { 
-            liturgiaData.salmo.titulo = "Salmo"; 
-            liturgiaData.salmo.ref = reading.referencia || "Salmo Responsorial"; 
-            liturgiaData.salmo.texto = textoLimpio; 
-        }
-        else if (reading.type === 'SR') { 
-          liturgiaData.segunda.titulo = "Segunda Lectura";
-          liturgiaData.segunda.ref = reading.referencia; 
-          liturgiaData.segunda.texto = textoLimpio;
-          document.getElementById('btn-segunda').style.display = 'block'; 
-          document.getElementById('btn-segunda-mobile').style.display = 'block'; 
-        }
-        else if (reading.type === 'RE') { 
-          liturgiaData.reflexion.titulo = "Reflexión";
-          liturgiaData.reflexion.ref = reading.referencia; 
-          liturgiaData.reflexion.texto = textoLimpio;
-          document.getElementById('btn-reflexion').style.display = 'block'; 
-          document.getElementById('btn-reflexion-mobile').style.display = 'block'; 
-        }
-      });
-      apiExitosa = true;
-    }
-  } catch (error) {
-    console.error("Error conectando al Leccionario:", error);
-    refTarget.textContent = "Error de conexión";
-    textContainer.innerHTML = `<p>No pudimos descargar las lecturas del día.</p>`;
-  } finally {
-    spinner.style.display = 'none';
-  }
-
-  function renderReading(targetId) {
-    const d = liturgiaData[targetId];
-    lblTarget.textContent = d.titulo.toUpperCase() + " DE HOY";
-    titleTarget.textContent = d.titulo; 
-    
-    // Si no hay cita, ocultamos el subtitulo para que quede elegante y no se repita
-    if (!d.ref || d.ref === d.titulo) {
-        refTarget.style.display = 'none';
-    } else {
-        refTarget.style.display = 'block';
-        refTarget.textContent = d.ref;
-        // Aquí forzamos la raya separadora
-        refTarget.style.borderBottom = '1px solid rgba(0,0,0,0.1)';
-        refTarget.style.paddingBottom = '20px';
-    }
-    
-    textContainer.innerHTML = `<p>${d.texto}</p>`;
-    barraControles.style.display = 'flex';
-    btnBackTop.style.display = 'block';
-  }
-
-  if (apiExitosa) {
-    botones.forEach(btn => {
+  botones.forEach(btn => {
       btn.addEventListener('click', (e) => {
-        const target = e.target.getAttribute('data-target');
+        currentTarget = e.target.getAttribute('data-target');
         botones.forEach(b => b.classList.remove('active'));
-        document.querySelectorAll(`.accar-menu-btn[data-target="${target}"]`).forEach(b => b.classList.add('active'));
-        renderReading(target);
+        document.querySelectorAll(`.accar-menu-btn[data-target="${currentTarget}"]`).forEach(b => b.classList.add('active'));
+        renderReading(currentTarget);
         
         if (window.innerWidth <= 900) {
            document.querySelector('.accar-lecturas-content').scrollIntoView({ behavior: 'smooth' });
         }
       });
-    });
-    renderReading('evangelio'); 
+  });
+
+  // 5. Escuchar cambios en el Calendario y disparar la recarga sin refrescar página
+  if (datePicker) {
+      datePicker.addEventListener('change', (e) => {
+          if (e.target.value) {
+              cargarLecturas(e.target.value);
+          }
+      });
   }
+
+  // 6. Arrancar la aplicación con la fecha de hoy
+  cargarLecturas(currentDate);
+
 })();
+</script>
 </script>
