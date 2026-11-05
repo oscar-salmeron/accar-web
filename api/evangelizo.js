@@ -84,8 +84,7 @@ export default async function handler(req, res) {
     const romanoSemana = toRoman(numSemana);
     let numSalterio = numSemana % 4;
     if (numSalterio === 0) numSalterio = 4;
-    let romanoSalterio = toRoman(numSalterio);
-    if(numSemana === 34) romanoSalterio = 'II';
+    let salterioOrdinal = numSemana === 34 ? 2 : numSalterio; // Semana 34 usa el salterio 2
     const romanoTomo = numSemana > 17 ? 'IV' : 'III';
     
     const semanaFinal = `${romanoSemana} Semana del Tiempo Ordinario`;
@@ -104,7 +103,7 @@ export default async function handler(req, res) {
           ciclo: "CICLO A", 
           anio: "AÑO II",
           tomo: `TOMO ${romanoTomo}`,
-          salterio: `SALTERIO ${romanoSalterio}`
+          salterio: `SALTERIO ${salterioOrdinal}ª SEMANA`
       }],
       readings: readings
     });
