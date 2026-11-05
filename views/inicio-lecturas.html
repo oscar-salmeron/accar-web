@@ -566,11 +566,24 @@ function shareContent() {
 
     if(data.fiestas && data.fiestas.length > 0) {
       const fiesta = data.fiestas[0];
-      const textoSemana = fiesta.semana ? fiesta.semana.toUpperCase() : "";
-      const textoSanto = fiesta.santo ? fiesta.santo.toUpperCase() : "FERIA";
       
+      // Formatear Semana (Ej. de "XXXI SEMANA..." a "XXXI Semana del tiempo ordinario")
+      const textoSemanaObj = fiesta.semana || '';
+      const partes = textoSemanaObj.split(' ');
+      const numRomano = partes.shift() || ''; 
+      const resto = partes.join(' ').toLowerCase(); 
+      const restoCapitalizado = resto.charAt(0).toUpperCase() + resto.slice(1);
+      const semanaFormateada = `${numRomano} ${restoCapitalizado}`.trim();
+      
+      // Santo del día (Si no es Feria)
+      const textoSanto = fiesta.santo && fiesta.santo.toUpperCase() !== "FERIA" ? fiesta.santo : "";
+
       if(semanaTarget) {
-          semanaTarget.innerHTML = `Lecturas y Evangelio del día<br><span style="font-size: 13px; color: rgba(255,255,255,0.7); display: inline-block; margin-top: 6px; font-weight: bold;">${textoSemana}</span>`;
+          let htmlInner = `Lecturas y Evangelio del día<br><span style="font-size: 13px; color: rgba(255,255,255,0.9); display: inline-block; margin-top: 6px; font-weight: bold;">${semanaFormateada}</span>`;
+          if (textoSanto) {
+              htmlInner += `<br><span style="font-size: 12px; color: rgba(212,175,55,0.9); display: inline-block; margin-top: 4px;">${textoSanto}</span>`;
+          }
+          semanaTarget.innerHTML = htmlInner;
       }
       
       const colorTexto = (fiesta.color || 'VERDE').toUpperCase();
