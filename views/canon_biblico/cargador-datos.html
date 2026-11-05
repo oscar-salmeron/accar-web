@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cargador de Libros - Canon Bíblico ACCAR</title>
+    <style>
+        body {
+            background-color: #050b1a; color: #f5f2eb; font-family: Arial, sans-serif;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            height: 100vh; margin: 0; text-align: center;
+        }
+        .container {
+            background: rgba(11, 22, 48, 0.8); border: 1px solid #D4AF37;
+            padding: 40px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            width: 80%; max-width: 800px;
+        }
+        h1 { color: #D4AF37; margin-top: 0; }
+        textarea {
+            width: 100%; height: 300px; margin-bottom: 20px;
+            background-color: #1a2642; color: #f5f2eb; border: 1px solid #D4AF37;
+            border-radius: 8px; padding: 15px; font-family: monospace; font-size: 14px;
+            resize: vertical; box-sizing: border-box;
+        }
+        button {
+            background-color: #D4AF37; color: #050b1a; border: none; padding: 15px 30px;
+            font-size: 16px; font-weight: bold; border-radius: 6px; cursor: pointer;
+            text-transform: uppercase; transition: all 0.3s ease;
+        }
+        button:hover { background-color: #ffffff; transform: translateY(-2px); }
+        #mensaje { margin-top: 20px; font-size: 18px; font-weight: bold; }
+        .exito { color: #4ade80; } .error { color: #f87171; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Subir Libro al Canon Bíblico</h1>
+        <p>Pega aquí el bloque JSON del libro (ej: Génesis) y presiona subir.</p>
+        
+        <textarea id="jsonInput" placeholder="Pega el array JSON del libro aquí..."></textarea>
+        <br>
+        <button id="btnSubir">Subir Libro a la Base de Datos</button>
+        
+        <div id="mensaje"></div>
+    </div>
+
+    <!-- SDK de Firebase modular (CDN) -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+        import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyDSCSWYM5dgkIfVK-uBe1oWkeU7se4fvFg",
+            authDomain: "accar-web.firebaseapp.com",
+            projectId: "accar-web",
+            storageBucket: "accar-web.firebasestorage.app",
+            messagingSenderId: "249370548582",
+            appId: "1:249370548582:web:6b35298df41771113910a7"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        const btnSubir = document.getElementById('btnSubir');
+        const mensajeDiv = document.getElementById('mensaje');
+        const jsonInput = document.getElementById('jsonInput');
+
+        btnSubir.addEventListener('click', async () => {
+            const textoEntrada = jsonInput.value.trim();
+            
+            if (!textoEntrada) {
+                mensajeDiv.innerHTML = "Por favor, pega el código JSON primero.";
+                mensajeDiv.className = "error";
+                return;
+            }
+
+            btnSubir.disabled = true;
+            btnSubir.innerText = "Subiendo a Firestore...";
+            mensajeDiv.innerHTML = "";
+
+            try {
+                let datos = JSON.parse(textoEntrada);
+                if (!Array.isArray(datos)) { datos = [datos]; }
+
+                let contador = 0;
+
+                for (const libro of datos) {
+                    // Usamos el ID especificado en el JSON (ej: "genesis")
+                    let docId = libro.id;
+                    if (!docId) {
+                         docId = "libro_" + Date.now();
+                    }
+
+                    // NUEVA RUTA PARA EL CANON: canon_biblico -> libros -> registros
+                    const docRef = doc(db, 'canon_biblico', 'libros', 'registros', docId);
+                    
+                    const { id, ...datosLibro } = libro;
+                    await setDoc(docRef, datosLibro);
+                    contador++;
+                }
+                
+                mensajeDiv.innerHTML = `¡Éxito! ${contador} libro(s) del Canon guardado(s) correctamente.`;
+                mensajeDiv.className = "exito";
+                btnSubir.innerText = "Subir otro libro";
+                btnSubir.disabled = false;
+                jsonInput.value = ""; 
+                
+            } catch (error) {
+                console.error("Error al subir los documentos: ", error);
+                mensajeDiv.innerHTML = "Error: Verifica que el JSON esté bien formateado (comillas, comas, llaves).";
+                mensajeDiv.className = "error";
+                btnSubir.disabled = false;
+                btnSubir.innerText = "Reintentar";
+            }
+        });
+    </script>
+</body>
+</html>
