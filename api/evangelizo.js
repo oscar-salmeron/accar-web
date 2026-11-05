@@ -39,14 +39,46 @@ export default async function handler(req, res) {
       return weekNumber;
   };
 
+  // Lógica inteligente para inferir el color litúrgico desde el nombre de la fiesta
+  const inferirColorLiturgico = (fiestaStr, colorEwtn) => {
+      if (!fiestaStr) return colorEwtn || "VERDE";
+      
+      const f = fiestaStr.toUpperCase();
+      
+      // Mártires, Apóstoles, Espíritu Santo, Pasión = ROJO
+      if (f.includes("MÁRTIR") || f.includes("MARTIR") || f.includes("APÓSTOL") || f.includes("EVANGELISTA") || f.includes("CRUZ") || f.includes("SANGRE") || f.includes("PENTECOSTÉS")) {
+          return "ROJO";
+      }
+      
+      // Virgen María, Santos (no mártires), Pastores, Doctores, Ángeles, Fiestas del Señor = BLANCO
+      if (f.includes("VIRGEN") || f.includes("OBISPO") || f.includes("PAPA") || f.includes("DOCTOR") || f.includes("CONFESOR") || f.includes("ÁNGEL") || f.includes("ARCÁNGEL") || f.includes("SEÑOR") || f.includes("CRISTO") || f.includes("SANTÍSIMA") || f.includes("SANTISIMA") || f.includes("BAUTISMO") || f.includes("TRANSFIGURACIÓN") || f.includes("ASCENSIÓN") || f.includes("ASUNCIÓN") || f.includes("TODOS LOS SANTOS") || f.includes("DIFUNTOS") || f.includes("DEDICACIÓN") || f.includes("SAGRADO CORAZÓN")) {
+          // Nota: Difuntos puede ser Morado o Negro, pero el Blanco también está permitido litúrgicamente y es común.
+          return "BLANCO";
+      }
+      
+      // Tiempos de penitencia (Adviento, Cuaresma) o Difuntos = MORADO
+      if (f.includes("ADVIENTO") || f.includes("CUARESMA") || f.includes("CENIZA") || f.includes("FIELES DIFUNTOS")) {
+          return "MORADO";
+      }
+      
+      // Domingos Gaudete/Laetare = ROSADO
+      if (f.includes("GAUDETE") || f.includes("LAETARE")) {
+          return "ROSADO";
+      }
+
+      return colorEwtn || "VERDE";
+  };
+
   try {
     const response = await fetch(targetUrl);
     if (!response.ok) throw new Error('Lecturas no encontradas en la base de datos.');
 
     const dataEWTN = await response.json();
 
-    const colorLiturgico = dataEWTN.color || "VERDE";
     const fiestaRaw = (dataEWTN.fiesta || "").trim(); 
+    
+    // Calculamos el color dinámicamente usando nuestra nueva función
+    const colorLiturgico = inferirColorLiturgico(fiestaRaw, dataEWTN.color);
     
     const numSemana = calcularSemanaLiturgica(dateParam);
     const romanoSemana = toRoman(numSemana);
@@ -56,7 +88,6 @@ export default async function handler(req, res) {
     if(numSemana === 34) romanoSalterio = 'II';
     const romanoTomo = numSemana > 17 ? 'IV' : 'III';
     
-    // Aquí aseguramos la semana siempre
     const semanaFinal = `${romanoSemana} Semana del Tiempo Ordinario`;
 
     let readings = [];
