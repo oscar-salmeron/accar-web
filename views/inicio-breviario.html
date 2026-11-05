@@ -66,9 +66,16 @@
 <style>
 /* --- ESTILOS PRINCIPALES RESTAURADOS --- */
 .accar-container {
-  padding: 20px;
+  padding: 100px 20px 40px;
   max-width: 800px;
   margin: 0 auto;
+}
+body {
+  /* Fondo base para el Breviario (Se actualizará dinámicamente) */
+  background: radial-gradient(circle at top, #0f3d3e 0%, #021617 100%);
+  min-height: 100vh;
+  margin: 0;
+  transition: background 0.5s ease;
 }
 .accar-card {
   background-color: #1a1c29;
@@ -440,25 +447,69 @@ function shareBreviario() {
                             semanaLimpia = `Semana del ${semanaLimpia}`;
                         }
                     }
+                    // 1. Mostrar la Semana y el Santo debajo (ej. San Carlos Borromeo)
+                    const textoSanto = fiesta.santo && fiesta.santo.toUpperCase() !== "FERIA" ? fiesta.santo : "";
+                    
                     if(headerSemana) {
-                        headerSemana.textContent = `${semanaLimpia} (${fiesta.anio || ''})`;
+                        let htmlSemana = `${semanaLimpia} (${fiesta.anio || ''})`;
+                        if (textoSanto) {
+                            htmlSemana += `<br><span style="font-size: 11px; display: inline-block; margin-top: 5px; border-top: 1px solid rgba(0,0,0,0.1); padding-top: 4px;">${textoSanto}</span>`;
+                        }
+                        headerSemana.innerHTML = htmlSemana;
                         headerSemana.style.display = 'block';
                     }
                     
-                    const coloresHex = { "VERDE": "#2cb67d", "BLANCO": "#e2e8f0", "MORADO": "#6b21a8", "ROJO": "#b91c1c", "ROSADO": "#f472b6" };
                     const colorLiturgico = fiesta.color ? fiesta.color.toUpperCase() : 'VERDE';
-                    if (coloresHex[colorLiturgico] && headerContainer) {
-                        headerContainer.style.backgroundColor = coloresHex[colorLiturgico];
-                        if(colorLiturgico === 'BLANCO') {
-                            headerContainer.style.color = '#1a1c29';
-                            if(headerFecha) headerFecha.style.color = '#1a1c29';
-                            if(headerSemana) headerSemana.style.color = '#1a1c29';
-                        } else {
-                            headerContainer.style.color = 'white';
-                            if(headerFecha) headerFecha.style.color = 'white';
-                            if(headerSemana) headerSemana.style.color = 'white';
+
+                    // --- SISTEMA DE HERENCIA LITÚRGICA BREVIARIO ---
+                    const paletaBrev = {
+                        "VERDE":  { bgApp: "radial-gradient(circle at top, #0f3d3e 0%, #021617 100%)", bgCajas: "#2cb67d", text: "#1a1c29" },
+                        "BLANCO": { bgApp: "radial-gradient(circle at top, #b09e66 0%, #302610 100%)", bgCajas: "#ffffff", text: "#1a1c29" },
+                        "ROJO":   { bgApp: "radial-gradient(circle at top, #4a0d0d 0%, #170202 100%)", bgCajas: "#dc2626", text: "#ffffff" },
+                        "MORADO": { bgApp: "radial-gradient(circle at top, #3b154d 0%, #15061c 100%)", bgCajas: "#7e22ce", text: "#ffffff" },
+                        "ROSADO": { bgApp: "radial-gradient(circle at top, #823853 0%, #33121f 100%)", bgCajas: "#f472b6", text: "#1a1c29" }
+                    };
+
+                    const themeBrev = paletaBrev[colorLiturgico] || paletaBrev["VERDE"];
+
+                    // 1. Colorear el fondo general
+                    document.body.style.background = themeBrev.bgApp;
+
+                    // 2. Colorear la caja de "Seleccionar Fecha" y sus textos
+                    if (headerContainer) {
+                        headerContainer.style.backgroundColor = themeBrev.bgCajas;
+                        headerContainer.style.color = themeBrev.text;
+                        if(headerFecha) headerFecha.style.color = themeBrev.text;
+                        if(headerSemana) headerSemana.style.color = themeBrev.text;
+                        
+                        // Asegurar que el label "Seleccionar fecha" se lea bien (si es blanco oscuro, si es rojo blanco)
+                        const dateLabel = headerContainer.querySelector('.accar-date-label');
+                        if (dateLabel) {
+                            dateLabel.style.color = themeBrev.text === "#1a1c29" ? "rgba(0,0,0,0.7)" : "rgba(255,255,255,0.9)";
                         }
                     }
+
+                    // 3. Función para pintar los botones del Breviario
+                    const updateBrevColors = () => {
+                        document.querySelectorAll('.accar-brev-btn').forEach(b => {
+                            if (b.classList.contains('active')) {
+                                b.style.backgroundColor = themeBrev.bgCajas;
+                                b.style.color = themeBrev.text;
+                                // Pequeño ajuste para que no se vea plano
+                                b.style.boxShadow = `0 0 12px ${themeBrev.bgCajas}80`; 
+                            } else {
+                                b.style.backgroundColor = '#f8f9fa';
+                                b.style.color = '#1a1c29';
+                                b.style.boxShadow = 'none';
+                            }
+                        });
+                    };
+
+                    // Ejecutar coloración inicial y escuchar clics en botones
+                    updateBrevColors();
+                    botonesMenu.forEach(btn => {
+                        btn.addEventListener('click', updateBrevColors);
+                    });
                 }
             }
         } catch (err) {
