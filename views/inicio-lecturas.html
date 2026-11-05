@@ -101,10 +101,12 @@
 ========================================= */
 .accar-lecturas-view {
   padding: 120px 20px 60px;
+  /* Fondo base que será sobreescrito por Javascript */
   background: radial-gradient(circle at top, #0f3d3e 0%, #021617 100%);
   min-height: 100vh;
   color: #f8efd3;
   padding-bottom: 140px; 
+  transition: background 0.5s ease;
 }
 
 .accar-lecturas-inner {
@@ -593,6 +595,48 @@ function shareContent() {
       if (coloresLiturgicos[colorTexto]) colorTarget.style.color = coloresLiturgicos[colorTexto];
       if(cicloTarget) cicloTarget.textContent = fiesta.ciclo || '';
       if(anioTarget) anioTarget.textContent = fiesta.anio || '';
+
+      // --- SISTEMA DE HERENCIA LITÚRGICA (FONDOS Y BOTONES) ---
+      const paleta = {
+          "VERDE":  { bgApp: "radial-gradient(circle at top, #0f3d3e 0%, #021617 100%)", bgCajas: "#2cb67d", text: "#000" },
+          "BLANCO": { bgApp: "radial-gradient(circle at top, #b09e66 0%, #302610 100%)", bgCajas: "#ffffff", text: "#1a1c29" },
+          "ROJO":   { bgApp: "radial-gradient(circle at top, #4a0d0d 0%, #170202 100%)", bgCajas: "#dc2626", text: "#ffffff" },
+          "MORADO": { bgApp: "radial-gradient(circle at top, #3b154d 0%, #15061c 100%)", bgCajas: "#7e22ce", text: "#ffffff" },
+          "ROSADO": { bgApp: "radial-gradient(circle at top, #823853 0%, #33121f 100%)", bgCajas: "#f472b6", text: "#1a1c29" }
+      };
+      
+      const theme = paleta[colorTexto] || paleta["VERDE"];
+      
+      // 1. Cambiar fondo de la pantalla completa
+      document.querySelector('.accar-lecturas-view').style.background = theme.bgApp;
+      
+      // 2. Colorear la caja de la fecha (Ej. "MIÉRCOLES, 4 DE NOVIEMBRE...")
+      const dateBadge = document.getElementById('lecturas-fecha-actual');
+      if (dateBadge) {
+          dateBadge.style.backgroundColor = theme.bgCajas;
+          dateBadge.style.color = theme.text;
+      }
+      
+      // 3. Crear una función para colorear dinámicamente los botones seleccionados del menú lateral
+      const updateMenuColors = () => {
+          document.querySelectorAll('.accar-menu-btn').forEach(b => {
+              if (b.classList.contains('active')) {
+                  b.style.backgroundColor = theme.bgCajas;
+                  b.style.color = theme.text;
+                  b.style.borderColor = theme.bgCajas;
+              } else {
+                  b.style.backgroundColor = 'rgba(255,255,255,0.05)';
+                  b.style.color = '#fff';
+                  b.style.borderColor = 'rgba(255,255,255,0.1)';
+              }
+          });
+      };
+      
+      // Ejecutar coloración inicial y escuchar cambios
+      updateMenuColors();
+      botones.forEach(btn => {
+          btn.addEventListener('click', updateMenuColors);
+      });
     }
 
     if (data.readings) {
