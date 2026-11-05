@@ -1,0 +1,54 @@
+[
+  {
+    "id": "genesis",
+    "categoria": "Pentateuco",
+    "titulo": "Génesis",
+    "subtitulo_corto": "El Principio de la Historia de la Salvación",
+    "ficha_tecnica": {
+      "autoria": "La Sagrada Tradición atribuye la autoría sustancial a Moisés. La Iglesia reconoce un proceso redaccional complejo guiado por el Espíritu Santo, rechazando el reduccionismo de la hipótesis documentaria que vacía el texto de su autoridad divina.",
+      "fecha": "Raíces en el período patriarcal y mosaico (mediados del segundo milenio a.C.), con forma canónica definitiva probablemente en el período post-exílico.",
+      "destinatarios": "El pueblo de Israel en el desierto y en la Tierra Prometida, para conocer su identidad pactual frente al politeísmo.",
+      "generos": "Narraciones de historia sagrada, genealogías (toledot), poesía lírica y lenguaje simbólico-sapiencial."
+    },
+    "contexto_proposito": "El Génesis no es una crónica secular, sino la magna obertura de la Historia de la Salvación. El propósito divino al revelar este texto fue manifestar que la creación entera es el fundamento de todos los designios salvíficos de Dios y el comienzo de nuestra historia. Responde a las interrogantes más agudas del corazón humano: el origen del mundo, la naturaleza del hombre, la procedencia del mal y la esperanza de redención.\n\nEn un contexto histórico donde las naciones vecinas adoraban astros, ríos y bestias a través de mitos cosmogónicos caprichosos y violentos, el Génesis se levanta como un monumento teológico de desmitologización. Afirma que existe un solo Creador trascendente que forja el cosmos por pura sabiduría y amor, estructurando la creación como un inmenso templo cósmico ordenado para el culto y la comunión.",
+    "exegesis_hermeneutica": "La lectura católica del Génesis exige captar la intención del Espíritu Santo, evitando el fundamentalismo literalista (que fuerza el texto a ser un manual científico) y el racionalismo liberal (que disuelve su historicidad en mito).\n\nLos Relatos de la Creación (Gn 1-2): Utilizan un lenguaje profundamente simbólico y litúrgico. El séptimo día, el Sabbat, es la clave hermenéutica: Dios sella un juramento, una Alianza con su creación. No hay conflicto con la ciencia, siempre que se sostenga que la materia fue creada de la nada y el alma espiritual es inmediatamente infundida por el Creador.\n\nLa Caída (Gn 3): Utiliza imágenes, pero afirma un acontecimiento primordial histórico. El pecado no fue una fruta, sino el abuso de la libertad para erigirse en dioses sin Dios, perdiendo la gracia original.\n\nEl Diluvio (Gn 6-9): No es un mito vengativo, sino un acto de re-creación y un pacto cósmico, señalizado por el arco iris.\n\nLos Patriarcas (Gn 12-50): Dios emite tres grandes promesas a Abraham (tierra, reinado y bendición universal) que se elevarán a la categoría de Alianzas, puliendo la fe del pueblo a través de pruebas como el sacrificio de Isaac.",
+    "sentido_tipologico": "Toda la Escritura es un solo libro, y este libro es Cristo. La exégesis de la Alianza desvela cómo el Antiguo Testamento está patente en el Nuevo:\n\n- Adán y el Nuevo Adán: Cristo es el Nuevo Adán que repara con sobreabundancia la desobediencia del primer hombre.\n- Eva y María: María es la Nueva Eva, la mujer del Protoevangelio (Gn 3, 15). Lo que ató la virgen Eva por falta de fe, lo desató la Virgen María por su obediencia.\n- El Arca de Noé: Las aguas del diluvio son prefiguración del Bautismo, que destruye el pecado original. El Arca prefigura a la Iglesia.\n- Melquisedec: El rey y sacerdote que ofrece pan y vino prefigura el sacerdocio eterno de Cristo y la Eucaristía.\n- Isaac: El hijo amado que carga la leña subiendo al monte es el tipo supremo de Cristo cargando el madero de la Cruz.\n- José: Vendido como esclavo y elevado para alimentar al mundo, es retrato fiel de Cristo, rechazado por los suyos y Salvador de las naciones.",
+    "uso_liturgico": "El Génesis estructura el pulso orante de la Iglesia. En la Vigilia Pascual, la celebración culminante del Año Litúrgico, las lecturas comienzan obligatoriamente con el relato de la Creación (Gn 1), recordando que Dios preveía la gloria de la nueva creación en su Hijo. El sacrificio de Abraham (Gn 22) también se proclama en esta noche santísima como garantía de la promesa.\n\nEl fruto espiritual para el fiel es el asombro adorador ante el Creador. Muestra que, a pesar del abismo del pecado, la gracia de Dios es siempre anterior y definitiva, orientando la vida humana hacia el Sabbat eterno.",
+    "versiculos_clave": "Génesis 1, 27: «Y creó Dios al hombre a su imagen; a imagen de Dios lo creó; hombre y mujer los creó».\n\nGénesis 3, 15 (El Protoevangelio): «Pondré enemistad entre ti y la mujer, entre tu linaje y el suyo; él te herirá en la cabeza, mientras tú le herirás en el talón».",
+    "test": [
+      {
+        "pregunta": "Según la hermenéutica católica y el relato de la Creación (Hexametrón), ¿cuál es el significado teológico del séptimo día (el Sabbat)?",
+        "opciones": [
+          "A) Indica que Dios se quedó sin energía divina y necesitaba descanso físico.",
+          "B) Es la clave de la Alianza, donde Dios sella un juramento y ordena el cosmos para el culto y la comunión.",
+          "C) Es un mito tomado directamente de la religión de los babilonios sin alteración.",
+          "D) Demuestra que el universo fue creado literalmente en semanas de 168 horas."
+        ],
+        "correcta": 1,
+        "justificacion": "El Sabbat no es un mero descanso físico, sino el sello de la Alianza. La creación no es producto del azar, sino un inmenso templo ordenado hacia la comunión con el Creador, desmitologizando las creencias paganas vecinas."
+      },
+      {
+        "pregunta": "¿A quiénes identifican la Tradición y el Magisterio de la Iglesia en el llamado 'Protoevangelio' (Génesis 3, 15)?",
+        "opciones": [
+          "A) A Eva y Caín, quienes vencerían a la serpiente en el Edén.",
+          "B) Exclusivamente a la nación de Israel derrotando militarmente a Egipto.",
+          "C) A la Santísima Virgen María (la Nueva Eva) y a su descendencia, Jesucristo, aplastando a Satanás.",
+          "D) A la humanidad en general dominando a los animales venenosos."
+        ],
+        "correcta": 2,
+        "justificacion": "Génesis 3, 15 es la primera proclamación de la Buena Nueva. María es la Nueva Eva cuya descendencia (Cristo) derrota definitivamente el pecado y la muerte."
+      },
+      {
+        "pregunta": "Desde la tipología de la Alianza, ¿qué sacramento de la Iglesia es prefigurado por las aguas del Diluvio y el Arca de Noé?",
+        "opciones": [
+          "A) El sacramento del Bautismo, que lava el pecado original y nos introduce en la Iglesia (el Arca).",
+          "B) El sacramento del Matrimonio, por la entrada de los animales en parejas.",
+          "C) El sacramento del Orden Sacerdotal.",
+          "D) El sacramento de la Unción de los Enfermos."
+        ],
+        "correcta": 0,
+        "justificacion": "La exégesis católica ve en el Diluvio un acto de re-creación. Las aguas sepultan el mal y dan vida nueva, prefigurando el Bautismo, mientras que el Arca es tipo de la Iglesia, barca de salvación."
+      }
+    ]
+  }
+]
