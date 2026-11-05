@@ -4,10 +4,14 @@
     <!-- COLUMNA IZQUIERDA: MENÚ DE NAVEGACIÓN -->
     <aside class="accar-lecturas-sidebar">
       
-      <!-- Bloque: Fecha -->
+     <!-- Bloque: Fecha y Calendario -->
       <div class="accar-sidebar-box">
         <h4>Lecturas de hoy:</h4>
-        <div class="accar-date-badge" id="lecturas-fecha-actual">
+        <div style="margin-bottom: 12px; display: flex; flex-direction: column; gap: 5px;">
+          <label for="lecturas-date-picker" style="font-size: 11px; color: rgba(255, 255, 255, 0.7); text-transform: uppercase; font-weight: bold;">Seleccionar fecha:</label>
+          <input type="date" id="lecturas-date-picker" style="background-color: #2cb67d; border: 1px solid #2cb67d; color: #000; padding: 8px 12px; border-radius: 8px; font-weight: bold; font-family: inherit; cursor: pointer; outline: none;">
+        </div>
+        <div class="accar-date-badge" id="lecturas-fecha-actual" style="background-color: #2cb67d; color: #000; padding: 10px;">
           Cargando fecha...
         </div>
       </div>
