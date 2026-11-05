@@ -77,13 +77,16 @@ body {
   margin: 0 auto;
 }
 .accar-card {
-  background-color: #1a1c29;
-  border: 1px solid rgba(255,255,255,0.1);
+  /* Fondo transparente para que se vea el verde litúrgico oscuro del body */
+  background-color: transparent; 
+  border: none;
   border-radius: 12px;
   padding: 20px;
 }
 .accar-brev-header {
-  background-color: #2cb67d;
+  /* Fondo base que será sobreescrito por el color de la fiesta */
+  background-color: rgba(9, 23, 45, 0.6); 
+  border: 1px solid rgba(212, 175, 55, 0.2);
   padding: 20px;
   border-radius: 12px;
   text-align: center;
@@ -449,7 +452,7 @@ function shareBreviario() {
                     const textoSanto = fiesta.santo && fiesta.santo.toUpperCase() !== "FERIA" ? fiesta.santo : "";
                     
                     if(headerSemana) {
-                        // Restaurado: Semana en verde inmutable (#2cb67d) y Santo en dorado (#d4af37)
+                        // Semana en verde inmutable (#2cb67d) y Santo en dorado (#d4af37)
                         let htmlSemana = `<span style="color: #2cb67d;">${semanaLimpia} (${fiesta.anio || ''})</span>`;
                         if (textoSanto) {
                             htmlSemana += `<br><span style="font-size: 13px; display: inline-block; margin-top: 5px; color: #d4af37;">${textoSanto}</span>`;
@@ -458,22 +461,55 @@ function shareBreviario() {
                         headerSemana.style.display = 'block';
                     }
                     
+                    const colorLiturgico = fiesta.color ? fiesta.color.toUpperCase() : 'VERDE';
+
+                    // --- SISTEMA DE HERENCIA LITÚRGICA BREVIARIO (CAJA Y BOTONES) ---
+                    const paletaBrev = {
+                        "VERDE":  { bgCajas: "#2cb67d", text: "#1a1c29" },
+                        "BLANCO": { bgCajas: "#ffffff", text: "#1a1c29" },
+                        "ROJO":   { bgCajas: "#dc2626", text: "#ffffff" },
+                        "MORADO": { bgCajas: "#7e22ce", text: "#ffffff" },
+                        "ROSADO": { bgCajas: "#f472b6", text: "#1a1c29" }
+                    };
+
+                    const themeBrev = paletaBrev[colorLiturgico] || paletaBrev["VERDE"];
+                    
                     if (headerContainer) {
                         headerContainer.style.backgroundColor = 'rgba(9, 23, 45, 0.6)';
                         headerContainer.style.border = '1px solid rgba(212, 175, 55, 0.2)';
                         
                         if(headerFecha) headerFecha.style.color = '#ffffff';
                         
-                        // La caja del calendario SIEMPRE en verde litúrgico
+                        // La caja del calendario hereda el color del día
                         const dateInput = document.getElementById('brev-date-picker');
                         if (dateInput) {
-                            dateInput.style.backgroundColor = '#2cb67d';
-                            dateInput.style.color = '#000000';
-                            dateInput.style.border = '1px solid #2cb67d';
+                            dateInput.style.backgroundColor = themeBrev.bgCajas;
+                            dateInput.style.color = themeBrev.text;
+                            dateInput.style.border = `1px solid ${themeBrev.bgCajas}`;
                         }
                         const dateLabel = headerContainer.querySelector('.accar-date-label');
                         if (dateLabel) dateLabel.style.color = 'rgba(255,255,255,0.7)';
                     }
+
+                    // Función para pintar los botones del Breviario
+                    const updateBrevColors = () => {
+                        document.querySelectorAll('.accar-brev-btn').forEach(b => {
+                            if (b.classList.contains('active')) {
+                                b.style.backgroundColor = themeBrev.bgCajas;
+                                b.style.color = themeBrev.text;
+                                b.style.boxShadow = `0 0 12px ${themeBrev.bgCajas}80`; 
+                            } else {
+                                b.style.backgroundColor = '#f8f9fa';
+                                b.style.color = '#1a1c29';
+                                b.style.boxShadow = 'none';
+                            }
+                        });
+                    };
+
+                    updateBrevColors();
+                    botonesMenu.forEach(btn => {
+                        btn.addEventListener('click', updateBrevColors);
+                    });
                 }
             }
         } catch (err) {
