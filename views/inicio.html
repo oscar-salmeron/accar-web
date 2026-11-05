@@ -945,7 +945,7 @@ TARJETA ESPECIAL: SANTO DEL DÍA (Cuerpo entero a la izq)
           (function(){
             function updateVaticanTime() {
               const timeElement = document.getElementById('vatican-time');
-            (!timeElement) return;
+              if (!timeElement) return;
               const romeTime = new Date().toLocaleTimeString('es-ES', {
                 timeZone: 'Europe/Rome',
                 hour: '2-digit',
