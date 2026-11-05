@@ -77,7 +77,7 @@ body {
   margin: 0 auto;
 }
 .accar-card {
-  /* Fondo transparente para que se vea el verde litúrgico oscuro del body */
+  /* Fondo transparente restaurado, eliminando cualquier fondo azul */
   background-color: transparent; 
   border: none;
   border-radius: 12px;
@@ -480,12 +480,12 @@ function shareBreviario() {
                         
                         if(headerFecha) headerFecha.style.color = '#ffffff';
                         
-                        // La caja del calendario hereda el color del día
+                        // RESPETADO: La caja del calendario SIEMPRE en verde
                         const dateInput = document.getElementById('brev-date-picker');
                         if (dateInput) {
-                            dateInput.style.backgroundColor = themeBrev.bgCajas;
-                            dateInput.style.color = themeBrev.text;
-                            dateInput.style.border = `1px solid ${themeBrev.bgCajas}`;
+                            dateInput.style.backgroundColor = '#2cb67d';
+                            dateInput.style.color = '#000000';
+                            dateInput.style.border = '1px solid #2cb67d';
                         }
                         const dateLabel = headerContainer.querySelector('.accar-date-label');
                         if (dateLabel) dateLabel.style.color = 'rgba(255,255,255,0.7)';
