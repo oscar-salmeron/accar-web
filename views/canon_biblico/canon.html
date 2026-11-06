@@ -94,10 +94,10 @@
 
         .testament-selector {
             display: flex;
-            gap: 40px;
+            gap: 50px;
             justify-content: center;
             width: 100%;
-            max-width: 1000px;
+            max-width: 950px;
             margin: 0 auto;
             position: relative;
             z-index: 1;
@@ -106,24 +106,60 @@
         .testament-card {
             flex: 1;
             cursor: pointer;
-            background: transparent;
-            border: none;
-            padding: 10px;
+            background: rgba(11, 22, 48, 0.2);
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            border-radius: 12px;
+            padding: 30px 20px;
             text-align: center;
-            transition: transform 0.4s ease, filter 0.4s ease;
+            transition: all 0.4s ease;
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            min-height: 480px; /* Asegura misma altura de tarjetas */
         }
 
         .testament-card:hover {
             transform: translateY(-8px);
-            filter: drop-shadow(0 15px 30px rgba(212, 175, 55, 0.25));
+            border-color: rgba(212, 175, 55, 0.5);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.7);
+            background: rgba(11, 22, 48, 0.3);
+        }
+
+        .testament-img-container {
+            width: 100%;
+            height: 320px; /* Tamaño máximo igualado */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
         }
 
         .testament-card img {
-            width: 100%;
-            max-width: 380px;
-            height: auto;
+            max-width: 100%;
+            max-height: 100%;
             object-fit: contain;
-            transition: all 0.4s ease;
+            filter: drop-shadow(0 8px 16px rgba(0,0,0,0.8));
+            transition: transform 0.4s ease;
+        }
+
+        .testament-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .testament-label {
+            font-size: 20px;
+            color: #D4AF37;
+            font-weight: normal;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+            border-top: 1px solid rgba(212, 175, 55, 0.2);
+            padding-top: 15px;
+            width: 80%;
+            margin: 0 auto;
         }
 
         .accordion-container {
@@ -331,10 +367,16 @@
 
         <div class="testament-selector">
             <div class="testament-card" onclick="showTestament('ot')">
-                <img src="/assets/img/portada_canon_at.png" alt="Antiguo Testamento" onerror="this.src='https://placehold.co/380x500/050b1a/d4af37?text=Antiguo+Testamento'">
+                <div class="testament-img-container">
+                    <img src="/assets/img/portada_canon_at.png" alt="Antiguo Testamento" onerror="this.src='https://placehold.co/280x320/050b1a/d4af37?text=Antiguo+Testamento'">
+                </div>
+                <div class="testament-label">Antiguo Testamento</div>
             </div>
             <div class="testament-card" onclick="showTestament('nt')">
-                <img src="/assets/img/portada_canon_nt.png" alt="Nuevo Testamento" onerror="this.src='https://placehold.co/380x500/050b1a/d4af37?text=Nuevo+Testamento'">
+                <div class="testament-img-container">
+                    <img src="/assets/img/portada_canon_nt.png" alt="Nuevo Testamento" onerror="this.src='https://placehold.co/280x320/050b1a/d4af37?text=Nuevo+Testamento'">
+                </div>
+                <div class="testament-label">Nuevo Testamento</div>
             </div>
         </div>
     </div>
@@ -527,7 +569,7 @@
                         const categoriaDestino = data.categoria || "Pentateuco"; 
 
                         const tarjetaHTML = `
-                            <a href="#" onclick="event.preventDefault(); localStorage.setItem('libroSeleccionado', '${idLibro}'); loadView('/views/canon_biblico/libro.html');" class="book-card">
+                            <a href="#" onclick="event.preventDefault(); localStorage.setItem('libroSeleccionado', '${idLibro}'); window.location.href='/views/canon_biblico/libro.html';" class="book-card">
                                 <div class="book-cover">
                                     <img src="${imagen}" alt="Portada ${data.titulo}" onerror="this.src='https://placehold.co/120x180/09172d/d4af37?text=Libro+Sagrado'">
                                 </div>
