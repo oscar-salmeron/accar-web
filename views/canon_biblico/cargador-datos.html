@@ -107,8 +107,16 @@
                 jsonInput.value = ""; 
                 
             } catch (error) {
-                console.error("Error al subir los documentos: ", error);
-                mensajeDiv.innerHTML = "Error: Verifica que el JSON esté bien formateado (comillas, comas, llaves).";
+                console.error("Error detallado: ", error);
+                
+                // Si el error es realmente un problema de texto JSON:
+                if (error instanceof SyntaxError) {
+                    mensajeDiv.innerHTML = "Error de formato JSON. Verifica el texto pegado.";
+                } else {
+                    // Si el error viene de Firebase (por ejemplo, permisos denegados):
+                    mensajeDiv.innerHTML = "Error de Firebase: " + error.message;
+                }
+                
                 mensajeDiv.className = "error";
                 btnSubir.disabled = false;
                 btnSubir.innerText = "Reintentar";
