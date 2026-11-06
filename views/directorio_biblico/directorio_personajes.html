@@ -236,13 +236,12 @@
 
         /* ESTILOS PARA LAS CAJAS MAESTRAS (ANIDADAS) */
         .master-accordion-item {
-            border: 1px solid rgba(212, 175, 55, 0.4);
-            border-radius: 12px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-left: 8px solid #94a3b8; /* Lomo color plata/acero para diferenciar de los libros */
+            border-radius: 4px 12px 12px 4px;
             margin-bottom: 30px;
-            background: linear-gradient(145deg, rgba(11, 22, 48, 0.25), rgba(5, 11, 26, 0.4)); /* Altamente transparente */
-            backdrop-filter: blur(3px); /* Efecto cristal para resaltar sobre el Arca */
-            -webkit-backdrop-filter: blur(3px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            background: linear-gradient(to right, #070e1c, #0b162c); /* Fondo sólido oscuro */
+            box-shadow: 0 8px 25px rgba(0,0,0,0.7);
             overflow: hidden;
             transition: all 0.4s ease;
         }
