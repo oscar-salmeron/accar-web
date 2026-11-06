@@ -567,7 +567,7 @@
                         const categoriaDestino = data.categoria || "Pentateuco"; 
 
                         const tarjetaHTML = `
-                            <a href="#" onclick="event.preventDefault(); localStorage.setItem('libroSeleccionado', '${idLibro}'); window.location.href='/views/canon_biblico/libro.html';" class="book-card">
+                            <a href="#" onclick="event.preventDefault(); localStorage.setItem('libroSeleccionado', '${idLibro}'); loadView('/views/canon_biblico/libro.html');" class="book-card">
                                 <div class="book-cover">
                                     <img src="${imagen}" alt="Portada ${data.titulo}" onerror="this.src='https://placehold.co/120x180/09172d/d4af37?text=Libro+Sagrado'">
                                 </div>
