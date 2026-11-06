@@ -117,8 +117,8 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: space-between;
-            min-height: 480px; /* Asegura misma altura de tarjetas */
+            justify-content: center; /* Centrado para que no empuje el texto abajo */
+            gap: 20px; /* Separación fija entre imagen y texto */
         }
 
         .testament-card:hover {
@@ -130,11 +130,10 @@
 
         .testament-img-container {
             width: 100%;
-            height: 320px; /* Tamaño máximo igualado */
+            height: 280px; /* Altura controlada */
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 20px;
         }
 
         .testament-card img {
@@ -167,19 +166,18 @@
             max-width: 1100px;
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 25px; /* Un poco más de espacio entre bloques */
             position: relative;
             z-index: 1;
         }
 
-        /* CAJAS MAESTRAS */
+        /* CAJAS MAESTRAS DEL CANON (Estilo Tomo de Libro) */
         .master-accordion-item {
-            border: 1px solid rgba(212, 175, 55, 0.4);
-            border-radius: 12px;
-            background: linear-gradient(145deg, rgba(11, 22, 48, 0.3), rgba(5, 11, 26, 0.5));
-            backdrop-filter: blur(4px);
-            -webkit-backdrop-filter: blur(4px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-left: 8px solid #D4AF37; /* Simula el lomo del libro */
+            border-radius: 4px 12px 12px 4px;
+            background: linear-gradient(to right, #070e1c, #0b162c); /* Fondo sólido, no cristal */
+            box-shadow: 0 8px 25px rgba(0,0,0,0.7);
             overflow: hidden;
             transition: all 0.4s ease;
         }
