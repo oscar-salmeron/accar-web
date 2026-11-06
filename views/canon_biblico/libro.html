@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Libro Sagrado - Canon ACCAR</title>
+    <style>
+        :root {
+            --primary: #d4af37;
+            --primary-light: #f3c93f;
+            --secondary: #0a0e17;
+            --accent: #8a7322;
+            --text-main: #e2e8f0;
+            --card-bg: #111827;
+            --success: #4ade80;
+            --error: #f87171;
+        }
+
+        body {
+            font-family: 'Georgia', Times, serif;
+            color: var(--text-main);
+            background-color: var(--secondary);
+            line-height: 1.8;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container { max-width: 850px; margin: 0 auto; padding: 40px 20px; }
+
+        /* Navegación */
+        .nav-back {
+            margin-bottom: 25px;
+        }
+        .nav-back a {
+            color: var(--primary); text-decoration: none; font-size: 12px;
+            font-weight: bold; letter-spacing: 2px; text-transform: uppercase;
+            font-family: sans-serif; transition: color 0.3s;
+        }
+        .nav-back a:hover { color: var(--primary-light); }
+
+        /* Cabecera del Libro */
+        .hero-section {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 20px 0 40px 0;
+            background-color: transparent;
+            border-bottom: 2px solid var(--accent);
+            margin-bottom: 40px;
+            gap: 40px;
+        }
+
+        .hero-image {
+            flex: 1;
+            text-align: left;
+            display: flex;
+            justify-content: flex-start;
+        }
+
+        .hero-image img {
+            max-width: 100%;
+            height: auto;
+            max-height: 350px;
+            object-fit: contain;
+            filter: drop-shadow(0px 10px 25px rgba(0, 0, 0, 0.8));
+        }
+
+        .hero-text {
+            flex: 2;
+            text-align: left;
+        }
+
+        .hero-text h1 {
+            margin: 0;
+            font-size: 3.5em;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .hero-text .subtitle {
+            color: #94a3b8;
+            font-style: italic;
+            font-size: 1.3em;
+            margin-top: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .hero-section { flex-direction: column; text-align: center; gap: 20px; }
+            .hero-image, .hero-text { text-align: center; justify-content: center; }
+        }
+
+        /* Tipografía de contenido */
+        h2 { 
+            color: var(--primary); 
+            border-bottom: 1px solid rgba(212, 175, 55, 0.3); 
+            padding-bottom: 8px; 
+            margin-top: 50px; 
+            font-size: 1.6em; 
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        p { 
+            text-align: justify; 
+            margin-bottom: 25px; 
+            font-size: 1.1em; 
+            color: #cbd5e1; 
+        }
+
+        /* Ficha Técnica */
+        .ficha-tecnica {
+            background: linear-gradient(145deg, rgba(17, 24, 39, 0.8), rgba(10, 14, 23, 0.9));
+            padding: 30px;
+            border-radius: 8px;
+            margin-bottom: 40px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-left: 5px solid var(--primary);
+        }
+        .ficha-tecnica ul { list-style: none; padding: 0; margin: 0; }
+        .ficha-tecnica li { margin-bottom: 15px; font-size: 1.05em; color: #cbd5e1; }
+        .ficha-tecnica strong { color: var(--primary); display: inline-block; width: 140px;}
+
+        @media (max-width: 600px) {
+            .ficha-tecnica strong { display: block; margin-bottom: 5px; }
+        }
+
+        /* Versículos Clave (Blockquote) */
+        .versiculos-box {
+            background-color: rgba(212, 175, 55, 0.05);
+            border-left: 4px solid var(--primary);
+            padding: 25px 30px;
+            margin: 40px 0;
+            border-radius: 0 8px 8px 0;
+            font-style: italic;
+            color: var(--primary-light);
+            font-size: 1.2em;
+            line-height: 1.6;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
+        }
+
+        /* Llamado a la acción (Test) */
+        .cta-invitation {
+            background-color: var(--card-bg); 
+            border: 1px solid var(--accent);
+            text-align: center; 
+            padding: 50px 30px; 
+            border-radius: 12px;
+            margin-top: 60px; 
+            box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+            background-image: radial-gradient(circle at top, rgba(212, 175, 55, 0.05), transparent);
+        }
+        .cta-invitation h3 { color: var(--primary); font-size: 2em; margin-top: 0; font-weight: normal;}
+        .cta-invitation p { color: #94a3b8; margin-bottom: 35px; font-size: 1.1em;}
+        
+        .btn-elegant {
+            background-color: transparent; color: var(--primary); 
+            border: 2px solid var(--primary);
+            padding: 15px 45px; font-size: 1.2em; font-family: 'Georgia', serif;
+            border-radius: 30px; cursor: pointer; transition: all 0.3s;
+            text-transform: uppercase; letter-spacing: 1px;
+        }
+        .btn-elegant:hover { background-color: var(--primary); color: var(--secondary); box-shadow: 0 0 20px rgba(212, 175, 55, 0.4); }
+
+        /* MODAL DEL TEST INTERACTIVO */
+        .modal-overlay {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-image: linear-gradient(rgba(10, 14, 23, 0.7), rgba(10, 14, 23, 0.8));
+            backdrop-filter: blur(8px);
+            z-index: 1000; align-items: center; justify-content: center;
+            opacity: 0; transition: opacity 0.3s ease;
+        }
+        .modal-overlay.active { display: flex; opacity: 1; }
+
+        .modal-card {
+            background-color: var(--card-bg);
+            width: 90%; max-width: 650px;
+            border-radius: 12px; padding: 40px; position: relative;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.8); transform: translateY(20px);
+            transition: transform 0.3s ease; max-height: 90vh; overflow-y: auto;
+            border: 1px solid var(--accent);
+        }
+        .modal-overlay.active .modal-card { transform: translateY(0); }
+        
+        .close-btn {
+            position: absolute; top: 15px; right: 20px; font-size: 28px;
+            cursor: pointer; color: #64748b; transition: color 0.2s;
+        }
+        .close-btn:hover { color: var(--primary); }
+
+        .quiz-status { font-family: sans-serif; font-size: 0.85em; font-weight: bold; color: var(--accent); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 20px; text-align: center;}
+        .question-text { font-size: 1.4em; color: var(--text-main); font-weight: normal; margin-bottom: 35px; text-align: center; line-height: 1.4; }
+
+        .options-container { display: flex; flex-direction: column; gap: 12px; }
+        .option-btn {
+            background-color: rgba(255, 255, 255, 0.02); border: 1px solid rgba(212, 175, 55, 0.3); 
+            padding: 18px 25px; border-radius: 8px; text-align: left; font-size: 1.05em; 
+            font-family: inherit; color: var(--text-main); cursor: pointer; transition: all 0.2s;
+            line-height: 1.4;
+        }
+        .option-btn:hover:not(:disabled) { border-color: var(--primary); background-color: rgba(212, 175, 55, 0.1); }
+        .option-btn:disabled { cursor: default; }
+
+        .correct-ans { background-color: rgba(74, 222, 128, 0.1) !important; border-color: var(--success) !important; color: var(--success) !important; font-weight: bold; }
+        .wrong-ans { background-color: rgba(248, 113, 113, 0.1) !important; border-color: var(--error) !important; color: var(--error) !important; opacity: 0.6; }
+
+        .justification-box {
+            display: none; background-color: rgba(0,0,0,0.3); padding: 25px;
+            border-radius: 8px; margin-top: 30px; font-size: 1em; 
+            box-shadow: inset 0 2px 10px rgba(0,0,0,0.2);
+            animation: slideDown 0.3s ease-out; color: #cbd5e1;
+            border-left: 4px solid var(--primary); line-height: 1.6;
+        }
+        .justification-box strong { color: var(--primary); display: block; margin-bottom: 10px; text-transform: uppercase; font-size: 0.85em; letter-spacing: 1px;}
+
+        .next-btn {
+            display: none; width: 100%; background-color: var(--primary); color: var(--secondary);
+            border: none; padding: 18px; font-size: 1.1em; border-radius: 8px;
+            margin-top: 30px; cursor: pointer; font-family: 'Georgia', serif; font-weight: bold;
+            text-transform: uppercase; letter-spacing: 1px;
+        }
+        .next-btn:hover { background-color: var(--primary-light); box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);}
+
+        .results-view { display: none; text-align: center; padding: 20px 0;}
+        .results-view h2 { border: none; margin-top: 0; color: var(--primary); font-size: 2.2em;}
+        .score-circle {
+            width: 120px; height: 120px; border-radius: 50%; border: 4px solid var(--primary);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 2.5em; font-weight: bold; margin: 30px auto; color: var(--primary);
+            background-color: rgba(212, 175, 55, 0.05); box-shadow: 0 0 30px rgba(212, 175, 55, 0.2);
+        }
+        
+        .loading-msg { text-align: center; color: var(--primary); font-style: italic; font-size: 1.2em; margin-top: 50px;}
+
+        @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <div class="nav-back">
+            <a href="#" onclick="event.preventDefault(); loadView('/views/canon_biblico/canon.html');">
+                ⮜ Volver al Canon Bíblico
+            </a>
+        </div>
+
+        <header class="hero-section">
+            <div class="hero-image">
+                <!-- Imagen dinámica del libro -->
+                <img id="img-portada" src="" alt="Portada del Libro" onerror="this.src='https://placehold.co/250x380/050b1a/d4af37?text=Libro+Sagrado'">
+            </div>
+            <div class="hero-text">
+                <h1 id="titulo-libro">Cargando...</h1>
+                <div class="subtitle" id="subtitulo-libro"></div>
+            </div>
+        </header>
+
+        <main id="main-content">
+            <p class="loading-msg">Conectando con el archivo magisterial...</p>
+        </main>
+
+        <div class="cta-invitation" id="cta-test" style="display: none;">
+            <h3>¿Profundizaste en la lectura?</h3>
+            <p>Evalúa tu comprensión teológica y exegética sobre este libro sagrado.</p>
+            <button class="btn-elegant" onclick="abrirModal()">Realizar Test Interactivo</button>
+        </div>
+
+    </div>
+
+    <!-- MODAL DEL TEST -->
+    <div class="modal-overlay" id="quizModal">
+        <div class="modal-card">
+            <span class="close-btn" onclick="cerrarModal()">&times;</span>
+            
+            <div id="quiz-view">
+                <div class="quiz-status">Pregunta <span id="q-num">1</span> de <span id="q-total-ui">3</span></div>
+                <div class="question-text" id="q-text"></div>
+                <div class="options-container" id="options-box"></div>
+                <div class="justification-box" id="just-box">
+                    <strong>Hermenéutica Católica:</strong> <span id="just-text"></span>
+                </div>
+                <button class="next-btn" id="next-btn" onclick="siguientePregunta()">Siguiente Pregunta</button>
+            </div>
+
+            <div class="results-view" id="results-view">
+                <h2>Evaluación Finalizada</h2>
+                <div class="score-circle"><span id="final-score">0</span>/<span id="total-q">3</span></div>
+                <p id="result-msg" style="font-size: 1.2em; margin-bottom: 40px; color: #cbd5e1; line-height: 1.6;"></p>
+                <button class="btn-elegant" style="width: 100%;" onclick="cerrarModal()">Volver a la Lectura</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- LÓGICA DE FIREBASE Y RENDERIZADO -->
+    <script type="module">
+        import { initializeApp, getApps, getApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+        import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyDSCSWYM5dgkIfVK-uBe1oWkeU7se4fvFg",
+            authDomain: "accar-web.firebaseapp.com",
+            projectId: "accar-web",
+            storageBucket: "accar-web.firebasestorage.app",
+            messagingSenderId: "249370548582",
+            appId: "1:249370548582:web:6b35298df41771113910a7"
+        };
+
+        const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApp();
+        const db = getFirestore(app);
+
+        let quizData = [];
+        let index = 0;
+        let score = 0;
+
+        // Función para inyectar etiquetas <p> respetando los <br>
+        const formatearTexto = (texto) => {
+            if (!texto) return "";
+            // Si el texto ya trae HTML básico, lo respetamos y envolvemos
+            return `<p>${texto}</p>`;
+        };
+
+        async function cargarDatosLibro() {
+            // Recuperamos el ID que el usuario clickeó en canon.html
+            const libroId = localStorage.getItem('libroSeleccionado') || 'genesis'; 
+            
+            try {
+                // Apuntamos a la colección correcta del Canon
+                const docRef = doc(db, "canon_biblico", "libros", "registros", libroId);
+                const docSnap = await getDoc(docRef);
+
+                if (docSnap.exists()) {
+                    const l = docSnap.data();
+                    
+                    // Rellenar Cabecera
+                    document.getElementById('titulo-libro').innerText = l.titulo || "Libro Sagrado";
+                    document.getElementById('subtitulo-libro').innerText = l.subtitulo_corto || "";
+                    document.getElementById('img-portada').src = `/assets/img/libro_${libroId}.png`;
+
+                    // Extraer Ficha Técnica
+                    const f_autoria = (l.ficha_tecnica && l.ficha_tecnica.autoria) ? l.ficha_tecnica.autoria : "Dato no disponible";
+                    const f_fecha = (l.ficha_tecnica && l.ficha_tecnica.fecha) ? l.ficha_tecnica.fecha : "Dato no disponible";
+                    const f_dest = (l.ficha_tecnica && l.ficha_tecnica.destinatarios) ? l.ficha_tecnica.destinatarios : "Dato no disponible";
+                    const f_generos = (l.ficha_tecnica && l.ficha_tecnica.generos) ? l.ficha_tecnica.generos : "Dato no disponible";
+
+                    // Construir el HTML dinámico
+                    let htmlContent = `
+                        <h2>1. Ficha Técnica y Visión General</h2>
+                        <div class="ficha-tecnica">
+                            <ul>
+                                <li><strong>Autoría:</strong> ${f_autoria}</li>
+                                <li><strong>Fecha:</strong> ${f_fecha}</li>
+                                <li><strong>Destinatarios:</strong> ${f_dest}</li>
+                                <li><strong>Géneros:</strong> ${f_generos}</li>
+                            </ul>
+                        </div>
+                    `;
+
+                    if (l.contexto_proposito) {
+                        htmlContent += `<h2>2. Contexto y Propósito Divino</h2>${formatearTexto(l.contexto_proposito)}`;
+                    }
+                    if (l.exegesis_hermeneutica) {
+                        htmlContent += `<h2>3. Exégesis y Hermenéutica Católica</h2>${formatearTexto(l.exegesis_hermeneutica)}`;
+                    }
+                    if (l.sentido_tipologico) {
+                        htmlContent += `<h2>4. Sentido Tipológico y Cristológico</h2>${formatearTexto(l.sentido_tipologico)}`;
+                    }
+                    if (l.uso_liturgico) {
+                        htmlContent += `<h2>5. Uso Litúrgico y Fruto Espiritual</h2>${formatearTexto(l.uso_liturgico)}`;
+                    }
+                    if (l.versiculos_clave) {
+                        htmlContent += `
+                            <h2>6. Versículos Clave</h2>
+                            <div class="versiculos-box">
+                                ${l.versiculos_clave}
+                            </div>
+                        `;
+                    }
+
+                    document.getElementById('main-content').innerHTML = htmlContent;
+
+                    // Preparar el Test si existe
+                    if (l.test && l.test.length > 0) {
+                        quizData = l.test;
+                        document.getElementById('cta-test').style.display = 'block';
+                    }
+
+                } else {
+                    document.getElementById('main-content').innerHTML = `<p style="color: var(--error); text-align: center;">No se encontró el documento en la base de datos.</p>`;
+                }
+            } catch (error) {
+                console.error("Error al cargar el libro:", error);
+                document.getElementById('main-content').innerHTML = `<p style="color: var(--error); text-align: center;">Error al conectar con la base de datos.</p>`;
+            }
+        }
+
+        // LÓGICA DEL MODAL DEL TEST
+        window.abrirModal = function() {
+            if(quizData.length === 0) return;
+            index = 0; score = 0;
+            document.getElementById('quiz-view').style.display = 'block';
+            document.getElementById('results-view').style.display = 'none';
+            document.getElementById('quizModal').classList.add('active');
+            window.cargarPregunta();
+        };
+
+        window.cerrarModal = function() { document.getElementById('quizModal').classList.remove('active'); };
+
+        window.cargarPregunta = function() {
+            const q = quizData[index];
+            document.getElementById('q-num').innerText = index + 1;
+            document.getElementById('q-total-ui').innerText = quizData.length;
+            document.getElementById('q-text').innerText = q.pregunta;
+            
+            const optionsBox = document.getElementById('options-box');
+            optionsBox.innerHTML = '';
+            document.getElementById('just-box').style.display = 'none';
+            document.getElementById('next-btn').style.display = 'none';
+
+            q.opciones.forEach((opt, i) => {
+                const btn = document.createElement('button');
+                btn.className = 'option-btn'; 
+                btn.innerText = opt;
+                btn.onclick = () => window.seleccionar(i, btn);
+                optionsBox.appendChild(btn);
+            });
+        };
+
+        window.seleccionar = function(seleccionado, btnEl) {
+            const q = quizData[index];
+            const correcta = q.correcta;
+            const botones = document.querySelectorAll('.option-btn');
+            botones.forEach(b => b.disabled = true);
+
+            if (seleccionado === correcta) {
+                btnEl.classList.add('correct-ans'); 
+                score++;
+            } else {
+                btnEl.classList.add('wrong-ans');
+                botones[correcta].classList.add('correct-ans');
+            }
+
+            document.getElementById('just-text').innerText = q.justificacion;
+            document.getElementById('just-box').style.display = 'block';
+            
+            const btnNext = document.getElementById('next-btn');
+            btnNext.innerText = (index === quizData.length - 1) ? "Ver Calificación Final" : "Siguiente Pregunta";
+            btnNext.style.display = 'block';
+        };
+
+        window.siguientePregunta = function() {
+            index++;
+            if (index < quizData.length) {
+                window.cargarPregunta();
+            } else {
+                window.mostrarResultados();
+            }
+        };
+
+        window.mostrarResultados = function() {
+            document.getElementById('quiz-view').style.display = 'none';
+            document.getElementById('results-view').style.display = 'block';
+            document.getElementById('final-score').innerText = score;
+            document.getElementById('total-q').innerText = quizData.length;
+            
+            const msg = document.getElementById('result-msg');
+            if (score === quizData.length) { 
+                msg.innerHTML = "<strong>¡Exégesis Perfecta!</strong><br>Has demostrado una profunda asimilación de la doctrina y la hermenéutica de este libro."; 
+                msg.style.color = "var(--success)"; 
+            }
+            else if (score > 0) { 
+                msg.innerHTML = "<strong>¡Buen esfuerzo!</strong><br>Te invitamos a repasar la lectura para consolidar los detalles teológicos."; 
+                msg.style.color = "var(--primary-light)"; 
+            }
+            else { 
+                msg.innerHTML = "Te sugerimos releer el documento magisterial con detenimiento para captar la verdad salvífica del texto."; 
+                msg.style.color = "var(--error)"; 
+            }
+        };
+
+        // Iniciar la carga al abrir la página
+        cargarDatosLibro();
+    </script>
+</body>
+</html>
