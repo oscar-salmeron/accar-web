@@ -510,6 +510,56 @@
         const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApp();
         const db = getFirestore(app);
 
+        // ORDEN CANÓNICO ESTRICTO
+        const ordenCanonico = [
+            "genesis",
+            "exodo",
+            "levitico",
+            "numeros",
+            "deuteronomio",
+            "josue",
+            "jueces",
+            "rut",
+            "1samuel",
+            "2samuel",
+            "1reyes",
+            "2reyes",
+            "1cronicas",
+            "2cronicas",
+            "esdras",
+            "nehemias",
+            "tobias",
+            "judit",
+            "ester",
+            "1macabeos",
+            "2macabeos",
+            "job",
+            "salmos",
+            "proverbios",
+            "eclesiastes",
+            "cantares",
+            "sabiduria",
+            "eclesiastico",
+            "isaias",
+            "jeremias",
+            "lamentaciones",
+            "baruc",
+            "ezequiel",
+            "daniel",
+            "oseas",
+            "joel",
+            "amos",
+            "abdias",
+            "jonas",
+            "miqueas",
+            "nahum",
+            "habacuc",
+            "sofonias",
+            "ageo",
+            "zacarias",
+            "malaquias"
+        ];
+
         window.toggleMaster = function(idBloque) {
             const bloque = document.getElementById(idBloque);
             const icono = bloque.querySelector('.master-icon');
@@ -551,19 +601,34 @@
             }
 
             try {
-                // APUNTAMOS A LA NUEVA COLECCIÓN: canon_biblico -> libros -> registros
                 const querySnapshot = await getDocs(collection(db, "canon_biblico", "libros", "registros"));
 
                 if (querySnapshot.empty) {
                     grids["Pentateuco"].innerHTML = `<p class="empty-text">Aún no se han subido libros al canon.</p>`;
                 } else {
+                    // 1. Convertimos los documentos a un arreglo de objetos para poder ordenarlos
+                    const librosArray = [];
                     querySnapshot.forEach((doc) => {
-                        const data = doc.data();
-                        const idLibro = doc.id;
-                        // Imagen genérica o específica para el libro
-                        const imagen = `/assets/img/libro_${idLibro}.png`; 
+                        librosArray.push({ id: doc.id, data: doc.data() });
+                    });
+
+                    // 2. ORDENAMOS EL ARREGLO BASADO EN EL ORDEN CANÓNICO
+                    librosArray.sort((a, b) => {
+                        const indexA = ordenCanonico.indexOf(a.id);
+                        const indexB = ordenCanonico.indexOf(b.id);
                         
-                        // Categoría donde se ubicará (Ej: "Pentateuco", "Historicos", etc.)
+                        // Si un libro no está en la lista (index -1), lo mandamos al final
+                        const finalIndexA = indexA === -1 ? 999 : indexA;
+                        const finalIndexB = indexB === -1 ? 999 : indexB;
+
+                        return finalIndexA - finalIndexB;
+                    });
+
+                    // 3. Renderizamos los libros ya ordenados
+                    librosArray.forEach((libroObj) => {
+                        const data = libroObj.data;
+                        const idLibro = libroObj.id;
+                        const imagen = `/assets/img/libro_${idLibro}.png`; 
                         const categoriaDestino = data.categoria || "Pentateuco"; 
 
                         const tarjetaHTML = `
