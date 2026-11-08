@@ -599,10 +599,43 @@
                         <h2>IV. Libros Proféticos</h2>
                         <span class="master-icon">+</span>
                     </div>
-                    <p class="master-synopsis">Los mensajeros de Dios (Mayores y Menores) que anunciaron la venida del Mesías y la Nueva Alianza.</p>
+                    <p class="master-synopsis">Los mensajeros de Dios que llamaron al pueblo a la conversión, denunciaron la injusticia y anunciaron la venida del Mesías y el establecimiento del Reino definitivo.</p>
                 </div>
                 <div class="master-content">
-                    <div id="grid-profeticos" class="accar-grid-container"></div>
+                    
+                    <button class="btn-intro">LEER INTRODUCCIÓN TEOLÓGICA</button>
+
+                    <div class="sub-accordion-container">
+                        
+                        <!-- PROFETAS MAYORES -->
+                        <div class="sub-accordion-item" id="sub-prof-1">
+                            <div class="sub-header" onclick="toggleSub('sub-prof-1')">
+                                <div class="sub-title-wrapper">
+                                    <span class="sub-title-main">PROFETAS MAYORES</span>
+                                    <span class="sub-title-desc">LOS GRANDES ORÁCULOS DE SALVACIÓN Y JUICIO</span>
+                                </div>
+                                <span class="sub-icon">+</span>
+                            </div>
+                            <div class="sub-content">
+                                <div id="grid-profeticos-mayores" class="accar-grid-container"></div>
+                            </div>
+                        </div>
+
+                        <!-- PROFETAS MENORES -->
+                        <div class="sub-accordion-item" id="sub-prof-2">
+                            <div class="sub-header" onclick="toggleSub('sub-prof-2')">
+                                <div class="sub-title-wrapper">
+                                    <span class="sub-title-main">PROFETAS MENORES</span>
+                                    <span class="sub-title-desc">EL LIBRO DE LOS DOCE</span>
+                                </div>
+                                <span class="sub-icon">+</span>
+                            </div>
+                            <div class="sub-content">
+                                <div id="grid-profeticos-menores" class="accar-grid-container"></div>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
             </div>
 
@@ -756,13 +789,21 @@
             document.getElementById('intro-canon').style.display = 'none';
             document.getElementById('ot-container').style.display = testament === 'ot' ? 'flex' : 'none';
             document.getElementById('nt-container').style.display = testament === 'nt' ? 'flex' : 'none';
+            localStorage.setItem('testamentoActivo', testament);
         };
 
         window.volverInicio = function() {
             document.getElementById('intro-canon').style.display = 'block';
             document.getElementById('ot-container').style.display = 'none';
             document.getElementById('nt-container').style.display = 'none';
+            localStorage.removeItem('testamentoActivo');
         };
+
+        // Recuperar estado al recargar la vista
+        const testamentoGuardado = localStorage.getItem('testamentoActivo');
+        if (testamentoGuardado) {
+            showTestament(testamentoGuardado);
+        }
 
         async function cargarLibros() {
             const grids = {
@@ -773,7 +814,8 @@
                 "Historicos_4": document.getElementById('grid-historicos-4'),
                 "Sapienciales": document.getElementById('grid-sapienciales'),
                 "Sapienciales_1": document.getElementById('grid-sapienciales'), 
-                "Profeticos": document.getElementById('grid-profeticos'),
+                "Profeticos_Mayores": document.getElementById('grid-profeticos-mayores'),
+                "Profeticos_Menores": document.getElementById('grid-profeticos-menores'),
                 "Evangelios": document.getElementById('grid-evangelios'),
                 "Paulinas": document.getElementById('grid-paulinas'),
                 "Catolicas": document.getElementById('grid-catolicas')
