@@ -120,11 +120,25 @@
             border-left: 5px solid var(--primary);
         }
         .ficha-tecnica ul { list-style: none; padding: 0; margin: 0; }
-        .ficha-tecnica li { margin-bottom: 15px; font-size: 1.05em; color: #cbd5e1; }
-        .ficha-tecnica strong { color: var(--primary); display: inline-block; width: 140px;}
+        .ficha-tecnica li { 
+            margin-bottom: 15px; 
+            font-size: 1.05em; 
+            color: #cbd5e1; 
+            display: flex;
+            align-items: baseline;
+            gap: 10px;
+        }
+        .ficha-tecnica li > strong:first-child { 
+            color: var(--primary); 
+            flex-shrink: 0; 
+            width: 140px; 
+            display: inline-block;
+        }
+        .ficha-tecnica strong { color: var(--primary); }
 
         @media (max-width: 600px) {
-            .ficha-tecnica strong { display: block; margin-bottom: 5px; }
+            .ficha-tecnica li { display: block; }
+            .ficha-tecnica li > strong:first-child { display: block; width: auto; margin-bottom: 5px; }
         }
 
         /* Versículos Clave (Blockquote) */
