@@ -124,21 +124,24 @@
             margin-bottom: 15px; 
             font-size: 1.05em; 
             color: #cbd5e1; 
-            display: flex;
-            align-items: baseline;
-            gap: 10px;
+            /* SIN FLEXBOX para que el texto NO se rompa en columnas */
         }
-        .ficha-tecnica li > strong:first-child { 
+        .ficha-tecnica strong { 
             color: var(--primary); 
-            flex-shrink: 0; 
-            width: 140px; 
-            display: inline-block;
         }
-        .ficha-tecnica strong { color: var(--primary); }
+        /* SOLO la etiqueta principal ("Autoría:") tendrá el ancho fijo */
+        .ficha-tecnica li > strong:first-child { 
+            display: inline-block; 
+            width: 140px; 
+            vertical-align: top;
+        }
 
         @media (max-width: 600px) {
-            .ficha-tecnica li { display: block; }
-            .ficha-tecnica li > strong:first-child { display: block; width: auto; margin-bottom: 5px; }
+            .ficha-tecnica li > strong:first-child { 
+                display: block; 
+                width: auto; 
+                margin-bottom: 5px; 
+            }
         }
 
         /* Versículos Clave (Blockquote) */
