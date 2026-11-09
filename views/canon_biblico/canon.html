@@ -789,6 +789,7 @@
             document.getElementById('intro-canon').style.display = 'none';
             document.getElementById('ot-container').style.display = testament === 'ot' ? 'flex' : 'none';
             document.getElementById('nt-container').style.display = testament === 'nt' ? 'flex' : 'none';
+            // Guardamos la ubicación en la memoria del navegador
             localStorage.setItem('testamentoActivo', testament);
         };
 
@@ -796,8 +797,17 @@
             document.getElementById('intro-canon').style.display = 'block';
             document.getElementById('ot-container').style.display = 'none';
             document.getElementById('nt-container').style.display = 'none';
+            // Limpiamos la memoria al volver al inicio
             localStorage.removeItem('testamentoActivo');
         };
+
+        // Recuperar el estado automáticamente al cargar la página
+        document.addEventListener('DOMContentLoaded', () => {
+            const testamentoGuardado = localStorage.getItem('testamentoActivo');
+            if (testamentoGuardado) {
+                showTestament(testamentoGuardado);
+            }
+        });
 
         // Recuperar estado al recargar la vista
         const testamentoGuardado = localStorage.getItem('testamentoActivo');
