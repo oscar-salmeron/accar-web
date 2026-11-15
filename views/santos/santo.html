@@ -97,7 +97,8 @@
     line-height: 1.85; 
     font-size: 20px; 
     margin-bottom: 20px; 
-    text-align: justify; 
+    text-align: justify;
+    padding: 0 55px; /* Esto empuja el texto al centro creando una columna corta */
   }
   strong { color: #8b0000; }
   
@@ -105,22 +106,36 @@
     font-style: italic;
     background: rgba(212,175,55,0.1);
     border-left: 4px solid #d4af37;
-    padding: 20px;
-    margin: 25px 0;
+    padding: 25px 40px;
+    margin: 35px 0; /* Mantiene el recuadro ancho como la oración */
     color: #333;
-    font-size: 20px;
+    font-size: 21px;
+    line-height: 1.8;
+  }
+
+  .titulo-frase {
+    font-family: 'Cinzel', serif;
+    color: #b48c2a;
+    font-size: 17px;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+    font-weight: 600;
+    font-style: normal;
+    letter-spacing: 1px;
   }
 
   ul.lecciones-list {
     list-style-type: none;
-    padding-left: 0;
+    padding-left: 55px;
+    padding-right: 55px;
   }
   ul.lecciones-list li {
     position: relative;
     padding-left: 25px;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
     font-size: 20px;
     line-height: 1.7;
+    text-align: justify;
   }
   ul.lecciones-list li::before {
     content: "•";
@@ -129,6 +144,10 @@
     position: absolute;
     left: 0;
     top: -4px;
+  }
+
+  @media(max-width:900px){
+    p, ul.lecciones-list { padding: 0 10px; }
   }
 
   /* ===== RECUADRO ESPIRITUAL ===== */
