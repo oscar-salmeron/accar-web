@@ -97,8 +97,9 @@
     line-height: 1.85; 
     font-size: 20px; 
     margin-bottom: 20px; 
-    text-align: justify;
-    padding: 0 55px; /* Esto empuja el texto al centro creando una columna corta */
+    text-align: left;
+    padding-left: 0;     /* Alineación perfecta a la izquierda con el título */
+    padding-right: 80px; /* Acorta la línea a la derecha para lectura cómoda */
   }
   strong { color: #8b0000; }
   
@@ -107,10 +108,10 @@
     background: rgba(212,175,55,0.1);
     border-left: 4px solid #d4af37;
     padding: 25px 40px;
-    margin: 35px 0; /* Mantiene el recuadro ancho como la oración */
+    margin: 35px 0;
     color: #333;
     font-size: 21px;
-    line-height: 1.8;
+    line-height: 1.6; /* Interlineado más cerrado para las frases */
   }
 
   .titulo-frase {
@@ -126,16 +127,16 @@
 
   ul.lecciones-list {
     list-style-type: none;
-    padding-left: 55px;
-    padding-right: 55px;
+    padding-left: 0;       /* Alineado con el título */
+    padding-right: 80px;   /* Mismo corte derecho que los párrafos */
   }
   ul.lecciones-list li {
     position: relative;
-    padding-left: 25px;
+    padding-left: 25px;    /* Espacio exacto para la viñeta */
     margin-bottom: 20px;
     font-size: 20px;
     line-height: 1.7;
-    text-align: justify;
+    text-align: left;
   }
   ul.lecciones-list li::before {
     content: "•";
@@ -146,8 +147,11 @@
     top: -4px;
   }
 
-  @media(max-width:900px){
-    p, ul.lecciones-list { padding: 0 10px; }
+  .texto-cita-biblica {
+    text-align: center;
+    font-size: 20px;
+    line-height: 1.6;
+    margin-bottom: 20px;
   }
 
   /* ===== RECUADRO ESPIRITUAL ===== */
@@ -161,7 +165,16 @@
     box-shadow: 0 20px 50px rgba(0,0,0,0.3);
   }
   .recuadro-espiritual h3 { font-family: 'Cinzel', serif; color: #d4af37; margin-top: 0; text-transform: uppercase; font-size: 22px; }
-  .recuadro-espiritual p { color: #f6f1e6; margin-bottom: 0; font-size: 19px; }
+  .recuadro-espiritual p { 
+    color: #f6f1e6; 
+    margin-bottom: 0; 
+    font-size: 19px; 
+    padding: 0; /* Resetea el padding para alinear perfectamente con "ORACIÓN" */
+  }
+
+  @media(max-width:900px){
+    p, ul.lecciones-list { padding-right: 10px; }
+  }
 
   /* SPINNER */
   .spinner { text-align: center; color: #d4af37; font-size: 20px; padding: 50px; font-family: 'Cinzel', serif; }
