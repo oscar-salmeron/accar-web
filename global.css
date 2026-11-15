@@ -48,3 +48,88 @@ body {
     color: #D4AF37; /* Golden text to match the watermark */
     text-align: center;
 }
+
+/* =========================================
+   ESTILOS DEL SANTORAL (Inicio y Ficha)
+   ========================================= */
+
+/* Fondos dinámicos */
+.theme-rojo { background: radial-gradient(circle at top, #7f1d1d 0%, #450a0a 100%) !important; }
+
+#app-santoral { padding: 60px 20px 100px; max-width: 1000px; margin: 0 auto; }
+
+/* === HEADER FICHA SANTO === */
+.santo-hero { display: flex; align-items: center; justify-content: center; gap: 60px; margin-bottom: 50px; max-width: 1000px; margin-left: auto; margin-right: auto; }
+.santo-img { flex: 0 0 280px; }
+.santo-img img { width: 100%; border-radius: 16px; box-shadow: 0 40px 90px rgba(0,0,0,0.8), 0 0 40px rgba(212,175,55,0.25); background-color: #2a2a2a; min-height: 350px; }
+.santo-head { color: #f6f1e6; max-width: 620px; text-align: left; }
+.santo-fecha { color: #e3c46a; font-size: 20px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; }
+.santo-nombre { font-family: 'Cinzel', serif; font-size: 44px; margin: 10px 0; color: #ffffff; text-shadow: 0 4px 14px rgba(0,0,0,0.6); }
+.santo-subtitulo { font-size: 18px; color: #d4af37; font-weight: 600; }
+
+.breadcrumb { max-width: 1000px; margin: 0 auto 40px auto; font-size: 16px; color: #e3c46a; text-align: left; }
+.breadcrumb a { color: #e3c46a; text-decoration: none; transition: 0.3s; }
+.breadcrumb a:hover { color: #ffffff; }
+.bc-dia { color: #ffffff; }
+
+/* === CONTENIDO PERGAMINO === */
+.santo-content { max-width: 1000px; margin: 0 auto; padding: 70px 80px; background: #fdf6e3; border-radius: 18px; box-shadow: 0 60px 140px rgba(0,0,0,0.75); position: relative; color: #1a1c29; }
+.santo-content::before { content: ""; position: absolute; inset: 0; border-radius: 18px; padding: 2px; background: linear-gradient(120deg, #d4af37, #fff2c6, #b48c2a); -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; pointer-events: none; }
+
+.santo-content h2 { font-family: 'Cinzel', serif; color: #8b0000; margin-top: 50px; padding-bottom: 8px; border-bottom: 1px solid rgba(139,0,0,0.2); font-size: 24px; text-transform: uppercase; text-align: left; }
+.santo-content h2:first-child { margin-top: 0; }
+.santo-content p { line-height: 1.85; font-size: 20px; margin-bottom: 20px; text-align: left; padding-left: 0; padding-right: 80px; }
+.santo-content strong { color: #8b0000; }
+.santo-content blockquote { font-style: italic; background: rgba(212,175,55,0.1); border-left: 4px solid #d4af37; padding: 25px 40px; margin: 35px 0; color: #333; font-size: 21px; line-height: 1.6; }
+.titulo-frase { font-family: 'Cinzel', serif; color: #b48c2a; font-size: 17px; text-transform: uppercase; margin-bottom: 15px; font-weight: 600; font-style: normal; letter-spacing: 1px; }
+
+ul.lecciones-list { list-style-type: none; padding-left: 0; padding-right: 80px; }
+ul.lecciones-list li { position: relative; padding-left: 25px; margin-bottom: 20px; font-size: 20px; line-height: 1.7; text-align: left; }
+ul.lecciones-list li::before { content: "•"; color: #d4af37; font-size: 24px; position: absolute; left: 0; top: -4px; }
+
+.texto-cita-biblica { text-align: center; font-size: 20px; line-height: 1.6; margin-bottom: 20px; }
+
+.recuadro-espiritual { margin-top: 50px; padding: 40px; border-radius: 12px; background: linear-gradient(145deg, #1e3a8a, #0f172a); color: #ffffff; border: 1px solid rgba(212,175,55,0.4); box-shadow: 0 20px 50px rgba(0,0,0,0.3); }
+.recuadro-espiritual h3 { font-family: 'Cinzel', serif; color: #d4af37; margin-top: 0; text-transform: uppercase; font-size: 22px; text-align: left; }
+.recuadro-espiritual p { color: #f6f1e6; margin-bottom: 0; font-size: 19px; padding: 0; }
+
+.spinner { text-align: center; color: #d4af37; font-size: 20px; padding: 50px; font-family: 'Cinzel', serif; }
+
+/* === INICIO SANTOS (CALENDARIO) === */
+.hero-santos { text-align: center; margin-bottom: 50px; }
+.hero-santos h1 { font-family: 'Cinzel', serif; font-size: 48px; color: #d4af37; margin: 0 0 15px 0; text-shadow: 0 4px 15px rgba(0,0,0,0.5); letter-spacing: 2px; }
+.hero-santos p { font-size: 20px; color: #e3c46a; max-width: 600px; margin: 0 auto; line-height: 1.6; }
+.view-container { display: none; animation: fadeIn 0.4s ease-in-out forwards; }
+.view-active { display: block; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+.grid-meses { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
+.card-mes { background: linear-gradient(145deg, rgba(30, 58, 138, 0.4), rgba(15, 23, 42, 0.6)); border: 1px solid rgba(212, 175, 55, 0.3); border-radius: 12px; padding: 30px 20px; text-align: center; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+.card-mes:hover { transform: translateY(-5px); background: linear-gradient(145deg, rgba(30, 58, 138, 0.6), rgba(15, 23, 42, 0.8)); border-color: rgba(212, 175, 55, 0.8); box-shadow: 0 15px 40px rgba(0,0,0,0.5), 0 0 20px rgba(212, 175, 55, 0.2); }
+.card-mes h2 { font-family: 'Cinzel', serif; color: #f8efd3; margin: 0; font-size: 24px; letter-spacing: 1px; border:none; text-align:center; padding:0; }
+.header-dias { display: flex; align-items: center; justify-content: space-between; margin-bottom: 30px; border-bottom: 1px solid rgba(212, 175, 55, 0.3); padding-bottom: 20px; }
+.header-dias h2 { font-family: 'Cinzel', serif; color: #d4af37; font-size: 32px; margin: 0; border:none; text-align:center; padding:0; }
+.btn-volver { background: transparent; color: #e3c46a; border: 1px solid #e3c46a; padding: 8px 20px; border-radius: 6px; cursor: pointer; font-family: 'Cinzel', serif; font-size: 16px; transition: 0.3s; }
+.btn-volver:hover { background: #e3c46a; color: #021617; }
+.grid-dias { display: grid; grid-template-columns: repeat(auto-fit, minmax(80px, 1fr)); gap: 15px; }
+.card-dia { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 20px 0; text-align: center; cursor: pointer; transition: all 0.3s ease; }
+.card-dia:hover { background: rgba(212, 175, 55, 0.15); border-color: #d4af37; transform: scale(1.05); }
+.card-dia .numero { font-family: 'Cinzel', serif; font-size: 28px; font-weight: bold; color: #ffffff; }
+.card-dia.tiene-santo { background: rgba(212, 175, 55, 0.2); border-color: #d4af37; box-shadow: 0 0 15px rgba(212, 175, 55, 0.2); }
+.card-dia.tiene-santo .numero { color: #d4af37; }
+
+/* === RESPONSIVE SANTORAL === */
+@media (max-width: 900px) {
+    .santo-hero { flex-direction: column; text-align: center; gap: 25px; }
+    .santo-img { width: 220px; margin: 0 auto; }
+    .santo-head { text-align: center; }
+    .santo-content { padding: 40px 25px; }
+    .santo-nombre { font-size: 32px; }
+    .santo-content p, ul.lecciones-list { padding-right: 10px; }
+    .breadcrumb { text-align: center; }
+}
+@media (max-width: 600px) {
+    .hero-santos h1 { font-size: 36px; }
+    .grid-meses { grid-template-columns: repeat(2, 1fr); }
+    .grid-dias { grid-template-columns: repeat(4, 1fr); }
+    .header-dias { flex-direction: column; gap: 15px; text-align: center; }
+}
