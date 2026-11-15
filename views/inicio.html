@@ -537,11 +537,11 @@ body {
         </div>
       </a>
 
-      <!-- TARJETA 3: SANTO DEL DÍA (Conectada a Firebase) -->
-      <a href="#" onclick="event.preventDefault(); window.santoID = 'san-oscar-romero'; loadView('views/santos/santo.html');" class="accar-lit-card accar-lit-card--santo" id="tarjeta-santo-dia">
+      <!-- TARJETA 3: SANTO DEL DÍA (Conectada a API Evangelizo) -->
+      <a href="#" onclick="event.preventDefault(); loadView('views/santos/santo.html');" class="accar-lit-card accar-lit-card--santo" id="tarjeta-santo-dia">
         <div class="accar-santo-img-wrap">
           <div class="accar-santo-glow"></div>
-          <img id="tarjeta-santo-img" src="../assets/img/santo_dia_placeholder.png" alt="Cargando...">
+          <img id="tarjeta-santo-img" src="../assets/img/santo_dia_placeholder.png" alt="Santo del Día">
         </div>
         <div class="accar-santo-data">
           <span class="accar-badge-santo">Santo del Día</span>
@@ -549,52 +549,6 @@ body {
           <p id="tarjeta-santo-texto">Cargando martirologio...</p>
         </div>
       </a>
-
-      <script type="module">
-        import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-        
-        // Asumiendo que `app` global está disponible, pero aseguramos la conexión local por seguridad en el fragmento
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-        const firebaseConfig = {
-            apiKey: "AIzaSyDSCSWYM5dgkIfVK-uBe1oWkeU7se4fvFg",
-            authDomain: "accar-web.firebaseapp.com",
-            projectId: "accar-web",
-            storageBucket: "accar-web.firebasestorage.app",
-            messagingSenderId: "249370548582",
-            appId: "1:249370548582:web:6b35298df41771113910a7"
-        };
-        const tempApp = initializeApp(firebaseConfig, "santoTarjetaInicio");
-        const tempDb = getFirestore(tempApp);
-
-        // ID fijo temporal hasta que se conecte el sistema de fechas
-        const idDelDia = "san-oscar-romero";
-
-        setTimeout(async () => {
-            try {
-                const docRef = doc(tempDb, "santos", idDelDia);
-                const docSnap = await getDoc(docRef);
-
-                if (docSnap.exists()) {
-                    const data = docSnap.data();
-                    
-                    let imgPath = data.imagen || '';
-                    // Si viene con ../.. lo ajustamos para que funcione en el index
-                    if(imgPath.startsWith('../../')) imgPath = imgPath.substring(3); 
-
-                    document.getElementById('tarjeta-santo-img').src = imgPath;
-                    document.getElementById('tarjeta-santo-nombre').textContent = data.nombre_completo;
-                    
-                    // Usamos el inicio de la biografía (hasta el primer punto) como introducción
-                    const primeraOracion = data.biografia.split('.')[0] + '.';
-                    document.getElementById('tarjeta-santo-texto').innerHTML = primeraOracion;
-                }
-            } catch (e) {
-                console.error("Error cargando santo para la tarjeta de inicio", e);
-                document.getElementById('tarjeta-santo-nombre').textContent = "San Óscar Romero";
-                document.getElementById('tarjeta-santo-texto').textContent = "Error de conexión.";
-            }
-        }, 800);
-      </script>
 
       <!-- TARJETA 4: CALENDARIO LITÚRGICO (Efecto Vitral con Colores Litúrgicos) -->
       <a href="../assets/docs/calendario_liturgico_2026.pdf" target="_blank" class="accar-lit-card accar-lit-card--vitral">
