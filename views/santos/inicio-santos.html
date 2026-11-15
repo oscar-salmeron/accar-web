@@ -1,4 +1,4 @@
-<main id="app-santoral">
+<main id="app-santoral" class="seccion-arca">
     <header class="hero-santos">
         <h1>El Santoral</h1>
         <p>Explora el martirologio y acompáñate de la Iglesia triunfante en tu caminar diario hacia Cristo.</p>
@@ -37,6 +37,10 @@
         const contenedorMeses = document.getElementById("contenedor-meses");
         if(contenedorMeses) {
             contenedorMeses.innerHTML = '';
+            
+            // Revisamos si venimos del breadcrumb de un santo
+            const mesSolicitado = window.mesRetornoSantoral;
+            window.mesRetornoSantoral = null; // Limpiamos la variable
             meses.forEach(mes => {
                 const card = document.createElement("div");
                 card.className = "card-mes";
@@ -44,6 +48,12 @@
                 card.onclick = () => window.mostrarDias(mes.nombre, mes.dias);
                 contenedorMeses.appendChild(card);
             });
+            
+            // Si el breadcrumb pidió un mes, lo abrimos automáticamente
+            if (mesSolicitado) {
+                const mesData = meses.find(m => m.nombre === mesSolicitado);
+                if (mesData) window.mostrarDias(mesData.nombre, mesData.dias);
+            }
         }
 
         window.mostrarDias = function(nombreMes, cantidadDias) {
