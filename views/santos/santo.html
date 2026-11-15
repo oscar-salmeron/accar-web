@@ -50,7 +50,7 @@ if (santoID) {
             let santosAdicionalesHTML = data.santos_adicionales ? data.santos_adicionales.map(santo => `<li>${santo}</li>`).join('') : '';
 
             let imgPath = data.imagen || '';
-            if(imgPath.startsWith('../../')) imgPath = imgPath.substring(6);
+            if(imgPath.startsWith('../../')) imgPath = imgPath.replace('../../', '');
 
             container.innerHTML = `
                 <header class="santo-hero">
