@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>El Santo del Día - ACCAR</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=EB+Garamond:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  /* ===== FONDO DINÁMICO (POR DEFECTO VERDE LITÚRGICO) ===== */
+  body {
+    margin: 0;
+    font-family: 'EB Garamond', serif;
+    background: radial-gradient(circle at top, #0f3d3e 0%, #021617 100%);
+    transition: background 0.8s ease;
+    color: #f8efd3;
+    overflow-x: hidden;
+  }
+
+  /* CLASES DE COLORES LITÚRGICOS PARA EL FONDO */
+  body.theme-rojo { background: radial-gradient(circle at top, #7f1d1d 0%, #450a0a 100%); }
+  body.theme-blanco { background: radial-gradient(circle at top, #1e3a8a 0%, #0f172a 100%); } /* Azul rey/noche para vírgenes y solemnidades */
+  body.theme-morado { background: radial-gradient(circle at top, #581c87 0%, #2e1065 100%); }
+
+  #app { padding: 60px 20px 100px; }
+
+  /* ===== HEADER IMPACTO ===== */
+  .santo-hero {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 60px;
+    margin-bottom: 50px;
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .santo-img { flex: 0 0 280px; }
+  .santo-img img {
+    width: 100%;
+    border-radius: 16px;
+    box-shadow: 0 40px 90px rgba(0,0,0,0.8), 0 0 40px rgba(212,175,55,0.25);
+  }
+  .santo-head { color: #f6f1e6; max-width: 620px; }
+  .santo-fecha { color: #e3c46a; font-size: 20px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; }
+  .santo-nombre { font-family: 'Cinzel', serif; font-size: 44px; margin: 10px 0; color: #ffffff; text-shadow: 0 4px 14px rgba(0,0,0,0.6); }
+  .santo-subtitulo { font-size: 18px; color: #d4af37; font-weight: 600; }
+
+  /* ===== BREADCRUMB ===== */
+  .breadcrumb {
+    max-width: 1000px;
+    margin: 0 auto 40px auto;
+    font-size: 16px;
+    color: #e3c46a;
+  }
+  .breadcrumb a { color: #e3c46a; text-decoration: none; transition: 0.3s; }
+  .breadcrumb a:hover { color: #ffffff; }
+  .bc-dia { color: #ffffff; }
+
+  /* ===== PERGAMINO ÚNICO (LIMPIO Y ELEGANTE) ===== */
+  .santo-content {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 70px 80px;
+    background: #fdf6e3; /* Beige solemne, sin doble tarjeta */
+    border-radius: 18px;
+    box-shadow: 0 60px 140px rgba(0,0,0,0.75);
+    position: relative;
+    color: #1a1c29;
+  }
+  .santo-content::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 18px;
+    padding: 2px;
+    background: linear-gradient(120deg, #d4af37, #fff2c6, #b48c2a);
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    pointer-events: none;
+  }
+
+  /* ===== TIPOGRAFÍA INTERIOR ===== */
+  h2 {
+    font-family: 'Cinzel', serif;
+    color: #8b0000;
+    margin-top: 40px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(139,0,0,0.2);
+    font-size: 24px;
+  }
+  p { line-height: 1.85; font-size: 18px; margin-bottom: 20px; }
+  strong { color: #8b0000; }
+  blockquote {
+    font-style: italic;
+    background: rgba(212,175,55,0.1);
+    border-left: 4px solid #d4af37;
+    padding: 15px 20px;
+    margin: 20px 0;
+    color: #333;
+  }
+
+  /* ===== RECUADRO ESPIRITUAL ===== */
+  .recuadro-espiritual {
+    margin-top: 40px;
+    padding: 30px;
+    border-radius: 12px;
+    background: linear-gradient(145deg, #1e3a8a, #0f172a);
+    color: #ffffff;
+    border: 1px solid rgba(212,175,55,0.4);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+  }
+  .recuadro-espiritual h3 { font-family: 'Cinzel', serif; color: #d4af37; margin-top: 0; }
+  .recuadro-espiritual p { color: #f6f1e6; margin-bottom: 0; }
+  .recuadro-espiritual strong { color: #d4af37; }
+
+  /* SPINNER */
+  .spinner { text-align: center; color: #d4af37; font-size: 20px; padding: 50px; font-family: 'Cinzel', serif; }
+
+  @media(max-width:900px){
+    #app { padding: 40px 15px; }
+    .santo-hero { flex-direction: column; text-align: center; gap: 25px; }
+    .santo-img { width: 200px; margin: 0 auto; }
+    .santo-content { padding: 40px 25px; }
+    .santo-nombre { font-size: 32px; }
+  }
+</style>
+</head>
+<body>
+
+<div id="app">
+  <div id="loading" class="spinner">Abriendo el Martirologio...</div>
+  <div id="santo-container" style="display: none;">
+    <!-- Aquí se inyectará el contenido dinámico -->
+  </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", async () => {
+    // 1. Simulación de recepción de ID por URL (Ej: ?id=san-oscar-romero)
+    // Por ahora forzamos uno para que veas el diseño funcionando
+    const santoID = "san-oscar-romero"; 
+    
+    // 2. Elementos del DOM
+    const container = document.getElementById('santo-container');
+    const loading = document.getElementById('loading');
+
+    try {
+        // 3. Conexión con tu JSON en la carpeta DATA
+        const response = await fetch('../../assets/data/santos/diccionario_santos.json');
+        if (!response.ok) throw new Error("No se encontró el diccionario.");
+        
+        const diccionario = await response.json();
+        const santoData = diccionario[santoID];
+
+        if (santoData) {
+            // Lógica de color de fondo (simulada por ahora como Mártir = Rojo)
+            // Cuando conectemos Romcal, esto vendrá de la API.
+            document.body.classList.add('theme-rojo'); 
+
+            // 4. Inyección del HTML limpio
+            container.innerHTML = `
+                <div class="santo-hero">
+                  <div class="santo-img">
+                    <img src="${santoData.imagen}" alt="${santoData.nombre_completo}">
+                  </div>
+                  <div class="santo-head">
+                    <div class="santo-fecha">✝ 24 de marzo</div>
+                    <div class="santo-nombre">${santoData.nombre_completo}</div>
+                    <div class="santo-subtitulo">${santoData.patronazgo}</div>
+                  </div>
+                </div>
+
+                <div class="breadcrumb">
+                  <a href="../inicio.html">Inicio</a> / 
+                  <a href="inicio-santos.html">Santoral</a> / 
+                  <span class="bc-dia">24 de Marzo</span>
+                </div>
+
+                <div class="santo-content">
+                  <h2>Biografía Espiritual</h2>
+                  <p>${santoData.biografia}</p>
+                  
+                  <!-- Estos campos los iremos llenando en el JSON poco a poco -->
+                  <h2>Lecciones Espirituales</h2>
+                  <p><strong>Valentía profética:</strong> Nos enseña a no callar ante la injusticia.</p>
+                  
+                  <div class="recuadro-espiritual">
+                    <h3>Oración a ${santoData.nombre_completo.split(',')[0]}</h3>
+                    <p>Oh Dios, Padre misericordioso, concédenos por intercesión de este glorioso santo la gracia de vivir el Evangelio con radicalidad. Por Jesucristo, nuestro Señor. <strong>Amén.</strong></p>
+                  </div>
+                </div>
+            `;
+            loading.style.display = 'none';
+            container.style.display = 'block';
+        } else {
+            loading.innerHTML = "Ficha del santo no encontrada en el diccionario.";
+        }
+    } catch (error) {
+        console.error(error);
+        loading.innerHTML = "Error al cargar la información del santo.";
+    }
+});
+</script>
+</body>
+</html>
