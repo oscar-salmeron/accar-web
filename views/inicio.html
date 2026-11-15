@@ -474,6 +474,23 @@ body {
               
               // 4. Solo Santo en las tarjetas
               document.getElementById('lit-semana').textContent = textoSanto;
+              
+              // Conexión del Santoral a la API Evangelizo
+              if (textoSanto && textoSanto !== "FERIA") {
+                  // Convierte "San Ignacio de Antioquía" en "san-ignacio-de-antioquia"
+                  const idFormateado = textoSanto.toLowerCase()
+                      .normalize("NFD").replace(/[\u0300-\u036f]/g, "") // Quita acentos
+                      .replace(/[^a-z0-9]+/g, '-') // Reemplaza espacios/caracteres raros por guiones
+                      .replace(/(^-|-$)+/g, ''); // Quita guiones sueltos en los extremos
+                  
+                  window.santoID = idFormateado;
+                  document.getElementById('tarjeta-santo-nombre').textContent = textoSanto;
+                  document.getElementById('tarjeta-santo-texto').textContent = "Haz clic para leer la biografía espiritual y lecciones de este santo de la Iglesia.";
+              } else {
+                  window.santoID = null;
+                  document.getElementById('tarjeta-santo-nombre').textContent = "Feria";
+                  document.getElementById('tarjeta-santo-texto').textContent = "Hoy no hay celebración de un santo destacado en el calendario litúrgico general.";
+              }
               const brevSemanaEl = document.getElementById('brev-semana');
               if(brevSemanaEl) brevSemanaEl.textContent = textoSanto;
               
