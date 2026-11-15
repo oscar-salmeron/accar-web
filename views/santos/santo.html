@@ -160,7 +160,10 @@
   </article>
 </main>
 
-<script>
+<script type="module">
+import { db } from '../../app.js';
+import { doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
 document.addEventListener("DOMContentLoaded", async () => {
     // 1. Simulación de ID
     const santoID = "san-oscar-romero"; 
@@ -168,31 +171,29 @@ document.addEventListener("DOMContentLoaded", async () => {
     const loading = document.getElementById('loading');
 
     try {
-        const response = await fetch('../../assets/data/santos/diccionario_santos.json');
-        if (!response.ok) throw new Error("No se encontró el diccionario.");
-        
-        const diccionario = await response.json();
-        const data = diccionario[santoID];
+        const docRef = doc(db, "santos", santoID);
+        const docSnap = await getDoc(docRef);
 
-        if (data) {
+        if (docSnap.exists()) {
+            const data = docSnap.data();
             document.body.classList.add('theme-rojo'); 
 
-            // Extraer el Mes para el Breadcrumb (Ej: "24 de Marzo" -> "Marzo")
-            const mesNombre = data.fecha_texto.split(" de ")[1];
+            // Extraer el Mes para el Breadcrumb
+            const mesNombre = data.fecha_texto ? data.fecha_texto.split(" de ")[1] : "Mes";
 
-            // Generar listas dinámicas
-            let leccionesHTML = data.lecciones.map(lec => `<li>${lec}</li>`).join('');
-            let santosAdicionalesHTML = data.santos_adicionales.map(santo => `<li>${santo}</li>`).join('');
+            // Generar listas dinámicas de forma segura
+            let leccionesHTML = data.lecciones ? data.lecciones.map(lec => `<li>${lec}</li>`).join('') : '';
+            let santosAdicionalesHTML = data.santos_adicionales ? data.santos_adicionales.map(santo => `<li>${santo}</li>`).join('') : '';
 
             container.innerHTML = `
                 <header class="santo-hero">
                   <div class="santo-img">
-                    <img src="${data.imagen}" alt="${data.nombre_completo}" onerror="this.onerror=null; this.style.display='none';">
+                    <img src="${data.imagen || ''}" alt="${data.nombre_completo || ''}" onerror="this.onerror=null; this.style.display='none';">
                   </div>
                   <div class="santo-head">
-                    <div class="santo-fecha">✝ ${data.fecha_texto}</div>
-                    <h1 class="santo-nombre">${data.nombre_completo}</h1>
-                    <div class="santo-subtitulo">${data.patronazgo}</div>
+                    <div class="santo-fecha">✝ ${data.fecha_texto || ''}</div>
+                    <h1 class="santo-nombre">${data.nombre_completo || ''}</h1>
+                    <div class="santo-subtitulo">${data.patronazgo || ''}</div>
                   </div>
                 </header>
 
@@ -200,45 +201,51 @@ document.addEventListener("DOMContentLoaded", async () => {
                   <a href="../inicio.html">Inicio</a> / 
                   <a href="inicio-santos.html">Santoral</a> / 
                   <a href="#">${mesNombre}</a> / 
-                  <span class="bc-dia">${data.fecha_texto}</span>
+                  <span class="bc-dia">${data.fecha_texto || ''}</span>
                 </nav>
 
                 <div class="santo-content">
                   <h2>Biografía Espiritual</h2>
-                  <p>${data.biografia}</p>
+                  <p>${data.biografia || ''}</p>
 
-                  <blockquote>${data.frase}</blockquote>
+                  ${data.frase ? `<blockquote>${data.frase}</blockquote>` : ''}
                   
+                  ${data.lecciones ? `
                   <h2>Lecciones Espirituales</h2>
-                  <ul class="lecciones-list">
-                    ${leccionesHTML}
-                  </ul>
+                  <ul class="lecciones-list">${leccionesHTML}</ul>
+                  ` : ''}
 
+                  ${data.cita_biblica ? `
                   <h2>Cita Bíblica</h2>
                   <p><em>${data.cita_biblica}</em></p>
+                  ` : ''}
 
+                  ${data.meditacion ? `
                   <h2>Meditación del Día</h2>
                   <p>${data.meditacion}</p>
+                  ` : ''}
 
+                  ${data.oracion ? `
                   <div class="recuadro-espiritual">
                     <h3>Oración</h3>
                     <p>${data.oracion}</p>
                   </div>
+                  ` : ''}
 
+                  ${data.santos_adicionales ? `
                   <h2>También se celebran hoy</h2>
-                  <ul class="lecciones-list" style="margin-bottom: 0;">
-                    ${santosAdicionalesHTML}
-                  </ul>
+                  <ul class="lecciones-list" style="margin-bottom: 0;">${santosAdicionalesHTML}</ul>
+                  ` : ''}
                 </div>
             `;
             loading.style.display = 'none';
             container.style.display = 'block';
         } else {
-            loading.innerHTML = "Ficha del santo no encontrada en el diccionario.";
+            loading.innerHTML = "Ficha del santo no encontrada en Firebase.";
         }
     } catch (error) {
-        console.error(error);
-        loading.innerHTML = "Error al cargar la información del santo.";
+        console.error("Error cargando de Firebase:", error);
+        loading.innerHTML = "Error al conectar con la base de datos.";
     }
 });
 </script>
