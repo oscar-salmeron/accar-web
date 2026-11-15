@@ -475,22 +475,6 @@ body {
               // 4. Solo Santo en las tarjetas
               document.getElementById('lit-semana').textContent = textoSanto;
               
-              // Conexión del Santoral a la API Evangelizo
-              if (textoSanto && textoSanto !== "FERIA") {
-                  // Convierte "San Ignacio de Antioquía" en "san-ignacio-de-antioquia"
-                  const idFormateado = textoSanto.toLowerCase()
-                      .normalize("NFD").replace(/[\u0300-\u036f]/g, "") // Quita acentos
-                      .replace(/[^a-z0-9]+/g, '-') // Reemplaza espacios/caracteres raros por guiones
-                      .replace(/(^-|-$)+/g, ''); // Quita guiones sueltos en los extremos
-                  
-                  window.santoID = idFormateado;
-                  document.getElementById('tarjeta-santo-nombre').textContent = textoSanto;
-                  document.getElementById('tarjeta-santo-texto').textContent = "Haz clic para leer la biografía espiritual y lecciones de este santo de la Iglesia.";
-              } else {
-                  window.santoID = null;
-                  document.getElementById('tarjeta-santo-nombre').textContent = "Feria";
-                  document.getElementById('tarjeta-santo-texto').textContent = "Hoy no hay celebración de un santo destacado en el calendario litúrgico general.";
-              }
               const brevSemanaEl = document.getElementById('brev-semana');
               if(brevSemanaEl) brevSemanaEl.textContent = textoSanto;
               
@@ -554,18 +538,87 @@ body {
         </div>
       </a>
 
-      <!-- TARJETA 3: SANTO DEL DÍA (Conectada a API Evangelizo) -->
+      <!-- TARJETA 3: SANTO DEL DÍA (Conectada a santoral-index.json y Firebase) -->
       <a href="#" onclick="event.preventDefault(); loadView('views/santos/santo.html');" class="accar-lit-card accar-lit-card--santo" id="tarjeta-santo-dia">
         <div class="accar-santo-img-wrap">
           <div class="accar-santo-glow"></div>
-          <img id="tarjeta-santo-img" src="../assets/img/santo_dia_placeholder.png" alt="Santo del Día">
+          <img id="tarjeta-santo-img" src="../assets/img/santo_dia_placeholder.png" alt="Cargando...">
         </div>
         <div class="accar-santo-data">
-          <span class="accar-badge-santo">Santo del Día</span>
+          <span class="accar-badge-santo" id="tarjeta-santo-rango" style="background: #8b0000; border-color: #d4af37;">Santo del Día</span>
           <h3 id="tarjeta-santo-nombre">Buscando Santo...</h3>
           <p id="tarjeta-santo-texto">Cargando martirologio...</p>
         </div>
       </a>
+
+      <script type="module">
+        import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+        
+        const firebaseConfig = {
+            apiKey: "AIzaSyDSCSWYM5dgkIfVK-uBe1oWkeU7se4fvFg",
+            authDomain: "accar-web.firebaseapp.com",
+            projectId: "accar-web",
+            storageBucket: "accar-web.firebasestorage.app",
+            messagingSenderId: "249370548582",
+            appId: "1:249370548582:web:6b35298df41771113910a7"
+        };
+        const tempApp = initializeApp(firebaseConfig, "santoTarjetaInicio");
+        const tempDb = getFirestore(tempApp);
+
+        setTimeout(async () => {
+            try {
+                // 1. Obtener la fecha de hoy en formato MM-DD
+                const today = new Date();
+                const mm = String(today.getMonth() + 1).padStart(2, '0');
+                const dd = String(today.getDate()).padStart(2, '0');
+                const fechaHoy = `${mm}-${dd}`;
+
+                // 2. Leer el índice estático local
+                const indexResponse = await fetch('assets/data/santoral-index.json');
+                if (!indexResponse.ok) throw new Error("No se pudo cargar el índice del santoral");
+                const santoralIndex = await indexResponse.json();
+
+                const santoData = santoralIndex[fechaHoy];
+                if (!santoData) throw new Error("No hay santo definido para hoy en el índice");
+
+                const idDelDia = santoData.id;
+                window.santoID = idDelDia; // Guardar para cuando se haga clic
+                
+                // Actualizar Rango (Ej: "Memoria", "Solemnidad")
+                document.getElementById('tarjeta-santo-rango').textContent = santoData.rango;
+
+                // 3. Buscar los detalles del santo en Firebase
+                const docRef = doc(tempDb, "santos", idDelDia);
+                const docSnap = await getDoc(docRef);
+
+                if (docSnap.exists()) {
+                    const data = docSnap.data();
+                    let imgPath = data.imagen || '';
+                    if(imgPath.startsWith('../../')) imgPath = imgPath.substring(3); 
+                    
+                    document.getElementById('tarjeta-santo-img').src = imgPath;
+                    document.getElementById('tarjeta-santo-nombre').textContent = data.nombre_completo;
+                    
+                    if (data.biografia) {
+                        const primeraOracion = data.biografia.split('.')[0] + '.';
+                        document.getElementById('tarjeta-santo-texto').innerHTML = primeraOracion;
+                    } else {
+                        document.getElementById('tarjeta-santo-texto').innerHTML = data.patronazgo || "Conoce la vida de este santo.";
+                    }
+                } else {
+                    // Si no está en Firebase todavía
+                    const idLimpio = idDelDia.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+                    document.getElementById('tarjeta-santo-nombre').textContent = idLimpio;
+                    document.getElementById('tarjeta-santo-texto').textContent = "Ficha biográfica en preparación. Pronto estará disponible en el martirologio.";
+                }
+            } catch (e) {
+                console.error("Error cargando santo para la tarjeta de inicio", e);
+                document.getElementById('tarjeta-santo-nombre').textContent = "Santo del Día";
+                document.getElementById('tarjeta-santo-texto').textContent = "Ficha en preparación.";
+            }
+        }, 800);
+      </script>
 
       <!-- TARJETA 4: CALENDARIO LITÚRGICO (Efecto Vitral con Colores Litúrgicos) -->
       <a href="../assets/docs/calendario_liturgico_2026.pdf" target="_blank" class="accar-lit-card accar-lit-card--vitral">

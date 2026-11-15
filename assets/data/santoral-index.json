@@ -1,0 +1,1827 @@
+{
+  "01-01": {
+    "id": "santa-maria-madre-de-dios",
+    "color": "blanco",
+    "rango": "Solemnidad"
+  },
+  "01-02": {
+    "id": "san-basilio-magno",
+    "color": "blanco",
+    "rango": "Memoria"
+  },
+  "01-03": {
+    "id": "el-santisimo-nombre-de-jesus",
+    "color": "blanco",
+    "rango": "Memoria"
+  },
+  "01-04": {
+    "id": "santa-angela-de-foligno",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "01-05": {
+    "id": "san-juan-nepomuceno-neumann",
+    "color": "blanco",
+    "rango": "Memoria"
+  },
+  "01-06": {
+    "id": "epifania-del-senor",
+    "color": "blanco",
+    "rango": "Solemnidad"
+  },
+  "01-07": {
+    "id": "san-raimundo-de-penafort",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "01-08": {
+    "id": "san-severino-abad",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "01-09": {
+    "id": "san-eulogio-de-cordoba",
+    "color": "rojo",
+    "rango": "Memoria libre"
+  },
+  "01-10": {
+    "id": "san-gregorio-de-nisa",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "01-11": {
+    "id": "santo-tomas-de-cori",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "01-12": {
+    "id": "santa-margarita-bourgeoys",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "01-13": {
+    "id": "san-hilario-de-poitiers",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "01-14": {
+    "id": "san-felix-de-nola",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "01-15": {
+    "id": "san-mauro-abad",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "01-16": {
+    "id": "san-marcelo-i-papa",
+    "color": "rojo",
+    "rango": "Memoria libre"
+  },
+  "01-17": {
+    "id": "san-antonio-abad",
+    "color": "blanco",
+    "rango": "Memoria"
+  },
+  "01-18": {
+    "id": "santa-margarita-de-hungria",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "01-19": {
+    "id": "san-macario-el-grande",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "01-20": {
+    "id": "san-fabian-papa",
+    "color": "rojo",
+    "rango": "Memoria libre"
+  },
+  "01-21": {
+    "id": "santa-ines",
+    "color": "rojo",
+    "rango": "Memoria"
+  },
+  "01-22": {
+    "id": "san-vicente-martir",
+    "color": "rojo",
+    "rango": "Memoria libre"
+  },
+  "01-23": {
+    "id": "san-ildefonso",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "01-24": {
+    "id": "san-francisco-de-sales",
+    "color": "blanco",
+    "rango": "Memoria"
+  },
+  "01-25": {
+    "id": "conversion-de-san-pablo",
+    "color": "blanco",
+    "rango": "Fiesta"
+  },
+  "01-26": {
+    "id": "santos-timoteo-y-tito",
+    "color": "blanco",
+    "rango": "Memoria"
+  },
+  "01-27": {
+    "id": "santa-angela-de-merici",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "01-28": {
+    "id": "santo-tomas-de-aquino",
+    "color": "blanco",
+    "rango": "Memoria"
+  },
+  "01-29": {
+    "id": "san-pedro-nolasco",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "01-30": {
+    "id": "san-juan-bosco",
+    "color": "blanco",
+    "rango": "Memoria"
+  },
+  "01-31": {
+    "id": "san-juan-bosco",
+    "color": "blanco",
+    "rango": "Memoria"
+  },
+  "02-01": {
+    "id": "santa-brigida-de-irlanda",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "02-02": {
+    "id": "presentacion-del-senor",
+    "color": "blanco",
+    "rango": "Fiesta"
+  },
+  "02-03": {
+    "id": "san-blas",
+    "color": "rojo",
+    "rango": "Memoria libre"
+  },
+  "02-04": {
+    "id": "san-juan-de-brito",
+    "color": "rojo",
+    "rango": "Memoria libre"
+  },
+  "02-05": {
+    "id": "santa-agueda",
+    "color": "rojo",
+    "rango": "Memoria"
+  },
+  "02-06": {
+    "id": "san-pablo-miki-y-companeros",
+    "color": "rojo",
+    "rango": "Memoria"
+  },
+  "02-07": {
+    "id": "beato-pio-ix-papa",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "02-08": {
+    "id": "san-jeronimo-emiliani",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "02-09": {
+    "id": "santa-apolonia",
+    "color": "rojo",
+    "rango": "Memoria libre"
+  },
+  "02-10": {
+    "id": "santa-escolastica",
+    "color": "blanco",
+    "rango": "Memoria"
+  },
+  "02-11": {
+    "id": "nuestra-senora-de-lourdes",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "02-12": {
+    "id": "santa-eulalia-de-barcelona",
+    "color": "rojo",
+    "rango": "Memoria libre"
+  },
+  "02-13": {
+    "id": "san-benigno-de-todi",
+    "color": "rojo",
+    "rango": "Memoria libre"
+  },
+  "02-14": {
+    "id": "santos-cirilo-y-metodio",
+    "color": "blanco",
+    "rango": "Memoria"
+  },
+  "02-15": {
+    "id": "san-claudio-la-colombiere",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "02-16": {
+    "id": "santa-juliana-de-nicomedia",
+    "color": "rojo",
+    "rango": "Memoria libre"
+  },
+  "02-17": {
+    "id": "los-siete-santos-fundadores",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "02-18": {
+    "id": "san-juan-pedro-neel",
+    "color": "rojo",
+    "rango": "Memoria libre"
+  },
+  "02-19": {
+    "id": "beato-alvaro-de-cordoba",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "02-20": {
+    "id": "santos-francisco-y-jacinta-marto",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "02-21": {
+    "id": "san-pedro-damian",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "02-22": {
+    "id": "catedra-de-san-pedro",
+    "color": "blanco",
+    "rango": "Fiesta"
+  },
+  "02-23": {
+    "id": "san-policarpo",
+    "color": "rojo",
+    "rango": "Memoria"
+  },
+  "02-24": {
+    "id": "san-sergio-de-capadocia",
+    "color": "rojo",
+    "rango": "Memoria libre"
+  },
+  "02-25": {
+    "id": "santa-walburga",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "02-26": {
+    "id": "santa-paula-montal",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "02-27": {
+    "id": "san-gabriel-de-la-dolorosa",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "02-28": {
+    "id": "san-leandro-de-sevilla",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "03-01": {
+    "id": "san-david-de-gales",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "03-02": {
+    "id": "santa-ines-de-praga",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "03-03": {
+    "id": "santa-catalina-drexel",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "03-04": {
+    "id": "san-casimiro",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "03-05": {
+    "id": "san-juan-jose-de-la-cruz",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "03-06": {
+    "id": "santa-rosa-de-viterbo",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "03-07": {
+    "id": "santas-felicidad-y-perpetua",
+    "color": "rojo",
+    "rango": "Memoria"
+  },
+  "03-08": {
+    "id": "san-juan-de-dios",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "03-09": {
+    "id": "santa-francesca-romana",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "03-10": {
+    "id": "santa-maria-eugenia-de-jesus",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "03-11": {
+    "id": "san-eulogio-de-cordoba",
+    "color": "rojo",
+    "rango": "Memoria libre"
+  },
+  "03-12": {
+    "id": "san-inocencio-i-papa",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "03-13": {
+    "id": "san-leandro-de-sevilla",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "03-14": {
+    "id": "santa-matilde",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "03-15": {
+    "id": "santa-luisa-de-marillac",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "03-16": {
+    "id": "san-jose-gabriel-brochero",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "03-17": {
+    "id": "san-patricio",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "03-18": {
+    "id": "san-cirilo-de-jerusalen",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "03-19": {
+    "id": "san-jose",
+    "color": "blanco",
+    "rango": "Solemnidad"
+  },
+  "03-20": {
+    "id": "san-martin-de-dumio",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "03-21": {
+    "id": "san-nicolas-de-flue",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "03-22": {
+    "id": "san-bienvenido-scotivoli",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "03-23": {
+    "id": "santo-toribio-de-mogrovejo",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "03-24": {
+    "id": "beato-oscar-romero",
+    "color": "rojo",
+    "rango": "Memoria libre"
+  },
+  "03-25": {
+    "id": "anunciacion-del-senor",
+    "color": "blanco",
+    "rango": "Solemnidad"
+  },
+  "03-26": {
+    "id": "san-braulio-de-zaragoza",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "03-27": {
+    "id": "san-ruperto-de-worms",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "03-28": {
+    "id": "san-sixto-iii-papa",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "03-29": {
+    "id": "san-eustasio-de-luxeuil",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "03-30": {
+    "id": "san-juan-climaco",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "03-31": {
+    "id": "san-benjamin-martir",
+    "color": "rojo",
+    "rango": "Memoria libre"
+  },
+  "04-01": {
+    "id": "san-hugo-de-grenoble",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "04-02": {
+    "id": "san-francisco-de-paula",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "04-03": {
+    "id": "san-ricardo-de-wyche",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "04-04": {
+    "id": "san-isidoro-de-sevilla",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "04-05": {
+    "id": "san-vicente-ferrer",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "04-06": {
+    "id": "santa-catalina-de-palancia",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "04-07": {
+    "id": "san-juan-bautista-de-la-salle",
+    "color": "blanco",
+    "rango": "Memoria"
+  },
+  "04-08": {
+    "id": "santa-julia-billiart",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "04-09": {
+    "id": "santa-casilda",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "04-10": {
+    "id": "san-ezequiel",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "04-11": {
+    "id": "san-estanislao",
+    "color": "rojo",
+    "rango": "Memoria"
+  },
+  "04-12": {
+    "id": "san-julio-i-papa",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "04-13": {
+    "id": "san-martin-i-papa",
+    "color": "rojo",
+    "rango": "Memoria libre"
+  },
+  "04-14": {
+    "id": "san-telmo",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "04-15": {
+    "id": "san-pedro-gonzalez-telmo",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "04-16": {
+    "id": "santa-bernardita-soubirous",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "04-17": {
+    "id": "santa-catalina-tekakwitha",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "04-18": {
+    "id": "san-perfecto",
+    "color": "rojo",
+    "rango": "Memoria libre"
+  },
+  "04-19": {
+    "id": "san-expedito",
+    "color": "rojo",
+    "rango": "Memoria libre"
+  },
+  "04-20": {
+    "id": "santa-ines-de-montepulciano",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "04-21": {
+    "id": "san-anselmo",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "04-22": {
+    "id": "san-sotero-papa",
+    "color": "rojo",
+    "rango": "Memoria libre"
+  },
+  "04-23": {
+    "id": "san-jorge",
+    "color": "rojo",
+    "rango": "Memoria libre"
+  },
+  "04-24": {
+    "id": "san-fidel-de-sigmaringen",
+    "color": "rojo",
+    "rango": "Memoria libre"
+  },
+  "04-25": {
+    "id": "san-marcos-evangelista",
+    "color": "rojo",
+    "rango": "Fiesta"
+  },
+  "04-26": {
+    "id": "san-isidoro-de-sevilla",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "04-27": {
+    "id": "nuestra-senora-de-montserrat",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "04-28": {
+    "id": "san-luis-maria-grignion-de-montfort",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "04-29": {
+    "id": "santa-catalina-de-siena",
+    "color": "blanco",
+    "rango": "Memoria"
+  },
+  "04-30": {
+    "id": "san-pio-v-papa",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "05-01": {
+    "id": "san-jose-obrero",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "05-02": {
+    "id": "san-atanasio",
+    "color": "blanco",
+    "rango": "Memoria"
+  },
+  "05-03": {
+    "id": "santos-felipe-y-santiago",
+    "color": "rojo",
+    "rango": "Fiesta"
+  },
+  "05-04": {
+    "id": "san-jose-maria-rubio",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "05-05": {
+    "id": "san-angel-de-sicilia",
+    "color": "rojo",
+    "rango": "Memoria libre"
+  },
+  "05-06": {
+    "id": "santo-domingo-savio",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "05-07": {
+    "id": "beata-rosa-venerini",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "05-08": {
+    "id": "nuestra-senora-de-lujan",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "05-09": {
+    "id": "san-gregorio-ostiense",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "05-10": {
+    "id": "san-juan-de-avila",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "05-11": {
+    "id": "san-ignacio-de-laconi",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "05-12": {
+    "id": "santos-nereo-y-aquileo",
+    "color": "rojo",
+    "rango": "Memoria libre"
+  },
+  "05-13": {
+    "id": "nuestra-senora-de-fatima",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "05-14": {
+    "id": "san-matias-apostol",
+    "color": "rojo",
+    "rango": "Fiesta"
+  },
+  "05-15": {
+    "id": "san-isidro-labrador",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "05-16": {
+    "id": "san-simon-stock",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "05-17": {
+    "id": "san-pascual-bailon",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "05-18": {
+    "id": "san-juan-i-papa",
+    "color": "rojo",
+    "rango": "Memoria libre"
+  },
+  "05-19": {
+    "id": "san-pedro-celestino",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "05-20": {
+    "id": "san-bernardino-de-siena",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "05-21": {
+    "id": "san-cristobal-magallanes",
+    "color": "rojo",
+    "rango": "Memoria libre"
+  },
+  "05-22": {
+    "id": "santa-rita-de-casia",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "05-23": {
+    "id": "san-juan-bautista-de-rossi",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "05-24": {
+    "id": "maria-auxiliadora",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "05-25": {
+    "id": "san-beda-el-venerable",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "05-26": {
+    "id": "san-felipe-neri",
+    "color": "blanco",
+    "rango": "Memoria"
+  },
+  "05-27": {
+    "id": "san-agustin-de-canterbury",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "05-28": {
+    "id": "san-german-de-paris",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "05-29": {
+    "id": "san-pablo-vi-papa",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "05-30": {
+    "id": "santa-juana-de-arco",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "05-31": {
+    "id": "visitacion-de-la-virgen-maria",
+    "color": "blanco",
+    "rango": "Fiesta"
+  },
+  "06-01": {
+    "id": "san-justino",
+    "color": "rojo",
+    "rango": "Memoria"
+  },
+  "06-02": {
+    "id": "santos-marcelino-y-pedro",
+    "color": "rojo",
+    "rango": "Memoria libre"
+  },
+  "06-03": {
+    "id": "san-carlos-lwanga-y-companeros",
+    "color": "rojo",
+    "rango": "Memoria"
+  },
+  "06-04": {
+    "id": "san-francisco-caracciolo",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "06-05": {
+    "id": "san-bonifacio",
+    "color": "rojo",
+    "rango": "Memoria"
+  },
+  "06-06": {
+    "id": "san-norberto",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "06-07": {
+    "id": "san-antonio-maria-gianelli",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "06-08": {
+    "id": "san-medardo",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "06-09": {
+    "id": "san-efren",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "06-10": {
+    "id": "beato-juan-dominici",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "06-11": {
+    "id": "san-bernabe-apostol",
+    "color": "rojo",
+    "rango": "Memoria"
+  },
+  "06-12": {
+    "id": "san-juan-de-sahagun",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "06-13": {
+    "id": "san-antonio-de-padua",
+    "color": "blanco",
+    "rango": "Memoria"
+  },
+  "06-14": {
+    "id": "san-eliseo",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "06-15": {
+    "id": "santa-maria-micaela-del-santisimo-sacramento",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "06-16": {
+    "id": "san-juan-francisco-regis",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "06-17": {
+    "id": "san-alberto-chmielowski",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "06-18": {
+    "id": "san-gregorio-barbarigo",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "06-19": {
+    "id": "san-romualdo",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "06-20": {
+    "id": "mrtires-de-inglaterra-y-gales",
+    "color": "rojo",
+    "rango": "Memoria libre"
+  },
+  "06-21": {
+    "id": "san-luis-gonzaga",
+    "color": "blanco",
+    "rango": "Memoria"
+  },
+  "06-22": {
+    "id": "santos-juan-fisher-y-tomas-moro",
+    "color": "rojo",
+    "rango": "Memoria libre"
+  },
+  "06-23": {
+    "id": "san-jose-cafasso",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "06-24": {
+    "id": "natividad-de-san-juan-bautista",
+    "color": "blanco",
+    "rango": "Solemnidad"
+  },
+  "06-25": {
+    "id": "san-guillermo-de-vercelli",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "06-26": {
+    "id": "san-josemaria-escriva",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "06-27": {
+    "id": "san-cirilo-de-alejandria",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "06-28": {
+    "id": "san-ireneo",
+    "color": "rojo",
+    "rango": "Memoria"
+  },
+  "06-29": {
+    "id": "santos-pedro-y-pablo",
+    "color": "rojo",
+    "rango": "Solemnidad"
+  },
+  "06-30": {
+    "id": "santos-primeros-martires-de-la-iglesia-romana",
+    "color": "rojo",
+    "rango": "Memoria libre"
+  },
+  "07-01": {
+    "id": "san-oliverio-plunkett",
+    "color": "rojo",
+    "rango": "Memoria libre"
+  },
+  "07-02": {
+    "id": "san-bernardino-realino",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "07-03": {
+    "id": "santo-tomas-apostol",
+    "color": "rojo",
+    "rango": "Fiesta"
+  },
+  "07-04": {
+    "id": "santa-isabel-de-portugal",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "07-05": {
+    "id": "san-antonio-maria-zaccaria",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "07-06": {
+    "id": "santa-maria-goretti",
+    "color": "rojo",
+    "rango": "Memoria libre"
+  },
+  "07-07": {
+    "id": "beata-maria-romero-meneses",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "07-08": {
+    "id": "san-procopio",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "07-09": {
+    "id": "santos-agustin-zhao-rong-y-companeros",
+    "color": "rojo",
+    "rango": "Memoria libre"
+  },
+  "07-10": {
+    "id": "santa-amalberga",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "07-11": {
+    "id": "san-benito",
+    "color": "blanco",
+    "rango": "Memoria"
+  },
+  "07-12": {
+    "id": "san-juan-gualberto",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "07-13": {
+    "id": "santa-teresa-de-los-andes",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "07-14": {
+    "id": "san-camilo-de-lelis",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "07-15": {
+    "id": "san-buenaventura",
+    "color": "blanco",
+    "rango": "Memoria"
+  },
+  "07-16": {
+    "id": "nuestra-senora-del-carmen",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "07-17": {
+    "id": "santa-marcelina",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "07-18": {
+    "id": "san-federico",
+    "color": "rojo",
+    "rango": "Memoria libre"
+  },
+  "07-19": {
+    "id": "san-simaco-papa",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "07-20": {
+    "id": "san-apolinar",
+    "color": "rojo",
+    "rango": "Memoria libre"
+  },
+  "07-21": {
+    "id": "san-lorenzo-de-brindisi",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "07-22": {
+    "id": "santa-maria-magdalena",
+    "color": "blanco",
+    "rango": "Fiesta"
+  },
+  "07-23": {
+    "id": "santa-brigida",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "07-24": {
+    "id": "san-charbel-makhluf",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "07-25": {
+    "id": "santiago-apostol",
+    "color": "rojo",
+    "rango": "Fiesta"
+  },
+  "07-26": {
+    "id": "santos-joaquin-y-ana",
+    "color": "blanco",
+    "rango": "Memoria"
+  },
+  "07-27": {
+    "id": "san-pantaleon",
+    "color": "rojo",
+    "rango": "Memoria libre"
+  },
+  "07-28": {
+    "id": "san-pedro-poveda",
+    "color": "rojo",
+    "rango": "Memoria libre"
+  },
+  "07-29": {
+    "id": "santos-marta-maria-y-lazaro",
+    "color": "blanco",
+    "rango": "Memoria"
+  },
+  "07-30": {
+    "id": "san-pedro-crisologo",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "07-31": {
+    "id": "san-ignacio-de-loyola",
+    "color": "blanco",
+    "rango": "Memoria"
+  },
+  "08-01": {
+    "id": "san-alfonso-maria-de-ligorio",
+    "color": "blanco",
+    "rango": "Memoria"
+  },
+  "08-02": {
+    "id": "san-eusebio-de-vercelli",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "08-03": {
+    "id": "san-pedro-julian-eymard",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "08-04": {
+    "id": "san-juan-maria-vianney",
+    "color": "blanco",
+    "rango": "Memoria"
+  },
+  "08-05": {
+    "id": "dedicacion-de-la-basilica-de-santa-maria-la-mayor",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "08-06": {
+    "id": "transfiguracion-del-senor",
+    "color": "blanco",
+    "rango": "Fiesta"
+  },
+  "08-07": {
+    "id": "san-cayetano",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "08-08": {
+    "id": "santo-domingo-de-guzman",
+    "color": "blanco",
+    "rango": "Memoria"
+  },
+  "08-09": {
+    "id": "santa-teresa-benedicta-de-la-cruz",
+    "color": "rojo",
+    "rango": "Memoria libre"
+  },
+  "08-10": {
+    "id": "san-lorenzo",
+    "color": "rojo",
+    "rango": "Fiesta"
+  },
+  "08-11": {
+    "id": "santa-clara",
+    "color": "blanco",
+    "rango": "Memoria"
+  },
+  "08-12": {
+    "id": "santa-juana-francisca-de-chantal",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "08-13": {
+    "id": "santos-ponciano-e-hipolito",
+    "color": "rojo",
+    "rango": "Memoria libre"
+  },
+  "08-14": {
+    "id": "san-maximiliano-maria-kolbe",
+    "color": "rojo",
+    "rango": "Memoria"
+  },
+  "08-15": {
+    "id": "asuncion-de-la-virgen-maria",
+    "color": "blanco",
+    "rango": "Solemnidad"
+  },
+  "08-16": {
+    "id": "san-esteban-de-hungria",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "08-17": {
+    "id": "santa-beatriz-de-silva",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "08-18": {
+    "id": "san-alberto-hurtado",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "08-19": {
+    "id": "san-juan-eudes",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "08-20": {
+    "id": "san-bernardo",
+    "color": "blanco",
+    "rango": "Memoria"
+  },
+  "08-21": {
+    "id": "san-pio-x-papa",
+    "color": "blanco",
+    "rango": "Memoria"
+  },
+  "08-22": {
+    "id": "santa-maria-reina",
+    "color": "blanco",
+    "rango": "Memoria"
+  },
+  "08-23": {
+    "id": "santa-rosa-de-lima",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "08-24": {
+    "id": "san-bartolome-apostol",
+    "color": "rojo",
+    "rango": "Fiesta"
+  },
+  "08-25": {
+    "id": "san-luis-de-francia",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "08-26": {
+    "id": "santa-teresa-de-jesus-jornet",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "08-27": {
+    "id": "santa-monica",
+    "color": "blanco",
+    "rango": "Memoria"
+  },
+  "08-28": {
+    "id": "san-agustin",
+    "color": "blanco",
+    "rango": "Memoria"
+  },
+  "08-29": {
+    "id": "martirio-de-san-juan-bautista",
+    "color": "rojo",
+    "rango": "Memoria"
+  },
+  "08-30": {
+    "id": "santa-rosa-de-lima",
+    "color": "blanco",
+    "rango": "Fiesta"
+  },
+  "08-31": {
+    "id": "san-ramon-nonato",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "09-01": {
+    "id": "san-arturo",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "09-02": {
+    "id": "beato-bartolome-gutierrez",
+    "color": "rojo",
+    "rango": "Memoria libre"
+  },
+  "09-03": {
+    "id": "san-gregorio-magno-papa",
+    "color": "blanco",
+    "rango": "Memoria"
+  },
+  "09-04": {
+    "id": "santa-rosalia",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "09-05": {
+    "id": "santa-teresa-de-calcuta",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "09-06": {
+    "id": "san-zacarias-profeta",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "09-07": {
+    "id": "san-clodoaldo",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "09-08": {
+    "id": "natividad-de-la-virgen-maria",
+    "color": "blanco",
+    "rango": "Fiesta"
+  },
+  "09-09": {
+    "id": "san-pedro-claver",
+    "color": "blanco",
+    "rango": "Memoria"
+  },
+  "09-10": {
+    "id": "san-nicolas-de-tolentino",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "09-11": {
+    "id": "san-juan-gabriel-perboyre",
+    "color": "rojo",
+    "rango": "Memoria libre"
+  },
+  "09-12": {
+    "id": "el-santisimo-nombre-de-maria",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "09-13": {
+    "id": "san-juan-crisostomo",
+    "color": "blanco",
+    "rango": "Memoria"
+  },
+  "09-14": {
+    "id": "exaltacion-de-la-santa-cruz",
+    "color": "rojo",
+    "rango": "Fiesta"
+  },
+  "09-15": {
+    "id": "nuestra-senora-de-los-dolores",
+    "color": "blanco",
+    "rango": "Memoria"
+  },
+  "09-16": {
+    "id": "santos-cornelio-y-cipriano",
+    "color": "rojo",
+    "rango": "Memoria"
+  },
+  "09-17": {
+    "id": "san-roberto-belarmino",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "09-18": {
+    "id": "san-jose-de-cupertino",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "09-19": {
+    "id": "san-jenaro",
+    "color": "rojo",
+    "rango": "Memoria libre"
+  },
+  "09-20": {
+    "id": "santos-andres-kim-taegon-y-companeros",
+    "color": "rojo",
+    "rango": "Memoria"
+  },
+  "09-21": {
+    "id": "san-mateo-apostol-y-evangelista",
+    "color": "rojo",
+    "rango": "Fiesta"
+  },
+  "09-22": {
+    "id": "san-mauricio-y-companeros",
+    "color": "rojo",
+    "rango": "Memoria libre"
+  },
+  "09-23": {
+    "id": "san-pio-de-pietrelcina",
+    "color": "blanco",
+    "rango": "Memoria"
+  },
+  "09-24": {
+    "id": "nuestra-senora-de-la-merced",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "09-25": {
+    "id": "san-cleofas",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "09-26": {
+    "id": "santos-cosme-y-damian",
+    "color": "rojo",
+    "rango": "Memoria libre"
+  },
+  "09-27": {
+    "id": "san-vicente-de-paul",
+    "color": "blanco",
+    "rango": "Memoria"
+  },
+  "09-28": {
+    "id": "san-wenceslao",
+    "color": "rojo",
+    "rango": "Memoria libre"
+  },
+  "09-29": {
+    "id": "santos-arcangeles-miguel-gabriel-y-rafael",
+    "color": "blanco",
+    "rango": "Fiesta"
+  },
+  "09-30": {
+    "id": "san-jeronimo",
+    "color": "blanco",
+    "rango": "Memoria"
+  },
+  "10-01": {
+    "id": "santa-teresa-del-nino-jesus",
+    "color": "blanco",
+    "rango": "Memoria"
+  },
+  "10-02": {
+    "id": "santos-angeles-custodios",
+    "color": "blanco",
+    "rango": "Memoria"
+  },
+  "10-03": {
+    "id": "san-francisco-de-borja",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "10-04": {
+    "id": "san-francisco-de-asis",
+    "color": "blanco",
+    "rango": "Memoria"
+  },
+  "10-05": {
+    "id": "santa-maria-faustina-kowalska",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "10-06": {
+    "id": "san-bruno",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "10-07": {
+    "id": "nuestra-senora-del-rosario",
+    "color": "blanco",
+    "rango": "Memoria"
+  },
+  "10-08": {
+    "id": "santa-pelagia",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "10-09": {
+    "id": "santos-dionisio-y-companeros",
+    "color": "rojo",
+    "rango": "Memoria libre"
+  },
+  "10-10": {
+    "id": "santo-tomas-de-villanueva",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "10-11": {
+    "id": "san-juan-xxiii-papa",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "10-12": {
+    "id": "nuestra-senora-del-pilar",
+    "color": "blanco",
+    "rango": "Fiesta"
+  },
+  "10-13": {
+    "id": "san-eduardo-el-confesor",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "10-14": {
+    "id": "san-calixto-i-papa",
+    "color": "rojo",
+    "rango": "Memoria libre"
+  },
+  "10-15": {
+    "id": "santa-teresa-de-jesus",
+    "color": "blanco",
+    "rango": "Memoria"
+  },
+  "10-16": {
+    "id": "santa-margarita-maria-de-alacoque",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "10-17": {
+    "id": "san-ignacio-de-antioquia",
+    "color": "rojo",
+    "rango": "Memoria"
+  },
+  "10-18": {
+    "id": "san-lucas-evangelista",
+    "color": "rojo",
+    "rango": "Fiesta"
+  },
+  "10-19": {
+    "id": "santos-juan-de-brebeuf-e-isaac-jogues",
+    "color": "rojo",
+    "rango": "Memoria libre"
+  },
+  "10-20": {
+    "id": "santa-maria-bertila-boscardin",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "10-21": {
+    "id": "santa-laura-montoya",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "10-22": {
+    "id": "san-juan-pablo-ii-papa",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "10-23": {
+    "id": "san-juan-de-capistrano",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "10-24": {
+    "id": "san-antonio-maria-claret",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "10-25": {
+    "id": "san-frutos",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "10-26": {
+    "id": "san-evaristo-papa",
+    "color": "rojo",
+    "rango": "Memoria libre"
+  },
+  "10-27": {
+    "id": "san-frumencio",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "10-28": {
+    "id": "santos-simon-y-judas",
+    "color": "rojo",
+    "rango": "Fiesta"
+  },
+  "10-29": {
+    "id": "san-narciso",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "10-30": {
+    "id": "san-marcelo-de-leon",
+    "color": "rojo",
+    "rango": "Memoria libre"
+  },
+  "10-31": {
+    "id": "san-alonso-rodriguez",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "11-01": {
+    "id": "todos-los-santos",
+    "color": "blanco",
+    "rango": "Solemnidad"
+  },
+  "11-02": {
+    "id": "conmemoracion-de-todos-los-fieles-difuntos",
+    "color": "morado",
+    "rango": "Conmemoracion"
+  },
+  "11-03": {
+    "id": "san-martin-de-porres",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "11-04": {
+    "id": "san-carlos-borromeo",
+    "color": "blanco",
+    "rango": "Memoria"
+  },
+  "11-05": {
+    "id": "santa-angela-de-la-cruz",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "11-06": {
+    "id": "martires-de-la-persecucion-religiosa-en-espana",
+    "color": "rojo",
+    "rango": "Memoria libre"
+  },
+  "11-07": {
+    "id": "san-ernesto",
+    "color": "rojo",
+    "rango": "Memoria libre"
+  },
+  "11-08": {
+    "id": "beato-juan-duns-escoto",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "11-09": {
+    "id": "dedicacion-de-la-basilica-de-letran",
+    "color": "blanco",
+    "rango": "Fiesta"
+  },
+  "11-10": {
+    "id": "san-leon-magno-papa",
+    "color": "blanco",
+    "rango": "Memoria"
+  },
+  "11-11": {
+    "id": "san-martin-de-tours",
+    "color": "blanco",
+    "rango": "Memoria"
+  },
+  "11-12": {
+    "id": "san-josafat",
+    "color": "rojo",
+    "rango": "Memoria"
+  },
+  "11-13": {
+    "id": "san-diego-de-alcala",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "11-14": {
+    "id": "san-jose-pignatelli",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "11-15": {
+    "id": "san-alberto-magno",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "11-16": {
+    "id": "santa-margarita-de-escocia",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "11-17": {
+    "id": "santa-isabel-de-hungria",
+    "color": "blanco",
+    "rango": "Memoria"
+  },
+  "11-18": {
+    "id": "dedicacion-de-las-basilicas-de-san-pedro-y-san-pablo",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "11-19": {
+    "id": "santa-matilde-de-hackeborn",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "11-20": {
+    "id": "san-edmundo",
+    "color": "rojo",
+    "rango": "Memoria libre"
+  },
+  "11-21": {
+    "id": "presentacion-de-la-virgen-maria",
+    "color": "blanco",
+    "rango": "Memoria"
+  },
+  "11-22": {
+    "id": "santa-cecilia",
+    "color": "rojo",
+    "rango": "Memoria"
+  },
+  "11-23": {
+    "id": "san-clemente-i-papa",
+    "color": "rojo",
+    "rango": "Memoria libre"
+  },
+  "11-24": {
+    "id": "santos-andres-dung-lac-y-companeros",
+    "color": "rojo",
+    "rango": "Memoria"
+  },
+  "11-25": {
+    "id": "santa-catalina-de-alejandria",
+    "color": "rojo",
+    "rango": "Memoria libre"
+  },
+  "11-26": {
+    "id": "san-juan-berchmans",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "11-27": {
+    "id": "nuestra-senora-de-la-medalla-milagrosa",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "11-28": {
+    "id": "santa-catalina-laboure",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "11-29": {
+    "id": "santos-martires-de-douai",
+    "color": "rojo",
+    "rango": "Memoria libre"
+  },
+  "11-30": {
+    "id": "san-andres-apostol",
+    "color": "rojo",
+    "rango": "Fiesta"
+  },
+  "12-01": {
+    "id": "san-eloy",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "12-02": {
+    "id": "santa-bibiana",
+    "color": "rojo",
+    "rango": "Memoria libre"
+  },
+  "12-03": {
+    "id": "san-francisco-javier",
+    "color": "blanco",
+    "rango": "Memoria"
+  },
+  "12-04": {
+    "id": "san-juan-damasceno",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "12-05": {
+    "id": "san-sabas",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "12-06": {
+    "id": "san-nicolas",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "12-07": {
+    "id": "san-ambrosio",
+    "color": "blanco",
+    "rango": "Memoria"
+  },
+  "12-08": {
+    "id": "inmaculada-concepcion-de-maria",
+    "color": "blanco",
+    "rango": "Solemnidad"
+  },
+  "12-09": {
+    "id": "san-juan-diego",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "12-10": {
+    "id": "nuestra-senora-de-loreto",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "12-11": {
+    "id": "san-damaso-i-papa",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "12-12": {
+    "id": "nuestra-senora-de-guadalupe",
+    "color": "blanco",
+    "rango": "Fiesta"
+  },
+  "12-13": {
+    "id": "santa-lucia",
+    "color": "rojo",
+    "rango": "Memoria"
+  },
+  "12-14": {
+    "id": "san-juan-de-la-cruz",
+    "color": "blanco",
+    "rango": "Memoria"
+  },
+  "12-15": {
+    "id": "santa-maria-crucificada-de-rosa",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "12-16": {
+    "id": "santa-adela",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "12-17": {
+    "id": "san-lazaro",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "12-18": {
+    "id": "nuestra-senora-de-la-esperanza",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "12-19": {
+    "id": "san-anastasio-i-papa",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "12-20": {
+    "id": "santo-domingo-de-silos",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "12-21": {
+    "id": "san-pedro-canisio",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "12-22": {
+    "id": "santa-francisca-javiera-cabrini",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "12-23": {
+    "id": "san-juan-de-kety",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "12-24": {
+    "id": "san-gregorio-de-spoleto",
+    "color": "rojo",
+    "rango": "Memoria libre"
+  },
+  "12-25": {
+    "id": "natividad-del-senor",
+    "color": "blanco",
+    "rango": "Solemnidad"
+  },
+  "12-26": {
+    "id": "san-esteban",
+    "color": "rojo",
+    "rango": "Fiesta"
+  },
+  "12-27": {
+    "id": "san-juan-evangelista",
+    "color": "blanco",
+    "rango": "Fiesta"
+  },
+  "12-28": {
+    "id": "santos-inocentes",
+    "color": "rojo",
+    "rango": "Fiesta"
+  },
+  "12-29": {
+    "id": "santo-tomas-becket",
+    "color": "rojo",
+    "rango": "Memoria libre"
+  },
+  "12-30": {
+    "id": "traslacion-de-santiago-apostol",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  },
+  "12-31": {
+    "id": "san-silvestre-i-papa",
+    "color": "blanco",
+    "rango": "Memoria libre"
+  }
+}
