@@ -2,7 +2,22 @@
   "san-oscar-romero": {
     "nombre_completo": "San Óscar Arnulfo Romero",
     "patronazgo": "Obispo y Mártir",
-    "imagen": "../../assets/img/santos/01_s_pietro.png",
-    "biografia": "San Óscar Arnulfo Romero nació en El Salvador el 15 de agosto de 1917. Desde su infancia cultivó una piedad sincera y una profunda devoción al Inmaculado Corazón de María, lo que lo llevó a consagrar su vida a Dios. Tras ser ordenado sacerdote en Roma en 1942, regresó a su patria, donde sirvió con celo pastoral asumiendo como lema: «Sentir con la Iglesia».<br><br>Al ser nombrado Arzobispo de San Salvador en 1977, en medio de un clima de extrema violencia e injusticia social, asumió con valentía el cuidado de su rebaño. Hizo suya la opción evangélica por los pobres, denunciando los atropellos a la dignidad humana.<br><br>Su fidelidad a Cristo culminó en el martirio el 24 de marzo de 1980, siendo asesinado por odio a la fe en el ofertorio de la Misa, uniendo su propia sangre a la sangre eucarística del Señor."
+    "imagen": "../../assets/img/santos/oscar_romero.png",
+    "fecha_texto": "24 de Marzo",
+    "biografia": "San Óscar Arnulfo Romero nació en El Salvador el 15 de agosto de 1917, y desde su infancia cultivó una piedad sincera junto a una profunda devoción al Inmaculado Corazón de María, lo que lo llevó a consagrar su vida a Dios. Tras ser ordenado sacerdote en Roma en 1942, regresó a su patria, donde sirvió con celo pastoral asumiendo como lema: «Sentir con la Iglesia».<br><br>Al ser nombrado Arzobispo de San Salvador en 1977, en medio de un clima de extrema violencia e injusticia social, asumió con valentía el cuidado de su rebaño e hizo suya la opción evangélica por los pobres, denunciando los atropellos a la dignidad humana con voz profética.<br><br>Su fidelidad a Cristo culminó en el martirio el 24 de marzo de 1980, siendo asesinado por odio a la fe por un francotirador en el ofertorio de la Misa, uniendo su propia sangre a la sangre eucarística del Señor.",
+    "frase": "La misión de la Iglesia es identificarse con los pobres, así la Iglesia encuentra su salvación. Ningún soldado está obligado a obedecer una orden contra la Ley de Dios. Ya es tiempo de que recuperen su conciencia... En nombre de Dios, ¡cese la represión!",
+    "lecciones": [
+      "<strong>Valentía profética:</strong> Nos enseña a no callar ante la injusticia y a defender la verdad del Evangelio.",
+      "<strong>Amor por los descartados:</strong> Su vida nos recuerda que el verdadero amor cristiano no es resignación, sino caridad activa.",
+      "<strong>La Eucaristía como cumbre:</strong> Su muerte en el altar nos muestra que la Misa es el sacrificio al que estamos llamados a unir nuestras propias vidas."
+    ],
+    "cita_biblica": "Nadie tiene amor más grande que el que da la vida por sus amigos. Ustedes son mis amigos, si hacen lo que yo les mando. (Juan 15, 13-14)",
+    "meditacion": "La vida de San Óscar Romero nos interpela profundamente en nuestra comodidad. A menudo preferimos un cristianismo sin cruz, que no incomode al mundo. Monseñor Romero sabía que su vida corría peligro, pero eligió quedarse con su rebaño porque entendió que el buen pastor no abandona a las ovejas. Pidamos la gracia de no ceder al miedo y de sostenernos, como él, en la fuerza de la Eucaristía.",
+    "oracion": "Oh Dios, Padre misericordioso, que concediste a tu obispo San Óscar Romero la gracia de ser un pastor según el corazón de Cristo, hasta el punto de derramar su sangre en el altar por defender a los más pobres; concédenos, por su intercesión, la valentía de vivir el Evangelio con radicalidad, amando a tu Iglesia y sirviendo a nuestros hermanos con justicia y caridad. Por Jesucristo, nuestro Señor. Amén.",
+    "santos_adicionales": [
+      "Santa Catalina de Suecia, Virgen y Religiosa",
+      "San Macartín de Clogher, Obispo",
+      "Beato Diego José de Cádiz, Sacerdote capuchino"
+    ]
   }
 }
