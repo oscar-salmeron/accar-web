@@ -25,11 +25,11 @@ const santoID = window.santoID || "san-oscar-romero";
 const container = document.getElementById('santo-container');
 const loading = document.getElementById('loading');
 
-// Función auxiliar para navegar limpiando el fondo
+// Función auxiliar para navegar limpiando el fondo rojo
 window.navegarDesdeSanto = function(vista, mesRetorno = null) {
     document.body.classList.remove('theme-rojo');
     if (mesRetorno) {
-        window.mesRetornoSantoral = mesRetorno; // Guarda el mes para abrirlo directo
+        window.mesRetornoSantoral = mesRetorno;
     }
     loadView(vista);
 };
