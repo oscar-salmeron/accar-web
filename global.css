@@ -63,10 +63,19 @@ body {
     position: relative; 
 }
 
-/* Marca de agua litúrgica (Corona y Palmas) exclusiva para el Santoral */
+/* Configuración base para el Santoral (Calendario y Ficha) */
+#app-santoral { 
+    padding: 60px 20px 100px; 
+    max-width: 1000px; 
+    margin: 0 auto; 
+    position: relative;
+    min-height: 100vh;
+}
+
+/* Marca de agua litúrgica (Corona y Palmas) para Calendario */
 #app-santoral::before {
     content: "";
-    position: fixed;
+    position: absolute;
     top: 0; left: 0; width: 100%; height: 100%;
     background-image: url('IMG/corona-palmas-watermark.png'); 
     background-repeat: no-repeat;
@@ -77,8 +86,13 @@ body {
     pointer-events: none; 
 }
 
+/* Marca de agua litúrgica (Corona y Palmas) para la Ficha del Santo (Fondo Rojo) */
+.santo-background::before {
+    background-image: url('IMG/corona-palmas-watermark.png'); 
+}
+
 /* Elevamos el contenido para que sea clickeable sobre la marca de agua */
-.hero-santos, .view-container, .santo-hero, .breadcrumb, .santo-content {
+.hero-santos, .view-container, .santo-hero, .breadcrumb, .santo-content, .spinner {
     position: relative;
     z-index: 1;
 }
