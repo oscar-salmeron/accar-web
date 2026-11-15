@@ -25,6 +25,15 @@ const santoID = window.santoID || "san-oscar-romero";
 const container = document.getElementById('santo-container');
 const loading = document.getElementById('loading');
 
+// Función auxiliar para navegar limpiando el fondo
+window.navegarDesdeSanto = function(vista, mesRetorno = null) {
+    document.body.classList.remove('theme-rojo');
+    if (mesRetorno) {
+        window.mesRetornoSantoral = mesRetorno; // Guarda el mes para abrirlo directo
+    }
+    loadView(vista);
+};
+
 if (santoID) {
     try {
         const docRef = doc(db, "santos", santoID);
@@ -38,7 +47,6 @@ if (santoID) {
             let leccionesHTML = data.lecciones ? data.lecciones.map(lec => `<li>${lec}</li>`).join('') : '';
             let santosAdicionalesHTML = data.santos_adicionales ? data.santos_adicionales.map(santo => `<li>${santo}</li>`).join('') : '';
 
-            // Ajuste de ruta de imagen relativo a la SPA (raíz)
             let imgPath = data.imagen || '';
             if(imgPath.startsWith('../../')) imgPath = imgPath.substring(6);
 
@@ -55,9 +63,9 @@ if (santoID) {
                 </header>
 
                 <nav class="breadcrumb">
-                  <a href="#" onclick="event.preventDefault(); loadView('views/inicio.html');">Inicio</a> / 
-                  <a href="#" onclick="event.preventDefault(); loadView('views/santos/inicio-santos.html');">Santoral</a> / 
-                  <a href="#" onclick="event.preventDefault(); loadView('views/santos/inicio-santos.html');">${mesNombre}</a> / 
+                  <a href="#" onclick="event.preventDefault(); window.navegarDesdeSanto('views/inicio.html');">Inicio</a> / 
+                  <a href="#" onclick="event.preventDefault(); window.navegarDesdeSanto('views/santos/inicio-santos.html');">Santoral</a> / 
+                  <a href="#" onclick="event.preventDefault(); window.navegarDesdeSanto('views/santos/inicio-santos.html', '${mesNombre}');">${mesNombre}</a> / 
                   <span class="bc-dia">${data.fecha_texto || ''}</span>
                 </nav>
 
