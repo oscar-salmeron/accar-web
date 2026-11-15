@@ -595,7 +595,7 @@ body {
                 if (docSnap.exists()) {
                     const data = docSnap.data();
                     let imgPath = data.imagen || '';
-                    if(imgPath.startsWith('../../')) imgPath = imgPath.substring(3); 
+                    if(imgPath.startsWith('../../')) imgPath = imgPath.replace('../../', ''); 
                     
                     document.getElementById('tarjeta-santo-img').src = imgPath;
                     document.getElementById('tarjeta-santo-nombre').textContent = data.nombre_completo;
