@@ -187,7 +187,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             container.innerHTML = `
                 <header class="santo-hero">
                   <div class="santo-img">
-                    <img src="${data.imagen}" alt="${data.nombre_completo}" onerror="this.src='../../assets/img/icono_cruz_oro.png'">
+                    <img src="${data.imagen}" alt="${data.nombre_completo}" onerror="this.onerror=null; this.style.display='none';">
                   </div>
                   <div class="santo-head">
                     <div class="santo-fecha">✝ ${data.fecha_texto}</div>
