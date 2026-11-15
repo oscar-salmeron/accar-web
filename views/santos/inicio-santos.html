@@ -23,25 +23,66 @@
 </main>
 
 <script>
-    // Usamos setTimeout para asegurar que el DOM inyectado por SPA esté listo
-    setTimeout(() => {
-        const meses = [
-            { nombre: "Enero", dias: 31 }, { nombre: "Febrero", dias: 29 }, 
-            { nombre: "Marzo", dias: 31 }, { nombre: "Abril", dias: 30 },
-            { nombre: "Mayo", dias: 31 }, { nombre: "Junio", dias: 30 },
-            { nombre: "Julio", dias: 31 }, { nombre: "Agosto", dias: 31 },
-            { nombre: "Septiembre", dias: 30 }, { nombre: "Octubre", dias: 31 },
-            { nombre: "Noviembre", dias: 30 }, { nombre: "Diciembre", dias: 31 }
-        ];
+    const mesesData = [
+        { nombre: "Enero", dias: 31 }, { nombre: "Febrero", dias: 29 }, 
+        { nombre: "Marzo", dias: 31 }, { nombre: "Abril", dias: 30 },
+        { nombre: "Mayo", dias: 31 }, { nombre: "Junio", dias: 30 },
+        { nombre: "Julio", dias: 31 }, { nombre: "Agosto", dias: 31 },
+        { nombre: "Septiembre", dias: 30 }, { nombre: "Octubre", dias: 31 },
+        { nombre: "Noviembre", dias: 30 }, { nombre: "Diciembre", dias: 31 }
+    ];
 
+    window.mostrarDias = function(nombreMes, cantidadDias) {
+        document.getElementById("vista-meses").classList.remove("view-active");
+        document.getElementById("titulo-mes-seleccionado").textContent = nombreMes;
+        
+        const contenedorDias = document.getElementById("contenedor-dias");
+        contenedorDias.innerHTML = ""; 
+
+        for (let i = 1; i <= cantidadDias; i++) {
+            const cardDia = document.createElement("div");
+            cardDia.className = "card-dia";
+            
+            const mesIndex = mesesData.findIndex(m => m.nombre === nombreMes) + 1;
+            const mesStr = String(mesIndex).padStart(2, '0');
+            const diaStr = String(i).padStart(2, '0');
+            const fechaKey = `${mesStr}-${diaStr}`;
+            
+            cardDia.innerHTML = `<div class="numero">${i}</div>`;
+            
+            cardDia.onclick = async () => {
+                try {
+                    const res = await fetch('assets/data/santoral-index.json');
+                    const index = await res.json();
+                    if(index[fechaKey]) {
+                        window.santoID = index[fechaKey].id;
+                        loadView('views/santos/santo.html');
+                    } else {
+                        alert(`Día sin santo principal asignado aún en el índice.`);
+                    }
+                } catch(e) {
+                    console.error("Error al cargar el índice:", e);
+                }
+            };
+            contenedorDias.appendChild(cardDia);
+        }
+        document.getElementById("vista-dias").classList.add("view-active");
+    };
+
+    window.mostrarMeses = function() {
+        document.getElementById("vista-dias").classList.remove("view-active");
+        document.getElementById("vista-meses").classList.add("view-active");
+    };
+
+    setTimeout(() => {
         const contenedorMeses = document.getElementById("contenedor-meses");
         if(contenedorMeses) {
             contenedorMeses.innerHTML = '';
             
-            // Revisamos si venimos del breadcrumb de un santo
             const mesSolicitado = window.mesRetornoSantoral;
-            window.mesRetornoSantoral = null; // Limpiamos la variable
-            meses.forEach(mes => {
+            window.mesRetornoSantoral = null; 
+
+            mesesData.forEach(mes => {
                 const card = document.createElement("div");
                 card.className = "card-mes";
                 card.innerHTML = `<h2>${mes.nombre}</h2>`;
@@ -49,52 +90,10 @@
                 contenedorMeses.appendChild(card);
             });
             
-            // Si el breadcrumb pidió un mes, lo abrimos automáticamente
             if (mesSolicitado) {
-                const mesData = meses.find(m => m.nombre === mesSolicitado);
+                const mesData = mesesData.find(m => m.nombre === mesSolicitado);
                 if (mesData) window.mostrarDias(mesData.nombre, mesData.dias);
             }
         }
-
-        window.mostrarDias = function(nombreMes, cantidadDias) {
-            document.getElementById("vista-meses").classList.remove("view-active");
-            document.getElementById("titulo-mes-seleccionado").textContent = nombreMes;
-            
-            const contenedorDias = document.getElementById("contenedor-dias");
-            contenedorDias.innerHTML = ""; 
-
-            for (let i = 1; i <= cantidadDias; i++) {
-                const cardDia = document.createElement("div");
-                cardDia.className = "card-dia";
-                
-                if (nombreMes === "Marzo" && i === 24) {
-                    cardDia.classList.add("tiene-santo");
-                }
-
-                cardDia.innerHTML = `<div class="numero">${i}</div>`;
-                
-                cardDia.onclick = () => {
-                    if (nombreMes === "Marzo" && i === 24) {
-                        window.santoID = 'san-oscar-romero';
-                        if (typeof loadView === 'function') {
-                            loadView('views/santos/santo.html');
-                        } else {
-                            alert("Error: Función loadView no disponible.");
-                        }
-                    } else {
-                        alert(`Buscando el santo del ${i} de ${nombreMes}...`);
-                    }
-                };
-                
-                contenedorDias.appendChild(cardDia);
-            }
-
-            document.getElementById("vista-dias").classList.add("view-active");
-        };
-
-        window.mostrarMeses = function() {
-            document.getElementById("vista-dias").classList.remove("view-active");
-            document.getElementById("vista-meses").classList.add("view-active");
-        };
     }, 100);
 </script>
