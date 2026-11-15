@@ -1,7 +1,5 @@
-<main id="app-santoral">
-    <header class="hero-santos">
-        <h1>El Santoral</h1>
-        <p>Explora el martirologio y acompáñate de la Iglesia triunfante en tu caminar diario hacia Cristo.</p>
+<p>Explora el martirologio y acompáñate de la Iglesia triunfante en tu caminar diario hacia Cristo.</p>
+        <p style="font-style: italic; color: #b48c2a; margin-top: 10px;">"In memoria aeterna erit iustus"</p>
     </header>
 
     <!-- VISTA 1: MESES -->
@@ -12,7 +10,7 @@
     <!-- VISTA 2: DÍAS -->
     <section id="vista-dias" class="view-container">
         <div class="header-dias">
-            <button class="btn-volver" onclick="mostrarMeses()">← Volver al Calendario</button>
+            <button class="btn-volver" onclick="window.mostrarMeses()">← Volver al Calendario</button>
             <h2 id="titulo-mes-seleccionado">Marzo</h2>
             <div style="width: 150px;"></div>
         </div>
@@ -22,65 +20,68 @@
 </main>
 
 <script>
-    const meses = [
-        { nombre: "Enero", dias: 31 }, { nombre: "Febrero", dias: 29 }, 
-        { nombre: "Marzo", dias: 31 }, { nombre: "Abril", dias: 30 },
-        { nombre: "Mayo", dias: 31 }, { nombre: "Junio", dias: 30 },
-        { nombre: "Julio", dias: 31 }, { nombre: "Agosto", dias: 31 },
-        { nombre: "Septiembre", dias: 30 }, { nombre: "Octubre", dias: 31 },
-        { nombre: "Noviembre", dias: 30 }, { nombre: "Diciembre", dias: 31 }
-    ];
+    // Usamos setTimeout para asegurar que el DOM inyectado por SPA esté listo
+    setTimeout(() => {
+        const meses = [
+            { nombre: "Enero", dias: 31 }, { nombre: "Febrero", dias: 29 }, 
+            { nombre: "Marzo", dias: 31 }, { nombre: "Abril", dias: 30 },
+            { nombre: "Mayo", dias: 31 }, { nombre: "Junio", dias: 30 },
+            { nombre: "Julio", dias: 31 }, { nombre: "Agosto", dias: 31 },
+            { nombre: "Septiembre", dias: 30 }, { nombre: "Octubre", dias: 31 },
+            { nombre: "Noviembre", dias: 30 }, { nombre: "Diciembre", dias: 31 }
+        ];
 
-    function initSantoralCalendario() {
         const contenedorMeses = document.getElementById("contenedor-meses");
-        if(!contenedorMeses) return;
-        
-        contenedorMeses.innerHTML = '';
-        meses.forEach(mes => {
-            const card = document.createElement("div");
-            card.className = "card-mes";
-            card.innerHTML = `<h2>${mes.nombre}</h2>`;
-            card.onclick = () => mostrarDias(mes.nombre, mes.dias);
-            contenedorMeses.appendChild(card);
-        });
-    }
-
-    function mostrarDias(nombreMes, cantidadDias) {
-        document.getElementById("vista-meses").classList.remove("view-active");
-        document.getElementById("titulo-mes-seleccionado").textContent = nombreMes;
-        
-        const contenedorDias = document.getElementById("contenedor-dias");
-        contenedorDias.innerHTML = ""; 
-
-        for (let i = 1; i <= cantidadDias; i++) {
-            const cardDia = document.createElement("div");
-            cardDia.className = "card-dia";
-            
-            if (nombreMes === "Marzo" && i === 24) {
-                cardDia.classList.add("tiene-santo");
-            }
-
-            cardDia.innerHTML = `<div class="numero">${i}</div>`;
-            
-            cardDia.onclick = () => {
-                if (nombreMes === "Marzo" && i === 24) {
-                    window.santoID = 'san-oscar-romero';
-                    loadView('views/santos/santo.html');
-                } else {
-                    alert(`Buscando el santo del ${i} de ${nombreMes}...`);
-                }
-            };
-            
-            contenedorDias.appendChild(cardDia);
+        if(contenedorMeses) {
+            contenedorMeses.innerHTML = '';
+            meses.forEach(mes => {
+                const card = document.createElement("div");
+                card.className = "card-mes";
+                card.innerHTML = `<h2>${mes.nombre}</h2>`;
+                card.onclick = () => window.mostrarDias(mes.nombre, mes.dias);
+                contenedorMeses.appendChild(card);
+            });
         }
 
-        document.getElementById("vista-dias").classList.add("view-active");
-    }
+        window.mostrarDias = function(nombreMes, cantidadDias) {
+            document.getElementById("vista-meses").classList.remove("view-active");
+            document.getElementById("titulo-mes-seleccionado").textContent = nombreMes;
+            
+            const contenedorDias = document.getElementById("contenedor-dias");
+            contenedorDias.innerHTML = ""; 
 
-    function mostrarMeses() {
-        document.getElementById("vista-dias").classList.remove("view-active");
-        document.getElementById("vista-meses").classList.add("view-active");
-    }
+            for (let i = 1; i <= cantidadDias; i++) {
+                const cardDia = document.createElement("div");
+                cardDia.className = "card-dia";
+                
+                if (nombreMes === "Marzo" && i === 24) {
+                    cardDia.classList.add("tiene-santo");
+                }
 
-    initSantoralCalendario();
+                cardDia.innerHTML = `<div class="numero">${i}</div>`;
+                
+                cardDia.onclick = () => {
+                    if (nombreMes === "Marzo" && i === 24) {
+                        window.santoID = 'san-oscar-romero';
+                        if (typeof loadView === 'function') {
+                            loadView('views/santos/santo.html');
+                        } else {
+                            alert("Error: Función loadView no disponible.");
+                        }
+                    } else {
+                        alert(`Buscando el santo del ${i} de ${nombreMes}...`);
+                    }
+                };
+                
+                contenedorDias.appendChild(cardDia);
+            }
+
+            document.getElementById("vista-dias").classList.add("view-active");
+        };
+
+        window.mostrarMeses = function() {
+            document.getElementById("vista-dias").classList.remove("view-active");
+            document.getElementById("vista-meses").classList.add("view-active");
+        };
+    }, 100);
 </script>
