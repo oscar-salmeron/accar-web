@@ -165,9 +165,17 @@ import { db } from '../../app.js';
 import { doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
-    // 1. Simulación de ID
-    const santoID = "san-oscar-romero"; 
+    // 1. Obtener ID de la URL (Ej: santo.html?id=san-oscar-romero)
+    const urlParams = new URLSearchParams(window.location.search);
+    const santoID = urlParams.get('id');
+
     const container = document.getElementById('santo-container');
+    const loading = document.getElementById('loading');
+
+    if (!santoID) {
+        loading.innerHTML = "No se especificó ningún santo en la URL.";
+        return;
+    }
     const loading = document.getElementById('loading');
 
     try {
