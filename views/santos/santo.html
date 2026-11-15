@@ -27,7 +27,7 @@ const loading = document.getElementById('loading');
 
 // Función auxiliar para navegar limpiando el fondo rojo
 window.navegarDesdeSanto = function(vista, mesRetorno = null) {
-    document.body.classList.remove('theme-rojo');
+    document.body.classList.remove('theme-rojo', 'theme-blanco', 'theme-verde', 'theme-morado');
     if (mesRetorno) {
         window.mesRetornoSantoral = mesRetorno;
     }
