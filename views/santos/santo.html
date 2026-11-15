@@ -81,7 +81,7 @@
     pointer-events: none;
   }
 
-  /* ===== TIPOGRAFÍA INTERIOR (Estilo Leccionario/Breviario) ===== */
+  /* ===== TIPOGRAFÍA INTERIOR ===== */
   h2 {
     font-family: 'Cinzel', serif;
     color: #8b0000;
@@ -90,22 +90,14 @@
     border-bottom: 1px solid rgba(139,0,0,0.2);
     font-size: 24px;
     text-transform: uppercase;
-    text-align: center; /* Títulos centrados */
   }
   h2:first-child { margin-top: 0; }
-
-  /* Contenedor central estrecho para imitar las columnas de los libros litúrgicos */
-  p, blockquote, ul.lecciones-list {
-    max-width: 680px; 
-    margin-left: auto;
-    margin-right: auto;
-  }
-
+  
   p { 
     line-height: 1.85; 
-    font-size: 19px; 
+    font-size: 20px; 
     margin-bottom: 20px; 
-    text-align: left;
+    text-align: justify; 
   }
   strong { color: #8b0000; }
   
@@ -113,11 +105,10 @@
     font-style: italic;
     background: rgba(212,175,55,0.1);
     border-left: 4px solid #d4af37;
-    padding: 20px 30px;
-    margin: 35px auto;
+    padding: 20px;
+    margin: 25px 0;
     color: #333;
     font-size: 20px;
-    text-align: center; /* Frases destacadas centradas como antífonas */
   }
 
   ul.lecciones-list {
@@ -127,8 +118,8 @@
   ul.lecciones-list li {
     position: relative;
     padding-left: 25px;
-    margin-bottom: 20px;
-    font-size: 19px;
+    margin-bottom: 15px;
+    font-size: 20px;
     line-height: 1.7;
   }
   ul.lecciones-list li::before {
