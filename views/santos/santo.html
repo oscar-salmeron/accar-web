@@ -248,7 +248,11 @@ document.addEventListener("DOMContentLoaded", async () => {
                   <h2>Biografía Espiritual</h2>
                   <p>${data.biografia || ''}</p>
 
-                  ${data.frase ? `<blockquote>${data.frase}</blockquote>` : ''}
+                  ${data.frase ? `
+                  <blockquote>
+                    <div class="titulo-frase">Frase de ${data.nombre_completo}</div>
+                    ${data.frase}
+                  </blockquote>` : ''}
                   
                   ${data.lecciones ? `
                   <h2>Lecciones Espirituales</h2>
