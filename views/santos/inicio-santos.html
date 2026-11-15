@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Santoral Católico - ACCAR</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=EB+Garamond:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+    body {
+        margin: 0;
+        font-family: 'EB Garamond', serif;
+        background: radial-gradient(circle at top, #0f3d3e 0%, #021617 100%);
+        color: #f8efd3;
+        min-height: 100vh;
+        overflow-x: hidden;
+    }
+
+    #app {
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 60px 20px 100px;
+    }
+
+    /* ===== HERO SECTION ===== */
+    .hero {
+        text-align: center;
+        margin-bottom: 50px;
+    }
+    .hero h1 {
+        font-family: 'Cinzel', serif;
+        font-size: 48px;
+        color: #d4af37;
+        margin: 0 0 15px 0;
+        text-shadow: 0 4px 15px rgba(0,0,0,0.5);
+        letter-spacing: 2px;
+    }
+    .hero p {
+        font-size: 20px;
+        color: #e3c46a;
+        max-width: 600px;
+        margin: 0 auto;
+        line-height: 1.6;
+    }
+
+    /* ===== CONTENEDOR VISTAS ===== */
+    .view-container {
+        display: none;
+        animation: fadeIn 0.4s ease-in-out forwards;
+    }
+    .view-active {
+        display: block;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ===== CUADRÍCULA DE MESES ===== */
+    .grid-meses {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+    }
+
+    .card-mes {
+        background: linear-gradient(145deg, rgba(30, 58, 138, 0.4), rgba(15, 23, 42, 0.6));
+        border: 1px solid rgba(212, 175, 55, 0.3);
+        border-radius: 12px;
+        padding: 30px 20px;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+    .card-mes:hover {
+        transform: translateY(-5px);
+        background: linear-gradient(145deg, rgba(30, 58, 138, 0.6), rgba(15, 23, 42, 0.8));
+        border-color: rgba(212, 175, 55, 0.8);
+        box-shadow: 0 15px 40px rgba(0,0,0,0.5), 0 0 20px rgba(212, 175, 55, 0.2);
+    }
+    .card-mes h2 {
+        font-family: 'Cinzel', serif;
+        color: #f8efd3;
+        margin: 0;
+        font-size: 24px;
+        letter-spacing: 1px;
+    }
+
+    /* ===== VISTA DE DÍAS ===== */
+    .header-dias {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 30px;
+        border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+        padding-bottom: 20px;
+    }
+    .header-dias h2 {
+        font-family: 'Cinzel', serif;
+        color: #d4af37;
+        font-size: 32px;
+        margin: 0;
+    }
+    .btn-volver {
+        background: transparent;
+        color: #e3c46a;
+        border: 1px solid #e3c46a;
+        padding: 8px 20px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-family: 'Cinzel', serif;
+        font-size: 16px;
+        transition: 0.3s;
+    }
+    .btn-volver:hover {
+        background: #e3c46a;
+        color: #021617;
+    }
+
+    .grid-dias {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+        gap: 15px;
+    }
+
+    .card-dia {
+        background: rgba(255,255,255,0.05);
+        border: 1px solid rgba(255,255,255,0.1);
+        border-radius: 8px;
+        padding: 20px 0;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    .card-dia:hover {
+        background: rgba(212, 175, 55, 0.15);
+        border-color: #d4af37;
+        transform: scale(1.05);
+    }
+    .card-dia .numero {
+        font-family: 'Cinzel', serif;
+        font-size: 28px;
+        font-weight: bold;
+        color: #ffffff;
+    }
+
+    /* Destacar días que ya tienen ficha (Demo visual) */
+    .card-dia.tiene-santo {
+        background: rgba(212, 175, 55, 0.2);
+        border-color: #d4af37;
+        box-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
+    }
+    .card-dia.tiene-santo .numero {
+        color: #d4af37;
+    }
+
+    @media (max-width: 600px) {
+        .hero h1 { font-size: 36px; }
+        .grid-meses { grid-template-columns: repeat(2, 1fr); }
+        .grid-dias { grid-template-columns: repeat(4, 1fr); }
+        .header-dias { flex-direction: column; gap: 15px; text-align: center; }
+    }
+</style>
+</head>
+<body>
+
+<main id="app">
+    
+    <header class="hero">
+        <h1>El Santoral</h1>
+        <p>Explora el martirologio y acompáñate de la Iglesia triunfante en tu caminar diario hacia Cristo.</p>
+    </header>
+
+    <!-- VISTA 1: MESES -->
+    <section id="vista-meses" class="view-container view-active">
+        <div class="grid-meses" id="contenedor-meses">
+            <!-- Los meses se generan con JS -->
+        </div>
+    </section>
+
+    <!-- VISTA 2: DÍAS -->
+    <section id="vista-dias" class="view-container">
+        <div class="header-dias">
+            <button class="btn-volver" onclick="mostrarMeses()">← Volver al Calendario</button>
+            <h2 id="titulo-mes-seleccionado">Marzo</h2>
+            <div style="width: 150px;"></div> <!-- Espaciador para centrar el título -->
+        </div>
+        
+        <div class="grid-dias" id="contenedor-dias">
+            <!-- Los días se generan con JS -->
+        </div>
+    </section>
+
+</main>
+
+<script>
+    const meses = [
+        { nombre: "Enero", dias: 31 }, { nombre: "Febrero", dias: 29 }, 
+        { nombre: "Marzo", dias: 31 }, { nombre: "Abril", dias: 30 },
+        { nombre: "Mayo", dias: 31 }, { nombre: "Junio", dias: 30 },
+        { nombre: "Julio", dias: 31 }, { nombre: "Agosto", dias: 31 },
+        { nombre: "Septiembre", dias: 30 }, { nombre: "Octubre", dias: 31 },
+        { nombre: "Noviembre", dias: 30 }, { nombre: "Diciembre", dias: 31 }
+    ];
+
+    // 1. Cargar la cuadrícula de Meses al iniciar
+    document.addEventListener("DOMContentLoaded", () => {
+        const contenedorMeses = document.getElementById("contenedor-meses");
+        
+        meses.forEach(mes => {
+            const card = document.createElement("div");
+            card.className = "card-mes";
+            card.innerHTML = `<h2>${mes.nombre}</h2>`;
+            card.onclick = () => mostrarDias(mes.nombre, mes.dias);
+            contenedorMeses.appendChild(card);
+        });
+    });
+
+    // 2. Función para mostrar los días de un mes específico
+    function mostrarDias(nombreMes, cantidadDias) {
+        document.getElementById("vista-meses").classList.remove("view-active");
+        document.getElementById("titulo-mes-seleccionado").textContent = nombreMes;
+        
+        const contenedorDias = document.getElementById("contenedor-dias");
+        contenedorDias.innerHTML = ""; // Limpiar días anteriores
+
+        for (let i = 1; i <= cantidadDias; i++) {
+            const cardDia = document.createElement("div");
+            cardDia.className = "card-dia";
+            
+            // Simulación visual: Destacar el 24 de marzo para nuestra prueba
+            if (nombreMes === "Marzo" && i === 24) {
+                cardDia.classList.add("tiene-santo");
+            }
+
+            cardDia.innerHTML = `<div class="numero">${i}</div>`;
+            
+            cardDia.onclick = () => {
+                // Lógica temporal para conectar con la ficha de San Óscar Romero
+                if (nombreMes === "Marzo" && i === 24) {
+                    window.location.href = `santo.html?id=san-oscar-romero`;
+                } else {
+                    // Para otros días, por ahora solo mostramos un aviso
+                    alert(`Buscando el santo del ${i} de ${nombreMes}... (Próximamente conectaremos Romcal aquí)`);
+                }
+            };
+            
+            contenedorDias.appendChild(cardDia);
+        }
+
+        document.getElementById("vista-dias").classList.add("view-active");
+    }
+
+    // 3. Función para regresar a la vista de meses
+    function mostrarMeses() {
+        document.getElementById("vista-dias").classList.remove("view-active");
+        document.getElementById("vista-meses").classList.add("view-active");
+    }
+</script>
+
+</body>
+</html>
