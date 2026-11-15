@@ -41,7 +41,9 @@ if (santoID) {
 
         if (docSnap.exists()) {
             const data = docSnap.data();
-            document.body.classList.add('theme-rojo'); 
+            // Aplicar color litúrgico dinámico desde Firebase (por defecto blanco si no existe)
+            const colorLiturgico = data.color ? data.color.toLowerCase() : 'blanco';
+            document.body.classList.add(`theme-${colorLiturgico}`); 
 
             const mesNombre = data.fecha_texto ? data.fecha_texto.split(" de ")[1] : "Mes";
             let leccionesHTML = data.lecciones ? data.lecciones.map(lec => `<li>${lec}</li>`).join('') : '';
