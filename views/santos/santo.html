@@ -161,8 +161,20 @@
 </main>
 
 <script type="module">
-import { db } from '../../app.js';
-import { doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const firebaseConfig = {
+    apiKey: "AIzaSyDSCSWYM5dgkIfVK-uBe1oWkeU7se4fvFg",
+    authDomain: "accar-web.firebaseapp.com",
+    projectId: "accar-web",
+    storageBucket: "accar-web.firebasestorage.app",
+    messagingSenderId: "249370548582",
+    appId: "1:249370548582:web:6b35298df41771113910a7"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
 
 document.addEventListener("DOMContentLoaded", async () => {
     const urlParams = new URLSearchParams(window.location.search);
