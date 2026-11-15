@@ -539,7 +539,7 @@ body {
       </a>
 
       <!-- TARJETA 3: SANTO DEL DÍA (Conectada a santoral-index.json y Firebase) -->
-      <a href="#" onclick="event.preventDefault(); loadView('views/santos/santo.html');" class="accar-lit-card accar-lit-card--santo" id="tarjeta-santo-dia">
+      <a href="#" onclick="event.preventDefault(); if(window.santoDelDiaID) { window.santoID = window.santoDelDiaID; loadView('views/santos/santo.html'); } else { alert('Buscando información del santo...'); }" class="accar-lit-card accar-lit-card--santo" id="tarjeta-santo-dia">
         <div class="accar-santo-img-wrap">
           <div class="accar-santo-glow"></div>
           <img id="tarjeta-santo-img" src="../assets/img/santo_dia_placeholder.png" alt="Cargando...">
@@ -583,7 +583,7 @@ body {
                 if (!santoData) throw new Error("No hay santo definido para hoy en el índice");
 
                 const idDelDia = santoData.id;
-                window.santoID = idDelDia; // Guardar para cuando se haga clic
+                window.santoDelDiaID = idDelDia; // Guardar en variable específica para la tarjeta
                 
                 // Actualizar Rango (Ej: "Memoria", "Solemnidad")
                 document.getElementById('tarjeta-santo-rango').textContent = santoData.rango;
