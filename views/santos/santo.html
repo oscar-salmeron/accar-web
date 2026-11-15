@@ -165,7 +165,6 @@ import { db } from '../../app.js';
 import { doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
-    // 1. Obtener ID de la URL (Ej: santo.html?id=san-oscar-romero)
     const urlParams = new URLSearchParams(window.location.search);
     const santoID = urlParams.get('id');
 
@@ -176,7 +175,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         loading.innerHTML = "No se especificó ningún santo en la URL.";
         return;
     }
-    const loading = document.getElementById('loading');
 
     try {
         const docRef = doc(db, "santos", santoID);
@@ -186,10 +184,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             const data = docSnap.data();
             document.body.classList.add('theme-rojo'); 
 
-            // Extraer el Mes para el Breadcrumb
             const mesNombre = data.fecha_texto ? data.fecha_texto.split(" de ")[1] : "Mes";
-
-            // Generar listas dinámicas de forma segura
             let leccionesHTML = data.lecciones ? data.lecciones.map(lec => `<li>${lec}</li>`).join('') : '';
             let santosAdicionalesHTML = data.santos_adicionales ? data.santos_adicionales.map(santo => `<li>${santo}</li>`).join('') : '';
 
