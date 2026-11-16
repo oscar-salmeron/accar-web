@@ -452,11 +452,17 @@ function shareBreviario() {
                     const textoSanto = fiesta.santo && fiesta.santo.toUpperCase() !== "FERIA" ? fiesta.santo : "";
                     
                     if(headerSemana) {
-                        // Semana en verde inmutable (#2cb67d) y Santo en dorado (#d4af37)
+                        // Semana en verde inmutable (#2cb67d)
                         let htmlSemana = `<span style="color: #2cb67d;">${semanaLimpia} (${fiesta.anio || ''})</span>`;
-                        if (textoSanto) {
-                            htmlSemana += `<br><span style="font-size: 13px; display: inline-block; margin-top: 5px; color: #d4af37;">${textoSanto}</span>`;
+                        
+                        // Inyectar Santo en dorado
+                        if (window.santoDelDiaID && window.santoDelDiaID !== "feria") {
+                            const nombreFormateado = window.santoDelDiaID.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+                            htmlSemana += `<br><span style="font-size: 15px; font-weight: 800; display: inline-block; margin-top: 8px; color: #d4af37;">${nombreFormateado}</span>`;
+                        } else if (textoSanto) {
+                            htmlSemana += `<br><span style="font-size: 15px; font-weight: 800; display: inline-block; margin-top: 8px; color: #d4af37;">${textoSanto}</span>`;
                         }
+                        
                         headerSemana.innerHTML = htmlSemana;
                         headerSemana.style.display = 'block';
                     }
