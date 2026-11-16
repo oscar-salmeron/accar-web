@@ -27,7 +27,7 @@ const loading = document.getElementById('loading');
 
 // Función auxiliar para navegar limpiando TODOS los fondos litúrgicos
 window.navegarDesdeSanto = function(vista, mesRetorno = null) {
-    document.body.classList.remove('theme-rojo', 'theme-blanco', 'theme-verde', 'theme-morado', 'theme-celeste');
+    document.body.classList.remove('theme-rojo', 'theme-blanco', 'theme-verde', 'theme-morado', 'theme-celeste', 'theme-negro');
     if (mesRetorno) {
         window.mesRetornoSantoral = mesRetorno;
     }
@@ -42,7 +42,7 @@ if (santoID) {
         if (docSnap.exists()) {
             const data = docSnap.data();
             // Asegurarnos de limpiar cualquier color anterior antes de aplicar el nuevo
-            document.body.classList.remove('theme-rojo', 'theme-blanco', 'theme-verde', 'theme-morado', 'theme-celeste');
+            document.body.classList.remove('theme-rojo', 'theme-blanco', 'theme-verde', 'theme-morado', 'theme-celeste', 'theme-negro');
             // Aplicar color litúrgico dinámico desde Firebase (por defecto blanco si no existe)
             const colorLiturgico = data.color ? data.color.toLowerCase() : 'blanco';
             document.body.classList.add(`theme-${colorLiturgico}`); 
