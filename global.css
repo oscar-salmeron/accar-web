@@ -83,26 +83,39 @@ body {
 .theme-celeste ul.lecciones-list li::before { color: #3b82f6 !important; }
 
 /* =========================================
-   TEMA DIVINO (Exclusivo para Jesucristo - Realeza Imperial)
+   TEMA REALEZA (Cristo Rey, Pasión, Soberanía)
    ========================================= */
-/* 1. Fondo: Púrpura Imperial profundo, el verdadero color de la realeza */
-.theme-divino { background: radial-gradient(circle at top, #4A0023 0%, #1A000C 100%) !important; }
-
-/* 2. Tarjeta de biografía: Alabastro claro (NO destiñe el texto) */
-.theme-divino .santo-content { background: #FAF7F2 !important; }
-
-/* 3. Borde iluminado: Oro Papal brillante */
-.theme-divino .santo-content::before { background: linear-gradient(120deg, #FFD700, #FFF8DC, #B8860B) !important; }
-
-/* 4. Títulos y negritas: Púrpura y Oro profundo */
-.theme-divino .santo-content h2, 
-.theme-divino .santo-content strong {
+.theme-realeza { background: radial-gradient(circle at top, #4A0023 0%, #1A000C 100%) !important; }
+/* Tarjeta con levísimo tinte cálido y una sombra envolvente púrpura/dorada */
+.theme-realeza .santo-content { 
+    background: #FDF9FA !important; 
+    box-shadow: 0 50px 120px rgba(74, 0, 35, 0.8), 0 0 40px rgba(255, 215, 0, 0.15) !important; 
+}
+.theme-realeza .santo-content::before { background: linear-gradient(120deg, #FFD700, #FFF8DC, #4A0023) !important; }
+.theme-realeza .santo-content h2, 
+.theme-realeza .santo-content strong {
     color: #4A0023 !important;
     border-bottom-color: rgba(74, 0, 35, 0.2) !important;
 }
+.theme-realeza ul.lecciones-list li::before { color: #B8860B !important; } 
 
-/* 5. Puntos de la lista: Oro resplandeciente */
-.theme-divino ul.lecciones-list li::before { color: #B8860B !important; } 
+/* =========================================
+   TEMA GLORIA (Resurrección, Navidad, Jueves Santo)
+   ========================================= */
+/* Estallido de luz blanca que se funde en oro puro */
+.theme-gloria { background: radial-gradient(circle at top, #ffffff 0%, #fef0bc 40%, #b8860b 100%) !important; }
+/* Tarjeta inmaculada con resplandor celestial blanco y dorado */
+.theme-gloria .santo-content { 
+    background: #ffffff !important; 
+    box-shadow: 0 40px 100px rgba(184, 134, 11, 0.5), 0 0 60px rgba(255, 255, 255, 0.9) !important; 
+}
+.theme-gloria .santo-content::before { background: linear-gradient(120deg, #ffffff, #FFD700, #ffffff) !important; }
+.theme-gloria .santo-content h2, 
+.theme-gloria .santo-content strong {
+    color: #8b6508 !important;
+    border-bottom-color: rgba(139, 101, 8, 0.2) !important;
+}
+.theme-gloria ul.lecciones-list li::before { color: #FFD700 !important; } 
 
 /* Configuración base para el Santoral (Calendario y Ficha) */
 #app-santoral { 
