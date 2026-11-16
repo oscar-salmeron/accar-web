@@ -1620,10 +1620,10 @@
     "rango": "Memoria libre"
   },
   "11-21": {
-  "id": "presentacion-de-la-santisima-virgen-maria",
+  "id": "presentacion-virgen-maria",
   "color": "celeste",
   "rango": "Memoria"
- },
+},
   "11-22": {
     "id": "santa-cecilia",
     "color": "rojo",
