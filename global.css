@@ -55,11 +55,31 @@ body {
 
 /* Fondos dinámicos Litúrgicos */
 .theme-rojo { background: radial-gradient(circle at top, #7f1d1d 0%, #450a0a 100%) !important; }
-.theme-blanco { background: radial-gradient(circle at top, #b8860b 0%, #2a1f00 100%) !important; } /* Dorado solemne para santos blancos */
+.theme-blanco { background: radial-gradient(circle at top, #b8860b 0%, #2a1f00 100%) !important; } 
 .theme-verde { background: radial-gradient(circle at top, #0f3621 0%, #04120b 100%) !important; }
 .theme-morado { background: radial-gradient(circle at top, #3a0b2e 0%, #170412 100%) !important; }
-.theme-celeste { background: radial-gradient(circle at top, #0c2a5c 0%, #020914 100%) !important; } /* Azul mariano de realeza */
 
+/* =========================================
+   TEMA MARIANO (Solo aplica a fichas "celeste")
+   ========================================= */
+/* 1. Fondo principal: Azul celestial intenso (permite leer las letras blancas) */
+.theme-celeste { background: radial-gradient(circle at top, #2563eb 0%, #09172d 100%) !important; }
+
+/* 2. Tarjeta de biografía: Celeste cielo claro (reemplaza el beige solo aquí) */
+.theme-celeste .santo-content { background: #e0f2fe !important; }
+
+/* 3. Borde iluminado de la tarjeta (tonos celestes en vez de dorados) */
+.theme-celeste .santo-content::before { background: linear-gradient(120deg, #60a5fa, #ffffff, #2563eb) !important; }
+
+/* 4. Títulos y negritas internas: Azul marino profundo (reemplaza el rojo) */
+.theme-celeste .santo-content h2, 
+.theme-celeste .santo-content strong {
+    color: #1e3a8a !important;
+    border-bottom-color: rgba(30, 58, 138, 0.2) !important;
+}
+
+/* 5. Puntos de la lista de lecciones (celeste en vez de dorado) */
+.theme-celeste ul.lecciones-list li::before { color: #3b82f6 !important; }
 #app-santoral { 
     padding: 60px 20px 100px; 
     max-width: 1000px; 
