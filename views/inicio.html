@@ -974,15 +974,15 @@ TARJETA ESPECIAL: SANTO DEL DÍA (Cuerpo entero a la izq)
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: flex-start; /* Mantiene todo alineado a la izquierda */
+  align-items: flex-start; /* Fuerza TODO a la izquierda (nombre, rango, texto) */
+  text-align: left; /* Refuerza la alineación del texto */
   z-index: 2;
 }
 
-/* Forzar que el contenedor principal de la etiqueta use el 100% del ancho y se centre internamente */
+/* Forzar que SOLO la etiqueta se centre en su bloque superior */
 .accar-santo-data > span.accar-badge-santo {
-  align-self: center; /* Centra únicamente el botón "Santo del Día" */
-  margin-left: 0;
-  margin-right: 0;
+  align-self: center; /* Desplaza el botón al centro del contenedor padre */
+  margin-bottom: 18px; 
 }
 
 /* === COLORES DINÁMICOS PARA LA TARJETA DEL SANTO === */
