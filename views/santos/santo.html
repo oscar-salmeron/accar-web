@@ -25,9 +25,9 @@ const santoID = window.santoID || "san-oscar-romero";
 const container = document.getElementById('santo-container');
 const loading = document.getElementById('loading');
 
-// Función auxiliar para navegar limpiando el fondo rojo
+// Función auxiliar para navegar limpiando TODOS los fondos litúrgicos
 window.navegarDesdeSanto = function(vista, mesRetorno = null) {
-    document.body.classList.remove('theme-rojo', 'theme-blanco', 'theme-verde', 'theme-morado');
+    document.body.classList.remove('theme-rojo', 'theme-blanco', 'theme-verde', 'theme-morado', 'theme-celeste');
     if (mesRetorno) {
         window.mesRetornoSantoral = mesRetorno;
     }
@@ -41,6 +41,8 @@ if (santoID) {
 
         if (docSnap.exists()) {
             const data = docSnap.data();
+            // Asegurarnos de limpiar cualquier color anterior antes de aplicar el nuevo
+            document.body.classList.remove('theme-rojo', 'theme-blanco', 'theme-verde', 'theme-morado', 'theme-celeste');
             // Aplicar color litúrgico dinámico desde Firebase (por defecto blanco si no existe)
             const colorLiturgico = data.color ? data.color.toLowerCase() : 'blanco';
             document.body.classList.add(`theme-${colorLiturgico}`); 
