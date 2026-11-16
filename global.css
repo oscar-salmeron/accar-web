@@ -103,11 +103,6 @@ body {
 
 /* 5. Puntos de la lista: Oro resplandeciente */
 .theme-divino ul.lecciones-list li::before { color: #B8860B !important; } 
-    padding: 60px 20px 100px; 
-    max-width: 1000px; 
-    margin: 0 auto; 
-    position: relative; 
-}
 
 /* Configuración base para el Santoral (Calendario y Ficha) */
 #app-santoral { 
