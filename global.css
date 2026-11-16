@@ -58,6 +58,7 @@ body {
 .theme-blanco { background: radial-gradient(circle at top, #b8860b 0%, #2a1f00 100%) !important; } 
 .theme-verde { background: radial-gradient(circle at top, #0f3621 0%, #04120b 100%) !important; }
 .theme-morado { background: radial-gradient(circle at top, #3a0b2e 0%, #170412 100%) !important; }
+.theme-negro { background: radial-gradient(circle at top, #1a1a1a 0%, #000000 100%) !important; }
 
 /* =========================================
    TEMA MARIANO (Solo aplica a fichas "celeste")
