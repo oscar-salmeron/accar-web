@@ -33,6 +33,61 @@
         { nombre: "Noviembre", dias: 30 }, { nombre: "Diciembre", dias: 31 }
     ];
 
+    // --- INICIO CÁLCULOS LITÚRGICOS AUTOMÁTICOS ---
+    function normalizeDate(date){
+        return new Date(date.getFullYear(), date.getMonth(), date.getDate());
+    }
+
+    function addDays(date, days){
+        const d = new Date(date);
+        d.setDate(d.getDate() + days);
+        return d;
+    }
+
+    function getEasterSunday(year){
+        const a = year % 19;
+        const b = Math.floor(year / 100);
+        const c = year % 100;
+        const d = Math.floor(b / 4);
+        const e = b % 4;
+        const f = Math.floor((b + 8) / 25);
+        const g = Math.floor((b - f + 1) / 3);
+        const h = (19 * a + b - d - g + 15) % 30;
+        const i = Math.floor(c / 4);
+        const k = c % 4;
+        const l = (32 + 2 * e + 2 * i - h - k) % 7;
+        const m = Math.floor((a + 11 * h + 22 * l) / 451);
+        const month = Math.floor((h + l - 7 * m + 114) / 31);
+        const day = ((h + l - 7 * m + 114) % 31) + 1;
+        return new Date(year, month - 1, day);
+    }
+
+    function getFirstSundayOfAdvent(year){
+        const christmas = new Date(year, 11, 25);
+        const day = christmas.getDay();
+        const fourthSunday = new Date(christmas);
+        fourthSunday.setDate(christmas.getDate() - day);
+        const firstSunday = new Date(fourthSunday);
+        firstSunday.setDate(fourthSunday.getDate() - 21);
+        return normalizeDate(firstSunday);
+    }
+
+    function verificarFiestaMovil(mesStr, diaStr) {
+        const currentYear = new Date().getFullYear();
+        const targetDate = new Date(currentYear, parseInt(mesStr) - 1, parseInt(diaStr));
+
+        // Calcular Cristo Rey (Último domingo antes de Adviento)
+        const cristoRey = addDays(getFirstSundayOfAdvent(currentYear), -7);
+
+        // Si la fecha clickeada coincide con Cristo Rey este año, devuelve su ID
+        if (targetDate.getTime() === cristoRey.getTime()) {
+            return "cristo-rey"; 
+        }
+
+        return null;
+    }
+    // --- FIN CÁLCULOS LITÚRGICOS AUTOMÁTICOS ---
+
     window.mostrarDias = function(nombreMes, cantidadDias) {
         document.getElementById("vista-meses").classList.remove("view-active");
         document.getElementById("titulo-mes-seleccionado").textContent = nombreMes;
@@ -53,6 +108,16 @@
             
             cardDia.onclick = async () => {
                 try {
+                    // 1. Verificar si la fecha es una fiesta móvil este año
+                    const idMovil = verificarFiestaMovil(mesStr, diaStr);
+                    
+                    if (idMovil) {
+                        window.santoID = idMovil;
+                        loadView('views/santos/santo.html');
+                        return; // Detiene la ejecución aquí
+                    }
+
+                    // 2. Si no es fiesta móvil, busca en el índice fijo
                     const res = await fetch('assets/data/santoral-index.json');
                     const index = await res.json();
                     if(index[fechaKey]) {
