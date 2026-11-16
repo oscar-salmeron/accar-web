@@ -555,8 +555,13 @@ function shareContent() {
 
           if(semanaTarget) {
               let htmlInner = `Lecturas y Evangelio del día<br><span style="font-size: 13px; color: #2cb67d; display: inline-block; margin-top: 6px; font-weight: bold;">${semanaFormateada}</span>`;
-              if (textoSanto) {
-                  htmlInner += `<br><span style="font-size: 12px; color: #d4af37; display: inline-block; margin-top: 4px;">${textoSanto}</span>`;
+              // Inyectar el Santo en dorado, si no es una feria o un día sin celebración
+              if (window.santoDelDiaID && window.santoDelDiaID !== "feria") {
+                  // Reemplazar los guiones por espacios y poner primera letra mayúscula (ej. santa-margarita -> Santa Margarita)
+                  const nombreFormateado = window.santoDelDiaID.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+                  htmlInner += `<br><span style="font-size: 14px; color: #d4af37; display: block; margin-top: 8px; font-weight: 800;">${nombreFormateado}</span>`;
+              } else if (textoSanto) {
+                  htmlInner += `<br><span style="font-size: 14px; color: #d4af37; display: block; margin-top: 8px; font-weight: 800;">${textoSanto}</span>`;
               }
               semanaTarget.innerHTML = htmlInner;
           }
