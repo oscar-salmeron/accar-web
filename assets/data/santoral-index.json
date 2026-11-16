@@ -1670,10 +1670,10 @@
     "rango": "Fiesta"
   },
   "12-01": {
-    "id": "san-eloy",
-    "color": "blanco",
-    "rango": "Memoria libre"
-  },
+  "id": "san-eligio-obispo",
+  "color": "blanco",
+  "rango": "Memoria libre"
+},
   "12-02": {
     "id": "santa-bibiana",
     "color": "rojo",
