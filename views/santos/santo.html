@@ -27,7 +27,7 @@ const loading = document.getElementById('loading');
 
 // Función auxiliar para navegar limpiando TODOS los fondos litúrgicos
 window.navegarDesdeSanto = function(vista, mesRetorno = null) {
-    document.body.classList.remove('theme-rojo', 'theme-blanco', 'theme-verde', 'theme-morado', 'theme-celeste', 'theme-negro');
+    document.body.classList.remove('theme-rojo', 'theme-blanco', 'theme-verde', 'theme-morado', 'theme-celeste', 'theme-negro', 'theme-divino');
     if (mesRetorno) {
         window.mesRetornoSantoral = mesRetorno;
     }
@@ -42,12 +42,13 @@ if (santoID) {
         if (docSnap.exists()) {
             const data = docSnap.data();
             // Asegurarnos de limpiar cualquier color anterior antes de aplicar el nuevo
-            document.body.classList.remove('theme-rojo', 'theme-blanco', 'theme-verde', 'theme-morado', 'theme-celeste', 'theme-negro');
+            document.body.classList.remove('theme-rojo', 'theme-blanco', 'theme-verde', 'theme-morado', 'theme-celeste', 'theme-negro', 'theme-divino');
             // Aplicar color litúrgico dinámico desde Firebase (por defecto blanco si no existe)
             const colorLiturgico = data.color ? data.color.toLowerCase() : 'blanco';
             document.body.classList.add(`theme-${colorLiturgico}`); 
 
-            const mesNombre = data.fecha_texto ? data.fecha_texto.split(" de ")[1] : "Mes";
+            // Extraer mes evitando "undefined" en fiestas sin la palabra "de"
+            const mesNombre = (data.fecha_texto && data.fecha_texto.includes(" de ")) ? data.fecha_texto.split(" de ")[1] : "Solemnidad";
             let leccionesHTML = data.lecciones ? data.lecciones.map(lec => `<li>${lec}</li>`).join('') : '';
             let santosAdicionalesHTML = data.santos_adicionales ? data.santos_adicionales.map(santo => `<li>${santo}</li>`).join('') : '';
 
