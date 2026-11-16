@@ -81,7 +81,28 @@ body {
 
 /* 5. Puntos de la lista de lecciones (celeste en vez de dorado) */
 .theme-celeste ul.lecciones-list li::before { color: #3b82f6 !important; }
-#app-santoral { 
+
+/* =========================================
+   TEMA DIVINO (Exclusivo para Jesucristo)
+   ========================================= */
+/* 1. Fondo: Resplandor blanco puro que estalla en oro real brillante */
+.theme-divino { background: radial-gradient(circle at top, #ffffff 0%, #d4af37 50%, #2a1f00 100%) !important; }
+
+/* 2. Tarjeta de biografía: Blanco inmaculado */
+.theme-divino .santo-content { background: #ffffff !important; }
+
+/* 3. Borde iluminado: Oro puro hiperbrillante */
+.theme-divino .santo-content::before { background: linear-gradient(120deg, #ffdf00, #ffffff, #d4af37) !important; }
+
+/* 4. Títulos y negritas: Rojo carmesí regio y profundo */
+.theme-divino .santo-content h2, 
+.theme-divino .santo-content strong {
+    color: #990000 !important;
+    border-bottom-color: rgba(153, 0, 0, 0.2) !important;
+}
+
+/* 5. Puntos de la lista: Oro resplandeciente */
+.theme-divino ul.lecciones-list li::before { color: #ffc107 !important; } 
     padding: 60px 20px 100px; 
     max-width: 1000px; 
     margin: 0 auto; 
