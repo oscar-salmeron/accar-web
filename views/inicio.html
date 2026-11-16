@@ -538,16 +538,24 @@ body {
         </div>
       </a>
 
-      <!-- TARJETA 3: SANTO DEL DÍA (Conectada a santoral-index.json y Firebase) -->
+      <!-- TARJETA 3: SANTO DEL DÍA (Conectada a santoral-index.json y Firebase con colores dinámicos) -->
       <a href="#" onclick="event.preventDefault(); if(window.santoDelDiaID) { window.santoID = window.santoDelDiaID; loadView('views/santos/santo.html'); } else { alert('Buscando información del santo...'); }" class="accar-lit-card accar-lit-card--santo" id="tarjeta-santo-dia">
         <div class="accar-santo-img-wrap">
           <div class="accar-santo-glow"></div>
           <img id="tarjeta-santo-img" src="../assets/img/santo_dia_placeholder.png" alt="Cargando...">
         </div>
         <div class="accar-santo-data">
-          <span class="accar-badge-santo" id="tarjeta-santo-rango" style="background: #8b0000; border-color: #d4af37;">Santo del Día</span>
+          <!-- Insignia principal centrada -->
+          <span class="accar-badge-santo" style="background: #8b0000; border-color: #d4af37;">Santo del Día</span>
+          
           <h3 id="tarjeta-santo-nombre">Buscando Santo...</h3>
-          <p id="tarjeta-santo-texto">Cargando martirologio...</p>
+          
+          <!-- Rango litúrgico elegantemente alineado debajo del nombre -->
+          <div style="width:100%; border-bottom: 1px solid rgba(212,175,55,0.3); margin-bottom: 12px; padding-bottom: 8px;">
+            <span id="tarjeta-santo-rango" style="color: #a4a7ab; font-size: 11px; text-transform: uppercase; font-weight: 800; letter-spacing: 1.5px;">Cargando rango...</span>
+          </div>
+          
+          <p id="tarjeta-santo-texto" style="text-align: center; width: 100%;">Cargando martirologio...</p>
         </div>
       </a>
 
@@ -566,29 +574,64 @@ body {
         const tempApp = initializeApp(firebaseConfig, "santoTarjetaInicio");
         const tempDb = getFirestore(tempApp);
 
+        // --- INICIO CÁLCULOS FIESTAS MÓVILES PARA LA TARJETA ---
+        function normalizeDateStr(date){
+            return new Date(date.getFullYear(), date.getMonth(), date.getDate());
+        }
+        function addDaysStr(date, days){
+            const d = new Date(date);
+            d.setDate(d.getDate() + days);
+            return d;
+        }
+        function getFirstSundayOfAdventStr(year){
+            const christmas = new Date(year, 11, 25);
+            const day = christmas.getDay();
+            const fourthSunday = new Date(christmas);
+            fourthSunday.setDate(christmas.getDate() - day);
+            const firstSunday = new Date(fourthSunday);
+            firstSunday.setDate(fourthSunday.getDate() - 21);
+            return normalizeDateStr(firstSunday);
+        }
+        function verificarFiestaMovilHoy() {
+            const today = new Date();
+            const currentYear = today.getFullYear();
+            const cristoRey = addDaysStr(getFirstSundayOfAdventStr(currentYear), -7);
+            
+            if (today.getMonth() === cristoRey.getMonth() && today.getDate() === cristoRey.getDate()) {
+                return "cristo-rey"; 
+            }
+            return null;
+        }
+        // --- FIN CÁLCULOS FIESTAS MÓVILES ---
+
         setTimeout(async () => {
             try {
-                // 1. Obtener la fecha de hoy en formato MM-DD
-                const today = new Date();
-                const mm = String(today.getMonth() + 1).padStart(2, '0');
-                const dd = String(today.getDate()).padStart(2, '0');
-                const fechaHoy = `${mm}-${dd}`;
+                // 1. Interceptar si HOY es una fiesta móvil
+                let idDelDia = verificarFiestaMovilHoy();
+                let rangoDelDia = "Solemnidad"; 
 
-                // 2. Leer el índice estático local
-                const indexResponse = await fetch('assets/data/santoral-index.json');
-                if (!indexResponse.ok) throw new Error("No se pudo cargar el índice del santoral");
-                const santoralIndex = await indexResponse.json();
+                // 2. Si no es fiesta móvil, buscar en el índice fijo
+                if (!idDelDia) {
+                    const today = new Date();
+                    const mm = String(today.getMonth() + 1).padStart(2, '0');
+                    const dd = String(today.getDate()).padStart(2, '0');
+                    const fechaHoy = `${mm}-${dd}`;
 
-                const santoData = santoralIndex[fechaHoy];
-                if (!santoData) throw new Error("No hay santo definido para hoy en el índice");
+                    const indexResponse = await fetch('assets/data/santoral-index.json');
+                    if (!indexResponse.ok) throw new Error("No se pudo cargar el índice del santoral");
+                    const santoralIndex = await indexResponse.json();
 
-                const idDelDia = santoData.id;
-                window.santoDelDiaID = idDelDia; // Guardar en variable específica para la tarjeta
-                
-                // Actualizar Rango (Ej: "Memoria", "Solemnidad")
-                document.getElementById('tarjeta-santo-rango').textContent = santoData.rango;
+                    const santoData = santoralIndex[fechaHoy];
+                    if (!santoData) throw new Error("No hay santo definido para hoy en el índice");
+                    
+                    idDelDia = santoData.id;
+                    rangoDelDia = santoData.rango;
+                }
 
-                // 3. Buscar los detalles del santo en Firebase
+                window.santoDelDiaID = idDelDia; 
+                document.getElementById('tarjeta-santo-rango').textContent = rangoDelDia;
+
+                // 3. Buscar los detalles en Firebase
                 const docRef = doc(tempDb, "santos", idDelDia);
                 const docSnap = await getDoc(docRef);
 
@@ -600,17 +643,17 @@ body {
                     document.getElementById('tarjeta-santo-img').src = imgPath;
                     document.getElementById('tarjeta-santo-nombre').textContent = data.nombre_completo;
                     
+                    // Aplicar el color litúrgico como clase dinámica (ej. accar-lit-card--blanco)
+                    const colorLiturgico = data.color ? data.color.toLowerCase() : 'blanco';
+                    const tarjeta = document.getElementById('tarjeta-santo-dia');
+                    tarjeta.classList.add(`accar-lit-card--${colorLiturgico}`);
+                    
                     if (data.biografia) {
                         const primeraOracion = data.biografia.split('.')[0] + '.';
                         document.getElementById('tarjeta-santo-texto').innerHTML = primeraOracion;
                     } else {
                         document.getElementById('tarjeta-santo-texto').innerHTML = data.patronazgo || "Conoce la vida de este santo.";
                     }
-                } else {
-                    // Si no está en Firebase todavía
-                    const idLimpio = idDelDia.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
-                    document.getElementById('tarjeta-santo-nombre').textContent = idLimpio;
-                    document.getElementById('tarjeta-santo-texto').textContent = "Ficha biográfica en preparación. Pronto estará disponible en el martirologio.";
                 }
             } catch (e) {
                 console.error("Error cargando santo para la tarjeta de inicio", e);
