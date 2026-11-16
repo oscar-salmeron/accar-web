@@ -83,26 +83,26 @@ body {
 .theme-celeste ul.lecciones-list li::before { color: #3b82f6 !important; }
 
 /* =========================================
-   TEMA DIVINO (Exclusivo para Jesucristo)
+   TEMA DIVINO (Exclusivo para Jesucristo - Realeza Imperial)
    ========================================= */
-/* 1. Fondo: Resplandor blanco puro que estalla en oro real brillante */
-.theme-divino { background: radial-gradient(circle at top, #ffffff 0%, #d4af37 50%, #2a1f00 100%) !important; }
+/* 1. Fondo: Púrpura Imperial profundo, el verdadero color de la realeza */
+.theme-divino { background: radial-gradient(circle at top, #4A0023 0%, #1A000C 100%) !important; }
 
-/* 2. Tarjeta de biografía: Blanco inmaculado */
-.theme-divino .santo-content { background: #ffffff !important; }
+/* 2. Tarjeta de biografía: Alabastro claro (NO destiñe el texto) */
+.theme-divino .santo-content { background: #FAF7F2 !important; }
 
-/* 3. Borde iluminado: Oro puro hiperbrillante */
-.theme-divino .santo-content::before { background: linear-gradient(120deg, #ffdf00, #ffffff, #d4af37) !important; }
+/* 3. Borde iluminado: Oro Papal brillante */
+.theme-divino .santo-content::before { background: linear-gradient(120deg, #FFD700, #FFF8DC, #B8860B) !important; }
 
-/* 4. Títulos y negritas: Rojo carmesí regio y profundo */
+/* 4. Títulos y negritas: Púrpura y Oro profundo */
 .theme-divino .santo-content h2, 
 .theme-divino .santo-content strong {
-    color: #990000 !important;
-    border-bottom-color: rgba(153, 0, 0, 0.2) !important;
+    color: #4A0023 !important;
+    border-bottom-color: rgba(74, 0, 35, 0.2) !important;
 }
 
 /* 5. Puntos de la lista: Oro resplandeciente */
-.theme-divino ul.lecciones-list li::before { color: #ffc107 !important; } 
+.theme-divino ul.lecciones-list li::before { color: #B8860B !important; } 
     padding: 60px 20px 100px; 
     max-width: 1000px; 
     margin: 0 auto; 
@@ -111,7 +111,7 @@ body {
 
 /* Configuración base para el Santoral (Calendario y Ficha) */
 #app-santoral { 
-    padding: 60px 20px 100px; 
+    padding: 100px 20px 100px; 
     max-width: 1000px; 
     margin: 0 auto; 
     position: relative;
@@ -197,7 +197,7 @@ ul.lecciones-list li::before { content: "•"; color: #d4af37; font-size: 24px; 
 .view-container { display: none; animation: fadeIn 0.4s ease-in-out forwards; }
 .view-active { display: block; }
 @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-.grid-meses { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
+.grid-meses { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
 .card-mes { background: linear-gradient(145deg, rgba(30, 58, 138, 0.4), rgba(15, 23, 42, 0.6)); border: 1px solid rgba(212, 175, 55, 0.3); border-radius: 12px; padding: 30px 20px; text-align: center; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
 .card-mes:hover { transform: translateY(-5px); background: linear-gradient(145deg, rgba(30, 58, 138, 0.6), rgba(15, 23, 42, 0.8)); border-color: rgba(212, 175, 55, 0.8); box-shadow: 0 15px 40px rgba(0,0,0,0.5), 0 0 20px rgba(212, 175, 55, 0.2); }
 .card-mes h2 { font-family: 'Cinzel', serif; color: #f8efd3; margin: 0; font-size: 24px; letter-spacing: 1px; border:none; text-align:center; padding:0; }
