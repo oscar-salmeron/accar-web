@@ -1,9 +1,22 @@
+import { initializeApp, getApps, getApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getFirestore, collection, getDocs, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
 const SPA_CONTAINER = document.getElementById('spa-content');
 
 // ==========================================
-// 1. INICIALIZACIÓN DE FIREBASE (COMPAT)
+// 1. INICIALIZACIÓN DE FIREBASE (MODULAR)
 // ==========================================
-const db = firebase.firestore();
+const firebaseConfig = {
+    apiKey: "AIzaSyDSCSWYM5dgkIfVK-uBe1oWkeU7se4fvFg",
+    authDomain: "accar-web.firebaseapp.com",
+    projectId: "accar-web",
+    storageBucket: "accar-web.firebasestorage.app",
+    messagingSenderId: "249370548582",
+    appId: "1:249370548582:web:6b35298df41771113910a7"
+};
+
+const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApp();
+const db = getFirestore(app);
 
 // ==========================================
 // 2. UTILIDADES DE INYECCIÓN DE SCRIPTS (SPA)
@@ -253,8 +266,7 @@ async function initCanonView() {
     for (let key in grids) if (grids[key]) grids[key].innerHTML = "";
 
     try {
-        // Sintaxis correcta para la versión Compat:
-        const querySnapshot = await db.collection("canon_biblico").doc("libros").collection("registros").get();
+        const querySnapshot = await getDocs(collection(db, "canon_biblico", "libros", "registros"));
         if (querySnapshot.empty) {
             if(grids["Pentateuco"]) grids["Pentateuco"].innerHTML = `<p class="empty-text">Aún no se han subido libros al canon.</p>`;
         } else {
@@ -299,11 +311,9 @@ async function initCanonView() {
 async function initLibroView() {
     const libroId = localStorage.getItem('libroSeleccionado') || 'genesis'; 
     try {
-        // Sintaxis correcta para la versión Compat:
-        const docRef = db.collection("canon_biblico").doc("libros").collection("registros").doc(libroId);
-        const docSnap = await docRef.get();
-        
-        // En la versión Compat, exists es un método, no una propiedad:
+        const docRef = doc(db, "canon_biblico", "libros", "registros", libroId);
+        const docSnap = await getDoc(docRef);
+
         if (docSnap.exists()) {
             const l = docSnap.data();
             const tituloEl = document.getElementById('titulo-libro');
@@ -399,8 +409,7 @@ async function initDirectorioPersonajesView() {
     for (let key in grids) if (grids[key]) grids[key].innerHTML = ""; 
 
     try {
-        // Sintaxis correcta para la versión Compat:
-        const querySnapshot = await db.collection("directorio_biblico").doc("personajes").collection("registros").get();
+        const querySnapshot = await getDocs(collection(db, "directorio_biblico", "personajes", "registros"));
 
         if (querySnapshot.empty) {
             if(grids["Genesis"]) grids["Genesis"].innerHTML = `<p class="empty-text">No se encontraron registros.</p>`;
@@ -445,11 +454,9 @@ async function initDirectorioPersonajesView() {
 async function initFichaPersonajeView() {
     const personajeId = localStorage.getItem('personajeSeleccionado') || 'abraham'; 
     try {
-        // Sintaxis correcta para la versión Compat:
-        const docRef = db.collection("directorio_biblico").doc("personajes").collection("registros").doc(personajeId);
-        const docSnap = await docRef.get();
+        const docRef = doc(db, "directorio_biblico", "personajes", "registros", personajeId);
+        const docSnap = await getDoc(docRef);
 
-        // En la versión Compat, exists es un método, no una propiedad:
         if (docSnap.exists()) {
             const p = docSnap.data();
             const heroH1 = document.querySelector('.hero-text h1');
