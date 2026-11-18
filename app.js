@@ -286,7 +286,7 @@ async function initCanonView() {
                 const categoriaDestino = data.categoria || "Pentateuco";
 
                 const tarjetaHTML = `
-                    <a href="#" onclick="event.preventDefault(); localStorage.setItem('libroSeleccionado', '${idLibro}'); loadView('views/canon_biblico/libro.html');" class="book-card">
+                    <a href="#" onclick="event.preventDefault(); localStorage.setItem('libroSeleccionado', '${idLibro}'); loadView('/views/canon_biblico/libro.html');" class="book-card">
                         <div class="book-cover"><img src="${imagen}" alt="Portada" onerror="this.src='https://placehold.co/120x180/09172d/d4af37?text=Libro+Sagrado'"></div>
                         <h2 class="book-title">${data.titulo || 'Libro'}</h2>
                         <div class="book-subtitle">${data.subtitulo_corto || ''}</div>
@@ -422,7 +422,7 @@ async function initDirectorioPersonajesView() {
                 const estiloExtra = idPersonaje === 'rafael' ? 'transform: scale(1.35) translateY(28px); transform-origin: bottom center;' : '';
 
                 const tarjetaHTML = `
-                    <a href="#" onclick="event.preventDefault(); localStorage.setItem('personajeSeleccionado', '${idPersonaje}'); loadView('views/directorio_biblico/personaje.html');" class="accar-portrait-card">
+                    <a href="#" onclick="event.preventDefault(); localStorage.setItem('personajeSeleccionado', '${idPersonaje}'); loadView('/views/directorio_biblico/personaje.html');" class="accar-portrait-card">
                         <div class="portrait-frame">
                             <img src="${imagen}" alt="${data.nombre || 'Personaje'}" style="${estiloExtra}" onerror="this.src='https://placehold.co/180x280/050b1a/d4af37?text=Sin+Imagen'">
                         </div>
@@ -519,7 +519,8 @@ async function initFichaPersonajeView() {
 // ==========================================
 window.loadView = async function(url) {
   try {
-      const res = await fetch(url);
+      const fetchUrl = url.startsWith('/') ? url : `/${url}`;
+      const res = await fetch(fetchUrl);
       const html = await res.text();
       SPA_CONTAINER.innerHTML = html;
       
@@ -558,18 +559,10 @@ window.loadView = async function(url) {
   }
 };
 
-// Blindaje contra race conditions del DOM
-async function iniciarApp() {
-  try {
-    await Promise.all([
-      loadComponent('siteHeader', 'components/header.html'),
-      loadComponent('siteFooter', 'components/footer.html')
-    ]);
-    loadView('views/inicio.html');
-  } catch (e) {
-    console.error("Error inicializando la app: ", e);
-  }
-}
-
-if (document.readyState === 'loading') {
-  document.addEventListener("DOMContentLoaded", iniciar
+document.addEventListener("DOMContentLoaded", async () => {
+  await Promise.all([
+    loadComponent('siteHeader', '/components/header.html'),
+    loadComponent('siteFooter', '/components/footer.html')
+  ]);
+  loadView('/views/inicio.html');
+});
