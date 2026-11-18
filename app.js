@@ -1,9 +1,22 @@
+import { initializeApp, getApps, getApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getFirestore, collection, getDocs, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
 const SPA_CONTAINER = document.getElementById('spa-content');
 
 // ==========================================
-// 1. INICIALIZACIÓN DE FIREBASE (COMPAT)
+// 1. INICIALIZACIÓN DE FIREBASE (MODULAR)
 // ==========================================
-const db = firebase.firestore();
+const firebaseConfig = {
+    apiKey: "AIzaSyDSCSWYM5dgkIfVK-uBe1oWkeU7se4fvFg",
+    authDomain: "accar-web.firebaseapp.com",
+    projectId: "accar-web",
+    storageBucket: "accar-web.firebasestorage.app",
+    messagingSenderId: "249370548582",
+    appId: "1:249370548582:web:6b35298df41771113910a7"
+};
+
+const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApp();
+const db = getFirestore(app);
 
 // ==========================================
 // 2. UTILIDADES DE INYECCIÓN DE SCRIPTS (SPA)
@@ -73,14 +86,17 @@ window.toggleAccordion = function(idBloque) {
 };
 
 window.showTestament = function(testament) {
-    // Sirve tanto para Canon como para Personajes
     const introCanon = document.getElementById('intro-canon');
     const introDir = document.getElementById('intro-directory');
     if(introCanon) introCanon.style.display = 'none';
     if(introDir) introDir.style.display = 'none';
     
-    document.getElementById('ot-container').style.display = testament === 'ot' ? 'flex' : 'none';
-    document.getElementById('nt-container').style.display = testament === 'nt' ? 'flex' : 'none';
+    const otContainer = document.getElementById('ot-container');
+    const ntContainer = document.getElementById('nt-container');
+    
+    if(otContainer) otContainer.style.display = testament === 'ot' ? 'flex' : 'none';
+    if(ntContainer) ntContainer.style.display = testament === 'nt' ? 'flex' : 'none';
+    
     localStorage.setItem('testamentoActivo', testament);
 };
 
@@ -90,8 +106,11 @@ window.volverInicio = function() {
     if(introCanon) introCanon.style.display = 'block';
     if(introDir) introDir.style.display = 'block';
     
-    document.getElementById('ot-container').style.display = 'none';
-    document.getElementById('nt-container').style.display = 'none';
+    const otContainer = document.getElementById('ot-container');
+    const ntContainer = document.getElementById('nt-container');
+    if(otContainer) otContainer.style.display = 'none';
+    if(ntContainer) ntContainer.style.display = 'none';
+    
     localStorage.removeItem('testamentoActivo');
 };
 
@@ -118,7 +137,6 @@ window.cerrarModal = function() {
 window.cargarPregunta = function() {
     const q = quizData[quizIndex];
     document.getElementById('q-num').innerText = quizIndex + 1;
-    // Soporta q-total-ui (Libro) o número fijo (Personaje)
     const qTotalEl = document.getElementById('q-total-ui');
     if(qTotalEl) qTotalEl.innerText = quizData.length;
     
@@ -248,7 +266,7 @@ async function initCanonView() {
     for (let key in grids) if (grids[key]) grids[key].innerHTML = "";
 
     try {
-        const querySnapshot = await db.collection("canon_biblico/libros/registros").get();
+        const querySnapshot = await getDocs(collection(db, "canon_biblico", "libros", "registros"));
         if (querySnapshot.empty) {
             if(grids["Pentateuco"]) grids["Pentateuco"].innerHTML = `<p class="empty-text">Aún no se han subido libros al canon.</p>`;
         } else {
@@ -293,12 +311,18 @@ async function initCanonView() {
 async function initLibroView() {
     const libroId = localStorage.getItem('libroSeleccionado') || 'genesis'; 
     try {
-        const docSnap = await db.collection("canon_biblico/libros/registros").doc(libroId).get();
-        if (docSnap.exists) {
+        const docRef = doc(db, "canon_biblico", "libros", "registros", libroId);
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
             const l = docSnap.data();
-            document.getElementById('titulo-libro').innerText = l.titulo || "Libro Sagrado";
-            document.getElementById('subtitulo-libro').innerText = l.subtitulo_corto || "";
-            document.getElementById('img-portada').src = `/assets/img/libro_${libroId}.png`;
+            const tituloEl = document.getElementById('titulo-libro');
+            const subEl = document.getElementById('subtitulo-libro');
+            const imgEl = document.getElementById('img-portada');
+            
+            if(tituloEl) tituloEl.innerText = l.titulo || "Libro Sagrado";
+            if(subEl) subEl.innerText = l.subtitulo_corto || "";
+            if(imgEl) imgEl.src = `/assets/img/libro_${libroId}.png`;
 
             const f_autoria = (l.ficha_tecnica && l.ficha_tecnica.autoria) ? l.ficha_tecnica.autoria : "No disponible";
             const f_fecha = (l.ficha_tecnica && l.ficha_tecnica.fecha) ? l.ficha_tecnica.fecha : "No disponible";
@@ -316,18 +340,22 @@ async function initLibroView() {
             if (l.uso_liturgico) htmlContent += `<h2>5. Uso Litúrgico y Fruto Espiritual</h2>${formatearTexto(l.uso_liturgico)}`;
             if (l.versiculos_clave) htmlContent += `<h2>6. Versículos Clave</h2><div class="versiculos-box">${l.versiculos_clave}</div>`;
 
-            document.getElementById('main-content').innerHTML = htmlContent;
+            const mainContent = document.getElementById('main-content');
+            if(mainContent) mainContent.innerHTML = htmlContent;
 
             if (l.test && l.test.length > 0) {
                 quizData = l.test;
-                document.getElementById('cta-test').style.display = 'block';
+                const btnCta = document.getElementById('cta-test');
+                if(btnCta) btnCta.style.display = 'block';
             }
         } else {
-            document.getElementById('main-content').innerHTML = `<p style="color: var(--error); text-align: center;">Documento no encontrado.</p>`;
+            const mainContent = document.getElementById('main-content');
+            if(mainContent) mainContent.innerHTML = `<p style="color: var(--error); text-align: center;">Documento no encontrado.</p>`;
         }
     } catch (error) {
         console.error("Error al cargar libro:", error);
-        document.getElementById('main-content').innerHTML = `<p style="color: var(--error); text-align: center;">Error de conexión.</p>`;
+        const mainContent = document.getElementById('main-content');
+        if(mainContent) mainContent.innerHTML = `<p style="color: var(--error); text-align: center;">Error de conexión.</p>`;
     }
 }
 
@@ -381,7 +409,7 @@ async function initDirectorioPersonajesView() {
     for (let key in grids) if (grids[key]) grids[key].innerHTML = ""; 
 
     try {
-        const querySnapshot = await db.collection("directorio_biblico/personajes/registros").get();
+        const querySnapshot = await getDocs(collection(db, "directorio_biblico", "personajes", "registros"));
 
         if (querySnapshot.empty) {
             if(grids["Genesis"]) grids["Genesis"].innerHTML = `<p class="empty-text">No se encontraron registros.</p>`;
@@ -426,9 +454,10 @@ async function initDirectorioPersonajesView() {
 async function initFichaPersonajeView() {
     const personajeId = localStorage.getItem('personajeSeleccionado') || 'abraham'; 
     try {
-        const docSnap = await db.collection("directorio_biblico/personajes/registros").doc(personajeId).get();
+        const docRef = doc(db, "directorio_biblico", "personajes", "registros", personajeId);
+        const docSnap = await getDoc(docRef);
 
-        if (docSnap.exists) {
+        if (docSnap.exists()) {
             const p = docSnap.data();
             const heroH1 = document.querySelector('.hero-text h1');
             const heroSub = document.querySelector('.hero-text .subtitle');
