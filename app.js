@@ -3,7 +3,6 @@ const SPA_CONTAINER = document.getElementById('spa-content');
 // ==========================================
 // 1. INICIALIZACIÓN DE FIREBASE (COMPAT)
 // ==========================================
-// Usamos la instancia que ya se cargó en index.html
 const db = firebase.firestore();
 
 // ==========================================
@@ -30,19 +29,8 @@ async function loadComponent(id, url) {
 }
 
 // ==========================================
-// 3. CONTROLADOR: CANON BÍBLICO
+// 3. CONTROLADOR UNIVERSAL DE INTERFAZ
 // ==========================================
-const ordenCanonico = [
-    "genesis", "exodo", "levitico", "numeros", "deuteronomio",
-    "josue", "jueces", "rut", "1samuel", "2samuel", "1reyes", "2reyes",
-    "1cronicas", "2cronicas", "esdras", "nehemias", "tobias", "judit",
-    "ester", "1macabeos", "2macabeos", "job", "salmos", "proverbios",
-    "eclesiastes", "cantares", "sabiduria", "eclesiastico", "isaias",
-    "jeremias", "lamentaciones", "baruc", "ezequiel", "daniel", "oseas",
-    "joel", "amos", "abdias", "jonas", "miqueas", "nahum", "habacuc",
-    "sofonias", "ageo", "zacarias", "malaquias"
-];
-
 window.toggleMaster = function(idBloque) {
     const bloque = document.getElementById(idBloque);
     if(!bloque) return;
@@ -69,113 +57,53 @@ window.toggleSub = function(idBloque) {
     }
 };
 
+window.toggleAccordion = function(idBloque) {
+    const bloque = document.getElementById(idBloque);
+    if(!bloque) return;
+    const icono = bloque.querySelector('.icon-toggle');
+    if (bloque.classList.contains('active')) {
+        bloque.classList.remove('active');
+        icono.innerText = "+";
+        icono.style.transform = "rotate(0deg)";
+    } else {
+        bloque.classList.add('active');
+        icono.innerText = "-";
+        icono.style.transform = "rotate(180deg)";
+    }
+};
+
 window.showTestament = function(testament) {
-    document.getElementById('intro-canon').style.display = 'none';
+    // Sirve tanto para Canon como para Personajes
+    const introCanon = document.getElementById('intro-canon');
+    const introDir = document.getElementById('intro-directory');
+    if(introCanon) introCanon.style.display = 'none';
+    if(introDir) introDir.style.display = 'none';
+    
     document.getElementById('ot-container').style.display = testament === 'ot' ? 'flex' : 'none';
     document.getElementById('nt-container').style.display = testament === 'nt' ? 'flex' : 'none';
     localStorage.setItem('testamentoActivo', testament);
 };
 
 window.volverInicio = function() {
-    document.getElementById('intro-canon').style.display = 'block';
+    const introCanon = document.getElementById('intro-canon');
+    const introDir = document.getElementById('intro-directory');
+    if(introCanon) introCanon.style.display = 'block';
+    if(introDir) introDir.style.display = 'block';
+    
     document.getElementById('ot-container').style.display = 'none';
     document.getElementById('nt-container').style.display = 'none';
     localStorage.removeItem('testamentoActivo');
 };
 
-async function initCanonView() {
-    const testamentoGuardado = localStorage.getItem('testamentoActivo');
-    if (testamentoGuardado) {
-        showTestament(testamentoGuardado);
-    }
-
-    const grids = {
-        "Pentateuco": document.getElementById('grid-pentateuco'),
-        "Historicos_1": document.getElementById('grid-historicos-1'),
-        "Historicos_2": document.getElementById('grid-historicos-2'),
-        "Historicos_3": document.getElementById('grid-historicos-3'),
-        "Historicos_4": document.getElementById('grid-historicos-4'),
-        "Sapienciales": document.getElementById('grid-sapienciales'),
-        "Profeticos_Mayores": document.getElementById('grid-profeticos-mayores'),
-        "Profeticos_Menores": document.getElementById('grid-profeticos-menores'),
-        "Evangelios": document.getElementById('grid-evangelios'),
-        "Paulinas": document.getElementById('grid-paulinas'),
-        "Catolicas": document.getElementById('grid-catolicas')
-    };
-
-    for (let key in grids) {
-        if (grids[key]) grids[key].innerHTML = "";
-    }
-
-    try {
-        // Sintaxis Compat de Firebase (Limpia y global)
-        const querySnapshot = await db.collection("canon_biblico/libros/registros").get();
-
-        if (querySnapshot.empty) {
-            if(grids["Pentateuco"]) grids["Pentateuco"].innerHTML = `<p class="empty-text">Aún no se han subido libros al canon.</p>`;
-        } else {
-            const librosArray = [];
-            querySnapshot.forEach((doc) => {
-                librosArray.push({ id: doc.id, data: doc.data() });
-            });
-
-            librosArray.sort((a, b) => {
-                const indexA = ordenCanonico.indexOf(a.id);
-                const indexB = ordenCanonico.indexOf(b.id);
-                const finalIndexA = indexA === -1 ? 999 : indexA;
-                const finalIndexB = indexB === -1 ? 999 : indexB;
-                return finalIndexA - finalIndexB;
-            });
-
-            librosArray.forEach((libroObj) => {
-                const data = libroObj.data;
-                const idLibro = libroObj.id;
-                const imagen = `/assets/img/libro_${idLibro}.png`;
-                const categoriaDestino = data.categoria || "Pentateuco";
-
-                const tarjetaHTML = `
-                    <a href="#" onclick="event.preventDefault(); localStorage.setItem('libroSeleccionado', '${idLibro}'); loadView('/views/canon_biblico/libro.html');" class="book-card">
-                        <div class="book-cover">
-                            <img src="${imagen}" alt="Portada ${data.titulo}" onerror="this.src='https://placehold.co/120x180/09172d/d4af37?text=Libro+Sagrado'">
-                        </div>
-                        <h2 class="book-title">${data.titulo || 'Libro'}</h2>
-                        <div class="book-subtitle">${data.subtitulo_corto || ''}</div>
-                    </a>
-                `;
-
-                if (grids[categoriaDestino]) {
-                    grids[categoriaDestino].innerHTML += tarjetaHTML;
-                } else if (grids["Pentateuco"]) {
-                    grids["Pentateuco"].innerHTML += tarjetaHTML;
-                }
-            });
-
-            for (let key in grids) {
-                if (grids[key] && grids[key].innerHTML.trim() === "") {
-                    grids[key].innerHTML = `<p class="empty-text">Próximamente se añadirán libros a esta sección.</p>`;
-                }
-            }
-        }
-    } catch (error) {
-        console.error("Error obteniendo los libros: ", error);
-        if(grids["Pentateuco"]) grids["Pentateuco"].innerHTML = `<p class="loading-text" style="color: #f87171;">Error de conexión con la base de datos.</p>`;
-    }
-}
-
 // ==========================================
-// 4. CONTROLADOR DE VISTA: LECTURA DE LIBRO
+// 4. SISTEMA UNIVERSAL DEL TEST INTERACTIVO
 // ==========================================
 let quizData = [];
 let quizIndex = 0;
 let quizScore = 0;
 
-const formatearTexto = (texto) => {
-    if (!texto) return "";
-    return `<p>${texto}</p>`;
-};
-
 window.abrirModal = function() {
-    if(quizData.length === 0) return;
+    if(quizData.length === 0) { alert("Test no disponible."); return; }
     quizIndex = 0; quizScore = 0;
     document.getElementById('quiz-view').style.display = 'block';
     document.getElementById('results-view').style.display = 'none';
@@ -190,15 +118,19 @@ window.cerrarModal = function() {
 window.cargarPregunta = function() {
     const q = quizData[quizIndex];
     document.getElementById('q-num').innerText = quizIndex + 1;
-    document.getElementById('q-total-ui').innerText = quizData.length;
-    document.getElementById('q-text').innerText = q.pregunta;
+    // Soporta q-total-ui (Libro) o número fijo (Personaje)
+    const qTotalEl = document.getElementById('q-total-ui');
+    if(qTotalEl) qTotalEl.innerText = quizData.length;
+    
+    document.getElementById('q-text').innerText = q.pregunta || q.question;
     
     const optionsBox = document.getElementById('options-box');
     optionsBox.innerHTML = '';
     document.getElementById('just-box').style.display = 'none';
     document.getElementById('next-btn').style.display = 'none';
 
-    q.opciones.forEach((opt, i) => {
+    const opciones = q.opciones || q.options;
+    opciones.forEach((opt, i) => {
         const btn = document.createElement('button');
         btn.className = 'option-btn'; 
         btn.innerText = opt;
@@ -209,7 +141,7 @@ window.cargarPregunta = function() {
 
 window.seleccionarRespuesta = function(seleccionado, btnEl) {
     const q = quizData[quizIndex];
-    const correcta = q.correcta;
+    const correcta = q.correcta !== undefined ? q.correcta : q.correct;
     const botones = document.querySelectorAll('.option-btn');
     botones.forEach(b => b.disabled = true);
 
@@ -246,7 +178,7 @@ window.mostrarResultados = function() {
     
     const msg = document.getElementById('result-msg');
     if (quizScore === quizData.length) { 
-        msg.innerHTML = "<strong>¡Exégesis Perfecta!</strong><br>Has demostrado una profunda asimilación de la doctrina y la hermenéutica de este libro."; 
+        msg.innerHTML = "<strong>¡Excelente!</strong><br>Has demostrado una profunda asimilación de la doctrina."; 
         msg.style.color = "var(--success)"; 
     }
     else if (quizScore > 0) { 
@@ -254,52 +186,135 @@ window.mostrarResultados = function() {
         msg.style.color = "var(--primary-light)"; 
     }
     else { 
-        msg.innerHTML = "Te sugerimos releer el documento magisterial con detenimiento para captar la verdad salvífica del texto."; 
+        msg.innerHTML = "Te sugerimos releer el documento con detenimiento para captar la verdad salvífica del texto."; 
         msg.style.color = "var(--error)"; 
     }
 };
+
+// ==========================================
+// 5. CONTROLADORES DE VISTA (CANON)
+// ==========================================
+const ordenCanonico = [
+    "genesis", "exodo", "levitico", "numeros", "deuteronomio",
+    "josue", "jueces", "rut", "1samuel", "2samuel", "1reyes", "2reyes",
+    "1cronicas", "2cronicas", "esdras", "nehemias", "tobias", "judit",
+    "ester", "1macabeos", "2macabeos", "job", "salmos", "proverbios",
+    "eclesiastes", "cantares", "sabiduria", "eclesiastico", "isaias",
+    "jeremias", "lamentaciones", "baruc", "ezequiel", "daniel", "oseas",
+    "joel", "amos", "abdias", "jonas", "miqueas", "nahum", "habacuc",
+    "sofonias", "ageo", "zacarias", "malaquias"
+];
+
+const formatearTexto = (texto) => {
+    if (!texto) return "";
+    if (texto.includes('\n')) return `<p>${texto.replace(/\n\n/g, '</p><p>').replace(/\n/g, '<br>')}</p>`;
+    return `<p>${texto}</p>`;
+};
+
+const formatearTextoPersonaje = (texto) => {
+    if (!texto) return "";
+    if (texto.includes('\n')) return `<p>${texto.replace(/\n\n/g, '</p><p>').replace(/\n/g, '<br>')}</p>`;
+    const oraciones = texto.split(/\.\s+(?=[A-ZÁÉÍÓÚ¿¡])/);
+    let html = "";
+    let bloque = "";
+    for (let i = 0; i < oraciones.length; i++) {
+        bloque += oraciones[i] + ". ";
+        if ((i + 1) % 2 === 0 || i === oraciones.length - 1) {
+            html += `<p>${bloque.trim()}</p>`;
+            bloque = "";
+        }
+    }
+    return html.replace(/\.\.<\/p>/g, '.</p>');
+};
+
+async function initCanonView() {
+    const testamentoGuardado = localStorage.getItem('testamentoActivo');
+    if (testamentoGuardado) showTestament(testamentoGuardado);
+
+    const grids = {
+        "Pentateuco": document.getElementById('grid-pentateuco'),
+        "Historicos_1": document.getElementById('grid-historicos-1'),
+        "Historicos_2": document.getElementById('grid-historicos-2'),
+        "Historicos_3": document.getElementById('grid-historicos-3'),
+        "Historicos_4": document.getElementById('grid-historicos-4'),
+        "Sapienciales": document.getElementById('grid-sapienciales'),
+        "Profeticos_Mayores": document.getElementById('grid-profeticos-mayores'),
+        "Profeticos_Menores": document.getElementById('grid-profeticos-menores'),
+        "Evangelios": document.getElementById('grid-evangelios'),
+        "Paulinas": document.getElementById('grid-paulinas'),
+        "Catolicas": document.getElementById('grid-catolicas')
+    };
+
+    for (let key in grids) if (grids[key]) grids[key].innerHTML = "";
+
+    try {
+        const querySnapshot = await db.collection("canon_biblico/libros/registros").get();
+        if (querySnapshot.empty) {
+            if(grids["Pentateuco"]) grids["Pentateuco"].innerHTML = `<p class="empty-text">Aún no se han subido libros al canon.</p>`;
+        } else {
+            const librosArray = [];
+            querySnapshot.forEach((doc) => librosArray.push({ id: doc.id, data: doc.data() }));
+
+            librosArray.sort((a, b) => {
+                const indexA = ordenCanonico.indexOf(a.id);
+                const indexB = ordenCanonico.indexOf(b.id);
+                return (indexA === -1 ? 999 : indexA) - (indexB === -1 ? 999 : indexB);
+            });
+
+            librosArray.forEach((libroObj) => {
+                const data = libroObj.data;
+                const idLibro = libroObj.id;
+                const imagen = `/assets/img/libro_${idLibro}.png`;
+                const categoriaDestino = data.categoria || "Pentateuco";
+
+                const tarjetaHTML = `
+                    <a href="#" onclick="event.preventDefault(); localStorage.setItem('libroSeleccionado', '${idLibro}'); loadView('/views/canon_biblico/libro.html');" class="book-card">
+                        <div class="book-cover"><img src="${imagen}" alt="Portada" onerror="this.src='https://placehold.co/120x180/09172d/d4af37?text=Libro+Sagrado'"></div>
+                        <h2 class="book-title">${data.titulo || 'Libro'}</h2>
+                        <div class="book-subtitle">${data.subtitulo_corto || ''}</div>
+                    </a>`;
+
+                if (grids[categoriaDestino]) grids[categoriaDestino].innerHTML += tarjetaHTML;
+                else if (grids["Pentateuco"]) grids["Pentateuco"].innerHTML += tarjetaHTML;
+            });
+
+            for (let key in grids) {
+                if (grids[key] && grids[key].innerHTML.trim() === "") {
+                    grids[key].innerHTML = `<p class="empty-text">Próximamente se añadirán libros a esta sección.</p>`;
+                }
+            }
+        }
+    } catch (error) {
+        console.error("Error obteniendo libros: ", error);
+        if(grids["Pentateuco"]) grids["Pentateuco"].innerHTML = `<p class="loading-text" style="color: #f87171;">Error de conexión con la base de datos.</p>`;
+    }
+}
 
 async function initLibroView() {
     const libroId = localStorage.getItem('libroSeleccionado') || 'genesis'; 
     try {
         const docSnap = await db.collection("canon_biblico/libros/registros").doc(libroId).get();
-
         if (docSnap.exists) {
             const l = docSnap.data();
-            
             document.getElementById('titulo-libro').innerText = l.titulo || "Libro Sagrado";
             document.getElementById('subtitulo-libro').innerText = l.subtitulo_corto || "";
             document.getElementById('img-portada').src = `/assets/img/libro_${libroId}.png`;
 
-            const f_autoria = (l.ficha_tecnica && l.ficha_tecnica.autoria) ? l.ficha_tecnica.autoria : "Dato no disponible";
-            const f_fecha = (l.ficha_tecnica && l.ficha_tecnica.fecha) ? l.ficha_tecnica.fecha : "Dato no disponible";
-            const f_dest = (l.ficha_tecnica && l.ficha_tecnica.destinatarios) ? l.ficha_tecnica.destinatarios : "Dato no disponible";
-            const f_generos = (l.ficha_tecnica && l.ficha_tecnica.generos) ? l.ficha_tecnica.generos : "Dato no disponible";
+            const f_autoria = (l.ficha_tecnica && l.ficha_tecnica.autoria) ? l.ficha_tecnica.autoria : "No disponible";
+            const f_fecha = (l.ficha_tecnica && l.ficha_tecnica.fecha) ? l.ficha_tecnica.fecha : "No disponible";
+            const f_dest = (l.ficha_tecnica && l.ficha_tecnica.destinatarios) ? l.ficha_tecnica.destinatarios : "No disponible";
+            const f_generos = (l.ficha_tecnica && l.ficha_tecnica.generos) ? l.ficha_tecnica.generos : "No disponible";
 
             let htmlContent = `
                 <h2>1. Ficha Técnica y Visión General</h2>
                 <div class="ficha-tecnica">
-                    <ul>
-                        <li><strong>Autoría:</strong> ${f_autoria}</li>
-                        <li><strong>Fecha:</strong> ${f_fecha}</li>
-                        <li><strong>Destinatarios:</strong> ${f_dest}</li>
-                        <li><strong>Géneros:</strong> ${f_generos}</li>
-                    </ul>
-                </div>
-            `;
-
+                    <ul><li><strong>Autoría:</strong> ${f_autoria}</li><li><strong>Fecha:</strong> ${f_fecha}</li><li><strong>Destinatarios:</strong> ${f_dest}</li><li><strong>Géneros:</strong> ${f_generos}</li></ul>
+                </div>`;
             if (l.contexto_proposito) htmlContent += `<h2>2. Contexto y Propósito Divino</h2>${formatearTexto(l.contexto_proposito)}`;
             if (l.exegesis_hermeneutica) htmlContent += `<h2>3. Exégesis y Hermenéutica Católica</h2>${formatearTexto(l.exegesis_hermeneutica)}`;
             if (l.sentido_tipologico) htmlContent += `<h2>4. Sentido Tipológico y Cristológico</h2>${formatearTexto(l.sentido_tipologico)}`;
             if (l.uso_liturgico) htmlContent += `<h2>5. Uso Litúrgico y Fruto Espiritual</h2>${formatearTexto(l.uso_liturgico)}`;
-            if (l.versiculos_clave) {
-                htmlContent += `
-                    <h2>6. Versículos Clave</h2>
-                    <div class="versiculos-box">
-                        ${l.versiculos_clave}
-                    </div>
-                `;
-            }
+            if (l.versiculos_clave) htmlContent += `<h2>6. Versículos Clave</h2><div class="versiculos-box">${l.versiculos_clave}</div>`;
 
             document.getElementById('main-content').innerHTML = htmlContent;
 
@@ -307,38 +322,192 @@ async function initLibroView() {
                 quizData = l.test;
                 document.getElementById('cta-test').style.display = 'block';
             }
-
         } else {
-            document.getElementById('main-content').innerHTML = `<p style="color: var(--error); text-align: center;">No se encontró el documento en la base de datos.</p>`;
+            document.getElementById('main-content').innerHTML = `<p style="color: var(--error); text-align: center;">Documento no encontrado.</p>`;
         }
     } catch (error) {
-        console.error("Error al cargar el libro:", error);
-        document.getElementById('main-content').innerHTML = `<p style="color: var(--error); text-align: center;">Error al conectar con la base de datos.</p>`;
+        console.error("Error al cargar libro:", error);
+        document.getElementById('main-content').innerHTML = `<p style="color: var(--error); text-align: center;">Error de conexión.</p>`;
     }
 }
 
 // ==========================================
-// 5. MOTOR DE RUTEO (Router SPA)
+// 6. CONTROLADORES DE VISTA (PERSONAJES)
+// ==========================================
+async function initDirectorioPersonajesView() {
+    const testamentoGuardado = localStorage.getItem('testamentoActivo');
+    if (testamentoGuardado) showTestament(testamentoGuardado);
+
+    const grids = {
+        "Genesis": document.getElementById('grid-genesis'), "Exodo": document.getElementById('grid-exodo'),
+        "Levitico": document.getElementById('grid-levitico'), "Numeros": document.getElementById('grid-numeros'),
+        "Deuteronomio": document.getElementById('grid-deuteronomio'), "Josue": document.getElementById('grid-josue'),
+        "Jueces": document.getElementById('grid-jueces'), "Rut": document.getElementById('grid-rut'),
+        "1 Samuel": document.getElementById('grid-1_samuel'), "2 Samuel": document.getElementById('grid-2_samuel'),
+        "1 Reyes": document.getElementById('grid-1_reyes'), "2 Reyes": document.getElementById('grid-2_reyes'),
+        "1 Cronicas": document.getElementById('grid-1_cronicas'), "2 Cronicas": document.getElementById('grid-2_cronicas'),
+        "Esdras": document.getElementById('grid-esdras'), "Nehemias": document.getElementById('grid-nehemias'),
+        "Tobias": document.getElementById('grid-tobias'), "Judit": document.getElementById('grid-judit'),
+        "Ester": document.getElementById('grid-ester'), "1 Macabeos": document.getElementById('grid-1_macabeos'),
+        "2 Macabeos": document.getElementById('grid-2_macabeos'), "Job": document.getElementById('grid-job'),
+        "Salmos": document.getElementById('grid-salmos'), "Proverbios": document.getElementById('grid-proverbios'),
+        "Eclesiastes": document.getElementById('grid-eclesiastes'), "Cantar": document.getElementById('grid-cantar'),
+        "Sabiduria": document.getElementById('grid-sabiduria'), "Eclesiastico": document.getElementById('grid-eclesiastico'),
+        "Isaias": document.getElementById('grid-isaias'), "Jeremias": document.getElementById('grid-jeremias'),
+        "Lamentaciones": document.getElementById('grid-lamentaciones'), "Baruc": document.getElementById('grid-baruc'),
+        "Ezequiel": document.getElementById('grid-ezequiel'), "Daniel": document.getElementById('grid-daniel'),
+        "Oseas": document.getElementById('grid-oseas'), "Joel": document.getElementById('grid-joel'),
+        "Amos": document.getElementById('grid-amos'), "Abdias": document.getElementById('grid-abdias'),
+        "Jonas": document.getElementById('grid-jonas'), "Miqueas": document.getElementById('grid-miqueas'),
+        "Nahum": document.getElementById('grid-nahum'), "Habacuc": document.getElementById('grid-habacuc'),
+        "Sofonias": document.getElementById('grid-sofonias'), "Ageo": document.getElementById('grid-ageo'),
+        "Zacarias": document.getElementById('grid-zacarias'), "Malaquias": document.getElementById('grid-malaquias'),
+        "Sinopticos": document.getElementById('grid-sinopticos'), "Juan": document.getElementById('grid-juan'),
+        "Hechos": document.getElementById('grid-hechos'), "Paulinas": document.getElementById('grid-paulinas'),
+        "Hebreos": document.getElementById('grid-hebreos'), "Cartas Catolicas": document.getElementById('grid-cartas-catolicas'),
+        "Apocalipsis": document.getElementById('grid-apocalipsis')
+    };
+
+    const aparicionesExtra = {
+        "moises": ["Levitico", "Numeros", "Deuteronomio"], "aaron": ["Levitico", "Numeros", "Deuteronomio"],
+        "nadab": ["Levitico"], "abiu": ["Levitico"], "eleazar": ["Levitico", "Numeros", "Deuteronomio", "Josue"],
+        "itamar": ["Levitico", "Numeros"], "josue": ["Numeros", "Deuteronomio", "Josue"], "caleb": ["Numeros", "Deuteronomio", "Josue"],
+        "maria": ["Numeros"], "finees": ["Numeros", "Josue", "Jueces"], "mala": ["Numeros", "Josue"], "noa": ["Numeros", "Josue"],
+        "hogla": ["Numeros", "Josue"], "milca": ["Numeros", "Josue"], "tirsa": ["Numeros", "Josue"], "otoniel": ["Jueces"],
+        "david_rey": ["1 Reyes", "1 Cronicas"], "salomon": ["2 Samuel", "1 Cronicas", "2 Cronicas"],
+        "natan": ["1 Reyes", "1 Cronicas"], "elias": ["2 Reyes"], "eliseo": ["1 Reyes"], "esdras": ["Nehemias"]
+    };
+
+    for (let key in grids) if (grids[key]) grids[key].innerHTML = ""; 
+
+    try {
+        const querySnapshot = await db.collection("directorio_biblico/personajes/registros").get();
+
+        if (querySnapshot.empty) {
+            if(grids["Genesis"]) grids["Genesis"].innerHTML = `<p class="empty-text">No se encontraron registros.</p>`;
+        } else {
+            querySnapshot.forEach((doc) => {
+                const data = doc.data();
+                const idPersonaje = doc.id;
+                const imagen = `/assets/img/${idPersonaje}.png`;
+                const libroDestino = data.libro ? data.libro : "Genesis"; 
+                const estiloExtra = idPersonaje === 'rafael' ? 'transform: scale(1.35) translateY(28px); transform-origin: bottom center;' : '';
+
+                const tarjetaHTML = `
+                    <a href="#" onclick="event.preventDefault(); localStorage.setItem('personajeSeleccionado', '${idPersonaje}'); loadView('/views/directorio_biblico/personaje.html');" class="accar-portrait-card">
+                        <div class="portrait-frame">
+                            <img src="${imagen}" alt="${data.nombre || 'Personaje'}" style="${estiloExtra}" onerror="this.src='https://placehold.co/180x280/050b1a/d4af37?text=Sin+Imagen'">
+                        </div>
+                        <h2 class="portrait-name">${data.nombre || 'Desconocido'}</h2>
+                    </a>`;
+
+                if (grids[libroDestino]) grids[libroDestino].innerHTML += tarjetaHTML;
+                else if(grids["Genesis"]) grids["Genesis"].innerHTML += tarjetaHTML;
+
+                if (aparicionesExtra[idPersonaje]) {
+                    aparicionesExtra[idPersonaje].forEach(libroExtra => {
+                        if (grids[libroExtra]) grids[libroExtra].innerHTML += tarjetaHTML;
+                    });
+                }
+            });
+            
+            for (let key in grids) {
+                if (grids[key] && grids[key].innerHTML.trim() === "") {
+                    grids[key].innerHTML = `<p class="empty-text">No hay registros disponibles en esta sección por el momento.</p>`;
+                }
+            }
+        }
+    } catch (error) {
+        console.error("Error obteniendo personajes: ", error);
+        if(grids["Genesis"]) grids["Genesis"].innerHTML = `<p class="loading-text" style="color: #f87171;">Error de conexión.</p>`;
+    }
+}
+
+async function initFichaPersonajeView() {
+    const personajeId = localStorage.getItem('personajeSeleccionado') || 'abraham'; 
+    try {
+        const docSnap = await db.collection("directorio_biblico/personajes/registros").doc(personajeId).get();
+
+        if (docSnap.exists) {
+            const p = docSnap.data();
+            const heroH1 = document.querySelector('.hero-text h1');
+            const heroSub = document.querySelector('.hero-text .subtitle');
+            const heroImg = document.querySelector('.hero-image img');
+
+            if(heroH1) heroH1.innerText = p.titulo || p.nombre || "Personaje";
+            if(heroSub) heroSub.innerText = p.subtitulo || '';
+            if(heroImg) heroImg.src = `/assets/img/${personajeId}.png`;
+
+            const f_nombre = (p.ficha_tecnica && p.ficha_tecnica.nombre) ? p.ficha_tecnica.nombre : (p.nombre || "No disponible");
+            const f_significado = (p.ficha_tecnica && p.ficha_tecnica.significado) ? p.ficha_tecnica.significado : "No disponible";
+            const f_linaje = (p.ficha_tecnica && p.ficha_tecnica.linaje) ? p.ficha_tecnica.linaje : "No disponible";
+            const f_referencia = (p.ficha_tecnica && p.ficha_tecnica.referencia) ? p.ficha_tecnica.referencia : "No disponible";
+            
+            const relato = p.relato_biblico || "Relato no disponible.";
+            let importancia = p.importancia_teologica || "Importancia no disponible.";
+
+            importancia = importancia.replace(/(Cristológicamente:)/g, '<span style="color: var(--primary);">$1</span>');
+            importancia = importancia.replace(/(Mariológicamente:)/g, '<span style="color: var(--primary);">$1</span>');
+            importancia = importancia.replace(/(Eclesiológicamente:)/g, '<span style="color: var(--primary);">$1</span>');
+
+            const mainContent = document.getElementById('main-content');
+            if(mainContent) {
+                mainContent.innerHTML = `
+                    <h2>1. Ficha Técnica</h2>
+                    <div class="ficha-tecnica">
+                        <ul>
+                            <li><strong>Nombre:</strong> ${f_nombre}</li>
+                            <li><strong>Significado Espiritual:</strong> ${f_significado}</li>
+                            <li><strong>Linaje:</strong> ${f_linaje}</li>
+                            <li><strong>Capítulos Claves:</strong> ${f_referencia}</li>
+                        </ul>
+                    </div>
+                    <h2>2. El Relato Bíblico (Hechos Históricos)</h2>
+                    ${formatearTextoPersonaje(relato)}
+                    <h2>3. Importancia en el Plan de Salvación</h2>
+                    ${formatearTextoPersonaje(importancia)}
+                `;
+            }
+
+            if (p.test && p.test.length > 0) {
+                quizData = p.test;
+                const ctaBtn = document.querySelector('.cta-invitation');
+                if(ctaBtn) ctaBtn.style.display = 'block';
+            }
+        } else {
+            const mainContent = document.getElementById('main-content');
+            if(mainContent) mainContent.innerHTML = `<p style="color: var(--error); text-align: center;">No se encontró el documento.</p>`;
+        }
+    } catch (error) {
+        console.error("Error al cargar personaje:", error);
+        const mainContent = document.getElementById('main-content');
+        if(mainContent) mainContent.innerHTML = `<p style="color: var(--error); text-align: center;">Error al conectar con la base de datos.</p>`;
+    }
+}
+
+// ==========================================
+// 7. MOTOR DE RUTEO (Router SPA)
 // ==========================================
 window.loadView = async function(url) {
   try {
-      // Manejar ruteo absoluto o relativo de manera segura
       const fetchUrl = url.startsWith('/') ? url : `/${url}`;
-      
       const res = await fetch(fetchUrl);
       const html = await res.text();
       SPA_CONTAINER.innerHTML = html;
       
       runScripts(SPA_CONTAINER);
 
-      // Desplegar controladores específicos después de inyectar el HTML
+      // Distribuir el controlador correcto según la vista cargada
       if (url.includes('canon.html')) {
           initCanonView();
       } else if (url.includes('libro.html')) {
           initLibroView();
+      } else if (url.includes('directorio_personajes.html')) {
+          initDirectorioPersonajesView();
+      } else if (url.includes('personaje.html')) {
+          initFichaPersonajeView();
       }
       
-      // Cerrar menú móvil
       const mobileMenuToggle = document.getElementById('accarMobileMenuToggle');
       const mobileNavPanel = document.getElementById('accarMobileNavPanel');
       if (mobileNavPanel && mobileNavPanel.classList.contains('active')) {
@@ -348,11 +517,8 @@ window.loadView = async function(url) {
         document.querySelectorAll('#accarGlobalHeader .accar-mobile-dropdown').forEach(item => item.classList.remove('open'));
       }
 
-      if (document.activeElement) {
-        document.activeElement.blur();
-      }
+      if (document.activeElement) document.activeElement.blur();
 
-      // Desplazamiento inteligente
       if (url.includes('inicio.html')) {
         window.scrollTo({ top: 0, behavior: "smooth" });
       } else {
