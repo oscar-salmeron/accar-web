@@ -15,7 +15,7 @@ window.dbMultimedia = {
         {
             titulo: "La Pasión de Cristo",
             imagen: "dios_pasion_cristo.jpg",
-            url: "https://youtu.be/kZS7djxgnDw?si=yqXxmuO5vGF1skgT",
+            url: "https://drive.google.com/file/d/1LS42VLJYCzn1PsG1ccCBC7M70eh4Wq72/view?usp=drive_link",
             ano: "2004",
             sinopsis: "Un retrato profundo y conmovedor de las últimas 12 horas en la vida de Jesús de Nazaret el día de su crucifixión en Jerusalén."
         },
@@ -79,11 +79,11 @@ window.dbMultimedia = {
             sinopsis: "Relato de las apariciones de Santa María de Guadalupe a San Juan Diego en el cerro del Tepeyac en 1531 y el milagro de su sagrada tilma."
         },
         {
-            titulo: "Guadalupe: El Último Mensaje",
-            imagen: "maria_guadalupe_ultimo_mensaje.jpg",
+            titulo: "Los Ojos de Santa María de Guadalupe",
+            imagen: "maria_ojos_guadalupe.jpg",
             url: "https://drive.google.com/file/d/1P34M48qTpmRHEn0ezprJt7FeUWbMez3P/view?usp=drive_link",
             ano: "Doc",
-            sinopsis: "Documental sobre la vigencia espiritual, histórica y profética del mensaje de la Virgen de Guadalupe para el mundo actual."
+            sinopsis: "Investigación profunda sobre el misterio oculto y los descubrimientos científicos en los ojos de la Virgen de Guadalupe."
         },
         {
             titulo: "El Defensor de la Inmaculada",
@@ -91,13 +91,6 @@ window.dbMultimedia = {
             url: "https://drive.google.com/file/d/13rPgREBnODFReTX1a8ZAq_8AGrgcM0n8/view?usp=drive_link",
             ano: "Doc",
             sinopsis: "Estudio histórico y teológico sobre el Beato Juan Duns Escoto y su brillante defensa del dogma de la Inmaculada Concepción de María."
-        },
-        {
-            titulo: "Los Ojos de Santa María de Guadalupe",
-            imagen: "maria_ojos_guadalupe.jpg",
-            url: "https://dai.ly/x8z73ga",
-            ano: "Doc",
-            sinopsis: "Investigación profunda sobre el misterio oculto y los descubrimientos científicos en los ojos de la Virgen de Guadalupe."
         },
         {
             titulo: "Dios te Salve, María",
@@ -116,7 +109,7 @@ window.dbMultimedia = {
         {
             titulo: "Misterios de la Tilma",
             imagen: "maria_misterios_tilma.jpg",
-            url: "https://dai.ly/x903cqq",
+            url: "https://drive.google.com/file/d/1lkg6fJKItVg9U583k6fu1HgdG3XnqRSB/view?usp=drive_link",
             ano: "Doc",
             sinopsis: "Análisis histórico, científico e iconográfico del sagrado ayate de San Juan Diego."
         },
@@ -313,7 +306,7 @@ window.dbMultimedia = {
         {
             titulo: "Bakhita",
             imagen: "santos_bakhita.jpg",
-            url: "https://youtu.be/nD7Wuws4mBM?si=KXbJH9TUv5TxOa34",
+            url: "https://drive.google.com/file/d/18cwD1-1yHUsgIO-L3AxvovP74_p2ttLu/view?usp=drive_link",
             ano: "2009",
             sinopsis: "La historia real de Santa Josefina Bakhita, quien tras sufrir la esclavitud en Sudán encontró la verdadera libertad en Cristo."
         },
@@ -394,7 +387,7 @@ window.dbMultimedia = {
         {
             titulo: "Diálogo de Carmelitas",
             imagen: "iglesia_dialogo_carmelitas.jpg",
-            url: "https://youtu.be/27cXOozvgCQ?si=H6e9i2FPPn9GOqKf",
+            url: "https://drive.google.com/file/d/1RNxdGV2KbulwXcpRvs9wpEp1tIJWY2dS/view?usp=drive_link",
             ano: "1960",
             sinopsis: "Basada en el martirio de las carmelitas de Compiègne durante la Revolución Francesa, una obra profunda sobre la gracia, el miedo y la entrega."
         }
@@ -447,7 +440,7 @@ window.dbMultimedia = {
         {
             titulo: "Pablo, Apóstol de Cristo",
             imagen: "biblia_pablo_apostol.jpg",
-            url: "https://drive.google.com/file/d/1WKdEDXzvL4raBOSGZJSCMq7-nt91xHb/view?usp=drive_link",
+            url: "https://drive.google.com/file/d/1WKdEDXzvL4raBOSGZJSCMq7-nt91xHb_/view?usp=drive_link",
             ano: "2018",
             sinopsis: "En sus últimos días en prisión en Roma, San Pablo dicta sus memorias a San Lucas mientras fortalece a la Iglesia perseguida."
         },
