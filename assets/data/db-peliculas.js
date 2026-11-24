@@ -32,11 +32,11 @@ window.dbMultimedia = {
             ano: "Doc",
             sinopsis: "Serie de explicaciones teológicas e históricas sobre la Pascua Judía, la Última Cena y la Eucaristía como sacrificio expiatorio, a cargo de Frank Morera.",
             playlist: [
-                { titulo_parte: "¿Cómo era la Pascua Judía?", url: "https://drive.google.com/file/d/1GKFEhdx2cA4uqFg9ZxGWO4wrOrUYda87/view?usp=drive_link" },
-                { titulo_parte: "Qué Hizo Jesús en la Última Cena. Parte 1", url: "https://drive.google.com/file/d/1fAGAN2Nqvi40DLnfep-R3BOpMgRVYaEi/view?usp=drive_link" },
-                { titulo_parte: "Qué Hizo Jesús en la Última Cena. Parte 2", url: "https://drive.google.com/file/d/11SiwlqA7MV08LtqC7ATQOYlwxWL4bBzN/view?usp=drive_link" },
-                { titulo_parte: "La Eucaristía Como Sacrificio Expiatorio. P1", url: "https://drive.google.com/file/d/1hTlM7bVAluW4zpFEKKTh9y8K1wyvAeJl/view?usp=drive_link" },
-                { titulo_parte: "La Eucaristía Como Sacrificio Expiatorio. P2", url: "https://drive.google.com/file/d/152X708g8_CZOo1kucV8Myi1XPMlkeiQl/view?usp=drive_link" }
+                { titulo_parte: "¿Cómo era la Pascua Judía?", url: "https://drive.google.com/file/d/1GKFEhdx2cA4uqFg9ZxGWO4wrOrUYda87/view?usp=sharing" },
+                { titulo_parte: "Qué Hizo Jesús en la Última Cena. Parte 1", url: "https://drive.google.com/file/d/1fAGAN2Nqvi4oDLnfep-R3BOpMgRVYaEi/view?usp=sharing" },
+                { titulo_parte: "Qué Hizo Jesús en la Última Cena. Parte 2", url: "https://drive.google.com/file/d/11SiwlqA7MV08LtqC7ATQOYlwxWL4bBzN/view?usp=sharing" },
+                { titulo_parte: "La Eucaristía Como Sacrificio Expiatorio. P1", url: "https://drive.google.com/file/d/1hTlM7bVAluW4zpFEKKTh9y8K1wyvAeJl/view?usp=sharing" },
+                { titulo_parte: "La Eucaristía Como Sacrificio Expiatorio. P2", url: "https://drive.google.com/file/d/152X708g8_CZOo1kucV8Myi1XPMlkeiQl/view?usp=sharing" }
             ]
         },
         {
