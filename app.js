@@ -552,20 +552,20 @@ const SLUG_A_VISTA = Object.fromEntries(
 function calcularUrlNavegador(cleanPath) {
   if (cleanPath === 'views/inicio.html') return '/';
   if (cleanPath.includes('santo.html')) {
-    return window.santoID ? `/?santo=${encodeURIComponent(window.santoID)}` : '/?ver=santoral';
+    return window.santoID ? `/santo/${encodeURIComponent(window.santoID)}` : '/ver/santoral';
   }
   if (cleanPath.includes('libro.html')) {
     const libroId = localStorage.getItem('libroSeleccionado') || 'genesis';
-    return `/?libro=${encodeURIComponent(libroId)}`;
+    return `/libro/${encodeURIComponent(libroId)}`;
   }
   if (cleanPath.includes('personaje.html')) {
     const personajeId = localStorage.getItem('personajeSeleccionado') || 'abraham';
-    return `/?personaje=${encodeURIComponent(personajeId)}`;
+    return `/personaje/${encodeURIComponent(personajeId)}`;
   }
   if (VISTA_A_SLUG[cleanPath]) {
-    return `/?ver=${VISTA_A_SLUG[cleanPath]}`;
+    return `/ver/${VISTA_A_SLUG[cleanPath]}`;
   }
-  return `/?vista=${encodeURIComponent(cleanPath)}`;
+  return `/vista/${cleanPath}`;
 }
 
 window.loadView = async function(url, pushHistory = true) {
@@ -606,8 +606,13 @@ window.loadView = async function(url, pushHistory = true) {
       }
 
       const nuevaUrl = calcularUrlNavegador(cleanPath);
-      if (pushHistory && (window.location.pathname + window.location.search) !== nuevaUrl) {
-        window.history.pushState({ url: fetchUrl }, '', nuevaUrl);
+      const urlActual = window.location.pathname + window.location.search;
+      if (urlActual !== nuevaUrl) {
+        if (pushHistory) {
+          window.history.pushState({ url: fetchUrl }, '', nuevaUrl);
+        } else {
+          window.history.replaceState({ url: fetchUrl }, '', nuevaUrl);
+        }
       }
 
       if (cleanPath.includes('inicio.html')) {
@@ -623,11 +628,19 @@ window.loadView = async function(url, pushHistory = true) {
 
 function cargarVistaDesdeURL() {
   const params = new URLSearchParams(window.location.search);
-  const santoParam = params.get('santo');
-  const libroParam = params.get('libro');
-  const personajeParam = params.get('personaje');
-  const verParam = params.get('ver');
-  const vistaParam = params.get('vista');
+  const path = window.location.pathname.replace(/\/+$/, '');
+
+  let santoParam = params.get('santo');
+  let libroParam = params.get('libro');
+  let personajeParam = params.get('personaje');
+  let verParam = params.get('ver');
+  let vistaParam = params.get('vista');
+
+  if (!santoParam && path.startsWith('/santo/')) santoParam = decodeURIComponent(path.slice(7));
+  if (!libroParam && path.startsWith('/libro/')) libroParam = decodeURIComponent(path.slice(7));
+  if (!personajeParam && path.startsWith('/personaje/')) personajeParam = decodeURIComponent(path.slice(11));
+  if (!verParam && path.startsWith('/ver/')) verParam = decodeURIComponent(path.slice(5));
+  if (!vistaParam && path.startsWith('/vista/')) vistaParam = decodeURIComponent(path.slice(7));
 
   if (santoParam) {
     window.santoID = santoParam;
@@ -646,7 +659,6 @@ function cargarVistaDesdeURL() {
     loadView('/views/inicio.html', false);
   }
 }
-
 window.addEventListener("popstate", cargarVistaDesdeURL);
 
 document.addEventListener("DOMContentLoaded", async () => {
