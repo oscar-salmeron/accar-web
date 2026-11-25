@@ -515,11 +515,63 @@ async function initFichaPersonajeView() {
 }
 
 // ==========================================
-// 7. MOTOR DE RUTEO (Router SPA)
+// 7. MOTOR DE RUTEO (Router SPA Universal)
 // ==========================================
-window.loadView = async function(url) {
+const VISTA_A_SLUG = {
+  'views/inicio.html': '',
+  'views/apologetica.html': 'apologetica',
+  'views/preguntas-frecuentes.html': 'preguntas-frecuentes',
+  'views/formacion.html': 'formacion',
+  'views/doctrina.html': 'doctrina',
+  'views/sagrada-escritura.html': 'sagrada-escritura',
+  'views/canon_biblico/canon.html': 'canon-biblico',
+  'views/directorio_biblico/directorio_personajes.html': 'directorio-personajes',
+  'views/sacramentos.html': 'sacramentos',
+  'views/biblioteca.html': 'biblioteca',
+  'views/formacion-apologetica-liturgica.html': 'apologetica-liturgica',
+  'views/santos/inicio-santos.html': 'santoral',
+  'views/inicio-lecturas.html': 'lecturas',
+  'views/inicio-breviario.html': 'breviario',
+  'views/historia.html': 'historia',
+  'views/historia-lista-de-papas.html': 'papas',
+  'views/historia-lista-de-concilios.html': 'concilios',
+  'views/historia-lista-de-padres.html': 'padres-iglesia',
+  'views/adoracion.html': 'adoracion',
+  'views/multimedia/peliculas.html': 'peliculas',
+  'views/actualidad.html': 'actualidad',
+  'views/contacto.html': 'contacto',
+  'views/construccion.html': 'construccion'
+};
+
+const SLUG_A_VISTA = Object.fromEntries(
+  Object.entries(VISTA_A_SLUG)
+    .filter(([, slug]) => slug)
+    .map(([vista, slug]) => [slug, `/${vista}`])
+);
+
+function calcularUrlNavegador(cleanPath) {
+  if (cleanPath === 'views/inicio.html') return '/';
+  if (cleanPath.includes('santo.html')) {
+    return window.santoID ? `/?santo=${encodeURIComponent(window.santoID)}` : '/?ver=santoral';
+  }
+  if (cleanPath.includes('libro.html')) {
+    const libroId = localStorage.getItem('libroSeleccionado') || 'genesis';
+    return `/?libro=${encodeURIComponent(libroId)}`;
+  }
+  if (cleanPath.includes('personaje.html')) {
+    const personajeId = localStorage.getItem('personajeSeleccionado') || 'abraham';
+    return `/?personaje=${encodeURIComponent(personajeId)}`;
+  }
+  if (VISTA_A_SLUG[cleanPath]) {
+    return `/?ver=${VISTA_A_SLUG[cleanPath]}`;
+  }
+  return `/?vista=${encodeURIComponent(cleanPath)}`;
+}
+
+window.loadView = async function(url, pushHistory = true) {
   try {
       const fetchUrl = url.startsWith('/') ? url : `/${url}`;
+      const cleanPath = fetchUrl.replace(/^\/+/, '');
       const res = await fetch(fetchUrl);
       const html = await res.text();
       SPA_CONTAINER.innerHTML = html;
@@ -527,13 +579,13 @@ window.loadView = async function(url) {
       runScripts(SPA_CONTAINER);
 
       // Distribuir el controlador correcto según la vista cargada
-      if (url.includes('canon.html')) {
+      if (cleanPath.includes('canon.html')) {
           initCanonView();
-      } else if (url.includes('libro.html')) {
+      } else if (cleanPath.includes('libro.html')) {
           initLibroView();
-      } else if (url.includes('directorio_personajes.html')) {
+      } else if (cleanPath.includes('directorio_personajes.html')) {
           initDirectorioPersonajesView();
-      } else if (url.includes('personaje.html')) {
+      } else if (cleanPath.includes('personaje.html')) {
           initFichaPersonajeView();
       }
       
@@ -548,15 +600,17 @@ window.loadView = async function(url) {
 
       if (document.activeElement) document.activeElement.blur();
 
-      if (!url.includes('santo.html')) {
+      if (!cleanPath.includes('santo.html')) {
         document.body.classList.remove('theme-rojo', 'theme-blanco', 'theme-verde', 'theme-morado', 'theme-celeste', 'theme-negro', 'theme-realeza', 'theme-gloria');
         document.title = 'ACCAR - Apologética Católica';
-        if (window.location.search.includes('santo=')) {
-          window.history.replaceState({}, '', '/');
-        }
       }
 
-      if (url.includes('inicio.html')) {
+      const nuevaUrl = calcularUrlNavegador(cleanPath);
+      if (pushHistory && (window.location.pathname + window.location.search) !== nuevaUrl) {
+        window.history.pushState({ url: fetchUrl }, '', nuevaUrl);
+      }
+
+      if (cleanPath.includes('inicio.html')) {
         window.scrollTo({ top: 0, behavior: "smooth" });
       } else {
         const offsetTop = SPA_CONTAINER.getBoundingClientRect().top + window.scrollY;
@@ -567,19 +621,38 @@ window.loadView = async function(url) {
   }
 };
 
+function cargarVistaDesdeURL() {
+  const params = new URLSearchParams(window.location.search);
+  const santoParam = params.get('santo');
+  const libroParam = params.get('libro');
+  const personajeParam = params.get('personaje');
+  const verParam = params.get('ver');
+  const vistaParam = params.get('vista');
+
+  if (santoParam) {
+    window.santoID = santoParam;
+    loadView('/views/santos/santo.html', false);
+  } else if (libroParam) {
+    localStorage.setItem('libroSeleccionado', libroParam);
+    loadView('/views/canon_biblico/libro.html', false);
+  } else if (personajeParam) {
+    localStorage.setItem('personajeSeleccionado', personajeParam);
+    loadView('/views/directorio_biblico/personaje.html', false);
+  } else if (verParam && SLUG_A_VISTA[verParam]) {
+    loadView(SLUG_A_VISTA[verParam], false);
+  } else if (vistaParam && /^\/?views\/[a-zA-Z0-9/_-]+\.html$/.test(vistaParam)) {
+    loadView(vistaParam, false);
+  } else {
+    loadView('/views/inicio.html', false);
+  }
+}
+
+window.addEventListener("popstate", cargarVistaDesdeURL);
+
 document.addEventListener("DOMContentLoaded", async () => {
   await Promise.all([
     loadComponent('siteHeader', '/components/header.html'),
     loadComponent('siteFooter', '/components/footer.html')
   ]);
-
-  const params = new URLSearchParams(window.location.search);
-  const santoParam = params.get('santo');
-
-  if (santoParam) {
-    window.santoID = santoParam;
-    loadView('/views/santos/santo.html');
-  } else {
-    loadView('/views/inicio.html');
-  }
+  cargarVistaDesdeURL();
 });
