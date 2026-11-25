@@ -11,7 +11,9 @@ export default async function handler(req, res) {
   const mapHoras = {
     'ufficio': 'oficio',
     'laudi': 'laudes',
-    'media': 'sexta',
+    'tercia': 'tercia',
+    'sexta': 'sexta',
+    'nona': 'nona',
     'vespri': 'visperas',
     'compieta': 'completas'
   };
