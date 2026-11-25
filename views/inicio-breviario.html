@@ -12,21 +12,26 @@
     </div>
 
     <!-- BOTONERA DE HORAS -->
-    <div class="accar-brev-botonera">
+    <div class="accar-brev-botonera" id="brev-botonera-desktop">
       <button class="accar-brev-btn" data-hora="ufficio">Oficio de lectura</button>
       <button class="accar-brev-btn" data-hora="laudi">Laudes</button>
-      <button class="accar-brev-btn" data-hora="media">Hora Intermedia</button>
+      <button class="accar-brev-btn" data-hora="tercia">Tercia</button>
+      <button class="accar-brev-btn" data-hora="sexta">Sexta</button>
+      <button class="accar-brev-btn" data-hora="nona">Nona</button>
       <button class="accar-brev-btn" data-hora="vespri">Vísperas</button>
       <button class="accar-brev-btn" data-hora="compieta">Completas</button>
-      
-      <!-- Botón compartir integrado en el menú de escritorio -->
-      <button class="accar-btn-compartir" id="btn-share-desktop" onclick="shareBreviario()" style="display: none; justify-content: center; margin-top: 10px;">
-          Compartir liturgia
-      </button>
     </div>
 
-    <!-- ÁREA DE LECTURA -->
-    <div class="accar-brev-content-area">
+    <!-- ÁREA DE LECTURA (Oculta hasta elegir una hora) -->
+    <div class="accar-brev-content-area" id="brev-content-area" style="display: none;">
+      <!-- Barra superior con Volver al menú y Compartir -->
+      <div style="display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 15px; flex-wrap: wrap;">
+        <button id="btn-back-menu-top" class="accar-back-top" style="margin: 0; padding: 8px 18px; font-size: 13px;">← Volver al menú</button>
+        <button class="accar-btn-compartir" id="btn-share-desktop" onclick="shareBreviario()" style="display: none; justify-content: center;">
+            Compartir liturgia
+        </button>
+      </div>
+
       <!-- Barra de herramientas de lectura (Oculta por defecto) -->
       <div class="accar-text-controls" id="brev-text-controls" style="display: none;">
         <button class="accar-text-btn" id="btn-theme-toggle" title="Cambiar a fondo oscuro">🌙 Fondo Oscuro</button>
@@ -38,12 +43,10 @@
       </div>
 
       <div class="accar-spinner" id="brev-spinner" style="display: none;"></div>
-      <div id="brev-text" class="accar-brev-text theme-light">
-        <p style="text-align: center; opacity: 0.7; padding: 40px 0;">Selecciona una hora litúrgica para comenzar a rezar.</p>
-      </div>
+      <div id="brev-text" class="accar-brev-text theme-light"></div>
       
-      <!-- Botón de regresar arriba (Oculto por defecto) -->
-      <button id="btn-back-top" class="accar-back-top" style="display: none;">⬆ Volver al menú</button>
+      <!-- Botón inferior de regresar al menú -->
+      <button id="btn-back-top" class="accar-back-top" style="display: none;">← Volver al menú</button>
     </div>
 
   </div>
@@ -55,9 +58,11 @@
         Lleva esta liturgia a más almas <span>^</span>
     </button>
     <div class="accar-mobile-menu-scroll" id="brev-menu-mobile">
-        <button class="accar-brev-btn active" data-hora="ufficio">Oficio</button>
+        <button class="accar-brev-btn" data-hora="ufficio">Oficio</button>
         <button class="accar-brev-btn" data-hora="laudi">Laudes</button>
-        <button class="accar-brev-btn" data-hora="media">Intermedia</button>
+        <button class="accar-brev-btn" data-hora="tercia">Tercia</button>
+        <button class="accar-brev-btn" data-hora="sexta">Sexta</button>
+        <button class="accar-brev-btn" data-hora="nona">Nona</button>
         <button class="accar-brev-btn" data-hora="vespri">Vísperas</button>
         <button class="accar-brev-btn" data-hora="compieta">Completas</button>
     </div>
@@ -384,7 +389,10 @@ function shareBreviario() {
     const botonesTamano = document.querySelectorAll('.btn-size');
     const btnThemeToggle = document.getElementById('btn-theme-toggle');
     const btnBackTop = document.getElementById('btn-back-top');
+    const btnBackMenuTop = document.getElementById('btn-back-menu-top');
     const btnShareDesktop = document.getElementById('btn-share-desktop');
+    const botoneraDesktop = document.getElementById('brev-botonera-desktop');
+    const contentArea = document.getElementById('brev-content-area');
     
     let selectedDateString = ""; 
     let currentActiveHora = null;
@@ -525,6 +533,8 @@ function shareBreviario() {
 
     // 5. Carga de la liturgia
     async function loadHora(horaParam, btnElement) {
+        if(botoneraDesktop) botoneraDesktop.style.display = 'none';
+        if(contentArea) contentArea.style.display = 'block';
         if(spinner) spinner.style.display = 'block';
         if(textContainer) textContainer.style.display = 'none';
         if(barraControles) barraControles.style.display = 'none'; 
@@ -580,11 +590,16 @@ function shareBreviario() {
         });
     });
 
-    if(btnBackTop) {
-        btnBackTop.addEventListener('click', () => {
-            document.querySelector('.accar-brev-botonera').scrollIntoView({ behavior: 'smooth', block: 'start' });
-        });
+    function volverAlMenu() {
+        currentActiveHora = null;
+        botonesMenu.forEach(b => b.classList.remove('active'));
+        if(contentArea) contentArea.style.display = 'none';
+        if(botoneraDesktop) botoneraDesktop.style.display = '';
+        if(headerContainer) headerContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
+
+    if(btnBackTop) btnBackTop.addEventListener('click', volverAlMenu);
+    if(btnBackMenuTop) btnBackMenuTop.addEventListener('click', volverAlMenu);
 
     botonesTamano.forEach(btn => {
         btn.addEventListener('click', (e) => {
