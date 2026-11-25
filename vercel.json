@@ -5,6 +5,10 @@
       "destination": "https://storage.googleapis.com/accar-web.firebasestorage.app/:path*"
     },
     {
+      "source": "/santo/:id",
+      "destination": "/api/santo?id=:id"
+    },
+    {
       "source": "/(.*)",
       "destination": "/index.html"
     }
