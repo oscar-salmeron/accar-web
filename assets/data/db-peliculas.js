@@ -127,7 +127,7 @@ window.dbMultimedia = {
         {
             titulo: "Reina de Reinas",
             imagen: "maria_reina_reinas.jpg",
-            url: "https://drive.google.com/file/d/1iJnt6LW2NAMIjHWu0ctTsLHBUAQU9qB_/view?usp=drive_link",
+            url: "https://drive.google.com/file/d/19ATWj8yYh6quK7XQhGl8CRA9DeL1h3xR/view?usp=drive_link",
             ano: "1948",
             sinopsis: "Clásico cinematográfico dedicado a la vida, virtudes y maternidad espiritual de la Santísima Virgen María."
         },
@@ -201,7 +201,7 @@ window.dbMultimedia = {
         {
             titulo: "Santa Rosa de Lima",
             imagen: "santos_santa_rosa_lima.jpg",
-            url: "https://drive.google.com/file/d/1qJCXQij63YKjjltoRmAcx14mZn_SPKAk/view?usp=drive_link",
+            url: "https://drive.google.com/file/d/1_cFlUDapB5cllb-UbL83Wxp21DYMZKmk/view?usp=drive_link",
             ano: "Cine",
             sinopsis: "Historia de Isabel Flores de Oliva, la primera santa de América, ejemplo de penitencia, amor a los necesitados y entrega total a Cristo."
         },
@@ -419,7 +419,7 @@ window.dbMultimedia = {
         {
             titulo: "El Profeta del Desierto",
             imagen: "biblia_juan_bautista.jpg",
-            url: "https://drive.google.com/file/d/1ZxK-qyq823viqzMnxorNsmfy6-dXsuxI/view?usp=drive_link",
+            url: "https://drive.google.com/file/d/1Kx7zkGlkWdmeyBgtt34CYwUKwxQx6H3K/view?usp=drive_link",
             ano: "Cine",
             sinopsis: "La vida y predicación de San Juan Bautista, el precursor enviado para preparar los caminos del Señor y señalar al Cordero de Dios."
         },
