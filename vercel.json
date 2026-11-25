@@ -9,6 +9,58 @@
       "destination": "/api/santo?id=:id"
     },
     {
+      "source": "/libro/:id",
+      "destination": "/api/compartir?tipo=libro&id=:id"
+    },
+    {
+      "source": "/personaje/:id",
+      "destination": "/api/compartir?tipo=personaje&id=:id"
+    },
+    {
+      "source": "/ver/:id",
+      "destination": "/api/compartir?tipo=seccion&id=:id"
+    },
+    {
+      "source": "/",
+      "has": [
+        { "type": "query", "key": "ver" },
+        { "type": "header", "key": "user-agent", "value": ".*(WhatsApp|whatsapp|facebookexternalhit|Facebot|Meta-ExternalAgent|meta-externalagent|Twitterbot|TelegramBot|LinkedInBot|Discordbot|Slackbot|Pinterest|Applebot|SkypeUriPreview).*" }
+      ],
+      "destination": "/api/compartir?tipo=seccion"
+    },
+    {
+      "source": "/",
+      "has": [
+        { "type": "query", "key": "libro" },
+        { "type": "header", "key": "user-agent", "value": ".*(WhatsApp|whatsapp|facebookexternalhit|Facebot|Meta-ExternalAgent|meta-externalagent|Twitterbot|TelegramBot|LinkedInBot|Discordbot|Slackbot|Pinterest|Applebot|SkypeUriPreview).*" }
+      ],
+      "destination": "/api/compartir?tipo=libro"
+    },
+    {
+      "source": "/",
+      "has": [
+        { "type": "query", "key": "personaje" },
+        { "type": "header", "key": "user-agent", "value": ".*(WhatsApp|whatsapp|facebookexternalhit|Facebot|Meta-ExternalAgent|meta-externalagent|Twitterbot|TelegramBot|LinkedInBot|Discordbot|Slackbot|Pinterest|Applebot|SkypeUriPreview).*" }
+      ],
+      "destination": "/api/compartir?tipo=personaje"
+    },
+    {
+      "source": "/",
+      "has": [
+        { "type": "query", "key": "santo" },
+        { "type": "header", "key": "user-agent", "value": ".*(WhatsApp|whatsapp|facebookexternalhit|Facebot|Meta-ExternalAgent|meta-externalagent|Twitterbot|TelegramBot|LinkedInBot|Discordbot|Slackbot|Pinterest|Applebot|SkypeUriPreview).*" }
+      ],
+      "destination": "/api/compartir?tipo=santo"
+    },
+    {
+      "source": "/",
+      "has": [
+        { "type": "query", "key": "vista" },
+        { "type": "header", "key": "user-agent", "value": ".*(WhatsApp|whatsapp|facebookexternalhit|Facebot|Meta-ExternalAgent|meta-externalagent|Twitterbot|TelegramBot|LinkedInBot|Discordbot|Slackbot|Pinterest|Applebot|SkypeUriPreview).*" }
+      ],
+      "destination": "/api/compartir?tipo=vista"
+    },
+    {
       "source": "/(.*)",
       "destination": "/index.html"
     }
