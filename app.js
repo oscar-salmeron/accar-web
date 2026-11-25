@@ -548,6 +548,14 @@ window.loadView = async function(url) {
 
       if (document.activeElement) document.activeElement.blur();
 
+      if (!url.includes('santo.html')) {
+        document.body.classList.remove('theme-rojo', 'theme-blanco', 'theme-verde', 'theme-morado', 'theme-celeste', 'theme-negro', 'theme-realeza', 'theme-gloria');
+        document.title = 'ACCAR - Apologética Católica';
+        if (window.location.search.includes('santo=')) {
+          window.history.replaceState({}, '', '/');
+        }
+      }
+
       if (url.includes('inicio.html')) {
         window.scrollTo({ top: 0, behavior: "smooth" });
       } else {
@@ -564,5 +572,14 @@ document.addEventListener("DOMContentLoaded", async () => {
     loadComponent('siteHeader', '/components/header.html'),
     loadComponent('siteFooter', '/components/footer.html')
   ]);
-  loadView('/views/inicio.html');
+
+  const params = new URLSearchParams(window.location.search);
+  const santoParam = params.get('santo');
+
+  if (santoParam) {
+    window.santoID = santoParam;
+    loadView('/views/santos/santo.html');
+  } else {
+    loadView('/views/inicio.html');
+  }
 });
