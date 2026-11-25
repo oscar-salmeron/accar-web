@@ -30,6 +30,8 @@ export default async function handler(req, res) {
   let description = 'Conoce la vida, lecciones apologéticas, meditación y oración del santo del día en ACCAR.';
   let imageUrl = `${BASE_URL}/assets/img/portada-accar.jpg`;
   let imageType = 'image/jpeg';
+  let imageWidth = '1200';
+  let imageHeight = '630';
 
   try {
     const firestoreUrl = `https://firestore.googleapis.com/v1/projects/${PROJECT_ID}/databases/(default)/documents/santos/${encodeURIComponent(id)}`;
@@ -61,13 +63,15 @@ export default async function handler(req, res) {
 
       if (imagen) {
         const cleanImg = imagen.replace(/^(\.\.\/|\.\/|\/)+/, '');
-        imageUrl = /^https?:\/\//i.test(cleanImg)
+        const originalUrl = /^https?:\/\//i.test(cleanImg)
           ? cleanImg
           : `${BASE_URL}/${encodeURI(cleanImg)}`;
 
-        if (/\.png(\?|$)/i.test(imageUrl)) imageType = 'image/png';
-        else if (/\.webp(\?|$)/i.test(imageUrl)) imageType = 'image/webp';
-        else imageType = 'image/jpeg';
+        // Convierte cualquier PNG pesado a JPG ligero (~60 KB) encuadrado desde arriba para WhatsApp
+        imageUrl = `https://wsrv.nl/?url=${encodeURIComponent(originalUrl)}&w=600&h=600&fit=cover&a=top&output=jpg&q=80`;
+        imageType = 'image/jpeg';
+        imageWidth = '600';
+        imageHeight = '600';
       }
     }
   } catch (error) {
@@ -94,7 +98,10 @@ export default async function handler(req, res) {
   <meta property="og:title" content="${escapeHtml(title)}">
   <meta property="og:description" content="${escapeHtml(description)}">
   <meta property="og:image" content="${escapeHtml(imageUrl)}">
+  <meta property="og:image:secure_url" content="${escapeHtml(imageUrl)}">
   <meta property="og:image:type" content="${escapeHtml(imageType)}">
+  <meta property="og:image:width" content="${escapeHtml(imageWidth)}">
+  <meta property="og:image:height" content="${escapeHtml(imageHeight)}">
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="${escapeHtml(title)}">
