@@ -745,7 +745,7 @@
                 seccionMadre.style.display = 'none';
                 vistaBusqueda.style.display = 'none';
                 vistaDetalle.style.display = 'block';
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+                document.getElementById('accar-multimedia-root').scrollIntoView({ behavior: 'smooth', block: 'start' });
             });
         };
 
@@ -754,7 +754,7 @@
             vistaDetalle.style.display = 'none';
             vistaBusqueda.style.display = 'none';
             seccionMadre.style.display = 'block';
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            document.getElementById('accar-multimedia-root').scrollIntoView({ behavior: 'smooth', block: 'start' });
         };
 
         // Buscador en vivo
