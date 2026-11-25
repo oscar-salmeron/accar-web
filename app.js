@@ -517,6 +517,9 @@ async function initFichaPersonajeView() {
 // ==========================================
 // 7. MOTOR DE RUTEO (Router SPA Universal)
 // ==========================================
+const BASE_PUBLIC_URL = 'https://www.apologeticaccar.com';
+let vistaActualPath = 'views/inicio.html';
+
 const VISTA_A_SLUG = {
   'views/inicio.html': '',
   'views/apologetica.html': 'apologetica',
@@ -541,6 +544,30 @@ const VISTA_A_SLUG = {
   'views/actualidad.html': 'actualidad',
   'views/contacto.html': 'contacto',
   'views/construccion.html': 'construccion'
+};
+
+const TITULOS_SECCION = {
+  'apologetica': 'Apologética Católica | ACCAR',
+  'preguntas-frecuentes': 'Preguntas Frecuentes | ACCAR',
+  'formacion': 'Formación Católica | ACCAR',
+  'doctrina': 'Doctrina Católica | ACCAR',
+  'sagrada-escritura': 'Sagrada Escritura | ACCAR',
+  'canon-biblico': 'Canon Bíblico Católico | ACCAR',
+  'directorio-personajes': 'Directorio de Personajes Bíblicos | ACCAR',
+  'sacramentos': 'Los Siete Sacramentos | ACCAR',
+  'biblioteca': 'Biblioteca Católica | ACCAR',
+  'apologetica-liturgica': 'Apologética Litúrgica | ACCAR',
+  'santoral': 'Santoral Católico | ACCAR',
+  'lecturas': 'Evangelio y Lecturas del Día | ACCAR',
+  'breviario': 'Liturgia de las Horas | ACCAR',
+  'historia': 'Historia de la Iglesia | ACCAR',
+  'papas': 'Lista de los Papas | ACCAR',
+  'concilios': 'Concilios Ecuménicos | ACCAR',
+  'padres-iglesia': 'Padres de la Iglesia | ACCAR',
+  'adoracion': 'Adoración al Santísimo Sacramento | ACCAR',
+  'peliculas': 'Películas Católicas | ACCAR',
+  'actualidad': 'Actualidad de la Iglesia | ACCAR',
+  'contacto': 'Contacto | ACCAR'
 };
 
 const SLUG_A_VISTA = Object.fromEntries(
@@ -568,10 +595,145 @@ function calcularUrlNavegador(cleanPath) {
   return `/vista/${cleanPath}`;
 }
 
+// ==========================================
+// 8. BOTÓN FLOTANTE UNIVERSAL DE COMPARTIR
+// ==========================================
+function inicializarBotonCompartirUniversal() {
+  if (document.getElementById('accar-share-fab')) return;
+
+  const style = document.createElement('style');
+  style.id = 'accar-share-fab-style';
+  style.textContent = `
+    #accar-share-fab {
+      position: fixed;
+      right: 22px;
+      bottom: 22px;
+      z-index: 9999;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 18px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #09172d 0%, #030736 100%);
+      color: #f8efd3;
+      border: 1px solid #d4af37;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      cursor: pointer;
+      box-shadow: 0 10px 26px rgba(0, 0, 0, 0.55), 0 0 12px rgba(212, 175, 55, 0.25);
+      transition: transform 0.25s ease, box-shadow 0.25s ease, color 0.25s ease;
+    }
+    #accar-share-fab:hover {
+      transform: translateY(-3px);
+      color: #d4af37;
+      box-shadow: 0 14px 32px rgba(0, 0, 0, 0.72), 0 0 18px rgba(212, 175, 55, 0.45);
+    }
+    #accar-share-fab svg {
+      width: 15px;
+      height: 15px;
+      flex-shrink: 0;
+    }
+    @media (max-width: 900px) {
+      #accar-share-fab.accar-share-hide-mobile {
+        display: none !important;
+      }
+      #accar-share-fab {
+        right: 14px;
+        bottom: 16px;
+        padding: 11px 15px;
+        font-size: 12px;
+      }
+    }
+  `;
+  document.head.appendChild(style);
+
+  const btn = document.createElement('button');
+  btn.id = 'accar-share-fab';
+  btn.type = 'button';
+  btn.setAttribute('aria-label', 'Compartir esta página');
+  btn.innerHTML = `
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <circle cx="18" cy="5" r="3"></circle>
+      <circle cx="6" cy="12" r="3"></circle>
+      <circle cx="18" cy="19" r="3"></circle>
+      <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+      <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+    </svg>
+    <span class="accar-share-fab-label">Compartir</span>
+  `;
+
+  btn.addEventListener('click', () => window.compartirPaginaActual(btn));
+  document.body.appendChild(btn);
+}
+
+function actualizarVisibilidadBotonCompartir(cleanPath) {
+  const btn = document.getElementById('accar-share-fab');
+  if (!btn) return;
+  const tieneBarraMovilPropia = cleanPath.includes('inicio-lecturas.html') || cleanPath.includes('inicio-breviario.html');
+  btn.classList.toggle('accar-share-hide-mobile', tieneBarraMovilPropia);
+}
+
+window.compartirPaginaActual = async function(btn) {
+  const rutaLimpia = calcularUrlNavegador(vistaActualPath);
+  const shareUrl = `${BASE_PUBLIC_URL}${rutaLimpia}`;
+
+  let shareTitle = document.title || 'ACCAR - Apologética Católica';
+  let shareText = 'Te comparto este contenido de Apologética Católica en ACCAR:';
+
+  if (vistaActualPath.includes('libro.html')) {
+    const tituloLibro = document.getElementById('titulo-libro')?.innerText?.trim();
+    if (tituloLibro) {
+      shareTitle = `${tituloLibro} | Canon Bíblico - ACCAR`;
+      shareText = `Estudia el libro de ${tituloLibro} desde la exégesis católica en ACCAR:`;
+    }
+  } else if (vistaActualPath.includes('personaje.html')) {
+    const nombrePers = document.querySelector('.hero-text h1')?.innerText?.trim();
+    if (nombrePers) {
+      shareTitle = `${nombrePers} | Directorio Bíblico - ACCAR`;
+      shareText = `Conoce la historia y el sentido teológico de ${nombrePers} en ACCAR:`;
+    }
+  } else if (vistaActualPath.includes('santo.html')) {
+    const nombreSanto = document.querySelector('.santo-nombre')?.innerText?.trim();
+    if (nombreSanto) {
+      shareTitle = `${nombreSanto} | ACCAR`;
+      shareText = `Conoce la vida, lecciones apologéticas y oración de ${nombreSanto} en ACCAR:`;
+    }
+  } else if (VISTA_A_SLUG[vistaActualPath] && TITULOS_SECCION[VISTA_A_SLUG[vistaActualPath]]) {
+    shareTitle = TITULOS_SECCION[VISTA_A_SLUG[vistaActualPath]];
+    shareText = `${shareTitle.replace(' | ACCAR', '')} en ACCAR:`;
+  }
+
+  if (navigator.share) {
+    try {
+      await navigator.share({ title: shareTitle, text: shareText, url: shareUrl });
+      return;
+    } catch (err) {
+      if (err.name === 'AbortError') return;
+    }
+  }
+
+  try {
+    await navigator.clipboard.writeText(shareUrl);
+    const label = btn?.querySelector('.accar-share-fab-label');
+    if (label) {
+      const original = label.textContent;
+      label.textContent = '✓ Enlace copiado';
+      setTimeout(() => { label.textContent = original; }, 2500);
+    }
+  } catch (err) {
+    prompt('Copia este enlace para compartir:', shareUrl);
+  }
+};
+
 window.loadView = async function(url, pushHistory = true) {
   try {
       const fetchUrl = url.startsWith('/') ? url : `/${url}`;
       const cleanPath = fetchUrl.replace(/^\/+/, '');
+      vistaActualPath = cleanPath;
+
       const res = await fetch(fetchUrl);
       const html = await res.text();
       SPA_CONTAINER.innerHTML = html;
@@ -602,7 +764,8 @@ window.loadView = async function(url, pushHistory = true) {
 
       if (!cleanPath.includes('santo.html')) {
         document.body.classList.remove('theme-rojo', 'theme-blanco', 'theme-verde', 'theme-morado', 'theme-celeste', 'theme-negro', 'theme-realeza', 'theme-gloria');
-        document.title = 'ACCAR - Apologética Católica';
+        const slugActual = VISTA_A_SLUG[cleanPath];
+        document.title = (slugActual && TITULOS_SECCION[slugActual]) ? TITULOS_SECCION[slugActual] : 'ACCAR - Apologética Católica';
       }
 
       const nuevaUrl = calcularUrlNavegador(cleanPath);
@@ -614,6 +777,8 @@ window.loadView = async function(url, pushHistory = true) {
           window.history.replaceState({ url: fetchUrl }, '', nuevaUrl);
         }
       }
+
+      actualizarVisibilidadBotonCompartir(cleanPath);
 
       if (cleanPath.includes('inicio.html')) {
         window.scrollTo({ top: 0, behavior: "smooth" });
@@ -666,5 +831,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     loadComponent('siteHeader', '/components/header.html'),
     loadComponent('siteFooter', '/components/footer.html')
   ]);
+  inicializarBotonCompartirUniversal();
   cargarVistaDesdeURL();
 });
