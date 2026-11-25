@@ -55,6 +55,32 @@ if (santoID) {
             let imgPath = data.imagen || '';
             if(imgPath.startsWith('../../')) imgPath = imgPath.replace('../../', '');
 
+            document.title = `${data.nombre_completo || 'Santo del Día'} | ACCAR`;
+
+            window.compartirSanto = async function(btn) {
+                const shareUrl = `https://www.apologeticaccar.com/santo/${encodeURIComponent(santoID)}`;
+                const shareTitle = `${data.nombre_completo || 'Santo del Día'} | ACCAR`;
+                const shareText = `Conoce la vida, lecciones apologéticas y oración de ${data.nombre_completo || 'este santo'} en ACCAR:`;
+
+                if (navigator.share) {
+                    try {
+                        await navigator.share({ title: shareTitle, text: shareText, url: shareUrl });
+                        return;
+                    } catch (err) {
+                        if (err.name === 'AbortError') return;
+                    }
+                }
+
+                try {
+                    await navigator.clipboard.writeText(shareUrl);
+                    const originalText = btn.textContent;
+                    btn.textContent = '✓ Enlace copiado';
+                    setTimeout(() => { btn.textContent = originalText; }, 2500);
+                } catch (err) {
+                    prompt('Copia este enlace para compartir:', shareUrl);
+                }
+            };
+
             container.innerHTML = `
                 <header class="santo-hero">
                   <div class="santo-img">
@@ -64,6 +90,9 @@ if (santoID) {
                     <div class="santo-fecha">✝ ${data.fecha_texto || ''}</div>
                     <h1 class="santo-nombre">${data.nombre_completo || ''}</h1>
                     <div class="santo-subtitulo">${data.patronazgo || ''}</div>
+                    <button type="button" onclick="window.compartirSanto(this)" style="margin-top: 18px; background: rgba(9, 23, 45, 0.75); color: #f8efd3; border: 1px solid #d4af37; padding: 10px 22px; border-radius: 999px; font-family: 'Cinzel', Georgia, serif; font-size: 13px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; cursor: pointer; box-shadow: 0 8px 20px rgba(0,0,0,0.4); transition: all 0.25s ease;">
+                      Compartir Santo
+                    </button>
                   </div>
                 </header>
 
