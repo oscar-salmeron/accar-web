@@ -1,178 +1,1274 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Visor de Biblioteca - Apologética ACCAR</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            background-color: #0a1a33;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            font-family: Arial, sans-serif;
-            user-select: none; /* Bloquea selección de texto */
-        }
-        .controles-visor {
-            background-color: #2158a1;
-            width: 100%;
-            padding: 15px 10px;
-            display: flex;
-            flex-wrap: wrap; /* Permite que los botones bajen de línea en celulares */
-            justify-content: center;
-            align-items: center;
-            gap: 15px;
-            border-bottom: 2px solid #D4AF37;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-sizing: border-box;
-        }
-        
-        /* Estilo especial para resaltar el botón de regresar */
-        #btn-volver {
-            background-color: #0a1a33;
-            color: #D4AF37;
-            border-color: #0a1a33;
-        }
-        #btn-volver:hover {
-            background-color: #D4AF37;
-            color: #0a1a33;
-            border-color: #0a1a33;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=3.0">
+  <title>Sala de Lectura | Apologética ACCAR</title>
+  <link rel="icon" type="image/png" href="/assets/img/logo-accar.png">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 
-        button {
-            background-color: #fdfbf7;
-            color: #0a1a33;
-            border: 2px solid #D4AF37;
-            padding: 8px 16px;
-            cursor: pointer;
-            font-weight: bold;
-            border-radius: 4px;
-            transition: all 0.3s ease;
-        }
-        button:hover {
-            background-color: #D4AF37;
-            color: #fdfbf7;
-        }
-        .paginacion {
-            color: #fdfbf7;
-            font-weight: bold;
-            font-size: 16px;
-        }
-        #contenedor-libro {
-            margin-top: 30px;
-            margin-bottom: 30px;
-            border: 4px solid #D4AF37;
-            background-color: #fdfbf7;
-            box-shadow: 0px 10px 30px rgba(0,0,0,0.8);
-        }
-        canvas {
-            display: block;
-        }
-    </style>
+  <style>
+    :root {
+      --bg-desk: #071224;
+      --bar-bg: rgba(9, 23, 45, 0.94);
+      --panel-bg: rgba(11, 27, 54, 0.98);
+      --gold: #d4af37;
+      --gold-soft: rgba(212, 175, 55, 0.32);
+      --cream: #f8efd3;
+      --muted: #b8c4d9;
+      --text-bg: #fffdf7;
+      --text-ink: #1e1e1e;
+      --page-brightness: 1;
+      --page-filter: brightness(var(--page-brightness));
+    }
+
+    body.tema-sepia {
+      --bg-desk: #241d15;
+      --bar-bg: rgba(34, 26, 18, 0.95);
+      --panel-bg: rgba(42, 32, 22, 0.98);
+      --text-bg: #f4ebd4;
+      --text-ink: #2b2116;
+      --page-filter: sepia(0.32) contrast(0.95) brightness(var(--page-brightness));
+    }
+
+    body.tema-oscuro {
+      --bg-desk: #0f1115;
+      --bar-bg: rgba(18, 20, 25, 0.96);
+      --panel-bg: rgba(24, 27, 33, 0.98);
+      --text-bg: #17191e;
+      --text-ink: #dcd7cc;
+      --page-filter: invert(0.90) hue-rotate(180deg) contrast(0.92) brightness(var(--page-brightness));
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      background-color: var(--bg-desk);
+      color: var(--cream);
+      font-family: 'Lora', Georgia, serif;
+      overflow: hidden;
+      user-select: none;
+      -webkit-user-select: none;
+      transition: background-color 0.3s ease;
+    }
+
+    /* Bloqueo de impresión */
+    @media print {
+      body { display: none !important; }
+    }
+
+    /* ===== BARRA SUPERIOR FLOTANTE ===== */
+    .topbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 62px;
+      background: var(--bar-bg);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--gold-soft);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 14px;
+      gap: 10px;
+      z-index: 200;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+      transition: transform 0.28s ease, opacity 0.28s ease;
+    }
+
+    body.ui-hidden .topbar {
+      transform: translateY(-100%);
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .topbar-left, .topbar-right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    .book-title-bar {
+      flex: 1;
+      min-width: 0;
+      text-align: center;
+      font-family: 'Cinzel', serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--gold);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      letter-spacing: 0.6px;
+    }
+
+    .icon-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      height: 40px;
+      padding: 0 13px;
+      border-radius: 10px;
+      border: 1px solid var(--gold-soft);
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--cream);
+      font-family: 'Cinzel', serif;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .icon-btn:hover, .icon-btn.active {
+      background: var(--gold);
+      color: #09172d;
+      border-color: var(--gold);
+    }
+
+    .icon-btn svg {
+      width: 17px;
+      height: 17px;
+      flex-shrink: 0;
+    }
+
+    .btn-aa {
+      font-family: 'Lora', serif;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      min-width: 48px;
+    }
+
+    /* ===== PANEL DESPLEGABLE DE AJUSTES (Aa / TEMA / MODO) ===== */
+    .settings-popover {
+      position: fixed;
+      top: 72px;
+      right: 14px;
+      width: min(350px, calc(100vw - 28px));
+      background: var(--panel-bg);
+      border: 1px solid var(--gold);
+      border-radius: 16px;
+      padding: 18px;
+      z-index: 250;
+      box-shadow: 0 18px 46px rgba(0, 0, 0, 0.65);
+      display: none;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .settings-popover.open {
+      display: flex;
+      animation: fadePop 0.18s ease-out;
+    }
+
+    @keyframes fadePop {
+      from { opacity: 0; transform: translateY(-6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .setting-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .setting-label {
+      font-family: 'Cinzel', serif;
+      font-size: 11px;
+      letter-spacing: 1.4px;
+      text-transform: uppercase;
+      color: var(--gold);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .segmented {
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: 1fr;
+      gap: 6px;
+    }
+
+    .seg-btn {
+      padding: 9px 6px;
+      border-radius: 9px;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--cream);
+      font-family: 'Lora', serif;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-align: center;
+    }
+
+    .seg-btn:hover {
+      border-color: var(--gold);
+    }
+
+    .seg-btn.active {
+      background: var(--gold);
+      color: #09172d;
+      border-color: var(--gold);
+    }
+
+    /* Botones visuales de tema */
+    .theme-btn-orig { background: #fdfbf7; color: #0a1a33; }
+    .theme-btn-sepia { background: #f2e5c6; color: #3a2a18; }
+    .theme-btn-dark { background: #1c1f26; color: #e8e3d5; }
+    .theme-btn-orig.active, .theme-btn-sepia.active, .theme-btn-dark.active {
+      outline: 2px solid var(--gold);
+      outline-offset: 2px;
+    }
+
+    .brightness-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brightness-row input[type="range"] {
+      flex: 1;
+      accent-color: var(--gold);
+      cursor: pointer;
+    }
+
+    .setting-hint {
+      font-size: 12px;
+      line-height: 1.45;
+      color: var(--muted);
+      margin: 0;
+    }
+
+    /* ===== ESCENARIO PRINCIPAL DE LECTURA ===== */
+    .reader-stage {
+      position: absolute;
+      inset: 0;
+      overflow: auto;
+      -webkit-overflow-scrolling: touch;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 76px 14px 96px;
+      transition: padding 0.28s ease;
+    }
+
+    body.ui-hidden .reader-stage {
+      padding: 18px 10px 24px;
+    }
+
+    /* Vista Página Única (Libro) */
+    .page-frame {
+      position: relative;
+      margin: auto;
+      background: #ffffff;
+      border-radius: 6px;
+      box-shadow: 0 18px 50px rgba(0, 0, 0, 0.65);
+      border: 1px solid var(--gold-soft);
+      overflow: hidden;
+      filter: var(--page-filter);
+      transition: filter 0.25s ease;
+      max-width: none;
+    }
+
+    .page-frame canvas {
+      display: block;
+    }
+
+    /* Vista Cascada (Vertical Continua) */
+    #cascada-container {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      gap: 18px;
+      width: 100%;
+    }
+
+    .cascada-slot {
+      position: relative;
+      background: #ffffff;
+      border-radius: 6px;
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
+      border: 1px solid var(--gold-soft);
+      overflow: hidden;
+      filter: var(--page-filter);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: filter 0.25s ease;
+    }
+
+    .cascada-slot canvas {
+      display: block;
+    }
+
+    .slot-placeholder {
+      font-family: 'Cinzel', serif;
+      font-size: 14px;
+      color: #666;
+    }
+
+    /* Vista Texto Adaptable (Modo Aa) */
+    #texto-container {
+      display: none;
+      width: min(760px, 100%);
+      margin: 0 auto;
+      background: var(--text-bg);
+      color: var(--text-ink);
+      border: 1px solid var(--gold-soft);
+      border-radius: 14px;
+      padding: clamp(22px, 5vw, 48px);
+      box-shadow: 0 18px 46px rgba(0, 0, 0, 0.48);
+      filter: brightness(var(--page-brightness));
+      transition: background-color 0.25s ease, color 0.25s ease;
+    }
+
+    #texto-body {
+      line-height: 1.85;
+      text-align: left;
+      overflow-wrap: break-word;
+    }
+
+    #texto-body p {
+      margin: 0 0 1.15em;
+    }
+
+    .texto-aviso {
+      text-align: center;
+      padding: 24px 12px;
+    }
+
+    .texto-aviso h3 {
+      font-family: 'Cinzel', serif;
+      color: var(--gold);
+      margin: 0 0 12px;
+      font-size: 1.2rem;
+    }
+
+    .texto-aviso p {
+      margin: 0 0 20px;
+      font-size: 16px !important;
+      line-height: 1.65;
+      opacity: 0.88;
+    }
+
+    .btn-switch-editorial {
+      background: #0a1a33;
+      color: var(--gold);
+      border: 1px solid var(--gold);
+      padding: 12px 22px;
+      border-radius: 10px;
+      font-family: 'Cinzel', serif;
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: 1px;
+      cursor: pointer;
+    }
+
+    /* Flechas laterales discretas (Desktop / Tablet) */
+    .side-nav-btn {
+      position: fixed;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 48px;
+      height: 76px;
+      border-radius: 12px;
+      border: 1px solid var(--gold-soft);
+      background: rgba(9, 23, 45, 0.72);
+      color: var(--gold);
+      font-size: 24px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 150;
+      backdrop-filter: blur(6px);
+      transition: opacity 0.25s ease, background 0.2s ease, transform 0.2s ease;
+    }
+
+    .side-nav-btn:hover {
+      background: var(--gold);
+      color: #09172d;
+    }
+
+    .side-nav-btn.prev { left: 16px; }
+    .side-nav-btn.next { right: 16px; }
+
+    .side-nav-btn:disabled {
+      opacity: 0.2;
+      pointer-events: none;
+    }
+
+    body.ui-hidden .side-nav-btn,
+    body.modo-cascada .side-nav-btn {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    /* ===== BARRA INFERIOR DE NAVEGACIÓN Y SALTO RÁPIDO ===== */
+    .bottombar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--bar-bg);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-top: 1px solid var(--gold-soft);
+      padding: 10px 18px 14px;
+      z-index: 200;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.45);
+      transition: transform 0.28s ease, opacity 0.28s ease;
+    }
+
+    body.ui-hidden .bottombar {
+      transform: translateY(100%);
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .scrubber-row {
+      width: min(720px, 100%);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .mini-nav {
+      width: 36px;
+      height: 36px;
+      border-radius: 9px;
+      border: 1px solid var(--gold-soft);
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--gold);
+      font-size: 16px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .mini-nav:hover {
+      background: var(--gold);
+      color: #09172d;
+    }
+
+    #page-slider {
+      flex: 1;
+      accent-color: var(--gold);
+      cursor: pointer;
+      height: 6px;
+    }
+
+    .page-meta {
+      font-family: 'Cinzel', serif;
+      font-size: 13px;
+      color: var(--cream);
+      letter-spacing: 0.6px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .page-meta strong {
+      color: var(--gold);
+    }
+
+    /* ===== PANTALLA DE CARGA Y ERROR ===== */
+    .loader-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(7, 18, 36, 0.96);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      z-index: 400;
+      padding: 24px;
+      text-align: center;
+    }
+
+    .loader-overlay.hidden {
+      display: none;
+    }
+
+    .spinner {
+      width: 48px;
+      height: 48px;
+      border: 3px solid rgba(212, 175, 55, 0.22);
+      border-top-color: var(--gold);
+      border-radius: 50%;
+      animation: spin 0.85s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .loader-title {
+      font-family: 'Cinzel', serif;
+      font-size: 18px;
+      color: var(--gold);
+      margin: 0;
+    }
+
+    .progress-track {
+      width: min(280px, 80vw);
+      height: 6px;
+      border-radius: 99px;
+      background: rgba(255, 255, 255, 0.12);
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      width: 8%;
+      height: 100%;
+      background: linear-gradient(90deg, #b88a1e, #f1d36f);
+      transition: width 0.2s ease;
+    }
+
+    .loader-sub {
+      font-size: 14px;
+      color: var(--muted);
+      margin: 0;
+    }
+
+    /* Toast de aviso breve */
+    .toast {
+      position: fixed;
+      bottom: 92px;
+      left: 50%;
+      transform: translateX(-50%) translateY(14px);
+      background: rgba(9, 23, 45, 0.94);
+      border: 1px solid var(--gold);
+      color: var(--cream);
+      padding: 8px 16px;
+      border-radius: 999px;
+      font-size: 13px;
+      opacity: 0;
+      pointer-events: none;
+      z-index: 300;
+      transition: opacity 0.25s ease, transform 0.25s ease;
+      white-space: nowrap;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    @media (max-width: 768px) {
+      .side-nav-btn { display: none; }
+      .btn-text-hide { display: none; }
+      .book-title-bar { font-size: 14px; }
+      .topbar { padding: 0 10px; }
+    }
+  </style>
 </head>
-<body oncontextmenu="return false;"> <div class="controles-visor">
-        <button id="btn-volver">◄ Volver al Estante</button>
-        <button id="btn-prev">◀ Anterior</button>
-        <div class="paginacion">
-            Página: <span id="num-pagina"></span> de <span id="total-paginas"></span>
-        </div>
-        <button id="btn-next">Siguiente ▶</button>
-        <button id="btn-zoom-in">🔍 +</button>
-        <button id="btn-zoom-out">🔍 -</button>
+<body oncontextmenu="return false;" ondragstart="return false;">
+
+  <!-- Pantalla de carga -->
+  <div class="loader-overlay" id="loaderOverlay">
+    <div class="spinner" id="loaderSpinner"></div>
+    <h2 class="loader-title" id="loaderTitle">Abriendo volumen...</h2>
+    <div class="progress-track" id="progressTrack">
+      <div class="progress-fill" id="progressFill"></div>
+    </div>
+    <p class="loader-sub" id="loaderSub">Conectando con la Biblioteca ACCAR</p>
+  </div>
+
+  <!-- Barra superior -->
+  <header class="topbar" id="topbar">
+    <div class="topbar-left">
+      <button class="icon-btn" id="btn-volver" type="button" title="Volver al estante">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+        <span class="btn-text-hide">Estante</span>
+      </button>
     </div>
 
-    <div id="contenedor-libro">
-        <canvas id="renderizado-pdf"></canvas>
+    <div class="book-title-bar" id="bookTitleBar">Biblioteca ACCAR</div>
+
+    <div class="topbar-right">
+      <button class="icon-btn btn-aa" id="btn-ajustes" type="button" aria-label="Ajustes de lectura" title="Tamaño de letra, tema y modo de lectura">
+        Aa
+      </button>
+      <button class="icon-btn" id="btn-fullscreen" type="button" aria-label="Pantalla completa" title="Pantalla completa">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="15 3 21 3 21 9"></polyline>
+          <polyline points="9 21 3 21 3 15"></polyline>
+          <line x1="21" y1="3" x2="14" y2="10"></line>
+          <line x1="3" y1="21" x2="10" y2="14"></line>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- Panel desplegable de lectura -->
+  <aside class="settings-popover" id="settingsPopover" aria-label="Configuración de lectura">
+    <div class="setting-group">
+      <span class="setting-label">Formato de lectura</span>
+      <div class="segmented" id="modeGroup">
+        <button class="seg-btn active" data-mode="libro" type="button">Libro</button>
+        <button class="seg-btn" data-mode="cascada" type="button">Cascada</button>
+        <button class="seg-btn" data-mode="texto" type="button">Texto Aa</button>
+      </div>
+      <p class="setting-hint" id="modeHint">Desliza el dedo a izquierda o derecha para pasar página.</p>
     </div>
 
-    <script>
-        // Captura el PDF que le envía la tarjeta o lee directamente desde la bodega de Firebase
-        const urlParams = new URLSearchParams(window.location.search);
-        const urlLibro = urlParams.get('pdf') || 'https://firebasestorage.googleapis.com/v0/b/accar-web.firebasestorage.app/o/libros%2Fmaria-santisima%2FMARIA%20EN%20LAS%20ESCRITURAS_compressed.pdf?alt=media&token=644d0237-4749-4756-830c-93d34135e77f';
-        
-        let pdfDoc = null,
-            pageNum = 1,
-            pageIsRendering = false,
-            pageNumIsPending = null,
-            // Escala automática: detecta el tamaño de la pantalla y ajusta el PDF (Celular: 0.5, Tablet: 1.0, PC: 1.3)
-            scale = window.innerWidth <= 600 ? 0.5 : (window.innerWidth <= 1024 ? 1.0 : 1.3),
-            canvas = document.getElementById('renderizado-pdf'),
-            ctx = canvas.getContext('2d');
+    <div class="setting-group">
+      <span class="setting-label">
+        <span>Tamaño de letra / vista</span>
+        <span id="sizeTag">Mediana</span>
+      </span>
+      <div class="segmented" id="sizeGroup">
+        <button class="seg-btn" data-size="sm" type="button">Pequeña</button>
+        <button class="seg-btn active" data-size="md" type="button">Mediana</button>
+        <button class="seg-btn" data-size="lg" type="button">Grande</button>
+        <button class="seg-btn" data-size="xl" type="button">Extra</button>
+      </div>
+    </div>
 
-        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+    <div class="setting-group">
+      <span class="setting-label">Iluminación de página</span>
+      <div class="segmented" id="themeGroup">
+        <button class="seg-btn theme-btn-orig active" data-theme="original" type="button">Día</button>
+        <button class="seg-btn theme-btn-sepia" data-theme="sepia" type="button">Sepia</button>
+        <button class="seg-btn theme-btn-dark" data-theme="oscuro" type="button">Oscuro</button>
+      </div>
+    </div>
 
-        const renderizarPagina = num => {
-            pageIsRendering = true;
-            pdfDoc.getPage(num).then(page => {
-                const viewport = page.getViewport({ scale });
-                canvas.height = viewport.height;
-                canvas.width = viewport.width;
+    <div class="setting-group">
+      <span class="setting-label">
+        <span>Brillo suave</span>
+        <span id="brightnessVal">100%</span>
+      </span>
+      <div class="brightness-row">
+        <span style="font-size:13px;opacity:.75;">◐</span>
+        <input type="range" id="brightnessSlider" min="55" max="100" value="100">
+        <span style="font-size:15px;">☀</span>
+      </div>
+    </div>
+  </aside>
 
-                const renderCtx = {
-                    canvasContext: ctx,
-                    viewport: viewport
-                };
+  <!-- Flechas laterales (computadora / tablet) -->
+  <button class="side-nav-btn prev" id="sidePrev" type="button" aria-label="Página anterior">‹</button>
+  <button class="side-nav-btn next" id="sideNext" type="button" aria-label="Página siguiente">›</button>
 
-                page.render(renderCtx).promise.then(() => {
-                    pageIsRendering = false;
-                    if (pageNumIsPending !== null) {
-                        renderizarPagina(pageNumIsPending);
-                        pageNumIsPending = null;
-                    }
-                });
+  <!-- Escenario del libro -->
+  <main class="reader-stage" id="readerStage">
+    <div class="page-frame" id="pageFrame">
+      <canvas id="pdfCanvas"></canvas>
+    </div>
 
-                document.getElementById('num-pagina').textContent = num;
-            });
-        };
+    <div id="cascada-container"></div>
 
-        const queueRenderPage = num => {
-            if (pageIsRendering) {
-                pageNumIsPending = num;
-            } else {
-                renderizarPagina(num);
+    <article id="texto-container">
+      <div id="texto-body"></div>
+    </article>
+  </main>
+
+  <!-- Barra inferior con salto rápido -->
+  <footer class="bottombar" id="bottombar">
+    <div class="scrubber-row">
+      <button class="mini-nav" id="btnPrev" type="button" aria-label="Anterior">◀</button>
+      <input type="range" id="page-slider" min="1" max="1" value="1">
+      <button class="mini-nav" id="btnNext" type="button" aria-label="Siguiente">▶</button>
+    </div>
+    <div class="page-meta">
+      <span>Página <strong id="num-pagina">1</strong> de <strong id="total-paginas">--</strong></span>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    (function () {
+      const DEFAULT_PDF = 'https://pub-197595ee43bd495bb8fed1458de61700.r2.dev/mariologia/conociendo-a-maria.pdf';
+      const urlParams = new URLSearchParams(window.location.search);
+      const urlLibro = urlParams.get('pdf') || DEFAULT_PDF;
+      const tituloLibro = urlParams.get('titulo') || 'Sala de Lectura ACCAR';
+
+      document.getElementById('bookTitleBar').textContent = tituloLibro;
+      document.title = tituloLibro + ' | Biblioteca ACCAR';
+
+      pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+      // Referencias DOM
+      const stage = document.getElementById('readerStage');
+      const pageFrame = document.getElementById('pageFrame');
+      const canvas = document.getElementById('pdfCanvas');
+      const ctx = canvas.getContext('2d', { alpha: false });
+      const cascadaContainer = document.getElementById('cascada-container');
+      const textoContainer = document.getElementById('texto-container');
+      const textoBody = document.getElementById('texto-body');
+      const slider = document.getElementById('page-slider');
+      const numPagEl = document.getElementById('num-pagina');
+      const totalPagEl = document.getElementById('total-paginas');
+      const popover = document.getElementById('settingsPopover');
+      const btnAjustes = document.getElementById('btn-ajustes');
+      const loaderOverlay = document.getElementById('loaderOverlay');
+      const loaderTitle = document.getElementById('loaderTitle');
+      const loaderSub = document.getElementById('loaderSub');
+      const progressFill = document.getElementById('progressFill');
+      const toastEl = document.getElementById('toast');
+
+      // Claves de memoria
+      const PREFS_KEY = 'accar_visor_prefs_v2';
+      const BOOK_KEY = 'accar_visor_page_' + btoa(unescape(encodeURIComponent(urlLibro))).slice(0, 48);
+
+      const SIZE_CONFIG = {
+        sm: { label: 'Pequeña', pdfMult: 0.90, fontPx: 16 },
+        md: { label: 'Mediana', pdfMult: 1.00, fontPx: 20 },
+        lg: { label: 'Grande',  pdfMult: 1.28, fontPx: 25 },
+        xl: { label: 'Extra',   pdfMult: 1.58, fontPx: 31 }
+      };
+
+      const MODE_HINTS = {
+        libro: 'Desliza el dedo a izquierda o derecha para pasar página.',
+        cascada: 'Desplázate hacia abajo para leer el libro de corrido.',
+        texto: 'Letra adaptable al ancho de pantalla. Desliza a los lados para cambiar de página.'
+      };
+
+      let prefs = {
+        mode: 'libro',
+        size: 'md',
+        theme: 'original',
+        brightness: 100
+      };
+
+      try {
+        const saved = JSON.parse(localStorage.getItem(PREFS_KEY) || '{}');
+        prefs = Object.assign(prefs, saved);
+      } catch (e) {}
+
+      let pdfDoc = null;
+      let pageNum = 1;
+      let currentRenderTask = null;
+      let cascadaObserver = null;
+      let renderedCascadaPages = [];
+      let toastTimer = null;
+
+      try {
+        const savedPage = parseInt(localStorage.getItem(BOOK_KEY), 10);
+        if (savedPage && savedPage >= 1) pageNum = savedPage;
+      } catch (e) {}
+
+      function savePrefs() {
+        try { localStorage.setItem(PREFS_KEY, JSON.stringify(prefs)); } catch (e) {}
+      }
+
+      function savePage(num) {
+        try { localStorage.setItem(BOOK_KEY, String(num)); } catch (e) {}
+      }
+
+      function showToast(msg) {
+        toastEl.textContent = msg;
+        toastEl.classList.add('show');
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => toastEl.classList.remove('show'), 2200);
+      }
+
+      function applyThemeAndBrightness() {
+        document.body.classList.remove('tema-sepia', 'tema-oscuro');
+        if (prefs.theme === 'sepia') document.body.classList.add('tema-sepia');
+        if (prefs.theme === 'oscuro') document.body.classList.add('tema-oscuro');
+
+        document.documentElement.style.setProperty('--page-brightness', (prefs.brightness / 100).toFixed(2));
+        document.getElementById('brightnessSlider').value = prefs.brightness;
+        document.getElementById('brightnessVal').textContent = prefs.brightness + '%';
+
+        document.querySelectorAll('#themeGroup .seg-btn').forEach(b => {
+          b.classList.toggle('active', b.dataset.theme === prefs.theme);
+        });
+      }
+
+      function syncSettingButtons() {
+        document.querySelectorAll('#modeGroup .seg-btn').forEach(b => {
+          b.classList.toggle('active', b.dataset.mode === prefs.mode);
+        });
+        document.querySelectorAll('#sizeGroup .seg-btn').forEach(b => {
+          b.classList.toggle('active', b.dataset.size === prefs.size);
+        });
+        document.getElementById('sizeTag').textContent = SIZE_CONFIG[prefs.size].label;
+        document.getElementById('modeHint').textContent = MODE_HINTS[prefs.mode];
+        document.body.classList.toggle('modo-cascada', prefs.mode === 'cascada');
+      }
+
+      function updateNavUI() {
+        numPagEl.textContent = pageNum;
+        slider.value = pageNum;
+        const total = pdfDoc ? pdfDoc.numPages : 1;
+        document.getElementById('sidePrev').disabled = pageNum <= 1;
+        document.getElementById('sideNext').disabled = pageNum >= total;
+        savePage(pageNum);
+      }
+
+      function computePdfScale(page) {
+        const baseViewport = page.getViewport({ scale: 1 });
+        const availWidth = Math.min(window.innerWidth - 28, 920);
+        const availHeight = window.innerHeight - 165;
+        let fitScale = availWidth / baseViewport.width;
+
+        // En pantallas grandes y tamaño estándar, encajar a la altura visible si conviene
+        if (prefs.mode === 'libro' && prefs.size === 'md' && window.innerWidth > 900) {
+          fitScale = Math.min(fitScale, availHeight / baseViewport.height);
+        }
+
+        const mult = SIZE_CONFIG[prefs.size].pdfMult;
+        return Math.max(0.45, Math.min(fitScale * mult, 3.2));
+      }
+
+      // ===== RENDERIZADO MODO LIBRO (RETINA) =====
+      async function renderSinglePage(num) {
+        if (!pdfDoc) return;
+        pageNum = Math.max(1, Math.min(num, pdfDoc.numPages));
+        updateNavUI();
+
+        if (currentRenderTask) {
+          try { currentRenderTask.cancel(); } catch (e) {}
+          currentRenderTask = null;
+        }
+
+        try {
+          const page = await pdfDoc.getPage(pageNum);
+          const cssScale = computePdfScale(page);
+          const dpr = Math.min(window.devicePixelRatio || 1, 2.25);
+          const viewport = page.getViewport({ scale: cssScale });
+          const hiResViewport = page.getViewport({ scale: cssScale * dpr });
+
+          canvas.width = Math.floor(hiResViewport.width);
+          canvas.height = Math.floor(hiResViewport.height);
+          canvas.style.width = Math.floor(viewport.width) + 'px';
+          canvas.style.height = Math.floor(viewport.height) + 'px';
+
+          const task = page.render({ canvasContext: ctx, viewport: hiResViewport });
+          currentRenderTask = task;
+          await task.promise;
+          currentRenderTask = null;
+
+          stage.scrollTop = 0;
+        } catch (err) {
+          if (err && err.name !== 'RenderingCancelledException') {
+            console.error('Error renderizando página:', err);
+          }
+        }
+      }
+
+      // ===== RENDERIZADO MODO TEXTO ADAPTABLE (Aa) =====
+      function escapeHtml(str) {
+        return str
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;');
+      }
+
+      async function renderTextPage(num) {
+        if (!pdfDoc) return;
+        pageNum = Math.max(1, Math.min(num, pdfDoc.numPages));
+        updateNavUI();
+
+        textoBody.style.fontSize = SIZE_CONFIG[prefs.size].fontPx + 'px';
+        textoBody.innerHTML = '<p style="opacity:.6;text-align:center;">Preparando texto adaptable...</p>';
+
+        try {
+          const page = await pdfDoc.getPage(pageNum);
+          const textContent = await page.getTextContent();
+          const items = textContent.items || [];
+
+          let paragraphs = [];
+          let currentPara = '';
+          let lastY = null;
+          let lastHeight = 12;
+
+          for (const item of items) {
+            const str = item.str || '';
+            if (!str.trim()) {
+              if (currentPara && !currentPara.endsWith(' ')) currentPara += ' ';
+              continue;
             }
-        };
+            const y = item.transform ? item.transform[5] : lastY;
+            const h = item.height > 0 ? item.height : lastHeight;
 
-        // Función mágica de regreso: el navegador recuerda de qué estante vino el usuario
-        document.getElementById('btn-volver').addEventListener('click', () => {
-            window.history.back();
+            if (lastY !== null && Math.abs(lastY - y) > Math.max(h, lastHeight) * 1.48) {
+              if (currentPara.trim()) paragraphs.push(currentPara.trim());
+              currentPara = str;
+            } else {
+              if (currentPara.endsWith('-')) {
+                currentPara = currentPara.slice(0, -1) + str;
+              } else if (currentPara && !currentPara.endsWith(' ') && !str.startsWith(' ')) {
+                currentPara += ' ' + str;
+              } else {
+                currentPara += str;
+              }
+            }
+            lastY = y;
+            lastHeight = h;
+          }
+          if (currentPara.trim()) paragraphs.push(currentPara.trim());
+
+          const plainLength = paragraphs.join('').replace(/\s+/g, '').length;
+
+          if (plainLength < 25) {
+            textoBody.innerHTML = `
+              <div class="texto-aviso">
+                <h3>Página ilustrada o escaneada</h3>
+                <p>La página ${pageNum} corresponde a una portada, diagrama o documento en imagen sin capa de texto adaptable. Puedes visualizarla con toda claridad en el modo Editorial.</p>
+                <button class="btn-switch-editorial" id="btnGoEditorial" type="button">Ver esta página en Modo Libro</button>
+              </div>
+            `;
+            document.getElementById('btnGoEditorial').addEventListener('click', () => {
+              setReadingMode('libro');
+            });
+          } else {
+            textoBody.innerHTML = paragraphs.map(p => '<p>' + escapeHtml(p) + '</p>').join('');
+          }
+
+          stage.scrollTop = 0;
+        } catch (err) {
+          textoBody.innerHTML = '<p>No se pudo extraer texto en esta página. Cambia al modo Libro en el menú Aa.</p>';
+        }
+      }
+
+      // ===== RENDERIZADO MODO CASCADA (LAZY + LIMPIEZA MEMORIA) =====
+      async function buildCascadaView() {
+        if (!pdfDoc) return;
+        if (cascadaObserver) {
+          cascadaObserver.disconnect();
+          cascadaObserver = null;
+        }
+        cascadaContainer.innerHTML = '';
+        renderedCascadaPages = [];
+
+        const refPage = await pdfDoc.getPage(pageNum);
+        const refScale = computePdfScale(refPage);
+        const refViewport = refPage.getViewport({ scale: refScale });
+        const estW = Math.floor(refViewport.width);
+        const estH = Math.floor(refViewport.height);
+
+        const frag = document.createDocumentFragment();
+        for (let i = 1; i <= pdfDoc.numPages; i++) {
+          const slot = document.createElement('div');
+          slot.className = 'cascada-slot';
+          slot.dataset.page = i;
+          slot.style.width = estW + 'px';
+          slot.style.minHeight = estH + 'px';
+          slot.innerHTML = '<span class="slot-placeholder">Página ' + i + '</span>';
+          frag.appendChild(slot);
+        }
+        cascadaContainer.appendChild(frag);
+
+        cascadaObserver = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              const slot = entry.target;
+              const pNum = parseInt(slot.dataset.page, 10);
+              if (!slot.dataset.rendered) {
+                renderCascadaSlot(slot, pNum);
+              }
+            }
+          });
+        }, { root: stage, rootMargin: '550px 0px' });
+
+        cascadaContainer.querySelectorAll('.cascada-slot').forEach(slot => {
+          cascadaObserver.observe(slot);
         });
 
-        document.getElementById('btn-prev').addEventListener('click', () => {
-            if (pageNum <= 1) return;
-            pageNum--;
-            queueRenderPage(pageNum);
-        });
+        // Ir a la página actual
+        const targetSlot = cascadaContainer.querySelector(`.cascada-slot[data-page="${pageNum}"]`);
+        if (targetSlot) {
+          targetSlot.scrollIntoView({ behavior: 'auto', block: 'start' });
+        }
+      }
 
-        document.getElementById('btn-next').addEventListener('click', () => {
-            if (pageNum >= pdfDoc.numPages) return;
-            pageNum++;
-            queueRenderPage(pageNum);
-        });
+      async function renderCascadaSlot(slot, pNum) {
+        slot.dataset.rendered = 'loading';
+        try {
+          const page = await pdfDoc.getPage(pNum);
+          const cssScale = computePdfScale(page);
+          const dpr = Math.min(window.devicePixelRatio || 1, 1.8);
+          const viewport = page.getViewport({ scale: cssScale });
+          const hiRes = page.getViewport({ scale: cssScale * dpr });
 
-        document.getElementById('btn-zoom-in').addEventListener('click', () => {
-            scale += 0.2;
-            queueRenderPage(pageNum);
-        });
+          const c = document.createElement('canvas');
+          c.width = Math.floor(hiRes.width);
+          c.height = Math.floor(hiRes.height);
+          c.style.width = Math.floor(viewport.width) + 'px';
+          c.style.height = Math.floor(viewport.height) + 'px';
 
-        document.getElementById('btn-zoom-out').addEventListener('click', () => {
-            if (scale <= 0.6) return;
-            scale -= 0.2;
-            queueRenderPage(pageNum);
-        });
+          await page.render({ canvasContext: c.getContext('2d', { alpha: false }), viewport: hiRes }).promise;
 
-        pdfjsLib.getDocument(urlLibro).promise.then(pdfDoc_ => {
-            pdfDoc = pdfDoc_;
-            document.getElementById('total-paginas').textContent = pdfDoc.numPages;
-            renderizarPagina(pageNum);
-        }).catch(err => {
-            console.error("Error crítico de carga: ", err);
-        });
-    </script>
+          if (slot.dataset.rendered !== 'loading') return;
+          slot.style.width = Math.floor(viewport.width) + 'px';
+          slot.style.minHeight = Math.floor(viewport.height) + 'px';
+          slot.innerHTML = '';
+          slot.appendChild(c);
+          slot.dataset.rendered = 'done';
+
+          // Mantener máximo 12 páginas en memoria para proteger iPads y celulares
+          renderedCascadaPages.push(slot);
+          if (renderedCascadaPages.length > 12) {
+            const oldSlot = renderedCascadaPages.shift();
+            if (oldSlot && oldSlot !== slot) {
+              const oldNum = oldSlot.dataset.page;
+              oldSlot.innerHTML = '<span class="slot-placeholder">Página ' + oldNum + '</span>';
+              delete oldSlot.dataset.rendered;
+            }
+          }
+        } catch (e) {
+          delete slot.dataset.rendered;
+        }
+      }
+
+      // Actualizar número de página al hacer scroll en Cascada
+      let scrollSpyTimer = null;
+      stage.addEventListener('scroll', () => {
+        if (prefs.mode !== 'cascada' || !pdfDoc) return;
+        clearTimeout(scrollSpyTimer);
+        scrollSpyTimer = setTimeout(() => {
+          const slots = cascadaContainer.querySelectorAll('.cascada-slot');
+          const mid = stage.clientHeight * 0.4;
+          for (const slot of slots) {
+            const rect = slot.getBoundingClientRect();
+            if (rect.top <= mid && rect.bottom >= mid) {
+              const p = parseInt(slot.dataset.page, 10);
+              if (p && p !== pageNum) {
+                pageNum = p;
+                updateNavUI();
+              }
+              break;
+            }
+          }
+        }, 120);
+      });
+
+      // ===== CAMBIAR MODO DE LECTURA =====
+      function setReadingMode(newMode) {
+        prefs.mode = newMode;
+        savePrefs();
+        syncSettingButtons();
+
+        pageFrame.style.display = newMode === 'libro' ? 'block' : 'none';
+        cascadaContainer.style.display = newMode === 'cascada' ? 'flex' : 'none';
+        textoContainer.style.display = newMode === 'texto' ? 'block' : 'none';
+
+        if (!pdfDoc) return;
+        if (newMode === 'libro') renderSinglePage(pageNum);
+        else if (newMode === 'texto') renderTextPage(pageNum);
+        else if (newMode === 'cascada') buildCascadaView();
+      }
+
+      function goToPage(num) {
+        if (!pdfDoc) return;
+        const target = Math.max(1, Math.min(num, pdfDoc.numPages));
+        if (prefs.mode === 'libro') {
+          renderSinglePage(target);
+        } else if (prefs.mode === 'texto') {
+          renderTextPage(target);
+        } else if (prefs.mode === 'cascada') {
+          pageNum = target;
+          updateNavUI();
+          const slot = cascadaContainer.querySelector(`.cascada-slot[data-page="${target}"]`);
+          if (slot) slot.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }
+
+      // ===== EVENTOS DE INTERFAZ =====
+      document.getElementById('btn-volver').addEventListener('click', () => {
+        if (window.history.length > 1) window.history.back();
+        else window.location.href = '/ver/biblioteca';
+      });
+
+      btnAjustes.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const isOpen = popover.classList.toggle('open');
+        btnAjustes.classList.toggle('active', isOpen);
+      });
+
+      popover.addEventListener('click', (e) => e.stopPropagation());
+
+      document.getElementById('modeGroup').addEventListener('click', (e) => {
+        const btn = e.target.closest('.seg-btn');
+        if (!btn) return;
+        setReadingMode(btn.dataset.mode);
+      });
+
+      document.getElementById('sizeGroup').addEventListener('click', (e) => {
+        const btn = e.target.closest('.seg-btn');
+        if (!btn) return;
+        prefs.size = btn.dataset.size;
+        savePrefs();
+        syncSettingButtons();
+        if (prefs.mode === 'libro') renderSinglePage(pageNum);
+        else if (prefs.mode === 'texto') textoBody.style.fontSize = SIZE_CONFIG[prefs.size].fontPx + 'px';
+        else if (prefs.mode === 'cascada') buildCascadaView();
+        showToast('Tamaño: ' + SIZE_CONFIG[prefs.size].label);
+      });
+
+      document.getElementById('themeGroup').addEventListener('click', (e) => {
+        const btn = e.target.closest('.seg-btn');
+        if (!btn) return;
+        prefs.theme = btn.dataset.theme;
+        savePrefs();
+        applyThemeAndBrightness();
+      });
+
+      document.getElementById('brightnessSlider').addEventListener('input', (e) => {
+        prefs.brightness = parseInt(e.target.value, 10);
+        applyThemeAndBrightness();
+        savePrefs();
+      });
+
+      document.getElementById('btn-fullscreen').addEventListener('click', () => {
+        if (!document.fullscreenElement) {
+          document.documentElement.requestFullscreen?.().catch(() => {});
+        } else {
+          document.exitFullscreen?.().catch(() => {});
+        }
+      });
+
+      // Navegación
+      document.getElementById('btnPrev').addEventListener('click', () => goToPage(pageNum - 1));
+      document.getElementById('btnNext').addEventListener('click', () => goToPage(pageNum + 1));
+      document.getElementById('sidePrev').addEventListener('click', () => goToPage(pageNum - 1));
+      document.getElementById('sideNext').addEventListener('click', () => goToPage(pageNum + 1));
+
+      slider.addEventListener('input', (e) => {
+        numPagEl.textContent = e.target.value;
+      });
+      slider.addEventListener('change', (e) => {
+        goToPage(parseInt(e.target.value, 10));
+      });
+
+      // Atajos de teclado + bloqueo de copia/guardado/impresión
+      document.addEventListener('keydown', (e) => {
+        if ((e.ctrlKey || e.metaKey) && ['s', 'p', 'c', 'u'].includes(e.key.toLowerCase())) {
+          e.preventDefault();
+          return;
+        }
+        if (prefs.mode === 'cascada') return;
+        if (e.key === 'ArrowRight' || e.key === 'PageDown') goToPage(pageNum + 1);
+        if (e.key === 'ArrowLeft' || e.key === 'PageUp') goToPage(pageNum - 1);
+      });
+
+      // Gestos táctiles (Swipe izquierda/derecha) + toque central para modo inmersivo
+      let touchStartX = 0, touchStartY = 0, touchStartTime = 0, isMultiTouch = false;
+
+      stage.addEventListener('touchstart', (e) => {
+        if (e.touches.length > 1) {
+          isMultiTouch = true;
+          return;
+        }
+        isMultiTouch = false;
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+        touchStartTime = Date.now();
+      }, { passive: true });
+
+      stage.addEventListener('touchend', (e) => {
+        if (isMultiTouch || e.changedTouches.length !== 1) return;
+        const dx = e.changedTouches[0].clientX - touchStartX;
+        const dy = e.changedTouches[0].clientY - touchStartY;
+        const elapsed = Date.now() - touchStartTime;
+
+        // Swipe horizontal en modo Libro o Texto
+        if (prefs.mode !== 'cascada' && elapsed < 550 && Math.abs(dx) > 55 && Math.abs(dx) > Math.abs(dy) * 1.4) {
+          const hasHorizontalScroll = stage.scrollWidth > stage.clientWidth + 12;
+          const atLeftEdge = stage.scrollLeft <= 4;
+          const atRightEdge = stage.scrollLeft + stage.clientWidth >= stage.scrollWidth - 4;
+
+          if (dx < 0 && (!hasHorizontalScroll || atRightEdge)) {
+            if (pageNum < pdfDoc.numPages) goToPage(pageNum + 1);
+            else showToast('Has llegado al final del libro');
+          } else if (dx > 0 && (!hasHorizontalScroll || atLeftEdge)) {
+            if (pageNum > 1) goToPage(pageNum - 1);
+          }
+        }
+      }, { passive: true });
+
+      // Clic/Toque simple en el área de lectura oculta o muestra las barras
+      stage.addEventListener('click', (e) => {
+        if (e.target.closest('button')) return;
+        if (popover.classList.contains('open')) {
+          popover.classList.remove('open');
+          btnAjustes.classList.remove('active');
+          return;
+        }
+        document.body.classList.toggle('ui-hidden');
+      });
+
+      // Reajustar nitidez al girar el iPad / cambiar tamaño de ventana
+      let resizeTimer = null;
+      window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => {
+          if (!pdfDoc) return;
+          if (prefs.mode === 'libro') renderSinglePage(pageNum);
+          else if (prefs.mode === 'cascada') buildCascadaView();
+        }, 260);
+      });
+
+      // ===== CARGA DEL DOCUMENTO PDF =====
+      applyThemeAndBrightness();
+      syncSettingButtons();
+
+      const loadingTask = pdfjsLib.getDocument({
+        url: urlLibro,
+        cMapUrl: 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/cmaps/',
+        cMapPacked: true
+      });
+
+      loadingTask.onProgress = (progressData) => {
+        if (progressData.total > 0) {
+          const pct = Math.min(100, Math.round((progressData.loaded / progressData.total) * 100));
+          progressFill.style.width = pct + '%';
+          loaderSub.textContent = `Descargando libro... ${pct}%`;
+        }
+      };
+
+      loadingTask.promise.then((doc) => {
+        pdfDoc = doc;
+        totalPagEl.textContent = pdfDoc.numPages;
+        slider.max = pdfDoc.numPages;
+
+        if (pageNum > pdfDoc.numPages) pageNum = 1;
+        const resumed = pageNum > 1;
+
+        loaderOverlay.classList.add('hidden');
+        setReadingMode(prefs.mode);
+
+        if (resumed) {
+          showToast(`Retomando lectura en página ${pageNum}`);
+        }
+      }).catch((err) => {
+        console.error('Error crítico al abrir el PDF:', err);
+        document.getElementById('loaderSpinner').style.display = 'none';
+        document.getElementById('progressTrack').style.display = 'none';
+        loaderTitle.textContent = 'No se pudo cargar el documento';
+        loaderSub.innerHTML = 'Verifica tu conexión a internet e intenta de nuevo.<br><br><button class="btn-switch-editorial" onclick="window.location.reload()">Reintentar</button>';
+      });
+    })();
+  </script>
 </body>
 </html>
