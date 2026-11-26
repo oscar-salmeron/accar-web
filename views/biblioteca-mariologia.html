@@ -4,18 +4,16 @@
         .accar-mariologia-page {
             margin: 0;
             padding: 0;
-            /* Fondo Beige/Dorado tipo manto sagrado o pergamino antiguo */
             background: linear-gradient(135deg, #FAF4E1 0%, #E8D6B3 100%);
             font-family: 'Lora', serif;
             color: #2c2c2c;
             min-height: 100vh;
         }
         
-        /* Encabezado Majestuoso */
         .header-santuario {
-            background-color: #0a1a33; /* Azul Mariano profundo */
+            background-color: #0a1a33;
             background-image: radial-gradient(circle at center, #112a52 0%, #0a1a33 100%);
-            color: #D4AF37; /* Oro Papal */
+            color: #D4AF37;
             padding: 70px 20px;
             text-align: center;
             border-bottom: 6px solid #D4AF37;
@@ -23,7 +21,6 @@
             position: relative;
         }
 
-        /* ===== MIGAS DE PAN (BREADCRUMBS) ===== */
         .accar-breadcrumbs {
             position: absolute;
             top: 25px;
@@ -65,7 +62,6 @@
                 text-align: center;
             }
         }
-        /* ====================================== */
         
         .header-santuario h1 {
             font-family: 'Cinzel', serif;
@@ -111,7 +107,6 @@
             letter-spacing: 1px;
         }
 
-        /* Estantería y Tarjetas Elevadas */
         .contenedor-libros {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -238,7 +233,7 @@
             <div class="info-libro">
                 <h2 class="titulo-libro">Conociendo a María</h2>
                 <p class="desc-libro">Estudio exegético y apologético de Oscar R. Salmerón E. que profundiza en la presencia de la Madre de Dios en la Sagrada Escritura.</p>
-                <a href="#" onclick="event.preventDefault(); window.location.href='views/visor.html?pdf=' + encodeURIComponent('/bodega/libros/maria-santisima/CONOCIENDO%20A%20MARIA%2C%20MADRE%20DE%20DIOS%20EN%20LAS%20ESCRITURAS%20(1).pdf');" class="btn-leer">Abrir Documento</a>
+                <a href="#" onclick="event.preventDefault(); window.location.href='/views/visor.html?titulo=' + encodeURIComponent('Conociendo a María') + '&pdf=' + encodeURIComponent('https://pub-197595ee43bd495bb8fed1458de61700.r2.dev/mariologia/conociendo-a-maria.pdf');" class="btn-leer">Abrir Documento</a>
             </div>
         </div>
 
@@ -251,7 +246,7 @@
             <div class="info-libro">
                 <h2 class="titulo-libro">Las Glorias de María</h2>
                 <p class="desc-libro">Obra cumbre de San Alfonso María de Ligorio. Una explicación detallada de la Salve Regina y las devociones marianas sustentadas por los Santos Padres.</p>
-                <a href="#" onclick="event.preventDefault(); window.location.href='views/visor.html?pdf=' + encodeURIComponent('/bodega/libros/maria-santisima/LAS%20GLORIAS%20DE%20MARIA%20IMAGEN_merge.pdf');" class="btn-leer">Abrir Documento</a>
+                <a href="#" onclick="event.preventDefault(); window.location.href='/views/visor.html?titulo=' + encodeURIComponent('Las Glorias de María') + '&pdf=' + encodeURIComponent('https://pub-197595ee43bd495bb8fed1458de61700.r2.dev/mariologia/las-glorias-de-maria.pdf');" class="btn-leer">Abrir Documento</a>
             </div>
         </div>
 
@@ -264,7 +259,7 @@
             <div class="info-libro">
                 <h2 class="titulo-libro">Consagración Total</h2>
                 <p class="desc-libro">Preparación para la Consagración Total a Jesucristo por las manos de María, según el método de San Luis María Grignion de Montfort.</p>
-                <a href="#" onclick="event.preventDefault(); window.location.href='views/visor.html?pdf=' + encodeURIComponent('/bodega/libros/maria-santisima/consagracion%20a%20maria%20santisima.pdf');" class="btn-leer">Abrir Documento</a>
+                <a href="#" onclick="event.preventDefault(); window.location.href='/views/visor.html?titulo=' + encodeURIComponent('Consagración Total') + '&pdf=' + encodeURIComponent('https://pub-197595ee43bd495bb8fed1458de61700.r2.dev/mariologia/consagracion-total.pdf');" class="btn-leer">Abrir Documento</a>
             </div>
         </div>
 
