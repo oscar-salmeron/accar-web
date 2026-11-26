@@ -212,69 +212,93 @@
       <div class="accar-mobile-nav-panel" id="accarMobileNavPanel">
         <div class="accar-mobile-nav-backdrop" onclick="document.getElementById('accarMobileMenuToggle').click();"></div>
         <div class="accar-mobile-nav-card">
+
+          <div class="accar-mobile-nav-head">
+            <span class="accar-mobile-nav-title">✠ Navegación ACCAR</span>
+            <button type="button" class="accar-mobile-close-btn" onclick="document.getElementById('accarMobileMenuToggle').click();" aria-label="Cerrar menú">✕</button>
+          </div>
+
           <div class="accar-mobile-nav-list">
 
-            <a href="#" onclick="event.preventDefault(); loadView('views/inicio.html');" class="accar-mobile-nav-btn">Inicio</a>
+            <a href="#" data-nav-section="inicio" onclick="event.preventDefault(); loadView('views/inicio.html');" class="accar-mobile-nav-btn active">Inicio</a>
 
             <!-- APOLOGÉTICA -->
             <div class="accar-mobile-dropdown">
-              <button type="button" class="accar-mobile-dropdown-toggle">
-                Apologética <span class="accar-mobile-caret">▾</span>
+              <button type="button" data-nav-section="apologetica" class="accar-mobile-dropdown-toggle">
+                <span>Apologética</span> <span class="accar-mobile-caret">▾</span>
               </button>
               <div class="accar-mobile-dropdown-menu">
-                <a href="#" onclick="event.preventDefault(); loadView('views/apologetica.html');" style="color:#D4AF37 !important; font-weight:bold;">→ Ir a Apologética</a>
-                <a href="#" onclick="event.preventDefault(); loadView('views/construccion.html');">Introducción</a>
-                <a href="#" onclick="event.preventDefault(); loadView('views/construccion.html');">Defensa de la fe</a>
-                <a href="#" onclick="event.preventDefault(); loadView('views/preguntas-frecuentes.html');">Preguntas frecuentes</a>
+                <a href="#" data-nav-parent="apologetica" onclick="event.preventDefault(); loadView('views/apologetica.html');" class="accar-mobile-sub-main">Ir a Apologética →</a>
+                <a href="#" data-nav-parent="apologetica" onclick="event.preventDefault(); loadView('views/construccion.html');">Introducción</a>
+                <a href="#" data-nav-parent="apologetica" onclick="event.preventDefault(); loadView('views/construccion.html');">Defensa de la fe</a>
+                <a href="#" data-nav-parent="apologetica" onclick="event.preventDefault(); loadView('views/preguntas-frecuentes.html');">Preguntas frecuentes</a>
               </div>
             </div>
 
             <!-- FORMACIÓN -->
             <div class="accar-mobile-dropdown">
-              <button type="button" class="accar-mobile-dropdown-toggle">
-                Formación <span class="accar-mobile-caret">▾</span>
+              <button type="button" data-nav-section="formacion" class="accar-mobile-dropdown-toggle">
+                <span>Formación</span> <span class="accar-mobile-caret">▾</span>
               </button>
               <div class="accar-mobile-dropdown-menu">
-                <a href="#" onclick="event.preventDefault(); loadView('views/formacion.html');" style="color:#D4AF37 !important; font-weight:bold;">→ Ir a Formación</a>
-                <a href="#" onclick="event.preventDefault(); loadView('views/doctrina.html');">Doctrina</a>
-                <a href="#" onclick="event.preventDefault(); loadView('views/sagrada-escritura.html');">Sagrada Escritura</a>
-                <a href="#" onclick="event.preventDefault(); loadView('views/sacramentos.html');">Sacramentos</a>
-                <a href="#" onclick="event.preventDefault(); loadView('views/biblioteca.html');">Biblioteca</a>
-                <a href="#" onclick="event.preventDefault(); loadView('views/formacion-apologetica-liturgica.html');">Apologética Litúrgica</a>
-                <a href="#" onclick="event.preventDefault(); loadView('views/santos/inicio-santos.html');">Santoral</a>
+                <a href="#" data-nav-parent="formacion" onclick="event.preventDefault(); loadView('views/formacion.html');" class="accar-mobile-sub-main">Ir a Formación →</a>
+                <a href="#" data-nav-parent="formacion" onclick="event.preventDefault(); loadView('views/doctrina.html');">Doctrina</a>
+                <a href="#" data-nav-parent="formacion" onclick="event.preventDefault(); loadView('views/sagrada-escritura.html');">Sagrada Escritura</a>
+                <a href="#" data-nav-parent="formacion" onclick="event.preventDefault(); loadView('views/sacramentos.html');">Sacramentos</a>
+                <a href="#" data-nav-parent="formacion" onclick="event.preventDefault(); loadView('views/biblioteca.html');">Biblioteca</a>
+                <a href="#" data-nav-parent="formacion" onclick="event.preventDefault(); loadView('views/formacion-apologetica-liturgica.html');">Apologética Litúrgica</a>
+                <a href="#" data-nav-parent="formacion" onclick="event.preventDefault(); loadView('views/santos/inicio-santos.html');">Santoral</a>
               </div>
             </div>
 
             <!-- HISTORIA -->
             <div class="accar-mobile-dropdown">
-              <button type="button" class="accar-mobile-dropdown-toggle">
-                Historia <span class="accar-mobile-caret">▾</span>
+              <button type="button" data-nav-section="historia" class="accar-mobile-dropdown-toggle">
+                <span>Historia</span> <span class="accar-mobile-caret">▾</span>
               </button>
               <div class="accar-mobile-dropdown-menu">
-                <a href="#" onclick="event.preventDefault(); loadView('views/historia.html');" style="color:#D4AF37 !important; font-weight:bold;">→ Ir a Historia</a>
-                <a href="#" onclick="event.preventDefault(); loadView('views/historia-lista-de-papas.html');">Papas</a>
-                <a href="#" onclick="event.preventDefault(); loadView('views/historia-lista-de-concilios.html');">Concilios</a>
-                <a href="#" onclick="event.preventDefault(); loadView('views/historia-lista-de-padres.html');">Padres de la Iglesia</a>
+                <a href="#" data-nav-parent="historia" onclick="event.preventDefault(); loadView('views/historia.html');" class="accar-mobile-sub-main">Ir a Historia →</a>
+                <a href="#" data-nav-parent="historia" onclick="event.preventDefault(); loadView('views/historia-lista-de-papas.html');">Papas</a>
+                <a href="#" data-nav-parent="historia" onclick="event.preventDefault(); loadView('views/historia-lista-de-concilios.html');">Concilios</a>
+                <a href="#" data-nav-parent="historia" onclick="event.preventDefault(); loadView('views/historia-lista-de-padres.html');">Padres de la Iglesia</a>
               </div>
             </div>
 
-            <a href="#" onclick="event.preventDefault(); loadView('views/adoracion.html');" class="accar-mobile-nav-btn accar-btn-llama">Adoración</a>
+            <!-- ADORACIÓN -->
+            <a href="#" data-nav-section="adoracion" onclick="event.preventDefault(); loadView('views/adoracion.html');" class="accar-mobile-nav-btn accar-mobile-adoracion">
+              <svg class="accar-votive-flame" viewBox="0 0 16 22" fill="none" aria-hidden="true">
+                <path d="M8 1C8 1 2 7.4 2 13.2C2 17.2 4.7 20.5 8 20.5C11.3 20.5 14 17.2 14 13.2C14 7.4 8 1 8 1Z" fill="url(#accarFlameOuterMob)"/>
+                <path d="M8 7.2C8 7.2 4.8 11 4.8 14.2C4.8 16.5 6.2 18.4 8 18.4C9.8 18.4 11.2 16.5 11.2 14.2C11.2 11 8 7.2 8 7.2Z" fill="url(#accarFlameInnerMob)"/>
+                <defs>
+                  <linearGradient id="accarFlameOuterMob" x1="8" y1="1" x2="8" y2="20.5" gradientUnits="userSpaceOnUse">
+                    <stop offset="0%" stop-color="#ffd966"/>
+                    <stop offset="55%" stop-color="#ff7b00"/>
+                    <stop offset="100%" stop-color="#b80000"/>
+                  </linearGradient>
+                  <linearGradient id="accarFlameInnerMob" x1="8" y1="7.2" x2="8" y2="18.4" gradientUnits="userSpaceOnUse">
+                    <stop offset="0%" stop-color="#fffdf2"/>
+                    <stop offset="100%" stop-color="#ffbe3b"/>
+                  </linearGradient>
+                </defs>
+              </svg>
+              <span>Adoración</span>
+            </a>
 
             <!-- MULTIMEDIA -->
             <div class="accar-mobile-dropdown">
-              <button type="button" class="accar-mobile-dropdown-toggle">
-                Multimedia <span class="accar-mobile-caret">▾</span>
+              <button type="button" data-nav-section="multimedia" class="accar-mobile-dropdown-toggle">
+                <span>Multimedia</span> <span class="accar-mobile-caret">▾</span>
               </button>
               <div class="accar-mobile-dropdown-menu">
-                <a href="#" onclick="event.preventDefault(); loadView('views/multimedia/peliculas.html');" style="color:#D4AF37 !important; font-weight:bold;">→ Ir a Multimedia</a>
-                <a href="#" onclick="event.preventDefault(); loadView('views/multimedia/peliculas.html');">Películas</a>
-                <a href="#" onclick="event.preventDefault(); loadView('views/construccion.html');">Audio</a>
-                <a href="#" onclick="event.preventDefault(); loadView('views/construccion.html');">Podcast</a>
+                <a href="#" data-nav-parent="multimedia" onclick="event.preventDefault(); loadView('views/multimedia/peliculas.html');" class="accar-mobile-sub-main">Ir a Multimedia →</a>
+                <a href="#" data-nav-parent="multimedia" onclick="event.preventDefault(); loadView('views/multimedia/peliculas.html');">Películas</a>
+                <a href="#" data-nav-parent="multimedia" onclick="event.preventDefault(); loadView('views/construccion.html');">Audio</a>
+                <a href="#" data-nav-parent="multimedia" onclick="event.preventDefault(); loadView('views/construccion.html');">Podcast</a>
               </div>
             </div>
 
-            <a href="#" onclick="event.preventDefault(); loadView('views/actualidad.html');" class="accar-mobile-nav-btn">Actualidad</a>
-            <a href="#" onclick="event.preventDefault(); loadView('views/contacto.html');" class="accar-mobile-nav-btn">Contacto</a>
+            <a href="#" data-nav-section="actualidad" onclick="event.preventDefault(); loadView('views/actualidad.html');" class="accar-mobile-nav-btn">Actualidad</a>
+            <a href="#" data-nav-section="contacto" onclick="event.preventDefault(); loadView('views/contacto.html');" class="accar-mobile-nav-btn">Contacto</a>
 
           </div>
         </div>
