@@ -1347,6 +1347,65 @@
         line-height:1.5;
       }
     }
+
+    /* ===== LIENZO LITÚRGICO NÍTIDO PARA IPAD Y ESCRITORIO ===== */
+    #accarLiturgicalFixedBg{
+      display:none;
+      position:fixed;
+      top:0;
+      left:0;
+      width:100%;
+      height:100vh;
+      height:100lvh;
+      z-index:0;
+      pointer-events:none;
+      background-color:#0B1B3D;
+      background-image:url('/assets/img/header_semana_santa.webp');
+      background-size:cover;
+      background-position:center 15%;
+      background-repeat:no-repeat;
+      transform:translateZ(0);
+      -webkit-transform:translateZ(0);
+    }
+
+    #spa-content{
+      position:relative;
+      z-index:1;
+    }
+
+    #siteFooter{
+      position:relative;
+      z-index:2;
+    }
+
+    @media (min-width:981px){
+      body.accar-is-home #accarLiturgicalFixedBg{
+        display:block;
+      }
+
+      body.accar-is-home .accar-hero-header,
+      body.accar-is-home .accar-adoracion{
+        background-image:none !important;
+        background-color:transparent !important;
+      }
+    }
+
+    /* Evita el zoom borroso de Safari iPadOS en vistas internas y en el footer */
+    @media (min-width:981px) and (hover:none) and (pointer:coarse){
+      .accar-hero-header,
+      .footer-global-accar{
+        background-attachment:scroll !important;
+      }
+    }
+
+    @supports (-webkit-touch-callout:none){
+      @media (min-width:981px){
+        .accar-hero-header,
+        .footer-global-accar{
+          background-attachment:scroll !important;
+        }
+      }
+    }
   </style>
   <!-- ===== FIN ESTILOS ===== -->
 
@@ -1497,10 +1556,27 @@
         };
       }
 
+      let fixedBg = document.getElementById("accarLiturgicalFixedBg");
+      if (!fixedBg) {
+        fixedBg = document.createElement("div");
+        fixedBg.id = "accarLiturgicalFixedBg";
+        fixedBg.setAttribute("aria-hidden", "true");
+        document.body.prepend(fixedBg);
+      }
+
+      function syncHomeBackgroundMode(){
+        const isHome = !!document.getElementById("accarAdoracionBlock");
+        document.body.classList.toggle("accar-is-home", isHome);
+      }
+
       function applyLiturgicalHeader(){
         const season = getLiturgicalSeason(new Date());
         heroHeader.style.backgroundImage = "url('" + season.image + "')";
         heroHeader.style.backgroundPosition = season.position;
+        if (fixedBg) {
+          fixedBg.style.backgroundImage = "url('" + season.image + "')";
+          fixedBg.style.backgroundPosition = season.position;
+        }
         if (heroKicker) {
           heroKicker.textContent = season.label;
         }
@@ -1540,6 +1616,7 @@
       }
 
       function syncActiveNav(){
+        syncHomeBackgroundMode();
         setActiveSection(detectSectionFromURL());
       }
 
@@ -1552,11 +1629,13 @@
       const spaContainer = document.getElementById("spa-content");
       if (spaContainer && window.MutationObserver) {
         const observer = new MutationObserver(function(){
+          syncHomeBackgroundMode();
           setTimeout(syncActiveNav, 35);
         });
         observer.observe(spaContainer, { childList: true });
       }
       window.addEventListener("popstate", function(){
+        syncHomeBackgroundMode();
         setTimeout(syncActiveNav, 35);
       });
 
