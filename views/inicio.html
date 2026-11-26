@@ -311,10 +311,7 @@ body {
     adoracionBlock.style.backgroundImage = "url('" + season.image + "')";
     adoracionBlock.style.backgroundPosition = season.position;
     adoracionBlock.style.setProperty('--bg-liturgico', season.color);
-    
-    document.body.style.backgroundImage = "url('" + season.image + "')";
-    document.body.style.backgroundAttachment = "fixed";
-    document.body.style.backgroundSize = "cover";
+    document.body.classList.add('accar-is-home');
   }
 
   applyAdoracionBackground();
