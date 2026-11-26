@@ -14,11 +14,12 @@
       --bar-bg: rgba(9, 23, 45, 0.94);
       --panel-bg: rgba(11, 27, 54, 0.98);
       --gold: #d4af37;
-      --gold-soft: rgba(212, 175, 55, 0.32);
+      --gold-soft: rgba(212, 175, 55, 0.35);
       --cream: #f8efd3;
       --muted: #b8c4d9;
-      --text-bg: #fffdf7;
-      --text-ink: #1e1e1e;
+      --text-bg: #fffdf8;
+      --text-ink: #1f1d1a;
+      --heading-ink: #0a1a33;
       --page-brightness: 1;
       --page-filter: brightness(var(--page-brightness));
     }
@@ -29,6 +30,7 @@
       --panel-bg: rgba(42, 32, 22, 0.98);
       --text-bg: #f4ebd4;
       --text-ink: #2b2116;
+      --heading-ink: #4a2e10;
       --page-filter: sepia(0.32) contrast(0.95) brightness(var(--page-brightness));
     }
 
@@ -36,8 +38,9 @@
       --bg-desk: #0f1115;
       --bar-bg: rgba(18, 20, 25, 0.96);
       --panel-bg: rgba(24, 27, 33, 0.98);
-      --text-bg: #17191e;
-      --text-ink: #dcd7cc;
+      --text-bg: #171a21;
+      --text-ink: #ded9ce;
+      --heading-ink: #e5c45c;
       --page-filter: invert(0.90) hue-rotate(180deg) contrast(0.92) brightness(var(--page-brightness));
     }
 
@@ -60,12 +63,11 @@
       transition: background-color 0.3s ease;
     }
 
-    /* Bloqueo de impresión */
     @media print {
       body { display: none !important; }
     }
 
-    /* ===== BARRA SUPERIOR FLOTANTE ===== */
+    /* ===== BARRA SUPERIOR ===== */
     .topbar {
       position: fixed;
       top: 0;
@@ -151,12 +153,12 @@
       min-width: 48px;
     }
 
-    /* ===== PANEL DESPLEGABLE DE AJUSTES (Aa / TEMA / MODO) ===== */
+    /* ===== PANEL DESPLEGABLE DE LECTURA ===== */
     .settings-popover {
       position: fixed;
       top: 72px;
       right: 14px;
-      width: min(350px, calc(100vw - 28px));
+      width: min(355px, calc(100vw - 28px));
       background: var(--panel-bg);
       border: 1px solid var(--gold);
       border-radius: 16px;
@@ -226,7 +228,6 @@
       border-color: var(--gold);
     }
 
-    /* Botones visuales de tema */
     .theme-btn-orig { background: #fdfbf7; color: #0a1a33; }
     .theme-btn-sepia { background: #f2e5c6; color: #3a2a18; }
     .theme-btn-dark { background: #1c1f26; color: #e8e3d5; }
@@ -254,66 +255,76 @@
       margin: 0;
     }
 
-    /* ===== ESCENARIO PRINCIPAL DE LECTURA ===== */
+    /* ===== ESCENARIO PRINCIPAL CON SCROLL VERTICAL LIBRE ===== */
     .reader-stage {
-      position: absolute;
+      position: fixed;
       inset: 0;
-      overflow: auto;
+      overflow-y: auto;
+      overflow-x: hidden;
       -webkit-overflow-scrolling: touch;
+      touch-action: pan-y pinch-zoom;
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 76px 14px 96px;
+      padding: 78px 18px 104px;
       transition: padding 0.28s ease;
     }
 
     body.ui-hidden .reader-stage {
-      padding: 18px 10px 24px;
+      padding: 22px 14px 28px;
     }
 
-    /* Vista Página Única (Libro) */
+    /* Marco de página original (Nunca se recorta ni desborda a los lados) */
     .page-frame {
       position: relative;
-      margin: auto;
+      flex-shrink: 0;
+      margin: auto 0;
       background: #ffffff;
       border-radius: 6px;
       box-shadow: 0 18px 50px rgba(0, 0, 0, 0.65);
       border: 1px solid var(--gold-soft);
-      overflow: hidden;
       filter: var(--page-filter);
       transition: filter 0.25s ease;
-      max-width: none;
+      max-width: 100%;
     }
 
     .page-frame canvas {
       display: block;
+      max-width: 100%;
+      height: auto;
+      border-radius: 5px;
     }
 
     /* Vista Cascada (Vertical Continua) */
     #cascada-container {
       display: none;
+      flex-shrink: 0;
       flex-direction: column;
       align-items: center;
-      gap: 18px;
+      gap: 20px;
       width: 100%;
     }
 
     .cascada-slot {
       position: relative;
+      flex-shrink: 0;
       background: #ffffff;
       border-radius: 6px;
       box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
       border: 1px solid var(--gold-soft);
-      overflow: hidden;
       filter: var(--page-filter);
       display: flex;
       align-items: center;
       justify-content: center;
+      max-width: 100%;
       transition: filter 0.25s ease;
     }
 
     .cascada-slot canvas {
       display: block;
+      max-width: 100%;
+      height: auto;
+      border-radius: 5px;
     }
 
     .slot-placeholder {
@@ -322,64 +333,68 @@
       color: #666;
     }
 
-    /* Vista Texto Adaptable (Modo Aa) */
+    /* Hoja de Libro con Márgenes Fijos y Letra Adaptable */
     #texto-container {
       display: none;
+      flex-shrink: 0;
+      margin: auto 0;
       width: min(760px, 100%);
-      margin: 0 auto;
+      min-height: calc(100vh - 186px);
       background: var(--text-bg);
       color: var(--text-ink);
-      border: 1px solid var(--gold-soft);
-      border-radius: 14px;
-      padding: clamp(22px, 5vw, 48px);
-      box-shadow: 0 18px 46px rgba(0, 0, 0, 0.48);
+      border: 1px solid var(--gold);
+      border-radius: 8px;
+      padding: clamp(32px, 5vw, 58px) clamp(24px, 6.5vw, 68px);
+      box-shadow: 0 18px 50px rgba(0, 0, 0, 0.65);
       filter: brightness(var(--page-brightness));
       transition: background-color 0.25s ease, color 0.25s ease;
     }
 
+    .sheet-header-ornament {
+      text-align: center;
+      font-family: 'Cinzel', serif;
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gold);
+      border-bottom: 1px solid var(--gold-soft);
+      padding-bottom: 12px;
+      margin-bottom: 26px;
+      opacity: 0.85;
+    }
+
     #texto-body {
       line-height: 1.85;
-      text-align: left;
+      text-align: justify;
+      hyphens: auto;
+      -webkit-hyphens: auto;
       overflow-wrap: break-word;
+    }
+
+    #texto-body h3.sheet-heading {
+      font-family: 'Cinzel', serif;
+      color: var(--heading-ink);
+      font-size: 1.22em;
+      line-height: 1.35;
+      text-align: left;
+      margin: 1.3em 0 0.7em;
+      border-left: 3px solid var(--gold);
+      padding-left: 12px;
+    }
+
+    #texto-body h3.sheet-heading:first-child {
+      margin-top: 0;
     }
 
     #texto-body p {
       margin: 0 0 1.15em;
     }
 
-    .texto-aviso {
-      text-align: center;
-      padding: 24px 12px;
+    #texto-body p:last-child {
+      margin-bottom: 0;
     }
 
-    .texto-aviso h3 {
-      font-family: 'Cinzel', serif;
-      color: var(--gold);
-      margin: 0 0 12px;
-      font-size: 1.2rem;
-    }
-
-    .texto-aviso p {
-      margin: 0 0 20px;
-      font-size: 16px !important;
-      line-height: 1.65;
-      opacity: 0.88;
-    }
-
-    .btn-switch-editorial {
-      background: #0a1a33;
-      color: var(--gold);
-      border: 1px solid var(--gold);
-      padding: 12px 22px;
-      border-radius: 10px;
-      font-family: 'Cinzel', serif;
-      font-weight: 700;
-      font-size: 13px;
-      letter-spacing: 1px;
-      cursor: pointer;
-    }
-
-    /* Flechas laterales discretas (Desktop / Tablet) */
+    /* Flechas laterales (Desktop / Tablet) */
     .side-nav-btn {
       position: fixed;
       top: 50%;
@@ -397,7 +412,7 @@
       justify-content: center;
       z-index: 150;
       backdrop-filter: blur(6px);
-      transition: opacity 0.25s ease, background 0.2s ease, transform 0.2s ease;
+      transition: opacity 0.25s ease, background 0.2s ease;
     }
 
     .side-nav-btn:hover {
@@ -419,7 +434,7 @@
       pointer-events: none;
     }
 
-    /* ===== BARRA INFERIOR DE NAVEGACIÓN Y SALTO RÁPIDO ===== */
+    /* ===== BARRA INFERIOR ===== */
     .bottombar {
       position: fixed;
       bottom: 0;
@@ -484,16 +499,13 @@
       font-size: 13px;
       color: var(--cream);
       letter-spacing: 0.6px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
     }
 
     .page-meta strong {
       color: var(--gold);
     }
 
-    /* ===== PANTALLA DE CARGA Y ERROR ===== */
+    /* ===== PANTALLA DE CARGA ===== */
     .loader-overlay {
       position: fixed;
       inset: 0;
@@ -553,23 +565,35 @@
       margin: 0;
     }
 
-    /* Toast de aviso breve */
+    .btn-retry {
+      background: #0a1a33;
+      color: var(--gold);
+      border: 1px solid var(--gold);
+      padding: 12px 22px;
+      border-radius: 10px;
+      font-family: 'Cinzel', serif;
+      font-weight: 700;
+      font-size: 13px;
+      cursor: pointer;
+    }
+
     .toast {
       position: fixed;
       bottom: 92px;
       left: 50%;
       transform: translateX(-50%) translateY(14px);
-      background: rgba(9, 23, 45, 0.94);
+      background: rgba(9, 23, 45, 0.96);
       border: 1px solid var(--gold);
       color: var(--cream);
-      padding: 8px 16px;
+      padding: 9px 18px;
       border-radius: 999px;
       font-size: 13px;
       opacity: 0;
       pointer-events: none;
       z-index: 300;
       transition: opacity 0.25s ease, transform 0.25s ease;
-      white-space: nowrap;
+      max-width: calc(100vw - 32px);
+      text-align: center;
     }
 
     .toast.show {
@@ -582,12 +606,12 @@
       .btn-text-hide { display: none; }
       .book-title-bar { font-size: 14px; }
       .topbar { padding: 0 10px; }
+      .reader-stage { padding: 72px 12px 98px; }
     }
   </style>
 </head>
 <body oncontextmenu="return false;" ondragstart="return false;">
 
-  <!-- Pantalla de carga -->
   <div class="loader-overlay" id="loaderOverlay">
     <div class="spinner" id="loaderSpinner"></div>
     <h2 class="loader-title" id="loaderTitle">Abriendo volumen...</h2>
@@ -597,7 +621,6 @@
     <p class="loader-sub" id="loaderSub">Conectando con la Biblioteca ACCAR</p>
   </div>
 
-  <!-- Barra superior -->
   <header class="topbar" id="topbar">
     <div class="topbar-left">
       <button class="icon-btn" id="btn-volver" type="button" title="Volver al estante">
@@ -625,7 +648,6 @@
     </div>
   </header>
 
-  <!-- Panel desplegable de lectura -->
   <aside class="settings-popover" id="settingsPopover" aria-label="Configuración de lectura">
     <div class="setting-group">
       <span class="setting-label">Formato de lectura</span>
@@ -634,12 +656,12 @@
         <button class="seg-btn" data-mode="cascada" type="button">Cascada</button>
         <button class="seg-btn" data-mode="texto" type="button">Texto Aa</button>
       </div>
-      <p class="setting-hint" id="modeHint">Desliza el dedo a izquierda o derecha para pasar página.</p>
+      <p class="setting-hint" id="modeHint">Maquetación editorial original encuadrada al margen.</p>
     </div>
 
     <div class="setting-group">
       <span class="setting-label">
-        <span>Tamaño de letra / vista</span>
+        <span>Tamaño de letra (en margen fijo)</span>
         <span id="sizeTag">Mediana</span>
       </span>
       <div class="segmented" id="sizeGroup">
@@ -672,11 +694,9 @@
     </div>
   </aside>
 
-  <!-- Flechas laterales (computadora / tablet) -->
   <button class="side-nav-btn prev" id="sidePrev" type="button" aria-label="Página anterior">‹</button>
   <button class="side-nav-btn next" id="sideNext" type="button" aria-label="Página siguiente">›</button>
 
-  <!-- Escenario del libro -->
   <main class="reader-stage" id="readerStage">
     <div class="page-frame" id="pageFrame">
       <canvas id="pdfCanvas"></canvas>
@@ -685,11 +705,11 @@
     <div id="cascada-container"></div>
 
     <article id="texto-container">
+      <div class="sheet-header-ornament" id="sheetHeaderOrnament">Edición ACCAR</div>
       <div id="texto-body"></div>
     </article>
   </main>
 
-  <!-- Barra inferior con salto rápido -->
   <footer class="bottombar" id="bottombar">
     <div class="scrubber-row">
       <button class="mini-nav" id="btnPrev" type="button" aria-label="Anterior">◀</button>
@@ -711,11 +731,11 @@
       const tituloLibro = urlParams.get('titulo') || 'Sala de Lectura ACCAR';
 
       document.getElementById('bookTitleBar').textContent = tituloLibro;
+      document.getElementById('sheetHeaderOrnament').textContent = tituloLibro;
       document.title = tituloLibro + ' | Biblioteca ACCAR';
 
       pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
 
-      // Referencias DOM
       const stage = document.getElementById('readerStage');
       const pageFrame = document.getElementById('pageFrame');
       const canvas = document.getElementById('pdfCanvas');
@@ -734,21 +754,20 @@
       const progressFill = document.getElementById('progressFill');
       const toastEl = document.getElementById('toast');
 
-      // Claves de memoria
-      const PREFS_KEY = 'accar_visor_prefs_v2';
+      const PREFS_KEY = 'accar_visor_prefs_v3';
       const BOOK_KEY = 'accar_visor_page_' + btoa(unescape(encodeURIComponent(urlLibro))).slice(0, 48);
 
       const SIZE_CONFIG = {
-        sm: { label: 'Pequeña', pdfMult: 0.90, fontPx: 16 },
-        md: { label: 'Mediana', pdfMult: 1.00, fontPx: 20 },
-        lg: { label: 'Grande',  pdfMult: 1.28, fontPx: 25 },
-        xl: { label: 'Extra',   pdfMult: 1.58, fontPx: 31 }
+        sm: { label: 'Pequeña', fontPx: 16 },
+        md: { label: 'Mediana', fontPx: 20 },
+        lg: { label: 'Grande',  fontPx: 25 },
+        xl: { label: 'Extra',   fontPx: 31 }
       };
 
       const MODE_HINTS = {
-        libro: 'Desliza el dedo a izquierda o derecha para pasar página.',
-        cascada: 'Desplázate hacia abajo para leer el libro de corrido.',
-        texto: 'Letra adaptable al ancho de pantalla. Desliza a los lados para cambiar de página.'
+        libro: 'Maquetación original siempre encuadrada dentro de los márgenes.',
+        cascada: 'Desplázate hacia abajo para leer las páginas de corrido.',
+        texto: 'La letra crece dentro de la hoja sin alterar los márgenes laterales.'
       };
 
       let prefs = {
@@ -787,7 +806,7 @@
         toastEl.textContent = msg;
         toastEl.classList.add('show');
         clearTimeout(toastTimer);
-        toastTimer = setTimeout(() => toastEl.classList.remove('show'), 2200);
+        toastTimer = setTimeout(() => toastEl.classList.remove('show'), 2600);
       }
 
       function applyThemeAndBrightness() {
@@ -825,26 +844,29 @@
         savePage(pageNum);
       }
 
-      function computePdfScale(page) {
+      // Escala limpia que jamás excede los márgenes laterales de la pantalla
+      function computeFramedScale(page, fitFullSheetOnDesktop) {
         const baseViewport = page.getViewport({ scale: 1 });
-        const availWidth = Math.min(window.innerWidth - 28, 920);
-        const availHeight = window.innerHeight - 165;
-        let fitScale = availWidth / baseViewport.width;
+        const horizontalPadding = window.innerWidth <= 768 ? 24 : 80;
+        const maxSheetWidth = Math.min(window.innerWidth - horizontalPadding, 780);
+        let scale = maxSheetWidth / baseViewport.width;
 
-        // En pantallas grandes y tamaño estándar, encajar a la altura visible si conviene
-        if (prefs.mode === 'libro' && prefs.size === 'md' && window.innerWidth > 900) {
-          fitScale = Math.min(fitScale, availHeight / baseViewport.height);
+        if (fitFullSheetOnDesktop && window.innerWidth > 960) {
+          const availHeight = Math.max(420, window.innerHeight - 182);
+          scale = Math.min(scale, availHeight / baseViewport.height);
         }
-
-        const mult = SIZE_CONFIG[prefs.size].pdfMult;
-        return Math.max(0.45, Math.min(fitScale * mult, 3.2));
+        return Math.max(0.35, scale);
       }
 
-      // ===== RENDERIZADO MODO LIBRO (RETINA) =====
-      async function renderSinglePage(num) {
+      // ===== RENDERIZADO DE PÁGINA EDITORIAL ENCUADRADA =====
+      async function renderCanvasPage(num, fitFullHeight) {
         if (!pdfDoc) return;
         pageNum = Math.max(1, Math.min(num, pdfDoc.numPages));
         updateNavUI();
+
+        cascadaContainer.style.display = 'none';
+        textoContainer.style.display = 'none';
+        pageFrame.style.display = 'block';
 
         if (currentRenderTask) {
           try { currentRenderTask.cancel(); } catch (e) {}
@@ -853,7 +875,7 @@
 
         try {
           const page = await pdfDoc.getPage(pageNum);
-          const cssScale = computePdfScale(page);
+          const cssScale = computeFramedScale(page, fitFullHeight);
           const dpr = Math.min(window.devicePixelRatio || 1, 2.25);
           const viewport = page.getViewport({ scale: cssScale });
           const hiResViewport = page.getViewport({ scale: cssScale * dpr });
@@ -876,7 +898,6 @@
         }
       }
 
-      // ===== RENDERIZADO MODO TEXTO ADAPTABLE (Aa) =====
       function escapeHtml(str) {
         return str
           .replace(/&/g, '&amp;')
@@ -884,85 +905,144 @@
           .replace(/>/g, '&gt;');
       }
 
-      async function renderTextPage(num) {
+      // ===== HOJA DE LIBRO CON LETRA ADAPTABLE DENTRO DE MÁRGENES FIJOS =====
+      async function renderTextPage(num, notifyIfCover) {
         if (!pdfDoc) return;
         pageNum = Math.max(1, Math.min(num, pdfDoc.numPages));
         updateNavUI();
 
-        textoBody.style.fontSize = SIZE_CONFIG[prefs.size].fontPx + 'px';
-        textoBody.innerHTML = '<p style="opacity:.6;text-align:center;">Preparando texto adaptable...</p>';
-
         try {
           const page = await pdfDoc.getPage(pageNum);
           const textContent = await page.getTextContent();
-          const items = textContent.items || [];
+          const rawItems = textContent.items || [];
 
-          let paragraphs = [];
-          let currentPara = '';
-          let lastY = null;
-          let lastHeight = 12;
-
-          for (const item of items) {
+          // Agrupar fragmentos en renglones reales según coordenada Y
+          const lines = [];
+          for (const item of rawItems) {
             const str = item.str || '';
-            if (!str.trim()) {
-              if (currentPara && !currentPara.endsWith(' ')) currentPara += ' ';
-              continue;
-            }
-            const y = item.transform ? item.transform[5] : lastY;
-            const h = item.height > 0 ? item.height : lastHeight;
+            if (!str.trim()) continue;
+            const x = item.transform ? item.transform[4] : 0;
+            const y = item.transform ? item.transform[5] : 0;
+            const h = Math.max(8, Math.hypot(item.transform?.[0] || 0, item.transform?.[1] || 0) || item.height || 12);
 
-            if (lastY !== null && Math.abs(lastY - y) > Math.max(h, lastHeight) * 1.48) {
-              if (currentPara.trim()) paragraphs.push(currentPara.trim());
-              currentPara = str;
+            let line = lines.find(l => Math.abs(l.y - y) <= Math.max(l.h, h) * 0.48);
+            if (!line) {
+              line = { y, h, parts: [] };
+              lines.push(line);
             } else {
-              if (currentPara.endsWith('-')) {
-                currentPara = currentPara.slice(0, -1) + str;
-              } else if (currentPara && !currentPara.endsWith(' ') && !str.startsWith(' ')) {
-                currentPara += ' ' + str;
+              line.h = Math.max(line.h, h);
+            }
+            line.parts.push({ x, str });
+          }
+
+          // Ordenar renglones de arriba hacia abajo y palabras de izquierda a derecha
+          lines.sort((a, b) => b.y - a.y);
+          const cleanLines = lines.map(l => {
+            l.parts.sort((a, b) => a.x - b.x);
+            let text = '';
+            for (const p of l.parts) {
+              const t = p.str.trim();
+              if (!t) continue;
+              if (!text) text = t;
+              else if (/^[.,;:!?)"»\]%]/.test(t) || /[("«\[]$/.test(text)) text += t;
+              else text += ' ' + t;
+            }
+            const startX = l.parts[0]?.x || 0;
+            return { y: l.y, h: l.h, startX, text: text.trim() };
+          }).filter(l => l.text.length > 0 && !/^\d{1,4}$/.test(l.text));
+
+          const totalChars = cleanLines.reduce((acc, l) => acc + l.text.replace(/\s+/g, '').length, 0);
+
+          // Si es portada, lámina ilustrada o PDF escaneado sin capa de texto, mostrar encuadrado limpio
+          if (totalChars < 40) {
+            await renderCanvasPage(pageNum, pageNum === 1);
+            if (notifyIfCover) {
+              if (pageNum === 1) {
+                showToast('Portada encuadrada — avanza de página para ver la letra ' + SIZE_CONFIG[prefs.size].label);
               } else {
-                currentPara += str;
+                showToast('Página ilustrada encuadrada al margen');
               }
             }
-            lastY = y;
-            lastHeight = h;
+            return;
           }
-          if (currentPara.trim()) paragraphs.push(currentPara.trim());
 
-          const plainLength = paragraphs.join('').replace(/\s+/g, '').length;
+          // Calcular altura típica de cuerpo de texto y salto entre renglones
+          const heights = cleanLines.map(l => l.h).sort((a, b) => a - b);
+          const bodyH = heights[Math.floor(heights.length * 0.5)] || 12;
 
-          if (plainLength < 25) {
-            textoBody.innerHTML = `
-              <div class="texto-aviso">
-                <h3>Página ilustrada o escaneada</h3>
-                <p>La página ${pageNum} corresponde a una portada, diagrama o documento en imagen sin capa de texto adaptable. Puedes visualizarla con toda claridad en el modo Editorial.</p>
-                <button class="btn-switch-editorial" id="btnGoEditorial" type="button">Ver esta página en Modo Libro</button>
-              </div>
-            `;
-            document.getElementById('btnGoEditorial').addEventListener('click', () => {
-              setReadingMode('libro');
-            });
-          } else {
-            textoBody.innerHTML = paragraphs.map(p => '<p>' + escapeHtml(p) + '</p>').join('');
+          const gaps = [];
+          for (let i = 1; i < cleanLines.length; i++) {
+            const dy = cleanLines[i - 1].y - cleanLines[i].y;
+            if (dy > 0 && dy < bodyH * 3.5) gaps.push(dy);
           }
+          gaps.sort((a, b) => a - b);
+          const normalGap = gaps[Math.floor(gaps.length * 0.5)] || (bodyH * 1.45);
+          const minLeftX = Math.min(...cleanLines.map(l => l.startX));
+
+          // Reconstruir títulos y párrafos fluidos
+          const blocks = [];
+          let currentBlock = null;
+
+          for (let i = 0; i < cleanLines.length; i++) {
+            const line = cleanLines[i];
+            const prev = i > 0 ? cleanLines[i - 1] : null;
+            const isHeading = (line.h >= bodyH * 1.22 && line.text.length < 140) ||
+                              (line.text === line.text.toUpperCase() && /[A-ZÁÉÍÓÚÑ]{4,}/.test(line.text) && line.text.length < 95);
+            const isBullet = /^([•▪◦–—\-*]|\d+[.)])\s+/.test(line.text);
+            const dy = prev ? (prev.y - line.y) : 0;
+            const isNewGap = prev ? (dy > normalGap * 1.36) : true;
+            const isIndented = (line.startX - minLeftX) > 16 && prev && /[.!?:"»]$/.test(prev.text);
+
+            const blockType = isHeading ? 'h3' : 'p';
+
+            if (!currentBlock || currentBlock.type !== blockType || isHeading || isBullet || isNewGap || isIndented) {
+              if (currentBlock) blocks.push(currentBlock);
+              currentBlock = { type: blockType, text: line.text };
+            } else {
+              if (currentBlock.text.endsWith('-') && /^[a-záéíóúñ]/.test(line.text)) {
+                currentBlock.text = currentBlock.text.slice(0, -1) + line.text;
+              } else {
+                currentBlock.text += ' ' + line.text;
+              }
+            }
+          }
+          if (currentBlock) blocks.push(currentBlock);
+
+          pageFrame.style.display = 'none';
+          cascadaContainer.style.display = 'none';
+          textoContainer.style.display = 'block';
+          textoBody.style.fontSize = SIZE_CONFIG[prefs.size].fontPx + 'px';
+
+          textoBody.innerHTML = blocks.map(b => {
+            if (b.type === 'h3') {
+              return '<h3 class="sheet-heading">' + escapeHtml(b.text) + '</h3>';
+            }
+            return '<p>' + escapeHtml(b.text) + '</p>';
+          }).join('');
 
           stage.scrollTop = 0;
         } catch (err) {
-          textoBody.innerHTML = '<p>No se pudo extraer texto en esta página. Cambia al modo Libro en el menú Aa.</p>';
+          console.error('Error preparando hoja adaptable:', err);
+          await renderCanvasPage(pageNum, false);
         }
       }
 
-      // ===== RENDERIZADO MODO CASCADA (LAZY + LIMPIEZA MEMORIA) =====
+      // ===== VISTA CASCADA (SCROLL VERTICAL CONTINUO) =====
       async function buildCascadaView() {
         if (!pdfDoc) return;
         if (cascadaObserver) {
           cascadaObserver.disconnect();
           cascadaObserver = null;
         }
+
+        pageFrame.style.display = 'none';
+        textoContainer.style.display = 'none';
+        cascadaContainer.style.display = 'flex';
         cascadaContainer.innerHTML = '';
         renderedCascadaPages = [];
 
         const refPage = await pdfDoc.getPage(pageNum);
-        const refScale = computePdfScale(refPage);
+        const refScale = computeFramedScale(refPage, false);
         const refViewport = refPage.getViewport({ scale: refScale });
         const estW = Math.floor(refViewport.width);
         const estH = Math.floor(refViewport.height);
@@ -995,7 +1075,6 @@
           cascadaObserver.observe(slot);
         });
 
-        // Ir a la página actual
         const targetSlot = cascadaContainer.querySelector(`.cascada-slot[data-page="${pageNum}"]`);
         if (targetSlot) {
           targetSlot.scrollIntoView({ behavior: 'auto', block: 'start' });
@@ -1006,8 +1085,8 @@
         slot.dataset.rendered = 'loading';
         try {
           const page = await pdfDoc.getPage(pNum);
-          const cssScale = computePdfScale(page);
-          const dpr = Math.min(window.devicePixelRatio || 1, 1.8);
+          const cssScale = computeFramedScale(page, false);
+          const dpr = Math.min(window.devicePixelRatio || 1, 1.85);
           const viewport = page.getViewport({ scale: cssScale });
           const hiRes = page.getViewport({ scale: cssScale * dpr });
 
@@ -1026,7 +1105,6 @@
           slot.appendChild(c);
           slot.dataset.rendered = 'done';
 
-          // Mantener máximo 12 páginas en memoria para proteger iPads y celulares
           renderedCascadaPages.push(slot);
           if (renderedCascadaPages.length > 12) {
             const oldSlot = renderedCascadaPages.shift();
@@ -1041,7 +1119,6 @@
         }
       }
 
-      // Actualizar número de página al hacer scroll en Cascada
       let scrollSpyTimer = null;
       stage.addEventListener('scroll', () => {
         if (prefs.mode !== 'cascada' || !pdfDoc) return;
@@ -1063,19 +1140,14 @@
         }, 120);
       });
 
-      // ===== CAMBIAR MODO DE LECTURA =====
-      function setReadingMode(newMode) {
+      function setReadingMode(newMode, notifyCover) {
         prefs.mode = newMode;
         savePrefs();
         syncSettingButtons();
 
-        pageFrame.style.display = newMode === 'libro' ? 'block' : 'none';
-        cascadaContainer.style.display = newMode === 'cascada' ? 'flex' : 'none';
-        textoContainer.style.display = newMode === 'texto' ? 'block' : 'none';
-
         if (!pdfDoc) return;
-        if (newMode === 'libro') renderSinglePage(pageNum);
-        else if (newMode === 'texto') renderTextPage(pageNum);
+        if (newMode === 'libro') renderCanvasPage(pageNum, true);
+        else if (newMode === 'texto') renderTextPage(pageNum, notifyCover);
         else if (newMode === 'cascada') buildCascadaView();
       }
 
@@ -1083,9 +1155,9 @@
         if (!pdfDoc) return;
         const target = Math.max(1, Math.min(num, pdfDoc.numPages));
         if (prefs.mode === 'libro') {
-          renderSinglePage(target);
+          renderCanvasPage(target, true);
         } else if (prefs.mode === 'texto') {
-          renderTextPage(target);
+          renderTextPage(target, false);
         } else if (prefs.mode === 'cascada') {
           pageNum = target;
           updateNavUI();
@@ -1094,7 +1166,7 @@
         }
       }
 
-      // ===== EVENTOS DE INTERFAZ =====
+      // ===== EVENTOS =====
       document.getElementById('btn-volver').addEventListener('click', () => {
         if (window.history.length > 1) window.history.back();
         else window.location.href = '/ver/biblioteca';
@@ -1111,19 +1183,30 @@
       document.getElementById('modeGroup').addEventListener('click', (e) => {
         const btn = e.target.closest('.seg-btn');
         if (!btn) return;
-        setReadingMode(btn.dataset.mode);
+        setReadingMode(btn.dataset.mode, false);
       });
 
+      // Al tocar cualquier tamaño de letra, se aplica en la Hoja Adaptable de márgenes fijos
       document.getElementById('sizeGroup').addEventListener('click', (e) => {
         const btn = e.target.closest('.seg-btn');
         if (!btn) return;
         prefs.size = btn.dataset.size;
-        savePrefs();
-        syncSettingButtons();
-        if (prefs.mode === 'libro') renderSinglePage(pageNum);
-        else if (prefs.mode === 'texto') textoBody.style.fontSize = SIZE_CONFIG[prefs.size].fontPx + 'px';
-        else if (prefs.mode === 'cascada') buildCascadaView();
-        showToast('Tamaño: ' + SIZE_CONFIG[prefs.size].label);
+
+        if (prefs.mode !== 'texto') {
+          prefs.mode = 'texto';
+          savePrefs();
+          syncSettingButtons();
+          renderTextPage(pageNum, true);
+        } else {
+          savePrefs();
+          syncSettingButtons();
+          if (textoContainer.style.display === 'block') {
+            textoBody.style.fontSize = SIZE_CONFIG[prefs.size].fontPx + 'px';
+            showToast('Letra: ' + SIZE_CONFIG[prefs.size].label);
+          } else {
+            renderTextPage(pageNum, true);
+          }
+        }
       });
 
       document.getElementById('themeGroup').addEventListener('click', (e) => {
@@ -1148,7 +1231,6 @@
         }
       });
 
-      // Navegación
       document.getElementById('btnPrev').addEventListener('click', () => goToPage(pageNum - 1));
       document.getElementById('btnNext').addEventListener('click', () => goToPage(pageNum + 1));
       document.getElementById('sidePrev').addEventListener('click', () => goToPage(pageNum - 1));
@@ -1161,7 +1243,6 @@
         goToPage(parseInt(e.target.value, 10));
       });
 
-      // Atajos de teclado + bloqueo de copia/guardado/impresión
       document.addEventListener('keydown', (e) => {
         if ((e.ctrlKey || e.metaKey) && ['s', 'p', 'c', 'u'].includes(e.key.toLowerCase())) {
           e.preventDefault();
@@ -1172,7 +1253,7 @@
         if (e.key === 'ArrowLeft' || e.key === 'PageUp') goToPage(pageNum - 1);
       });
 
-      // Gestos táctiles (Swipe izquierda/derecha) + toque central para modo inmersivo
+      // Gestos táctiles: swipe horizontal cambia página, vertical desplaza la hoja
       let touchStartX = 0, touchStartY = 0, touchStartTime = 0, isMultiTouch = false;
 
       stage.addEventListener('touchstart', (e) => {
@@ -1192,22 +1273,16 @@
         const dy = e.changedTouches[0].clientY - touchStartY;
         const elapsed = Date.now() - touchStartTime;
 
-        // Swipe horizontal en modo Libro o Texto
-        if (prefs.mode !== 'cascada' && elapsed < 550 && Math.abs(dx) > 55 && Math.abs(dx) > Math.abs(dy) * 1.4) {
-          const hasHorizontalScroll = stage.scrollWidth > stage.clientWidth + 12;
-          const atLeftEdge = stage.scrollLeft <= 4;
-          const atRightEdge = stage.scrollLeft + stage.clientWidth >= stage.scrollWidth - 4;
-
-          if (dx < 0 && (!hasHorizontalScroll || atRightEdge)) {
+        if (prefs.mode !== 'cascada' && elapsed < 550 && Math.abs(dx) > 58 && Math.abs(dx) > Math.abs(dy) * 1.5) {
+          if (dx < 0) {
             if (pageNum < pdfDoc.numPages) goToPage(pageNum + 1);
             else showToast('Has llegado al final del libro');
-          } else if (dx > 0 && (!hasHorizontalScroll || atLeftEdge)) {
+          } else if (dx > 0) {
             if (pageNum > 1) goToPage(pageNum - 1);
           }
         }
       }, { passive: true });
 
-      // Clic/Toque simple en el área de lectura oculta o muestra las barras
       stage.addEventListener('click', (e) => {
         if (e.target.closest('button')) return;
         if (popover.classList.contains('open')) {
@@ -1218,18 +1293,18 @@
         document.body.classList.toggle('ui-hidden');
       });
 
-      // Reajustar nitidez al girar el iPad / cambiar tamaño de ventana
       let resizeTimer = null;
       window.addEventListener('resize', () => {
         clearTimeout(resizeTimer);
         resizeTimer = setTimeout(() => {
           if (!pdfDoc) return;
-          if (prefs.mode === 'libro') renderSinglePage(pageNum);
+          if (prefs.mode === 'libro') renderCanvasPage(pageNum, true);
+          else if (prefs.mode === 'texto' && pageFrame.style.display === 'block') renderCanvasPage(pageNum, pageNum === 1);
           else if (prefs.mode === 'cascada') buildCascadaView();
-        }, 260);
+        }, 240);
       });
 
-      // ===== CARGA DEL DOCUMENTO PDF =====
+      // ===== CARGA DEL PDF =====
       applyThemeAndBrightness();
       syncSettingButtons();
 
@@ -1256,7 +1331,7 @@
         const resumed = pageNum > 1;
 
         loaderOverlay.classList.add('hidden');
-        setReadingMode(prefs.mode);
+        setReadingMode(prefs.mode, false);
 
         if (resumed) {
           showToast(`Retomando lectura en página ${pageNum}`);
@@ -1266,7 +1341,7 @@
         document.getElementById('loaderSpinner').style.display = 'none';
         document.getElementById('progressTrack').style.display = 'none';
         loaderTitle.textContent = 'No se pudo cargar el documento';
-        loaderSub.innerHTML = 'Verifica tu conexión a internet e intenta de nuevo.<br><br><button class="btn-switch-editorial" onclick="window.location.reload()">Reintentar</button>';
+        loaderSub.innerHTML = 'Verifica tu conexión a internet e intenta de nuevo.<br><br><button class="btn-retry" onclick="window.location.reload()">Reintentar</button>';
       });
     })();
   </script>
