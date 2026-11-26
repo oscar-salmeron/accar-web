@@ -864,97 +864,203 @@
 
     @media (max-width:980px){
       .accar-hero-header{
-        /* Mantenemos el fondo fijo o alineado arriba para que coincida con la siguiente sección */
-        background-attachment: fixed;
-        background-position: center top; 
+        background-attachment: scroll !important;
         background-size: cover;
+        border-bottom: 1px solid rgba(212,175,55,.28);
+      }
+
+      .accar-hero-overlay{
+        background: linear-gradient(
+          180deg,
+          rgba(4,10,24,.72) 0%,
+          rgba(4,10,24,.28) 26%,
+          rgba(4,10,24,.14) 55%,
+          rgba(4,9,18,.64) 84%,
+          rgba(4,9,18,.94) 100%
+        );
       }
 
       .accar-hero-inner{
         min-height:auto;
-        padding:24px 0 28px;
+        padding:20px 0 36px;
       }
 
       .accar-top-brand{
+        width:100%;
         justify-content:space-between;
         align-items:center;
         text-align:left;
         gap:12px;
-        margin-bottom:10px;
+        padding-top:2px;
+        margin-bottom:14px;
       }
 
       .accar-top-brand-text{
-        text-align:left; /* Alineamos a la izquierda junto al botón de menú en móviles */
-      }
-
-      .accar-hero-logo-left{
-        position:relative;
-        left:auto;
-        top:auto;
-        width:100%;
-        margin-bottom:14px;
-        justify-content:center;
-      }
-
-      .accar-hero-logo{
-        width:64px;
+        text-align:left;
+        text-shadow:0 2px 12px rgba(0,0,0,.85);
       }
 
       .accar-top-brand-text .line-1{
-        font-size:1.45rem;
+        font-size:1.38rem;
+        color:#fff8e8;
       }
 
       .accar-top-brand-text .line-2{
-        font-size:.98rem;
+        font-size:.94rem;
+        color:#e4c76a;
+        font-weight:600;
+        letter-spacing:.06em;
       }
 
       .accar-mobile-menu-toggle{
         display:inline-flex;
+        width:50px;
+        height:50px;
+        border-radius:14px;
+        background:#030736 !important;
+        border:1px solid rgba(212,175,55,.82) !important;
+        box-shadow:0 8px 20px rgba(0,0,0,.5), inset 0 0 10px rgba(212,175,55,.14);
+      }
+
+      .accar-mobile-menu-toggle span{
+        width:22px;
+        height:2px;
+        background:#e4c76a;
+        margin:4px 0;
+      }
+
+      .accar-mobile-menu-toggle.active span:nth-child(1){
+        transform:translateY(6px) rotate(45deg);
+      }
+
+      .accar-mobile-menu-toggle.active span:nth-child(3){
+        transform:translateY(-6px) rotate(-45deg);
       }
 
       .accar-hero-card{
         width:100%;
-        margin:16px auto 0;
-        padding:18px;
-        display:block;
+        margin:10px auto 0;
+        padding:22px 20px 20px;
+        border-radius:22px;
+        display:grid;
+        grid-template-columns:1fr 1fr;
+        grid-template-areas:
+          "logoLeft emblemRight"
+          "heroCopy heroCopy";
+        align-items:center;
+        gap:14px 0;
+        background:linear-gradient(180deg, rgba(6,15,34,.80) 0%, rgba(3,8,22,.88) 100%);
+        border:1px solid rgba(212,175,55,.58);
+        backdrop-filter:blur(8px);
+        -webkit-backdrop-filter:blur(8px);
+        box-shadow:0 20px 44px rgba(0,0,0,.65), inset 0 0 26px rgba(0,0,0,.45);
+      }
+
+      .accar-hero-card::after{
+        content:"";
+        position:absolute;
+        inset:8px;
+        border:1px solid rgba(212,175,55,.22);
+        border-radius:15px;
+        pointer-events:none;
+      }
+
+      .accar-hero-logo-left{
+        grid-area:logoLeft;
+        position:relative;
+        left:auto;
+        top:auto;
+        width:100%;
+        margin:0;
+        padding-right:18px;
+        border-right:1px solid rgba(212,175,55,.42);
+        display:flex;
+        justify-content:flex-end;
+        align-items:center;
+      }
+
+      .accar-hero-logo{
+        width:62px;
+        height:62px;
+        object-fit:contain;
+        filter:drop-shadow(0 6px 14px rgba(0,0,0,.55));
+      }
+
+      .accar-hero-emblem{
+        grid-area:emblemRight;
+        position:relative;
+        right:auto;
+        top:auto;
+        width:100%;
+        margin:0;
+        padding:0 0 0 18px;
+        display:flex;
+        justify-content:flex-start;
+        align-items:center;
+        z-index:2;
+      }
+
+      .accar-santa-sede-shield{
+        width:auto;
+        height:64px;
+        max-width:64px;
+        object-fit:contain;
+        opacity:1;
+        filter:drop-shadow(0 6px 14px rgba(0,0,0,.55));
       }
 
       .accar-hero-copy{
+        grid-area:heroCopy;
         text-align:center;
-        padding:0; /* Restauramos el espacio normal para que se lea perfecto en teléfonos */
+        padding:0 6px;
+        position:relative;
+        z-index:2;
+      }
+
+      .accar-hero-kicker{
+        margin:0 0 12px;
+        padding:6px 16px;
+        background:rgba(3,7,54,.88);
+        border:1px solid rgba(212,175,55,.72);
+        color:#e4c76a;
+        font-size:.78rem;
+        font-weight:bold;
+        text-transform:uppercase;
+        letter-spacing:1.4px;
+        box-shadow:0 4px 12px rgba(0,0,0,.45);
       }
 
       .accar-hero-description{
         margin:0 auto;
+        font-size:.98rem;
+        line-height:1.65;
+        color:#f8f1df;
+        text-shadow:0 1px 4px rgba(0,0,0,.6);
+      }
+
+      .accar-hero-description br{
+        display:none;
       }
 
       .accar-hero-motto{
+        margin:12px auto 0;
+        padding-top:10px;
+        border-top:1px solid rgba(212,175,55,.22);
         justify-content:center;
         text-align:center;
+        font-size:.92rem;
+        gap:6px;
       }
 
       .accar-hero-nav{
         display:none;
       }
-
-      .accar-hero-emblem{
-        position:relative;
-        right:auto;
-        top:auto;
-        width:100%;
-        margin-top:14px;
-        justify-content:center;
-        padding-top:0;
-      }
-
-      .accar-santa-sede-shield{
-        width:62px;
-      }
     }
 
     @media (max-width:560px){
       .accar-hero-inner{
-        width:min(var(--accar-max), calc(100% - 16px));
+        width:min(var(--accar-max), calc(100% - 20px));
+        padding:18px 0 34px;
       }
 
       .accar-top-ticker{
@@ -966,45 +1072,57 @@
         padding:0 24px;
       }
 
-      .accar-hero-logo{
-        width:58px;
-      }
-
       .accar-top-brand-text .line-1{
         font-size:1.18rem;
       }
 
       .accar-top-brand-text .line-2{
-        font-size:.88rem;
-      }
-
-      .accar-mobile-menu-toggle{
-        width:52px;
-        height:52px;
-        border-radius:14px;
-      }
-
-      .accar-hero-card{
-        border-radius:22px;
-        padding:16px;
-      }
-
-      .accar-hero-kicker{
         font-size:.85rem;
       }
 
-      .accar-hero-description{
-        font-size:1rem;
-        line-height:1.72;
+      .accar-mobile-menu-toggle{
+        width:46px;
+        height:46px;
+        border-radius:13px;
       }
 
-      .accar-hero-motto{
-        font-size:.94rem;
-        line-height:1.6;
+      .accar-hero-card{
+        border-radius:20px;
+        padding:20px 16px 18px;
+        gap:12px 0;
+      }
+
+      .accar-hero-logo-left{
+        padding-right:15px;
+      }
+
+      .accar-hero-emblem{
+        padding-left:15px;
+      }
+
+      .accar-hero-logo{
+        width:56px;
+        height:56px;
       }
 
       .accar-santa-sede-shield{
-        width:56px;
+        height:58px;
+        max-width:58px;
+      }
+
+      .accar-hero-kicker{
+        font-size:.74rem;
+        padding:6px 14px;
+      }
+
+      .accar-hero-description{
+        font-size:.94rem;
+        line-height:1.62;
+      }
+
+      .accar-hero-motto{
+        font-size:.88rem;
+        line-height:1.5;
       }
     }
   </style>
