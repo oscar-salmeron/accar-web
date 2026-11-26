@@ -1,411 +1,462 @@
-<!-- ===== INICIO FOOTER GLOBAL ACCAR ===== -->
+<!-- ===== ACCAR | FOOTER GLOBAL | INICIO ===== -->
 <style>
-  /* ===== LIMPIEZA GLOBAL DEFINITIVA ===== */
-  html, body{
-    margin:0 !important;
-    padding:0 !important;
-    width:100%;
-    max-width:100%;
-    overflow-x:hidden;
-    background:#09172d !important;
-  }
-
-  body{
-    font-family:Georgia, "Times New Roman", serif;
-  }
-
-  /* Si RocketCake o el layout mete contenedores externos con espacios */
   .footer-global-accar,
-  .footer-global-accar *{
-    box-sizing:border-box;
+  .footer-global-accar * {
+    box-sizing: border-box;
   }
 
-  .footer-global-accar{
-    position:relative;
-    display:block;
-    width:100%;
-    margin:0 !important;
-    overflow:hidden;
-    padding:72px 0 38px;
-    color:#f8efd3;
-    border:none;
+  .footer-global-accar {
+    position: relative;
+    display: block;
+    width: 100%;
+    margin: 0 !important;
+    overflow: hidden;
+    padding: 68px 0 78px;
+    color: #f8efd3;
+    font-family: Georgia, "Times New Roman", serif;
+    border: none;
+    background-color: #040916;
+    background-image: url("/assets/img/footer_bg_iglesia.webp");
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+  }
+
+  /* Fundido superior e inferior sin líneas de corte */
+  .footer-global-overlay {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
     background:
-      linear-gradient(180deg, rgba(10,24,48,.10), rgba(10,24,48,.22)),
-      url("../assets/img/footer_bg_iglesia.webp") center center / cover no-repeat;
-    background-attachment:fixed;
+      linear-gradient(
+        180deg,
+        rgba(4, 10, 24, 0.94) 0%,
+        rgba(5, 13, 30, 0.52) 18%,
+        rgba(6, 16, 36, 0.24) 52%,
+        rgba(3, 8, 20, 0.88) 100%
+      ),
+      radial-gradient(ellipse at center, rgba(8, 22, 48, 0.06) 0%, rgba(2, 6, 16, 0.55) 100%);
   }
 
-  .footer-global-overlay{
-    position:absolute;
-    inset:0;
-    pointer-events:none;
-    background:
-      linear-gradient(180deg, rgba(8,20,40,.06), rgba(8,20,40,.16)),
-      linear-gradient(90deg, rgba(7,26,54,.12), rgba(12,42,86,.03), rgba(7,26,54,.12));
+  .footer-global-wrap {
+    position: relative;
+    z-index: 2;
+    width: min(1120px, calc(100% - 28px));
+    margin: 0 auto !important;
+    padding: 0 !important;
   }
 
-  .footer-global-wrap{
-    position:relative;
-    z-index:1;
-    width:min(1240px, calc(100% - 28px));
-    margin:0 auto !important;
-    padding:0 !important;
-  }
-
+  /* Contenedor hermano del Header: penumbra azul noche y doble filete en oro papal */
   .footer-global-card {
+    position: relative;
     width: 100%;
     margin: 0 auto;
-    padding: 54px 48px 40px;
-    border: 1px solid rgba(212, 175, 55, 0.35); /* Borde sutil y elegante */
-    border-radius: 34px;
-    /* Oscurecimiento profundo: Azul institucional casi sólido para no competir con el fondo */
-    background: linear-gradient(180deg, rgba(3, 7, 54, 0.93) 0%, rgba(2, 4, 20, 0.98) 100%);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    box-shadow: 0 35px 60px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255,255,255,0.05);
+    padding: 44px 44px 32px;
+    border-radius: 22px;
+    border: 1px solid rgba(212, 175, 55, 0.56);
+    background: linear-gradient(180deg, rgba(6, 16, 36, 0.85) 0%, rgba(3, 8, 22, 0.93) 100%);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow:
+      0 26px 56px rgba(0, 0, 0, 0.68),
+      inset 0 1px 0 rgba(255, 238, 186, 0.16),
+      inset 0 0 32px rgba(0, 0, 0, 0.35);
     overflow: hidden;
   }
 
-.footer-global-top{
-  display:grid;
-  grid-template-columns:minmax(390px, 1.14fr) minmax(290px, 0.9fr) minmax(300px, 0.94fr);
-  column-gap:58px;
-  row-gap:20px;
-  align-items:start;
-}
-
-  .footer-global-col{
-    min-width:0;
+  .footer-global-card::before {
+    content: "";
+    position: absolute;
+    inset: 8px;
+    border: 1px solid rgba(212, 175, 55, 0.18);
+    border-radius: 15px;
+    pointer-events: none;
   }
 
- .footer-global-brand{
-  display:flex;
-  align-items:flex-start;
-  gap:26px;
-}
-
-.footer-global-brand-stacked{
-  display:flex;
-  flex-direction:column;
-  align-items:flex-start;
-  justify-content:flex-start;
-  padding-top:0;
-}
-
-.footer-global-brand-top{
-  display:flex;
-  align-items:center;
-  justify-content:flex-start;
-  gap:16px;
-  width:100%;
-  margin-top:-6px;
-}
-
-.footer-global-logo-home{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  flex:0 0 auto;
-  border-radius:50%;
-  transition:transform .28s ease, filter .28s ease;
-}
-
-.footer-global-logo-home:hover{
-  transform:translateY(-2px) scale(1.04);
-  filter:drop-shadow(0 0 14px rgba(216,178,74,.34));
-}
-
-.footer-global-logo-home img{
-  width:98px;
-  height:auto;
-  display:block;
-}
-
-.footer-global-brand-copy-horizontal{
-  max-width:265px;
-  text-align:center;
-  padding-top:0;
-}
-
-.footer-global-brand-main{
-  margin:0;
-  font-size:1rem;
-  line-height:1.45;
-  color:#f6ecd0;
-}
-
-.footer-global-motto{
-  margin:-4px 0 0; /* Separamos un poco más del texto de arriba */
-  width:100%;
-  text-align:center;
-  font-size:1.15rem; /* Letra ligeramente más grande */
-  line-height:1.4;
-  color:#D4AF37 !important; /* Oro Papal puro */
-  font-style:italic;
-  font-weight:700;
-  letter-spacing: 0.5px; /* Letras sutilmente separadas para mayor presencia */
-  text-shadow:0 4px 12px rgba(0,0,0,.40); /* Sombra que le da relieve y majestuosidad */
-}
-
-.footer-global-links-grid{
-  display:grid !important;
-  grid-template-columns:repeat(2, minmax(140px, 1fr));
-  gap:18px 42px;
-  align-items:start;
-  justify-items:start;
-  max-width:390px;
-}
-
-  .footer-global-logo{
-    flex:0 0 auto;
-    display:inline-block;
-    text-decoration:none;
+  .footer-global-top {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: 1.18fr 1.05fr 0.92fr;
+    gap: 42px;
+    align-items: start;
   }
 
-  .footer-global-logo img{
-    width:180px;
-    max-width:100%;
-    height:auto;
-    display:block;
-    filter:
-      drop-shadow(0 10px 18px rgba(0,0,0,.22))
-      drop-shadow(0 0 10px rgba(212,175,55,.08));
+  .footer-global-col {
+    min-width: 0;
   }
 
-  .footer-global-brand-copy{
-    padding-top:10px;
-    max-width:430px;
+  /* ===== COLUMNA 1: IDENTIDAD Y SELLO ===== */
+  .footer-global-brand {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
   }
 
-  .footer-global-brand-copy p{
-    margin:0 0 10px;
-    font-size:1rem;
-    line-height:1.62;
-    color:#f6ecd0;
+  .footer-global-brand-top {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    width: 100%;
   }
 
-  .footer-global-brand-copy p strong{
-    color:#fff3cb;
-    font-weight:bold;
+  .footer-global-logo-home {
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    text-decoration: none;
+    outline: none;
+    transition: transform 0.3s ease, filter 0.3s ease;
   }
 
-  .footer-global-brand-copy p:last-child{
-    margin-bottom:0;
+  .footer-global-logo-home img {
+    width: 96px;
+    height: 96px;
+    object-fit: contain;
+    display: block;
+    filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.58));
   }
 
-  .footer-global-col h4{
-    margin:0 0 22px; /* Ajustado para coincidir con tu línea 170 */
-    font-size:1.9rem;
-    line-height:1.05;
-    color: #D4AF37; /* Oro Papal puro */
-    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+  .footer-global-logo-home:hover {
+    transform: scale(1.05);
+    filter: drop-shadow(0 10px 22px rgba(0, 0, 0, 0.72)) drop-shadow(0 0 10px rgba(212, 175, 55, 0.28));
   }
 
-  .footer-global-brand-col{
-  justify-self:start;
-  padding-top:0;
-}
-
-.footer-global-links-col{
-  justify-self:center;
-  padding-top:4px;
-}
-
-.footer-global-contact-col{
-  justify-self:end;
-  padding-top:4px;
-  max-width:320px;
-}
-
-.footer-global-contact{
-  max-width:290px;
-}
-
-.footer-global-col h4 {
-  margin: 0 0 22px;
-  position: relative; /* Necesario para posicionar la línea verde */
-  display: inline-block; /* Ajusta el ancho al texto */
-  padding-bottom: 12px; /* Da espacio para la línea */
-}
-
-/* La línea de acento Verde Episcopal bajo los títulos */
-.footer-global-col h4::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 50px; /* Ancho sutil y elegante */
-  height: 3px; /* Un poquito más gruesa para que destaque */
-  background: linear-gradient(90deg, #0f3621 0%, #154c2e 100%); /* Verde Episcopal en degradado */
-  border-radius: 4px;
-  box-shadow: 0 2px 4px rgba(15, 54, 33, 0.4); /* Sombra para darle relieve */
-}
-
-  .footer-global-links{
-    display:flex;
-    flex-direction:column;
-    gap:10px;
+  .footer-global-brand-copy {
+    text-align: left;
   }
 
-  .footer-global-links a{
-    color:#f6ecd0;
-    text-decoration:none;
-    font-size:1.08rem;
-    font-weight:bold;
-    line-height:1.35;
-    transition:all .3s ease; /* Transición más fluida */
-    display: inline-block; /* Necesario para que el deslizamiento sea perfecto */
+  .footer-brand-kicker {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 0.74rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: #e8cb72;
   }
 
-  .footer-global-links a:hover{
-    color:#D4AF37; /* Oro Papal premium */
-    transform:translateX(5px); /* Deslizamiento más elegante */
-    text-shadow: 0 2px 4px rgba(0,0,0,0.5); /* Suave resplandor al pasar el mouse */
+  .footer-global-brand-main {
+    margin: 0;
+    font-size: 0.96rem;
+    line-height: 1.58;
+    color: #f4ebd2;
   }
 
-  .footer-global-contact{
-    display:flex;
-    flex-direction:column;
-    gap:18px;
-    color:#f6ecd0;
-    font-size:1.08rem;
-    line-height:1.65;
+  .footer-global-brand-main strong {
+    color: #fff9ec;
+    font-weight: 700;
   }
 
-  .footer-global-contact a{
-    color:#f6ecd0;
-    text-decoration:none;
-    font-weight:bold;
-    transition:color .18s ease;
+  .footer-global-motto {
+    margin: 16px 0 0;
+    padding-top: 13px;
+    width: 100%;
+    border-top: 1px solid rgba(212, 175, 55, 0.20);
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 8px;
+    font-size: 0.98rem;
+    line-height: 1.4;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.55);
   }
 
-  .footer-global-contact a:hover{
-    color:#ffe8a4;
+  .footer-motto-cross {
+    color: rgba(212, 175, 55, 0.78);
+    font-size: 0.82rem;
+    font-style: normal;
   }
 
-  .footer-global-divider{
-    width:100%;
-    height:1px;
-    margin:24px 0 20px;
-    background:linear-gradient(90deg, transparent, rgba(212,175,55,.72), transparent);
+  .footer-motto-text {
+    color: #eed076;
+    font-style: italic;
+    font-weight: 700;
+    letter-spacing: 0.04em;
   }
 
-  .footer-global-legal{
-    text-align:center;
-    color:#eadfb7;
-    font-size:1rem;
-    line-height:1.75;
+  /* ===== TÍTULOS DE COLUMNA ===== */
+  .footer-global-col h4 {
+    margin: 0 0 18px;
+    padding-bottom: 10px;
+    position: relative;
+    display: inline-block;
+    font-size: 0.92rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    line-height: 1.2;
+    color: #e8cb72;
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.55);
   }
 
-  @media (max-width: 1180px) {
+  .footer-global-col h4::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 44px;
+    height: 2px;
+    border-radius: 2px;
+    background: linear-gradient(90deg, #d4af37 0%, rgba(212, 175, 55, 0.18) 100%);
+  }
+
+  /* ===== COLUMNA 2: ENLACES SPA ===== */
+  .footer-global-links-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(120px, 1fr));
+    gap: 7px 24px;
+    align-items: center;
+  }
+
+  .footer-global-links-grid a {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 8px 6px 10px;
+    border-radius: 7px;
+    border-left: 2px solid transparent;
+    color: #f2e8cc;
+    text-decoration: none;
+    font-size: 0.94rem;
+    font-weight: 600;
+    line-height: 1.3;
+    transition: all 0.22s ease;
+  }
+
+  .footer-global-links-grid a:hover {
+    color: #fff9ec;
+    background: rgba(212, 175, 55, 0.12);
+    border-left-color: #d4af37;
+    padding-left: 13px;
+  }
+
+  .footer-global-links-grid a.footer-link-adoracion {
+    color: #ffe6a3;
+  }
+
+  .footer-global-links-grid a.footer-link-adoracion:hover {
+    color: #fff4d2;
+    background: radial-gradient(ellipse at left, rgba(165, 20, 20, 0.35) 0%, rgba(212, 175, 55, 0.10) 100%);
+    border-left-color: #ffd269;
+  }
+
+  .footer-votive-icon {
+    width: 11px;
+    height: 14px;
+    flex-shrink: 0;
+    filter: drop-shadow(0 0 4px rgba(255, 166, 0, 0.7));
+  }
+
+  /* ===== COLUMNA 3: CONTACTO ===== */
+  .footer-global-contact {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .footer-mail-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    padding: 9px 14px;
+    border-radius: 10px;
+    border: 1px solid rgba(212, 175, 55, 0.42);
+    background: rgba(3, 8, 38, 0.72);
+    color: #fff6df !important;
+    text-decoration: none;
+    font-size: 0.92rem;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.35);
+    transition: all 0.24s ease;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+  }
+
+  .footer-mail-pill svg {
+    width: 15px;
+    height: 15px;
+    flex-shrink: 0;
+    color: #e8cb72;
+  }
+
+  .footer-mail-pill:hover {
+    border-color: #d4af37;
+    background: rgba(212, 175, 55, 0.15);
+    color: #ffffff !important;
+    transform: translateY(-1px);
+  }
+
+  .footer-contact-desc {
+    margin: 0;
+    font-size: 0.93rem;
+    line-height: 1.58;
+    color: #e8dec2;
+  }
+
+  .footer-contact-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    color: #e8cb72 !important;
+    text-decoration: none;
+    font-size: 0.87rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    transition: color 0.2s ease, transform 0.2s ease;
+  }
+
+  .footer-contact-cta:hover {
+    color: #fff6d6 !important;
+    transform: translateX(3px);
+  }
+
+  /* ===== DIVISOR Y CRÉDITOS EDITORIALES ===== */
+  .footer-global-divider {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    height: 1px;
+    margin: 30px 0 20px;
+    background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.55), transparent);
+  }
+
+  .footer-global-legal {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .footer-legal-copy {
+    margin: 0;
+    color: #f0e5c8;
+    font-size: 0.92rem;
+    line-height: 1.5;
+  }
+
+  .footer-legal-copy strong {
+    color: #fff8e6;
+    font-weight: 700;
+  }
+
+  .footer-legal-credit {
+    margin: 0;
+    color: rgba(232, 203, 114, 0.78);
+    font-size: 0.80rem;
+    letter-spacing: 0.05em;
+    line-height: 1.5;
+  }
+
+  .footer-studio-name {
+    color: #eed076;
+    font-weight: 700;
+  }
+
+  /* ===== RESPONSIVE TABLET / IPAD ===== */
+  @media (max-width: 1024px) {
     .footer-global-accar {
-      padding: 54px 0 28px;
-      background:
-        linear-gradient(180deg, rgba(10,24,48,.12), rgba(10,24,48,.22)),
-        url("../assets/img/footer_bg_iglesia.webp") center center / cover no-repeat;
+      padding: 54px 0 78px;
       background-attachment: scroll;
+    }
+
+    .footer-global-card {
+      padding: 38px 30px 28px;
     }
 
     .footer-global-top {
       grid-template-columns: 1fr;
-      column-gap: 0;
-      row-gap: 45px; /* Más espacio vertical para que respire en iPad */
-    }
-
-    .footer-global-brand-col,
-    .footer-global-links-col,
-    .footer-global-contact-col {
-      justify-self: center;
-      max-width: 100%;
+      gap: 32px;
       text-align: center;
     }
 
-    .footer-global-brand-stacked {
+    .footer-global-brand {
       align-items: center;
-      text-align: center;
     }
 
     .footer-global-brand-top {
       flex-direction: column;
-      align-items: center;
       justify-content: center;
       text-align: center;
-      gap: 15px;
+      gap: 14px;
     }
 
-    .footer-global-brand-copy-horizontal {
-      max-width: 100%;
+    .footer-global-brand-copy {
       text-align: center;
+      max-width: 440px;
     }
 
     .footer-global-motto {
-      text-align: center;
-      margin-top: 10px;
+      justify-content: center;
+      max-width: 380px;
+      margin: 14px auto 0;
     }
 
-    .footer-global-col {
-      text-align: center;
-    }
-
-    .footer-global-links {
-      align-items: center;
+    .footer-global-col h4::after {
+      left: 50%;
+      transform: translateX(-50%);
     }
 
     .footer-global-links-grid {
-      grid-template-columns: 1fr 1fr;
-      gap: 16px 40px;
-      justify-items: center;
-      max-width: 420px;
+      max-width: 380px;
       margin: 0 auto;
-    }
-
-    .footer-global-links a:hover {
-      transform: translateY(-2px); /* Hover elegante hacia arriba en vez de a la derecha */
+      justify-items: start;
+      gap: 8px 28px;
     }
 
     .footer-global-contact {
       align-items: center;
-      max-width: 100%;
+      max-width: 400px;
       margin: 0 auto;
       text-align: center;
     }
   }
 
-  @media (max-width:560px){
-    .footer-global-wrap{
-      width:min(1240px, calc(100% - 16px));
+  /* ===== RESPONSIVE MÓVIL ===== */
+  @media (max-width: 560px) {
+    .footer-global-wrap {
+      width: min(1120px, calc(100% - 20px));
     }
 
-    .footer-global-accar{
-      padding:34px 0 24px;
-      background:
-        linear-gradient(180deg, rgba(10,24,48,.14), rgba(10,24,48,.24)),
-        url("../assets/img/footer_bg_iglesia.webp") 50% center / cover no-repeat;
-      background-attachment:scroll;
+    .footer-global-accar {
+      padding: 40px 0 82px;
     }
 
-    .footer-global-card{
-      padding:32px 20px 24px; /* Un poco más de aire en móvil también */
-      border-radius:24px;
+    .footer-global-card {
+      padding: 30px 20px 24px;
+      border-radius: 20px;
     }
 
-    .footer-global-logo img{
-      width:152px;
+    .footer-global-logo-home img {
+      width: 82px;
+      height: 82px;
     }
 
-    .footer-global-col h4{
-      font-size:1.52rem;
+    .footer-global-links-grid {
+      grid-template-columns: repeat(2, minmax(115px, 1fr));
+      gap: 6px 14px;
+      max-width: 300px;
     }
 
-    .footer-global-brand-copy p,
-    .footer-global-contact,
-    .footer-global-links a{
-      font-size:1rem;
-      line-height:1.75;
+    .footer-global-links-grid a {
+      font-size: 0.90rem;
+      padding: 6px 6px 6px 8px;
     }
 
-    .footer-global-legal{
-      font-size:.94rem;
+    .footer-legal-copy {
+      font-size: 0.86rem;
+    }
+
+    .footer-legal-credit {
+      font-size: 0.75rem;
     }
   }
 </style>
@@ -416,61 +467,84 @@
   <div class="footer-global-wrap">
     <div class="footer-global-card">
 
-<div class="footer-global-top">
-  <!-- COLUMNA MARCA -->
-  <div class="footer-global-col footer-global-brand-col">
-  <div class="footer-global-brand footer-global-brand-stacked">
-    <div class="footer-global-brand-top">
-      <a class="footer-global-logo footer-global-logo-home" href="index.html" aria-label="Ir al inicio de Apologética Católica">
-        <img src="../assets/img/logo-accar.png" alt="Logo ACCAR">
-      </a>
+      <div class="footer-global-top">
+        <!-- COLUMNA 1: MARCA E IDENTIDAD -->
+        <div class="footer-global-col footer-global-brand-col">
+          <div class="footer-global-brand">
+            <div class="footer-global-brand-top">
+              <a class="footer-global-logo-home" href="/" onclick="event.preventDefault(); loadView('views/inicio.html');" aria-label="Ir al inicio de Apologética Católica">
+                <img src="/assets/img/logo-accar.png" alt="Logo ACCAR">
+              </a>
 
-      <div class="footer-global-brand-copy footer-global-brand-copy-horizontal">
-        <p class="footer-global-brand-main">
-          <strong>Somos un sitio fiel a la Iglesia Católica</strong><br>
-          en obediencia al Sucesor de San Pedro.
-        </p>
+              <div class="footer-global-brand-copy">
+                <span class="footer-brand-kicker">Apologética Católica · ACCAR</span>
+                <p class="footer-global-brand-main">
+                  <strong>Somos un sitio fiel a la Iglesia Católica</strong> en obediencia al Sucesor de San Pedro.
+                </p>
+              </div>
+            </div>
+
+            <p class="footer-global-motto">
+              <span class="footer-motto-cross" aria-hidden="true">✠</span>
+              <span class="footer-motto-text">Extra Ecclesiam nulla salus</span>
+              <span class="footer-motto-cross" aria-hidden="true">✠</span>
+            </p>
+          </div>
+        </div>
+
+        <!-- COLUMNA 2: ENLACES CONECTADOS AL ROUTER SPA -->
+        <div class="footer-global-col footer-global-links-col">
+          <h4>Enlaces</h4>
+          <nav class="footer-global-links-grid" aria-label="Enlaces del sitio">
+            <a href="/" onclick="event.preventDefault(); loadView('views/inicio.html');">Inicio</a>
+            <a href="/ver/santoral" onclick="event.preventDefault(); loadView('views/santos/inicio-santos.html');">Santoral</a>
+
+            <a href="/ver/apologetica" onclick="event.preventDefault(); loadView('views/apologetica.html');">Apologética</a>
+            <a href="/ver/biblioteca" onclick="event.preventDefault(); loadView('views/biblioteca.html');">Biblioteca</a>
+
+            <a href="/ver/formacion" onclick="event.preventDefault(); loadView('views/formacion.html');">Formación</a>
+            <a href="/ver/peliculas" onclick="event.preventDefault(); loadView('views/multimedia/peliculas.html');">Multimedia</a>
+
+            <a href="/ver/historia" onclick="event.preventDefault(); loadView('views/historia.html');">Historia</a>
+            <a href="/ver/actualidad" onclick="event.preventDefault(); loadView('views/actualidad.html');">Actualidad</a>
+
+            <a href="/ver/adoracion" onclick="event.preventDefault(); loadView('views/adoracion.html');" class="footer-link-adoracion">
+              <svg class="footer-votive-icon" viewBox="0 0 16 22" fill="none" aria-hidden="true">
+                <path d="M8 1C8 1 2 7.4 2 13.2C2 17.2 4.7 20.5 8 20.5C11.3 20.5 14 17.2 14 13.2C14 7.4 8 1 8 1Z" fill="#ff9d2e"/>
+                <path d="M8 7.2C8 7.2 4.8 11 4.8 14.2C4.8 16.5 6.2 18.4 8 18.4C9.8 18.4 11.2 16.5 11.2 14.2C11.2 11 8 7.2 8 7.2Z" fill="#fff7db"/>
+              </svg>
+              <span>Adoración</span>
+            </a>
+            <a href="/ver/contacto" onclick="event.preventDefault(); loadView('views/contacto.html');">Contacto</a>
+          </nav>
+        </div>
+
+        <!-- COLUMNA 3: CONTACTO -->
+        <div class="footer-global-col footer-global-contact-col">
+          <h4>Contacto</h4>
+          <div class="footer-global-contact">
+            <a class="footer-mail-pill" href="mailto:info@apologeticaccar.com">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="2" y="4" width="20" height="16" rx="3"></rect>
+                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+              </svg>
+              <span>info@apologeticaccar.com</span>
+            </a>
+            <p class="footer-contact-desc">Atención orientativa para formación y consulta apologética.</p>
+            <a class="footer-contact-cta" href="/ver/contacto" onclick="event.preventDefault(); loadView('views/contacto.html');">Escribir desde el portal →</a>
+          </div>
+        </div>
       </div>
-    </div>
-
-    <p class="footer-global-motto"><em>Extra Ecclesiam nulla salus.</em></p>
-  </div>
-</div>
-
-  <!-- COLUMNA ENLACES -->
-  <div class="footer-global-col footer-global-links-col">
-  <h4>Enlaces</h4>
-  <nav class="footer-global-links footer-global-links-grid" aria-label="Enlaces del sitio">
-    <a href="/index.html">Inicio</a>
-    <a href="/biblioteca.html">Biblioteca</a>
-
-    <a href="/apologetica.html">Apologética</a>
-    <a href="/multimedia.html">Multimedia</a>
-
-    <a href="/formacion.html">Formación</a>
-    <a href="/actualidad.html">Actualidad</a>
-
-    <a href="/historia.html">Historia</a>
-    <a href="/contacto.html">Contacto</a>
-  </nav>
-</div>
-
-  <!-- COLUMNA CONTACTO -->
-  <div class="footer-global-col footer-global-contact-col">
-    <h4>Contacto</h4>
-    <div class="footer-global-contact">
-      <a href="mailto:info@apologeticaccar.com">info@apologeticaccar.com</a>
-      <div>Atención orientativa para formación y consulta apologética.</div>
-    </div>
-  </div>
-</div>
 
       <div class="footer-global-divider"></div>
 
       <div class="footer-global-legal">
-        © <span id="yearActualFooterGlobal"></span> Apologética ACCAR. Todos los derechos reservados.<br>
-        Diseño y Desarrollo por OlgWal Studio Vision<br>
-        Web Development · Digital Strategy
+        <p class="footer-legal-copy">
+          © <span id="yearActualFooterGlobal"></span> <strong>Apologética ACCAR</strong>. Todos los derechos reservados.
+        </p>
+        <p class="footer-legal-credit">
+          Diseño y Desarrollo por <span class="footer-studio-name">OlgWal Studio Vision</span> · Web Development · Digital Strategy
+        </p>
       </div>
 
     </div>
@@ -480,9 +554,9 @@
 <script>
   (function(){
     const yearEl = document.getElementById("yearActualFooterGlobal");
-    if(yearEl){
+    if (yearEl) {
       yearEl.textContent = new Date().getFullYear();
     }
   })();
 </script>
-<!-- ===== FINAL FOOTER GLOBAL ACCAR ===== -->
+<!-- ===== ACCAR | FOOTER GLOBAL | FINAL ===== -->
