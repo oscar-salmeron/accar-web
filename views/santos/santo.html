@@ -1,10 +1,600 @@
-<main id="app-santoral" class="santo-background">
-  <div id="loading" class="spinner">Abriendo el Martirologio...</div>
-  <article id="santo-container" style="display: none;"></article>
+<!-- ===== ACCAR | FICHA HAGIOGRÁFICA Y LITÚRGICA DEL SANTO ===== -->
+<main id="app-santoral" class="accar-santo-ficha santo-tema-blanco">
+  <div class="accar-santo-inner">
+    <div id="loading" class="accar-santo-spinner">✠ Abriendo el Martirologio Romano...</div>
+    <article id="santo-container" style="display: none;"></article>
+  </div>
 </main>
 
+<style>
+#app-santoral.accar-santo-ficha,
+#app-santoral.accar-santo-ficha * {
+  box-sizing: border-box;
+}
+
+/* ===== VARIABLES POR DEFECTO Y LOS 8 TEMAS LITÚRGICOS ===== */
+#app-santoral.accar-santo-ficha {
+  --santo-bg-top: rgba(46, 38, 16, 0.72);
+  --santo-bg-mid: rgba(10, 24, 52, 0.92);
+  --santo-bg-deep: #030816;
+  --santo-halo: rgba(238, 208, 118, 0.22);
+  --santo-prayer-bg: linear-gradient(165deg, rgba(28, 24, 12, 0.92) 0%, rgba(7, 15, 34, 0.96) 100%);
+
+  position: relative;
+  overflow: hidden;
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  min-height: 100vh;
+  padding: 72px 20px 124px !important;
+  color: #f8efd3;
+  font-family: Georgia, "Times New Roman", serif;
+  line-height: 1.84;
+  border-top: 1px solid rgba(212, 175, 55, 0.28) !important;
+  border-left: none !important;
+  border-right: none !important;
+  border-bottom: none !important;
+  border-radius: 0 !important;
+  background:
+    radial-gradient(ellipse at 50% 0%, var(--santo-bg-top) 0%, var(--santo-bg-mid) 48%, var(--santo-bg-deep) 100%) !important;
+  box-shadow: inset 0 24px 52px rgba(0, 0, 0, 0.58) !important;
+  transition: background 0.45s ease;
+}
+
+/* 1. Blanco Litúrgico (Confesores, Vírgenes, Doctores, Fiestas del Señor) */
+#app-santoral.accar-santo-ficha.santo-tema-blanco {
+  --santo-bg-top: rgba(58, 46, 18, 0.68);
+  --santo-bg-mid: rgba(10, 24, 50, 0.92);
+  --santo-bg-deep: #040918;
+  --santo-halo: rgba(245, 222, 150, 0.24);
+  --santo-prayer-bg: linear-gradient(165deg, rgba(42, 33, 12, 0.88) 0%, rgba(6, 15, 34, 0.96) 100%);
+}
+
+/* 2. Rojo Litúrgico (Mártires, Apóstoles, Pasión, Espíritu Santo) */
+#app-santoral.accar-santo-ficha.santo-tema-rojo {
+  --santo-bg-top: rgba(112, 14, 24, 0.86);
+  --santo-bg-mid: rgba(46, 6, 12, 0.94);
+  --santo-bg-deep: #140205;
+  --santo-halo: rgba(185, 28, 42, 0.30);
+  --santo-prayer-bg: linear-gradient(165deg, rgba(78, 10, 18, 0.90) 0%, rgba(26, 4, 8, 0.97) 100%);
+}
+
+/* 3. Verde Litúrgico (Tiempo Ordinario) */
+#app-santoral.accar-santo-ficha.santo-tema-verde {
+  --santo-bg-top: rgba(18, 72, 43, 0.84);
+  --santo-bg-mid: rgba(7, 31, 19, 0.94);
+  --santo-bg-deep: #030e08;
+  --santo-halo: rgba(34, 120, 72, 0.26);
+  --santo-prayer-bg: linear-gradient(165deg, rgba(14, 54, 33, 0.90) 0%, rgba(5, 20, 12, 0.97) 100%);
+}
+
+/* 4. Morado Litúrgico (Penitentes, Adviento, Cuaresma) */
+#app-santoral.accar-santo-ficha.santo-tema-morado {
+  --santo-bg-top: rgba(72, 20, 98, 0.86);
+  --santo-bg-mid: rgba(30, 8, 44, 0.94);
+  --santo-bg-deep: #0c0314;
+  --santo-halo: rgba(126, 42, 168, 0.28);
+  --santo-prayer-bg: linear-gradient(165deg, rgba(52, 14, 72, 0.90) 0%, rgba(18, 5, 28, 0.97) 100%);
+}
+
+/* 5. Celeste Mariano */
+#app-santoral.accar-santo-ficha.santo-tema-celeste {
+  --santo-bg-top: rgba(20, 68, 124, 0.84);
+  --santo-bg-mid: rgba(8, 28, 56, 0.94);
+  --santo-bg-deep: #030b18;
+  --santo-halo: rgba(56, 138, 220, 0.26);
+  --santo-prayer-bg: linear-gradient(165deg, rgba(14, 48, 90, 0.90) 0%, rgba(5, 18, 38, 0.97) 100%);
+}
+
+/* 6. Negro Litúrgico (Fieles Difuntos) */
+#app-santoral.accar-santo-ficha.santo-tema-negro {
+  --santo-bg-top: rgba(36, 39, 48, 0.88);
+  --santo-bg-mid: rgba(15, 17, 22, 0.95);
+  --santo-bg-deep: #050608;
+  --santo-halo: rgba(212, 175, 55, 0.16);
+  --santo-prayer-bg: linear-gradient(165deg, rgba(24, 26, 34, 0.92) 0%, rgba(8, 9, 14, 0.98) 100%);
+}
+
+/* 7. Realeza (Jesucristo, Rey del Universo / Realeza de María) */
+#app-santoral.accar-santo-ficha.santo-tema-realeza {
+  --santo-bg-top: rgba(98, 12, 42, 0.88);
+  --santo-bg-mid: rgba(44, 6, 20, 0.95);
+  --santo-bg-deep: #140209;
+  --santo-halo: rgba(212, 175, 55, 0.28);
+  --santo-prayer-bg: linear-gradient(165deg, rgba(68, 9, 30, 0.92) 0%, rgba(24, 4, 12, 0.98) 100%);
+}
+
+/* 8. Gloria (Grandes Solemnidades Gloriosas del Señor) */
+#app-santoral.accar-santo-ficha.santo-tema-gloria {
+  --santo-bg-top: rgba(92, 68, 14, 0.80);
+  --santo-bg-mid: rgba(28, 22, 8, 0.94);
+  --santo-bg-deep: #09080f;
+  --santo-halo: rgba(245, 208, 96, 0.30);
+  --santo-prayer-bg: linear-gradient(165deg, rgba(64, 48, 10, 0.90) 0%, rgba(18, 14, 6, 0.97) 100%);
+}
+
+/* Marca de agua vectorial sacra del Santoral */
+#app-santoral.accar-santo-ficha::before {
+  content: "";
+  position: absolute;
+  top: 110px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(1060px, 95vw);
+  height: min(1060px, 95vw);
+  background: url("/assets/img/corona-palmas-watermark.png") center top / contain no-repeat;
+  opacity: 0.07;
+  pointer-events: none;
+  z-index: 0;
+}
+
+#app-santoral.accar-santo-ficha .accar-santo-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+#app-santoral.accar-santo-ficha .accar-santo-spinner {
+  text-align: center;
+  padding: 90px 20px;
+  color: #eed076;
+  font-size: 1.05rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+/* ===== BARRA SUPERIOR: BOTÓN DE RETORNO Y RUTA ===== */
+#app-santoral.accar-santo-ficha .accar-santo-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-bottom: 26px;
+}
+
+#app-santoral.accar-santo-ficha .accar-santo-volver {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 22px;
+  border-radius: 999px;
+  border: 1px solid rgba(212, 175, 55, 0.58);
+  background: rgba(5, 10, 26, 0.82);
+  color: #e8cb72;
+  text-decoration: none;
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.45);
+  transition: all 0.25s ease;
+}
+
+#app-santoral.accar-santo-ficha .accar-santo-volver:hover {
+  background: rgba(212, 175, 55, 0.18);
+  border-color: #eed076;
+  color: #fff9ec;
+  transform: translateX(-3px);
+}
+
+#app-santoral.accar-santo-ficha .accar-santo-MinimalBc {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-size: 0.84rem;
+  color: rgba(248, 239, 211, 0.72);
+}
+
+#app-santoral.accar-santo-ficha .accar-santo-MinimalBc a {
+  color: #e8cb72;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+#app-santoral.accar-santo-ficha .accar-santo-MinimalBc a:hover {
+  color: #fff9ec;
+}
+
+#app-santoral.accar-santo-ficha .accar-bc-sep {
+  color: rgba(212, 175, 55, 0.55);
+  font-size: 0.78rem;
+}
+
+#app-santoral.accar-santo-ficha .accar-bc-current {
+  color: #f4ebd2;
+}
+
+/* ===== TARJETA RELICARIO DE CABECERA (HERMANA DE PERSONAJES) ===== */
+#app-santoral.accar-santo-ficha .accar-santo-hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 38px;
+  padding: 36px 38px;
+  margin-bottom: 34px;
+  border-radius: 22px;
+  border: 1px solid rgba(212, 175, 55, 0.52);
+  background:
+    radial-gradient(circle at 22% 50%, var(--santo-halo) 0%, transparent 56%),
+    linear-gradient(180deg, rgba(6, 13, 28, 0.82) 0%, rgba(3, 7, 18, 0.92) 100%);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  box-shadow:
+    0 24px 50px rgba(0, 0, 0, 0.68),
+    inset 0 1px 0 rgba(255, 238, 186, 0.16);
+}
+
+#app-santoral.accar-santo-ficha .accar-santo-hero::after {
+  content: "";
+  position: absolute;
+  inset: 8px;
+  border: 1px solid rgba(212, 175, 55, 0.18);
+  border-radius: 15px;
+  pointer-events: none;
+}
+
+#app-santoral.accar-santo-ficha .accar-santo-portrait {
+  position: relative;
+  z-index: 2;
+  flex: 0 0 265px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#app-santoral.accar-santo-ficha .accar-santo-portrait img {
+  max-width: 100%;
+  width: auto;
+  height: auto;
+  max-height: 350px;
+  border-radius: 14px;
+  object-fit: contain;
+  filter: drop-shadow(0 16px 28px rgba(0, 0, 0, 0.86));
+}
+
+#app-santoral.accar-santo-ficha .accar-santo-head {
+  position: relative;
+  z-index: 2;
+  flex: 1;
+  min-width: 0;
+  text-align: left;
+}
+
+#app-santoral.accar-santo-ficha .accar-santo-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin-bottom: 14px;
+  padding: 6px 16px;
+  border-radius: 999px;
+  border: 1px solid rgba(212, 175, 55, 0.62);
+  background: rgba(4, 9, 28, 0.82);
+  color: #e8cb72;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.42);
+}
+
+#app-santoral.accar-santo-ficha .accar-santo-title {
+  margin: 0;
+  font-size: 2.45rem;
+  font-weight: 700;
+  line-height: 1.18;
+  color: #fff9ec;
+  letter-spacing: 0.01em;
+  text-shadow: 0 4px 16px rgba(0, 0, 0, 0.85);
+}
+
+#app-santoral.accar-santo-ficha .accar-santo-rule {
+  width: 56px;
+  height: 2px;
+  margin: 16px 0;
+  border-radius: 2px;
+  background: linear-gradient(90deg, #d4af37 0%, rgba(212, 175, 55, 0.18) 100%);
+}
+
+#app-santoral.accar-santo-ficha .accar-santo-subtitle {
+  margin: 0;
+  color: #eed076;
+  font-style: italic;
+  font-size: 1.14rem;
+  line-height: 1.55;
+}
+
+/* ===== CUERPO EDITORIAL DE LECTURA EN PENUMBRA SACRA ===== */
+#app-santoral.accar-santo-ficha .accar-santo-article {
+  position: relative;
+  padding: 44px 46px 48px;
+  border-radius: 22px;
+  border: 1px solid rgba(212, 175, 55, 0.42);
+  background: linear-gradient(180deg, rgba(6, 13, 28, 0.86) 0%, rgba(3, 7, 18, 0.94) 100%);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  box-shadow:
+    0 24px 52px rgba(0, 0, 0, 0.66),
+    inset 0 1px 0 rgba(255, 238, 186, 0.12);
+  text-align: left;
+}
+
+#app-santoral.accar-santo-ficha .accar-santo-section-title {
+  position: relative;
+  margin: 42px 0 20px;
+  padding-bottom: 11px;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.30);
+  color: #eed076;
+  font-size: 1.38rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  line-height: 1.3;
+  text-align: left;
+}
+
+#app-santoral.accar-santo-ficha .accar-santo-section-title::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -1.5px;
+  width: 58px;
+  height: 2.5px;
+  border-radius: 2px;
+  background: #d4af37;
+  box-shadow: 0 0 10px rgba(212, 175, 55, 0.65);
+}
+
+#app-santoral.accar-santo-ficha .accar-santo-section-title:first-child {
+  margin-top: 0;
+}
+
+#app-santoral.accar-santo-ficha .accar-santo-prose p {
+  margin: 0 0 20px;
+  color: #efe5cc;
+  font-size: 1.06rem;
+  line-height: 1.86;
+  text-align: left;
+}
+
+#app-santoral.accar-santo-ficha .accar-santo-prose p:last-child {
+  margin-bottom: 0;
+}
+
+#app-santoral.accar-santo-ficha .accar-santo-article strong {
+  color: #eed076;
+  font-weight: 700;
+}
+
+/* ===== RELICARIO DE LA FRASE ESPIRITUAL ===== */
+#app-santoral.accar-santo-ficha .accar-santo-quote {
+  margin: 34px 0;
+  padding: 24px 28px;
+  border-radius: 14px;
+  border: 1px solid rgba(212, 175, 55, 0.30);
+  border-left: 4px solid #d4af37;
+  background: rgba(212, 175, 55, 0.06);
+  box-shadow: inset 0 0 24px rgba(0, 0, 0, 0.28);
+  text-align: left;
+}
+
+#app-santoral.accar-santo-ficha .accar-santo-quote-label {
+  margin-bottom: 10px;
+  color: #e8cb72;
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+#app-santoral.accar-santo-ficha .accar-santo-quote-body {
+  margin: 0;
+  color: #fff8e6;
+  font-style: italic;
+  font-size: 1.10rem;
+  line-height: 1.76;
+}
+
+/* ===== LECCIONES ESPIRITUALES Y APOLOGÉTICAS ===== */
+#app-santoral.accar-santo-ficha .accar-lecciones-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+#app-santoral.accar-santo-ficha .accar-lecciones-list li {
+  position: relative;
+  padding: 16px 20px 16px 44px;
+  border-radius: 14px;
+  border: 1px solid rgba(212, 175, 55, 0.22);
+  background: rgba(3, 8, 22, 0.58);
+  color: #efe5cc;
+  font-size: 1.02rem;
+  line-height: 1.76;
+  text-align: left;
+}
+
+#app-santoral.accar-santo-ficha .accar-lecciones-list li::before {
+  content: "✠";
+  position: absolute;
+  left: 18px;
+  top: 17px;
+  color: #d4af37;
+  font-size: 0.90rem;
+  line-height: 1.6;
+}
+
+/* ===== ESTELA DE LA CITA BÍBLICA ===== */
+#app-santoral.accar-santo-ficha .accar-cita-biblica {
+  margin: 6px 0 10px;
+  padding: 26px 32px;
+  border-top: 1px solid rgba(212, 175, 55, 0.42);
+  border-bottom: 1px solid rgba(212, 175, 55, 0.42);
+  background: radial-gradient(ellipse at center, rgba(212, 175, 55, 0.09) 0%, transparent 75%);
+  color: #fff6df;
+  font-style: italic;
+  font-size: 1.12rem;
+  line-height: 1.80;
+  text-align: center;
+  white-space: pre-line;
+}
+
+/* ===== RELICARIO DEVOCIONAL DE LA ORACIÓN ===== */
+#app-santoral.accar-santo-ficha .accar-oracion-card {
+  position: relative;
+  margin: 40px 0 8px;
+  padding: 34px 36px;
+  border-radius: 20px;
+  border: 1px solid rgba(212, 175, 55, 0.55);
+  background: var(--santo-prayer-bg);
+  box-shadow:
+    0 18px 38px rgba(0, 0, 0, 0.62),
+    inset 0 1px 0 rgba(255, 238, 186, 0.18);
+  text-align: left;
+}
+
+#app-santoral.accar-santo-ficha .accar-oracion-card::after {
+  content: "";
+  position: absolute;
+  inset: 7px;
+  border: 1px solid rgba(212, 175, 55, 0.20);
+  border-radius: 14px;
+  pointer-events: none;
+}
+
+#app-santoral.accar-santo-ficha .accar-oracion-head {
+  position: relative;
+  z-index: 2;
+  margin: 0 0 16px;
+  color: #eed076;
+  font-size: 0.92rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+#app-santoral.accar-santo-ficha .accar-oracion-body {
+  position: relative;
+  z-index: 2;
+}
+
+#app-santoral.accar-santo-ficha .accar-oracion-body p {
+  margin: 0 0 16px;
+  color: #fff8e8;
+  font-size: 1.05rem;
+  line-height: 1.82;
+  text-align: left;
+}
+
+#app-santoral.accar-santo-ficha .accar-oracion-body p:last-child {
+  margin-bottom: 0;
+}
+
+/* ===== CUADRÍCULA COMPACTA: TAMBIÉN SE CELEBRAN HOY ===== */
+#app-santoral.accar-santo-ficha .accar-santos-adicionales {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px 18px;
+}
+
+#app-santoral.accar-santo-ficha .accar-santos-adicionales li {
+  position: relative;
+  padding: 12px 16px 12px 36px;
+  border-radius: 11px;
+  border: 1px solid rgba(212, 175, 55, 0.22);
+  background: rgba(3, 8, 22, 0.55);
+  color: #eae0c8;
+  font-size: 0.95rem;
+  line-height: 1.48;
+  text-align: left;
+}
+
+#app-santoral.accar-santo-ficha .accar-santos-adicionales li::before {
+  content: "✠";
+  position: absolute;
+  left: 14px;
+  top: 12px;
+  color: #e8cb72;
+  font-size: 0.80rem;
+}
+
+/* ===== RESPONSIVE IPAD / MÓVIL ===== */
+@media (max-width: 768px) {
+  #app-santoral.accar-santo-ficha {
+    padding: 50px 16px 100px !important;
+  }
+
+  #app-santoral.accar-santo-ficha .accar-santo-topbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  #app-santoral.accar-santo-ficha .accar-santo-hero {
+    flex-direction: column;
+    text-align: center;
+    padding: 28px 22px;
+    gap: 22px;
+  }
+
+  #app-santoral.accar-santo-ficha .accar-santo-portrait {
+    flex: none;
+    width: 100%;
+  }
+
+  #app-santoral.accar-santo-ficha .accar-santo-portrait img {
+    max-height: 280px;
+  }
+
+  #app-santoral.accar-santo-ficha .accar-santo-head {
+    text-align: center;
+  }
+
+  #app-santoral.accar-santo-ficha .accar-santo-rule {
+    margin: 14px auto;
+    background: linear-gradient(90deg, transparent, #d4af37, transparent);
+  }
+
+  #app-santoral.accar-santo-ficha .accar-santo-title {
+    font-size: 1.92rem;
+  }
+
+  #app-santoral.accar-santo-ficha .accar-santo-article {
+    padding: 30px 20px 34px;
+  }
+
+  #app-santoral.accar-santo-ficha .accar-santo-section-title {
+    font-size: 1.18rem;
+  }
+
+  #app-santoral.accar-santo-ficha .accar-santo-quote {
+    padding: 20px;
+  }
+
+  #app-santoral.accar-santo-ficha .accar-cita-biblica {
+    padding: 22px 18px;
+    font-size: 1.02rem;
+  }
+
+  #app-santoral.accar-santo-ficha .accar-oracion-card {
+    padding: 26px 20px;
+  }
+
+  #app-santoral.accar-santo-ficha .accar-santos-adicionales {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
+
 <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { initializeApp, getApps, getApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const firebaseConfig = {
@@ -16,23 +606,57 @@ const firebaseConfig = {
     appId: "1:249370548582:web:6b35298df41771113910a7"
 };
 
-const app = initializeApp(firebaseConfig);
+const app = getApps().length ? getApp() : initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-// Usar variable global inyectada por loadView, con fallback seguro
 const santoID = window.santoID || "san-oscar-romero";
+const mainSantoral = document.getElementById("app-santoral");
+const container = document.getElementById("santo-container");
+const loading = document.getElementById("loading");
 
-const container = document.getElementById('santo-container');
-const loading = document.getElementById('loading');
+// Limpiar cualquier clase heredada en body para no teñir otras vistas
+document.body.classList.remove("theme-rojo", "theme-blanco", "theme-verde", "theme-morado", "theme-celeste", "theme-negro", "theme-realeza", "theme-gloria");
 
-// Función auxiliar para navegar limpiando TODOS los fondos litúrgicos
 window.navegarDesdeSanto = function(vista, mesRetorno = null) {
-    document.body.classList.remove('theme-rojo', 'theme-blanco', 'theme-verde', 'theme-morado', 'theme-celeste', 'theme-negro', 'theme-realeza', 'theme-gloria');
+    document.body.classList.remove("theme-rojo", "theme-blanco", "theme-verde", "theme-morado", "theme-celeste", "theme-negro", "theme-realeza", "theme-gloria");
     if (mesRetorno) {
         window.mesRetornoSantoral = mesRetorno;
     }
     loadView(vista);
 };
+
+function normalizarImagenSanto(ruta) {
+    if (!ruta) return "";
+    let limpia = ruta.trim();
+    if (limpia.startsWith("../../")) limpia = "/" + limpia.slice(6);
+    else if (limpia.startsWith("../")) limpia = "/" + limpia.slice(3);
+    else if (!limpia.startsWith("/") && !limpia.startsWith("http://") && !limpia.startsWith("https://")) {
+        limpia = "/" + limpia;
+    }
+    return limpia;
+}
+
+function formatearProsaSagrada(texto) {
+    if (!texto) return "";
+    const str = String(texto).trim();
+    if (/<p[\s>]|<br\s*\/?>/i.test(str)) {
+        return `<p>${str}</p>`;
+    }
+    return str
+        .split(/\n\s*\n/)
+        .map(bloque => `<p>${bloque.trim().replace(/\n/g, "<br>")}</p>`)
+        .join("");
+}
+
+function formatearLeccion(lec) {
+    const str = String(lec || "").trim();
+    if (!str || /<strong[\s>]/i.test(str)) return str;
+    const idx = str.indexOf(":");
+    if (idx > 0 && idx < 68) {
+        return `<strong>${str.slice(0, idx + 1)}</strong>${str.slice(idx + 1)}`;
+    }
+    return str;
+}
 
 if (santoID) {
     try {
@@ -41,114 +665,123 @@ if (santoID) {
 
         if (docSnap.exists()) {
             const data = docSnap.data();
-            // Asegurarnos de limpiar cualquier color anterior antes de aplicar el nuevo
-            document.body.classList.remove('theme-rojo', 'theme-blanco', 'theme-verde', 'theme-morado', 'theme-celeste', 'theme-negro', 'theme-realeza', 'theme-gloria');
-            // Aplicar color litúrgico dinámico desde Firebase (por defecto blanco si no existe)
-            const colorLiturgico = data.color ? data.color.toLowerCase() : 'blanco';
-            document.body.classList.add(`theme-${colorLiturgico}`); 
 
-            // Extraer mes evitando "undefined" en fiestas sin la palabra "de"
-            const mesNombre = (data.fecha_texto && data.fecha_texto.includes(" de ")) ? data.fecha_texto.split(" de ")[1] : "Solemnidad";
-            let leccionesHTML = data.lecciones ? data.lecciones.map(lec => `<li>${lec}</li>`).join('') : '';
-            let santosAdicionalesHTML = data.santos_adicionales ? data.santos_adicionales.map(santo => `<li>${santo}</li>`).join('') : '';
+            const temasValidos = ["rojo", "blanco", "verde", "morado", "celeste", "negro", "realeza", "gloria"];
+            const colorRaw = data.color ? data.color.toLowerCase().trim() : "blanco";
+            const colorLiturgico = temasValidos.includes(colorRaw) ? colorRaw : "blanco";
 
-            let imgPath = data.imagen || '';
-            if(imgPath.startsWith('../../')) imgPath = imgPath.replace('../../', '');
+            if (mainSantoral) {
+                temasValidos.forEach(t => mainSantoral.classList.remove(`santo-tema-${t}`));
+                mainSantoral.classList.add(`santo-tema-${colorLiturgico}`);
+            }
 
-            document.title = `${data.nombre_completo || 'Santo del Día'} | ACCAR`;
+            const mesesValidos = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+            let mesValido = null;
+            if (data.fecha_texto && data.fecha_texto.includes(" de ")) {
+                const posibleMes = data.fecha_texto.split(" de ").pop().trim();
+                const encontrado = mesesValidos.find(m => m.toLowerCase() === posibleMes.toLowerCase());
+                if (encontrado) mesValido = encontrado;
+            }
 
-            window.compartirSanto = async function(btn) {
-                const shareUrl = `https://www.apologeticaccar.com/santo/${encodeURIComponent(santoID)}`;
-                const shareTitle = `${data.nombre_completo || 'Santo del Día'} | ACCAR`;
-                const shareText = `Conoce la vida, lecciones apologéticas y oración de ${data.nombre_completo || 'este santo'} en ACCAR:`;
+            const textoBotonVolver = mesValido ? `← Volver a ${mesValido}` : "← Volver al Santoral";
+            const accionVolver = mesValido
+                ? `window.navegarDesdeSanto('views/santos/inicio-santos.html', '${mesValido}')`
+                : `window.navegarDesdeSanto('views/santos/inicio-santos.html')`;
 
-                if (navigator.share) {
-                    try {
-                        await navigator.share({ title: shareTitle, text: shareText, url: shareUrl });
-                        return;
-                    } catch (err) {
-                        if (err.name === 'AbortError') return;
-                    }
-                }
+            const migasMesHTML = mesValido
+                ? `<a href="/ver/santoral" onclick="event.preventDefault(); window.navegarDesdeSanto('views/santos/inicio-santos.html', '${mesValido}');">${mesValido}</a> <span class="accar-bc-sep">›</span>`
+                : "";
 
-                try {
-                    await navigator.clipboard.writeText(shareUrl);
-                    const originalText = btn.textContent;
-                    btn.textContent = '✓ Enlace copiado';
-                    setTimeout(() => { btn.textContent = originalText; }, 2500);
-                } catch (err) {
-                    prompt('Copia este enlace para compartir:', shareUrl);
-                }
-            };
+            const leccionesHTML = Array.isArray(data.lecciones) && data.lecciones.length
+                ? data.lecciones.map(lec => `<li>${formatearLeccion(lec)}</li>`).join("")
+                : "";
+
+            const santosAdicionalesHTML = Array.isArray(data.santos_adicionales) && data.santos_adicionales.length
+                ? data.santos_adicionales.map(santo => `<li>${santo}</li>`).join("")
+                : "";
+
+            const imgPath = normalizarImagenSanto(data.imagen);
+
+            document.title = `${data.nombre_completo || "Santo del Día"} | ACCAR`;
 
             container.innerHTML = `
-                <header class="santo-hero">
-                  <div class="santo-img">
-                    <img src="${imgPath}" alt="${data.nombre_completo || ''}" onerror="this.onerror=null; this.style.display='none';">
-                  </div>
-                  <div class="santo-head">
-                    <div class="santo-fecha">✝ ${data.fecha_texto || ''}</div>
-                    <h1 class="santo-nombre">${data.nombre_completo || ''}</h1>
-                    <div class="santo-subtitulo">${data.patronazgo || ''}</div>
-                    <button type="button" onclick="window.compartirSanto(this)" style="margin-top: 18px; background: rgba(9, 23, 45, 0.75); color: #f8efd3; border: 1px solid #d4af37; padding: 10px 22px; border-radius: 999px; font-family: 'Cinzel', Georgia, serif; font-size: 13px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; cursor: pointer; box-shadow: 0 8px 20px rgba(0,0,0,0.4); transition: all 0.25s ease;">
-                      Compartir Santo
-                    </button>
+                <div class="accar-santo-topbar">
+                  <a href="/ver/santoral" onclick="event.preventDefault(); ${accionVolver};" class="accar-santo-volver">
+                    ${textoBotonVolver}
+                  </a>
+
+                  <nav class="accar-santo-MinimalBc" aria-label="Ruta de navegación">
+                    <a href="/" onclick="event.preventDefault(); window.navegarDesdeSanto('views/inicio.html');">Inicio</a>
+                    <span class="accar-bc-sep">›</span>
+                    <a href="/ver/santoral" onclick="event.preventDefault(); window.navegarDesdeSanto('views/santos/inicio-santos.html');">Santoral</a>
+                    <span class="accar-bc-sep">›</span>
+                    ${migasMesHTML}
+                    <span class="accar-bc-current">${data.fecha_texto || ""}</span>
+                  </nav>
+                </div>
+
+                <header class="accar-santo-hero">
+                  ${imgPath ? `
+                  <div class="accar-santo-portrait">
+                    <img src="${imgPath}" alt="${data.nombre_completo || ""}" onerror="this.onerror=null; this.parentElement.style.display='none';">
+                  </div>` : ""}
+
+                  <div class="accar-santo-head">
+                    ${data.fecha_texto ? `<div class="accar-santo-kicker"><span>✠</span><span>${data.fecha_texto}</span><span>✠</span></div>` : ""}
+                    <h1 class="accar-santo-title">${data.nombre_completo || ""}</h1>
+                    <div class="accar-santo-rule" aria-hidden="true"></div>
+                    ${data.patronazgo ? `<p class="accar-santo-subtitle">${data.patronazgo}</p>` : ""}
                   </div>
                 </header>
 
-                <nav class="breadcrumb">
-                  <a href="#" onclick="event.preventDefault(); window.navegarDesdeSanto('views/inicio.html');">Inicio</a> / 
-                  <a href="#" onclick="event.preventDefault(); window.navegarDesdeSanto('views/santos/inicio-santos.html');">Santoral</a> / 
-                  <a href="#" onclick="event.preventDefault(); window.navegarDesdeSanto('views/santos/inicio-santos.html', '${mesNombre}');">${mesNombre}</a> / 
-                  <span class="bc-dia">${data.fecha_texto || ''}</span>
-                </nav>
-
-                <div class="santo-content">
-                  <h2>Biografía Espiritual</h2>
-                  <p>${data.biografia || ''}</p>
+                <div class="accar-santo-article">
+                  <h2 class="accar-santo-section-title">Biografía Espiritual</h2>
+                  <div class="accar-santo-prose">
+                    ${formatearProsaSagrada(data.biografia)}
+                  </div>
 
                   ${data.frase ? `
-                  <blockquote>
-                    <div class="titulo-frase">Frase de ${data.nombre_completo}</div>
-                    ${data.frase}
-                  </blockquote>` : ''}
-                  
-                  ${data.lecciones ? `
-                  <h2>Lecciones Espirituales</h2>
-                  <ul class="lecciones-list">${leccionesHTML}</ul>
-                  ` : ''}
+                  <blockquote class="accar-santo-quote">
+                    <div class="accar-santo-quote-label">✠ Palabras de ${data.nombre_completo || "este Santo"}</div>
+                    <p class="accar-santo-quote-body">${data.frase}</p>
+                  </blockquote>` : ""}
+
+                  ${leccionesHTML ? `
+                  <h2 class="accar-santo-section-title">Lecciones Espirituales</h2>
+                  <ul class="accar-lecciones-list">${leccionesHTML}</ul>` : ""}
 
                   ${data.cita_biblica ? `
-                  <h2>Cita Bíblica</h2>
-                  <div class="texto-cita-biblica"><em>${data.cita_biblica}</em></div>
-                  ` : ''}
+                  <h2 class="accar-santo-section-title">Cita Bíblica</h2>
+                  <div class="accar-cita-biblica">${data.cita_biblica}</div>` : ""}
 
                   ${data.meditacion ? `
-                  <h2>Meditación del Día</h2>
-                  <p>${data.meditacion}</p>
-                  ` : ''}
+                  <h2 class="accar-santo-section-title">Meditación del Día</h2>
+                  <div class="accar-santo-prose">
+                    ${formatearProsaSagrada(data.meditacion)}
+                  </div>` : ""}
 
                   ${data.oracion ? `
-                  <div class="recuadro-espiritual">
-                    <h3>Oración</h3>
-                    <p>${data.oracion}</p>
-                  </div>
-                  ` : ''}
+                  <div class="accar-oracion-card">
+                    <h3 class="accar-oracion-head">✠ Oración ✠</h3>
+                    <div class="accar-oracion-body">
+                      ${formatearProsaSagrada(data.oracion)}
+                    </div>
+                  </div>` : ""}
 
-                  ${data.santos_adicionales ? `
-                  <h2>También se celebran hoy</h2>
-                  <ul class="lecciones-list" style="margin-bottom: 0;">${santosAdicionalesHTML}</ul>
-                  ` : ''}
+                  ${santosAdicionalesHTML ? `
+                  <h2 class="accar-santo-section-title">También se celebran hoy</h2>
+                  <ul class="accar-santos-adicionales">${santosAdicionalesHTML}</ul>` : ""}
                 </div>
             `;
-            loading.style.display = 'none';
-            container.style.display = 'block';
+
+            loading.style.display = "none";
+            container.style.display = "block";
         } else {
             loading.innerHTML = "Ficha del santo no encontrada en Firebase.";
         }
     } catch (error) {
         console.error("Error cargando de Firebase:", error);
-        if(loading) loading.innerHTML = "Error al conectar con la base de datos.";
+        if (loading) loading.innerHTML = "Error al conectar con la base de datos.";
     }
 }
 </script>
