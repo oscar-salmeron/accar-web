@@ -6,7 +6,7 @@
     },
     {
       "source": "/santo/:id",
-      "destination": "/api/santo?id=:id"
+      "destination": "/api/compartir?tipo=santo&id=:id"
     },
     {
       "source": "/libro/:id",
