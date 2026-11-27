@@ -325,365 +325,126 @@ body {
 
   <div class="accar-espiritualidad-inner">
 
-    <!-- Reducimos el margen inferior para que la línea dorada abrace ambos textos -->
-    <div class="accar-heading-card" style="margin-bottom: 12px;">
-      <h2>Vivir la Liturgia</h2>
-    </div>
-    
-    <!-- Fecha dinámica secundaria con tipografía equilibrada -->
-    <h3 id="fecha-liturgia" style="color: #d9bb6a; font-size: 16px; text-shadow: 0 2px 4px rgba(0,0,0,0.6); margin: 0 0 45px 0; font-weight: 600; letter-spacing: 2px; text-transform: uppercase;"></h3>
+    <!-- CABECERA MAESTRA: VIVIR LA LITURGIA -->
+    <header class="accar-home-sec-header">
+      <div class="accar-home-kicker">
+        <span aria-hidden="true">✠</span>
+        <span>Lex Orandi</span>
+        <span aria-hidden="true">✠</span>
+      </div>
 
-    <script>
-      (function(){
-        const opciones = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
-        let fechaHoy = new Date().toLocaleDateString('es-ES', opciones);
-        // Convierte la primera letra del día en mayúscula por elegancia ortográfica
-        fechaHoy = fechaHoy.charAt(0).toUpperCase() + fechaHoy.slice(1);
-        document.getElementById('fecha-liturgia').textContent = fechaHoy;
-      })();
-    </script>
+      <div class="accar-home-title-wrap">
+        <h2 class="accar-home-title">Vivir la Liturgia</h2>
+      </div>
+
+      <p id="fecha-liturgia" class="accar-lit-fecha-hoy"></p>
+      <p id="semana-liturgia" class="accar-lit-semana-hoy" style="display: none;"></p>
+    </header>
 
     <div class="accar-espiritualidad-grid">
 
-      <!-- TARJETA 1: EVANGELIO Y LECTURAS (Conexión Firebase) -->
+      <!-- TARJETA 1: EVANGELIO Y LECTURAS -->
       <a href="#" onclick="event.preventDefault(); loadView('views/inicio-lecturas.html');" class="accar-lit-card accar-lit-card--verde" id="tarjeta-evangelio">
-        <img src="../assets/img/icono_evangelio_oro.png" class="accar-lit-icon" alt="Evangelio">
-        
+        <img src="/assets/img/icono_evangelio_oro.png" class="accar-lit-icon" alt="Evangelio y Lecturas">
+
         <div class="accar-lit-meta">
           <span id="lit-ciclo">Ciclo</span>
           <span id="lit-anio">Año</span>
           <span class="dot-color dot-verde" id="lit-color">Verde</span>
         </div>
-        <span class="accar-lit-subtitle" id="lit-semana">Cargando semana...</span>
-        
-        <!-- Título estático elegante -->
-        <h3 style="margin-bottom: 20px;">Evangelio y Lecturas</h3>
-        
-        <!-- Contenedor dinámico de citas litúrgicas -->
+
+        <span class="accar-lit-subtitle" id="lit-semana">Cargando celebración...</span>
+        <h3>Evangelio y Lecturas</h3>
+        <div class="accar-lit-rule" aria-hidden="true"></div>
+
         <div class="accar-lecturas-lista">
           <div id="item-evangelio" class="accar-lectura-item" style="display: none;">
-            <strong>Evangelio:</strong> <span id="lit-evangelio"></span>
+            <strong>Evangelio</strong>
+            <span id="lit-evangelio"></span>
           </div>
           <div id="item-primera" class="accar-lectura-item" style="display: none;">
-            <strong>1ª Lectura:</strong> <span id="lit-primera"></span>
+            <strong>1ª Lectura</strong>
+            <span id="lit-primera"></span>
           </div>
           <div id="item-salmo" class="accar-lectura-item" style="display: none;">
-            <strong>Salmo:</strong> <span id="lit-salmo"></span>
+            <strong>Salmo</strong>
+            <span id="lit-salmo"></span>
           </div>
           <div id="item-segunda" class="accar-lectura-item" style="display: none;">
-            <strong>2ª Lectura:</strong> <span id="lit-segunda"></span>
+            <strong>2ª Lectura</strong>
+            <span id="lit-segunda"></span>
           </div>
-          <p id="lit-mensaje-fallback" style="color: rgba(255,255,255,0.75); font-size: 15px; margin: 0;">Conectando con el leccionario...</p>
+          <p id="lit-mensaje-fallback" class="accar-lit-fallback">Conectando con el leccionario...</p>
         </div>
       </a>
 
-      <!-- Pequeños estilos para la lista de lecturas -->
-      <style>
-        .accar-lecturas-lista {
-          display: flex;
-          flex-direction: column;
-          gap: 8px;
-          position: relative;
-          z-index: 2;
-          width: 100%;
-          padding: 0 10px;
-        }
-        .accar-lectura-item {
-          font-size: 14px;
-          color: #f8efd3;
-          background: rgba(0,0,0,0.5); /* Fondo oscuro translúcido para contraste */
-          padding: 8px 14px;
-          border-radius: 8px;
-          border: 1px solid rgba(212,175,55,0.25);
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          transition: background 0.3s ease;
-        }
-        .accar-lit-card:hover .accar-lectura-item {
-          background: rgba(0,0,0,0.7);
-          border-color: rgba(212,175,55,0.5);
-        }
-        .accar-lectura-item strong {
-          color: #d9bb6a;
-          font-weight: 800;
-          font-size: 11px;
-          text-transform: uppercase;
-          letter-spacing: 1px;
-        }
-        .accar-lectura-item span {
-          font-weight: 600;
-          letter-spacing: 0.5px;
-        }
-      </style>
-
-      <script>
-        setTimeout(async () => {
-          try {
-            const today = new Date();
-            const year = today.getFullYear();
-            const month = String(today.getMonth() + 1).padStart(2, '0');
-            const day = String(today.getDate()).padStart(2, '0');
-            const formattedDate = `${year}-${month}-${day}`;
-
-            const response = await fetch(`/api/evangelizo?date=${formattedDate}`);
-            if (!response.ok) throw new Error("Error en la conexión con la API");
-            
-            const data = await response.json();
-
-            if (data.fiestas && data.fiestas.length > 0) {
-              const fiesta = data.fiestas[0];
-              
-              document.getElementById('lit-ciclo').textContent = fiesta.ciclo;
-              document.getElementById('lit-anio').textContent = fiesta.anio;
-              document.getElementById('lit-color').textContent = fiesta.color.toUpperCase();
-              
-              const colorElement = document.getElementById('lit-color');
-              colorElement.className = 'dot-color';
-              colorElement.classList.add(`dot-${fiesta.color.toLowerCase()}`);
-
-              const cardElement = document.getElementById('tarjeta-evangelio');
-              cardElement.className = 'accar-lit-card';
-              cardElement.classList.add(`accar-lit-card--${fiesta.color.toLowerCase()}`);
-              
-              // 1. Formatear Semana a minúsculas
-              const textoSemanaObj = fiesta.semana || '';
-              const partes = textoSemanaObj.split(' ');
-              const numRomano = partes.shift() || ''; 
-              const resto = partes.join(' ').toLowerCase(); 
-              const restoCapitalizado = resto.charAt(0).toUpperCase() + resto.slice(1);
-              const semanaFormateada = `${numRomano} ${restoCapitalizado}`.trim();
-              
-              // 2. Santo del Día
-              const textoSanto = fiesta.santo ? fiesta.santo.toUpperCase() : "FERIA";
-              
-              // 3. Inyectar SOLO la Semana bajo la fecha principal
-              const fechaPrincipal = document.getElementById('fecha-liturgia');
-              if (fechaPrincipal && textoSemanaObj) {
-                  if (!document.getElementById('semana-liturgia')) {
-                      const semanaEl = document.createElement('h4');
-                      semanaEl.id = 'semana-liturgia';
-                      semanaEl.style = 'color: #a4a7ab; font-size: 13px; margin: -35px 0 45px 0; font-weight: 700; letter-spacing: 1px;';
-                      fechaPrincipal.after(semanaEl);
-                  }
-                  document.getElementById('semana-liturgia').innerHTML = semanaFormateada;
-              }
-              
-              // 4. Solo Santo en las tarjetas
-              document.getElementById('lit-semana').textContent = textoSanto;
-              
-              const brevSemanaEl = document.getElementById('brev-semana');
-              if(brevSemanaEl) brevSemanaEl.textContent = textoSanto;
-              
-              const brevSalterioEl = document.getElementById('brev-salterio');
-              const brevTomoEl = document.getElementById('brev-tomo');
-              if(brevSalterioEl) brevSalterioEl.textContent = fiesta.salterio;
-              if(brevTomoEl) brevTomoEl.textContent = fiesta.tomo;
-            }
-
-            document.getElementById('lit-mensaje-fallback').style.display = 'none';
-
-            // 5. Inyectar Referencias Bíblicas en las filas
-            if (data.readings && data.readings.length > 0) {
-              data.readings.forEach(reading => {
-                  let refLimpia = reading.referencia || reading.title || "";
-                  if (refLimpia.endsWith(':')) refLimpia = refLimpia.slice(0, -1).trim();
-
-                  if (reading.type === 'GSP') {
-                    document.getElementById('lit-evangelio').textContent = refLimpia;
-                    document.getElementById('item-evangelio').style.display = 'flex';
-                  } else if (reading.type === 'FR') {
-                    document.getElementById('lit-primera').textContent = refLimpia;
-                    document.getElementById('item-primera').style.display = 'flex';
-                  } else if (reading.type === 'PS') {
-                    let refSalmo = refLimpia.replace(/Salmo\s*/i, '').trim();
-                    document.getElementById('lit-salmo').textContent = `Responsorial ${refSalmo}`;
-                    document.getElementById('item-salmo').style.display = 'flex';
-                  } else if (reading.type === 'SR') {
-                    document.getElementById('lit-segunda').textContent = refLimpia;
-                    document.getElementById('item-segunda').style.display = 'flex';
-                  }
-              });
-            }
-          } catch (error) {
-            console.error("Error al cargar la liturgia:", error);
-            document.getElementById('lit-semana').textContent = 'Lectura del día';
-            const fallbackMsg = document.getElementById('lit-mensaje-fallback');
-            fallbackMsg.textContent = 'Lectura no encontrada para hoy.';
-            fallbackMsg.style.display = 'block';
-          }
-        }, 500);
-      </script>
-
-      <!-- TARJETA 2: LITURGIA DE LAS HORAS (Rojo Carmesí) -->
+      <!-- TARJETA 2: LITURGIA DE LAS HORAS -->
       <a href="#" onclick="event.preventDefault(); loadView('views/inicio-breviario.html');" class="accar-lit-card accar-lit-card--rojo" id="tarjeta-breviario">
-        <img src="../assets/img/icono_liturgia_oro.png" class="accar-lit-icon" alt="Liturgia de las Horas">
-        
+        <img src="/assets/img/icono_liturgia_oro.png" class="accar-lit-icon" alt="Liturgia de las Horas">
+
         <div class="accar-lit-meta">
           <span id="brev-tomo">Tomo IV</span>
           <span id="brev-salterio">Salterio</span>
         </div>
-        <span class="accar-lit-subtitle" id="brev-semana">Cargando semana...</span>
-        
-        <h3 style="margin-bottom: 20px;">Liturgia de las Horas</h3>
-        
-        <div class="accar-lecturas-lista" style="padding: 0;">
-          <p style="color: rgba(255,255,255,0.75); font-size: 15px; line-height: 1.6; margin: 0 0 15px 0;">Únete al rezo oficial de la Iglesia: Oficio de Lectura, Laudes, Vísperas y Completas.</p>
-          <p style="color: rgba(255,255,255,0.5); font-size: 13px; font-style: italic; line-height: 1.5; margin: 0; padding-top: 15px; border-top: 1px solid rgba(212,175,55,0.2);">
-            "La Liturgia de las Horas es verdaderamente la voz de la Esposa misma que habla al Esposo... es la oración de Cristo, con su Cuerpo, al Padre." (SC 84)
+
+        <span class="accar-lit-subtitle" id="brev-semana">Oficio Divino</span>
+        <h3>Liturgia de las Horas</h3>
+        <div class="accar-lit-rule" aria-hidden="true"></div>
+
+        <div class="accar-brev-body">
+          <p class="accar-brev-desc">
+            Únete al rezo oficial de la Iglesia: Oficio de Lectura, Laudes, Vísperas y Completas.
           </p>
+          <blockquote class="accar-brev-quote">
+            «La Liturgia de las Horas es verdaderamente la voz de la Esposa misma que habla al Esposo... es la oración de Cristo, con su Cuerpo, al Padre.» <span>(SC 84)</span>
+          </blockquote>
         </div>
       </a>
 
-      <!-- TARJETA 3: SANTO DEL DÍA (Conectada a santoral-index.json y Firebase con colores dinámicos) -->
-      <a href="#" onclick="event.preventDefault(); if(window.santoDelDiaID) { window.santoID = window.santoDelDiaID; loadView('views/santos/santo.html'); } else { alert('Buscando información del santo...'); }" class="accar-lit-card accar-lit-card--santo" id="tarjeta-santo-dia">
+      <!-- TARJETA 3: SANTO DEL DÍA -->
+      <a href="#" onclick="event.preventDefault(); if(window.santoDelDiaID) { window.santoID = window.santoDelDiaID; loadView('views/santos/santo.html'); } else { alert('Buscando información del santo...'); }" class="accar-lit-card accar-lit-card--santo accar-lit-card--blanco" id="tarjeta-santo-dia">
         <div class="accar-santo-img-wrap">
-          <div class="accar-santo-glow"></div>
-          <img id="tarjeta-santo-img" src="../assets/img/santo_dia_placeholder.png" alt="Cargando...">
+          <div class="accar-santo-glow" aria-hidden="true"></div>
+          <img id="tarjeta-santo-img" src="/assets/img/santo_dia_placeholder.png" alt="Santo del Día">
         </div>
+
         <div class="accar-santo-data">
-          <!-- Insignia principal centrada -->
-          <span class="accar-badge-santo" style="background: #8b0000; border-color: #d4af37;">Santo del Día</span>
-          
-          <h3 id="tarjeta-santo-nombre" style="text-align: left; width: 100%;">Buscando Santo...</h3>
-          
-          <!-- Rango litúrgico elegantemente alineado debajo del nombre -->
-          <div style="width:100%; border-bottom: 1px solid rgba(212,175,55,0.3); margin-bottom: 12px; padding-bottom: 8px; text-align: left;">
-            <span id="tarjeta-santo-rango" style="color: #a4a7ab; font-size: 11px; text-transform: uppercase; font-weight: 800; letter-spacing: 1.5px;">Cargando rango...</span>
+          <span class="accar-badge-santo">✠ Santo del Día ✠</span>
+          <h3 id="tarjeta-santo-nombre">Buscando Santo...</h3>
+
+          <div class="accar-santo-rango-wrap">
+            <span id="tarjeta-santo-rango">Cargando rango...</span>
           </div>
-          
-          <p id="tarjeta-santo-texto" style="text-align: left; width: 100%;">Cargando martirologio...</p>
+
+          <p id="tarjeta-santo-texto">Cargando martirologio...</p>
+
+          <span class="accar-santo-cta">
+            <span>Leer biografía</span>
+            <span class="accar-cta-arrow" aria-hidden="true">→</span>
+          </span>
         </div>
       </a>
 
-      <script type="module">
-        import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-        
-        const firebaseConfig = {
-            apiKey: "AIzaSyDSCSWYM5dgkIfVK-uBe1oWkeU7se4fvFg",
-            authDomain: "accar-web.firebaseapp.com",
-            projectId: "accar-web",
-            storageBucket: "accar-web.firebasestorage.app",
-            messagingSenderId: "249370548582",
-            appId: "1:249370548582:web:6b35298df41771113910a7"
-        };
-        const tempApp = initializeApp(firebaseConfig, "santoTarjetaInicio");
-        const tempDb = getFirestore(tempApp);
+      <!-- TARJETA 4: CALENDARIO LITÚRGICO -->
+      <a href="/assets/docs/calendario_liturgico_2026.pdf" target="_blank" rel="noopener noreferrer" class="accar-lit-card accar-lit-card--vitral">
+        <img src="/assets/img/icono_calendario_oro.png" class="accar-lit-icon" alt="Calendario Litúrgico">
 
-        // --- INICIO CÁLCULOS FIESTAS MÓVILES PARA LA TARJETA ---
-        function normalizeDateStr(date){
-            return new Date(date.getFullYear(), date.getMonth(), date.getDate());
-        }
-        function addDaysStr(date, days){
-            const d = new Date(date);
-            d.setDate(d.getDate() + days);
-            return d;
-        }
-        function getFirstSundayOfAdventStr(year){
-            const christmas = new Date(year, 11, 25);
-            const day = christmas.getDay();
-            const fourthSunday = new Date(christmas);
-            fourthSunday.setDate(christmas.getDate() - day);
-            const firstSunday = new Date(fourthSunday);
-            firstSunday.setDate(fourthSunday.getDate() - 21);
-            return normalizeDateStr(firstSunday);
-        }
-        function verificarFiestaMovilHoy() {
-            const today = new Date();
-            const currentYear = today.getFullYear();
-            const cristoRey = addDaysStr(getFirstSundayOfAdventStr(currentYear), -7);
-            
-            if (today.getMonth() === cristoRey.getMonth() && today.getDate() === cristoRey.getDate()) {
-                return "cristo-rey"; 
-            }
-            return null;
-        }
-        // --- FIN CÁLCULOS FIESTAS MÓVILES ---
-
-        setTimeout(async () => {
-            try {
-                // 1. Interceptar si HOY es una fiesta móvil
-                let idDelDia = verificarFiestaMovilHoy();
-                let rangoDelDia = "Solemnidad"; 
-
-                // 2. Si no es fiesta móvil, buscar en el índice fijo
-                if (!idDelDia) {
-                    const today = new Date();
-                    const mm = String(today.getMonth() + 1).padStart(2, '0');
-                    const dd = String(today.getDate()).padStart(2, '0');
-                    const fechaHoy = `${mm}-${dd}`;
-
-                    const indexResponse = await fetch('assets/data/santoral-index.json');
-                    if (!indexResponse.ok) throw new Error("No se pudo cargar el índice del santoral");
-                    const santoralIndex = await indexResponse.json();
-
-                    const santoData = santoralIndex[fechaHoy];
-                    if (!santoData) throw new Error("No hay santo definido para hoy en el índice");
-                    
-                    idDelDia = santoData.id;
-                    rangoDelDia = santoData.rango;
-                }
-
-                window.santoDelDiaID = idDelDia; 
-                document.getElementById('tarjeta-santo-rango').textContent = rangoDelDia;
-
-                // 3. Buscar los detalles en Firebase
-                const docRef = doc(tempDb, "santos", idDelDia);
-                const docSnap = await getDoc(docRef);
-
-                if (docSnap.exists()) {
-                    const data = docSnap.data();
-                    let imgPath = data.imagen || '';
-                    if(imgPath.startsWith('../../')) imgPath = imgPath.replace('../../', ''); 
-                    
-                    document.getElementById('tarjeta-santo-img').src = imgPath;
-                    
-                    // Nombre limpio sin coma (Ej: "San Óscar Romero" en lugar de "San Óscar Romero, Obispo y Mártir")
-                    const nombreCompleto = data.nombre_completo || "Santo del Día";
-                    const nombreCorto = nombreCompleto.split(',')[0]; 
-                    
-                    document.getElementById('tarjeta-santo-nombre').textContent = nombreCompleto;
-                    
-                    // Inyectar el nombre del santo en la tarjeta de Evangelio y en la de Breviario
-                    const litSemanaEl = document.getElementById('lit-semana');
-                    const brevSemanaEl = document.getElementById('brev-semana');
-                    if(litSemanaEl) litSemanaEl.textContent = nombreCorto.toUpperCase();
-                    if(brevSemanaEl) brevSemanaEl.textContent = nombreCorto.toUpperCase();
-                    
-                    // Aplicar el color litúrgico como clase dinámica a la tarjeta del santo
-                    const colorLiturgico = data.color ? data.color.toLowerCase() : 'blanco';
-                    const tarjeta = document.getElementById('tarjeta-santo-dia');
-                    // Limpiar clases previas por seguridad
-                    tarjeta.classList.remove('accar-lit-card--rojo', 'accar-lit-card--blanco', 'accar-lit-card--verde', 'accar-lit-card--morado', 'accar-lit-card--celeste', 'accar-lit-card--negro', 'accar-lit-card--realeza', 'accar-lit-card--gloria');
-                    tarjeta.classList.add(`accar-lit-card--${colorLiturgico}`);
-                    
-                    if (data.biografia) {
-                        const primeraOracion = data.biografia.split('.')[0] + '.';
-                        document.getElementById('tarjeta-santo-texto').innerHTML = primeraOracion;
-                    } else {
-                        document.getElementById('tarjeta-santo-texto').innerHTML = data.patronazgo || "Conoce la vida de este santo.";
-                    }
-                }
-            } catch (e) {
-                console.error("Error cargando santo para la tarjeta de inicio", e);
-                document.getElementById('tarjeta-santo-nombre').textContent = "Santo del Día";
-                document.getElementById('tarjeta-santo-texto').textContent = "Ficha en preparación.";
-            }
-        }, 800);
-      </script>
-
-      <!-- TARJETA 4: CALENDARIO LITÚRGICO (Efecto Vitral con Colores Litúrgicos) -->
-      <a href="../assets/docs/calendario_liturgico_2026.pdf" target="_blank" class="accar-lit-card accar-lit-card--vitral">
-        <img src="../assets/img/icono_calendario_oro.png" class="accar-lit-icon" alt="Calendario Litúrgico">
-        
         <div class="accar-lit-meta">
           <span>Ciclo Litúrgico</span>
         </div>
+
         <span class="accar-lit-subtitle">Año Eclesial</span>
-        
         <h3>Calendario Litúrgico</h3>
-        <p>Consulta los tiempos, colores, santos y fiestas de precepto de la Santa Madre Iglesia.</p>
+        <div class="accar-lit-rule" aria-hidden="true"></div>
+
+        <p class="accar-cal-desc">
+          Consulta los tiempos, colores, santos y fiestas de precepto de la Santa Madre Iglesia.
+        </p>
+
+        <span class="accar-card-pill-cta">
+          <span>Abrir Calendario PDF</span>
+          <span class="accar-cta-arrow" aria-hidden="true">↗</span>
+        </span>
       </a>
 
     </div>
@@ -691,161 +452,453 @@ body {
   </div>
 
 </section>
+<!-- ===== FIN BLOQUE: ESPIRITUALIDAD DIARIA ===== -->
 
+
+<!-- ===== INICIO BLOQUE: NOTICIAS ===== -->
+<section class="accar-noticias">
+
+  <div class="accar-noticias-inner">
+
+    <!-- CABECERA MAESTRA: ACTUALIDAD DE LA IGLESIA -->
+    <header class="accar-home-sec-header">
+      <div class="accar-home-kicker">
+        <span aria-hidden="true">✠</span>
+        <span>Sentire cum Ecclesia</span>
+        <span aria-hidden="true">✠</span>
+      </div>
+
+      <div class="accar-home-title-wrap">
+        <h2 class="accar-home-title">Actualidad de la Iglesia</h2>
+      </div>
+
+      <p class="accar-home-desc">
+        Sigue la actualidad eclesial desde fuentes oficiales y confiables, con acceso directo a Vatican News,<br class="accar-salto-editorial">
+        la actividad del Santo Padre y la programación informativa del Vaticano.
+      </p>
+    </header>
+
+    <div class="accar-noticias-top">
+
+      <!-- COLUMNA IZQUIERDA: SEÑAL EN VIVO -->
+      <div class="accar-noticias-live">
+        <div class="accar-noticias-live-head">
+          <span class="accar-home-live-badge">
+            <span class="accar-home-live-dot" aria-hidden="true"></span>
+            <span>En vivo</span>
+          </span>
+
+          <div class="accar-home-live-clock" aria-label="Hora oficial en Roma">
+            <span class="accar-home-clock-label">Roma</span>
+            <span id="vatican-time" class="accar-home-clock-time">--:--:--</span>
+          </div>
+        </div>
+
+        <div class="accar-live-frame">
+          <iframe
+            src="https://www.youtube.com/embed/5lfWxoaPGRg?rel=0"
+            title="Vatican Media Live"
+            loading="lazy"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen>
+          </iframe>
+        </div>
+
+        <p class="accar-live-texto">
+          Señal oficial de la Santa Sede para seguir transmisiones litúrgicas, audiencias y coberturas del Vaticano.
+        </p>
+      </div>
+
+      <!-- COLUMNA DERECHA: DIRECTORIO Y CALENDARIO PONTIFICIO -->
+      <div class="accar-noticias-feed">
+        <div class="accar-feed-tabs" role="tablist" aria-label="Secciones de Actualidad Vaticana">
+          <button type="button" id="tab-home-actualidad" class="accar-feed-tab active" role="tab" aria-selected="true" onclick="window.cambiarTabInicioNoticias('actualidad')">
+            ✠ Actualidad
+          </button>
+          <button type="button" id="tab-home-calendario" class="accar-feed-tab" role="tab" aria-selected="false" onclick="window.cambiarTabInicioNoticias('calendario')">
+            ✠ Calendario
+          </button>
+        </div>
+
+        <!-- LISTA 1: ACTUALIDAD DEL SANTO PADRE Y SANTA SEDE -->
+        <div id="home-feed-actualidad" class="accar-feed-scroll">
+          <a href="https://www.vatican.va/content/leo-xiv/es.html" target="_blank" rel="noopener noreferrer" class="accar-feed-item">
+            <span class="accar-feed-date">Papa León XIV</span>
+            <span class="accar-feed-title">Acceso al portal oficial del Santo Padre en vatican.va</span>
+          </a>
+
+          <a href="https://www.vatican.va/content/leo-xiv/es/homilies.html" target="_blank" rel="noopener noreferrer" class="accar-feed-item">
+            <span class="accar-feed-date">Homilías</span>
+            <span class="accar-feed-title">Predicaciones y celebraciones litúrgicas del Papa</span>
+          </a>
+
+          <a href="https://www.vatican.va/content/leo-xiv/es/angelus.html" target="_blank" rel="noopener noreferrer" class="accar-feed-item">
+            <span class="accar-feed-date">Ángelus</span>
+            <span class="accar-feed-title">Reflexiones dominicales y mensajes recientes</span>
+          </a>
+
+          <a href="https://www.vatican.va/content/leo-xiv/es/messages.html" target="_blank" rel="noopener noreferrer" class="accar-feed-item">
+            <span class="accar-feed-date">Mensajes</span>
+            <span class="accar-feed-title">Textos y mensajes oficiales del Santo Padre</span>
+          </a>
+
+          <a href="https://www.vatican.va/content/leo-xiv/es/speeches.html" target="_blank" rel="noopener noreferrer" class="accar-feed-item">
+            <span class="accar-feed-date">Discursos</span>
+            <span class="accar-feed-title">Intervenciones y alocuciones del Papa León XIV</span>
+          </a>
+
+          <a href="https://www.vatican.va/content/vatican/es.html" target="_blank" rel="noopener noreferrer" class="accar-feed-item">
+            <span class="accar-feed-date">Santa Sede</span>
+            <span class="accar-feed-title">Información institucional y acceso al sitio oficial del Vaticano</span>
+          </a>
+
+          <a href="https://www.vaticannews.va/es.html" target="_blank" rel="noopener noreferrer" class="accar-feed-item">
+            <span class="accar-feed-date">Vatican News</span>
+            <span class="accar-feed-title">Cobertura informativa diaria de la Iglesia y del Vaticano</span>
+          </a>
+        </div>
+
+        <!-- LISTA 2: CALENDARIO Y AGENDA PONTIFICIA -->
+        <div id="home-feed-calendario" class="accar-feed-scroll" style="display: none;">
+          <a id="home-link-agenda-papa" href="https://www.vatican.va/content/leo-xiv/es/events/month.dir.html/2026/11.html" target="_blank" rel="noopener noreferrer" class="accar-feed-item">
+            <span class="accar-feed-date">Agenda del Mes</span>
+            <span class="accar-feed-title">Actividades, audiencias y programación mensual del Papa León XIV</span>
+          </a>
+
+          <a href="https://www.vatican.va/news_services/liturgy/index_sp.htm" target="_blank" rel="noopener noreferrer" class="accar-feed-item">
+            <span class="accar-feed-date">Celebraciones Pontificias</span>
+            <span class="accar-feed-title">Oficina de las Celebraciones Litúrgicas del Sumo Pontífice</span>
+          </a>
+
+          <a href="https://www.vatican.va/content/leo-xiv/es/audiences.html" target="_blank" rel="noopener noreferrer" class="accar-feed-item">
+            <span class="accar-feed-date">Audiencias Generales</span>
+            <span class="accar-feed-title">Catequesis semanales de los miércoles en el Vaticano</span>
+          </a>
+
+          <a href="https://www.vatican.va/various/prefettura/index_sp.html" target="_blank" rel="noopener noreferrer" class="accar-feed-item">
+            <span class="accar-feed-date">Casa Pontificia</span>
+            <span class="accar-feed-title">Calendario oficial de encuentros y solicitud de audiencias</span>
+          </a>
+
+          <a href="https://www.vaticannews.va/es/epg.html" target="_blank" rel="noopener noreferrer" class="accar-feed-item">
+            <span class="accar-feed-date">Horarios Radio Vaticana</span>
+            <span class="accar-feed-title">Programación diaria de la Santa Misa en latín, Ángelus y Rosario</span>
+          </a>
+        </div>
+      </div>
+
+    </div>
+
+    <a href="#" onclick="event.preventDefault(); loadView('views/actualidad.html');" class="accar-btn-home-gold">
+      <span>Ver más noticias</span>
+      <span class="accar-cta-arrow" aria-hidden="true">→</span>
+    </a>
+
+  </div>
+
+</section>
+<!-- ===== FIN BLOQUE: NOTICIAS ===== -->
+
+
+<!-- ===== INICIO BLOQUE: REFLEXIÓN ===== -->
+<section class="accar-reflexion">
+
+  <div class="accar-reflexion-inner">
+
+    <div class="accar-home-kicker accar-reflexion-kicker">
+      <span aria-hidden="true">✠</span>
+      <span>Depositum Fidei</span>
+      <span aria-hidden="true">✠</span>
+    </div>
+
+    <div class="accar-home-title-wrap accar-reflexion-title-wrap">
+      <h2 class="accar-reflexion-title">Permanece en la verdad</h2>
+    </div>
+
+    <p class="accar-reflexion-texto">
+      La fe católica no es una opinión entre muchas, sino el depósito sagrado de la verdad revelada
+      por Nuestro Señor Jesucristo y custodiada por su Iglesia. Persevera en la doctrina, en la oración
+      y en la comunión con la Iglesia fundada sobre Pedro.
+    </p>
+
+    <div class="accar-reflexion-cita-box">
+      <div class="accar-reflexion-ornamento" aria-hidden="true"><span>✠</span></div>
+      <p class="accar-reflexion-cita">
+        «Señor, ¿a quién iremos? Tú tienes palabras de vida eterna.»
+      </p>
+      <span class="accar-reflexion-ref">San Juan 6, 68</span>
+    </div>
+
+  </div>
+
+</section>
+<!-- ===== FIN BLOQUE: REFLEXIÓN ===== -->
+
+
+<!-- ===== ESTILOS DE ORFEBRERÍA PARA PORTADA (LITURGIA, NOTICIAS Y REFLEXIÓN) ===== -->
 <style>
-/* Título de la sección */
-.accar-heading-card {
-  display: inline-block;
-  background: transparent;
-  border: none;
-  border-bottom: 2px solid rgba(212,175,55,0.6);
-  border-radius: 0;
-  padding: 0 0 12px 0;
-  margin-bottom: 45px;
-  box-shadow: none;
+.accar-espiritualidad,
+.accar-espiritualidad *,
+.accar-noticias,
+.accar-noticias *,
+.accar-reflexion,
+.accar-reflexion * {
+  box-sizing: border-box;
+}
+
+.accar-espiritualidad,
+.accar-noticias,
+.accar-reflexion {
+  font-family: Georgia, "Times New Roman", serif;
+  color: #f8efd3;
+}
+
+/* ===== CABECERAS MAESTRAS COMPARTIDAS EN PORTADA ===== */
+.accar-home-sec-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  max-width: 820px;
+  margin: 0 auto 52px;
+}
+
+.accar-home-kicker {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 6px 18px;
+  margin-bottom: 18px;
+  border-radius: 999px;
+  border: 1px solid rgba(212, 175, 55, 0.65);
+  background: rgba(3, 7, 54, 0.84);
+  color: #e8cb72;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.44);
+}
+
+.accar-home-title-wrap {
+  display: block;
+  width: fit-content;
   position: relative;
-  transition: border-color 0.3s ease;
+  padding-bottom: 14px;
+  margin: 0 auto 18px;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.45);
 }
 
-.accar-heading-card::after {
-  content: '';
+.accar-home-title-wrap::after {
+  content: "";
   position: absolute;
-  bottom: -2px; left: 25%; right: 25%;
-  height: 2px;
-  background: #D4AF37;
-  box-shadow: 0 0 12px 2px #D4AF37;
+  bottom: -1.5px;
+  left: 24%;
+  right: 24%;
+  height: 2.5px;
+  border-radius: 2px;
+  background: #d4af37;
+  box-shadow: 0 0 12px rgba(212, 175, 55, 0.85);
 }
 
-.accar-heading-card h2 {
+.accar-home-title {
   margin: 0;
-  font-size: 38px;
-  color: #D4AF37 !important;
-  text-shadow: 0 0 15px rgba(212,175,55,0.4), 0 2px 4px rgba(0,0,0,0.8) !important;
+  font-size: 2.55rem;
+  font-weight: 700;
+  line-height: 1.16;
+  color: #fff9ec;
+  letter-spacing: 0.02em;
+  text-shadow: 0 4px 18px rgba(0, 0, 0, 0.84), 0 0 16px rgba(212, 175, 55, 0.18);
 }
 
-/* Contenedor principal */
+.accar-home-desc {
+  margin: 0 auto;
+  max-width: 740px;
+  font-size: 1.05rem;
+  line-height: 1.74;
+  color: #eae0c8;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.65);
+  text-wrap: balance;
+}
+
+.accar-lit-fecha-hoy {
+  margin: 2px 0 0;
+  color: #eed076;
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.75);
+}
+
+.accar-lit-semana-hoy {
+  margin: 8px 0 0;
+  color: rgba(234, 224, 200, 0.78);
+  font-size: 0.96rem;
+  font-style: italic;
+  letter-spacing: 0.03em;
+}
+
+/* =====================================================
+   SECCIÓN 1: VIVIR LA LITURGIA
+===================================================== */
 .accar-espiritualidad {
   position: relative;
-  z-index: 8; 
-  padding: 130px 20px; 
-  background: linear-gradient(180deg, rgba(3,7,18,0.85) 0%, rgba(6,14,32,0.92) 100%);
+  z-index: 8;
+  padding: 112px 20px 118px;
+  background: linear-gradient(180deg, rgba(3, 8, 20, 0.88) 0%, rgba(6, 15, 34, 0.94) 100%);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   text-align: center;
-  border-top: 1px solid rgba(212,175,55,0.15);
-  box-shadow: inset 0 20px 50px rgba(0,0,0,0.5);
+  border-top: 1px solid rgba(212, 175, 55, 0.22);
+  box-shadow: inset 0 24px 52px rgba(0, 0, 0, 0.55);
 }
 
 .accar-espiritualidad-inner {
-  max-width: 1080px; 
+  max-width: 1080px;
   margin: 0 auto;
 }
 
-/* Cuadrícula 2x2 */
 .accar-espiritualidad-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 30px;
-  margin-top: 10px;
+  gap: 28px;
+  align-items: stretch;
 }
 
-/* Base de las Tarjetas Litúrgicas */
 .accar-lit-card {
   position: relative;
   overflow: hidden;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   text-align: center;
-  padding: 46px 30px;
+  padding: 40px 32px 36px;
   border-radius: 24px;
-  background: #060e20; /* Fondo base muy oscuro */
-  border: 1px solid rgba(212,175,55,0.4); /* Borde dorado premium */
+  background: linear-gradient(180deg, rgba(7, 17, 38, 0.92) 0%, rgba(3, 8, 20, 0.98) 100%);
+  border: 1px solid rgba(212, 175, 55, 0.46);
   text-decoration: none;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.6), inset 0 0 20px rgba(0,0,0,0.8);
-  transition: transform .35s ease, box-shadow .35s ease, border-color .35s ease;
-  min-height: 320px;
+  color: inherit;
+  box-shadow:
+    0 22px 46px rgba(0, 0, 0, 0.68),
+    inset 0 1px 0 rgba(255, 238, 186, 0.14),
+    inset 0 0 28px rgba(0, 0, 0, 0.55);
+  transition: transform 0.34s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.34s ease, border-color 0.34s ease;
+  min-height: 360px;
 }
 
-/* El doble marco arquitectónico (interior) */
+/* Doble filete interior en oro papal */
 .accar-lit-card::after {
-  content: '';
+  content: "";
   position: absolute;
-  top: 12px; left: 12px; right: 12px; bottom: 12px;
-  border: 1px solid rgba(212,175,55,0.15);
-  border-radius: 14px;
+  inset: 9px;
+  border: 1px solid rgba(212, 175, 55, 0.17);
+  border-radius: 16px;
   pointer-events: none;
-  transition: border-color 0.3s ease;
+  transition: border-color 0.34s ease;
   z-index: 5;
 }
 
-/* Halos de luz (colores litúrgicos como esmaltes) */
+/* Halos de esmalte litúrgico */
 .accar-lit-card::before {
-  content: '';
+  content: "";
   position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
+  inset: 0;
   z-index: 1;
-  transition: opacity 0.4s ease;
-  opacity: 0.8;
+  transition: opacity 0.38s ease;
+  opacity: 0.86;
+  pointer-events: none;
 }
 
-/* Verde Ordinario */
 .accar-lit-card--verde::before {
-  background: radial-gradient(circle at top center, rgba(15, 54, 33, 0.8) 0%, transparent 65%);
+  background: radial-gradient(circle at 50% 0%, rgba(18, 74, 44, 0.85) 0%, rgba(10, 42, 25, 0.30) 42%, transparent 70%);
 }
 
-/* Rojo Mártires/Espíritu Santo */
 .accar-lit-card--rojo::before {
-  background: radial-gradient(circle at top center, rgba(115, 15, 25, 0.7) 0%, transparent 65%);
+  background: radial-gradient(circle at 50% 0%, rgba(128, 18, 30, 0.80) 0%, rgba(72, 10, 18, 0.28) 42%, transparent 70%);
 }
 
-/* Efecto Vitral Litúrgico (Todos los colores de las casullas) */
+.accar-lit-card--morado::before,
+.accar-lit-card--violeta::before {
+  background: radial-gradient(circle at 50% 0%, rgba(86, 26, 118, 0.84) 0%, rgba(44, 12, 68, 0.30) 42%, transparent 70%);
+}
+
+.accar-lit-card--rosa::before {
+  background: radial-gradient(circle at 50% 0%, rgba(164, 72, 112, 0.78) 0%, rgba(88, 34, 60, 0.26) 42%, transparent 70%);
+}
+
+.accar-lit-card--blanco::before,
+.accar-lit-card--dorado::before,
+.accar-lit-card--blanco-hueso::before,
+.accar-lit-card--crema::before {
+  background: radial-gradient(circle at 50% 0%, rgba(196, 152, 42, 0.56) 0%, rgba(110, 82, 18, 0.20) 42%, transparent 70%);
+}
+
+.accar-lit-card--celeste::before,
+.accar-lit-card--azul::before {
+  background: radial-gradient(circle at 65% 0%, rgba(38, 108, 218, 0.76) 0%, rgba(18, 58, 132, 0.28) 46%, transparent 74%);
+}
+
+.accar-lit-card--negro::before {
+  background: radial-gradient(circle at 50% 0%, rgba(92, 100, 118, 0.45) 0%, transparent 68%);
+}
+
+.accar-lit-card--realeza::before {
+  background: radial-gradient(circle at 50% 0%, rgba(112, 14, 52, 0.85) 0%, transparent 70%);
+}
+
+.accar-lit-card--gloria::before {
+  background: radial-gradient(circle at 50% 0%, rgba(232, 188, 56, 0.65) 0%, transparent 70%);
+}
+
 .accar-lit-card--vitral::before {
-  background: conic-gradient(from 180deg at 50% -10%, 
-              rgba(115,15,25,0.6) 0deg,      /* Rojo - Mártires */
-              rgba(54,23,94,0.6) 72deg,      /* Morado - Penitencia */
-              rgba(212,175,55,0.4) 144deg,   /* Oro/Blanco - Festivo */
-              rgba(15,54,33,0.6) 216deg,     /* Verde - Ordinario */
-              rgba(150,80,110,0.6) 288deg,   /* Rosa - Gaudete/Laetare */
-              rgba(115,15,25,0.6) 360deg);
-  /* Máscara radial para que la luz del vitral se desvanezca en la penumbra */
-  -webkit-mask-image: radial-gradient(circle at top center, black 10%, transparent 80%);
-  mask-image: radial-gradient(circle at top center, black 10%, transparent 80%);
+  background: conic-gradient(
+    from 180deg at 50% -10%,
+    rgba(124, 18, 28, 0.62) 0deg,
+    rgba(68, 26, 112, 0.62) 72deg,
+    rgba(212, 175, 55, 0.45) 144deg,
+    rgba(16, 66, 38, 0.62) 216deg,
+    rgba(154, 76, 110, 0.58) 288deg,
+    rgba(124, 18, 28, 0.62) 360deg
+  );
+  -webkit-mask-image: radial-gradient(circle at top center, black 12%, transparent 78%);
+  mask-image: radial-gradient(circle at top center, black 12%, transparent 78%);
 }
 
-/* Hover Effects Generales */
 .accar-lit-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 30px 60px rgba(0,0,0,0.8), 0 0 20px rgba(212,175,55,0.25);
-  border-color: #D4AF37;
+  transform: translateY(-7px);
+  border-color: #eed076;
+  box-shadow:
+    0 30px 60px rgba(0, 0, 0, 0.84),
+    0 0 22px rgba(212, 175, 55, 0.22);
 }
 
 .accar-lit-card:hover::before {
-  opacity: 1; /* El halo se enciende */
+  opacity: 1;
 }
 
 .accar-lit-card:hover::after {
-  border-color: rgba(212,175,55,0.5); /* El marco interno se enciende */
+  border-color: rgba(212, 175, 55, 0.42);
 }
 
-/* Iconos de Oro Macizo */
 .accar-lit-icon {
-  width: 100px;
-  height: 100px;
+  width: 94px;
+  height: 94px;
   object-fit: contain;
-  margin-bottom: 22px;
+  margin-bottom: 20px;
   position: relative;
   z-index: 2;
-  filter: drop-shadow(0 10px 15px rgba(0,0,0,0.7));
-  transition: transform 0.4s ease;
+  filter: drop-shadow(0 10px 16px rgba(0, 0, 0, 0.72));
+  transition: transform 0.38s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .accar-lit-card:hover .accar-lit-icon {
-  transform: scale(1.06) translateY(-4px);
+  transform: scale(1.06) translateY(-3px);
 }
 
-/* Meta Data Litúrgica (Píldoras doradas) */
 .accar-lit-meta {
   display: flex;
   gap: 8px;
@@ -857,433 +910,399 @@ body {
 }
 
 .accar-lit-meta span {
-  border: 1px solid rgba(212,175,55,0.5);
-  color: #D4AF37;
-  font-size: 11px;
+  border: 1px solid rgba(212, 175, 55, 0.48);
+  color: #e8cb72;
+  font-size: 0.68rem;
   padding: 4px 12px;
-  border-radius: 50px;
+  border-radius: 999px;
   text-transform: uppercase;
-  font-weight: 800;
-  background: rgba(0,0,0,0.5);
-  box-shadow: 0 2px 6px rgba(0,0,0,0.5);
-  display: flex;
+  letter-spacing: 0.12em;
+  font-weight: 700;
+  background: rgba(3, 8, 26, 0.72);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.45);
+  display: inline-flex;
   align-items: center;
 }
 
 .dot-color::before {
-  content: '';
+  content: "";
   display: inline-block;
-  width: 8px;
-  height: 8px;
+  width: 7px;
+  height: 7px;
   border-radius: 50%;
   margin-right: 6px;
-  box-shadow: inset 0 1px 3px rgba(0,0,0,0.5);
 }
 
-.dot-verde::before { background: #28a745; }
-.dot-blanco { color: #ffffff !important; border-color: rgba(255,255,255,0.5) !important; }
-.dot-blanco::before { background: #ffffff !important; box-shadow: inset 0 1px 3px rgba(0,0,0,0.5), 0 0 4px rgba(255,255,255,0.8); }
+.dot-verde::before { background: #34d399; box-shadow: 0 0 6px rgba(52, 211, 153, 0.7); }
+.dot-rojo::before { background: #f87171; box-shadow: 0 0 6px rgba(248, 113, 113, 0.7); }
+.dot-morado::before,
+.dot-violeta::before { background: #c084fc; box-shadow: 0 0 6px rgba(192, 132, 252, 0.7); }
+.dot-rosa::before { background: #f472b6; box-shadow: 0 0 6px rgba(244, 114, 182, 0.7); }
+.dot-blanco::before,
+.dot-dorado::before { background: #fff9ec; box-shadow: 0 0 6px rgba(255, 249, 236, 0.85); }
+.dot-celeste::before,
+.dot-azul::before { background: #60a5fa; box-shadow: 0 0 6px rgba(96, 165, 250, 0.75); }
+.dot-negro::before { background: #9ca3af; }
 
-/* Textos de las tarjetas */
 .accar-lit-subtitle {
-  color: #a4a7ab;
-  font-size: 12px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  margin-bottom: 10px;
   position: relative;
   z-index: 2;
+  margin-bottom: 8px;
+  color: rgba(234, 224, 200, 0.74);
+  font-size: 0.72rem;
   font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.13em;
+  line-height: 1.4;
 }
 
 .accar-lit-card h3 {
-  color: #ffffff;
-  font-size: 20px; /* Tamaño proporcionado para citas bíblicas más largas */
-  line-height: 1.35; /* Interlineado elegante para textos de dos líneas */
-  margin: 0 0 14px;
-  padding: 0 15px; /* Margen interno para que no choque con los bordes */
   position: relative;
   z-index: 2;
-  font-weight: 800;
-  text-shadow: 0 2px 4px rgba(0,0,0,0.8);
-}
-
-.accar-lit-card p {
-  color: rgba(255,255,255,0.75);
-  font-size: 15px;
-  line-height: 1.6;
   margin: 0;
-  position: relative;
-  z-index: 2;
+  color: #fff9ec;
+  font-size: 1.46rem;
+  font-weight: 700;
+  line-height: 1.28;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.82);
+  transition: color 0.25s ease;
 }
 
-/* =========================================================
-TARJETA ESPECIAL: SANTO DEL DÍA (Cuerpo entero a la izq)
-========================================================= */
+.accar-lit-card:hover h3 {
+  color: #eed076;
+}
+
+.accar-lit-rule {
+  position: relative;
+  z-index: 2;
+  width: 48px;
+  height: 2px;
+  margin: 12px auto 18px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, transparent, #d4af37, transparent);
+}
+
+/* Lista de lecturas en Tarjeta 1 */
+.accar-lecturas-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  margin-top: auto;
+}
+
+.accar-lectura-item {
+  font-size: 0.88rem;
+  color: #fff9ec;
+  background: rgba(3, 8, 22, 0.66);
+  padding: 9px 14px;
+  border-radius: 10px;
+  border: 1px solid rgba(212, 175, 55, 0.24);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  transition: background 0.28s ease, border-color 0.28s ease;
+}
+
+.accar-lit-card:hover .accar-lectura-item {
+  background: rgba(5, 13, 34, 0.82);
+  border-color: rgba(212, 175, 55, 0.44);
+}
+
+.accar-lectura-item strong {
+  color: #e8cb72;
+  font-weight: 700;
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  flex-shrink: 0;
+}
+
+.accar-lectura-item span {
+  text-align: right;
+  color: #f4ebd2;
+}
+
+.accar-lit-fallback {
+  margin: 12px 0 0;
+  font-size: 0.94rem;
+  font-style: italic;
+  color: rgba(234, 224, 200, 0.72);
+}
+
+/* Cuerpo de Liturgia de las Horas (Tarjeta 2) */
+.accar-brev-body {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  justify-content: space-between;
+}
+
+.accar-brev-desc,
+.accar-cal-desc {
+  position: relative;
+  z-index: 2;
+  margin: 0 0 18px;
+  color: #eae0c8;
+  font-size: 0.96rem;
+  line-height: 1.68;
+}
+
+.accar-brev-quote {
+  margin: auto 0 0;
+  padding-top: 15px;
+  border-top: 1px solid rgba(212, 175, 55, 0.24);
+  color: rgba(238, 226, 198, 0.76);
+  font-size: 0.86rem;
+  font-style: italic;
+  line-height: 1.58;
+}
+
+.accar-brev-quote span {
+  color: #e8cb72;
+  font-style: normal;
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+
+/* Pastilla inferior en Calendario (Tarjeta 4) */
+.accar-card-pill-cta {
+  position: relative;
+  z-index: 2;
+  margin-top: auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 9px 20px;
+  border-radius: 999px;
+  border: 1px solid rgba(212, 175, 55, 0.48);
+  background: rgba(3, 8, 38, 0.78);
+  color: #e8cb72;
+  font-size: 0.73rem;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  transition: all 0.28s ease;
+}
+
+.accar-lit-card:hover .accar-card-pill-cta {
+  border-color: #eed076;
+  background: rgba(212, 175, 55, 0.20);
+  color: #fff9ec;
+}
+
+/* ===== TARJETA ESPECIAL 3: SANTO DEL DÍA ===== */
 .accar-lit-card--santo {
   flex-direction: row;
   align-items: stretch;
   text-align: left;
-  padding: 0; 
-  background: linear-gradient(135deg, #060e20 0%, #170408 100%); 
+  padding: 0;
+  background: linear-gradient(145deg, #07132a 0%, #030816 100%);
 }
 
-/* Contenedor de la imagen a la izquierda */
 .accar-santo-img-wrap {
-  width: 45%;
+  width: 44%;
   position: relative;
   display: flex;
-  align-items: flex-end; 
+  align-items: stretch;
   justify-content: center;
-  border-right: 1px solid rgba(212,175,55,0.2);
+  border-right: 1px solid rgba(212, 175, 55, 0.28);
   overflow: hidden;
   z-index: 2;
-  background: rgba(255,255,255,0.02);
+  background: #030816;
 }
 
 .accar-santo-glow {
   position: absolute;
-  bottom: 0; left: 0; right: 0; top: 0;
-  background: radial-gradient(circle at bottom center, rgba(212,175,55,0.2) 0%, transparent 70%);
+  inset: 0;
+  background: radial-gradient(circle at bottom center, rgba(212, 175, 55, 0.22) 0%, transparent 70%);
   z-index: 1;
+  pointer-events: none;
 }
 
 .accar-santo-img-wrap img {
-  width: 130%; 
-  height: auto;
-  object-fit: contain;
-  object-position: bottom center;
-  margin-bottom: -15px; 
-  filter: drop-shadow(0 10px 20px rgba(0,0,0,0.8));
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
   position: relative;
   z-index: 2;
-  transition: transform 0.4s ease;
+  transition: transform 0.46s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .accar-lit-card--santo:hover .accar-santo-img-wrap img {
-  transform: scale(1.05) translateY(-5px);
+  transform: scale(1.05);
 }
 
-/* Información a la derecha */
 .accar-santo-data {
-  width: 55%;
-  padding: 40px 30px;
+  width: 56%;
+  padding: 34px 28px 32px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: flex-start; /* Fuerza TODO a la izquierda (nombre, rango, texto) */
-  text-align: left; /* Refuerza la alineación del texto */
+  align-items: flex-start;
+  text-align: left;
+  position: relative;
   z-index: 2;
 }
 
-/* Forzar que SOLO la etiqueta se centre en su bloque superior */
-.accar-santo-data > span.accar-badge-santo {
-  align-self: center; /* Desplaza el botón al centro del contenedor padre */
-  margin-bottom: 18px; 
-}
-
-/* === COLORES DINÁMICOS PARA LA TARJETA DEL SANTO === */
-.accar-lit-card--blanco::before { background: radial-gradient(circle at top center, rgba(184, 134, 11, 0.7) 0%, transparent 65%); }
-.accar-lit-card--morado::before { background: radial-gradient(circle at top center, rgba(58, 11, 46, 0.8) 0%, transparent 65%); }
-.accar-lit-card--celeste::before { background: radial-gradient(circle at top center, rgba(37, 99, 235, 0.7) 0%, transparent 65%); }
-.accar-lit-card--negro::before { background: radial-gradient(circle at top center, rgba(26, 26, 26, 0.9) 0%, transparent 65%); }
-.accar-lit-card--realeza::before { background: radial-gradient(circle at top center, rgba(74, 0, 35, 0.9) 0%, transparent 65%); }
-.accar-lit-card--gloria::before { background: radial-gradient(circle at top center, rgba(255, 215, 0, 0.6) 0%, transparent 65%); }
-
 .accar-badge-santo {
-  background: #cc0000;
-  border: 1px solid #ff4d4d;
-  color: #ffffff;
-  padding: 6px 14px;
-  font-size: 11px;
-  font-weight: 800;
-  border-radius: 50px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px 14px;
+  margin-bottom: 16px;
+  border-radius: 999px;
+  border: 1px solid rgba(212, 175, 55, 0.62);
+  background: rgba(3, 8, 38, 0.84);
+  color: #eed076;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  letter-spacing: 1px;
-  margin-bottom: 14px;
-  box-shadow: 0 4px 10px rgba(204,0,0,0.4);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.45);
 }
 
 .accar-santo-data h3 {
-  color: #D4AF37; 
-  margin: 0 0 6px;
-  font-size: 24px;
-  text-shadow: 0 2px 4px rgba(0,0,0,0.8);
-  text-align: left !important;
+  color: #eed076;
+  margin: 0 0 8px;
+  font-size: 1.48rem;
+  line-height: 1.24;
+  text-align: left;
   width: 100%;
-  padding: 0 !important; /* Anula el espaciado interno que empujaba el texto a la derecha */
+}
+
+.accar-lit-card--santo:hover .accar-santo-data h3 {
+  color: #fff9ec;
+}
+
+.accar-santo-rango-wrap {
+  width: 100%;
+  padding-bottom: 10px;
+  margin-bottom: 14px;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.30);
+}
+
+.accar-santo-rango-wrap span {
+  color: rgba(234, 224, 200, 0.76);
+  font-size: 0.70rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
 }
 
 .accar-santo-data p {
-  color: rgba(255,255,255,0.9);
-  text-shadow: 0 1px 3px rgba(0,0,0,0.8);
-  text-align: left !important;
+  margin: 0 0 20px;
+  color: #efe5cc;
+  font-size: 0.94rem;
+  line-height: 1.66;
+  text-align: left;
   width: 100%;
 }
 
-/* Adaptabilidad móvil */
-@media (max-width: 900px) {
-  .accar-espiritualidad-grid {
-    grid-template-columns: 1fr;
-  }
+.accar-santo-cta {
+  margin-top: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: #e8cb72;
+  font-size: 0.73rem;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  transition: color 0.25s ease;
 }
 
-@media (max-width: 600px) {
-  .accar-espiritualidad {
-    padding: 100px 18px;
-  }
-  .accar-lit-card {
-    padding: 34px 20px;
-    min-height: auto;
-  }
-  
-  /* En móviles, la tarjeta del santo pasa a formato vertical */
-  .accar-lit-card--santo {
-    flex-direction: column;
-  }
-  .accar-santo-img-wrap {
-    width: 100%;
-    height: 340px; /* Más altura para cuerpo entero */
-    border-right: none;
-    border-bottom: 1px solid rgba(212,175,55,0.2);
-  }
-  .accar-santo-img-wrap img {
-    width: auto;
-    max-width: 85%;
-    height: 100%; /* Obliga a la imagen a no rebasar el techo */
-    margin-bottom: 0; /* Quita el margen negativo en móviles */
-  }
-
-  .accar-santo-data {
-    width: 100%;
-    padding: 30px 20px;
-    align-items: center;
-    text-align: center;
-  }
-}
-
-</style>
-<!-- ===== FIN BLOQUE: ESPIRITUALIDAD DIARIA ===== -->
-
-
-<!-- ===== INICIO BLOQUE: NOTICIAS ===== -->
-<section class="accar-noticias">
-
-  <div class="accar-noticias-inner">
-
-    <div class="accar-heading-card">
-      <h2>Actualidad de la Iglesia</h2>
-    </div>
-
-    <p class="accar-noticias-intro">
-      Sigue la actualidad eclesial desde fuentes oficiales y confiables, con acceso directo a Vatican News,
-      la actividad del Santo Padre y la programación informativa del Vaticano.
-    </p>
-
-    <div class="accar-noticias-top">
-
-      <div class="accar-noticias-live">
-        <div class="accar-noticias-live-head">
-          <span class="accar-live-badge">EN VIVO</span>
-          <div class="accar-live-clock">
-            <span class="accar-clock-label">Roma</span>
-            <span id="vatican-time" class="accar-clock-time">--:--:--</span>
-          </div>
-        </div>
-
-        <script>
-          (function(){
-            function updateVaticanTime() {
-              const timeElement = document.getElementById('vatican-time');
-              if (!timeElement) return;
-              const romeTime = new Date().toLocaleTimeString('es-ES', {
-                timeZone: 'Europe/Rome',
-                hour: '2-digit',
-                minute: '2-digit',
-                second: '2-digit'
-              });
-              timeElement.textContent = romeTime;
-            }
-            updateVaticanTime();
-            setInterval(updateVaticanTime, 1000);
-          })();
-        </script>
-
-        <div class="accar-live-frame">
-          <iframe
-            src="https://www.youtube.com/embed/5lfWxoaPGRg?rel=0"
-            title="Vatican Media Live"
-            loading="lazy"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowfullscreen>
-          </iframe>
-        </div>
-
-        <p class="accar-live-texto">
-          Señal oficial para seguir transmisiones, celebraciones y coberturas del Vaticano.
-        </p>
-      </div>
-
-      <div class="accar-noticias-feed">
-        <div class="accar-feed-tabs">
-          <span class="accar-feed-tab active">ACTUALIDAD</span>
-          <span class="accar-feed-tab">CALENDARIO</span>
-        </div>
-
-        <div class="accar-feed-scroll">
-
-          <a href="https://www.vatican.va/content/leo-xiv/es.html" target="_blank" class="accar-feed-item">
-            <span class="accar-feed-date">Papa León XIV</span>
-            <span class="accar-feed-title">Acceso al portal oficial del Santo Padre en vatican.va</span>
-          </a>
-
-          <a href="https://www.vatican.va/content/leo-xiv/es/homilies.html" target="_blank" class="accar-feed-item">
-            <span class="accar-feed-date">Homilías</span>
-            <span class="accar-feed-title">Predicaciones y celebraciones litúrgicas del Papa</span>
-          </a>
-
-          <a href="https://www.vatican.va/content/leo-xiv/es/angelus.html" target="_blank" class="accar-feed-item">
-            <span class="accar-feed-date">Ángelus</span>
-            <span class="accar-feed-title">Reflexiones dominicales y mensajes recientes</span>
-          </a>
-
-          <a href="https://www.vatican.va/content/leo-xiv/es/messages.html" target="_blank" class="accar-feed-item">
-            <span class="accar-feed-date">Mensajes</span>
-            <span class="accar-feed-title">Textos y mensajes oficiales del Santo Padre</span>
-          </a>
-
-          <a href="https://www.vatican.va/content/leo-xiv/es/speeches.html" target="_blank" class="accar-feed-item">
-            <span class="accar-feed-date">Discursos</span>
-            <span class="accar-feed-title">Intervenciones y alocuciones del Papa León XIV</span>
-          </a>
-
-          <a href="https://www.vatican.va/content/vatican/es.html" target="_blank" class="accar-feed-item">
-            <span class="accar-feed-date">Santa Sede</span>
-            <span class="accar-feed-title">Información institucional y acceso al sitio oficial del Vaticano</span>
-          </a>
-
-          <a href="https://www.vaticannews.va/es.html" target="_blank" class="accar-feed-item">
-            <span class="accar-feed-date">Vatican News</span>
-            <span class="accar-feed-title">Cobertura informativa diaria de la Iglesia y del Vaticano</span>
-          </a>
-
-        </div>
-      </div>
-
-    </div>
-
-    <!-- Tarjetas inferiores eliminadas para mayor limpieza visual -->
-
-    <a href="#" onclick="event.preventDefault(); loadView('views/actualidad.html');" class="accar-btn-noticias">
-      Ver más noticias
-    </a>
-
-  </div>
-
-</section>
-
-<style>
-/* Los títulos quedan libres y elegantes, sin encierro, sostenidos por un resplandor dorado */
-.accar-heading-card {
+.accar-cta-arrow {
   display: inline-block;
-  background: transparent;
-  border: none;
-  border-bottom: 2px solid rgba(212,175,55,0.6);
-  border-radius: 0;
-  padding: 0 0 12px 0;
-  margin-bottom: 45px;
-  box-shadow: none;
-  position: relative;
-  transition: border-color 0.3s ease;
+  transition: transform 0.26s ease;
 }
 
-.accar-heading-card::after {
-  content: '';
-  position: absolute;
-  bottom: -2px; left: 25%; right: 25%;
-  height: 2px;
-  background: #D4AF37;
-  box-shadow: 0 0 12px 2px #D4AF37;
+.accar-lit-card:hover .accar-cta-arrow,
+.accar-btn-home-gold:hover .accar-cta-arrow {
+  transform: translateX(4px);
 }
 
-.accar-heading-card h2 {
-  margin: 0;
-  font-size: 38px;
-  color: #D4AF37 !important;
-  text-shadow: 0 0 15px rgba(212,175,55,0.4), 0 2px 4px rgba(0,0,0,0.8) !important;
+.accar-lit-card--santo:hover .accar-santo-cta {
+  color: #fff9ec;
 }
 
-.accar-heading-card:hover {
-  transform: none;
-  box-shadow: none;
-  border-color: rgba(212,175,55,0.9);
-}
-
-/* Fondo radial simulando iluminación desde el centro (luz de velas/santuario) */
-.accar-noticias{
+/* =====================================================
+   SECCIÓN 2: ACTUALIDAD DE LA IGLESIA (PENUMBRA Y ORO)
+===================================================== */
+.accar-noticias {
   position: relative;
   z-index: 10;
-  padding: 130px 20px; 
-  background: radial-gradient(circle at top center, rgba(11,27,61,0.88) 0%, rgba(6,14,32,0.94) 60%, rgba(3,7,18,0.98) 100%);
+  padding: 112px 20px 118px;
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(16, 42, 86, 0.84) 0%, rgba(6, 15, 34, 0.95) 55%, rgba(3, 8, 20, 0.98) 100%);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   text-align: center;
-  border-top: 1px solid rgba(212,175,55,0.2);
-  box-shadow: inset 0 20px 50px rgba(0,0,0,0.5); 
+  border-top: 1px solid rgba(212, 175, 55, 0.24);
+  box-shadow: inset 0 24px 52px rgba(0, 0, 0, 0.55);
 }
 
 .accar-noticias-inner {
-  max-width: 1180px;
+  max-width: 1140px;
   margin: 0 auto;
 }
 
-.accar-noticias-intro{
-  max-width: 860px;
-  margin: 0 auto 40px;
-  font-size: 17px;
-  line-height: 1.8;
-  color: rgba(255,255,255,0.85);
-}
-
-.accar-noticias-top{
+.accar-noticias-top {
   display: grid;
-  grid-template-columns: 1.15fr .95fr;
-  gap: 24px;
+  grid-template-columns: 1.14fr 0.96fr;
+  gap: 26px;
   align-items: stretch;
-  margin-bottom: 40px;
+  margin-bottom: 44px;
 }
 
-/* Tarjetas Live y Feed con Rojo Cardenalicio profundo para destacarlas sobre el azul */
 .accar-noticias-live,
 .accar-noticias-feed {
-  background: linear-gradient(180deg, #3A0B14 0%, #170408 100%); 
-  border: 1px solid rgba(212,175,55,0.5); 
-  border-radius: 24px;
-  padding: 28px;
-  box-shadow: 0 25px 50px rgba(0,0,0,0.7), inset 0 0 40px rgba(0,0,0,0.5);
-  text-align: left;
   position: relative;
-  transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+  padding: 30px;
+  border-radius: 24px;
+  border: 1px solid rgba(212, 175, 55, 0.48);
+  background:
+    radial-gradient(circle at 50% 0%, rgba(212, 175, 55, 0.10) 0%, transparent 56%),
+    linear-gradient(180deg, rgba(7, 19, 42, 0.90) 0%, rgba(3, 8, 22, 0.97) 100%);
+  box-shadow:
+    0 24px 52px rgba(0, 0, 0, 0.68),
+    inset 0 1px 0 rgba(255, 238, 186, 0.15);
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.34s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.34s ease, box-shadow 0.34s ease;
 }
 
 .accar-noticias-live::after,
 .accar-noticias-feed::after {
-  content: '';
+  content: "";
   position: absolute;
-  top: 10px; left: 10px; right: 10px; bottom: 10px;
-  border: 1px solid rgba(212,175,55,0.15);
-  border-radius: 16px;
+  inset: 8px;
+  border: 1px solid rgba(212, 175, 55, 0.17);
+  border-radius: 17px;
   pointer-events: none;
 }
 
 .accar-noticias-live:hover,
 .accar-noticias-feed:hover {
-  transform: translateY(-6px);
-  border-color: #e4c76a;
-  box-shadow: 0 35px 60px rgba(0,0,0,0.9), 0 0 20px rgba(212,175,55,0.25);
+  transform: translateY(-5px);
+  border-color: #eed076;
+  box-shadow:
+    0 30px 60px rgba(0, 0, 0, 0.82),
+    0 0 22px rgba(212, 175, 55, 0.20);
 }
 
 .accar-noticias-live-head {
+  position: relative;
+  z-index: 2;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -1292,415 +1311,758 @@ TARJETA ESPECIAL: SANTO DEL DÍA (Cuerpo entero a la izq)
   flex-wrap: wrap;
 }
 
-/* El botón En Vivo pulsa de forma inmersiva y dorada/roja */
-.accar-live-badge {
-  display: inline-block;
+.accar-home-live-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   padding: 6px 14px;
   border-radius: 999px;
-  background: #cc0000; 
-  border: 1px solid #ff4d4d;
+  background: linear-gradient(180deg, #9f1222 0%, #6e0b17 100%);
+  border: 1px solid rgba(252, 165, 165, 0.52);
   color: #ffffff;
-  font-size: 12px;
+  font-family: sans-serif;
+  font-size: 0.70rem;
   font-weight: 800;
-  letter-spacing: 1px;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  animation: pulseLive 1.5s infinite; 
+  box-shadow: 0 0 16px rgba(190, 24, 42, 0.42);
 }
 
-@keyframes pulseLive {
-  0% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.8), 0 0 10px rgba(212,175,55,0.4); }
-  50% { box-shadow: 0 0 0 8px rgba(255, 0, 0, 0), 0 0 20px rgba(212,175,55,0.8); background: #ff1a1a; }
-  100% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0), 0 0 10px rgba(212,175,55,0.4); }
+.accar-home-live-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #ffffff;
+  animation: accarHomeLivePulse 1.4s ease-in-out infinite;
 }
 
-.accar-live-clock {
-  display: flex;
+@keyframes accarHomeLivePulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.35; transform: scale(0.82); }
+}
+
+.accar-home-live-clock {
+  display: inline-flex;
   align-items: center;
-  justify-content: center;
-  background: rgba(0, 0, 0, 0.5); 
-  border: 1px solid rgba(212, 175, 55, 0.4); 
-  border-radius: 8px; 
-  padding: 8px 22px;
-  box-shadow: inset 0 2px 8px rgba(0,0,0,0.8); 
-  position: relative;
-  z-index: 2;
+  gap: 10px;
+  padding: 6px 16px;
+  border-radius: 999px;
+  border: 1px solid rgba(212, 175, 55, 0.44);
+  background: rgba(3, 8, 26, 0.84);
 }
 
-.accar-clock-label {
-  color: #a4a7ab; 
-  font-size: 11px;
+.accar-home-clock-label {
+  color: #d6c8a9;
+  font-family: sans-serif;
+  font-size: 0.68rem;
   font-weight: 700;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  margin-right: 12px;
-  letter-spacing: 1px;
 }
 
-.accar-clock-time {
-  color: #D4AF37; 
-  font-size: 17px; 
+.accar-home-clock-time {
+  color: #eed076;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 0.95rem;
   font-weight: 700;
-  font-family: "Courier New", Courier, monospace; 
-  letter-spacing: 1.5px;
-  text-shadow: 0 0 8px rgba(212,175,55,0.4); 
-  display: inline-block;
-  min-width: 95px; 
-  text-align: right; 
+  letter-spacing: 0.08em;
+  min-width: 78px;
+  text-align: right;
 }
 
 .accar-live-frame {
-  width: 100%;
-  overflow: hidden;
-  border-radius: 16px;
-  background: #000;
-  margin-bottom: 18px;
-  border: 2px solid rgba(212,175,55,0.6) !important;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.9), 0 0 15px rgba(212,175,55,0.2) !important;
   position: relative;
   z-index: 2;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 15px;
+  background: #000000;
+  margin-bottom: 18px;
+  border: 1px solid rgba(212, 175, 55, 0.54);
+  box-shadow: 0 18px 38px rgba(0, 0, 0, 0.82);
 }
 
 .accar-live-frame iframe {
   display: block;
   width: 100%;
-  height: auto;
   aspect-ratio: 16 / 9;
   border: 0;
 }
 
 .accar-live-texto {
-  margin: 0;
-  font-size: 15px;
-  line-height: 1.75;
-  color: #d1d8e0;
   position: relative;
   z-index: 2;
+  margin: auto 0 0;
+  font-size: 0.95rem;
+  line-height: 1.68;
+  color: #e6dbc0;
 }
 
+/* Pestañas interactivas de Actualidad / Calendario */
 .accar-feed-tabs {
-  display: flex;
-  align-items: center;
-  gap: 24px;
-  margin-bottom: 20px;
-  padding-bottom: 12px;
-  border-bottom: 1px solid rgba(212,175,55,0.3);
   position: relative;
   z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 18px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.28);
 }
 
 .accar-feed-tab {
-  font-size: 13px;
-  font-weight: 800;
-  letter-spacing: 1px;
-  color: rgba(255,255,255,0.6);
+  appearance: none;
+  padding: 7px 16px;
+  border-radius: 999px;
+  border: 1px solid rgba(212, 175, 55, 0.34);
+  background: rgba(3, 8, 30, 0.72);
+  color: rgba(234, 224, 200, 0.76);
+  font-family: inherit;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.13em;
   text-transform: uppercase;
   cursor: pointer;
-  padding-bottom: 4px;
-  transition: color 0.3s ease;
+  transition: all 0.25s ease;
+}
+
+.accar-feed-tab:hover {
+  border-color: #e8cb72;
+  color: #fff9ec;
 }
 
 .accar-feed-tab.active {
-  color: #D4AF37;
-  border-bottom: 2px solid #D4AF37;
-  text-shadow: 0 0 8px rgba(212,175,55,0.4);
+  border-color: #f0d680;
+  background: linear-gradient(180deg, rgba(212, 175, 55, 0.28) 0%, rgba(128, 96, 20, 0.24) 100%);
+  color: #fff9ec;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.45);
 }
 
 .accar-feed-scroll {
-  max-height: 380px;
-  overflow-y: auto;
-  padding-right: 12px;
   position: relative;
   z-index: 2;
+  max-height: 365px;
+  overflow-y: auto;
+  padding-right: 10px;
 }
 
 .accar-feed-scroll::-webkit-scrollbar {
-  width: 6px;
+  width: 5px;
 }
 
 .accar-feed-scroll::-webkit-scrollbar-track {
-  background: rgba(0,0,0,0.4);
+  background: rgba(0, 0, 0, 0.35);
   border-radius: 10px;
 }
 
 .accar-feed-scroll::-webkit-scrollbar-thumb {
-  background: #d4af37;
+  background: rgba(212, 175, 55, 0.55);
   border-radius: 10px;
 }
 
 .accar-feed-item {
   display: block;
   text-decoration: none;
-  padding: 16px 16px 16px 0;
-  border-bottom: 1px solid rgba(212,175,55,0.15);
-  border-left: 3px solid transparent;
-  transition: all 0.3s ease;
+  padding: 14px 14px 14px 12px;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.16);
+  border-left: 2.5px solid transparent;
+  transition: all 0.26s ease;
+}
+
+.accar-feed-item:last-child {
+  border-bottom: none;
 }
 
 .accar-feed-item:hover {
-  transform: translateX(6px);
-  background: linear-gradient(90deg, rgba(212,175,55,0.1) 0%, transparent 100%);
-  border-left: 3px solid #D4AF37;
-  padding-left: 14px;
-  border-radius: 0 8px 8px 0;
+  transform: translateX(4px);
+  background: linear-gradient(90deg, rgba(212, 175, 55, 0.12) 0%, transparent 100%);
+  border-left-color: #d4af37;
+  border-radius: 0 10px 10px 0;
 }
 
 .accar-feed-date {
-  display: block;
-  margin-bottom: 6px;
-  font-size: 11px;
-  font-weight: 800;
-  letter-spacing: 0.8px;
-  color: #D4AF37;
+  display: inline-block;
+  margin-bottom: 5px;
+  padding: 2px 9px;
+  border-radius: 999px;
+  background: rgba(118, 18, 34, 0.52);
+  border: 1px solid rgba(212, 175, 55, 0.38);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #eed076;
   text-transform: uppercase;
 }
 
 .accar-feed-title {
   display: block;
-  font-size: 17px;
-  line-height: 1.4;
-  color: #ffffff;
-  font-weight: 600;
+  font-size: 0.98rem;
+  line-height: 1.46;
+  color: #fff9ec;
+  font-weight: 700;
 }
 
-.accar-noticias-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px,1fr));
-  gap: 24px;
-  margin-bottom: 46px;
-  padding: 0;
-  background: transparent;
-  border: none;
-  box-shadow: none;
-}
-
-/* Sombra cálida (efecto vela) para el blanco alabastro de las tarjetas inferiores */
-.accar-card {
-  background: #fdfbf7; 
-  border: 1px solid #d4af37; 
-  border-radius: 24px;
-  padding: 30px;
-  text-decoration: none;
-  box-shadow: 0 15px 35px rgba(0,0,0,0.6), 0 0 15px rgba(212,175,55,0.05); 
-  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-  position: relative;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
+/* Botón institucional en Oro Papal */
+.accar-btn-home-gold {
+  display: inline-flex;
+  align-items: center;
   justify-content: center;
-}
-
-.accar-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0; height: 3px;
-  background: linear-gradient(90deg, #D4AF37, #e4c76a);
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.accar-card:hover {
-  transform: translateY(-8px);
-  border-color: #e4c76a;
-  box-shadow: 0 25px 50px rgba(0,0,0,0.8), 0 0 25px rgba(212,175,55,0.2);
-}
-
-.accar-card:hover::before {
-  opacity: 1;
-}
-
-.accar-card h3 {
-  margin: 0 0 12px;
-  font-size: 20px;
-  color: #0B1B3D;
-  font-weight: 800;
-}
-
-.accar-card p {
-  margin: 0;
-  font-size: 15px;
-  line-height: 1.7;
-  color: #3b4252;
-}
-
-.accar-btn-noticias {
-  display: inline-block;
-  padding: 16px 38px;
-  background: linear-gradient(135deg, #0f3621 0%, #081e12 100%);
-  color: #ffffff;
-  text-decoration: none;
-  font-weight: 800;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  font-size: 14px;
+  gap: 10px;
+  padding: 14px 32px;
   border-radius: 999px;
-  border: 1px solid rgba(212,175,55,0.4);
-  box-shadow: 0 12px 25px rgba(0,0,0,0.6), inset 0 0 10px rgba(0,0,0,0.3);
-  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  border: 1px solid #e8cb72;
+  background: linear-gradient(180deg, rgba(212, 175, 55, 0.30) 0%, rgba(128, 96, 20, 0.26) 100%);
+  color: #fff9ec;
+  text-decoration: none;
+  font-size: 0.80rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  box-shadow:
+    0 12px 28px rgba(0, 0, 0, 0.58),
+    inset 0 1px 0 rgba(255, 244, 204, 0.30);
+  transition: all 0.28s ease;
 }
 
-.accar-btn-noticias:hover {
-  background: linear-gradient(135deg, #154c2e 0%, #0a2617 100%);
-  color: #D4AF37;
-  transform: translateY(-4px);
-  border-color: #D4AF37;
-  box-shadow: 0 18px 35px rgba(0,0,0,0.8), 0 0 15px rgba(212,175,55,0.2);
+.accar-btn-home-gold:hover {
+  transform: translateY(-3px);
+  border-color: #fff3c4;
+  background: linear-gradient(180deg, rgba(212, 175, 55, 0.42) 0%, rgba(148, 110, 22, 0.36) 100%);
+  color: #ffffff;
+  box-shadow:
+    0 16px 34px rgba(0, 0, 0, 0.72),
+    0 0 20px rgba(212, 175, 55, 0.28);
 }
 
-@media (max-width: 980px){
-  .accar-noticias-top{
-    grid-template-columns: 1fr;
-  }
-}
-
-@media (max-width: 768px){
-  .accar-noticias{
-    padding: 100px 18px;
-  }
-
-  .accar-heading-card h2 {
-    font-size: 26px;
-  }
-
-  .accar-noticias-live,
-  .accar-noticias-feed{
-    padding: 20px;
-  }
-
-  .accar-feed-title{
-    font-size: 17px;
-  }
-
-  .accar-live-frame iframe{
-    aspect-ratio: 16 / 9;
-  }
-  
-  .accar-noticias-grid {
-    gap: 20px;
-  }
-}
-</style>
-<!-- ===== FIN BLOQUE: NOTICIAS ===== -->
-
-
-<!-- ===== INICIO BLOQUE: REFLEXIÓN ===== -->
-<section class="accar-reflexion">
-
-  <div class="accar-reflexion-inner">
-
-    <h2>Permanece en la verdad</h2>
-
-    <p class="accar-reflexion-texto">
-      La fe católica no es una opinión entre muchas, sino el depósito sagrado de la verdad revelada
-      por Nuestro Señor Jesucristo y custodiada por su Iglesia. Persevera en la doctrina, en la oración
-      y en la comunión con la Iglesia fundada sobre Pedro.
-    </p>
-
-    <p class="accar-reflexion-cita">
-      "Señor, ¿a quién iremos? Tú tienes palabras de vida eterna."
-    </p>
-
-    <span class="accar-reflexion-ref">Juan 6, 68</span>
-
-  </div>
-
-</section>
-
-<style>
-.accar-reflexion{
+/* =====================================================
+   SECCIÓN 3: PERMANECE EN LA VERDAD (VERDE EPISCOPAL PATINADO)
+===================================================== */
+.accar-reflexion {
   position: relative;
-  z-index: 7; 
-  padding: 130px 20px;
-  background: linear-gradient(180deg, rgba(0,0,0,0.92) 0%, rgba(9,23,45,0.95) 100%) !important; 
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  z-index: 7;
+  padding: 110px 20px 128px;
+  background: linear-gradient(180deg, rgba(3, 8, 20, 0.96) 0%, #030714 100%) !important;
   text-align: center;
-  border-top: 1px solid rgba(212,175,55,0.15);
-  box-shadow: inset 0 20px 50px rgba(0,0,0,0.5);
+  border-top: 1px solid rgba(212, 175, 55, 0.20);
+  box-shadow: inset 0 24px 52px rgba(0, 0, 0, 0.55);
 }
 
 .accar-reflexion-inner {
-  max-width: 960px; 
-  margin: 0 auto;
-  color: #F8F9FA;
-  /* Verde Obispo intacto */
-  background: linear-gradient(135deg, #0f3621 0%, #04120b 100%); 
-  border: 2px solid #d4af37; 
-  border-radius: 28px;
-  padding: 60px 40px;
-  box-shadow: 0 35px 60px rgba(0,0,0,0.8), inset 0 0 40px rgba(0,0,0,0.5);
-  transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
   position: relative;
+  max-width: 940px;
+  margin: 0 auto;
+  padding: 56px 48px 54px;
+  border-radius: 26px;
+  border: 1px solid rgba(212, 175, 55, 0.58);
+  background:
+    radial-gradient(circle at 50% 0%, rgba(212, 175, 55, 0.13) 0%, transparent 58%),
+    linear-gradient(165deg, #0b2919 0%, #06180f 56%, #030d08 100%);
+  box-shadow:
+    0 32px 64px rgba(0, 0, 0, 0.82),
+    inset 0 1px 0 rgba(255, 238, 186, 0.16),
+    inset 0 0 42px rgba(0, 0, 0, 0.45);
+  transition: transform 0.38s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.38s ease, box-shadow 0.38s ease;
 }
 
 .accar-reflexion-inner::after {
-  content: '';
+  content: "";
   position: absolute;
-  top: 12px; left: 12px; right: 12px; bottom: 12px;
-  border: 1px solid rgba(212,175,55,0.3);
-  border-radius: 16px;
+  inset: 10px;
+  border: 1px solid rgba(212, 175, 55, 0.22);
+  border-radius: 18px;
   pointer-events: none;
 }
 
 .accar-reflexion-inner:hover {
-  background: linear-gradient(135deg, #124027 0%, #061c10 100%);
-  transform: translateY(-8px);
-  box-shadow: 0 45px 70px rgba(0,0,0,0.9), inset 0 0 50px rgba(212,175,55,0.1);
-  border-color: #e4c76a; 
+  transform: translateY(-5px);
+  border-color: #eed076;
+  box-shadow:
+    0 38px 72px rgba(0, 0, 0, 0.88),
+    0 0 24px rgba(212, 175, 55, 0.18);
 }
 
-.accar-reflexion h2{
-  font-size: 36px;
-  margin: 0 0 24px;
-  color: #D4AF37; 
-  text-shadow: 0 2px 8px rgba(0,0,0,0.8); 
+.accar-reflexion-kicker {
+  background: rgba(3, 16, 9, 0.82);
 }
 
-.accar-reflexion-texto{
-  font-size: 18px;
-  line-height: 1.86;
-  color: #f2ead8;
-  margin: 0 0 28px;
+.accar-reflexion-title-wrap {
+  margin-bottom: 24px;
 }
 
-.accar-reflexion-cita{
-  font-size: 22px;
+.accar-reflexion-title {
+  margin: 0;
+  font-size: 2.35rem;
+  font-weight: 700;
+  line-height: 1.18;
+  color: #fff9ec;
+  text-shadow: 0 3px 14px rgba(0, 0, 0, 0.82);
+}
+
+.accar-reflexion-texto {
+  max-width: 760px;
+  margin: 0 auto 30px;
+  font-size: 1.08rem;
+  line-height: 1.84;
+  color: #efe5cc;
+  text-wrap: balance;
+}
+
+.accar-reflexion-cita-box {
+  max-width: 660px;
+  margin: 0 auto;
+  padding: 20px 24px 6px;
+}
+
+.accar-reflexion-ornamento {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 18px;
+}
+
+.accar-reflexion-ornamento::before,
+.accar-reflexion-ornamento::after {
+  content: "";
+  flex: 1;
+  max-width: 120px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.55), transparent);
+}
+
+.accar-reflexion-ornamento span {
+  padding: 0 14px;
+  color: #d4af37;
+  font-size: 0.92rem;
+}
+
+.accar-reflexion-cita {
+  margin: 0 0 10px;
+  font-size: 1.32rem;
   font-style: italic;
-  color: #d9bb6a;
-  margin: 0 0 8px;
+  line-height: 1.5;
+  color: #eed076;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.72);
 }
 
-.accar-reflexion-ref{
+.accar-reflexion-ref {
   display: inline-block;
-  font-size: 14px;
-  letter-spacing: 1px;
-  color: #eadfb7;
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: rgba(244, 235, 210, 0.85);
   text-transform: uppercase;
 }
 
-@media (max-width: 768px){
-  .accar-reflexion{
-    padding: 100px 18px;
+/* ===== RESPONSIVE TABLET / IPAD ===== */
+@media (max-width: 980px) {
+  .accar-espiritualidad-grid,
+  .accar-noticias-top {
+    grid-template-columns: 1fr;
   }
 
-  .accar-reflexion-inner{
-    padding: 34px 22px;
+  .accar-home-title {
+    font-size: 2.22rem;
+  }
+}
+
+/* ===== RESPONSIVE MÓVIL ===== */
+@media (max-width: 640px) {
+  .accar-espiritualidad,
+  .accar-noticias,
+  .accar-reflexion {
+    padding: 80px 16px 88px;
   }
 
-  .accar-reflexion h2{
-    font-size: 31px;
+  .accar-home-sec-header {
+    margin-bottom: 38px;
   }
 
-  .accar-reflexion-texto{
-    font-size: 17px;
-    line-height: 1.8;
+  .accar-home-kicker {
+    font-size: 0.66rem;
+    padding: 5px 14px;
   }
 
-  .accar-reflexion-cita{
-    font-size: 20px;
+  .accar-home-title {
+    font-size: 1.92rem;
   }
 
-  .accar-reflexion-inner:hover{
-    transform: translateY(-4px);
+  .accar-home-desc .accar-salto-editorial {
+    display: none;
+  }
+
+  .accar-lit-card {
+    padding: 32px 22px 28px;
+    min-height: auto;
+  }
+
+  .accar-lit-card--santo {
+    flex-direction: column;
+    padding: 0;
+  }
+
+  .accar-santo-img-wrap {
+    width: 100%;
+    height: 360px;
+    border-right: none;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.28);
+  }
+
+  .accar-santo-data {
+    width: 100%;
+    padding: 28px 22px 30px;
+    align-items: center;
+    text-align: center;
+  }
+
+  .accar-santo-data h3,
+  .accar-santo-data p {
+    text-align: center;
+  }
+
+  .accar-santo-rango-wrap {
+    text-align: center;
+  }
+
+  .accar-noticias-live,
+  .accar-noticias-feed {
+    padding: 22px 18px;
+  }
+
+  .accar-reflexion-inner {
+    padding: 40px 22px 36px;
+  }
+
+  .accar-reflexion-title {
+    font-size: 1.82rem;
+  }
+
+  .accar-reflexion-texto {
+    font-size: 0.98rem;
+  }
+
+  .accar-reflexion-cita {
+    font-size: 1.14rem;
   }
 }
 </style>
-<!-- ===== INICIO BLOQUE: ARCA DE LA ALIANZA ===== -->
+
+
+<!-- ===== SCRIPTS DE PORTADA (LITURGIA, SANTO DEL DÍA Y ACTUALIDAD) ===== -->
+<script>
+(function() {
+  // 1. Fecha litúrgica principal en español
+  const nodoFecha = document.getElementById('fecha-liturgia');
+  if (nodoFecha) {
+    const opciones = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
+    let fechaHoy = new Date().toLocaleDateString('es-ES', opciones);
+    fechaHoy = fechaHoy.charAt(0).toUpperCase() + fechaHoy.slice(1);
+    nodoFecha.textContent = fechaHoy;
+  }
+
+  // 2. Reloj de Roma con limpieza automática en navegación SPA
+  if (window.__accarHomeClockTimer) {
+    clearInterval(window.__accarHomeClockTimer);
+  }
+
+  function actualizarHoraRomaInicio() {
+    const timeElement = document.getElementById('vatican-time');
+    if (!timeElement) {
+      clearInterval(window.__accarHomeClockTimer);
+      window.__accarHomeClockTimer = null;
+      return;
+    }
+    timeElement.textContent = new Date().toLocaleTimeString('es-ES', {
+      timeZone: 'Europe/Rome',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit'
+    });
+  }
+
+  actualizarHoraRomaInicio();
+  window.__accarHomeClockTimer = setInterval(actualizarHoraRomaInicio, 1000);
+
+  // 3. Conmutador de pestañas Actualidad / Calendario en Inicio
+  window.cambiarTabInicioNoticias = function(pestana) {
+    const tabAct = document.getElementById('tab-home-actualidad');
+    const tabCal = document.getElementById('tab-home-calendario');
+    const listaAct = document.getElementById('home-feed-actualidad');
+    const listaCal = document.getElementById('home-feed-calendario');
+    if (!tabAct || !tabCal || !listaAct || !listaCal) return;
+
+    if (pestana === 'calendario') {
+      tabAct.classList.remove('active');
+      tabAct.setAttribute('aria-selected', 'false');
+      tabCal.classList.add('active');
+      tabCal.setAttribute('aria-selected', 'true');
+      listaAct.style.display = 'none';
+      listaCal.style.display = 'block';
+    } else {
+      tabCal.classList.remove('active');
+      tabCal.setAttribute('aria-selected', 'false');
+      tabAct.classList.add('active');
+      tabAct.setAttribute('aria-selected', 'true');
+      listaCal.style.display = 'none';
+      listaAct.style.display = 'block';
+    }
+  };
+
+  // 4. Enlace dinámico a la Agenda mensual del Papa León XIV
+  const linkAgenda = document.getElementById('home-link-agenda-papa');
+  if (linkAgenda) {
+    try {
+      const partes = new Intl.DateTimeFormat('en-CA', {
+        timeZone: 'Europe/Rome',
+        year: 'numeric',
+        month: 'numeric'
+      }).formatToParts(new Date());
+      const anio = partes.find(p => p.type === 'year')?.value;
+      const mes = partes.find(p => p.type === 'month')?.value;
+      if (anio && mes) {
+        linkAgenda.href = `https://www.vatican.va/content/leo-xiv/es/events/month.dir.html/${anio}/${parseInt(mes, 10)}.html`;
+      }
+    } catch (_) {}
+  }
+
+  // 5. Conexión al Leccionario Diario (/api/evangelizo)
+  window.__accarNombreSantoHoy = null;
+
+  function limpiarClaveColor(str) {
+    return String(str || 'verde')
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .toLowerCase()
+      .trim();
+  }
+
+  setTimeout(async () => {
+    try {
+      const today = new Date();
+      const year = today.getFullYear();
+      const month = String(today.getMonth() + 1).padStart(2, '0');
+      const day = String(today.getDate()).padStart(2, '0');
+      const formattedDate = `${year}-${month}-${day}`;
+
+      const response = await fetch(`/api/evangelizo?date=${formattedDate}`);
+      if (!response.ok) throw new Error('Error en la conexión con la API');
+
+      const data = await response.json();
+      if (!document.getElementById('tarjeta-evangelio')) return;
+
+      if (data.fiestas && data.fiestas.length > 0) {
+        const fiesta = data.fiestas[0];
+        const colorNorm = limpiarClaveColor(fiesta.color || 'verde');
+
+        if (fiesta.ciclo) document.getElementById('lit-ciclo').textContent = fiesta.ciclo;
+        if (fiesta.anio) document.getElementById('lit-anio').textContent = fiesta.anio;
+        if (fiesta.color) document.getElementById('lit-color').textContent = fiesta.color.toUpperCase();
+
+        const colorElement = document.getElementById('lit-color');
+        colorElement.className = `dot-color dot-${colorNorm}`;
+
+        const cardElement = document.getElementById('tarjeta-evangelio');
+        cardElement.className = `accar-lit-card accar-lit-card--${colorNorm}`;
+
+        // Semana litúrgica limpia bajo la fecha principal
+        const textoSemanaObj = fiesta.semana || '';
+        if (textoSemanaObj) {
+          const partes = textoSemanaObj.split(' ');
+          const numRomano = partes.shift() || '';
+          const resto = partes.join(' ').toLowerCase();
+          const restoCapitalizado = resto.charAt(0).toUpperCase() + resto.slice(1);
+          const semanaEl = document.getElementById('semana-liturgia');
+          if (semanaEl) {
+            semanaEl.textContent = `${numRomano} ${restoCapitalizado}`.trim();
+            semanaEl.style.display = 'block';
+          }
+        }
+
+        // Respetar el nombre del santo si Firebase ya respondió primero
+        const textoSanto = window.__accarNombreSantoHoy || (fiesta.santo ? fiesta.santo.toUpperCase() : 'FERIA');
+        const litSemanaEl = document.getElementById('lit-semana');
+        const brevSemanaEl = document.getElementById('brev-semana');
+        if (litSemanaEl) litSemanaEl.textContent = textoSanto;
+        if (brevSemanaEl) brevSemanaEl.textContent = textoSanto;
+
+        const brevSalterioEl = document.getElementById('brev-salterio');
+        const brevTomoEl = document.getElementById('brev-tomo');
+        if (brevSalterioEl && fiesta.salterio) brevSalterioEl.textContent = fiesta.salterio;
+        if (brevTomoEl && fiesta.tomo) brevTomoEl.textContent = fiesta.tomo;
+      }
+
+      const fallbackMsg = document.getElementById('lit-mensaje-fallback');
+      if (fallbackMsg) fallbackMsg.style.display = 'none';
+
+      if (data.readings && data.readings.length > 0) {
+        data.readings.forEach(reading => {
+          let refLimpia = reading.referencia || reading.title || '';
+          if (refLimpia.endsWith(':')) refLimpia = refLimpia.slice(0, -1).trim();
+
+          if (reading.type === 'GSP') {
+            document.getElementById('lit-evangelio').textContent = refLimpia;
+            document.getElementById('item-evangelio').style.display = 'flex';
+          } else if (reading.type === 'FR') {
+            document.getElementById('lit-primera').textContent = refLimpia;
+            document.getElementById('item-primera').style.display = 'flex';
+          } else if (reading.type === 'PS') {
+            const refSalmo = refLimpia.replace(/Salmo\s*/i, '').trim();
+            document.getElementById('lit-salmo').textContent = `Responsorial ${refSalmo}`;
+            document.getElementById('item-salmo').style.display = 'flex';
+          } else if (reading.type === 'SR') {
+            document.getElementById('lit-segunda').textContent = refLimpia;
+            document.getElementById('item-segunda').style.display = 'flex';
+          }
+        });
+      }
+    } catch (error) {
+      console.error('Error al cargar la liturgia:', error);
+      const litSemanaEl = document.getElementById('lit-semana');
+      if (litSemanaEl && !window.__accarNombreSantoHoy) litSemanaEl.textContent = 'Lectura del día';
+      const fallbackMsg = document.getElementById('lit-mensaje-fallback');
+      if (fallbackMsg) {
+        fallbackMsg.textContent = 'Lectura no disponible temporalmente.';
+        fallbackMsg.style.display = 'block';
+      }
+    }
+  }, 350);
+})();
+</script>
+
+<script type="module">
+import { initializeApp, getApps, getApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDSCSWYM5dgkIfVK-uBe1oWkeU7se4fvFg",
+  authDomain: "accar-web.firebaseapp.com",
+  projectId: "accar-web",
+  storageBucket: "accar-web.firebasestorage.app",
+  messagingSenderId: "249370548582",
+  appId: "1:249370548582:web:6b35298df41771113910a7"
+};
+
+const appName = "santoTarjetaInicio";
+const tempApp = getApps().some(a => a.name === appName)
+  ? getApp(appName)
+  : initializeApp(firebaseConfig, appName);
+const tempDb = getFirestore(tempApp);
+
+function sinAcentos(str) {
+  return String(str || '')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase();
+}
+
+function normalizeDateStr(date) {
+  return new Date(date.getFullYear(), date.getMonth(), date.getDate());
+}
+
+function addDaysStr(date, days) {
+  const d = new Date(date);
+  d.setDate(d.getDate() + days);
+  return d;
+}
+
+function getFirstSundayOfAdventStr(year) {
+  const christmas = new Date(year, 11, 25);
+  const day = christmas.getDay();
+  const fourthSunday = new Date(christmas);
+  fourthSunday.setDate(christmas.getDate() - day);
+  const firstSunday = new Date(fourthSunday);
+  firstSunday.setDate(fourthSunday.getDate() - 21);
+  return normalizeDateStr(firstSunday);
+}
+
+function verificarFiestaMovilHoy() {
+  const today = new Date();
+  const cristoRey = addDaysStr(getFirstSundayOfAdventStr(today.getFullYear()), -7);
+  if (today.getMonth() === cristoRey.getMonth() && today.getDate() === cristoRey.getDate()) {
+    return "cristo-rey";
+  }
+  return null;
+}
+
+setTimeout(async () => {
+  try {
+    let idDelDia = verificarFiestaMovilHoy();
+    let rangoDelDia = "Solemnidad";
+
+    if (!idDelDia) {
+      const today = new Date();
+      const mm = String(today.getMonth() + 1).padStart(2, '0');
+      const dd = String(today.getDate()).padStart(2, '0');
+      const fechaHoy = `${mm}-${dd}`;
+
+      const indexResponse = await fetch('/assets/data/santoral-index.json');
+      if (!indexResponse.ok) throw new Error("No se pudo cargar el índice del santoral");
+      const santoralIndex = await indexResponse.json();
+
+      const santoData = santoralIndex[fechaHoy];
+      if (!santoData) throw new Error("No hay santo definido para hoy en el índice");
+
+      idDelDia = santoData.id;
+      rangoDelDia = santoData.rango;
+    }
+
+    window.santoDelDiaID = idDelDia;
+    const nodoRango = document.getElementById('tarjeta-santo-rango');
+    if (!nodoRango) return;
+    nodoRango.textContent = rangoDelDia;
+
+    const docRef = doc(tempDb, "santos", idDelDia);
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+      const data = docSnap.data();
+      let imgPath = String(data.imagen || '').replace(/^(\.\.\/)+/, '');
+      if (imgPath && !imgPath.startsWith('http') && !imgPath.startsWith('/')) {
+        imgPath = '/' + imgPath;
+      }
+
+      const nodoImg = document.getElementById('tarjeta-santo-img');
+      if (nodoImg && imgPath) nodoImg.src = imgPath;
+
+      const nombreCompleto = data.nombre_completo || "Santo del Día";
+      const nombreCorto = nombreCompleto.split(',')[0].trim();
+      window.__accarNombreSantoHoy = nombreCorto.toUpperCase();
+
+      const nodoNombre = document.getElementById('tarjeta-santo-nombre');
+      if (nodoNombre) nodoNombre.textContent = nombreCompleto;
+
+      const litSemanaEl = document.getElementById('lit-semana');
+      const brevSemanaEl = document.getElementById('brev-semana');
+      if (litSemanaEl) litSemanaEl.textContent = window.__accarNombreSantoHoy;
+      if (brevSemanaEl) brevSemanaEl.textContent = window.__accarNombreSantoHoy;
+
+      // Color litúrgico sincronizado con la dignidad de la celebración
+      let colorLiturgico = sinAcentos(data.color || 'blanco').trim();
+      const nombreClave = sinAcentos(nombreCompleto);
+      if (colorLiturgico === 'blanco' && /\b(virgen maria|santisima virgen|nuestra senora|madre de dios|inmaculada concepcion|asuncion de la|bienaventurada virgen|corazon inmaculado|dulce nombre de maria|virgen de|virgen del)\b/.test(nombreClave)) {
+        colorLiturgico = 'celeste';
+      }
+
+      const tarjeta = document.getElementById('tarjeta-santo-dia');
+      if (tarjeta) {
+        tarjeta.className = `accar-lit-card accar-lit-card--santo accar-lit-card--${colorLiturgico}`;
+      }
+
+      const nodoTexto = document.getElementById('tarjeta-santo-texto');
+      if (nodoTexto) {
+        if (data.biografia) {
+          const primeraOracion = data.biografia.split('.')[0] + '.';
+          nodoTexto.textContent = primeraOracion;
+        } else {
+          nodoTexto.textContent = data.patronazgo || "Conoce la vida y testimonio espiritual de este santo.";
+        }
+      }
+    }
+  } catch (e) {
+    console.error("Error cargando santo para la tarjeta de inicio", e);
+    const nodoNombre = document.getElementById('tarjeta-santo-nombre');
+    const nodoTexto = document.getElementById('tarjeta-santo-texto');
+    if (nodoNombre) nodoNombre.textContent = "Santo del Día";
+    if (nodoTexto) nodoTexto.textContent = "Ficha en preparación.";
+  }
+}, 500);
+</script>
