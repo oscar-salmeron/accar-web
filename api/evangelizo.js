@@ -9,106 +9,309 @@ export default async function handler(req, res) {
     return;
   }
 
-  const rawDate = req.query?.date || req.url.split('date=')[1]?.split('&')[0];
+  const rawDate = req.query?.date || req.url?.split('date=')[1]?.split('&')[0];
   const formatter = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Bogota' });
-  const dateParam = rawDate || formatter.format(new Date()); 
+  const dateParam = /^\d{4}-\d{2}-\d{2}$/.test(String(rawDate || ''))
+    ? rawDate
+    : formatter.format(new Date());
 
   const targetUrl = `https://raw.githubusercontent.com/oscar-salmeron/accar-leccionario-script/refs/heads/main/datos/${dateParam}.json`;
 
+  const DAY_MS = 86400000;
+
   const toRoman = (num) => {
-    const lookup = {X:10, IX:9, V:5, IV:4, I:1};
+    const lookup = { XXX: 30, XX: 20, X: 10, IX: 9, V: 5, IV: 4, I: 1 };
+    let n = num;
     let roman = '';
-    for (let i in lookup) {
-      while (num >= lookup[i]) { roman += i; num -= lookup[i]; }
+    for (const k in lookup) {
+      while (n >= lookup[k]) {
+        roman += k;
+        n -= lookup[k];
+      }
     }
     return roman;
   };
 
-  const calcularSemanaLiturgica = (fecha) => {
-      const d = new Date(`${fecha}T12:00:00Z`);
-      const domingoActual = new Date(d);
-      domingoActual.setDate(domingoActual.getDate() - domingoActual.getDay());
-      const year = domingoActual.getFullYear();
-      let cristoRey = new Date(`${year}-11-26T12:00:00Z`);
-      while (cristoRey.getDay() !== 0) cristoRey.setDate(cristoRey.getDate() - 1);
-      const diffTime = cristoRey.getTime() - domingoActual.getTime();
-      const diffWeeks = Math.round(diffTime / (1000 * 60 * 60 * 24 * 7));
-      let weekNumber = 34 - diffWeeks;
-      if (weekNumber < 1) weekNumber = 1;
-      if (weekNumber > 34) weekNumber = 34;
-      return weekNumber;
+  const makeUTC = (y, m, d) => new Date(Date.UTC(y, m - 1, d, 12, 0, 0));
+  const addDaysUTC = (dt, days) => new Date(dt.getTime() + days * DAY_MS);
+  const diffDaysUTC = (a, b) => Math.round((a.getTime() - b.getTime()) / DAY_MS);
+
+  const getEasterUTC = (year) => {
+    const a = year % 19;
+    const b = Math.floor(year / 100);
+    const c = year % 100;
+    const d = Math.floor(b / 4);
+    const e = b % 4;
+    const f = Math.floor((b + 8) / 25);
+    const g = Math.floor((b - f + 1) / 3);
+    const h = (19 * a + b - d - g + 15) % 30;
+    const i = Math.floor(c / 4);
+    const k = c % 4;
+    const l = (32 + 2 * e + 2 * i - h - k) % 7;
+    const m = Math.floor((a + 11 * h + 22 * l) / 451);
+    const month = Math.floor((h + l - 7 * m + 114) / 31);
+    const day = ((h + l - 7 * m + 114) % 31) + 1;
+    return makeUTC(year, month, day);
   };
 
-  // Lógica inteligente para inferir el color litúrgico desde el nombre de la fiesta
-  const inferirColorLiturgico = (fiestaStr, colorEwtn) => {
-      if (!fiestaStr) return colorEwtn || "VERDE";
-      
-      const f = fiestaStr.toUpperCase();
-      
-      // Mártires, Apóstoles, Espíritu Santo, Pasión = ROJO
-      if (f.includes("MÁRTIR") || f.includes("MARTIR") || f.includes("APÓSTOL") || f.includes("EVANGELISTA") || f.includes("CRUZ") || f.includes("SANGRE") || f.includes("PENTECOSTÉS")) {
-          return "ROJO";
-      }
-      
-      // Virgen María, Santos (no mártires), Pastores, Doctores, Ángeles, Fiestas del Señor = BLANCO
-      if (f.includes("VIRGEN") || f.includes("OBISPO") || f.includes("PAPA") || f.includes("DOCTOR") || f.includes("CONFESOR") || f.includes("ÁNGEL") || f.includes("ARCÁNGEL") || f.includes("SEÑOR") || f.includes("CRISTO") || f.includes("SANTÍSIMA") || f.includes("SANTISIMA") || f.includes("BAUTISMO") || f.includes("TRANSFIGURACIÓN") || f.includes("ASCENSIÓN") || f.includes("ASUNCIÓN") || f.includes("TODOS LOS SANTOS") || f.includes("DIFUNTOS") || f.includes("DEDICACIÓN") || f.includes("SAGRADO CORAZÓN")) {
-          // Nota: Difuntos puede ser Morado o Negro, pero el Blanco también está permitido litúrgicamente y es común.
-          return "BLANCO";
-      }
-      
-      // Tiempos de penitencia (Adviento, Cuaresma) o Difuntos = MORADO
-      if (f.includes("ADVIENTO") || f.includes("CUARESMA") || f.includes("CENIZA") || f.includes("FIELES DIFUNTOS")) {
-          return "MORADO";
-      }
-      
-      // Domingos Gaudete/Laetare = ROSADO
-      if (f.includes("GAUDETE") || f.includes("LAETARE")) {
-          return "ROSADO";
-      }
-
-      return colorEwtn || "VERDE";
+  const getFirstSundayOfAdventUTC = (year) => {
+    const christmas = makeUTC(year, 12, 25);
+    const dow = christmas.getUTCDay();
+    const offsetFourthSunday = dow === 0 ? 7 : dow;
+    return addDaysUTC(christmas, -(offsetFourthSunday + 21));
   };
+
+  const getBaptismSundayUTC = (year) => {
+    const jan6 = makeUTC(year, 1, 6);
+    const dow = jan6.getUTCDay();
+    const daysToSunday = dow === 0 ? 7 : (7 - dow);
+    return addDaysUTC(jan6, daysToSunday);
+  };
+
+  // Motor matemático completo del Año Litúrgico Romano
+  const calcularCalendarioLiturgico = (fechaISO) => {
+    const [yStr, mStr, dStr] = fechaISO.split('-');
+    const year = parseInt(yStr, 10);
+    const month = parseInt(mStr, 10);
+    const day = parseInt(dStr, 10);
+    const d = makeUTC(year, month, day);
+    const dow = d.getUTCDay();
+    const sundayOfWeek = addDaysUTC(d, -dow);
+
+    const advent1 = getFirstSundayOfAdventUTC(year);
+    const christmas = makeUTC(year, 12, 25);
+    const baptismSunday = getBaptismSundayUTC(year);
+    const easter = getEasterUTC(year);
+    const ashWednesday = addDaysUTC(easter, -46);
+    const lent1 = addDaysUTC(ashWednesday, 4);
+    const palmSunday = addDaysUTC(easter, -7);
+    const holyThursday = addDaysUTC(easter, -3);
+    const goodFriday = addDaysUTC(easter, -2);
+    const pentecost = addDaysUTC(easter, 49);
+    const cristoRey = addDaysUTC(advent1, -7);
+
+    // Año litúrgico (cambia en el I Domingo de Adviento)
+    const litYear = d >= advent1 ? year + 1 : year;
+    const modCiclo = litYear % 3;
+    const ciclo = modCiclo === 1 ? 'CICLO A' : (modCiclo === 2 ? 'CICLO B' : 'CICLO C');
+    const anio = litYear % 2 === 1 ? 'AÑO I' : 'AÑO II';
+
+    let tiempo = 'Tiempo Ordinario';
+    let semana = '';
+    let colorTiempo = 'VERDE';
+    let tomo = 'TOMO III';
+    let psalterWeek = 1;
+    let esDiaSupremo = false;
+
+    // 1. ADVIENTO
+    if (d >= advent1 && d < christmas) {
+      tiempo = 'Adviento';
+      const weekNum = Math.floor(diffDaysUTC(d, advent1) / 7) + 1;
+      semana = `${toRoman(weekNum)} Semana de Adviento`;
+      tomo = 'TOMO I';
+      psalterWeek = ((weekNum - 1) % 4) + 1;
+      colorTiempo = (dow === 0 && weekNum === 3) ? 'ROSADO' : 'MORADO';
+      if (dow === 0) esDiaSupremo = true;
+    }
+    // 2. NAVIDAD (25 dic – Bautismo del Señor)
+    else if (d >= christmas || d <= baptismSunday) {
+      tiempo = 'Navidad';
+      colorTiempo = 'BLANCO';
+      tomo = 'TOMO I';
+      if (month === 12 || (month === 1 && day === 1)) {
+        semana = 'Octava de Navidad';
+        psalterWeek = 1;
+        if (month === 12 && day === 25) esDiaSupremo = true;
+      } else if (month === 1 && day < 6) {
+        semana = 'Tiempo de Navidad';
+        psalterWeek = 2;
+      } else {
+        semana = diffDaysUTC(d, baptismSunday) === 0
+          ? 'Fiesta del Bautismo del Señor'
+          : 'Tiempo de Navidad';
+        psalterWeek = 1;
+        if (diffDaysUTC(d, baptismSunday) === 0 || (month === 1 && day === 6)) esDiaSupremo = true;
+      }
+    }
+    // 3. TIEMPO ORDINARIO (1ª PARTE: tras Bautismo hasta víspera de Ceniza)
+    else if (d > baptismSunday && d < ashWednesday) {
+      tiempo = 'Tiempo Ordinario';
+      const weekNum = Math.max(1, Math.round(diffDaysUTC(sundayOfWeek, baptismSunday) / 7) + 1);
+      semana = `${toRoman(weekNum)} Semana del Tiempo Ordinario`;
+      colorTiempo = 'VERDE';
+      tomo = 'TOMO III';
+      psalterWeek = ((weekNum - 1) % 4) + 1;
+    }
+    // 4. CUARESMA Y SEMANA SANTA
+    else if (d >= ashWednesday && d < easter) {
+      tomo = 'TOMO II';
+      if (d < lent1) {
+        tiempo = 'Cuaresma';
+        semana = diffDaysUTC(d, ashWednesday) === 0 ? 'Miércoles de Ceniza' : 'Días después de Ceniza';
+        colorTiempo = 'MORADO';
+        psalterWeek = 4;
+        if (diffDaysUTC(d, ashWednesday) === 0) esDiaSupremo = true;
+      } else if (d < palmSunday) {
+        tiempo = 'Cuaresma';
+        const weekNum = Math.floor(diffDaysUTC(d, lent1) / 7) + 1;
+        semana = `${toRoman(weekNum)} Semana de Cuaresma`;
+        psalterWeek = ((weekNum - 1) % 4) + 1;
+        colorTiempo = (dow === 0 && weekNum === 4) ? 'ROSADO' : 'MORADO';
+        if (dow === 0) esDiaSupremo = true;
+      } else {
+        tiempo = 'Semana Santa';
+        semana = 'Semana Santa';
+        psalterWeek = 2;
+        esDiaSupremo = true;
+        if (diffDaysUTC(d, palmSunday) === 0 || diffDaysUTC(d, goodFriday) === 0) {
+          colorTiempo = 'ROJO';
+        } else if (diffDaysUTC(d, holyThursday) === 0) {
+          colorTiempo = 'BLANCO';
+        } else {
+          colorTiempo = 'MORADO';
+        }
+      }
+    }
+    // 5. TIEMPO PASCUAL (Domingo de Pascua – Pentecostés)
+    else if (d >= easter && d <= pentecost) {
+      tiempo = 'Pascua';
+      tomo = 'TOMO II';
+      const weekNum = Math.floor(diffDaysUTC(d, easter) / 7) + 1;
+      if (diffDaysUTC(d, pentecost) === 0) {
+        semana = 'Domingo de Pentecostés';
+        colorTiempo = 'ROJO';
+        psalterWeek = 2;
+        esDiaSupremo = true;
+      } else if (weekNum === 1) {
+        semana = 'Octava de Pascua';
+        colorTiempo = 'BLANCO';
+        psalterWeek = 1;
+        esDiaSupremo = true;
+      } else {
+        semana = `${toRoman(weekNum)} Semana de Pascua`;
+        colorTiempo = 'BLANCO';
+        psalterWeek = ((weekNum - 1) % 4) + 1;
+        if (dow === 0) esDiaSupremo = true;
+      }
+    }
+    // 6. TIEMPO ORDINARIO (2ª PARTE: tras Pentecostés hasta víspera de Adviento)
+    else {
+      tiempo = 'Tiempo Ordinario';
+      const diffWeeks = Math.round(diffDaysUTC(cristoRey, sundayOfWeek) / 7);
+      let weekNum = 34 - diffWeeks;
+      if (weekNum < 1) weekNum = 1;
+      if (weekNum > 34) weekNum = 34;
+      semana = `${toRoman(weekNum)} Semana del Tiempo Ordinario`;
+      colorTiempo = 'VERDE';
+      tomo = weekNum > 17 ? 'TOMO IV' : 'TOMO III';
+      psalterWeek = ((weekNum - 1) % 4) + 1;
+      if (diffDaysUTC(d, cristoRey) === 0) esDiaSupremo = true;
+    }
+
+    return {
+      tiempo,
+      semana,
+      colorTiempo,
+      ciclo,
+      anio,
+      tomo,
+      salterio: `SALTERIO ${psalterWeek}ª SEMANA`,
+      esDiaSupremo
+    };
+  };
+
+  const inferirColorCelebracion = (fiestaStr, colorEwtn, colorTiempoBase) => {
+    const f = String(fiestaStr || '')
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .toUpperCase()
+      .trim();
+
+    if (!f || f === 'FERIA') {
+      return { colorMisa: colorTiempoBase, colorSanto: colorTiempoBase };
+    }
+
+    if (/\b(GAUDETE|LAETARE)\b/.test(f)) {
+      return { colorMisa: 'ROSADO', colorSanto: 'ROSADO' };
+    }
+
+    if (/\b(MARTIR|MARTIRES|APOSTOL|APOSTOLES|EVANGELISTA|EXALTACION DE LA SANTA CRUZ|PRECIOSISIMA SANGRE|PENTECOSTES|DOMINGO DE RAMOS|VIERNES SANTO)\b/.test(f)) {
+      return { colorMisa: 'ROJO', colorSanto: 'ROJO' };
+    }
+
+    if (/\b(VIRGEN MARIA|SANTISIMA VIRGEN|NUESTRA SENORA|MADRE DE DIOS|INMACULADA CONCEPCION|ASUNCION|GUADALUPE|LOURDES|FATIMA|CARMEN|MEDALLA MILAGROSA|PRESENTACION DE LA VIRGEN|NATIVIDAD DE LA VIRGEN|VISITACION|DULCE NOMBRE DE MARIA|SANTA MARIA)\b/.test(f)) {
+      return { colorMisa: 'BLANCO', colorSanto: 'CELESTE' };
+    }
+
+    if (/\b(FIELES DIFUNTOS)\b/.test(f)) {
+      return { colorMisa: 'MORADO', colorSanto: 'MORADO' };
+    }
+
+    if (/\b(ADVIENTO|CUARESMA|CENIZA)\b/.test(f)) {
+      return { colorMisa: colorTiempoBase, colorSanto: colorTiempoBase };
+    }
+
+    if (/\b(VIRGEN|OBISPO|PAPA|PRESBITERO|SACERDOTE|ABAD|ABADESA|RELIGIOSO|RELIGIOSA|DOCTOR|CONFESOR|ANGEL|ARCANGEL|ARCANGELES|SENOR|JESUCRISTO|CRISTO|SANTISIMA TRINIDAD|CORPUS CHRISTI|BAUTISMO|TRANSFIGURACION|ASCENSION|TODOS LOS SANTOS|DEDICACION|SAGRADO CORAZON|SAGRADA FAMILIA|NATIVIDAD|EPIFANIA|SAN |SANTA |SANTOS |SANTAS )\b/.test(f)) {
+      return { colorMisa: 'BLANCO', colorSanto: 'BLANCO' };
+    }
+
+    const fallback = String(colorEwtn || colorTiempoBase).toUpperCase();
+    return { colorMisa: fallback, colorSanto: fallback };
+  };
+
+  const cal = calcularCalendarioLiturgico(dateParam);
 
   try {
     const response = await fetch(targetUrl);
-    if (!response.ok) throw new Error('Lecturas no encontradas en la base de datos.');
+    if (!response.ok) {
+      return res.status(200).json({
+        fiestas: [{
+          tiempo: cal.tiempo,
+          semana: cal.semana,
+          santo: 'Feria',
+          color: cal.colorTiempo,
+          colorTiempo: cal.colorTiempo,
+          colorCelebracion: cal.colorTiempo,
+          esDiaSupremo: cal.esDiaSupremo,
+          ciclo: cal.ciclo,
+          anio: cal.anio,
+          tomo: cal.tomo,
+          salterio: cal.salterio
+        }],
+        readings: [],
+        sinLecturas: true
+      });
+    }
 
     const dataEWTN = await response.json();
+    const fiestaRaw = String(dataEWTN.fiesta || '').trim();
+    const { colorMisa, colorSanto } = inferirColorCelebracion(fiestaRaw, dataEWTN.color, cal.colorTiempo);
 
-    const fiestaRaw = (dataEWTN.fiesta || "").trim(); 
-    
-    // Calculamos el color dinámicamente usando nuestra nueva función
-    const colorLiturgico = inferirColorLiturgico(fiestaRaw, dataEWTN.color);
-    
-    const numSemana = calcularSemanaLiturgica(dateParam);
-    const romanoSemana = toRoman(numSemana);
-    let numSalterio = numSemana % 4;
-    if (numSalterio === 0) numSalterio = 4;
-    let salterioOrdinal = numSemana === 34 ? 2 : numSalterio; // Semana 34 usa el salterio 2
-    const romanoTomo = numSemana > 17 ? 'IV' : 'III';
-    
-    const semanaFinal = `${romanoSemana} Semana del Tiempo Ordinario`;
+    const lec = dataEWTN.lecturas || {};
+    const readings = [];
+    if (lec.primera) readings.push({ type: 'FR', title: lec.primera.titulo, referencia: lec.primera.referencia, text: lec.primera.texto });
+    if (lec.salmo) readings.push({ type: 'PS', title: lec.salmo.titulo, referencia: lec.salmo.referencia, text: lec.salmo.texto });
+    if (lec.segunda) readings.push({ type: 'SR', title: lec.segunda.titulo, referencia: lec.segunda.referencia, text: lec.segunda.texto });
+    if (lec.evangelio) readings.push({ type: 'GSP', title: lec.evangelio.titulo, referencia: lec.evangelio.referencia, text: lec.evangelio.texto });
+    if (lec.reflexion) readings.push({ type: 'RE', title: lec.reflexion.titulo, referencia: lec.reflexion.referencia, text: lec.reflexion.texto });
 
-    let readings = [];
-    if (dataEWTN.lecturas.primera) readings.push({ type: 'FR', title: dataEWTN.lecturas.primera.titulo, referencia: dataEWTN.lecturas.primera.referencia, text: dataEWTN.lecturas.primera.texto });
-    if (dataEWTN.lecturas.salmo) readings.push({ type: 'PS', title: dataEWTN.lecturas.salmo.titulo, referencia: dataEWTN.lecturas.salmo.referencia, text: dataEWTN.lecturas.salmo.texto });
-    if (dataEWTN.lecturas.segunda) readings.push({ type: 'SR', title: dataEWTN.lecturas.segunda.titulo, referencia: dataEWTN.lecturas.segunda.referencia, text: dataEWTN.lecturas.segunda.texto });
-    if (dataEWTN.lecturas.evangelio) readings.push({ type: 'GSP', title: dataEWTN.lecturas.evangelio.titulo, referencia: dataEWTN.lecturas.evangelio.referencia, text: dataEWTN.lecturas.evangelio.texto });
-
-    res.status(200).json({
-      fiestas: [{ 
-          semana: semanaFinal, 
-          santo: fiestaRaw !== "" ? fiestaRaw : "Feria", 
-          color: colorLiturgico, 
-          ciclo: "CICLO A", 
-          anio: "AÑO II",
-          tomo: `TOMO ${romanoTomo}`,
-          salterio: `SALTERIO ${salterioOrdinal}ª SEMANA`
+    return res.status(200).json({
+      fiestas: [{
+        tiempo: cal.tiempo,
+        semana: cal.semana,
+        santo: fiestaRaw !== '' ? fiestaRaw : 'Feria',
+        color: colorMisa,
+        colorTiempo: cal.colorTiempo,
+        colorCelebracion: colorSanto,
+        esDiaSupremo: cal.esDiaSupremo,
+        ciclo: cal.ciclo,
+        anio: cal.anio,
+        tomo: cal.tomo,
+        salterio: cal.salterio
       }],
-      readings: readings
+      readings
     });
-
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    return res.status(500).json({ error: error.message });
   }
 }
