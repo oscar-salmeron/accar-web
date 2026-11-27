@@ -1,5 +1,5 @@
 <!-- ===== ACCAR | FICHA HAGIOGRÁFICA Y LITÚRGICA DEL SANTO ===== -->
-<main id="app-santoral" class="accar-santo-ficha santo-tema-blanco">
+<main id="app-santoral" class="accar-santo-ficha">
   <div class="accar-santo-inner">
     <div id="loading" class="accar-santo-spinner">✠ Abriendo el Martirologio Romano...</div>
     <article id="santo-container" style="display: none;"></article>
@@ -12,10 +12,10 @@
   box-sizing: border-box;
 }
 
-/* ===== VARIABLES POR DEFECTO Y LOS 8 TEMAS LITÚRGICOS ===== */
+/* ===== LIENZO EXTERIOR SEGÚN LA DIGNIDAD LITÚRGICA DEL SANTO ===== */
 #app-santoral.accar-santo-ficha {
-  --santo-bg-top: rgba(46, 38, 16, 0.72);
-  --santo-bg-mid: rgba(10, 24, 52, 0.92);
+  --santo-bg-top: #10244a;
+  --santo-bg-mid: #07132a;
   --santo-bg-deep: #030816;
   --santo-halo: rgba(238, 208, 118, 0.22);
   --santo-prayer-bg: linear-gradient(165deg, rgba(28, 24, 12, 0.92) 0%, rgba(7, 15, 34, 0.96) 100%);
@@ -26,7 +26,7 @@
   max-width: none !important;
   margin: 0 !important;
   min-height: 100vh;
-  padding: 72px 20px 124px !important;
+  padding: 64px 20px 124px !important;
   color: #f8efd3;
   font-family: Georgia, "Times New Roman", serif;
   line-height: 1.84;
@@ -36,96 +36,123 @@
   border-bottom: none !important;
   border-radius: 0 !important;
   background:
-    radial-gradient(ellipse at 50% 0%, var(--santo-bg-top) 0%, var(--santo-bg-mid) 48%, var(--santo-bg-deep) 100%) !important;
-  box-shadow: inset 0 24px 52px rgba(0, 0, 0, 0.58) !important;
-  transition: background 0.45s ease;
+    radial-gradient(ellipse at 50% 0%, var(--santo-bg-top) 0%, var(--santo-bg-mid) 50%, var(--santo-bg-deep) 100%) !important;
+  box-shadow: inset 0 24px 52px rgba(0, 0, 0, 0.45) !important;
+  transition: background 0.4s ease;
 }
 
-/* 1. Blanco Litúrgico (Confesores, Vírgenes, Doctores, Fiestas del Señor) */
-#app-santoral.accar-santo-ficha.santo-tema-blanco {
-  --santo-bg-top: rgba(58, 46, 18, 0.68);
-  --santo-bg-mid: rgba(10, 24, 50, 0.92);
-  --santo-bg-deep: #040918;
-  --santo-halo: rgba(245, 222, 150, 0.24);
-  --santo-prayer-bg: linear-gradient(165deg, rgba(42, 33, 12, 0.88) 0%, rgba(6, 15, 34, 0.96) 100%);
-}
-
-/* 2. Rojo Litúrgico (Mártires, Apóstoles, Pasión, Espíritu Santo) */
-#app-santoral.accar-santo-ficha.santo-tema-rojo {
-  --santo-bg-top: rgba(112, 14, 24, 0.86);
-  --santo-bg-mid: rgba(46, 6, 12, 0.94);
-  --santo-bg-deep: #140205;
-  --santo-halo: rgba(185, 28, 42, 0.30);
-  --santo-prayer-bg: linear-gradient(165deg, rgba(78, 10, 18, 0.90) 0%, rgba(26, 4, 8, 0.97) 100%);
-}
-
-/* 3. Verde Litúrgico (Tiempo Ordinario) */
-#app-santoral.accar-santo-ficha.santo-tema-verde {
-  --santo-bg-top: rgba(18, 72, 43, 0.84);
-  --santo-bg-mid: rgba(7, 31, 19, 0.94);
-  --santo-bg-deep: #030e08;
-  --santo-halo: rgba(34, 120, 72, 0.26);
-  --santo-prayer-bg: linear-gradient(165deg, rgba(14, 54, 33, 0.90) 0%, rgba(5, 20, 12, 0.97) 100%);
-}
-
-/* 4. Morado Litúrgico (Penitentes, Adviento, Cuaresma) */
-#app-santoral.accar-santo-ficha.santo-tema-morado {
-  --santo-bg-top: rgba(72, 20, 98, 0.86);
-  --santo-bg-mid: rgba(30, 8, 44, 0.94);
-  --santo-bg-deep: #0c0314;
-  --santo-halo: rgba(126, 42, 168, 0.28);
-  --santo-prayer-bg: linear-gradient(165deg, rgba(52, 14, 72, 0.90) 0%, rgba(18, 5, 28, 0.97) 100%);
-}
-
-/* 5. Celeste Mariano */
+/* 1. Santísima Virgen María: Celeste Cielo Luminoso */
 #app-santoral.accar-santo-ficha.santo-tema-celeste {
-  --santo-bg-top: rgba(20, 68, 124, 0.84);
-  --santo-bg-mid: rgba(8, 28, 56, 0.94);
-  --santo-bg-deep: #030b18;
-  --santo-halo: rgba(56, 138, 220, 0.26);
-  --santo-prayer-bg: linear-gradient(165deg, rgba(14, 48, 90, 0.90) 0%, rgba(5, 18, 38, 0.97) 100%);
+  --santo-bg-top: #e6f4fe;
+  --santo-bg-mid: #bce3fb;
+  --santo-bg-deep: #88c7f2;
+  --santo-halo: rgba(125, 211, 252, 0.30);
+  --santo-prayer-bg: linear-gradient(165deg, rgba(14, 52, 96, 0.94) 0%, rgba(5, 18, 38, 0.98) 100%);
 }
 
-/* 6. Negro Litúrgico (Fieles Difuntos) */
-#app-santoral.accar-santo-ficha.santo-tema-negro {
-  --santo-bg-top: rgba(36, 39, 48, 0.88);
-  --santo-bg-mid: rgba(15, 17, 22, 0.95);
-  --santo-bg-deep: #050608;
-  --santo-halo: rgba(212, 175, 55, 0.16);
-  --santo-prayer-bg: linear-gradient(165deg, rgba(24, 26, 34, 0.92) 0%, rgba(8, 9, 14, 0.98) 100%);
+/* 2. Santas Vírgenes: Blanco Hueso / Alabastro */
+#app-santoral.accar-santo-ficha.santo-tema-blanco-hueso {
+  --santo-bg-top: #fcfbf7;
+  --santo-bg-mid: #f3efe4;
+  --santo-bg-deep: #e5decb;
+  --santo-halo: rgba(248, 239, 211, 0.26);
+  --santo-prayer-bg: linear-gradient(165deg, rgba(40, 34, 18, 0.92) 0%, rgba(7, 15, 34, 0.98) 100%);
 }
 
-/* 7. Realeza (Jesucristo, Rey del Universo / Realeza de María) */
+/* 3. Santos Religiosos, Obispos, Presbíteros y Confesores: Crema Monástico */
+#app-santoral.accar-santo-ficha.santo-tema-crema,
+#app-santoral.accar-santo-ficha.santo-tema-blanco {
+  --santo-bg-top: #faefd9;
+  --santo-bg-mid: #f0dfc0;
+  --santo-bg-deep: #e2cba1;
+  --santo-halo: rgba(232, 203, 114, 0.26);
+  --santo-prayer-bg: linear-gradient(165deg, rgba(46, 35, 12, 0.92) 0%, rgba(7, 15, 34, 0.98) 100%);
+}
+
+/* 4. Solemnidades Gloriosas del Señor: Blanco Radiante y Oro */
+#app-santoral.accar-santo-ficha.santo-tema-gloria {
+  --santo-bg-top: #fffef8;
+  --santo-bg-mid: #faecc4;
+  --santo-bg-deep: #dfc06c;
+  --santo-halo: rgba(245, 208, 96, 0.32);
+  --santo-prayer-bg: linear-gradient(165deg, rgba(64, 48, 10, 0.92) 0%, rgba(18, 14, 6, 0.98) 100%);
+}
+
+/* 5. Mártires, Apóstoles, Pasión y Espíritu Santo: Rojo Carmesí */
+#app-santoral.accar-santo-ficha.santo-tema-rojo {
+  --santo-bg-top: #861622;
+  --santo-bg-mid: #4a0810;
+  --santo-bg-deep: #1b0306;
+  --santo-halo: rgba(185, 28, 42, 0.32);
+  --santo-prayer-bg: linear-gradient(165deg, rgba(78, 10, 18, 0.92) 0%, rgba(26, 4, 8, 0.98) 100%);
+}
+
+/* 6. Realeza de Cristo y de María: Púrpura Regio */
 #app-santoral.accar-santo-ficha.santo-tema-realeza {
-  --santo-bg-top: rgba(98, 12, 42, 0.88);
-  --santo-bg-mid: rgba(44, 6, 20, 0.95);
-  --santo-bg-deep: #140209;
-  --santo-halo: rgba(212, 175, 55, 0.28);
+  --santo-bg-top: #6b0d30;
+  --santo-bg-mid: #360518;
+  --santo-bg-deep: #150209;
+  --santo-halo: rgba(212, 175, 55, 0.30);
   --santo-prayer-bg: linear-gradient(165deg, rgba(68, 9, 30, 0.92) 0%, rgba(24, 4, 12, 0.98) 100%);
 }
 
-/* 8. Gloria (Grandes Solemnidades Gloriosas del Señor) */
-#app-santoral.accar-santo-ficha.santo-tema-gloria {
-  --santo-bg-top: rgba(92, 68, 14, 0.80);
-  --santo-bg-mid: rgba(28, 22, 8, 0.94);
-  --santo-bg-deep: #09080f;
-  --santo-halo: rgba(245, 208, 96, 0.30);
-  --santo-prayer-bg: linear-gradient(165deg, rgba(64, 48, 10, 0.90) 0%, rgba(18, 14, 6, 0.97) 100%);
+/* 7. Verde Litúrgico */
+#app-santoral.accar-santo-ficha.santo-tema-verde {
+  --santo-bg-top: #165634;
+  --santo-bg-mid: #092918;
+  --santo-bg-deep: #04120a;
+  --santo-halo: rgba(34, 120, 72, 0.28);
+  --santo-prayer-bg: linear-gradient(165deg, rgba(14, 54, 33, 0.92) 0%, rgba(5, 20, 12, 0.98) 100%);
 }
 
-/* Marca de agua vectorial sacra del Santoral */
+/* 8. Morado Penitencial */
+#app-santoral.accar-santo-ficha.santo-tema-morado {
+  --santo-bg-top: #521870;
+  --santo-bg-mid: #260938;
+  --santo-bg-deep: #0e0317;
+  --santo-halo: rgba(126, 42, 168, 0.30);
+  --santo-prayer-bg: linear-gradient(165deg, rgba(52, 14, 72, 0.92) 0%, rgba(18, 5, 28, 0.98) 100%);
+}
+
+/* 9. Negro Litúrgico (Fieles Difuntos) */
+#app-santoral.accar-santo-ficha.santo-tema-negro {
+  --santo-bg-top: #2a2d36;
+  --santo-bg-mid: #14161c;
+  --santo-bg-deep: #06070a;
+  --santo-halo: rgba(212, 175, 55, 0.18);
+  --santo-prayer-bg: linear-gradient(165deg, rgba(24, 26, 34, 0.92) 0%, rgba(8, 9, 14, 0.98) 100%);
+}
+
+/* Ajustes ópticos automáticos cuando el fondo exterior es claro (celeste, blanco hueso, crema, gloria) */
+#app-santoral.accar-santo-ficha.santo-lienzo-claro {
+  border-top-color: rgba(180, 140, 42, 0.45) !important;
+  box-shadow: inset 0 12px 28px rgba(0, 0, 0, 0.08) !important;
+}
+
+#app-santoral.accar-santo-ficha.santo-lienzo-claro .accar-santo-spinner {
+  color: #0e2547;
+}
+
+#app-santoral.accar-santo-ficha.santo-lienzo-claro .accar-santo-hero,
+#app-santoral.accar-santo-ficha.santo-lienzo-claro .accar-santo-article {
+  border-color: rgba(212, 175, 55, 0.78);
+  background: linear-gradient(180deg, rgba(7, 18, 40, 0.97) 0%, rgba(3, 9, 22, 0.99) 100%);
+  box-shadow:
+    0 22px 48px rgba(8, 18, 38, 0.30),
+    inset 0 1px 0 rgba(255, 238, 186, 0.20);
+}
+
+#app-santoral.accar-santo-ficha.santo-lienzo-claro .accar-santo-hero {
+  background:
+    radial-gradient(circle at 22% 50%, var(--santo-halo) 0%, transparent 56%),
+    linear-gradient(180deg, rgba(7, 18, 40, 0.97) 0%, rgba(3, 9, 22, 0.99) 100%);
+}
+
+/* Sin marca de agua en la ficha individual del santo */
 #app-santoral.accar-santo-ficha::before {
-  content: "";
-  position: absolute;
-  top: 110px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: min(1060px, 95vw);
-  height: min(1060px, 95vw);
-  background: url("/assets/img/corona-palmas-watermark.png") center top / contain no-repeat;
-  opacity: 0.07;
-  pointer-events: none;
-  z-index: 0;
+  display: none !important;
+  content: none !important;
+  background: none !important;
 }
 
 #app-santoral.accar-santo-ficha .accar-santo-inner {
@@ -144,67 +171,65 @@
   text-transform: uppercase;
 }
 
-/* ===== BARRA SUPERIOR: BOTÓN DE RETORNO Y RUTA ===== */
+/* ===== MIGAS DE PAN SUPERIORES (SIN BOTÓN REDUNDANTE) ===== */
 #app-santoral.accar-santo-ficha .accar-santo-topbar {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 14px;
-  margin-bottom: 26px;
-}
-
-#app-santoral.accar-santo-ficha .accar-santo-volver {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 10px 22px;
-  border-radius: 999px;
-  border: 1px solid rgba(212, 175, 55, 0.58);
-  background: rgba(5, 10, 26, 0.82);
-  color: #e8cb72;
-  text-decoration: none;
-  font-size: 0.76rem;
-  font-weight: 700;
-  letter-spacing: 0.10em;
-  text-transform: uppercase;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.45);
-  transition: all 0.25s ease;
-}
-
-#app-santoral.accar-santo-ficha .accar-santo-volver:hover {
-  background: rgba(212, 175, 55, 0.18);
-  border-color: #eed076;
-  color: #fff9ec;
-  transform: translateX(-3px);
+  justify-content: flex-start;
+  margin-bottom: 22px;
 }
 
 #app-santoral.accar-santo-ficha .accar-santo-MinimalBc {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   flex-wrap: wrap;
-  gap: 8px;
-  font-size: 0.84rem;
-  color: rgba(248, 239, 211, 0.72);
+  gap: 9px;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: rgba(248, 239, 211, 0.85);
 }
 
 #app-santoral.accar-santo-ficha .accar-santo-MinimalBc a {
-  color: #e8cb72;
+  color: #eed076;
   text-decoration: none;
   transition: color 0.2s ease;
 }
 
 #app-santoral.accar-santo-ficha .accar-santo-MinimalBc a:hover {
-  color: #fff9ec;
+  color: #ffffff;
+  text-decoration: underline;
 }
 
 #app-santoral.accar-santo-ficha .accar-bc-sep {
-  color: rgba(212, 175, 55, 0.55);
-  font-size: 0.78rem;
+  color: rgba(212, 175, 55, 0.65);
+  font-size: 0.85rem;
 }
 
 #app-santoral.accar-santo-ficha .accar-bc-current {
-  color: #f4ebd2;
+  color: #fff9ec;
+}
+
+/* Contraste nítido de las migas de pan sobre fondos claros */
+#app-santoral.accar-santo-ficha.santo-lienzo-claro .accar-santo-MinimalBc {
+  color: #1c2d48;
+}
+
+#app-santoral.accar-santo-ficha.santo-lienzo-claro .accar-santo-MinimalBc a {
+  color: #0b2246;
+  font-weight: 700;
+}
+
+#app-santoral.accar-santo-ficha.santo-lienzo-claro .accar-santo-MinimalBc a:hover {
+  color: #6e4e06;
+}
+
+#app-santoral.accar-santo-ficha.santo-lienzo-claro .accar-bc-sep {
+  color: #7c5808;
+}
+
+#app-santoral.accar-santo-ficha.santo-lienzo-claro .accar-bc-current {
+  color: #4d3605;
+  font-weight: 700;
 }
 
 /* ===== TARJETA RELICARIO DE CABECERA (HERMANA DE PERSONAJES) ===== */
@@ -666,13 +691,40 @@ if (santoID) {
         if (docSnap.exists()) {
             const data = docSnap.data();
 
-            const temasValidos = ["rojo", "blanco", "verde", "morado", "celeste", "negro", "realeza", "gloria"];
-            const colorRaw = data.color ? data.color.toLowerCase().trim() : "blanco";
-            const colorLiturgico = temasValidos.includes(colorRaw) ? colorRaw : "blanco";
+            const sinAcentos = (txt = "") =>
+                String(txt).normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+
+            const todosLosTemas = ["rojo", "blanco", "blanco-hueso", "crema", "verde", "morado", "celeste", "negro", "realeza", "gloria"];
+            const temasClaros = ["celeste", "blanco-hueso", "crema", "blanco", "gloria"];
+
+            const colorRaw = sinAcentos(data.color || "blanco").trim();
+            const textoClave = `${sinAcentos(data.nombre_completo || "")} ${sinAcentos(data.patronazgo || "")}`;
+
+            let temaElegido = "crema";
+            if (["rojo", "verde", "morado", "negro", "realeza", "gloria", "celeste", "crema", "blanco-hueso"].includes(colorRaw)) {
+                temaElegido = colorRaw;
+            } else if (colorRaw === "hueso") {
+                temaElegido = "blanco-hueso";
+            } else {
+                // Cuando el color litúrgico base es blanco, distinguimos según la dignidad del santo
+                if (/\b(virgen maria|nuestra senora|madre de dios|inmaculada concepcion|asuncion de la|bienaventurada virgen|corazon inmaculado|dulce nombre de maria|santa maria la mayor)\b/.test(textoClave)) {
+                    temaElegido = "celeste";
+                } else if (/\b(jesucristo|nuestro senor|santisima trinidad|corpus christi|sagrado corazon de jesus|transfiguracion|ascension del senor|epifania|natividad del senor|bautismo del senor)\b/.test(textoClave)) {
+                    temaElegido = "gloria";
+                } else if (/\b(virgen|virgenes)\b/.test(textoClave)) {
+                    temaElegido = "blanco-hueso";
+                } else {
+                    temaElegido = "crema";
+                }
+            }
 
             if (mainSantoral) {
-                temasValidos.forEach(t => mainSantoral.classList.remove(`santo-tema-${t}`));
-                mainSantoral.classList.add(`santo-tema-${colorLiturgico}`);
+                todosLosTemas.forEach(t => mainSantoral.classList.remove(`santo-tema-${t}`));
+                mainSantoral.classList.remove("santo-lienzo-claro");
+                mainSantoral.classList.add(`santo-tema-${temaElegido}`);
+                if (temasClaros.includes(temaElegido)) {
+                    mainSantoral.classList.add("santo-lienzo-claro");
+                }
             }
 
             const mesesValidos = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
@@ -682,11 +734,6 @@ if (santoID) {
                 const encontrado = mesesValidos.find(m => m.toLowerCase() === posibleMes.toLowerCase());
                 if (encontrado) mesValido = encontrado;
             }
-
-            const textoBotonVolver = mesValido ? `← Volver a ${mesValido}` : "← Volver al Santoral";
-            const accionVolver = mesValido
-                ? `window.navegarDesdeSanto('views/santos/inicio-santos.html', '${mesValido}')`
-                : `window.navegarDesdeSanto('views/santos/inicio-santos.html')`;
 
             const migasMesHTML = mesValido
                 ? `<a href="/ver/santoral" onclick="event.preventDefault(); window.navegarDesdeSanto('views/santos/inicio-santos.html', '${mesValido}');">${mesValido}</a> <span class="accar-bc-sep">›</span>`
@@ -706,10 +753,6 @@ if (santoID) {
 
             container.innerHTML = `
                 <div class="accar-santo-topbar">
-                  <a href="/ver/santoral" onclick="event.preventDefault(); ${accionVolver};" class="accar-santo-volver">
-                    ${textoBotonVolver}
-                  </a>
-
                   <nav class="accar-santo-MinimalBc" aria-label="Ruta de navegación">
                     <a href="/" onclick="event.preventDefault(); window.navegarDesdeSanto('views/inicio.html');">Inicio</a>
                     <span class="accar-bc-sep">›</span>
@@ -728,7 +771,7 @@ if (santoID) {
 
                   <div class="accar-santo-head">
                     ${data.fecha_texto ? `<div class="accar-santo-kicker"><span>✠</span><span>${data.fecha_texto}</span><span>✠</span></div>` : ""}
-                    <h1 class="accar-santo-title">${data.nombre_completo || ""}</h1>
+                    <h1 class="accar-santo-title santo-nombre">${data.nombre_completo || ""}</h1>
                     <div class="accar-santo-rule" aria-hidden="true"></div>
                     ${data.patronazgo ? `<p class="accar-santo-subtitle">${data.patronazgo}</p>` : ""}
                   </div>
