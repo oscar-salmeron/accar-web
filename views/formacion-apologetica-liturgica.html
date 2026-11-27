@@ -1,401 +1,479 @@
-<section class="accar-vestibulo-page accar-documento-page">
-  
-  <!-- ENCABEZADO HERÁLDICO -->
-  <div class="accar-header-heraldico">
-    <img src="../assets/img/ACCAR-DORADO.png" alt="Sello Institucional" class="accar-escudo-lateral">
-    <div class="accar-header-texto">
-      <span class="accar-vestibulo-kicker">Lex Orandi, Lex Credendi</span>
-      <h1 class="accar-vestibulo-title">Custodia Litúrgica: Normas y Corrección</h1>
-      <p class="accar-vestibulo-desc">
-        Análisis canónico y litúrgico para la defensa del altar, el decoro de la Santa Eucaristía y la corrección de abusos.
+<!-- ===== ACCAR | CUSTODIA LITÚRGICA: NORMAS Y CORRECCIÓN ===== -->
+<section class="accar-custodia-page">
+
+  <div class="accar-custodia-inner">
+
+    <!-- CABECERA MAESTRA UNIFICADA -->
+    <header class="accar-custodia-header">
+      <div class="accar-custodia-kicker">
+        <span aria-hidden="true">✠</span>
+        <span>Lex Orandi, Lex Credendi</span>
+        <span aria-hidden="true">✠</span>
+      </div>
+
+      <div class="accar-custodia-title-wrap">
+        <h1 class="accar-custodia-title">Custodia Litúrgica: Normas y Corrección</h1>
+      </div>
+
+      <p class="accar-custodia-desc">
+        Análisis canónico y litúrgico para la defensa del altar,<br class="accar-salto-editorial">
+        el decoro de la Santa Eucaristía y la corrección de abusos.
       </p>
-    </div>
-    <img src="../assets/img/icono_apologetica_liturgica.png" alt="Sello Custodia Litúrgica" class="accar-escudo-lateral">
-  </div>
-<div class="accar-vestibulo-divider"></div>
+    </header>
 
-  <!-- CONMUTADOR DE PESTAÑAS SUPERIORES -->
-  <div class="accar-tabs-wrapper">
-    <button id="tab-casos" class="accar-tab-btn activa" onclick="alternarSeccion('casos')">🏛️ Casos de Abuso</button>
-    <button id="tab-glosario" class="accar-tab-btn" onclick="alternarSeccion('glosario')">📖 Jerarquía y Ministerios</button>
-    <button id="tab-ordenes" class="accar-tab-btn" onclick="alternarSeccion('ordenes')">✝️ Órdenes Religiosas</button>
-  </div>
+    <!-- CONMUTADOR DE PESTAÑAS SUPERIORES -->
+    <nav class="accar-custodia-tabs" aria-label="Secciones de Custodia Litúrgica">
+      <button type="button" id="tab-casos" class="accar-custodia-tab activa" onclick="window.alternarSeccion('casos')">
+        <span class="accar-tab-cruz" aria-hidden="true">✠</span>
+        <span>Casos de Abuso</span>
+      </button>
+      <button type="button" id="tab-glosario" class="accar-custodia-tab" onclick="window.alternarSeccion('glosario')">
+        <span class="accar-tab-cruz" aria-hidden="true">✠</span>
+        <span>Jerarquía y Ministerios</span>
+      </button>
+      <button type="button" id="tab-ordenes" class="accar-custodia-tab" onclick="window.alternarSeccion('ordenes')">
+        <span class="accar-tab-cruz" aria-hidden="true">✠</span>
+        <span>Órdenes Religiosas</span>
+      </button>
+    </nav>
 
-  <!-- VISTA: DIRECTORIO DOCTRINAL Y LITÚRGICO (OCULTA INICIALMENTE) -->
-  <div id="vista-glosario" class="accar-glosario-grid" style="display: none;">
-    
-    <!-- FICHA 1 -->
-    <div class="accar-ficha-doctrinal">
-      <div class="accar-ficha-img-box">
-        <img src="../assets/img/ficha_papa.png" alt="El Papa">
-      </div>
-      <div class="accar-ficha-contenido">
-        <h3>1. El Romano Pontífice (El Papa)</h3>
-        <ul>
-          <li><strong>Definición Teológica:</strong> Es el Obispo de la Iglesia Romana, en quien permanece la función que el Señor encomendó singularmente a Pedro, primero entre los Apóstoles, para ser transmitida a sus sucesores.</li>
-          <li><strong>Función Litúrgica:</strong> Es la cabeza del Colegio Episcopal, Vicario de Cristo y Pastor de la Iglesia universal en la tierra.</li>
-          <li><strong>Límites y Potestad:</strong> Posee potestad ordinaria, suprema, plena, inmediata y universal en la Iglesia. Le compete en exclusiva a la Sede Apostólica ordenar la sagrada Liturgia de la Iglesia universal y vigilar que las normas litúrgicas se cumplan con estricta fidelidad.</li>
-        </ul>
-      </div>
-    </div>
+    <!-- =====================================================
+         VISTA 1: CUADRÍCULA DE CASOS DE ABUSO (ESCALABLE)
+    ====================================================== -->
+    <div id="vista-indice" class="accar-indice-grid">
 
-    <!-- FICHA 2 -->
-    <div class="accar-ficha-doctrinal">
-      <div class="accar-ficha-img-box">
-        <img src="../assets/img/ficha_cardenal.png" alt="El Cardenal">
-      </div>
-      <div class="accar-ficha-contenido">
-        <h3>2. El Cardenal</h3>
-        <ul>
-          <li><strong>Definición Teológica:</strong> No es un grado del sacramento del Orden. Los Cardenales constituyen un Colegio peculiar cuya función principal y exclusiva es proveer a la elección del Romano Pontífice.</li>
-          <li><strong>Función Litúrgica:</strong> Asisten al Papa de forma colegial en los Consistorios y de forma personal mediante los distintos oficios que desempeñan en el gobierno de la Iglesia.</li>
-          <li><strong>Límites y Potestad:</strong> Es un título honorífico y de servicio. Para ser creados Cardenales, se elige a varones que hayan recibido al menos el presbiterado.</li>
-        </ul>
-      </div>
-    </div>
+      <!-- TARJETA CASO 01 -->
+      <article class="accar-caso-card" onclick="window.mostrarCaso('caso-1')" role="button" tabindex="0">
+        <div class="accar-caso-contenido">
+          <span class="accar-caso-numero">Caso 01</span>
+          <h2 class="accar-caso-titulo-tarjeta">Manipulación laical de vasos sagrados</h2>
+          <div class="accar-caso-rule" aria-hidden="true"></div>
+          <p class="accar-caso-desc-tarjeta">Análisis y denuncia sobre la purificación y traslado indebido de vasos sagrados por fieles laicos no instituidos.</p>
+          <span class="accar-caso-leer">
+            <span>Leer Documento</span>
+            <span class="accar-caso-arrow" aria-hidden="true">→</span>
+          </span>
+        </div>
+      </article>
 
-    <!-- FICHA 3 -->
-    <div class="accar-ficha-doctrinal">
-      <div class="accar-ficha-img-box">
-        <img src="../assets/img/ficha_obispo.png" alt="El Obispo">
-      </div>
-      <div class="accar-ficha-contenido">
-        <h3>3. El Obispo</h3>
-        <ul>
-          <li><strong>Definición Teológica:</strong> Es el sucesor directo de los Apóstoles por institución divina. Es constituido como Pastor de la Iglesia en virtud del Espíritu Santo, poseyendo la plenitud del sacramento del Orden.</li>
-          <li><strong>Función Litúrgica:</strong> Es el gran liturgo de su diócesis: el primer dispensador de los misterios de Dios, moderador, promotor y custodio de toda la vida litúrgica.</li>
-          <li><strong>Límites y Potestad:</strong> A él le corresponde dictar normas litúrgicas obligatorias en su territorio. Los presbíteros y diáconos no son sus iguales, sino sus colaboradores.</li>
-        </ul>
-      </div>
-    </div>
+      <!-- TARJETA CASO 02 -->
+      <article class="accar-caso-card" onclick="window.mostrarCaso('caso-2')" role="button" tabindex="0">
+        <div class="accar-caso-contenido">
+          <span class="accar-caso-numero">Caso 02</span>
+          <h2 class="accar-caso-titulo-tarjeta">Reserva laical del Santísimo Sacramento</h2>
+          <div class="accar-caso-rule" aria-hidden="true"></div>
+          <p class="accar-caso-desc-tarjeta">Análisis y denuncia sobre la delegación ilícita del traslado y reserva de la Eucaristía en el Sagrario por ministros extraordinarios.</p>
+          <span class="accar-caso-leer">
+            <span>Leer Documento</span>
+            <span class="accar-caso-arrow" aria-hidden="true">→</span>
+          </span>
+        </div>
+      </article>
 
-    <!-- FICHA 4 -->
-    <div class="accar-ficha-doctrinal">
-      <div class="accar-ficha-img-box">
-        <img src="../assets/img/ficha_presbitero.png" alt="El Presbítero">
-      </div>
-      <div class="accar-ficha-contenido">
-        <h3>4. El Presbítero (Sacerdote)</h3>
-        <ul>
-          <li><strong>Definición Teológica:</strong> Es colaborador del orden Episcopal. Asume una parte de la solicitud pastoral del Obispo y forma con él un único presbiterio.</li>
-          <li><strong>Función Litúrgica:</strong> Preside al pueblo fiel actuando en la persona de Cristo Cabeza (in persona Christi Capitis). Dirige la oración, proclama el Evangelio y asocia al pueblo en la ofrenda del Sacrificio Eucarístico a Dios Padre.</li>
-          <li><strong>Límites y Potestad:</strong> Está estrictamente subordinado al Obispo. No es dueño de la Liturgia; constituye un abuso gravísimo deformar arbitrariamente la celebración.</li>
-        </ul>
-      </div>
-    </div>
+      <!-- TARJETA CASO 03 -->
+      <article class="accar-caso-card" onclick="window.mostrarCaso('caso-3')" role="button" tabindex="0">
+        <div class="accar-caso-contenido">
+          <span class="accar-caso-numero">Caso 03</span>
+          <h2 class="accar-caso-titulo-tarjeta">Omisión sistemática de la casulla</h2>
+          <div class="accar-caso-rule" aria-hidden="true"></div>
+          <p class="accar-caso-desc-tarjeta">Análisis y amonestación por la celebración del Santo Sacrificio revistiendo únicamente alba y estola.</p>
+          <span class="accar-caso-leer">
+            <span>Leer Documento</span>
+            <span class="accar-caso-arrow" aria-hidden="true">→</span>
+          </span>
+        </div>
+      </article>
 
-    <!-- FICHA 5 -->
-    <div class="accar-ficha-doctrinal">
-      <div class="accar-ficha-img-box">
-        <img src="../assets/img/ficha_diacono.png" alt="El Diácono">
-      </div>
-      <div class="accar-ficha-contenido">
-        <h3>5. El Diácono</h3>
-        <ul>
-          <li><strong>Definición Teológica:</strong> Recibe la imposición de las manos no para el sacerdocio, sino para el ministerio. Sirve al pueblo de Dios en comunión con el Obispo y su presbiterio.</li>
-          <li><strong>Función Litúrgica:</strong> Le corresponde proclamar el Evangelio, predicar la homilía (cuando se le delega), proponer las intenciones, asistir en el altar y distribuir la Eucaristía.</li>
-          <li><strong>Límites y Potestad:</strong> Asiste al sacerdote en el altar, pero no consagra ni preside el Sacrificio Eucarístico. Su ordenación es estrictamente para el servicio.</li>
-        </ul>
-      </div>
-    </div>
+      <!-- TARJETA CASO 04 -->
+      <article class="accar-caso-card" onclick="window.mostrarCaso('caso-4')" role="button" tabindex="0">
+        <div class="accar-caso-contenido">
+          <span class="accar-caso-numero">Caso 04</span>
+          <h2 class="accar-caso-titulo-tarjeta">Uso indebido y profano del ambón</h2>
+          <div class="accar-caso-rule" aria-hidden="true"></div>
+          <p class="accar-caso-desc-tarjeta">Análisis y denuncia sobre la utilización de la mesa de la Palabra para dar anuncios parroquiales o avisos logísticos.</p>
+          <span class="accar-caso-leer">
+            <span>Leer Documento</span>
+            <span class="accar-caso-arrow" aria-hidden="true">→</span>
+          </span>
+        </div>
+      </article>
 
-    <!-- FICHA 6 -->
-    <div class="accar-ficha-doctrinal">
-      <div class="accar-ficha-img-box">
-        <img src="../assets/img/ficha_acolito.png" alt="Acólito vs Monaguillo">
-      </div>
-      <div class="accar-ficha-contenido">
-        <h3>6. Acólito Instituido vs. Monaguillo</h3>
-        <ul>
-          <li><strong>El Acólito Instituido:</strong> Varón llamado a un ministerio estable mediante un rito litúrgico oficial. Su función es servir al altar, y posee la facultad explícita de purificar los vasos sagrados.</li>
-          <li><strong>El Monaguillo:</strong> Ejerce un servicio temporal, laical y voluntario. En ausencia del acólito instituido, suplen llevando la cruz, los cirios o el incienso.</li>
-          <li><strong>Límites y Potestad:</strong> El monaguillo suple una necesidad logística temporal, pero no posee el ministerio instituido ni está autorizado bajo ninguna circunstancia para purificar los vasos sagrados.</li>
-        </ul>
-      </div>
-    </div>
+      <!-- TARJETA CASO 05 -->
+      <article class="accar-caso-card" onclick="window.mostrarCaso('caso-5')" role="button" tabindex="0">
+        <div class="accar-caso-contenido">
+          <span class="accar-caso-numero">Caso 05</span>
+          <h2 class="accar-caso-titulo-tarjeta">Usurpación laical y desvirtuación de la Homilía</h2>
+          <div class="accar-caso-rule" aria-hidden="true"></div>
+          <p class="accar-caso-desc-tarjeta">Análisis y denuncia sobre la cesión de la predicación a laicos y el uso secular de la homilía.</p>
+          <span class="accar-caso-leer">
+            <span>Leer Documento</span>
+            <span class="accar-caso-arrow" aria-hidden="true">→</span>
+          </span>
+        </div>
+      </article>
 
-    <!-- FICHA 7 -->
-    <div class="accar-ficha-doctrinal">
-      <div class="accar-ficha-img-box">
-        <img src="../assets/img/ficha_lector.png" alt="Lector Instituido vs Voluntario">
-      </div>
-      <div class="accar-ficha-contenido">
-        <h3>7. Lector Instituido vs. Lector Voluntario</h3>
-        <ul>
-          <li><strong>El Lector Instituido:</strong> Fiel designado de modo estable mediante un rito oficial. Su función propia es proclamar las lecturas (excepto el Evangelio) desde el ambón.</li>
-          <li><strong>El Lector Voluntario:</strong> Fiel laico delegado temporalmente. Debe estar preparado espiritual y técnicamente.</li>
-          <li><strong>Límites y Potestad:</strong> La proclamación del Evangelio jamás corresponde al lector (ni instituido ni voluntario), pues es reservada al orden sagrado (diácono, presbítero u obispo).</li>
-        </ul>
-      </div>
+      <!-- TARJETA CASO 06 -->
+      <article class="accar-caso-card" onclick="window.mostrarCaso('caso-6')" role="button" tabindex="0">
+        <div class="accar-caso-contenido">
+          <span class="accar-caso-numero">Caso 06</span>
+          <h2 class="accar-caso-titulo-tarjeta">Ministros Extraordinarios: Uso ilícito e irreverencia</h2>
+          <div class="accar-caso-rule" aria-hidden="true"></div>
+          <p class="accar-caso-desc-tarjeta">Análisis y denuncia sobre la rutinización del ministerio y la actitud profana al distribuir la Eucaristía.</p>
+          <span class="accar-caso-leer">
+            <span>Leer Documento</span>
+            <span class="accar-caso-arrow" aria-hidden="true">→</span>
+          </span>
+        </div>
+      </article>
+
+      <!-- PUNTO DE EXPANSIÓN: Agrega aquí las tarjetas del Caso 07, Caso 08, etc. -->
+
     </div>
 
-    <!-- FICHA 8 -->
-    <div class="accar-ficha-doctrinal">
-      <div class="accar-ficha-img-box">
-        <img src="../assets/img/ficha_ministro.png" alt="Ministro Extraordinario">
-      </div>
-      <div class="accar-ficha-contenido">
-        <h3>8. Ministro Extraordinario de la Sagrada Comunión (MESC)</h3>
-        <ul>
-          <li><strong>Definición Teológica:</strong> Es un fiel laico delegado de forma ritual y excepcional para asistir en la distribución de la sagrada Comunión.</li>
-          <li><strong>Función Litúrgica:</strong> Ayudar al celebrante a distribuir el Sacramento única y exclusivamente cuando la necesidad apremiante lo exige.</li>
-          <li><strong>Límites y Potestad:</strong> Su ministerio es estrictamente subsidiario. Sólo es lícito su uso en casos de verdadera emergencia. Tienen prohibido tomar los vasos sagrados por sí mismos del altar.</li>
-        </ul>
-      </div>
+    <!-- =====================================================
+         VISTA 2: DIRECTORIO DE JERARQUÍA Y MINISTERIOS
+    ====================================================== -->
+    <div id="vista-glosario" class="accar-glosario-grid" style="display: none;">
+
+      <!-- FICHA 1 -->
+      <article class="accar-ficha-doctrinal">
+        <div class="accar-ficha-img-box">
+          <img src="/assets/img/ficha_papa.png" alt="El Romano Pontífice">
+        </div>
+        <div class="accar-ficha-contenido">
+          <h3>1. El Romano Pontífice (El Papa)</h3>
+          <div class="accar-ficha-rule" aria-hidden="true"></div>
+          <ul>
+            <li><strong>Definición Teológica:</strong> Es el Obispo de la Iglesia Romana, en quien permanece la función que el Señor encomendó singularmente a Pedro, primero entre los Apóstoles, para ser transmitida a sus sucesores.</li>
+            <li><strong>Función Litúrgica:</strong> Es la cabeza del Colegio Episcopal, Vicario de Cristo y Pastor de la Iglesia universal en la tierra.</li>
+            <li><strong>Límites y Potestad:</strong> Posee potestad ordinaria, suprema, plena, inmediata y universal en la Iglesia. Le compete en exclusiva a la Sede Apostólica ordenar la sagrada Liturgia de la Iglesia universal y vigilar que las normas litúrgicas se cumplan con estricta fidelidad.</li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- FICHA 2 -->
+      <article class="accar-ficha-doctrinal">
+        <div class="accar-ficha-img-box">
+          <img src="/assets/img/ficha_cardenal.png" alt="El Cardenal">
+        </div>
+        <div class="accar-ficha-contenido">
+          <h3>2. El Cardenal</h3>
+          <div class="accar-ficha-rule" aria-hidden="true"></div>
+          <ul>
+            <li><strong>Definición Teológica:</strong> No es un grado del sacramento del Orden. Los Cardenales constituyen un Colegio peculiar cuya función principal y exclusiva es proveer a la elección del Romano Pontífice.</li>
+            <li><strong>Función Litúrgica:</strong> Asisten al Papa de forma colegial en los Consistorios y de forma personal mediante los distintos oficios que desempeñan en el gobierno de la Iglesia.</li>
+            <li><strong>Límites y Potestad:</strong> Es un título honorífico y de servicio. Para ser creados Cardenales, se elige a varones que hayan recibido al menos el presbiterado.</li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- FICHA 3 -->
+      <article class="accar-ficha-doctrinal">
+        <div class="accar-ficha-img-box">
+          <img src="/assets/img/ficha_obispo.png" alt="El Obispo">
+        </div>
+        <div class="accar-ficha-contenido">
+          <h3>3. El Obispo</h3>
+          <div class="accar-ficha-rule" aria-hidden="true"></div>
+          <ul>
+            <li><strong>Definición Teológica:</strong> Es el sucesor directo de los Apóstoles por institución divina. Es constituido como Pastor de la Iglesia en virtud del Espíritu Santo, poseyendo la plenitud del sacramento del Orden.</li>
+            <li><strong>Función Litúrgica:</strong> Es el gran liturgo de su diócesis: el primer dispensador de los misterios de Dios, moderador, promotor y custodio de toda la vida litúrgica.</li>
+            <li><strong>Límites y Potestad:</strong> A él le corresponde dictar normas litúrgicas obligatorias en su territorio. Los presbíteros y diáconos no son sus iguales, sino sus colaboradores.</li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- FICHA 4 -->
+      <article class="accar-ficha-doctrinal">
+        <div class="accar-ficha-img-box">
+          <img src="/assets/img/ficha_presbitero.png" alt="El Presbítero">
+        </div>
+        <div class="accar-ficha-contenido">
+          <h3>4. El Presbítero (Sacerdote)</h3>
+          <div class="accar-ficha-rule" aria-hidden="true"></div>
+          <ul>
+            <li><strong>Definición Teológica:</strong> Es colaborador del orden Episcopal. Asume una parte de la solicitud pastoral del Obispo y forma con él un único presbiterio.</li>
+            <li><strong>Función Litúrgica:</strong> Preside al pueblo fiel actuando en la persona de Cristo Cabeza (in persona Christi Capitis). Dirige la oración, proclama el Evangelio y asocia al pueblo en la ofrenda del Sacrificio Eucarístico a Dios Padre.</li>
+            <li><strong>Límites y Potestad:</strong> Está estrictamente subordinado al Obispo. No es dueño de la Liturgia; constituye un abuso gravísimo deformar arbitrariamente la celebración.</li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- FICHA 5 -->
+      <article class="accar-ficha-doctrinal">
+        <div class="accar-ficha-img-box">
+          <img src="/assets/img/ficha_diacono.png" alt="El Diácono">
+        </div>
+        <div class="accar-ficha-contenido">
+          <h3>5. El Diácono</h3>
+          <div class="accar-ficha-rule" aria-hidden="true"></div>
+          <ul>
+            <li><strong>Definición Teológica:</strong> Recibe la imposición de las manos no para el sacerdocio, sino para el ministerio. Sirve al pueblo de Dios en comunión con el Obispo y su presbiterio.</li>
+            <li><strong>Función Litúrgica:</strong> Le corresponde proclamar el Evangelio, predicar la homilía (cuando se le delega), proponer las intenciones, asistir en el altar y distribuir la Eucaristía.</li>
+            <li><strong>Límites y Potestad:</strong> Asiste al sacerdote en el altar, pero no consagra ni preside el Sacrificio Eucarístico. Su ordenación es estrictamente para el servicio.</li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- FICHA 6 -->
+      <article class="accar-ficha-doctrinal">
+        <div class="accar-ficha-img-box">
+          <img src="/assets/img/ficha_acolito.png" alt="Acólito vs Monaguillo">
+        </div>
+        <div class="accar-ficha-contenido">
+          <h3>6. Acólito Instituido vs. Monaguillo</h3>
+          <div class="accar-ficha-rule" aria-hidden="true"></div>
+          <ul>
+            <li><strong>El Acólito Instituido:</strong> Varón llamado a un ministerio estable mediante un rito litúrgico oficial. Su función es servir al altar, y posee la facultad explícita de purificar los vasos sagrados.</li>
+            <li><strong>El Monaguillo:</strong> Ejerce un servicio temporal, laical y voluntario. En ausencia del acólito instituido, suplen llevando la cruz, los cirios o el incienso.</li>
+            <li><strong>Límites y Potestad:</strong> El monaguillo suple una necesidad logística temporal, pero no posee el ministerio instituido ni está autorizado bajo ninguna circunstancia para purificar los vasos sagrados.</li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- FICHA 7 -->
+      <article class="accar-ficha-doctrinal">
+        <div class="accar-ficha-img-box">
+          <img src="/assets/img/ficha_lector.png" alt="Lector Instituido vs Voluntario">
+        </div>
+        <div class="accar-ficha-contenido">
+          <h3>7. Lector Instituido vs. Lector Voluntario</h3>
+          <div class="accar-ficha-rule" aria-hidden="true"></div>
+          <ul>
+            <li><strong>El Lector Instituido:</strong> Fiel designado de modo estable mediante un rito oficial. Su función propia es proclamar las lecturas (excepto el Evangelio) desde el ambón.</li>
+            <li><strong>El Lector Voluntario:</strong> Fiel laico delegado temporalmente. Debe estar preparado espiritual y técnicamente.</li>
+            <li><strong>Límites y Potestad:</strong> La proclamación del Evangelio jamás corresponde al lector (ni instituido ni voluntario), pues es reservada al orden sagrado (diácono, presbítero u obispo).</li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- FICHA 8 -->
+      <article class="accar-ficha-doctrinal">
+        <div class="accar-ficha-img-box">
+          <img src="/assets/img/ficha_ministro.png" alt="Ministro Extraordinario">
+        </div>
+        <div class="accar-ficha-contenido">
+          <h3>8. Ministro Extraordinario de la Sagrada Comunión (MESC)</h3>
+          <div class="accar-ficha-rule" aria-hidden="true"></div>
+          <ul>
+            <li><strong>Definición Teológica:</strong> Es un fiel laico delegado de forma ritual y excepcional para asistir en la distribución de la sagrada Comunión.</li>
+            <li><strong>Función Litúrgica:</strong> Ayudar al celebrante a distribuir el Sacramento única y exclusivamente cuando la necesidad apremiante lo exige.</li>
+            <li><strong>Límites y Potestad:</strong> Su ministerio es estrictamente subsidiario. Sólo es lícito su uso en casos de verdadera emergencia. Tienen prohibido tomar los vasos sagrados por sí mismos del altar.</li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- FICHA 9 -->
+      <article class="accar-ficha-doctrinal">
+        <div class="accar-ficha-img-box">
+          <img src="/assets/img/ficha_laico.png" alt="Fiel Laico">
+        </div>
+        <div class="accar-ficha-contenido">
+          <h3>9. El Fiel Laico (Sacerdocio Común)</h3>
+          <div class="accar-ficha-rule" aria-hidden="true"></div>
+          <ul>
+            <li><strong>Definición Teológica:</strong> Incorporado a Cristo por el bautismo, participa a su modo de la función sacerdotal, profética y real de Cristo.</li>
+            <li><strong>Función Litúrgica:</strong> Ofrecer la Víctima Inmaculada a Dios Padre, no sólo por manos del sacerdote, sino juntamente con él, desde la nave del templo.</li>
+            <li><strong>Límites y Potestad:</strong> La participación activa no significa realizar tareas materiales en el presbiterio. La Iglesia condena radicalmente la "clericalización" del laicado.</li>
+          </ul>
+        </div>
+      </article>
+
     </div>
 
-    <!-- FICHA 9 -->
-    <div class="accar-ficha-doctrinal">
-      <div class="accar-ficha-img-box">
-        <img src="../assets/img/ficha_laico.png" alt="Fiel Laico">
-      </div>
-      <div class="accar-ficha-contenido">
-        <h3>9. El Fiel Laico (Sacerdocio Común)</h3>
-        <ul>
-          <li><strong>Definición Teológica:</strong> Incorporado a Cristo por el bautismo, participa a su modo de la función sacerdotal, profética y real de Cristo.</li>
-          <li><strong>Función Litúrgica:</strong> Ofrecer la Víctima Inmaculada a Dios Padre, no sólo por manos del sacerdote, sino juntamente con él, desde la nave del templo.</li>
-          <li><strong>Límites y Potestad:</strong> La participación activa no significa realizar tareas materiales en el presbiterio. La Iglesia condena radicalmente la "clericalización" del laicado.</li>
-        </ul>
-      </div>
+    <!-- =====================================================
+         VISTA 3: ÓRDENES RELIGIOSAS
+    ====================================================== -->
+    <div id="vista-ordenes" class="accar-glosario-grid" style="display: none;">
+
+      <!-- ORDEN 1 -->
+      <article class="accar-ficha-doctrinal">
+        <div class="accar-ficha-img-box">
+          <img src="/assets/img/orden_benedictinos.png" alt="Benedictinos">
+        </div>
+        <div class="accar-ficha-contenido">
+          <h3>1. Orden de San Benito (Benedictinos/as)</h3>
+          <div class="accar-ficha-rule" aria-hidden="true"></div>
+          <ul>
+            <li><strong>Origen y Fundador:</strong> San Benito de Nursia (s. VI, Italia). Joven noble que dejó la decadencia de Roma por la cueva de Subiaco. Su nombre inspira el de la Orden.</li>
+            <li><strong>Carisma y Regla:</strong> Regla de San Benito. Búsqueda incesante de Dios (<em>Ora et Labora</em>) sellada con el voto de estabilidad perpetua en el monasterio.</li>
+            <li><strong>Función Litúrgica:</strong> Ser el reloj orante de la Iglesia: celebración solemne del Oficio Divino, Eucaristía, trabajo manual y acogida.</li>
+            <li><strong>Límites y Potestad:</strong> Exención canónica interna bajo un Abad, pero sujetos al Obispo local en culto público y cura de almas diocesana.</li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- ORDEN 2 -->
+      <article class="accar-ficha-doctrinal">
+        <div class="accar-ficha-img-box">
+          <img src="/assets/img/orden_franciscanos.png" alt="Franciscanos">
+        </div>
+        <div class="accar-ficha-contenido">
+          <h3>2. Frailes Menores (Franciscanos/Clarisas)</h3>
+          <div class="accar-ficha-rule" aria-hidden="true"></div>
+          <ul>
+            <li><strong>Origen y Fundador:</strong> San Francisco y Santa Clara (s. XIII, Asís). Francisco se despojó de sus riquezas ante el Obispo para casarse con la "Hermana Pobreza".</li>
+            <li><strong>Carisma y Regla:</strong> Regla Bulada. Minoridad y fraternidad: vivir <em>sine proprio</em> (sin nada propio) como siervos de los marginados.</li>
+            <li><strong>Función Litúrgica:</strong> Predicación itinerante. Promueven una devoción cristocéntrica encarnada (creadores del pesebre y el vía crucis).</li>
+            <li><strong>Límites y Potestad:</strong> Exención pontificia, pero sin jurisdicción territorial. Para predicar en parroquias dependen inexcusablemente del Obispo.</li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- ORDEN 3 -->
+      <article class="accar-ficha-doctrinal">
+        <div class="accar-ficha-img-box">
+          <img src="/assets/img/orden_dominicos.png" alt="Dominicos">
+        </div>
+        <div class="accar-ficha-contenido">
+          <h3>3. Orden de Predicadores (Dominicos/as)</h3>
+          <div class="accar-ficha-rule" aria-hidden="true"></div>
+          <ul>
+            <li><strong>Origen y Fundador:</strong> Santo Domingo de Guzmán (s. XIII, Francia). Ante la herejía albigense, fundó a los <em>Domini canes</em> (perros del Señor) para defender la fe.</li>
+            <li><strong>Carisma y Regla:</strong> Regla de San Agustín. Proclamación de la Verdad y defensa de la ortodoxia mediante el estudio teológico (Santo Tomás de Aquino).</li>
+            <li><strong>Función Litúrgica:</strong> <em>Contemplari et contemplata aliis tradere</em> (contemplar y transmitir). Inquisición histórica, docencia y propagación del Rosario.</li>
+            <li><strong>Límites y Potestad:</strong> Jurisdicción bajo el Maestro de la Orden. Sus parroquias encomendadas obedecen las directrices litúrgicas del prelado local.</li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- ORDEN 4 -->
+      <article class="accar-ficha-doctrinal">
+        <div class="accar-ficha-img-box">
+          <img src="/assets/img/orden_carmelitas.png" alt="Carmelitas">
+        </div>
+        <div class="accar-ficha-contenido">
+          <h3>4. Carmelitas Descalzos</h3>
+          <div class="accar-ficha-rule" aria-hidden="true"></div>
+          <ul>
+            <li><strong>Origen y Fundador:</strong> Raíces eremíticas en Tierra Santa (s. XII). Reformada en España (s. XVI) por los místicos Santa Teresa de Ávila y San Juan de la Cruz.</li>
+            <li><strong>Carisma y Regla:</strong> Regla de San Alberto. Unión mística con Dios, desapego radical y profunda filiación mariana (Santo Escapulario).</li>
+            <li><strong>Función Litúrgica:</strong> Sacrificio oculto por los sacerdotes. Los frailes son directores espirituales; las monjas sostienen la Iglesia desde la estricta clausura.</li>
+            <li><strong>Límites y Potestad:</strong> Exención papal que protege el claustro. El Obispo solo tiene potestad para vigilar el culto eclesial público.</li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- ORDEN 5 -->
+      <article class="accar-ficha-doctrinal">
+        <div class="accar-ficha-img-box">
+          <img src="/assets/img/orden_jesuitas.png" alt="Jesuitas">
+        </div>
+        <div class="accar-ficha-contenido">
+          <h3>5. Compañía de Jesús (Jesuitas)</h3>
+          <div class="accar-ficha-rule" aria-hidden="true"></div>
+          <ul>
+            <li><strong>Origen y Fundador:</strong> San Ignacio de Loyola (s. XVI). Militar vasco que rindió su espada en Montserrat para ser soldado de Cristo. De ahí el término "Compañía".</li>
+            <li><strong>Carisma y Regla:</strong> Constituciones propias. Clérigos regulares (solo varones) con un cuarto voto de obediencia incondicional al Papa.</li>
+            <li><strong>Función Litúrgica:</strong> Exentos del rezo coral para acción fronteriza: misiones extremas, educación superior y Ejercicios Espirituales.</li>
+            <li><strong>Límites y Potestad:</strong> Amplísima exención pontificia. Aún así, en su labor parroquial diocesana están obligados a obedecer al Obispo en materia litúrgica.</li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- ORDEN 6 -->
+      <article class="accar-ficha-doctrinal">
+        <div class="accar-ficha-img-box">
+          <img src="/assets/img/orden_agustinos.png" alt="Agustinos">
+        </div>
+        <div class="accar-ficha-contenido">
+          <h3>6. Orden de San Agustín (Agustinos/as)</h3>
+          <div class="accar-ficha-rule" aria-hidden="true"></div>
+          <ul>
+            <li><strong>Origen y Fundador:</strong> Inspirados en San Agustín de Hipona (s. IV). Congregados por el Papa en el siglo XIII reuniendo ermitaños bajo una sola familia.</li>
+            <li><strong>Carisma y Regla:</strong> Regla de San Agustín. Perfecta vida común: tener "un solo corazón y una sola alma hacia Dios".</li>
+            <li><strong>Función Litúrgica:</strong> Liturgia coral que nutre la vida interior para desbordarla en investigación dogmática, docencia y pastoral.</li>
+            <li><strong>Límites y Potestad:</strong> Autonomía interna de régimen. Sin embargo, deben obediencia al Ordinario local en sacramentos y predicación pública.</li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- ORDEN 7 -->
+      <article class="accar-ficha-doctrinal">
+        <div class="accar-ficha-img-box">
+          <img src="/assets/img/orden_salesianos.png" alt="Salesianos">
+        </div>
+        <div class="accar-ficha-contenido">
+          <h3>7. Familia Salesiana (Salesianos/FMA)</h3>
+          <div class="accar-ficha-rule" aria-hidden="true"></div>
+          <ul>
+            <li><strong>Origen y Fundador:</strong> San Juan Bosco (s. XIX, Turín). Rescató a niños de las calles industriales, nombrando la orden en honor a la dulzura de San Francisco de Sales.</li>
+            <li><strong>Carisma y Regla:</strong> Constituciones Salesianas. Caridad pastoral para salvar a la juventud pobre mediante el "Sistema Preventivo" (razón, religión, amabilidad).</li>
+            <li><strong>Función Litúrgica:</strong> Liturgia festiva. Oratorios, confesión frecuente y una filial devoción a María Auxiliadora.</li>
+            <li><strong>Límites y Potestad:</strong> Instituto pontificio, pero territorialmente subordinados al Obispo; requieren licencias para ministerios públicos.</li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- ORDEN 8 -->
+      <article class="accar-ficha-doctrinal">
+        <div class="accar-ficha-img-box">
+          <img src="/assets/img/orden_cartujos.png" alt="Cartujos">
+        </div>
+        <div class="accar-ficha-contenido">
+          <h3>8. Orden de los Cartujos (Cartujos/as)</h3>
+          <div class="accar-ficha-rule" aria-hidden="true"></div>
+          <ul>
+            <li><strong>Origen y Fundador:</strong> San Bruno de Colonia (s. XI, Francia). Brillante teólogo que abandonó los honores para buscar el silencio absoluto en la Cartuja.</li>
+            <li><strong>Carisma y Regla:</strong> Estatutos Cartujanos. Eremitismo en comunidad, silencio radical y soledad bajo el lema <em>Stat crux dum volvitur orbis</em>.</li>
+            <li><strong>Función Litúrgica:</strong> Nunca han sido reformados porque nunca se deformaron. Celebran el sobrio Rito Cartujano, apartados de la vista del mundo.</li>
+            <li><strong>Límites y Potestad:</strong> Exención absoluta para salvaguardar la clausura papal. Tienen prohibido asumir parroquias; el Obispo no tiene potestad sobre su encierro.</li>
+          </ul>
+        </div>
+      </article>
+
     </div>
 
-  </div>
+    <!-- =====================================================
+         VISTA 4: LECTOR EDITORIAL DE DOCUMENTOS DE CASOS
+    ====================================================== -->
+    <div id="vista-documento" class="accar-documento-wrap" style="display: none;">
 
-  <!-- VISTA 3: ÓRDENES RELIGIOSAS (OCULTA INICIALMENTE) -->
-  <div id="vista-ordenes" class="accar-glosario-grid" style="display: none;">
-    
-    <!-- ORDEN 1 -->
-    <div class="accar-ficha-doctrinal">
-      <div class="accar-ficha-img-box">
-        <img src="../assets/img/orden_benedictinos.png" alt="Benedictinos">
-      </div>
-      <div class="accar-ficha-contenido">
-        <h3>1. Orden de San Benito (Benedictinos/as)</h3>
-        <ul>
-          <li><strong>Origen y Fundador:</strong> San Benito de Nursia (s. VI, Italia). Joven noble que dejó la decadencia de Roma por la cueva de Subiaco. Su nombre inspira el de la Orden.</li>
-          <li><strong>Carisma y Regla:</strong> Regla de San Benito. Búsqueda incesante de Dios (<em>Ora et Labora</em>) sellada con el voto de estabilidad perpetua en el monasterio.</li>
-          <li><strong>Función Litúrgica:</strong> Ser el reloj orante de la Iglesia: celebración solemne del Oficio Divino, Eucaristía, trabajo manual y acogida.</li>
-          <li><strong>Límites y Potestad:</strong> Exención canónica interna bajo un Abad, pero sujetos al Obispo local en culto público y cura de almas diocesana.</li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- ORDEN 2 -->
-    <div class="accar-ficha-doctrinal">
-      <div class="accar-ficha-img-box">
-        <img src="../assets/img/orden_franciscanos.png" alt="Franciscanos">
-      </div>
-      <div class="accar-ficha-contenido">
-        <h3>2. Frailes Menores (Franciscanos/Clarisas)</h3>
-        <ul>
-          <li><strong>Origen y Fundador:</strong> San Francisco y Santa Clara (s. XIII, Asís). Francisco se despojó de sus riquezas ante el Obispo para casarse con la "Hermana Pobreza".</li>
-          <li><strong>Carisma y Regla:</strong> Regla Bulada. Minoridad y fraternidad: vivir <em>sine proprio</em> (sin nada propio) como siervos de los marginados.</li>
-          <li><strong>Función Litúrgica:</strong> Predicación itinerante. Promueven una devoción cristocéntrica encarnada (creadores del pesebre y el vía crucis).</li>
-          <li><strong>Límites y Potestad:</strong> Exención pontificia, pero sin jurisdicción territorial. Para predicar en parroquias dependen inexcusablemente del Obispo.</li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- ORDEN 3 -->
-    <div class="accar-ficha-doctrinal">
-      <div class="accar-ficha-img-box">
-        <img src="../assets/img/orden_dominicos.png" alt="Dominicos">
-      </div>
-      <div class="accar-ficha-contenido">
-        <h3>3. Orden de Predicadores (Dominicos/as)</h3>
-        <ul>
-          <li><strong>Origen y Fundador:</strong> Santo Domingo de Guzmán (s. XIII, Francia). Ante la herejía albigense, fundó a los <em>Domini canes</em> (perros del Señor) para defender la fe.</li>
-          <li><strong>Carisma y Regla:</strong> Regla de San Agustín. Proclamación de la Verdad y defensa de la ortodoxia mediante el estudio teológico (Santo Tomás de Aquino).</li>
-          <li><strong>Función Litúrgica:</strong> <em>Contemplari et contemplata aliis tradere</em> (contemplar y transmitir). Inquisición histórica, docencia y propagación del Rosario.</li>
-          <li><strong>Límites y Potestad:</strong> Jurisdicción bajo el Maestro de la Orden. Sus parroquias encomendadas obedecen las directrices litúrgicas del prelado local.</li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- ORDEN 4 -->
-    <div class="accar-ficha-doctrinal">
-      <div class="accar-ficha-img-box">
-        <img src="../assets/img/orden_carmelitas.png" alt="Carmelitas">
-      </div>
-      <div class="accar-ficha-contenido">
-        <h3>4. Carmelitas Descalzos</h3>
-        <ul>
-          <li><strong>Origen y Fundador:</strong> Raíces eremíticas en Tierra Santa (s. XII). Reformada en España (s. XVI) por los místicos Santa Teresa de Ávila y San Juan de la Cruz.</li>
-          <li><strong>Carisma y Regla:</strong> Regla de San Alberto. Unión mística con Dios, desapego radical y profunda filiación mariana (Santo Escapulario).</li>
-          <li><strong>Función Litúrgica:</strong> Sacrificio oculto por los sacerdotes. Los frailes son directores espirituales; las monjas sostienen la Iglesia desde la estricta clausura.</li>
-          <li><strong>Límites y Potestad:</strong> Exención papal que protege el claustro. El Obispo solo tiene potestad para vigilar el culto eclesial público.</li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- ORDEN 5 -->
-    <div class="accar-ficha-doctrinal">
-      <div class="accar-ficha-img-box">
-        <img src="../assets/img/orden_jesuitas.png" alt="Jesuitas">
-      </div>
-      <div class="accar-ficha-contenido">
-        <h3>5. Compañía de Jesús (Jesuitas)</h3>
-        <ul>
-          <li><strong>Origen y Fundador:</strong> San Ignacio de Loyola (s. XVI). Militar vasco que rindió su espada en Montserrat para ser soldado de Cristo. De ahí el término "Compañía".</li>
-          <li><strong>Carisma y Regla:</strong> Constituciones propias. Clérigos regulares (solo varones) con un cuarto voto de obediencia incondicional al Papa.</li>
-          <li><strong>Función Litúrgica:</strong> Exentos del rezo coral para acción fronteriza: misiones extremas, educación superior y Ejercicios Espirituales.</li>
-          <li><strong>Límites y Potestad:</strong> Amplísima exención pontificia. Aún así, en su labor parroquial diocesana están obligados a obedecer al Obispo en materia litúrgica.</li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- ORDEN 6 -->
-    <div class="accar-ficha-doctrinal">
-      <div class="accar-ficha-img-box">
-        <img src="../assets/img/orden_agustinos.png" alt="Agustinos">
-      </div>
-      <div class="accar-ficha-contenido">
-        <h3>6. Orden de San Agustín (Agustinos/as)</h3>
-        <ul>
-          <li><strong>Origen y Fundador:</strong> Inspirados en San Agustín de Hipona (s. IV). Congregados por el Papa en el siglo XIII reuniendo ermitaños bajo una sola familia.</li>
-          <li><strong>Carisma y Regla:</strong> Regla de San Agustín. Perfecta vida común: tener "un solo corazón y una sola alma hacia Dios".</li>
-          <li><strong>Función Litúrgica:</strong> Liturgia coral que nutre la vida interior para desbordarla en investigación dogmática, docencia y pastoral.</li>
-          <li><strong>Límites y Potestad:</strong> Autonomía interna de régimen. Sin embargo, deben obediencia al Ordinario local en sacramentos y predicación pública.</li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- ORDEN 7 -->
-    <div class="accar-ficha-doctrinal">
-      <div class="accar-ficha-img-box">
-        <img src="../assets/img/orden_salesianos.png" alt="Salesianos">
-      </div>
-      <div class="accar-ficha-contenido">
-        <h3>7. Familia Salesiana (Salesianos/FMA)</h3>
-        <ul>
-          <li><strong>Origen y Fundador:</strong> San Juan Bosco (s. XIX, Turín). Rescató a niños de las calles industriales, nombrando la orden en honor a la dulzura de San Francisco de Sales.</li>
-          <li><strong>Carisma y Regla:</strong> Constituciones Salesianas. Caridad pastoral para salvar a la juventud pobre mediante el "Sistema Preventivo" (razón, religión, amabilidad).</li>
-          <li><strong>Función Litúrgica:</strong> Liturgia festiva. Oratorios, confesión frecuente y una filial devoción a María Auxiliadora.</li>
-          <li><strong>Límites y Potestad:</strong> Instituto pontificio, pero territorialmente subordinados al Obispo; requieren licencias para ministerios públicos.</li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- ORDEN 8 -->
-    <div class="accar-ficha-doctrinal">
-      <div class="accar-ficha-img-box">
-        <img src="../assets/img/orden_cartujos.png" alt="Cartujos">
-      </div>
-      <div class="accar-ficha-contenido">
-        <h3>8. Orden de los Cartujos (Cartujos/as)</h3>
-        <ul>
-          <li><strong>Origen y Fundador:</strong> San Bruno de Colonia (s. XI, Francia). Brillante teólogo que abandonó los honores para buscar el silencio absoluto en la Cartuja.</li>
-          <li><strong>Carisma y Regla:</strong> Estatutos Cartujanos. Eremitismo en comunidad, silencio radical y soledad bajo el lema <em>Stat crux dum volvitur orbis</em>.</li>
-          <li><strong>Función Litúrgica:</strong> Nunca han sido reformados porque nunca se deformaron. Celebran el sobrio Rito Cartujano, apartados de la vista del mundo.</li>
-          <li><strong>Límites y Potestad:</strong> Exención absoluta para salvaguardar la clausura papal. Tienen prohibido asumir parroquias; el Obispo no tiene potestad sobre su encierro.</li>
-        </ul>
-      </div>
-    </div>
-
-  </div>
-
-  <!-- VISTA 1: CUADRÍCULA DE CASOS (ÍNDICE) -->
-  <div id="vista-indice" class="accar-indice-grid">
-    
-    <!-- TARJETA CASO 1 -->
-    <div class="accar-caso-card" onclick="mostrarCaso('caso-1')">
-      <div class="accar-caso-numero">Caso 01</div>
-      <h3 class="accar-caso-titulo-tarjeta">Manipulación laical de vasos sagrados</h3>
-      <p class="accar-caso-desc-tarjeta">Análisis y denuncia sobre la purificación y traslado indebido de vasos sagrados por fieles laicos no instituidos.</p>
-      <span class="accar-caso-leer">Leer Documento ➔</span>
-    </div>
-    
-    <!-- TARJETA CASO 2 -->
-    <div class="accar-caso-card" onclick="mostrarCaso('caso-2')">
-      <div class="accar-caso-numero">Caso 02</div>
-      <h3 class="accar-caso-titulo-tarjeta">Reserva laical del Santísimo Sacramento</h3>
-      <p class="accar-caso-desc-tarjeta">Análisis y denuncia sobre la delegación ilícita del traslado y reserva de la Eucaristía en el Sagrario por ministros extraordinarios.</p>
-      <span class="accar-caso-leer">Leer Documento ➔</span>
-    </div>
-
-    <!-- TARJETA CASO 3 -->
-    <div class="accar-caso-card" onclick="mostrarCaso('caso-3')">
-      <div class="accar-caso-numero">Caso 03</div>
-      <h3 class="accar-caso-titulo-tarjeta">Omisión sistemática de la casulla</h3>
-      <p class="accar-caso-desc-tarjeta">Análisis y amonestación por la celebración del Santo Sacrificio revistiendo únicamente alba y estola.</p>
-      <span class="accar-caso-leer">Leer Documento ➔</span>
-    </div>
-
-    <!-- TARJETA CASO 4 -->
-    <div class="accar-caso-card" onclick="mostrarCaso('caso-4')">
-      <div class="accar-caso-numero">Caso 04</div>
-      <h3 class="accar-caso-titulo-tarjeta">Uso indebido y profano del ambón</h3>
-      <p class="accar-caso-desc-tarjeta">Análisis y denuncia sobre la utilización de la mesa de la Palabra para dar anuncios parroquiales o avisos logísticos.</p>
-      <span class="accar-caso-leer">Leer Documento ➔</span>
-    </div>
-
-    <!-- TARJETA CASO 5 -->
-    <div class="accar-caso-card" onclick="mostrarCaso('caso-5')">
-      <div class="accar-caso-numero">Caso 05</div>
-      <h3 class="accar-caso-titulo-tarjeta">Usurpación laical y desvirtuación de la Homilía</h3>
-      <p class="accar-caso-desc-tarjeta">Análisis y denuncia sobre la cesión de la predicación a laicos y el uso secular de la homilía.</p>
-      <span class="accar-caso-leer">Leer Documento ➔</span>
-    </div>
-
-    <!-- TARJETA CASO 6 -->
-    <div class="accar-caso-card" onclick="mostrarCaso('caso-6')">
-      <div class="accar-caso-numero">Caso 06</div>
-      <h3 class="accar-caso-titulo-tarjeta">Ministros Extraordinarios: Uso ilícito e irreverencia</h3>
-      <p class="accar-caso-desc-tarjeta">Análisis y denuncia sobre la rutinización del ministerio y la actitud profana al distribuir la Eucaristía.</p>
-      <span class="accar-caso-leer">Leer Documento ➔</span>
-    </div>
-
-    <!-- Aquí agregaremos las tarjetas del Caso 2, Caso 3, etc. en el futuro -->
-
-  </div>
-
-  <!-- VISTA 2: DOCUMENTOS (OCULTA POR DEFECTO) -->
-  <div id="vista-documento" style="display: none;">
-    
-    <!-- BOTÓN SUPERIOR DE REGRESO -->
-    <div class="accar-navegacion-interna">
-      <button class="accar-btn-volver" onclick="volverIndice()">⮜ Volver al Índice de Casos</button>
-    </div>
-
-    <!-- CONTENIDO DEL CASO 1 -->
-    <div class="accar-articulo-contenedor" id="caso-1" style="display: none;">
-      
-      <div class="accar-articulo-cabecera">
-        <h2 class="accar-articulo-titulo">Caso: Manipulación laical de vasos sagrados sin purificar</h2>
-        <span class="accar-articulo-meta">Derecho Canónico e Instrucción General del Misal Romano</span>
+      <div class="accar-navegacion-interna">
+        <button type="button" class="accar-btn-volver" onclick="window.volverIndice()">← Volver al Índice de Casos</button>
       </div>
 
-      <div class="accar-articulo-cuerpo">
-        <h3 class="accar-seccion-titulo">I. Naturaleza de la Infracción</h3>
-        <p>Durante o inmediatamente después de la distribución de la Sagrada Comunión, un fiel laico (monaguillo o servidor del altar ordinario) sin haber recibido la institución formal del acolitado, retira del altar y traslada a la sacristía los vasos sagrados (cáliz, patena, palia y corporal). Estos recipientes son manipulados sin haber sido purificados previamente en el altar por un ministro ordenado, conteniendo aún restos líquidos de la Preciosísima Sangre o fragmentos del Cuerpo de Cristo, lo que representa un peligro inminente de profanación accidental.</p>
+      <!-- CONTENIDO DEL CASO 01 -->
+      <article class="accar-articulo-contenedor" id="caso-1" style="display: none;">
+        <header class="accar-articulo-cabecera">
+          <span class="accar-articulo-kicker">✠ Caso 01 · Derecho Canónico e IGMR ✠</span>
+          <h2 class="accar-articulo-titulo">Manipulación laical de vasos sagrados sin purificar</h2>
+        </header>
 
-        <h3 class="accar-seccion-titulo">II. Marco Litúrgico (Rúbricas)</h3>
-        <p>La práctica descrita es un abuso litúrgico manifiesto que contraviene directamente las disposiciones de la Iglesia.</p>
-        <ul class="accar-lista-canonica">
-          <li>La <strong>Instrucción General del Misal Romano (IGMR)</strong> en su numeral 279 establece taxativamente que la purificación es competencia exclusiva de ministros específicos: "Los vasos sagrados son purificados por el sacerdote, o por el diácono o por el acólito instituido, después de la Comunión o después de la Misa, en cuanto sea posible en la credencia".</li>
-          <li>Si los vasos no se purifican inmediatamente en el altar, la normativa exige que el sacerdote los deje "sobre el corporal, convenientemente cubiertos" para purificarlos enseguida después de despedir al pueblo, o encargar al diácono o acólito instituido su traslado a la credencia.</li>
-          <li>La instrucción <strong>Redemptionis Sacramentum</strong> prohíbe la asunción indebida de funciones al sentenciar: "Todos los ministros ordenados y los fieles laicos, al desempeñar su función u oficio, harán todo y sólo aquello que les corresponde".</li>
-        </ul>
+        <div class="accar-articulo-cuerpo">
+          <h3 class="accar-seccion-titulo">I. Naturaleza de la Infracción</h3>
+          <p>Durante o inmediatamente después de la distribución de la Sagrada Comunión, un fiel laico (monaguillo o servidor del altar ordinario) sin haber recibido la institución formal del acolitado, retira del altar y traslada a la sacristía los vasos sagrados (cáliz, patena, palia y corporal). Estos recipientes son manipulados sin haber sido purificados previamente en el altar por un ministro ordenado, conteniendo aún restos líquidos de la Preciosísima Sangre o fragmentos del Cuerpo de Cristo, lo que representa un peligro inminente de profanación accidental.</p>
 
-        <h3 class="accar-seccion-titulo">III. Fundamento Canónico</h3>
-        <ul class="accar-lista-canonica">
-          <li><strong>Abolición de la "costumbre":</strong> El Código de Derecho Canónico invalida el argumento de la "costumbre parroquial" para alterar la liturgia. El <strong>Canon 24 § 2</strong> dictamina que "Tampoco puede alcanzar fuerza de ley una costumbre contra ley o extralegal si no es razonable; la costumbre expresamente reprobada por el derecho no es razonable", quedando estas prácticas totalmente suprimidas.</li>
-          <li><strong>Derecho a una liturgia íntegra:</strong> Los actos arbitrarios en el manejo de la Eucaristía lesionan el derecho canónico inalienable de los fieles a que el sacrificio de la Misa se celebre "de forma íntegra [...] conforme a toda la enseñanza del Magisterio de la Iglesia" y según las normas del rito aprobado.</li>
-        </ul>
+          <h3 class="accar-seccion-titulo">II. Marco Litúrgico (Rúbricas)</h3>
+          <p>La práctica descrita es un abuso litúrgico manifiesto que contraviene directamente las disposiciones de la Iglesia.</p>
+          <ul class="accar-lista-canonica">
+            <li>La <strong>Instrucción General del Misal Romano (IGMR)</strong> en su numeral 279 establece taxativamente que la purificación es competencia exclusiva de ministros específicos: "Los vasos sagrados son purificados por el sacerdote, o por el diácono o por el acólito instituido, después de la Comunión o después de la Misa, en cuanto sea posible en la credencia".</li>
+            <li>Si los vasos no se purifican inmediatamente en el altar, la normativa exige que el sacerdote los deje "sobre el corporal, convenientemente cubiertos" para purificarlos enseguida después de despedir al pueblo, o encargar al diácono o acólito instituido su traslado a la credencia.</li>
+            <li>La instrucción <strong>Redemptionis Sacramentum</strong> prohíbe la asunción indebida de funciones al sentenciar: "Todos los ministros ordenados y los fieles laicos, al desempeñar su función u oficio, harán todo y sólo aquello que les corresponde".</li>
+          </ul>
 
-        <h3 class="accar-seccion-titulo">IV. Calificación y Responsabilidad</h3>
-        <ul class="accar-lista-canonica">
-          <li><strong>Calificación:</strong> Se trata de una grave irregularidad que deforma arbitrariamente la celebración litúrgica y atenta contra la unidad del Rito Romano y el decoro del Sacramento.</li>
-          <li><strong>Responsabilidad del Párroco:</strong> Recae directa y gravísimamente sobre el Párroco, quien incumple la obligación estipulada en el <strong>Canon 528 § 2</strong>: "bajo la autoridad del Obispo diocesano, debe moderar el párroco en su parroquia, con la obligación de vigilar para que no se introduzcan abusos".</li>
-          <li><strong>Responsabilidad de los presbíteros celebrantes:</strong> Al obligar o permitir que un laico asuma funciones eucarísticas no permitidas, los celebrantes vacían su propio ministerio de su significado profundo y faltan a las promesas de su sagrada Ordenación.</li>
-        </ul>
+          <h3 class="accar-seccion-titulo">III. Fundamento Canónico</h3>
+          <ul class="accar-lista-canonica">
+            <li><strong>Abolición de la "costumbre":</strong> El Código de Derecho Canónico invalida el argumento de la "costumbre parroquial" para alterar la liturgia. El <strong>Canon 24 § 2</strong> dictamina que "Tampoco puede alcanzar fuerza de ley una costumbre contra ley o extralegal si no es razonable; la costumbre expresamente reprobada por el derecho no es razonable", quedando estas prácticas totalmente suprimidas.</li>
+            <li><strong>Derecho a una liturgia íntegra:</strong> Los actos arbitrarios en el manejo de la Eucaristía lesionan el derecho canónico inalienable de los fieles a que el sacrificio de la Misa se celebre "de forma íntegra [...] conforme a toda la enseñanza del Magisterio de la Iglesia" y según las normas del rito aprobado.</li>
+          </ul>
 
-        <h3 class="accar-seccion-titulo">V. Protocolo de Acción y Denuncia</h3>
-        <p class="accar-instruccion-uso"><em>Instrucciones de uso: Entregar esta misiva de forma física en la oficina parroquial, solicitando acuse de recibo, o enviarla por correo electrónico oficial al Párroco.</em></p>
-        
-        <div class="accar-carta-contenedor">
-          <button class="accar-btn-copiar" onclick="copiarCartaDenuncia('texto-carta-1')">Copiar texto de la carta 📋</button>
-          <div id="texto-carta-1" class="accar-carta-texto">A la atención del Párroco de la Parroquia [Nombre de la Parroquia]
+          <h3 class="accar-seccion-titulo">IV. Calificación y Responsabilidad</h3>
+          <ul class="accar-lista-canonica">
+            <li><strong>Calificación:</strong> Se trata de una grave irregularidad que deforma arbitrariamente la celebración litúrgica y atenta contra la unidad del Rito Romano y el decoro del Sacramento.</li>
+            <li><strong>Responsabilidad del Párroco:</strong> Recae directa y gravísimamente sobre el Párroco, quien incumple la obligación estipulada en el <strong>Canon 528 § 2</strong>: "bajo la autoridad del Obispo diocesano, debe moderar el párroco en su parroquia, con la obligación de vigilar para que no se introduzcan abusos".</li>
+            <li><strong>Responsabilidad de los presbíteros celebrantes:</strong> Al obligar o permitir que un laico asuma funciones eucarísticas no permitidas, los celebrantes vacían su propio ministerio de su significado profundo y faltan a las promesas de su sagrada Ordenación.</li>
+          </ul>
+
+          <h3 class="accar-seccion-titulo">V. Protocolo de Acción y Denuncia</h3>
+          <p class="accar-instruccion-uso">Instrucciones de uso: Entregar esta misiva de forma física en la oficina parroquial, solicitando acuse de recibo, o enviarla por correo electrónico oficial al Párroco.</p>
+
+          <div class="accar-carta-contenedor">
+            <div class="accar-carta-barra">
+              <span class="accar-carta-etiqueta">✠ Modelo de Carta Formal</span>
+              <button type="button" class="accar-btn-copiar" onclick="window.copiarCartaDenuncia('texto-carta-1', this)">Copiar texto de la carta</button>
+            </div>
+            <div id="texto-carta-1" class="accar-carta-texto">A la atención del Párroco de la Parroquia [Nombre de la Parroquia]
 [Ciudad, Estado]
 
 Ref: Exigencia de cese inmediato de abusos litúrgicos respecto a la manipulación de los vasos sagrados.
@@ -420,48 +498,50 @@ En Cristo Eucaristía,
 
 [Tu Nombre/Firma]
 [Tu Contacto/Correo]</div>
+          </div>
         </div>
-      </div>
-    </div>
+      </article>
 
-    <!-- CONTENIDO DEL CASO 2 -->
-    <div class="accar-articulo-contenedor" id="caso-2" style="display: none;">
-      
-      <div class="accar-articulo-cabecera">
-        <h2 class="accar-articulo-titulo">Caso: Delegación ilícita en la reserva del Santísimo Sacramento</h2>
-        <span class="accar-articulo-meta">Derecho Canónico, IGMR y Redemptionis Sacramentum</span>
-      </div>
+      <!-- CONTENIDO DEL CASO 02 -->
+      <article class="accar-articulo-contenedor" id="caso-2" style="display: none;">
+        <header class="accar-articulo-cabecera">
+          <span class="accar-articulo-kicker">✠ Caso 02 · Derecho Canónico, IGMR y Redemptionis Sacramentum ✠</span>
+          <h2 class="accar-articulo-titulo">Delegación ilícita en la reserva del Santísimo Sacramento</h2>
+        </header>
 
-      <div class="accar-articulo-cuerpo">
-        <h3 class="accar-seccion-titulo">I. Naturaleza de la Infracción</h3>
-        <p>El acto por el cual un presbítero celebrante, sin mediar causa de fuerza mayor, enfermedad o impedimento físico real, delega el traslado y la reserva del Santísimo Sacramento en el Sagrario a un laico (Ministro Extraordinario de la Sagrada Comunión) constituye un abuso litúrgico manifiesto. Este proceder difumina la naturaleza del ministerio sacerdotal, convirtiendo un acto de máxima reverencia sacramental en un mero trámite logístico y permitiendo que un laico asuma roles que el orden sagrado no le confiere.</p>
+        <div class="accar-articulo-cuerpo">
+          <h3 class="accar-seccion-titulo">I. Naturaleza de la Infracción</h3>
+          <p>El acto por el cual un presbítero celebrante, sin mediar causa de fuerza mayor, enfermedad o impedimento físico real, delega el traslado y la reserva del Santísimo Sacramento en el Sagrario a un laico (Ministro Extraordinario de la Sagrada Comunión) constituye un abuso litúrgico manifiesto. Este proceder difumina la naturaleza del ministerio sacerdotal, convirtiendo un acto de máxima reverencia sacramental en un mero trámite logístico y permitiendo que un laico asuma roles que el orden sagrado no le confiere.</p>
 
-        <h3 class="accar-seccion-titulo">II. Marco Litúrgico (Rúbricas)</h3>
-        <ul class="accar-lista-canonica">
-          <li>La <strong>Instrucción General del Misal Romano (IGMR)</strong> en su numeral 163 es taxativa al designar al sacerdote o diácono para esta labor: "las hostias consagradas que quedaron, o las consume en el altar o las lleva al lugar destinado para conservar la Eucaristía". La normativa no contempla al Ministro Extraordinario para esta función post-comunión cuando el sacerdote está capacitado.</li>
-          <li>La Instrucción <strong>Redemptionis Sacramentum (RS)</strong> advierte severamente en su numeral 11 que el Misterio de la Eucaristía es demasiado grande "para que alguien pueda permitirse tratarlo a su arbitrio personal".</li>
-          <li>Asimismo, la RS exige en el numeral 44 que "Todos los ministros ordenados y los fieles laicos, al desempeñar su función u oficio, harán todo y sólo aquello que les corresponde".</li>
-        </ul>
+          <h3 class="accar-seccion-titulo">II. Marco Litúrgico (Rúbricas)</h3>
+          <ul class="accar-lista-canonica">
+            <li>La <strong>Instrucción General del Misal Romano (IGMR)</strong> en su numeral 163 es taxativa al designar al sacerdote o diácono para esta labor: "las hostias consagradas que quedaron, o las consume en el altar o las lleva al lugar destinado para conservar la Eucaristía". La normativa no contempla al Ministro Extraordinario para esta función post-comunión cuando el sacerdote está capacitado.</li>
+            <li>La Instrucción <strong>Redemptionis Sacramentum (RS)</strong> advierte severamente en su numeral 11 que el Misterio de la Eucaristía es demasiado grande "para que alguien pueda permitirse tratarlo a su arbitrio personal".</li>
+            <li>Asimismo, la RS exige en el numeral 44 que "Todos los ministros ordenados y los fieles laicos, al desempeñar su función u oficio, harán todo y sólo aquello que les corresponde".</li>
+          </ul>
 
-        <h3 class="accar-seccion-titulo">III. Fundamento Canónico</h3>
-        <ul class="accar-lista-canonica">
-          <li><strong>Derecho a una liturgia íntegra:</strong> Los fieles tienen el legítimo derecho canónico a que "se celebre por él, de forma íntegra, el santo sacrificio de la Misa, conforme a toda la enseñanza del Magisterio de la Iglesia" (RS 12).</li>
-          <li><strong>Prevención de la clericalización:</strong> Fomentar que un laico realice acciones propias del orden sagrado contraviene la exigencia eclesial de "evitar el peligro de oscurecer la complementariedad entre la acción de los clérigos y los laicos", para no caer en la "clericalización" de los laicos (RS 45).</li>
-        </ul>
+          <h3 class="accar-seccion-titulo">III. Fundamento Canónico</h3>
+          <ul class="accar-lista-canonica">
+            <li><strong>Derecho a una liturgia íntegra:</strong> Los fieles tienen el legítimo derecho canónico a que "se celebre por él, de forma íntegra, el santo sacrificio de la Misa, conforme a toda la enseñanza del Magisterio de la Iglesia" (RS 12).</li>
+            <li><strong>Prevención de la clericalización:</strong> Fomentar que un laico realice acciones propias del orden sagrado contraviene la exigencia eclesial de "evitar el peligro de oscurecer la complementariedad entre la acción de los clérigos y los laicos", para no caer en la "clericalización" de los laicos (RS 45).</li>
+          </ul>
 
-        <h3 class="accar-seccion-titulo">IV. Calificación y Responsabilidad</h3>
-        <ul class="accar-lista-canonica">
-          <li><strong>El Presbítero Celebrante:</strong> Es el principal culpable. Al delegar la reserva de las Especies por simple comodidad, peca por omisión y negligencia en la custodia eucarística, vaciando su ministerio y forzando al laico a cometer una irregularidad.</li>
-          <li><strong>El Párroco:</strong> Recae sobre él la culpa <em>in vigilando</em> estipulada en el <strong>Canon 528 § 2</strong>, por permitir que en su parroquia se instauren prácticas que alteran la disciplina del Rito Romano.</li>
-          <li><strong>El Ministro Extraordinario (Laico):</strong> Incurre en usurpación de funciones al realizar una tarea litúrgica que excede el mandato excepcional para el que fue designado, violando el principio fundamental de realizar "sólo aquello que les corresponde".</li>
-        </ul>
+          <h3 class="accar-seccion-titulo">IV. Calificación y Responsabilidad</h3>
+          <ul class="accar-lista-canonica">
+            <li><strong>El Presbítero Celebrante:</strong> Es el principal culpable. Al delegar la reserva de las Especies por simple comodidad, peca por omisión y negligencia en la custodia eucarística, vaciando su ministerio y forzando al laico a cometer una irregularidad.</li>
+            <li><strong>El Párroco:</strong> Recae sobre él la culpa <em>in vigilando</em> estipulada en el <strong>Canon 528 § 2</strong>, por permitir que en su parroquia se instauren prácticas que alteran la disciplina del Rito Romano.</li>
+            <li><strong>El Ministro Extraordinario (Laico):</strong> Incurre en usurpación de funciones al realizar una tarea litúrgica que excede el mandato excepcional para el que fue designado, violando el principio fundamental de realizar "sólo aquello que les corresponde".</li>
+          </ul>
 
-        <h3 class="accar-seccion-titulo">V. Protocolo de Acción y Denuncia</h3>
-        <p class="accar-instruccion-uso"><em>Instrucciones de uso: Entregar esta misiva de forma física en la oficina parroquial, solicitando acuse de recibo, o enviarla por correo electrónico oficial al Párroco.</em></p>
-        
-        <div class="accar-carta-contenedor">
-          <button class="accar-btn-copiar" onclick="copiarCartaDenuncia('texto-carta-2')">Copiar texto de la carta 📋</button>
-          <div id="texto-carta-2" class="accar-carta-texto">A la reverenda atención del Párroco
+          <h3 class="accar-seccion-titulo">V. Protocolo de Acción y Denuncia</h3>
+          <p class="accar-instruccion-uso">Instrucciones de uso: Entregar esta misiva de forma física en la oficina parroquial, solicitando acuse de recibo, o enviarla por correo electrónico oficial al Párroco.</p>
+
+          <div class="accar-carta-contenedor">
+            <div class="accar-carta-barra">
+              <span class="accar-carta-etiqueta">✠ Modelo de Carta Formal</span>
+              <button type="button" class="accar-btn-copiar" onclick="window.copiarCartaDenuncia('texto-carta-2', this)">Copiar texto de la carta</button>
+            </div>
+            <div id="texto-carta-2" class="accar-carta-texto">A la reverenda atención del Párroco
 Parroquia [Nombre de la Parroquia]
 [Ciudad, Estado]
 
@@ -485,43 +565,45 @@ Confiando en su pronta y piadosa rectificación, quedo suyo en Cristo Eucaristí
 
 [Tu Nombre/Firma]
 [Tu Contacto/Correo]</div>
+          </div>
         </div>
-      </div>
-    </div>
+      </article>
 
-    <!-- CONTENIDO DEL CASO 3 -->
-    <div class="accar-articulo-contenedor" id="caso-3" style="display: none;">
-      
-      <div class="accar-articulo-cabecera">
-        <h2 class="accar-articulo-titulo">Caso: Omisión sistemática de la casulla en la celebración Eucarística</h2>
-        <span class="accar-articulo-meta">Derecho Canónico, IGMR y Redemptionis Sacramentum</span>
-      </div>
+      <!-- CONTENIDO DEL CASO 03 -->
+      <article class="accar-articulo-contenedor" id="caso-3" style="display: none;">
+        <header class="accar-articulo-cabecera">
+          <span class="accar-articulo-kicker">✠ Caso 03 · Derecho Canónico, IGMR y Redemptionis Sacramentum ✠</span>
+          <h2 class="accar-articulo-titulo">Omisión sistemática de la casulla en la celebración Eucarística</h2>
+        </header>
 
-      <div class="accar-articulo-cuerpo">
-        <h3 class="accar-seccion-titulo">I. Naturaleza de la Infracción</h3>
-        <p>El acto por el cual un presbítero celebra la Santa Misa revistiendo únicamente alba y estola, sin que medie una causa de fuerza mayor verdaderamente absoluta, constituye una infracción directa a las leyes litúrgicas universales. Esta práctica despoja al rito de su sacralidad visible, banaliza el ministerio sacerdotal y convierte la celebración de los sagrados misterios en un acto sometido al capricho personal del celebrante, lesionando el decoro y la reverencia que exige la Casa de Dios.</p>
+        <div class="accar-articulo-cuerpo">
+          <h3 class="accar-seccion-titulo">I. Naturaleza de la Infracción</h3>
+          <p>El acto por el cual un presbítero celebra la Santa Misa revistiendo únicamente alba y estola, sin que medie una causa de fuerza mayor verdaderamente absoluta, constituye una infracción directa a las leyes litúrgicas universales. Esta práctica despoja al rito de su sacralidad visible, banaliza el ministerio sacerdotal y convierte la celebración de los sagrados misterios en un acto sometido al capricho personal del celebrante, lesionando el decoro y la reverencia que exige la Casa de Dios.</p>
 
-        <h3 class="accar-seccion-titulo">II. Marco Litúrgico (Rúbricas)</h3>
-        <ul class="accar-lista-canonica">
-          <li>La <strong>Instrucción General del Misal Romano (IGMR)</strong> establece en su numeral 337 como norma imperativa que "La vestidura propia del sacerdote celebrante, en la Misa y en otras acciones sagradas que se relacionan directamente con la Misa, es la casulla o planeta, a no ser que se determinara otra cosa, vestida sobre el alba y la estola".</li>
-          <li>La Instrucción <strong>Redemptionis Sacramentum (RS)</strong> en su numeral 123 es categórica al reprobar este abuso, ordenando que "la vestidura propia del Sacerdote celebrante... es la casulla o planeta, [...] vestida sobre el alba y la estola" y mandando tajantemente a los Ordinarios que extirpen cualquier costumbre contraria.</li>
-        </ul>
+          <h3 class="accar-seccion-titulo">II. Marco Litúrgico (Rúbricas)</h3>
+          <ul class="accar-lista-canonica">
+            <li>La <strong>Instrucción General del Misal Romano (IGMR)</strong> establece en su numeral 337 como norma imperativa que "La vestidura propia del sacerdote celebrante, en la Misa y en otras acciones sagradas que se relacionan directamente con la Misa, es la casulla o planeta, a no ser que se determinara otra cosa, vestida sobre el alba y la estola".</li>
+            <li>La Instrucción <strong>Redemptionis Sacramentum (RS)</strong> en su numeral 123 es categórica al reprobar este abuso, ordenando que "la vestidura propia del Sacerdote celebrante... es la casulla o planeta, [...] vestida sobre el alba y la estola" y mandando tajantemente a los Ordinarios que extirpen cualquier costumbre contraria.</li>
+          </ul>
 
-        <h3 class="accar-seccion-titulo">III. Fundamento Canónico</h3>
-        <ul class="accar-lista-canonica">
-          <li><strong>Abolición de costumbres contrarias:</strong> El Código de Derecho Canónico decreta en su <strong>Canon 24 § 2</strong> que "Tampoco puede alcanzar fuerza de ley una costumbre contra ley o extralegal si no es razonable; la costumbre expresamente reprobada por el derecho no es razonable". La omisión de la casulla está expresamente reprobada.</li>
-          <li><strong>Derechos de los fieles:</strong> La liturgia no es propiedad privada del celebrante. Los fieles tienen el legítimo derecho (Canon 214) a tributar culto a Dios "según las normas del propio rito" y a que "se celebre por él, de forma íntegra, el santo sacrificio de la Misa, conforme a toda la enseñanza del Magisterio" (RS 12).</li>
-        </ul>
+          <h3 class="accar-seccion-titulo">III. Fundamento Canónico</h3>
+          <ul class="accar-lista-canonica">
+            <li><strong>Abolición de costumbres contrarias:</strong> El Código de Derecho Canónico decreta en su <strong>Canon 24 § 2</strong> que "Tampoco puede alcanzar fuerza de ley una costumbre contra ley o extralegal si no es razonable; la costumbre expresamente reprobada por el derecho no es razonable". La omisión de la casulla está expresamente reprobada.</li>
+            <li><strong>Derechos de los fieles:</strong> La liturgia no es propiedad privada del celebrante. Los fieles tienen el legítimo derecho (Canon 214) a tributar culto a Dios "según las normas del propio rito" y a que "se celebre por él, de forma íntegra, el santo sacrificio de la Misa, conforme a toda la enseñanza del Magisterio" (RS 12).</li>
+          </ul>
 
-        <h3 class="accar-seccion-titulo">IV. Calificación y Responsabilidad</h3>
-        <p>La responsabilidad recae única y absolutamente sobre el Presbítero Celebrante. Ningún cargo, ya sea Párroco o Vicario Episcopal, otorga inmunidad frente a las rúbricas del Misal Romano; a mayor dignidad, mayor es la obligación moral de dar un testimonio intachable de obediencia. Al celebrar sin casulla por comodidad, el sacerdote deforma la liturgia, escandaliza a los fieles y falta gravemente a las promesas de obediencia y reverencia de su Ordenación.</p>
+          <h3 class="accar-seccion-titulo">IV. Calificación y Responsabilidad</h3>
+          <p>La responsabilidad recae única y absolutamente sobre el Presbítero Celebrante. Ningún cargo, ya sea Párroco o Vicario Episcopal, otorga inmunidad frente a las rúbricas del Misal Romano; a mayor dignidad, mayor es la obligación moral de dar un testimonio intachable de obediencia. Al celebrar sin casulla por comodidad, el sacerdote deforma la liturgia, escandaliza a los fieles y falta gravemente a las promesas de obediencia y reverencia de su Ordenación.</p>
 
-        <h3 class="accar-seccion-titulo">V. Protocolo de Acción y Denuncia</h3>
-        <p class="accar-instruccion-uso"><em>Instrucciones de uso: Entregar esta misiva de forma física en la oficina parroquial, solicitando acuse de recibo, o enviarla por correo electrónico oficial al Sacerdote y a la Diócesis.</em></p>
-        
-        <div class="accar-carta-contenedor">
-          <button class="accar-btn-copiar" onclick="copiarCartaDenuncia('texto-carta-3')">Copiar texto de la carta 📋</button>
-          <div id="texto-carta-3" class="accar-carta-texto">A la reverenda atención del Padre [Nombre del Sacerdote Celebrante]
+          <h3 class="accar-seccion-titulo">V. Protocolo de Acción y Denuncia</h3>
+          <p class="accar-instruccion-uso">Instrucciones de uso: Entregar esta misiva de forma física en la oficina parroquial, solicitando acuse de recibo, o enviarla por correo electrónico oficial al Sacerdote y a la Diócesis.</p>
+
+          <div class="accar-carta-contenedor">
+            <div class="accar-carta-barra">
+              <span class="accar-carta-etiqueta">✠ Modelo de Carta Formal</span>
+              <button type="button" class="accar-btn-copiar" onclick="window.copiarCartaDenuncia('texto-carta-3', this)">Copiar texto de la carta</button>
+            </div>
+            <div id="texto-carta-3" class="accar-carta-texto">A la reverenda atención del Padre [Nombre del Sacerdote Celebrante]
 [Cargo: Párroco / Vicario Episcopal]
 [Nombre de la Parroquia o Jurisdicción]
 
@@ -531,7 +613,7 @@ Reverendo Padre:
 
 Me dirijo a usted, movido por el inquebrantable celo por el decoro de la Casa de Dios y el profundo respeto que exige el Augusto Sacramento del Altar, para presentarle una amonestación formal respecto a una grave irregularidad litúrgica que usted viene cometiendo de manera habitual y sistemática: la celebración de la Santa Misa revistiendo únicamente alba y estola, omitiendo arbitrariamente el uso obligatorio de la casulla.
 
-Permítame recordarle con la mayor firmeza que la liturgia no es "propiedad privada de alguien, ni del celebrante ni de la comunidad". La Instrucción General del Misal Romano es imperativa en su numeral 337, dictaminando que "La vestidura propia del sacerdote celebrante, en la Misa y en otras acciones sagradas que se relacionan directamente con la Misa, es la casulla o planeta [...] vestida sobre el alba y la estola". 
+Permítame recordarle con la mayor firmeza que la liturgia no es "propiedad privada de alguien, ni del celebrante ni de la comunidad". La Instrucción General del Misal Romano es imperativa en su numeral 337, dictaminando que "La vestidura propia del sacerdote celebrante, en la Misa y en otras acciones sagradas que se relacionan directamente con la Misa, es la casulla o planeta [...] vestida sobre el alba y la estola".
 
 Asimismo, la Instrucción Redemptionis Sacramentum (n. 123) reprueba de manera explícita esta práctica, exigiendo que el sacerdote se revista con la casulla conforme a las rúbricas y ordenando la erradicación de cualquier "costumbre" en contrario. El Código de Derecho Canónico avala esta prohibición al declarar en su canon 24 § 2 que toda "costumbre expresamente reprobada por el derecho no es razonable" y, por ende, es nula.
 
@@ -547,47 +629,49 @@ En Cristo y Su Iglesia,
 
 [Tu Nombre/Firma]
 [Tu Contacto/Correo]</div>
+          </div>
         </div>
-      </div>
-    </div>
+      </article>
 
-    <!-- CONTENIDO DEL CASO 4 -->
-    <div class="accar-articulo-contenedor" id="caso-4" style="display: none;">
-      
-      <div class="accar-articulo-cabecera">
-        <h2 class="accar-articulo-titulo">Caso: Uso indebido y profano del ambón</h2>
-        <span class="accar-articulo-meta">Derecho Canónico e Instrucción General del Misal Romano</span>
-      </div>
+      <!-- CONTENIDO DEL CASO 04 -->
+      <article class="accar-articulo-contenedor" id="caso-4" style="display: none;">
+        <header class="accar-articulo-cabecera">
+          <span class="accar-articulo-kicker">✠ Caso 04 · Derecho Canónico e IGMR ✠</span>
+          <h2 class="accar-articulo-titulo">Uso indebido y profano del ambón</h2>
+        </header>
 
-      <div class="accar-articulo-cuerpo">
-        <h3 class="accar-seccion-titulo">I. Naturaleza de la Infracción</h3>
-        <p>El uso del ambón para dar anuncios parroquiales, promover colectas o realizar intervenciones de índole logística o secular desvirtúa por completo la sacralidad de este lugar. El ambón posee una dignidad intrínseca por estar reservado en exclusiva para la proclamación de la Palabra divina. Utilizarlo para fines comunicativos ordinarios banaliza el misterio, rompe el ordenamiento de los espacios sagrados y confunde a los fieles sobre la veneración suprema que la Iglesia exige para la mesa de la Palabra.</p>
+        <div class="accar-articulo-cuerpo">
+          <h3 class="accar-seccion-titulo">I. Naturaleza de la Infracción</h3>
+          <p>El uso del ambón para dar anuncios parroquiales, promover colectas o realizar intervenciones de índole logística o secular desvirtúa por completo la sacralidad de este lugar. El ambón posee una dignidad intrínseca por estar reservado en exclusiva para la proclamación de la Palabra divina. Utilizarlo para fines comunicativos ordinarios banaliza el misterio, rompe el ordenamiento de los espacios sagrados y confunde a los fieles sobre la veneración suprema que la Iglesia exige para la mesa de la Palabra.</p>
 
-        <h3 class="accar-seccion-titulo">II. Marco Litúrgico (Rúbricas)</h3>
-        <ul class="accar-lista-canonica">
-          <li>La <strong>Instrucción General del Misal Romano (IGMR)</strong>, en su numeral 309, delimita de forma estricta las funciones permitidas: "Desde el ambón se proclaman únicamente las lecturas, el salmo responsorial y el pregón pascual; también puede tenerse la homilía y proponer las intenciones de la Oración universal". Toda otra intervención es un añadido ilícito.</li>
-          <li>La misma norma establece el límite de las personas autorizadas: "La dignidad del ambón exige que a él sólo suba el ministro de la Palabra". Quien sube al ambón para dar avisos logísticos contraviene directamente esta disposición.</li>
-          <li>En concordancia con el <strong>Ordenamiento de las Lecturas de la Misa</strong>, la dignidad de la Palabra de Dios exige que el ambón se reserve exclusivamente para lo que le es propio, debiendo realizarse los avisos parroquiales desde otro lugar conveniente que no sea el ambón.</li>
-        </ul>
+          <h3 class="accar-seccion-titulo">II. Marco Litúrgico (Rúbricas)</h3>
+          <ul class="accar-lista-canonica">
+            <li>La <strong>Instrucción General del Misal Romano (IGMR)</strong>, en su numeral 309, delimita de forma estricta las funciones permitidas: "Desde el ambón se proclaman únicamente las lecturas, el salmo responsorial y el pregón pascual; también puede tenerse la homilía y proponer las intenciones de la Oración universal". Toda otra intervención es un añadido ilícito.</li>
+            <li>La misma norma establece el límite de las personas autorizadas: "La dignidad del ambón exige que a él sólo suba el ministro de la Palabra". Quien sube al ambón para dar avisos logísticos contraviene directamente esta disposición.</li>
+            <li>En concordancia con el <strong>Ordenamiento de las Lecturas de la Misa</strong>, la dignidad de la Palabra de Dios exige que el ambón se reserve exclusivamente para lo que le es propio, debiendo realizarse los avisos parroquiales desde otro lugar conveniente que no sea el ambón.</li>
+          </ul>
 
-        <h3 class="accar-seccion-titulo">III. Fundamento Canónico</h3>
-        <ul class="accar-lista-canonica">
-          <li><strong>Trato arbitrario del culto:</strong> El Misterio de la Eucaristía y sus ritos son demasiado grandes "para que alguien pueda permitirse tratarlo a su arbitrio personal". Hacerlo significa realizar actos arbitrarios que "lesionan el verdadero derecho de los fieles a la acción litúrgica" (RS 11-12).</li>
-          <li><strong>Derecho al decoro litúrgico:</strong> Los laicos y clérigos no son dueños de los lugares sagrados. El Código de Derecho Canónico dictamina en su <strong>Canon 214</strong> que "Los fieles tienen derecho a tributar culto a Dios según las normas del propio rito aprobado por los legítimos Pastores de la Iglesia". Imponer avisos profanos desde el ambón vulnera directamente este derecho.</li>
-        </ul>
+          <h3 class="accar-seccion-titulo">III. Fundamento Canónico</h3>
+          <ul class="accar-lista-canonica">
+            <li><strong>Trato arbitrario del culto:</strong> El Misterio de la Eucaristía y sus ritos son demasiado grandes "para que alguien pueda permitirse tratarlo a su arbitrio personal". Hacerlo significa realizar actos arbitrarios que "lesionan el verdadero derecho de los fieles a la acción litúrgica" (RS 11-12).</li>
+            <li><strong>Derecho al decoro litúrgico:</strong> Los laicos y clérigos no son dueños de los lugares sagrados. El Código de Derecho Canónico dictamina en su <strong>Canon 214</strong> que "Los fieles tienen derecho a tributar culto a Dios según las normas del propio rito aprobado por los legítimos Pastores de la Iglesia". Imponer avisos profanos desde el ambón vulnera directamente este derecho.</li>
+          </ul>
 
-        <h3 class="accar-seccion-titulo">IV. Calificación y Responsabilidad</h3>
-        <ul class="accar-lista-canonica">
-          <li><strong>El Párroco:</strong> Recae sobre él la responsabilidad máxima, directa y gravísima por permitir o promover este abuso. El <strong>Canon 528 § 2</strong> le impone la ineludible obligación canónica por la cual "bajo la autoridad del Obispo diocesano, debe moderar el párroco en su parroquia, con la obligación de vigilar para que no se introduzcan abusos".</li>
-          <li><strong>Los presbíteros concelebrantes y laicos delegados:</strong> Incurren en una violación material de las rúbricas al utilizar el ambón para fines profanos, ignorando que, en el desempeño de sus oficios, "harán todo y sólo aquello que les corresponde" (RS 44).</li>
-        </ul>
+          <h3 class="accar-seccion-titulo">IV. Calificación y Responsabilidad</h3>
+          <ul class="accar-lista-canonica">
+            <li><strong>El Párroco:</strong> Recae sobre él la responsabilidad máxima, directa y gravísima por permitir o promover este abuso. El <strong>Canon 528 § 2</strong> le impone la ineludible obligación canónica por la cual "bajo la autoridad del Obispo diocesano, debe moderar el párroco en su parroquia, con la obligación de vigilar para que no se introduzcan abusos".</li>
+            <li><strong>Los presbíteros concelebrantes y laicos delegados:</strong> Incurren en una violación material de las rúbricas al utilizar el ambón para fines profanos, ignorando que, en el desempeño de sus oficios, "harán todo y sólo aquello que les corresponde" (RS 44).</li>
+          </ul>
 
-        <h3 class="accar-seccion-titulo">V. Protocolo de Acción y Denuncia</h3>
-        <p class="accar-instruccion-uso"><em>Instrucciones de uso: Entregar esta misiva de forma física en la oficina parroquial, solicitando acuse de recibo, o enviarla por correo electrónico oficial al Párroco.</em></p>
-        
-        <div class="accar-carta-contenedor">
-          <button class="accar-btn-copiar" onclick="copiarCartaDenuncia('texto-carta-4')">Copiar texto de la carta 📋</button>
-          <div id="texto-carta-4" class="accar-carta-texto">A la reverenda atención del Párroco
+          <h3 class="accar-seccion-titulo">V. Protocolo de Acción y Denuncia</h3>
+          <p class="accar-instruccion-uso">Instrucciones de uso: Entregar esta misiva de forma física en la oficina parroquial, solicitando acuse de recibo, o enviarla por correo electrónico oficial al Párroco.</p>
+
+          <div class="accar-carta-contenedor">
+            <div class="accar-carta-barra">
+              <span class="accar-carta-etiqueta">✠ Modelo de Carta Formal</span>
+              <button type="button" class="accar-btn-copiar" onclick="window.copiarCartaDenuncia('texto-carta-4', this)">Copiar texto de la carta</button>
+            </div>
+            <div id="texto-carta-4" class="accar-carta-texto">A la reverenda atención del Párroco
 Parroquia [Nombre de la Parroquia]
 [Ciudad, Estado]
 
@@ -611,50 +695,52 @@ Confiando en su docilidad a la Madre Iglesia y su pronta corrección, quedo de u
 
 [Tu Nombre/Firma]
 [Tu Contacto/Correo]</div>
+          </div>
         </div>
-      </div>
-    </div>
+      </article>
 
-    <!-- CONTENIDO DEL CASO 5 -->
-    <div class="accar-articulo-contenedor" id="caso-5" style="display: none;">
-      
-      <div class="accar-articulo-cabecera">
-        <h2 class="accar-articulo-titulo">Caso: Usurpación laical y desvirtuación de la Homilía</h2>
-        <span class="accar-articulo-meta">Derecho Canónico, IGMR y Redemptionis Sacramentum</span>
-      </div>
+      <!-- CONTENIDO DEL CASO 05 -->
+      <article class="accar-articulo-contenedor" id="caso-5" style="display: none;">
+        <header class="accar-articulo-cabecera">
+          <span class="accar-articulo-kicker">✠ Caso 05 · Derecho Canónico, IGMR y Redemptionis Sacramentum ✠</span>
+          <h2 class="accar-articulo-titulo">Usurpación laical y desvirtuación de la Homilía</h2>
+        </header>
 
-      <div class="accar-articulo-cuerpo">
-        <h3 class="accar-seccion-titulo">I. Naturaleza de la Infracción</h3>
-        <p>La homilía no es un intermedio, un discurso social ni un foro abierto; "es parte de la misma liturgia" y un acto eminente del ministerio ordenado. Su fin es proclamar las maravillas de Dios y explicar el misterio de Cristo. Cuando el presbítero cede este espacio a un laico para anuncios o reflexiones, o cuando él mismo lo utiliza para comentarios políticos o seculares, está vaciando el sentido genuino de la Palabra de Dios y mutilando la Liturgia de la Palabra, negando a los fieles la exégesis salvífica que la Iglesia le ha encomendado en su ordenación.</p>
+        <div class="accar-articulo-cuerpo">
+          <h3 class="accar-seccion-titulo">I. Naturaleza de la Infracción</h3>
+          <p>La homilía no es un intermedio, un discurso social ni un foro abierto; "es parte de la misma liturgia" y un acto eminente del ministerio ordenado. Su fin es proclamar las maravillas de Dios y explicar el misterio de Cristo. Cuando el presbítero cede este espacio a un laico para anuncios o reflexiones, o cuando él mismo lo utiliza para comentarios políticos o seculares, está vaciando el sentido genuino de la Palabra de Dios y mutilando la Liturgia de la Palabra, negando a los fieles la exégesis salvífica que la Iglesia le ha encomendado en su ordenación.</p>
 
-        <h3 class="accar-seccion-titulo">II. Marco Litúrgico y Canónico</h3>
-        <ul class="accar-lista-canonica">
-          <li><strong>Canon 767 § 1:</strong> Establece taxativamente que "Entre las formas de predicación destaca la homilía, que es parte de la misma liturgia y está reservada al sacerdote o al diácono".</li>
-          <li><strong>IGMR 65:</strong> Ordena que la homilía "Conviene que sea una explicación o de algún aspecto de las lecturas de la Sagrada Escritura, o de otro texto del Ordinario, o del Propio de la Misa del día".</li>
-          <li><strong>IGMR 66 y RS 64:</strong> Son inflexibles al decretar que la homilía "la hará de ordinario el mismo sacerdote celebrante... o a veces, según las circunstancias, también al diácono, pero nunca a un laico".</li>
-          <li><strong>RS 65:</strong> Advierte con severidad que "debe tenerse por abrogada, según lo prescrito en el canon 767 § 1, cualquier norma precedente que admitiera a los fieles no ordenados para poder hacer la homilía... Se reprueba esta concesión, sin que se pueda admitir ninguna fuerza de la costumbre".</li>
-          <li><strong>RS 67:</strong> Prohíbe de forma absoluta que se vacíe el sentido auténtico de la Palabra de Dios "tratando sólo de política o de temas profanos, o tomando como fuente ideas que provienen de movimientos pseudo-religiosos de nuestra época".</li>
-        </ul>
+          <h3 class="accar-seccion-titulo">II. Marco Litúrgico y Canónico</h3>
+          <ul class="accar-lista-canonica">
+            <li><strong>Canon 767 § 1:</strong> Establece taxativamente que "Entre las formas de predicación destaca la homilía, que es parte de la misma liturgia y está reservada al sacerdote o al diácono".</li>
+            <li><strong>IGMR 65:</strong> Ordena que la homilía "Conviene que sea una explicación o de algún aspecto de las lecturas de la Sagrada Escritura, o de otro texto del Ordinario, o del Propio de la Misa del día".</li>
+            <li><strong>IGMR 66 y RS 64:</strong> Son inflexibles al decretar que la homilía "la hará de ordinario el mismo sacerdote celebrante... o a veces, según las circunstancias, también al diácono, pero nunca a un laico".</li>
+            <li><strong>RS 65:</strong> Advierte con severidad que "debe tenerse por abrogada, según lo prescrito en el canon 767 § 1, cualquier norma precedente que admitiera a los fieles no ordenados para poder hacer la homilía... Se reprueba esta concesión, sin que se pueda admitir ninguna fuerza de la costumbre".</li>
+            <li><strong>RS 67:</strong> Prohíbe de forma absoluta que se vacíe el sentido auténtico de la Palabra de Dios "tratando sólo de política o de temas profanos, o tomando como fuente ideas que provienen de movimientos pseudo-religiosos de nuestra época".</li>
+          </ul>
 
-        <h3 class="accar-seccion-titulo">III. Fundamento Canónico</h3>
-        <ul class="accar-lista-canonica">
-          <li><strong>Derecho a los bienes espirituales:</strong> Los fieles tienen el derecho inalienable a "recibir de los Pastores sagrados la ayuda de los bienes espirituales de la Iglesia, principalmente la palabra de Dios y los sacramentos" (Can. 213).</li>
-          <li><strong>Preservación del orden sagrado:</strong> Privar al pueblo de la homilía sacerdotal para introducir alocuciones laicales o profanas va contra la exigencia de evitar confusiones entre el sacerdocio ministerial y el común. Cualquier instrucción o testimonio de un laico, aun por causa grave, jamás puede confundirse con la homilía, y "ni se permite que por ello se suprima totalmente la homilía".</li>
-        </ul>
+          <h3 class="accar-seccion-titulo">III. Fundamento Canónico</h3>
+          <ul class="accar-lista-canonica">
+            <li><strong>Derecho a los bienes espirituales:</strong> Los fieles tienen el derecho inalienable a "recibir de los Pastores sagrados la ayuda de los bienes espirituales de la Iglesia, principalmente la palabra de Dios y los sacramentos" (Can. 213).</li>
+            <li><strong>Preservación del orden sagrado:</strong> Privar al pueblo de la homilía sacerdotal para introducir alocuciones laicales o profanas va contra la exigencia de evitar confusiones entre el sacerdocio ministerial y el común. Cualquier instrucción o testimonio de un laico, aun por causa grave, jamás puede confundirse con la homilía, y "ni se permite que por ello se suprima totalmente la homilía".</li>
+          </ul>
 
-        <h3 class="accar-seccion-titulo">IV. Calificación y Responsabilidad</h3>
-        <ul class="accar-lista-canonica">
-          <li><strong>El Presbítero Celebrante:</strong> Incurre en culpa gravísima por dejación de funciones y desobediencia manifiesta al Magisterio. Al omitir su deber de predicar la Palabra y delegarlo a un laico, fomenta la usurpación. Al usar el púlpito para discursos profanos, ofende la santidad del culto y defrauda el patrimonio espiritual de los fieles.</li>
-          <li><strong>El Párroco:</strong> Si no es él el celebrante, incurre en falta de vigilancia. Está obligado a "procurar que la palabra de Dios se anuncie en su integridad a quienes viven en la parroquia" (Can. 528 § 1) y a vigilar "para que no se introduzcan abusos" (Can. 528 § 2).</li>
-          <li><strong>El Fiel Laico:</strong> Aunque sea invitado por el sacerdote, al asumir el momento de la homilía participa materialmente en un abuso y en una transgresión de los límites de su estado en la Iglesia.</li>
-        </ul>
+          <h3 class="accar-seccion-titulo">IV. Calificación y Responsabilidad</h3>
+          <ul class="accar-lista-canonica">
+            <li><strong>El Presbítero Celebrante:</strong> Incurre en culpa gravísima por dejación de funciones y desobediencia manifiesta al Magisterio. Al omitir su deber de predicar la Palabra y delegarlo a un laico, fomenta la usurpación. Al usar el púlpito para discursos profanos, ofende la santidad del culto y defrauda el patrimonio espiritual de los fieles.</li>
+            <li><strong>El Párroco:</strong> Si no es él el celebrante, incurre en falta de vigilancia. Está obligado a "procurar que la palabra de Dios se anuncie en su integridad a quienes viven en la parroquia" (Can. 528 § 1) y a vigilar "para que no se introduzcan abusos" (Can. 528 § 2).</li>
+            <li><strong>El Fiel Laico:</strong> Aunque sea invitado por el sacerdote, al asumir el momento de la homilía participa materialmente en un abuso y en una transgresión de los límites de su estado en la Iglesia.</li>
+          </ul>
 
-        <h3 class="accar-seccion-titulo">V. Protocolo de Acción y Denuncia</h3>
-        <p class="accar-instruccion-uso"><em>Instrucciones de uso: Entregar esta misiva de forma física en la oficina parroquial, solicitando acuse de recibo, o enviarla por correo electrónico oficial al Párroco.</em></p>
-        
-        <div class="accar-carta-contenedor">
-          <button class="accar-btn-copiar" onclick="copiarCartaDenuncia('texto-carta-5')">Copiar texto de la carta 📋</button>
-          <div id="texto-carta-5" class="accar-carta-texto">A la reverenda atención del Párroco
+          <h3 class="accar-seccion-titulo">V. Protocolo de Acción y Denuncia</h3>
+          <p class="accar-instruccion-uso">Instrucciones de uso: Entregar esta misiva de forma física en la oficina parroquial, solicitando acuse de recibo, o enviarla por correo electrónico oficial al Párroco.</p>
+
+          <div class="accar-carta-contenedor">
+            <div class="accar-carta-barra">
+              <span class="accar-carta-etiqueta">✠ Modelo de Carta Formal</span>
+              <button type="button" class="accar-btn-copiar" onclick="window.copiarCartaDenuncia('texto-carta-5', this)">Copiar texto de la carta</button>
+            </div>
+            <div id="texto-carta-5" class="accar-carta-texto">A la reverenda atención del Párroco
 Parroquia [Nombre de la Parroquia]
 [Ciudad, Estado]
 
@@ -680,45 +766,47 @@ Confiando en su pronta rectificación en obediencia a la Iglesia, quedo suyo en 
 
 [Tu Nombre/Firma]
 [Tu Contacto/Correo]</div>
+          </div>
         </div>
-      </div>
-    </div>
+      </article>
 
-    <!-- CONTENIDO DEL CASO 6 -->
-    <div class="accar-articulo-contenedor" id="caso-6" style="display: none;">
-      
-      <div class="accar-articulo-cabecera">
-        <h2 class="accar-articulo-titulo">Caso: Uso ilícito y trato irreverente por parte de Ministros Extraordinarios de la Sagrada Comunión</h2>
-        <span class="accar-articulo-meta">Derecho Canónico y Redemptionis Sacramentum</span>
-      </div>
+      <!-- CONTENIDO DEL CASO 06 -->
+      <article class="accar-articulo-contenedor" id="caso-6" style="display: none;">
+        <header class="accar-articulo-cabecera">
+          <span class="accar-articulo-kicker">✠ Caso 06 · Derecho Canónico y Redemptionis Sacramentum ✠</span>
+          <h2 class="accar-articulo-titulo">Uso ilícito y trato irreverente por parte de Ministros Extraordinarios de la Sagrada Comunión</h2>
+        </header>
 
-      <div class="accar-articulo-cuerpo">
-        <h3 class="accar-seccion-titulo">I. Naturaleza de la Infracción</h3>
-        <p>La infracción posee una doble vertiente. Por un lado, la rutinización del Ministro Extraordinario de la Sagrada Comunión (MESC) desvirtúa el carácter netamente "extraordinario" y supletorio de este servicio laical. Se banaliza el Sacramento cuando se iguala la distribución eucarística a una simple función logística que cualquiera puede realizar, difuminando la diferencia esencial entre el sacerdocio ordenado y el sacerdocio común. Por otro lado, la actitud irreverente (charlas, saludos profanos y manejo del Copón como un recipiente común) constituye una falta gravísima de adoración y respeto hacia el misterio eucarístico, tratando a Cristo vivo como algo profano y ordinario.</p>
+        <div class="accar-articulo-cuerpo">
+          <h3 class="accar-seccion-titulo">I. Naturaleza de la Infracción</h3>
+          <p>La infracción posee una doble vertiente. Por un lado, la rutinización del Ministro Extraordinario de la Sagrada Comunión (MESC) desvirtúa el carácter netamente "extraordinario" y supletorio de este servicio laical. Se banaliza el Sacramento cuando se iguala la distribución eucarística a una simple función logística que cualquiera puede realizar, difuminando la diferencia esencial entre el sacerdocio ordenado y el sacerdocio común. Por otro lado, la actitud irreverente (charlas, saludos profanos y manejo del Copón como un recipiente común) constituye una falta gravísima de adoración y respeto hacia el misterio eucarístico, tratando a Cristo vivo como algo profano y ordinario.</p>
 
-        <h3 class="accar-seccion-titulo">II. Marco Litúrgico (Rúbricas)</h3>
-        <ul class="accar-lista-canonica">
-          <li>La Instrucción <strong>Redemptionis Sacramentum (RS)</strong> en sus numerales 151, 157 y 158 establece sin ambigüedades que el uso de Ministros Extraordinarios se restringe única y exclusivamente a casos de verdadera necesidad: cuando faltan ministros ordinarios o cuando el número de fieles es tan inmensamente grande que la celebración se prolongaría de manera indebida. Si hay suficientes ministros ordenados, o si la asamblea es reducida (como en una Misa de diario), el uso de laicos para distribuir la Eucaristía es ilícito.</li>
-          <li>Asimismo, <strong>RS 11</strong> advierte severamente que el Misterio de la Eucaristía es demasiado grande "para que alguien pueda permitirse tratarlo a su arbitrio personal". Actuar cediendo a inspiraciones profanas "atenta contra la unidad substancial del Rito romano" y "defrauda el patrimonio y la herencia de los fieles".</li>
-        </ul>
+          <h3 class="accar-seccion-titulo">II. Marco Litúrgico (Rúbricas)</h3>
+          <ul class="accar-lista-canonica">
+            <li>La Instrucción <strong>Redemptionis Sacramentum (RS)</strong> en sus numerales 151, 157 y 158 establece sin ambigüedades que el uso de Ministros Extraordinarios se restringe única y exclusivamente a casos de verdadera necesidad: cuando faltan ministros ordinarios o cuando el número de fieles es tan inmensamente grande que la celebración se prolongaría de manera indebida. Si hay suficientes ministros ordenados, o si la asamblea es reducida (como en una Misa de diario), el uso de laicos para distribuir la Eucaristía es ilícito.</li>
+            <li>Asimismo, <strong>RS 11</strong> advierte severamente que el Misterio de la Eucaristía es demasiado grande "para que alguien pueda permitirse tratarlo a su arbitrio personal". Actuar cediendo a inspiraciones profanas "atenta contra la unidad substancial del Rito romano" y "defrauda el patrimonio y la herencia de los fieles".</li>
+          </ul>
 
-        <h3 class="accar-seccion-titulo">III. Fundamento Canónico</h3>
-        <ul class="accar-lista-canonica">
-          <li><strong>Deber de adoración:</strong> La reverencia hacia el Sacramento no es opcional, es un mandato legal y espiritual vinculante. El <strong>Canon 898</strong> del Código de Derecho Canónico estipula como un deber inexcusable que los fieles han de tener en suma veneración la Santísima Eucaristía, rindiéndole el culto supremo de adoración. La actitud social, relajada e irreverente de estos ministros al transitar por la nave viola frontalmente este mandato canónico, escandalizando a la asamblea y rebajando la majestad del Sacramento del Altar.</li>
-        </ul>
+          <h3 class="accar-seccion-titulo">III. Fundamento Canónico</h3>
+          <ul class="accar-lista-canonica">
+            <li><strong>Deber de adoración:</strong> La reverencia hacia el Sacramento no es opcional, es un mandato legal y espiritual vinculante. El <strong>Canon 898</strong> del Código de Derecho Canónico estipula como un deber inexcusable que los fieles han de tener en suma veneración la Santísima Eucaristía, rindiéndole el culto supremo de adoración. La actitud social, relajada e irreverente de estos ministros al transitar por la nave viola frontalmente este mandato canónico, escandalizando a la asamblea y rebajando la majestad del Sacramento del Altar.</li>
+          </ul>
 
-        <h3 class="accar-seccion-titulo">IV. Calificación y Responsabilidad</h3>
-        <ul class="accar-lista-canonica">
-          <li><strong>El Párroco / Presbítero Celebrante:</strong> Recae sobre él la responsabilidad directa y culposa por omisión y negligencia. Al permitir la rutinización de los MESC cuando hay ministros ordinarios disponibles, incumple sus obligaciones litúrgicas. Al tolerar las actitudes irreverentes, se hace cómplice de la banalización del Sacramento, fallando a su deber canónico de "vigilar para que no se introduzcan abusos" (Can. 528 § 2).</li>
-          <li><strong>Los Ministros Extraordinarios (Laicos):</strong> Incurren en una falta grave de irreverencia material y usurpación de funciones. Olvidan que su ministerio es excepcional y se convierten en agentes de confusión y escándalo al comportarse de manera secular portando el Cuerpo de Cristo.</li>
-        </ul>
+          <h3 class="accar-seccion-titulo">IV. Calificación y Responsabilidad</h3>
+          <ul class="accar-lista-canonica">
+            <li><strong>El Párroco / Presbítero Celebrante:</strong> Recae sobre él la responsabilidad directa y culposa por omisión y negligencia. Al permitir la rutinización de los MESC cuando hay ministros ordinarios disponibles, incumple sus obligaciones litúrgicas. Al tolerar las actitudes irreverentes, se hace cómplice de la banalización del Sacramento, fallando a su deber canónico de "vigilar para que no se introduzcan abusos" (Can. 528 § 2).</li>
+            <li><strong>Los Ministros Extraordinarios (Laicos):</strong> Incurren en una falta grave de irreverencia material y usurpación de funciones. Olvidan que su ministerio es excepcional y se convierten en agentes de confusión y escándalo al comportarse de manera secular portando el Cuerpo de Cristo.</li>
+          </ul>
 
-        <h3 class="accar-seccion-titulo">V. Protocolo de Acción y Denuncia</h3>
-        <p class="accar-instruccion-uso"><em>Instrucciones de uso: Entregar esta misiva de forma física en la oficina parroquial, solicitando acuse de recibo, o enviarla por correo electrónico oficial al Párroco.</em></p>
-        
-        <div class="accar-carta-contenedor">
-          <button class="accar-btn-copiar" onclick="copiarCartaDenuncia('texto-carta-6')">Copiar texto de la carta 📋</button>
-          <div id="texto-carta-6" class="accar-carta-texto">A la reverenda atención del Párroco
+          <h3 class="accar-seccion-titulo">V. Protocolo de Acción y Denuncia</h3>
+          <p class="accar-instruccion-uso">Instrucciones de uso: Entregar esta misiva de forma física en la oficina parroquial, solicitando acuse de recibo, o enviarla por correo electrónico oficial al Párroco.</p>
+
+          <div class="accar-carta-contenedor">
+            <div class="accar-carta-barra">
+              <span class="accar-carta-etiqueta">✠ Modelo de Carta Formal</span>
+              <button type="button" class="accar-btn-copiar" onclick="window.copiarCartaDenuncia('texto-carta-6', this)">Copiar texto de la carta</button>
+            </div>
+            <div id="texto-carta-6" class="accar-carta-texto">A la reverenda atención del Párroco
 Parroquia [Nombre de la Parroquia]
 [Ciudad, Estado]
 
@@ -740,547 +828,948 @@ Confiando en que el temor de Dios y su responsabilidad pastoral le muevan a una 
 
 [Tu Nombre/Firma]
 [Tu Contacto/Correo]</div>
+          </div>
         </div>
+      </article>
+
+      <!-- PUNTO DE EXPANSIÓN: Agrega aquí el contenido completo del Caso 07, Caso 08, etc. -->
+
+      <div class="accar-navegacion-interna accar-navegacion-inferior">
+        <button type="button" class="accar-btn-volver" onclick="window.volverIndice()">← Volver al Índice de Casos</button>
       </div>
+
     </div>
-    
+
   </div>
+
 </section>
 
-<!-- ESTILOS Y SCRIPT -->
 <style>
-/* Estilos Base */
-.accar-vestibulo-page {
-  background: 
-    linear-gradient(180deg, rgba(2, 4, 10, 0.65) 0%, rgba(5, 11, 26, 0.75) 100%),
-    url('../assets/img/bg_derecho_canonico.png');
-  background-position: center top, center center;
-  background-repeat: no-repeat, no-repeat;
-  background-size: cover, 700px auto;
-  background-attachment: scroll, fixed;
-  min-height: 100vh;
-  padding: 80px 20px 100px;
-  color: #f5f2eb;
+.accar-custodia-page,
+.accar-custodia-page * {
+  box-sizing: border-box;
+}
+
+.accar-custodia-page {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  min-height: 1080px;
+  padding: 86px 20px 128px;
+  color: #f8efd3;
   font-family: Georgia, "Times New Roman", serif;
+  border-top: 1px solid rgba(212, 175, 55, 0.24);
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(16, 42, 86, 0.52) 0%, rgba(6, 16, 36, 0.88) 46%, #030816 100%);
+  box-shadow: inset 0 24px 52px rgba(0, 0, 0, 0.55);
 }
 
-/* Encabezado Heráldico Simétrico */
-.accar-header-heraldico {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 40px;
+/* Marca de agua de Derecho Canónico calibrada a la escala estándar ACCAR */
+.accar-custodia-page::before {
+  content: "";
+  position: absolute;
+  top: 115px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(1120px, 96vw);
+  height: min(1120px, 96vw);
+  background: url("/assets/img/bg_derecho_canonico.png") center top / contain no-repeat;
+  opacity: 0.11;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.accar-custodia-inner {
+  position: relative;
+  z-index: 1;
   max-width: 1100px;
-  margin: 0 auto 40px;
-}
-
-.accar-escudo-lateral {
-  width: 100px;
-  height: auto;
-  filter: drop-shadow(0 10px 15px rgba(0,0,0,0.6));
-}
-
-/* Compensa el margen transparente de la imagen institucional escalándola visualmente */
-.accar-header-heraldico img:first-of-type {
-  transform: scale(1.25);
-}
-
-.accar-header-texto {
-  flex: 1;
-  text-align: center;
-}
-
-.accar-vestibulo-kicker {
-  display: inline-block;
-  font-family: sans-serif;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 3px;
-  color: #D4AF37;
-  text-transform: uppercase;
-  margin-bottom: 15px;
-  border-bottom: 1px solid rgba(212, 175, 55, 0.3);
-  padding-bottom: 5px;
-}
-
-.accar-vestibulo-title {
-  font-size: 42px;
-  font-weight: normal;
-  color: #ffffff;
-  margin: 10px 0 15px 0;
-  text-shadow: 0 4px 15px rgba(0,0,0,0.8);
-}
-
-.accar-vestibulo-desc {
-  font-size: 17px;
-  color: rgba(245, 242, 235, 0.7);
-  line-height: 1.6;
-  max-width: 700px;
   margin: 0 auto;
 }
 
-.accar-vestibulo-divider {
-  width: 60px;
-  height: 2px;
-  background: #D4AF37;
-  margin: 0 auto 50px;
-  box-shadow: 0 0 10px #D4AF37;
-}
-
-/* Conmutador de Pestañas */
-.accar-tabs-wrapper {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  margin-bottom: 50px;
-}
-
-.accar-tab-btn {
-  background: rgba(11, 22, 48, 0.6);
-  border: 1px solid rgba(212, 175, 55, 0.3);
-  color: rgba(245, 242, 235, 0.7);
-  padding: 12px 30px;
-  font-family: sans-serif;
-  font-size: 14px;
-  font-weight: bold;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  border-radius: 30px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.accar-tab-btn:hover {
-  border-color: #D4AF37;
-  color: #D4AF37;
-}
-
-.accar-tab-btn.activa {
-  background: #D4AF37;
-  color: #050b1a;
-  border-color: #D4AF37;
-  box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
-}
-
-/* Vista Glosario Doctrinal */
-.accar-glosario-grid {
+/* ===== CABECERA MAESTRA UNIFICADA ===== */
+.accar-custodia-header {
   display: flex;
   flex-direction: column;
-  gap: 30px;
-  max-width: 1000px;
-  margin: 0 auto 50px;
+  align-items: center;
+  text-align: center;
+  max-width: 820px;
+  margin: 0 auto 48px;
 }
 
-.accar-ficha-doctrinal {
+.accar-custodia-kicker {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 6px 18px;
+  margin-bottom: 18px;
+  border-radius: 999px;
+  border: 1px solid rgba(212, 175, 55, 0.65);
+  background: rgba(3, 7, 54, 0.82);
+  color: #e8cb72;
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.42);
+}
+
+.accar-custodia-title-wrap {
+  display: block;
+  width: fit-content;
+  position: relative;
+  padding-bottom: 14px;
+  margin: 0 auto 20px;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.45);
+}
+
+.accar-custodia-title-wrap::after {
+  content: "";
+  position: absolute;
+  bottom: -1.5px;
+  left: 24%;
+  right: 24%;
+  height: 2.5px;
+  border-radius: 2px;
+  background: #d4af37;
+  box-shadow: 0 0 12px rgba(212, 175, 55, 0.85);
+}
+
+.accar-custodia-title {
+  margin: 0;
+  font-size: 2.55rem;
+  font-weight: 700;
+  line-height: 1.18;
+  color: #fff9ec;
+  letter-spacing: 0.02em;
+  text-shadow: 0 4px 18px rgba(0, 0, 0, 0.82), 0 0 16px rgba(212, 175, 55, 0.18);
+}
+
+.accar-custodia-desc {
+  margin: 0 auto;
+  max-width: 680px;
+  font-size: 1.06rem;
+  line-height: 1.72;
+  color: #eae0c8;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+  text-wrap: balance;
+}
+
+/* ===== CONMUTADOR DE PESTAÑAS DE ORFEBRERÍA ===== */
+.accar-custodia-tabs {
   display: flex;
-  background: rgba(11, 22, 48, 0.6);
-  border: 1px solid rgba(212, 175, 55, 0.2);
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin: 0 auto 52px;
+}
+
+.accar-custodia-tab {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  padding: 11px 24px;
+  border-radius: 999px;
+  border: 1px solid rgba(212, 175, 55, 0.44);
+  background: rgba(5, 13, 34, 0.80);
+  color: #e6dbc0;
+  font-family: inherit;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.45);
+  transition: all 0.28s ease;
+}
+
+.accar-custodia-tab .accar-tab-cruz {
+  color: rgba(212, 175, 55, 0.72);
+  font-size: 0.82rem;
+  transition: color 0.28s ease;
+}
+
+.accar-custodia-tab:hover {
+  border-color: #e4c76a;
+  color: #fff9ec;
+  background: rgba(212, 175, 55, 0.14);
+  transform: translateY(-2px);
+}
+
+.accar-custodia-tab:hover .accar-tab-cruz {
+  color: #eed076;
+}
+
+.accar-custodia-tab.activa {
+  border-color: #f0d680;
+  background: linear-gradient(180deg, rgba(212, 175, 55, 0.30) 0%, rgba(128, 96, 20, 0.28) 100%);
+  color: #fff9ec;
+  box-shadow:
+    0 10px 24px rgba(0, 0, 0, 0.62),
+    0 0 18px rgba(212, 175, 55, 0.28),
+    inset 0 1px 0 rgba(255, 244, 204, 0.32);
+}
+
+.accar-custodia-tab.activa .accar-tab-cruz {
+  color: #f5df96;
+}
+
+/* ===== VISTA 1: CUADRÍCULA ESCALABLE DE CASOS ===== */
+.accar-custodia-page .accar-indice-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 26px;
   align-items: stretch;
 }
 
-.accar-ficha-img-box {
-  width: 250px;
-  min-width: 250px;
-  background: #02040a;
+.accar-custodia-page .accar-caso-card {
+  position: relative;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  border-right: 1px solid rgba(212, 175, 55, 0.2);
+  flex-direction: column;
+  cursor: pointer;
+  border-radius: 22px;
+  border: 1px solid rgba(212, 175, 55, 0.46);
+  background: linear-gradient(180deg, rgba(7, 19, 42, 0.80) 0%, rgba(3, 8, 22, 0.90) 100%);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  box-shadow:
+    0 20px 42px rgba(0, 0, 0, 0.62),
+    inset 0 1px 0 rgba(255, 238, 186, 0.14),
+    inset 0 0 28px rgba(0, 0, 0, 0.35);
+  overflow: hidden;
+  transition: transform 0.34s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.34s ease, box-shadow 0.34s ease;
 }
 
-.accar-ficha-img-box img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  opacity: 0.7;
-  transition: opacity 0.4s;
+.accar-custodia-page .accar-caso-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 0%, rgba(212, 175, 55, 0.14) 0%, rgba(18, 48, 96, 0.10) 44%, transparent 72%);
+  opacity: 0.78;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+  z-index: 1;
 }
 
-.accar-ficha-doctrinal:hover .accar-ficha-img-box img {
+.accar-custodia-page .accar-caso-card::after {
+  content: "";
+  position: absolute;
+  inset: 8px;
+  border: 1px solid rgba(212, 175, 55, 0.17);
+  border-radius: 15px;
+  pointer-events: none;
+  transition: border-color 0.35s ease;
+  z-index: 2;
+}
+
+.accar-custodia-page .accar-caso-card:hover {
+  transform: translateY(-7px);
+  border-color: #e4c76a;
+  box-shadow:
+    0 28px 56px rgba(0, 0, 0, 0.80),
+    0 0 22px rgba(212, 175, 55, 0.22),
+    inset 0 1px 0 rgba(255, 238, 186, 0.26);
+}
+
+.accar-custodia-page .accar-caso-card:hover::before {
   opacity: 1;
 }
 
-.accar-ficha-contenido {
-  padding: 30px;
+.accar-custodia-page .accar-caso-card:hover::after {
+  border-color: rgba(212, 175, 55, 0.42);
+}
+
+.accar-caso-contenido {
+  position: relative;
+  z-index: 3;
+  padding: 32px 28px 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
   flex: 1;
 }
 
-.accar-ficha-contenido h3 {
-  color: #D4AF37;
-  font-size: 24px;
-  margin: 0 0 15px 0;
-  font-weight: normal;
+.accar-custodia-page .accar-caso-numero {
+  display: inline-block;
+  padding: 4px 12px;
+  margin-bottom: 16px;
+  border-radius: 999px;
+  border: 1px solid rgba(212, 175, 55, 0.45);
+  background: rgba(3, 8, 42, 0.78);
+  color: #e8cb72;
+  font-size: 0.70rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
 }
 
-.accar-ficha-contenido ul {
+.accar-custodia-page .accar-caso-titulo-tarjeta {
+  margin: 0;
+  font-size: 1.32rem;
+  font-weight: 700;
+  line-height: 1.32;
+  color: #fff9ec;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
+  transition: color 0.25s ease;
+}
+
+.accar-custodia-page .accar-caso-card:hover .accar-caso-titulo-tarjeta {
+  color: #eed076;
+}
+
+.accar-caso-rule {
+  width: 44px;
+  height: 2px;
+  margin: 14px 0 16px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, #d4af37 0%, rgba(212, 175, 55, 0.12) 100%);
+  transition: width 0.3s ease;
+}
+
+.accar-custodia-page .accar-caso-card:hover .accar-caso-rule {
+  width: 72px;
+}
+
+.accar-custodia-page .accar-caso-desc-tarjeta {
+  margin: 0 0 26px;
+  font-size: 0.94rem;
+  line-height: 1.66;
+  color: #e6dbc0;
+  flex: 1;
+}
+
+.accar-custodia-page .accar-caso-leer {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 9px 20px;
+  border-radius: 999px;
+  border: 1px solid rgba(212, 175, 55, 0.48);
+  background: rgba(3, 8, 42, 0.78);
+  color: #e8cb72;
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.42);
+  transition: all 0.28s ease;
+}
+
+.accar-caso-arrow {
+  display: inline-block;
+  font-size: 0.92rem;
+  line-height: 1;
+  transition: transform 0.28s ease;
+}
+
+.accar-custodia-page .accar-caso-card:hover .accar-caso-leer {
+  background: linear-gradient(180deg, rgba(212, 175, 55, 0.22) 0%, rgba(212, 175, 55, 0.10) 100%);
+  border-color: #d4af37;
+  color: #fff9ec;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.55), 0 0 14px rgba(212, 175, 55, 0.25);
+}
+
+.accar-custodia-page .accar-caso-card:hover .accar-caso-arrow {
+  transform: translateX(4px);
+}
+
+/* ===== VISTAS 2 Y 3: FICHAS DE JERARQUÍA Y ÓRDENES ===== */
+.accar-custodia-page .accar-glosario-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+  max-width: 980px;
+  margin: 0 auto;
+}
+
+.accar-custodia-page .accar-ficha-doctrinal {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  border-radius: 22px;
+  border: 1px solid rgba(212, 175, 55, 0.46);
+  background: linear-gradient(180deg, rgba(7, 19, 42, 0.84) 0%, rgba(3, 8, 22, 0.93) 100%);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  box-shadow:
+    0 20px 44px rgba(0, 0, 0, 0.62),
+    inset 0 1px 0 rgba(255, 238, 186, 0.14);
+  overflow: hidden;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.accar-custodia-page .accar-ficha-doctrinal::after {
+  content: "";
+  position: absolute;
+  inset: 8px;
+  border: 1px solid rgba(212, 175, 55, 0.16);
+  border-radius: 15px;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.accar-custodia-page .accar-ficha-doctrinal:hover {
+  border-color: #e4c76a;
+  box-shadow:
+    0 26px 52px rgba(0, 0, 0, 0.78),
+    0 0 18px rgba(212, 175, 55, 0.18);
+  transform: translateY(-3px);
+}
+
+.accar-custodia-page .accar-ficha-img-box {
+  position: relative;
+  z-index: 1;
+  width: 265px;
+  min-width: 265px;
+  background: radial-gradient(circle at center, rgba(212, 175, 55, 0.12) 0%, #030816 78%);
+  border-right: 1px solid rgba(212, 175, 55, 0.28);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.accar-custodia-page .accar-ficha-img-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  opacity: 1;
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.accar-custodia-page .accar-ficha-doctrinal:hover .accar-ficha-img-box img {
+  transform: scale(1.04);
+}
+
+.accar-custodia-page .accar-ficha-contenido {
+  position: relative;
+  z-index: 3;
+  padding: 32px 36px;
+  flex: 1;
+  text-align: left;
+}
+
+.accar-custodia-page .accar-ficha-contenido h3 {
+  margin: 0;
+  color: #eed076;
+  font-size: 1.48rem;
+  font-weight: 700;
+  line-height: 1.28;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.75);
+}
+
+.accar-ficha-rule {
+  width: 52px;
+  height: 2px;
+  margin: 12px 0 18px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, #d4af37 0%, rgba(212, 175, 55, 0.14) 100%);
+}
+
+.accar-custodia-page .accar-ficha-contenido ul {
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
-.accar-ficha-contenido li {
+.accar-custodia-page .accar-ficha-contenido li {
   position: relative;
-  padding-left: 20px;
-  margin-bottom: 12px;
-  font-size: 15px;
-  color: rgba(245, 242, 235, 0.85);
-  line-height: 1.6;
+  padding-left: 24px;
+  margin-bottom: 13px;
+  font-size: 0.97rem;
+  color: #ece2ca;
+  line-height: 1.72;
+  text-align: left;
 }
 
-.accar-ficha-contenido li strong {
-  color: #ffffff;
+.accar-custodia-page .accar-ficha-contenido li:last-child {
+  margin-bottom: 0;
 }
 
-.accar-ficha-contenido li::before {
-  content: "▪";
+.accar-custodia-page .accar-ficha-contenido li strong {
+  color: #fff9ec;
+}
+
+.accar-custodia-page .accar-ficha-contenido li::before {
+  content: "✠";
   position: absolute;
   left: 0;
-  color: #D4AF37;
-  font-size: 18px;
-  top: -2px;
+  top: 1px;
+  color: #d4af37;
+  font-size: 0.80rem;
 }
 
-@media (max-width: 768px) {
-  .accar-ficha-doctrinal {
-    flex-direction: column;
-  }
-  .accar-ficha-img-box {
-    width: 100%;
-    height: 450px; /* Aumentamos el espacio para ver las vestiduras completas */
-    border-right: none;
-    border-bottom: 1px solid rgba(212, 175, 55, 0.2);
-  }
-  .accar-ficha-img-box img {
-    object-position: top center; /* Alinea la imagen arriba para no cortar jamás las cabezas */
-  }
-  .accar-tabs-wrapper {
-    flex-direction: column;
-    padding: 0 20px;
-  }
-}
-
-/* Vista 1: Cuadrícula de Tarjetas */
-.accar-indice-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 30px;
-  max-width: 1100px;
+/* ===== VISTA 4: LECTOR EDITORIAL DE CASOS ===== */
+.accar-documento-wrap {
+  max-width: 900px;
   margin: 0 auto;
 }
 
-.accar-caso-card {
-  background: rgba(11, 22, 48, 0.4);
-  border: 1px solid rgba(212, 175, 55, 0.2);
-  border-radius: 12px;
-  padding: 30px;
-  cursor: pointer;
-  transition: all 0.4s ease;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.4);
-  display: flex;
-  flex-direction: column;
+.accar-custodia-page .accar-navegacion-interna {
+  margin-bottom: 24px;
+  text-align: left;
 }
 
-.accar-caso-card:hover {
-  background: rgba(11, 22, 48, 0.7);
-  border-color: #D4AF37;
-  transform: translateY(-8px);
-  box-shadow: 0 15px 30px rgba(0,0,0,0.6);
+.accar-custodia-page .accar-navegacion-inferior {
+  margin-top: 28px;
+  margin-bottom: 0;
 }
 
-.accar-caso-numero {
-  color: #D4AF37;
-  font-family: sans-serif;
-  font-size: 12px;
-  font-weight: bold;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  margin-bottom: 12px;
-  opacity: 0.8;
-}
-
-.accar-caso-titulo-tarjeta {
-  color: #ffffff;
-  font-size: 22px;
-  margin: 0 0 15px 0;
-  line-height: 1.3;
-  font-weight: normal;
-}
-
-.accar-caso-desc-tarjeta {
-  color: rgba(245, 242, 235, 0.7);
-  font-size: 15px;
-  line-height: 1.6;
-  margin: 0 0 25px 0;
-  flex: 1;
-}
-
-.accar-caso-leer {
-  color: #ffffff;
-  font-family: sans-serif;
-  font-size: 12px;
-  font-weight: bold;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  opacity: 0.5;
-  transition: all 0.3s;
-}
-
-.accar-caso-card:hover .accar-caso-leer {
-  opacity: 1;
-  color: #D4AF37;
-}
-
-/* Vista 2: Navegación y Contenedor del Documento */
-.accar-navegacion-interna {
-  max-width: 850px;
-  margin: 0 auto 20px;
-}
-
-.accar-btn-volver {
-  background: transparent;
-  color: #D4AF37;
-  border: none;
-  font-family: sans-serif;
-  font-size: 12px;
-  font-weight: bold;
-  letter-spacing: 2px;
+.accar-custodia-page .accar-btn-volver {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 22px;
+  border-radius: 999px;
+  border: 1px solid rgba(212, 175, 55, 0.56);
+  background: rgba(3, 8, 42, 0.84);
+  color: #e8cb72;
+  font-family: inherit;
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.10em;
   text-transform: uppercase;
   cursor: pointer;
-  padding: 10px 0;
-  transition: color 0.3s;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.42);
+  transition: all 0.25s ease;
 }
 
-.accar-btn-volver:hover {
-  color: #ffffff;
+.accar-custodia-page .accar-btn-volver:hover {
+  background: rgba(212, 175, 55, 0.18);
+  border-color: #eed076;
+  color: #fff9ec;
+  transform: translateX(-3px);
 }
 
-.accar-articulo-contenedor {
-  max-width: 850px;
-  margin: 0 auto;
-  background: rgba(11, 22, 48, 0.5);
-  border: 1px solid rgba(212, 175, 55, 0.3);
-  border-radius: 12px;
-  padding: 50px;
-  box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+.accar-custodia-page .accar-articulo-contenedor {
+  position: relative;
+  padding: 46px 48px 50px;
+  border-radius: 22px;
+  border: 1px solid rgba(212, 175, 55, 0.46);
+  background: linear-gradient(180deg, rgba(6, 15, 34, 0.88) 0%, rgba(3, 8, 22, 0.95) 100%);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  box-shadow:
+    0 24px 52px rgba(0, 0, 0, 0.68),
+    inset 0 1px 0 rgba(255, 238, 186, 0.14);
+  text-align: left;
 }
 
-.accar-articulo-cabecera {
-  border-bottom: 1px solid rgba(212, 175, 55, 0.3);
-  padding-bottom: 20px;
-  margin-bottom: 30px;
+.accar-custodia-page .accar-articulo-contenedor::after {
+  content: "";
+  position: absolute;
+  inset: 8px;
+  border: 1px solid rgba(212, 175, 55, 0.15);
+  border-radius: 15px;
+  pointer-events: none;
 }
 
-.accar-articulo-titulo {
-  font-size: 32px;
-  color: #D4AF37;
-  font-weight: normal;
-  margin: 0 0 10px 0;
-  line-height: 1.3;
+.accar-custodia-page .accar-articulo-cabecera {
+  position: relative;
+  z-index: 2;
+  padding-bottom: 24px;
+  margin-bottom: 32px;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.32);
 }
 
-.accar-articulo-meta {
-  font-family: sans-serif;
-  font-size: 12px;
-  color: rgba(245, 242, 235, 0.5);
+.accar-articulo-kicker {
+  display: inline-block;
+  margin-bottom: 14px;
+  padding: 5px 15px;
+  border-radius: 999px;
+  border: 1px solid rgba(212, 175, 55, 0.56);
+  background: rgba(3, 7, 54, 0.82);
+  color: #e8cb72;
+  font-size: 0.70rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  letter-spacing: 2px;
 }
 
-.accar-articulo-cuerpo p {
-  font-size: 17px;
-  color: rgba(245, 242, 235, 0.85);
-  line-height: 1.7;
-  margin-bottom: 20px;
+.accar-custodia-page .accar-articulo-titulo {
+  margin: 0;
+  font-size: 2.05rem;
+  font-weight: 700;
+  line-height: 1.24;
+  color: #fff9ec;
+  text-shadow: 0 3px 14px rgba(0, 0, 0, 0.82);
 }
 
-.accar-seccion-titulo {
-  font-size: 22px;
-  color: #ffffff;
-  margin: 40px 0 15px 0;
-  font-weight: normal;
-  border-left: 3px solid #D4AF37;
-  padding-left: 15px;
+.accar-custodia-page .accar-articulo-cuerpo {
+  position: relative;
+  z-index: 2;
 }
 
-.accar-lista-canonica {
+.accar-custodia-page .accar-seccion-titulo {
+  position: relative;
+  margin: 38px 0 18px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.28);
+  color: #eed076;
+  font-size: 1.28rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.accar-custodia-page .accar-seccion-titulo::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -1.5px;
+  width: 56px;
+  height: 2.5px;
+  border-radius: 2px;
+  background: #d4af37;
+  box-shadow: 0 0 10px rgba(212, 175, 55, 0.65);
+}
+
+.accar-custodia-page .accar-seccion-titulo:first-child {
+  margin-top: 0;
+}
+
+.accar-custodia-page .accar-articulo-cuerpo p {
+  margin: 0 0 20px;
+  font-size: 1.04rem;
+  color: #efe5cc;
+  line-height: 1.84;
+  text-align: left;
+}
+
+.accar-custodia-page .accar-articulo-cuerpo strong {
+  color: #eed076;
+}
+
+.accar-custodia-page .accar-lista-canonica {
   list-style: none;
   padding: 0;
-  margin: 0 0 25px 0;
+  margin: 0 0 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
 }
 
-.accar-lista-canonica li {
+.accar-custodia-page .accar-lista-canonica li {
   position: relative;
-  padding-left: 25px;
-  margin-bottom: 15px;
-  font-size: 17px;
-  color: rgba(245, 242, 235, 0.85);
+  padding: 15px 20px 15px 42px;
+  border-radius: 14px;
+  border: 1px solid rgba(212, 175, 55, 0.22);
+  background: rgba(3, 8, 22, 0.58);
+  font-size: 1rem;
+  color: #efe5cc;
+  line-height: 1.76;
+  text-align: left;
+}
+
+.accar-custodia-page .accar-lista-canonica li::before {
+  content: "✠";
+  position: absolute;
+  left: 16px;
+  top: 16px;
+  color: #d4af37;
+  font-size: 0.88rem;
   line-height: 1.6;
 }
 
-.accar-lista-canonica li::before {
-  content: "✦";
-  position: absolute;
-  left: 0;
-  color: #D4AF37;
-  font-size: 14px;
-  top: 2px;
-}
-
-.accar-instruccion-uso {
+.accar-custodia-page .accar-instruccion-uso {
+  padding: 14px 18px;
+  border-radius: 12px;
+  border-left: 3.5px solid #d4af37;
+  background: rgba(212, 175, 55, 0.08);
+  color: #f3dfb0 !important;
   font-style: italic;
-  color: #D4AF37 !important;
-  font-size: 15px !important;
-  text-align: center;
+  font-size: 0.96rem !important;
+  line-height: 1.64 !important;
 }
 
-/* Estilos de la carta */
-.accar-carta-contenedor {
-  background: #091024;
-  border: 1px solid #D4AF37;
-  border-radius: 8px;
-  padding: 0;
-  margin-top: 30px;
-  position: relative;
+/* ===== RECINTO DE LA CARTA FORMAL ===== */
+.accar-custodia-page .accar-carta-contenedor {
+  margin-top: 24px;
+  border-radius: 16px;
+  border: 1px solid rgba(212, 175, 55, 0.52);
+  background: rgba(3, 8, 22, 0.92);
   overflow: hidden;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.55);
 }
 
-.accar-btn-copiar {
-  background: #D4AF37;
-  color: #050b1a;
-  border: none;
-  width: 100%;
-  padding: 12px;
-  font-family: sans-serif;
-  font-size: 14px;
-  font-weight: bold;
+.accar-carta-barra {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 14px 22px;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.30);
+  background: linear-gradient(180deg, rgba(16, 36, 74, 0.88) 0%, rgba(6, 15, 36, 0.94) 100%);
+}
+
+.accar-carta-etiqueta {
+  color: #eed076;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.accar-custodia-page .accar-btn-copiar {
+  appearance: none;
+  padding: 9px 20px;
+  border-radius: 999px;
+  border: 1px solid #e8cb72;
+  background: linear-gradient(180deg, rgba(212, 175, 55, 0.28) 0%, rgba(212, 175, 55, 0.14) 100%);
+  color: #fff9ec;
+  font-family: inherit;
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   cursor: pointer;
-  letter-spacing: 1px;
-  transition: background 0.3s ease;
+  transition: all 0.25s ease;
 }
 
-.accar-btn-copiar:hover {
-  background: #f0c953;
+.accar-custodia-page .accar-btn-copiar:hover {
+  background: #d4af37;
+  color: #050b1a;
+  box-shadow: 0 0 16px rgba(212, 175, 55, 0.35);
 }
 
-.accar-carta-texto {
-  padding: 40px;
-  font-family: "Courier New", Courier, monospace;
-  font-size: 15px;
-  color: #e0dcd3;
-  line-height: 1.6;
-  white-space: pre-wrap; 
+.accar-custodia-page .accar-btn-copiar.copiado {
+  background: #1f6f43;
+  border-color: #4ade80;
+  color: #ffffff;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-  .accar-header-heraldico {
+.accar-custodia-page .accar-carta-texto {
+  padding: 34px 36px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 0.98rem;
+  color: #f3ead5;
+  line-height: 1.78;
+  white-space: pre-wrap;
+  text-align: left;
+}
+
+/* ===== RESPONSIVE IPAD / TABLET ===== */
+@media (max-width: 1024px) {
+  .accar-custodia-page {
+    padding: 72px 20px 108px;
+  }
+
+  .accar-custodia-title {
+    font-size: 2.25rem;
+  }
+
+  .accar-custodia-page .accar-indice-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 22px;
+  }
+}
+
+/* ===== RESPONSIVE MÓVIL ===== */
+@media (max-width: 720px) {
+  .accar-custodia-page {
+    min-height: auto;
+    padding: 54px 16px 96px;
+  }
+
+  .accar-custodia-page::before {
+    top: 210px;
+    width: min(520px, 94vw);
+    height: min(520px, 94vw);
+  }
+
+  .accar-custodia-header {
+    margin-bottom: 36px;
+  }
+
+  .accar-custodia-kicker {
+    font-size: 0.66rem;
+    padding: 5px 14px;
+  }
+
+  .accar-custodia-title {
+    font-size: 1.85rem;
+  }
+
+  .accar-custodia-desc {
+    font-size: 0.96rem;
+    line-height: 1.64;
+  }
+
+  .accar-custodia-desc .accar-salto-editorial {
+    display: none;
+  }
+
+  .accar-custodia-tabs {
     flex-direction: column;
-    gap: 20px;
+    max-width: 340px;
+    gap: 10px;
+    margin-bottom: 38px;
   }
-  .accar-escudo-lateral {
-    width: 80px;
+
+  .accar-custodia-tab {
+    width: 100%;
   }
-  .accar-vestibulo-title {
-    font-size: 32px;
+
+  .accar-custodia-page .accar-indice-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
   }
-  .accar-articulo-contenedor {
-    padding: 30px 20px;
+
+  .accar-caso-contenido {
+    padding: 28px 22px 26px;
   }
-  .accar-articulo-titulo {
-    font-size: 26px;
+
+  .accar-custodia-page .accar-ficha-doctrinal {
+    flex-direction: column;
   }
-  .accar-carta-texto {
-    padding: 20px;
-    font-size: 14px;
+
+  .accar-custodia-page .accar-ficha-img-box {
+    width: 100%;
+    min-width: 0;
+    height: 410px;
+    border-right: none;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.28);
+  }
+
+  .accar-custodia-page .accar-ficha-contenido {
+    padding: 26px 22px;
+  }
+
+  .accar-custodia-page .accar-articulo-contenedor {
+    padding: 28px 20px 32px;
+  }
+
+  .accar-custodia-page .accar-articulo-titulo {
+    font-size: 1.56rem;
+  }
+
+  .accar-custodia-page .accar-seccion-titulo {
+    font-size: 1.12rem;
+  }
+
+  .accar-custodia-page .accar-carta-barra {
+    justify-content: center;
+    text-align: center;
+  }
+
+  .accar-custodia-page .accar-carta-texto {
+    padding: 22px 18px;
+    font-size: 0.93rem;
   }
 }
 </style>
 
 <script>
-// Función para cambiar entre Casos, Glosario y Órdenes
-function alternarSeccion(seccion) {
-  const btnCasos = document.getElementById('tab-casos');
-  const btnGlosario = document.getElementById('tab-glosario');
-  const btnOrdenes = document.getElementById('tab-ordenes');
-  
-  const vistaCasos = document.getElementById('vista-indice');
-  const vistaGlosario = document.getElementById('vista-glosario');
-  const vistaOrdenes = document.getElementById('vista-ordenes');
-  const vistaDocumento = document.getElementById('vista-documento');
-
-  // Ocultar siempre todo
-  vistaDocumento.style.display = 'none';
-  vistaCasos.style.display = 'none';
-  vistaGlosario.style.display = 'none';
-  vistaOrdenes.style.display = 'none';
-  
-  btnCasos.classList.remove('activa');
-  btnGlosario.classList.remove('activa');
-  btnOrdenes.classList.remove('activa');
-
-  // Mostrar lo correspondiente
-  if (seccion === 'casos') {
-    btnCasos.classList.add('activa');
-    vistaCasos.style.display = 'grid';
-  } else if (seccion === 'glosario') {
-    btnGlosario.classList.add('activa');
-    vistaGlosario.style.display = 'flex';
-  } else if (seccion === 'ordenes') {
-    btnOrdenes.classList.add('activa');
-    vistaOrdenes.style.display = 'flex';
+(function() {
+  function desplazarInicioCustodia() {
+    const seccion = document.querySelector('.accar-custodia-page');
+    if (seccion) {
+      const top = seccion.getBoundingClientRect().top + window.scrollY;
+      window.scrollTo({ top: top, behavior: 'smooth' });
+    } else {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
   }
-}
 
-// Funciones del Conmutador de Vistas
-function mostrarCaso(idCaso) {
-  // Ocultar la cuadrícula
-  document.getElementById('vista-indice').style.display = 'none';
-  
-  // Ocultar todos los casos dentro del contenedor de documentos
-  const todosLosCasos = document.querySelectorAll('.accar-articulo-contenedor');
-  todosLosCasos.forEach(caso => caso.style.display = 'none');
-  
-  // Mostrar la vista de documento y el caso específico
-  document.getElementById('vista-documento').style.display = 'block';
-  document.getElementById(idCaso).style.display = 'block';
-  
-  // Subir suavemente la pantalla
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
+  window.alternarSeccion = function(seccion) {
+    const btnCasos = document.getElementById('tab-casos');
+    const btnGlosario = document.getElementById('tab-glosario');
+    const btnOrdenes = document.getElementById('tab-ordenes');
 
-function volverIndice() {
-  // Ocultar la vista de documento
-  document.getElementById('vista-documento').style.display = 'none';
-  
-  // Mostrar la cuadrícula
-  document.getElementById('vista-indice').style.display = 'grid';
-  
-  // Subir suavemente la pantalla
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
+    const vistaCasos = document.getElementById('vista-indice');
+    const vistaGlosario = document.getElementById('vista-glosario');
+    const vistaOrdenes = document.getElementById('vista-ordenes');
+    const vistaDocumento = document.getElementById('vista-documento');
 
-// Función para copiar la carta
-function copiarCartaDenuncia(idElemento) {
-  const texto = document.getElementById(idElemento).innerText;
-  const boton = event.target;
-  
-  navigator.clipboard.writeText(texto).then(() => {
-    boton.innerText = "¡CARTA COPIADA AL PORTAPAPELES! ✔";
-    boton.style.background = "#4CAF50";
-    boton.style.color = "#ffffff";
-    
-    setTimeout(() => {
-      boton.innerText = "Copiar texto de la carta 📋";
-      boton.style.background = "#D4AF37";
-      boton.style.color = "#050b1a";
-    }, 3000);
-  }).catch(err => {
-    console.error('Error al copiar: ', err);
-    alert("Hubo un error al copiar el texto.");
+    if (!vistaCasos || !vistaGlosario || !vistaOrdenes || !vistaDocumento) return;
+
+    vistaDocumento.style.display = 'none';
+    vistaCasos.style.display = 'none';
+    vistaGlosario.style.display = 'none';
+    vistaOrdenes.style.display = 'none';
+
+    btnCasos.classList.remove('activa');
+    btnGlosario.classList.remove('activa');
+    btnOrdenes.classList.remove('activa');
+
+    if (seccion === 'casos') {
+      btnCasos.classList.add('activa');
+      vistaCasos.style.display = 'grid';
+    } else if (seccion === 'glosario') {
+      btnGlosario.classList.add('activa');
+      vistaGlosario.style.display = 'flex';
+    } else if (seccion === 'ordenes') {
+      btnOrdenes.classList.add('activa');
+      vistaOrdenes.style.display = 'flex';
+    }
+  };
+
+  window.mostrarCaso = function(idCaso) {
+    const vistaIndice = document.getElementById('vista-indice');
+    const vistaDocumento = document.getElementById('vista-documento');
+    const casoObjetivo = document.getElementById(idCaso);
+    if (!vistaIndice || !vistaDocumento || !casoObjetivo) return;
+
+    vistaIndice.style.display = 'none';
+    document.querySelectorAll('.accar-custodia-page .accar-articulo-contenedor').forEach(caso => {
+      caso.style.display = 'none';
+    });
+
+    vistaDocumento.style.display = 'block';
+    casoObjetivo.style.display = 'block';
+    desplazarInicioCustodia();
+  };
+
+  window.volverIndice = function() {
+    const vistaDocumento = document.getElementById('vista-documento');
+    const vistaIndice = document.getElementById('vista-indice');
+    if (!vistaDocumento || !vistaIndice) return;
+
+    vistaDocumento.style.display = 'none';
+    vistaIndice.style.display = 'grid';
+    desplazarInicioCustodia();
+  };
+
+  window.copiarCartaDenuncia = function(idElemento, boton) {
+    const nodoTexto = document.getElementById(idElemento);
+    if (!nodoTexto) return;
+    const texto = nodoTexto.innerText;
+
+    const marcarExito = () => {
+      if (!boton) return;
+      const original = boton.textContent;
+      boton.textContent = '✓ Carta copiada al portapapeles';
+      boton.classList.add('copiado');
+      setTimeout(() => {
+        boton.textContent = original;
+        boton.classList.remove('copiado');
+      }, 3000);
+    };
+
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(texto).then(marcarExito).catch(() => {
+        alert('No se pudo copiar automáticamente. Selecciona el texto manualmente.');
+      });
+    } else {
+      alert('Tu navegador no permite copiado automático. Selecciona el texto manualmente.');
+    }
+  };
+
+  // Soporte de teclado (Enter o Espacio) en las tarjetas de casos
+  document.querySelectorAll('.accar-custodia-page .accar-caso-card').forEach(card => {
+    card.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        card.click();
+      }
+    });
   });
-}
+})();
 </script>
