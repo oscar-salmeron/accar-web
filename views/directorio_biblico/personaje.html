@@ -1,240 +1,619 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ficha del Personaje - ACCAR</title>
-    <style>
-        :root {
-            --primary: #d4af37;
-            --primary-light: #f3c93f;
-            --secondary: #0a0e17;
-            --accent: #8a7322;
-            --text-main: #e2e8f0;
-            --card-bg: #111827;
-            --success: #4ade80;
-            --error: #f87171;
-        }
+<!-- ===== ACCAR | FICHA EXEGÉTICA DE PERSONAJE BÍBLICO ===== -->
+<section class="accar-ficha-personaje">
 
-        body {
-            font-family: 'Georgia', Times, serif;
-            color: var(--text-main);
-            background-color: var(--secondary);
-            line-height: 1.8;
-            margin: 0;
-            padding: 0;
-        }
+  <div class="accar-ficha-inner">
 
-        .container { max-width: 800px; margin: 0 auto; padding: 40px 20px; }
-        .no-break { white-space: nowrap; }
-
-        .hero-section {
-            display: flex;
-            align-items: center;
-            justify-content: flex-start;
-            padding: 20px 0;
-            background-color: transparent;
-            border-bottom: 2px solid var(--accent);
-            margin-bottom: 40px;
-            gap: 40px;
-        }
-
-        .hero-image {
-            flex: 1;
-            text-align: left;
-            display: flex;
-            justify-content: flex-start;
-        }
-
-        .hero-image img {
-            max-width: 100%;
-            height: auto;
-            max-height: 380px;
-            object-fit: contain;
-            filter: drop-shadow(0px 10px 25px rgba(0, 0, 0, 0.8));
-        }
-
-        .hero-text {
-            flex: 1.5;
-            text-align: left;
-        }
-
-        .hero-text h1 {
-            margin: 0;
-            font-size: 3.5em;
-            color: var(--primary);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
-        }
-
-        .hero-text .subtitle {
-            color: #94a3b8;
-            font-style: italic;
-            font-size: 1.3em;
-            margin-top: 10px;
-        }
-
-        @media (max-width: 768px) {
-            .hero-section { flex-direction: column; text-align: center; gap: 20px; }
-            .hero-image, .hero-text { text-align: center; justify-content: center; }
-        }
-
-        h2 { color: var(--primary); border-bottom: 2px solid var(--accent); padding-bottom: 8px; margin-top: 40px; font-size: 1.5em; }
-
-        .ficha-tecnica {
-            background-color: var(--card-bg); padding: 25px;
-            border-radius: 8px;
-            margin-bottom: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            border: 1px solid rgba(212, 175, 55, 0.1);
-            border-left: 5px solid var(--primary);
-        }
-        .ficha-tecnica ul { list-style: none; padding: 0; margin: 0; }
-        .ficha-tecnica li { margin-bottom: 12px; }
-        strong { color: var(--primary); }
-        p { text-align: justify; margin-bottom: 20px; font-size: 1.05em; color: #cbd5e1; }
-
-        /* Botones e Invitación */
-        .cta-invitation {
-            background-color: var(--card-bg); border: 1px solid var(--accent);
-            text-align: center; padding: 40px; border-radius: 8px;
-            margin-top: 50px; box-shadow: 0 4px 20px rgba(0,0,0,0.4);
-        }
-        .cta-invitation h3 { color: var(--primary); font-size: 1.8em; margin-top: 0; }
-        .cta-invitation p { color: #94a3b8; margin-bottom: 30px; }
-        
-        .btn-elegant {
-            background-color: transparent; color: var(--primary); 
-            border: 2px solid var(--primary);
-            padding: 15px 40px; font-size: 1.2em; font-family: 'Georgia', serif;
-            border-radius: 30px; cursor: pointer; transition: all 0.3s;
-        }
-        .btn-elegant:hover { background-color: var(--primary); color: var(--secondary); box-shadow: 0 0 15px rgba(212, 175, 55, 0.4); }
-
-        .modal-overlay {
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background-image: linear-gradient(rgba(10, 14, 23, 0.5), rgba(10, 14, 23, 0.5)), url('../../assets/img/bg_apologetica.webp');
-            background-size: cover;
-            background-position: center;
-            backdrop-filter: blur(8px);
-            z-index: 1000; align-items: center; justify-content: center;
-            opacity: 0; transition: opacity 0.3s ease;
-        }
-        .modal-overlay.active { display: flex; opacity: 1; }
-
-        .modal-card {
-            background-color: var(--card-bg);
-            width: 90%; max-width: 600px;
-            border-radius: 12px; padding: 40px; position: relative;
-            box-shadow: 0 15px 50px rgba(0,0,0,0.6); transform: translateY(20px);
-            transition: transform 0.3s ease; max-height: 90vh; overflow-y: auto;
-            border: 1px solid var(--accent);
-        }
-        .modal-overlay.active .modal-card { transform: translateY(0); }
-        
-        .close-btn {
-            position: absolute; top: 15px; right: 20px; font-size: 28px;
-            cursor: pointer; color: #64748b; transition: color 0.2s;
-        }
-        .close-btn:hover { color: var(--primary); }
-
-        .quiz-status { font-family: sans-serif; font-size: 0.85em; font-weight: bold; color: var(--accent); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 15px; text-align: center;}
-        .question-text { font-size: 1.3em; color: var(--text-main); font-weight: bold; margin-bottom: 30px; text-align: center; line-height: 1.4; }
-
-        .options-container { display: flex; flex-direction: column; gap: 12px; }
-        .option-btn {
-            background-color: rgba(255, 255, 255, 0.03); border: 1px solid var(--accent); padding: 15px 20px;
-            border-radius: 8px; text-align: left; font-size: 1.05em; font-family: inherit;
-            color: var(--text-main); cursor: pointer; transition: all 0.2s;
-        }
-        .option-btn:hover:not(:disabled) { border-color: var(--primary); background-color: rgba(212, 175, 55, 0.1); }
-        .option-btn:disabled { cursor: default; }
-
-        .correct-ans { background-color: rgba(74, 222, 128, 0.1) !important; border-color: var(--success) !important; color: var(--success) !important; font-weight: bold; }
-        .wrong-ans { background-color: rgba(248, 113, 113, 0.1) !important; border-color: var(--error) !important; color: var(--error) !important; opacity: 0.7; }
-
-        .justification-box {
-            display: none; background-color: rgba(0,0,0,0.2); padding: 20px;
-            border-radius: 4px;
-            margin-top: 25px; font-size: 0.95em; box-shadow: inset 0 2px 8px rgba(0,0,0,0.1);
-            animation: slideDown 0.3s ease-out;
-            color: #cbd5e1;
-            border-left: 4px solid var(--primary);
-        }
-
-        .next-btn {
-            display: none; width: 100%; background-color: var(--primary); color: var(--secondary);
-            border: none; padding: 15px; font-size: 1.1em; border-radius: 8px;
-            margin-top: 20px; cursor: pointer; font-family: 'Georgia', serif; font-weight: bold;
-        }
-        .next-btn:hover { background-color: var(--primary-light); }
-
-        .results-view { display: none; text-align: center; }
-        .results-view h2 { border: none; margin-top: 0; color: var(--primary); }
-        .score-circle {
-            width: 100px; height: 100px; border-radius: 50%; border: 4px solid var(--primary);
-            display: flex; align-items: center; justify-content: center;
-            font-size: 2em; font-weight: bold; margin: 0 auto 20px; color: var(--primary);
-            background-color: rgba(212, 175, 55, 0.05);
-        }
-        @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
-    </style>
-</head>
-<body>
-
-    <div class="container">
-        
-        <div style="margin-bottom: 25px;">
-            <a href="#" onclick="event.preventDefault(); loadView('/views/directorio_biblico/directorio_personajes.html');" style="color: #D4AF37; text-decoration: none; font-size: 12px; font-weight: bold; letter-spacing: 2px; text-transform: uppercase; font-family: sans-serif;">
-                ⮜ Volver al Directorio
-            </a>
-        </div>
-
-        <header class="hero-section">
-            <div class="hero-image">
-                <img src="" alt="Ilustración del Personaje">
-            </div>
-            <div class="hero-text">
-                <h1>Cargando...</h1>
-                <div class="subtitle"></div>
-            </div>
-        </header>
-
-        <main id="main-content">
-            <p style="text-align: center; color: var(--primary);">Conectando con el archivo eclesial...</p>
-        </main>
-
-        <div class="cta-invitation">
-            <h3>¿Profundizaste en la lectura?</h3>
-            <p>Te invitamos a evaluar tu comprensión doctrinal y eclesiológica sobre este patriarca.</p>
-            <button class="btn-elegant" onclick="abrirModal()">Realizar Test Interactivo</button>
-        </div>
-
+    <div class="accar-ficha-topbar">
+      <a href="/ver/directorio-personajes" onclick="event.preventDefault(); loadView('/views/directorio_biblico/directorio_personajes.html');" class="accar-btn-volver">
+        ← Volver al Directorio
+      </a>
     </div>
 
-    <div class="modal-overlay" id="quizModal">
-        <div class="modal-card">
-            <span class="close-btn" onclick="cerrarModal()">&times;</span>
-            
-            <div id="quiz-view">
-                <div class="quiz-status">Pregunta <span id="q-num">1</span> de 3</div>
-                <div class="question-text" id="q-text"></div>
-                <div class="options-container" id="options-box"></div>
-                <div class="justification-box" id="just-box">
-                    <strong>Fundamento Teológico:</strong> <span id="just-text"></span>
-                </div>
-                <button class="next-btn" id="next-btn" onclick="siguientePregunta()">Siguiente Pregunta</button>
-            </div>
+    <header class="hero-section">
+      <div class="hero-image">
+        <img src="" alt="Ilustración del Personaje">
+      </div>
+      <div class="hero-text">
+        <span class="accar-ficha-kicker">✠ Historia de la Salvación ✠</span>
+        <h1>Cargando...</h1>
+        <div class="subtitle"></div>
+      </div>
+    </header>
 
-            <div class="results-view" id="results-view">
-                <h2>Evaluación Finalizada</h2>
-                <div class="score-circle"><span id="final-score">0</span>/<span id="total-q">3</span></div>
-                <p id="result-msg" style="font-size: 1.1em; margin-bottom: 30px;"></p>
-                <button class="btn-elegant" style="width: 100%;" onclick="cerrarModal()">Volver al Artículo</button>
-            </div>
-        </div>
+    <main id="main-content" class="accar-ficha-article">
+      <p class="accar-ficha-loading">Conectando con el archivo eclesial...</p>
+    </main>
+
+    <div class="cta-invitation">
+      <h3>¿Profundizaste en la lectura?</h3>
+      <p>Evalúa tu comprensión bíblica, tipológica y doctrinal sobre esta figura de la Historia de la Salvación.</p>
+      <button type="button" class="btn-elegant" onclick="abrirModal()">Realizar Test Interactivo →</button>
     </div>
 
-    
-</body>
-</html>
+  </div>
+
+  <div class="modal-overlay" id="quizModal">
+    <div class="modal-card">
+      <button type="button" class="close-btn" onclick="cerrarModal()" aria-label="Cerrar evaluación">&times;</button>
+
+      <div id="quiz-view">
+        <div class="quiz-status">✠ Pregunta <span id="q-num">1</span> de 3 ✠</div>
+        <div class="question-text" id="q-text"></div>
+        <div class="options-container" id="options-box"></div>
+        <div class="justification-box" id="just-box">
+          <strong>Fundamento Teológico:</strong> <span id="just-text"></span>
+        </div>
+        <button type="button" class="next-btn" id="next-btn" onclick="siguientePregunta()">Siguiente Pregunta →</button>
+      </div>
+
+      <div class="results-view" id="results-view">
+        <h2>Evaluación Finalizada</h2>
+        <div class="score-circle"><span id="final-score">0</span>/<span id="total-q">3</span></div>
+        <p id="result-msg"></p>
+        <button type="button" class="btn-elegant accar-btn-full" onclick="cerrarModal()">Volver al Estudio</button>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<style>
+.accar-ficha-personaje,
+.accar-ficha-personaje * {
+  box-sizing: border-box;
+}
+
+.accar-ficha-personaje {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  min-height: 100vh;
+  padding: 74px 20px 124px;
+  color: #f8efd3;
+  font-family: Georgia, "Times New Roman", serif;
+  line-height: 1.82;
+  border-top: 1px solid rgba(212, 175, 55, 0.24);
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(16, 42, 86, 0.52) 0%, rgba(6, 16, 36, 0.88) 46%, #030816 100%);
+  box-shadow: inset 0 24px 52px rgba(0, 0, 0, 0.55);
+}
+
+.accar-ficha-personaje::before {
+  content: "";
+  position: absolute;
+  top: 120px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(1100px, 95vw);
+  height: min(840px, 85vw);
+  background: url("/assets/img/arca-alianza-watermark.png") center center / contain no-repeat;
+  opacity: 0.06;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.accar-ficha-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 880px;
+  margin: 0 auto;
+}
+
+.accar-ficha-personaje .no-break {
+  white-space: nowrap;
+}
+
+.accar-ficha-topbar {
+  margin-bottom: 28px;
+  text-align: left;
+}
+
+.accar-ficha-personaje .accar-btn-volver {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 22px;
+  border-radius: 999px;
+  border: 1px solid rgba(212, 175, 55, 0.55);
+  background: rgba(3, 8, 42, 0.84);
+  color: #e8cb72;
+  text-decoration: none;
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.42);
+  transition: all 0.25s ease;
+}
+
+.accar-ficha-personaje .accar-btn-volver:hover {
+  background: rgba(212, 175, 55, 0.18);
+  border-color: #d4af37;
+  color: #fff9ec;
+  transform: translateX(-3px);
+}
+
+/* ===== CABECERA DEL PERSONAJE ===== */
+.accar-ficha-personaje .hero-section {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 38px;
+  padding: 34px 36px;
+  margin-bottom: 34px;
+  border-radius: 22px;
+  border: 1px solid rgba(212, 175, 55, 0.48);
+  background:
+    radial-gradient(circle at 22% 50%, rgba(212, 175, 55, 0.16) 0%, transparent 55%),
+    linear-gradient(180deg, rgba(7, 19, 42, 0.84) 0%, rgba(3, 8, 22, 0.92) 100%);
+  box-shadow:
+    0 22px 46px rgba(0, 0, 0, 0.65),
+    inset 0 1px 0 rgba(255, 238, 186, 0.14);
+}
+
+.accar-ficha-personaje .hero-section::after {
+  content: "";
+  position: absolute;
+  inset: 8px;
+  border: 1px solid rgba(212, 175, 55, 0.16);
+  border-radius: 15px;
+  pointer-events: none;
+}
+
+.accar-ficha-personaje .hero-image {
+  flex: 0 0 260px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.accar-ficha-personaje .hero-image img {
+  max-width: 100%;
+  height: auto;
+  max-height: 340px;
+  object-fit: contain;
+  filter: drop-shadow(0 14px 26px rgba(0, 0, 0, 0.85));
+}
+
+.accar-ficha-personaje .hero-text {
+  flex: 1;
+  text-align: left;
+}
+
+.accar-ficha-personaje .accar-ficha-kicker {
+  display: inline-block;
+  margin-bottom: 12px;
+  padding: 5px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(212, 175, 55, 0.55);
+  background: rgba(3, 7, 54, 0.82);
+  color: #e8cb72;
+  font-size: 0.70rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.accar-ficha-personaje .hero-text h1 {
+  margin: 0;
+  font-size: 2.75rem;
+  line-height: 1.15;
+  color: #fff9ec;
+  letter-spacing: 0.02em;
+  text-shadow: 0 4px 16px rgba(0, 0, 0, 0.85);
+}
+
+.accar-ficha-personaje .hero-text .subtitle {
+  margin-top: 12px;
+  color: #eed076;
+  font-style: italic;
+  font-size: 1.18rem;
+  line-height: 1.5;
+}
+
+/* ===== CUERPO DE LECTURA ALINEADO A LA IZQUIERDA ===== */
+.accar-ficha-personaje .accar-ficha-article {
+  position: relative;
+  padding: 40px 42px;
+  border-radius: 22px;
+  border: 1px solid rgba(212, 175, 55, 0.36);
+  background: linear-gradient(180deg, rgba(6, 16, 36, 0.82) 0%, rgba(3, 8, 22, 0.92) 100%);
+  box-shadow: 0 20px 44px rgba(0, 0, 0, 0.58);
+  text-align: left;
+}
+
+.accar-ficha-personaje .accar-ficha-loading {
+  text-align: center !important;
+  color: #eed076 !important;
+  margin: 0 !important;
+}
+
+.accar-ficha-personaje .accar-ficha-article h2 {
+  color: #eed076;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.35);
+  padding-bottom: 10px;
+  margin: 38px 0 18px;
+  font-size: 1.52rem;
+  line-height: 1.3;
+  text-align: left;
+}
+
+.accar-ficha-personaje .accar-ficha-article h2:first-child {
+  margin-top: 0;
+}
+
+.accar-ficha-personaje .ficha-tecnica {
+  background: rgba(3, 9, 26, 0.78);
+  padding: 24px 28px;
+  border-radius: 14px;
+  margin-bottom: 30px;
+  border: 1px solid rgba(212, 175, 55, 0.28);
+  border-left: 4px solid #d4af37;
+  box-shadow: inset 0 0 24px rgba(0, 0, 0, 0.35);
+  text-align: left;
+}
+
+.accar-ficha-personaje .ficha-tecnica ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.accar-ficha-personaje .ficha-tecnica li {
+  margin-bottom: 10px;
+  color: #f0e6cc;
+  font-size: 0.98rem;
+  line-height: 1.65;
+}
+
+.accar-ficha-personaje .ficha-tecnica li:last-child {
+  margin-bottom: 0;
+}
+
+.accar-ficha-personaje .accar-ficha-article strong {
+  color: #eed076;
+}
+
+.accar-ficha-personaje .accar-ficha-article p {
+  text-align: left;
+  margin: 0 0 20px;
+  font-size: 1.05rem;
+  line-height: 1.84;
+  color: #ece2ca;
+}
+
+.accar-ficha-personaje .accar-ficha-article p:last-child {
+  margin-bottom: 0;
+}
+
+/* ===== TARJETA DE EVALUACIÓN INTERACTIVA ===== */
+.accar-ficha-personaje .cta-invitation {
+  position: relative;
+  margin-top: 38px;
+  padding: 42px 34px;
+  border-radius: 22px;
+  border: 1px solid rgba(212, 175, 55, 0.48);
+  background: linear-gradient(180deg, rgba(7, 19, 42, 0.86) 0%, rgba(3, 8, 22, 0.95) 100%);
+  box-shadow:
+    0 22px 46px rgba(0, 0, 0, 0.65),
+    inset 0 1px 0 rgba(255, 238, 186, 0.14);
+  text-align: center;
+}
+
+.accar-ficha-personaje .cta-invitation::after {
+  content: "";
+  position: absolute;
+  inset: 8px;
+  border: 1px solid rgba(212, 175, 55, 0.16);
+  border-radius: 15px;
+  pointer-events: none;
+}
+
+.accar-ficha-personaje .cta-invitation h3 {
+  position: relative;
+  z-index: 2;
+  margin: 0 0 12px;
+  color: #eed076;
+  font-size: 1.68rem;
+}
+
+.accar-ficha-personaje .cta-invitation p {
+  position: relative;
+  z-index: 2;
+  max-width: 600px;
+  margin: 0 auto 26px;
+  color: #e6dbc0;
+  font-size: 1rem;
+  line-height: 1.68;
+  text-align: center;
+}
+
+.accar-ficha-personaje .btn-elegant {
+  position: relative;
+  z-index: 2;
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 13px 32px;
+  border-radius: 999px;
+  border: 1px solid rgba(212, 175, 55, 0.65);
+  background: rgba(3, 8, 42, 0.85);
+  color: #e8cb72;
+  font-family: inherit;
+  font-size: 0.84rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.45);
+  transition: all 0.28s ease;
+}
+
+.accar-ficha-personaje .btn-elegant:hover {
+  background: linear-gradient(180deg, rgba(212, 175, 55, 0.26) 0%, rgba(212, 175, 55, 0.12) 100%);
+  border-color: #eed076;
+  color: #fff9ec;
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.6), 0 0 16px rgba(212, 175, 55, 0.28);
+  transform: translateY(-2px);
+}
+
+.accar-ficha-personaje .accar-btn-full {
+  width: 100%;
+}
+
+/* ===== MODAL DEL CUESTIONARIO DOCTRINAL ===== */
+.accar-ficha-personaje .modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(3, 8, 20, 0.82), rgba(3, 8, 20, 0.90)),
+    url("/assets/img/bg_apologetica.webp");
+  background-size: cover;
+  background-position: center;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 1000005;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.accar-ficha-personaje .modal-overlay.active {
+  display: flex;
+  opacity: 1;
+}
+
+.accar-ficha-personaje .modal-card {
+  position: relative;
+  width: 100%;
+  max-width: 620px;
+  max-height: 88vh;
+  overflow-y: auto;
+  padding: 38px 34px 34px;
+  border-radius: 22px;
+  border: 1px solid rgba(212, 175, 55, 0.56);
+  background: linear-gradient(180deg, rgba(7, 19, 42, 0.97) 0%, rgba(3, 8, 22, 0.99) 100%);
+  box-shadow: 0 28px 60px rgba(0, 0, 0, 0.82), inset 0 1px 0 rgba(255, 238, 186, 0.16);
+  transform: translateY(16px);
+  transition: transform 0.3s ease;
+}
+
+.accar-ficha-personaje .modal-overlay.active .modal-card {
+  transform: translateY(0);
+}
+
+.accar-ficha-personaje .close-btn {
+  appearance: none;
+  position: absolute;
+  top: 16px;
+  right: 18px;
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  border: 1px solid rgba(212, 175, 55, 0.42);
+  background: rgba(255, 255, 255, 0.04);
+  color: #e8cb72;
+  font-size: 1.35rem;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.accar-ficha-personaje .close-btn:hover {
+  background: rgba(212, 175, 55, 0.18);
+  color: #fff9ec;
+}
+
+.accar-ficha-personaje .quiz-status {
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: #e8cb72;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  margin-bottom: 14px;
+  text-align: center;
+}
+
+.accar-ficha-personaje .question-text {
+  font-size: 1.24rem;
+  color: #fff9ec;
+  font-weight: 700;
+  margin-bottom: 26px;
+  text-align: left;
+  line-height: 1.48;
+}
+
+.accar-ficha-personaje .options-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.accar-ficha-personaje .option-btn {
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid rgba(212, 175, 55, 0.36);
+  padding: 14px 18px;
+  border-radius: 12px;
+  text-align: left;
+  font-size: 1rem;
+  line-height: 1.5;
+  font-family: inherit;
+  color: #f4ebd2;
+  cursor: pointer;
+  transition: all 0.22s ease;
+}
+
+.accar-ficha-personaje .option-btn:hover:not(:disabled) {
+  border-color: #d4af37;
+  background: rgba(212, 175, 55, 0.14);
+  color: #fff9ec;
+}
+
+.accar-ficha-personaje .option-btn:disabled {
+  cursor: default;
+}
+
+.accar-ficha-personaje .correct-ans {
+  background: rgba(22, 101, 52, 0.35) !important;
+  border-color: #4ade80 !important;
+  color: #bbf7d0 !important;
+  font-weight: 700;
+}
+
+.accar-ficha-personaje .wrong-ans {
+  background: rgba(127, 29, 29, 0.35) !important;
+  border-color: #f87171 !important;
+  color: #fecaca !important;
+  opacity: 0.85;
+}
+
+.accar-ficha-personaje .justification-box {
+  display: none;
+  background: rgba(2, 6, 18, 0.65);
+  padding: 18px 20px;
+  border-radius: 10px;
+  margin-top: 22px;
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: #eae0c8;
+  border-left: 3.5px solid #d4af37;
+  text-align: left;
+  animation: accarQuizSlide 0.3s ease-out;
+}
+
+.accar-ficha-personaje .justification-box strong {
+  color: #eed076;
+}
+
+.accar-ficha-personaje .next-btn {
+  display: none;
+  width: 100%;
+  margin-top: 20px;
+  padding: 14px 24px;
+  border-radius: 999px;
+  border: 1px solid #eed076;
+  background: linear-gradient(180deg, rgba(212, 175, 55, 0.28) 0%, rgba(212, 175, 55, 0.14) 100%);
+  color: #fff9ec;
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.accar-ficha-personaje .next-btn:hover {
+  background: linear-gradient(180deg, rgba(212, 175, 55, 0.40) 0%, rgba(212, 175, 55, 0.22) 100%);
+}
+
+.accar-ficha-personaje .results-view {
+  display: none;
+  text-align: center;
+}
+
+.accar-ficha-personaje .results-view h2 {
+  border: none;
+  margin: 0 0 20px;
+  color: #eed076;
+  font-size: 1.75rem;
+}
+
+.accar-ficha-personaje .score-circle {
+  width: 104px;
+  height: 104px;
+  border-radius: 50%;
+  border: 3px solid #d4af37;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.95rem;
+  font-weight: 700;
+  margin: 0 auto 20px;
+  color: #fff9ec;
+  background: rgba(212, 175, 55, 0.12);
+  box-shadow: 0 0 20px rgba(212, 175, 55, 0.25);
+}
+
+.accar-ficha-personaje #result-msg {
+  font-size: 1.05rem;
+  line-height: 1.65;
+  color: #eae0c8;
+  margin: 0 0 28px;
+  text-align: center;
+}
+
+@keyframes accarQuizSlide {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 768px) {
+  .accar-ficha-personaje {
+    padding: 52px 16px 98px;
+  }
+
+  .accar-ficha-personaje .hero-section {
+    flex-direction: column;
+    text-align: center;
+    padding: 28px 22px;
+    gap: 20px;
+  }
+
+  .accar-ficha-personaje .hero-image {
+    flex: none;
+    width: 100%;
+  }
+
+  .accar-ficha-personaje .hero-image img {
+    max-height: 270px;
+  }
+
+  .accar-ficha-personaje .hero-text {
+    text-align: center;
+  }
+
+  .accar-ficha-personaje .hero-text h1 {
+    font-size: 2.05rem;
+  }
+
+  .accar-ficha-personaje .accar-ficha-article {
+    padding: 28px 20px;
+  }
+
+  .accar-ficha-personaje .cta-invitation {
+    padding: 32px 20px;
+  }
+
+  .accar-ficha-personaje .modal-card {
+    padding: 30px 20px 26px;
+  }
+}
+</style>
