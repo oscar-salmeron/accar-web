@@ -676,28 +676,69 @@ function actualizarVisibilidadBotonCompartir(cleanPath) {
   btn.classList.toggle('accar-share-hide-mobile', tieneBarraMovilPropia);
 }
 
+let cacheMetaCompartir = { path: '', title: '' };
+
+function calcularRutaCompartir(cleanPath) {
+  if (cleanPath === 'views/inicio.html') return '/ver/inicio';
+  return calcularUrlNavegador(cleanPath);
+}
+
+// Precalienta en segundo plano el HTML de vista previa y la miniatura JPEG para que WhatsApp muestre la tarjeta al instante
+function precalentarVistaCompartir(cleanPath) {
+  try {
+    const rutaShare = calcularRutaCompartir(cleanPath);
+    cacheMetaCompartir = { path: rutaShare, title: '' };
+
+    fetch(rutaShare, { method: 'GET', credentials: 'omit' })
+      .then(r => (r.ok ? r.text() : ''))
+      .then(html => {
+        if (!html) return;
+        const matchTitle = html.match(/property="og:title"\s+content="([^"]+)"/i);
+        if (matchTitle && matchTitle[1]) {
+          const limpio = matchTitle[1].replace(/&amp;/g, '&').replace(/&quot;/g, '"').replace(/&#39;/g, "'");
+          if (cacheMetaCompartir.path === rutaShare) {
+            cacheMetaCompartir.title = limpio;
+          }
+        }
+        const matchImg = html.match(/property="og:image"\s+content="([^"]+)"/i);
+        if (matchImg && matchImg[1]) {
+          const imgUrl = matchImg[1].replace(/&amp;/g, '&');
+          const preImg = new Image();
+          preImg.src = imgUrl;
+        }
+      })
+      .catch(() => {});
+  } catch (_) {}
+}
+
 window.compartirPaginaActual = async function(btn) {
-  const rutaLimpia = calcularUrlNavegador(vistaActualPath);
-  const shareUrl = `${BASE_PUBLIC_URL}${rutaLimpia}`;
+  const rutaShare = calcularRutaCompartir(vistaActualPath);
+  const shareUrl = `${BASE_PUBLIC_URL}${rutaShare}`;
 
-  let shareTitle = document.title || 'ACCAR - Apologética Católica';
-  let shareText = 'Te comparto este contenido de Apologética Católica en ACCAR:';
+  let shareTitle = (cacheMetaCompartir.path === rutaShare && cacheMetaCompartir.title)
+    ? cacheMetaCompartir.title
+    : (document.title || 'ACCAR - Apologética Católica');
+  let shareText = 'Defensa y formación en la fe católica en ACCAR:';
 
-  if (vistaActualPath.includes('libro.html')) {
+  if (vistaActualPath === 'views/inicio.html') {
+    shareTitle = 'ACCAR - Apologética Católica Cristiana Apostólica Romana';
+    shareText = 'Visita el portal de Apologética Católica, Santoral, Evangelio y Adoración en ACCAR:';
+  } else if (vistaActualPath.includes('libro.html')) {
     const tituloLibro = document.getElementById('titulo-libro')?.innerText?.trim();
-    if (tituloLibro) {
+    if (tituloLibro && !/cargando/i.test(tituloLibro)) {
       shareTitle = `${tituloLibro} | Canon Bíblico - ACCAR`;
       shareText = `Estudia el libro de ${tituloLibro} desde la exégesis católica en ACCAR:`;
     }
   } else if (vistaActualPath.includes('personaje.html')) {
     const nombrePers = document.querySelector('.hero-text h1')?.innerText?.trim();
-    if (nombrePers) {
+    if (nombrePers && !/cargando/i.test(nombrePers)) {
       shareTitle = `${nombrePers} | Directorio Bíblico - ACCAR`;
       shareText = `Conoce la historia y el sentido teológico de ${nombrePers} en ACCAR:`;
     }
   } else if (vistaActualPath.includes('santo.html')) {
-    const nombreSanto = document.querySelector('.santo-nombre')?.innerText?.trim();
-    if (nombreSanto) {
+    const nodoSanto = document.querySelector('.accar-santo-title') || document.querySelector('.santo-nombre');
+    const nombreSanto = nodoSanto?.innerText?.trim() || shareTitle.replace(/\s*\|\s*ACCAR$/i, '');
+    if (nombreSanto && !/martirologio|santoral/i.test(nombreSanto)) {
       shareTitle = `${nombreSanto} | ACCAR`;
       shareText = `Conoce la vida, lecciones apologéticas y oración de ${nombreSanto} en ACCAR:`;
     }
@@ -779,6 +820,7 @@ window.loadView = async function(url, pushHistory = true) {
       }
 
       actualizarVisibilidadBotonCompartir(cleanPath);
+      precalentarVistaCompartir(cleanPath);
 
       if (cleanPath.includes('inicio.html')) {
         window.scrollTo({ top: 0, behavior: "smooth" });
