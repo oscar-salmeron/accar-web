@@ -1,5 +1,3 @@
-import * as cheerio from 'cheerio';
-
 export default async function handler(req, res) {
   const BASE_URL = 'https://www.apologeticaccar.com';
   const PROJECT_ID = 'accar-web';
@@ -22,16 +20,6 @@ export default async function handler(req, res) {
 
   const recortar = (texto = '', max = 180) =>
     texto.length > max ? `${texto.slice(0, max - 3).replace(/\s+\S*$/, '')}...` : texto;
-
-  const fetchConTiempo = async (url, opciones = {}, ms = 1800) => {
-    const ctrl = new AbortController();
-    const timer = setTimeout(() => ctrl.abort(), ms);
-    try {
-      return await fetch(url, { ...opciones, signal: ctrl.signal });
-    } finally {
-      clearTimeout(timer);
-    }
-  };
 
   const normalizarRutaRecurso = (rawSrc = '', vistaRelativa = '') => {
     const src = String(rawSrc || '').trim();
@@ -62,24 +50,19 @@ export default async function handler(req, res) {
     return 'cuadrado';
   };
 
-  // Verifica que la imagen exista en el servidor y la entrega en formato JPEG ligero (< 100 KB) universal
-  const prepararImagenOG = async (rutaRelativa, modo = 'cover') => {
-    const respaldo = { url: PORTADA_OFICIAL, width: '1200', height: '630' };
-    if (!rutaRelativa) return respaldo;
+  const construirOgImagen = (rutaRelativa, modo = 'cover') => {
+    if (!rutaRelativa) {
+      return { url: PORTADA_OFICIAL, width: '1200', height: '630' };
+    }
 
     const limpia = normalizarRutaRecurso(rutaRelativa);
-    if (!limpia || limpia === 'assets/img/portada-accar.jpg') return respaldo;
+    if (!limpia || limpia === 'assets/img/portada-accar.jpg') {
+      return { url: PORTADA_OFICIAL, width: '1200', height: '630' };
+    }
 
     const originalUrl = /^https?:\/\//i.test(limpia)
       ? limpia
       : `${BASE_URL}/${encodeURI(limpia)}`;
-
-    try {
-      const check = await fetchConTiempo(originalUrl, { method: 'HEAD' }, 1200);
-      if (!check.ok) return respaldo;
-    } catch (_) {
-      return respaldo;
-    }
 
     if (modo === 'libro') {
       return {
@@ -104,11 +87,10 @@ export default async function handler(req, res) {
     };
   };
 
-  // Extrae título, resumen e ilustración real de cualquier archivo de vista HTML del portal
   const inspeccionarVistaHTML = async (vistaRelativa) => {
     try {
       const limpia = vistaRelativa.replace(/^\/+/, '');
-      const r = await fetchConTiempo(`${BASE_URL}/${encodeURI(limpia)}`, {}, 1400);
+      const r = await fetch(`${BASE_URL}/${encodeURI(limpia)}`);
       if (!r.ok) return { titulo: '', descripcion: '', imagen: '', modo: '' };
 
       const html = await r.text();
@@ -116,73 +98,43 @@ export default async function handler(req, res) {
         return { titulo: '', descripcion: '', imagen: '', modo: '' };
       }
 
-      const $ = cheerio.load(html);
+      const sinScript = html
+        .replace(/<script[\s\S]*?<\/script>/gi, ' ')
+        .replace(/<style[\s\S]*?<\/style>/gi, ' ');
 
       let titulo = '';
-      $('h1, h2').each((_, el) => {
-        if (titulo) return;
-        const t = limpiarTexto($(el).text());
+      const hMatch = sinScript.match(/<h[12][^>]*>([\s\S]*?)<\/h[12]>/i);
+      if (hMatch && hMatch[1]) {
+        const t = limpiarTexto(hMatch[1]);
         if (t && t.length > 2 && !/cargando|abriendo/i.test(t)) {
           titulo = t;
         }
-      });
+      }
 
       let descripcion = '';
-      $('p').each((_, el) => {
-        if (descripcion) return;
-        const p = limpiarTexto($(el).text());
+      const pMatches = [...sinScript.matchAll(/<p[^>]*>([\s\S]*?)<\/p>/gi)];
+      for (const m of pMatches) {
+        const p = limpiarTexto(m[1]);
         if (p && p.length >= 28 && !/cargando|conectando|abriendo/i.test(p)) {
           descripcion = p;
+          break;
         }
-      });
+      }
 
       let imagenHallada = '';
-
-      $('img').each((_, el) => {
-        if (imagenHallada) return;
-        const s = ($(el).attr('src') || '').trim();
-        if (!s || /logo-accar|escudo_santa_sede|watermark|placeholder|placehold\.co/i.test(s)) return;
+      const imgMatches = [...sinScript.matchAll(/<img[^>]*\ssrc=["']([^"']+)["'][^>]*>/gi)];
+      for (const m of imgMatches) {
+        const s = (m[1] || '').trim();
+        if (!s || /logo-accar|escudo_santa_sede|watermark|placeholder|placehold\.co/i.test(s)) continue;
         imagenHallada = normalizarRutaRecurso(s, limpia);
-      });
-
-      if (!imagenHallada) {
-        $('video[poster]').each((_, el) => {
-          if (imagenHallada) return;
-          const p = ($(el).attr('poster') || '').trim();
-          if (p) imagenHallada = normalizarRutaRecurso(p, limpia);
-        });
+        if (imagenHallada) break;
       }
 
       if (!imagenHallada) {
-        const cssTotal = [
-          $('style').text(),
-          ...$('[style]').map((_, el) => $(el).attr('style') || '').get()
-        ].join(' ');
-
-        const regexUrl = /url\(\s*['"]?([^'")]+)['"]?\s*\)/gi;
-        let match;
-        while ((match = regexUrl.exec(cssTotal)) !== null) {
-          const candidato = (match[1] || '').trim();
-          if (
-            candidato &&
-            !/watermark|fonts|\.woff|\.ttf|\.svg|data:/i.test(candidato) &&
-            /\.(png|jpg|jpeg|webp)/i.test(candidato)
-          ) {
-            imagenHallada = normalizarRutaRecurso(candidato, limpia);
-            break;
-          }
+        const ytMatch = html.match(/(?:youtube\.com\/embed\/|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
+        if (ytMatch && ytMatch[1]) {
+          imagenHallada = `https://i.ytimg.com/vi/${ytMatch[1]}/hqdefault.jpg`;
         }
-      }
-
-      if (!imagenHallada) {
-        $('iframe[src]').each((_, el) => {
-          if (imagenHallada) return;
-          const iframeSrc = $(el).attr('src') || '';
-          const ytMatch = iframeSrc.match(/(?:youtube\.com\/embed\/|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
-          if (ytMatch && ytMatch[1]) {
-            imagenHallada = `https://i.ytimg.com/vi/${ytMatch[1]}/hqdefault.jpg`;
-          }
-        });
       }
 
       const modo = imagenHallada ? elegirModoPorImagen(imagenHallada, limpia) : '';
@@ -207,7 +159,7 @@ export default async function handler(req, res) {
       vista: 'views/apologetica.html',
       imagen: 'assets/img/bg_apologetica.webp',
       modo: 'cover',
-      fija: false
+      fija: true
     },
     'preguntas-frecuentes': {
       titulo: 'Preguntas Frecuentes | ACCAR',
@@ -215,7 +167,7 @@ export default async function handler(req, res) {
       vista: 'views/preguntas-frecuentes.html',
       imagen: 'assets/img/bg_apologetica.webp',
       modo: 'cover',
-      fija: false
+      fija: true
     },
     'formacion': {
       titulo: 'Formación Católica | ACCAR',
@@ -231,7 +183,7 @@ export default async function handler(req, res) {
       vista: 'views/doctrina.html',
       imagen: 'assets/img/icono_doctrina.png',
       modo: 'medallon',
-      fija: false
+      fija: true
     },
     'sagrada-escritura': {
       titulo: 'Sagrada Escritura | ACCAR',
@@ -263,7 +215,7 @@ export default async function handler(req, res) {
       vista: 'views/sacramentos.html',
       imagen: 'assets/img/icono_sacramentos.png',
       modo: 'medallon',
-      fija: false
+      fija: true
     },
     'biblioteca': {
       titulo: 'Biblioteca Católica | ACCAR',
@@ -271,7 +223,7 @@ export default async function handler(req, res) {
       vista: 'views/biblioteca.html',
       imagen: 'assets/img/icono_biblioteca.png',
       modo: 'medallon',
-      fija: false
+      fija: true
     },
     'apologetica-liturgica': {
       titulo: 'Apologética Litúrgica | ACCAR',
@@ -279,7 +231,7 @@ export default async function handler(req, res) {
       vista: 'views/formacion-apologetica-liturgica.html',
       imagen: 'assets/img/icono_apologetica_liturgica.png',
       modo: 'medallon',
-      fija: false
+      fija: true
     },
     'santoral': {
       titulo: 'Santoral Católico | ACCAR',
@@ -311,7 +263,7 @@ export default async function handler(req, res) {
       vista: 'views/historia.html',
       imagen: 'assets/img/icono-historia.png',
       modo: 'medallon',
-      fija: false
+      fija: true
     },
     'papas': {
       titulo: 'Lista de los Papas | ACCAR',
@@ -319,7 +271,7 @@ export default async function handler(req, res) {
       vista: 'views/historia-lista-de-papas.html',
       imagen: 'assets/img/01_s_pietro.png',
       modo: 'medallon',
-      fija: false
+      fija: true
     },
     'concilios': {
       titulo: 'Concilios Ecuménicos | ACCAR',
@@ -327,7 +279,7 @@ export default async function handler(req, res) {
       vista: 'views/historia-lista-de-concilios.html',
       imagen: 'assets/img/portada-accar.jpg',
       modo: 'cover',
-      fija: false
+      fija: true
     },
     'padres-iglesia': {
       titulo: 'Padres de la Iglesia | ACCAR',
@@ -335,15 +287,15 @@ export default async function handler(req, res) {
       vista: 'views/historia-lista-de-padres.html',
       imagen: 'assets/img/portada-accar.jpg',
       modo: 'cover',
-      fija: false
+      fija: true
     },
     'adoracion': {
       titulo: 'Adoración al Santísimo Sacramento | ACCAR',
       descripcion: 'Permanece en presencia de Nuestro Señor Jesucristo y une tu oración a la adoración perpetua de la Iglesia.',
       vista: 'views/adoracion.html',
-      imagen: 'assets/img/portada-accar.jpg',
+      imagen: 'https://i.ytimg.com/vi/Orc7lHFSqNY/hqdefault.jpg',
       modo: 'cover',
-      fija: false
+      fija: true
     },
     'peliculas': {
       titulo: 'Películas Católicas | ACCAR',
@@ -351,7 +303,7 @@ export default async function handler(req, res) {
       vista: 'views/multimedia/peliculas.html',
       imagen: 'assets/img/portada-accar.jpg',
       modo: 'cover',
-      fija: false
+      fija: true
     },
     'actualidad': {
       titulo: 'Actualidad de la Iglesia | ACCAR',
@@ -402,14 +354,10 @@ export default async function handler(req, res) {
       if (id) {
         shareUrl = `${BASE_URL}/libro/${encodeURIComponent(id)}`;
         redirectUrl = `${BASE_URL}/?libro=${encodeURIComponent(id)}`;
+        imgInfo = construirOgImagen(`assets/img/libro_${id}.png`, 'libro');
 
-        const [docRes, imgCalc] = await Promise.all([
-          fetchConTiempo(`https://firestore.googleapis.com/v1/projects/${PROJECT_ID}/databases/(default)/documents/canon_biblico/libros/registros/${encodeURIComponent(id)}`),
-          prepararImagenOG(`assets/img/libro_${id}.png`, 'libro')
-        ]);
-
-        imgInfo = imgCalc;
-        if (docRes && docRes.ok) {
+        const docRes = await fetch(`https://firestore.googleapis.com/v1/projects/${PROJECT_ID}/databases/(default)/documents/canon_biblico/libros/registros/${encodeURIComponent(id)}`);
+        if (docRes.ok) {
           const f = (await docRes.json()).fields || {};
           const tituloLibro = f.titulo?.stringValue || '';
           const subtitulo = f.subtitulo_corto?.stringValue || '';
@@ -424,14 +372,10 @@ export default async function handler(req, res) {
       if (id) {
         shareUrl = `${BASE_URL}/personaje/${encodeURIComponent(id)}`;
         redirectUrl = `${BASE_URL}/?personaje=${encodeURIComponent(id)}`;
+        imgInfo = construirOgImagen(`assets/img/${id}.png`, 'cuadrado');
 
-        const [docRes, imgCalc] = await Promise.all([
-          fetchConTiempo(`https://firestore.googleapis.com/v1/projects/${PROJECT_ID}/databases/(default)/documents/directorio_biblico/personajes/registros/${encodeURIComponent(id)}`),
-          prepararImagenOG(`assets/img/${id}.png`, 'cuadrado')
-        ]);
-
-        imgInfo = imgCalc;
-        if (docRes && docRes.ok) {
+        const docRes = await fetch(`https://firestore.googleapis.com/v1/projects/${PROJECT_ID}/databases/(default)/documents/directorio_biblico/personajes/registros/${encodeURIComponent(id)}`);
+        if (docRes.ok) {
           const f = (await docRes.json()).fields || {};
           const nombre = f.titulo?.stringValue || f.nombre?.stringValue || '';
           const subtitulo = f.subtitulo?.stringValue || '';
@@ -447,8 +391,8 @@ export default async function handler(req, res) {
         shareUrl = `${BASE_URL}/santo/${encodeURIComponent(id)}`;
         redirectUrl = `${BASE_URL}/?santo=${encodeURIComponent(id)}`;
 
-        const docRes = await fetchConTiempo(`https://firestore.googleapis.com/v1/projects/${PROJECT_ID}/databases/(default)/documents/santos/${encodeURIComponent(id)}`);
-        if (docRes && docRes.ok) {
+        const docRes = await fetch(`https://firestore.googleapis.com/v1/projects/${PROJECT_ID}/databases/(default)/documents/santos/${encodeURIComponent(id)}`);
+        if (docRes.ok) {
           const f = (await docRes.json()).fields || {};
           const nombre = f.nombre_completo?.stringValue || '';
           const bio = f.biografia?.stringValue || '';
@@ -457,7 +401,7 @@ export default async function handler(req, res) {
           if (nombre) title = `${nombre} | ACCAR`;
           const descTexto = limpiarTexto(bio || patronazgo);
           if (descTexto) description = recortar(descTexto);
-          imgInfo = await prepararImagenOG(imagen || 'assets/img/icono_santoral.png', 'cuadrado');
+          if (imagen) imgInfo = construirOgImagen(normalizarRutaRecurso(imagen), 'cuadrado');
         }
       }
     } else if (tipo === 'vista') {
@@ -482,7 +426,7 @@ export default async function handler(req, res) {
         title = `${infoVista.titulo || tituloAuto} | ACCAR`;
         if (infoVista.descripcion) description = recortar(infoVista.descripcion);
         if (infoVista.imagen) {
-          imgInfo = await prepararImagenOG(infoVista.imagen, infoVista.modo || 'cuadrado');
+          imgInfo = construirOgImagen(infoVista.imagen, infoVista.modo || 'cuadrado');
         }
         shareUrl = `${BASE_URL}/vista/${rutaExtraida}`;
         redirectUrl = `${BASE_URL}/?vista=${encodeURIComponent(rutaExtraida)}`;
@@ -493,22 +437,7 @@ export default async function handler(req, res) {
       if (sec) {
         title = sec.titulo;
         description = sec.descripcion;
-
-        let imgElegida = sec.imagen;
-        let modoElegido = sec.modo || 'cover';
-
-        if (!sec.fija && sec.vista) {
-          const infoVista = await inspeccionarVistaHTML(sec.vista);
-          if (infoVista.imagen) {
-            imgElegida = infoVista.imagen;
-            modoElegido = infoVista.modo || modoElegido;
-          }
-          if (!description && infoVista.descripcion) {
-            description = recortar(infoVista.descripcion);
-          }
-        }
-
-        imgInfo = await prepararImagenOG(imgElegida, modoElegido);
+        imgInfo = construirOgImagen(sec.imagen, sec.modo || 'cover');
         shareUrl = `${BASE_URL}/ver/${encodeURIComponent(slug)}`;
         redirectUrl = slug === 'inicio' ? `${BASE_URL}/` : `${BASE_URL}/?ver=${encodeURIComponent(slug)}`;
       }
@@ -546,13 +475,10 @@ export default async function handler(req, res) {
   <meta name="twitter:title" content="${escapeHtml(title)}">
   <meta name="twitter:description" content="${escapeHtml(description)}">
   <meta name="twitter:image" content="${escapeHtml(imgInfo.url)}">
-
-  <link rel="icon" href="${BASE_URL}/assets/img/logo-accar.png">
-  <link rel="apple-touch-icon" href="${BASE_URL}/assets/img/logo-accar.png">
 </head>
-<body style="margin:0;background:#061024;color:#f8efd3;font-family:Georgia,serif;display:flex;align-items:center;justify-content:center;min-height:100vh;text-align:center;padding:24px;">
+<body style="margin:0;background:#09172d;color:#f8efd3;font-family:Georgia,serif;display:flex;align-items:center;justify-content:center;min-height:100vh;text-align:center;padding:24px;">
   <div>
-    <p style="color:#d4af37;font-size:18px;margin-bottom:12px;">✠ Abriendo contenido de ACCAR...</p>
+    <p style="color:#d4af37;font-size:18px;margin-bottom:12px;">Cargando contenido de ACCAR...</p>
     <p><a href="${escapeHtml(redirectUrl)}" style="color:#f8efd3;">Haz clic aquí si no eres redirigido automáticamente</a></p>
   </div>
   <script>
