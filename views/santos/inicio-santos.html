@@ -45,25 +45,32 @@
 #app-santoral.accar-santoral-cal {
   position: relative;
   overflow: hidden;
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
   min-height: 860px;
-  padding: 84px 20px 110px;
+  padding: 86px 20px 110px !important;
   color: #f8efd3;
   font-family: Georgia, "Times New Roman", serif;
-  border-top: 1px solid rgba(212, 175, 55, 0.24);
+  border-top: 1px solid rgba(212, 175, 55, 0.24) !important;
+  border-left: none !important;
+  border-right: none !important;
+  border-bottom: none !important;
+  border-radius: 0 !important;
   background:
-    radial-gradient(ellipse at 50% 0%, rgba(16, 42, 86, 0.52) 0%, rgba(6, 16, 36, 0.88) 46%, #030816 100%);
-  box-shadow: inset 0 24px 52px rgba(0, 0, 0, 0.55);
+    radial-gradient(ellipse at 50% 0%, rgba(16, 42, 86, 0.52) 0%, rgba(6, 16, 36, 0.88) 46%, #030816 100%) !important;
+  box-shadow: inset 0 24px 52px rgba(0, 0, 0, 0.55) !important;
 }
 
 /* Marca de agua vectorial sacra al fondo del Calendario y Días */
 #app-santoral.accar-santoral-cal::before {
   content: "";
   position: absolute;
-  top: 205px;
+  top: 250px;
   left: 50%;
   transform: translateX(-50%);
-  width: min(630px, 88vw);
-  height: min(630px, 88vw);
+  width: min(650px, 88vw);
+  height: min(650px, 88vw);
   background: url("/assets/img/corona-palmas-watermark.png") center center / contain no-repeat;
   opacity: 0.09;
   pointer-events: none;
@@ -79,20 +86,27 @@
 
 /* ===== CABECERA MAESTRA UNIFICADA ===== */
 #app-santoral.accar-santoral-cal .hero-santos {
-  text-align: center;
-  max-width: 760px;
-  margin: 0 auto 56px;
-  padding: 0;
-  background: transparent;
-  border: none;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  width: 100% !important;
+  max-width: 780px !important;
+  margin: 0 auto 58px !important;
+  padding: 0 !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
 }
 
 #app-santoral.accar-santoral-cal .accar-santoral-kicker {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
   padding: 6px 18px;
-  margin-bottom: 18px;
+  margin: 0 auto 18px !important;
   border-radius: 999px;
   border: 1px solid rgba(212, 175, 55, 0.65);
   background: rgba(3, 7, 54, 0.82);
@@ -105,10 +119,11 @@
 }
 
 #app-santoral.accar-santoral-cal .accar-santoral-title-wrap {
-  display: inline-block;
+  display: block;
+  width: fit-content;
   position: relative;
   padding-bottom: 14px;
-  margin-bottom: 20px;
+  margin: 0 auto 20px !important;
   border-bottom: 1px solid rgba(212, 175, 55, 0.45);
 }
 
@@ -125,22 +140,25 @@
 }
 
 #app-santoral.accar-santoral-cal .hero-santos h1 {
-  margin: 0;
-  font-size: 2.65rem;
-  font-weight: 700;
-  line-height: 1.15;
+  margin: 0 !important;
+  padding: 0 !important;
+  font-family: Georgia, "Times New Roman", serif !important;
+  font-size: 2.65rem !important;
+  font-weight: 700 !important;
+  line-height: 1.15 !important;
   color: #fff9ec !important;
-  letter-spacing: 0.02em;
-  text-shadow: 0 4px 18px rgba(0, 0, 0, 0.82), 0 0 16px rgba(212, 175, 55, 0.18);
+  letter-spacing: 0.02em !important;
+  text-transform: none !important;
+  text-shadow: 0 4px 18px rgba(0, 0, 0, 0.82), 0 0 16px rgba(212, 175, 55, 0.18) !important;
 }
 
 #app-santoral.accar-santoral-cal .accar-santoral-desc {
-  margin: 0 auto;
-  max-width: 660px;
-  font-size: 1.06rem;
-  line-height: 1.72;
+  margin: 0 auto !important;
+  max-width: 660px !important;
+  font-size: 1.06rem !important;
+  line-height: 1.72 !important;
   color: #eae0c8 !important;
-  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6) !important;
 }
 
 /* ===== CONTROL DE VISTAS ===== */
