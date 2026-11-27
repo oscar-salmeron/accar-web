@@ -436,31 +436,33 @@
 }
 
 .accar-social-links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
 }
 
 .accar-social-btn {
   display: inline-flex;
   align-items: center;
-  gap: 7px;
-  padding: 9px 15px;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 10px;
   border-radius: 999px;
   border: 1px solid rgba(212, 175, 55, 0.44);
   background: rgba(3, 8, 36, 0.78);
   color: #f4ebd2;
   text-decoration: none;
-  font-size: 0.76rem;
+  font-size: 0.69rem;
   font-weight: 700;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
+  white-space: nowrap;
   transition: all 0.26s ease;
 }
 
 .accar-social-btn svg {
-  width: 14px;
-  height: 14px;
+  width: 13px;
+  height: 13px;
   color: #eed076;
   flex-shrink: 0;
   transition: color 0.26s ease;
