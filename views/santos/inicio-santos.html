@@ -1,26 +1,449 @@
-<main id="app-santoral">
+<main id="app-santoral" class="accar-santoral-cal">
+  <div class="accar-santoral-inner">
+
     <header class="hero-santos">
+      <div class="accar-santoral-kicker">
+        <span aria-hidden="true">✠</span>
+        <span>In Memoria Aeterna Erit Iustus</span>
+        <span aria-hidden="true">✠</span>
+      </div>
+
+      <div class="accar-santoral-title-wrap">
         <h1>El Santoral</h1>
-        <p>Explora el martirologio y acompáñate de la Iglesia triunfante en tu caminar diario hacia Cristo.</p>
-        <p style="font-style: italic; color: #b48c2a; margin-top: 10px;">"In memoria aeterna erit iustus"</p>
+      </div>
+
+      <p class="accar-santoral-desc">
+        Explora el martirologio y acompáñate de la Iglesia triunfante en tu caminar diario hacia Cristo.
+      </p>
     </header>
 
     <!-- VISTA 1: MESES -->
     <section id="vista-meses" class="view-container view-active">
-        <div class="grid-meses" id="contenedor-meses"></div>
+      <div class="grid-meses" id="contenedor-meses"></div>
     </section>
 
     <!-- VISTA 2: DÍAS -->
     <section id="vista-dias" class="view-container">
-        <div class="header-dias">
-            <button class="btn-volver" onclick="window.mostrarMeses()">← Volver al Calendario</button>
-            <h2 id="titulo-mes-seleccionado">Marzo</h2>
-            <div style="width: 150px;"></div>
-        </div>
-        
-        <div class="grid-dias" id="contenedor-dias"></div>
+      <div class="header-dias">
+        <button type="button" class="btn-volver" onclick="window.mostrarMeses()">← Volver al Calendario</button>
+        <h2 id="titulo-mes-seleccionado">Marzo</h2>
+        <div class="header-dias-spacer" aria-hidden="true"></div>
+      </div>
+
+      <div class="grid-dias" id="contenedor-dias"></div>
     </section>
+
+  </div>
 </main>
+
+<style>
+#app-santoral.accar-santoral-cal,
+#app-santoral.accar-santoral-cal * {
+  box-sizing: border-box;
+}
+
+#app-santoral.accar-santoral-cal {
+  position: relative;
+  overflow: hidden;
+  min-height: 860px;
+  padding: 84px 20px 110px;
+  color: #f8efd3;
+  font-family: Georgia, "Times New Roman", serif;
+  border-top: 1px solid rgba(212, 175, 55, 0.24);
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(16, 42, 86, 0.52) 0%, rgba(6, 16, 36, 0.88) 46%, #030816 100%);
+  box-shadow: inset 0 24px 52px rgba(0, 0, 0, 0.55);
+}
+
+/* Marca de agua vectorial sacra al fondo del Calendario y Días */
+#app-santoral.accar-santoral-cal::before {
+  content: "";
+  position: absolute;
+  top: 205px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(630px, 88vw);
+  height: min(630px, 88vw);
+  background: url("/assets/img/corona-palmas-watermark.png") center center / contain no-repeat;
+  opacity: 0.09;
+  pointer-events: none;
+  z-index: 0;
+}
+
+#app-santoral.accar-santoral-cal .accar-santoral-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 1040px;
+  margin: 0 auto;
+}
+
+/* ===== CABECERA MAESTRA UNIFICADA ===== */
+#app-santoral.accar-santoral-cal .hero-santos {
+  text-align: center;
+  max-width: 760px;
+  margin: 0 auto 56px;
+  padding: 0;
+  background: transparent;
+  border: none;
+}
+
+#app-santoral.accar-santoral-cal .accar-santoral-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 18px;
+  margin-bottom: 18px;
+  border-radius: 999px;
+  border: 1px solid rgba(212, 175, 55, 0.65);
+  background: rgba(3, 7, 54, 0.82);
+  color: #e8cb72;
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.42);
+}
+
+#app-santoral.accar-santoral-cal .accar-santoral-title-wrap {
+  display: inline-block;
+  position: relative;
+  padding-bottom: 14px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.45);
+}
+
+#app-santoral.accar-santoral-cal .accar-santoral-title-wrap::after {
+  content: "";
+  position: absolute;
+  bottom: -1.5px;
+  left: 24%;
+  right: 24%;
+  height: 2.5px;
+  border-radius: 2px;
+  background: #d4af37;
+  box-shadow: 0 0 12px rgba(212, 175, 55, 0.85);
+}
+
+#app-santoral.accar-santoral-cal .hero-santos h1 {
+  margin: 0;
+  font-size: 2.65rem;
+  font-weight: 700;
+  line-height: 1.15;
+  color: #fff9ec !important;
+  letter-spacing: 0.02em;
+  text-shadow: 0 4px 18px rgba(0, 0, 0, 0.82), 0 0 16px rgba(212, 175, 55, 0.18);
+}
+
+#app-santoral.accar-santoral-cal .accar-santoral-desc {
+  margin: 0 auto;
+  max-width: 660px;
+  font-size: 1.06rem;
+  line-height: 1.72;
+  color: #eae0c8 !important;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+}
+
+/* ===== CONTROL DE VISTAS ===== */
+#app-santoral.accar-santoral-cal .view-container {
+  display: none;
+}
+
+#app-santoral.accar-santoral-cal .view-container.view-active {
+  display: block;
+  animation: accarSantoralFade 0.3s ease;
+}
+
+@keyframes accarSantoralFade {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== VISTA 1: CUADRÍCULA DE MESES ===== */
+#app-santoral.accar-santoral-cal .grid-meses {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 22px;
+}
+
+#app-santoral.accar-santoral-cal .card-mes {
+  position: relative;
+  padding: 32px 20px;
+  border-radius: 18px;
+  border: 1px solid rgba(212, 175, 55, 0.44);
+  background: linear-gradient(180deg, rgba(7, 19, 42, 0.76) 0%, rgba(3, 8, 22, 0.86) 100%);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  box-shadow:
+    0 16px 34px rgba(0, 0, 0, 0.55),
+    inset 0 1px 0 rgba(255, 238, 186, 0.12);
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+#app-santoral.accar-santoral-cal .card-mes::after {
+  content: "";
+  position: absolute;
+  inset: 7px;
+  border: 1px solid rgba(212, 175, 55, 0.16);
+  border-radius: 12px;
+  pointer-events: none;
+  transition: border-color 0.3s ease;
+}
+
+#app-santoral.accar-santoral-cal .card-mes h2 {
+  margin: 0;
+  font-size: 1.32rem;
+  font-weight: 700;
+  color: #f8f1df;
+  letter-spacing: 0.02em;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
+  transition: color 0.25s ease;
+}
+
+#app-santoral.accar-santoral-cal .card-mes:hover {
+  transform: translateY(-5px);
+  border-color: #e4c76a;
+  box-shadow:
+    0 22px 44px rgba(0, 0, 0, 0.75),
+    0 0 18px rgba(212, 175, 55, 0.22),
+    inset 0 1px 0 rgba(255, 238, 186, 0.24);
+}
+
+#app-santoral.accar-santoral-cal .card-mes:hover::after {
+  border-color: rgba(212, 175, 55, 0.38);
+}
+
+#app-santoral.accar-santoral-cal .card-mes:hover h2 {
+  color: #eed076;
+}
+
+/* ===== VISTA 2: BARRA SUPERIOR Y DÍAS DEL MES ===== */
+#app-santoral.accar-santoral-cal .header-dias {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-bottom: 18px;
+  margin-bottom: 28px;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.30);
+}
+
+#app-santoral.accar-santoral-cal .btn-volver {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 20px;
+  border-radius: 999px;
+  border: 1px solid rgba(212, 175, 55, 0.55);
+  background: rgba(3, 8, 42, 0.82);
+  color: #e8cb72;
+  font-family: inherit;
+  font-size: 0.80rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.42);
+  transition: all 0.25s ease;
+}
+
+#app-santoral.accar-santoral-cal .btn-volver:hover {
+  background: rgba(212, 175, 55, 0.18);
+  border-color: #d4af37;
+  color: #fff9ec;
+  transform: translateX(-3px);
+}
+
+#app-santoral.accar-santoral-cal #titulo-mes-seleccionado {
+  margin: 0;
+  font-size: 1.95rem;
+  font-weight: 700;
+  color: #eed076;
+  letter-spacing: 0.03em;
+  text-align: center;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.75);
+}
+
+#app-santoral.accar-santoral-cal .header-dias-spacer {
+  width: 195px;
+  flex-shrink: 0;
+}
+
+#app-santoral.accar-santoral-cal .grid-dias {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  gap: 14px;
+}
+
+#app-santoral.accar-santoral-cal .card-dia {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  border: 1px solid rgba(212, 175, 55, 0.36);
+  background: linear-gradient(180deg, rgba(7, 19, 42, 0.74) 0%, rgba(3, 8, 22, 0.86) 100%);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+}
+
+#app-santoral.accar-santoral-cal .card-dia .numero {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #fff8e8;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.7);
+  transition: color 0.25s ease, transform 0.25s ease;
+}
+
+#app-santoral.accar-santoral-cal .card-dia:hover {
+  transform: translateY(-4px);
+  border-color: #e4c76a;
+  background: linear-gradient(180deg, rgba(212, 175, 55, 0.20) 0%, rgba(7, 19, 42, 0.88) 100%);
+  box-shadow: 0 16px 30px rgba(0, 0, 0, 0.72), 0 0 14px rgba(212, 175, 55, 0.24);
+}
+
+#app-santoral.accar-santoral-cal .card-dia:hover .numero {
+  color: #eed076;
+  transform: scale(1.08);
+}
+
+/* ===== DISTINTIVO AUTOMÁTICO DEL DÍA ACTUAL (HOY) ===== */
+#app-santoral.accar-santoral-cal .card-dia.card-dia--hoy {
+  flex-direction: column;
+  gap: 3px;
+  border: 1.5px solid #e8cb72;
+  background: linear-gradient(165deg, rgba(139, 16, 28, 0.94) 0%, rgba(62, 6, 14, 0.97) 100%);
+  box-shadow:
+    0 12px 26px rgba(0, 0, 0, 0.65),
+    0 0 18px rgba(212, 175, 55, 0.32),
+    inset 0 1px 0 rgba(255, 238, 186, 0.28);
+}
+
+#app-santoral.accar-santoral-cal .card-dia.card-dia--hoy .numero {
+  color: #fff9ec;
+  line-height: 1;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+}
+
+#app-santoral.accar-santoral-cal .card-dia.card-dia--hoy .etiqueta-hoy {
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #eed076;
+  line-height: 1;
+}
+
+#app-santoral.accar-santoral-cal .card-dia.card-dia--hoy:hover {
+  transform: translateY(-4px);
+  border-color: #fff3c4;
+  background: linear-gradient(165deg, rgba(166, 20, 34, 0.96) 0%, rgba(82, 8, 18, 0.98) 100%);
+  box-shadow:
+    0 16px 32px rgba(0, 0, 0, 0.78),
+    0 0 24px rgba(212, 175, 55, 0.48),
+    inset 0 1px 0 rgba(255, 238, 186, 0.38);
+}
+
+#app-santoral.accar-santoral-cal .card-dia.card-dia--hoy:hover .numero {
+  color: #ffffff;
+  transform: scale(1.06);
+}
+
+@media (max-width: 640px) {
+  #app-santoral.accar-santoral-cal .card-dia.card-dia--hoy {
+    gap: 2px;
+  }
+
+  #app-santoral.accar-santoral-cal .card-dia.card-dia--hoy .etiqueta-hoy {
+    font-size: 0.54rem;
+    letter-spacing: 0.10em;
+  }
+}
+
+/* ===== RESPONSIVE IPAD / TABLET ===== */
+@media (max-width: 980px) {
+  #app-santoral.accar-santoral-cal .grid-meses {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+  }
+
+  #app-santoral.accar-santoral-cal .grid-dias {
+    grid-template-columns: repeat(6, 1fr);
+  }
+
+  #app-santoral.accar-santoral-cal .header-dias-spacer {
+    width: 150px;
+  }
+}
+
+/* ===== RESPONSIVE MÓVIL ===== */
+@media (max-width: 640px) {
+  #app-santoral.accar-santoral-cal {
+    min-height: auto;
+    padding: 54px 16px 94px;
+  }
+
+  #app-santoral.accar-santoral-cal::before {
+    top: 230px;
+    width: min(460px, 92vw);
+    height: min(460px, 92vw);
+  }
+
+  #app-santoral.accar-santoral-cal .hero-santos {
+    margin-bottom: 40px;
+  }
+
+  #app-santoral.accar-santoral-cal .accar-santoral-kicker {
+    font-size: 0.66rem;
+    padding: 5px 13px;
+  }
+
+  #app-santoral.accar-santoral-cal .hero-santos h1 {
+    font-size: 1.95rem;
+  }
+
+  #app-santoral.accar-santoral-cal .accar-santoral-desc {
+    font-size: 0.96rem;
+  }
+
+  #app-santoral.accar-santoral-cal .grid-meses {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+
+  #app-santoral.accar-santoral-cal .card-mes {
+    padding: 24px 14px;
+  }
+
+  #app-santoral.accar-santoral-cal .card-mes h2 {
+    font-size: 1.14rem;
+  }
+
+  #app-santoral.accar-santoral-cal .header-dias {
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  #app-santoral.accar-santoral-cal .header-dias-spacer {
+    display: none;
+  }
+
+  #app-santoral.accar-santoral-cal .grid-dias {
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+  }
+
+  #app-santoral.accar-santoral-cal .card-dia .numero {
+    font-size: 1.15rem;
+  }
+}
+</style>
 
 <script>
 (function() {
@@ -95,14 +518,23 @@
         const contenedorDias = document.getElementById("contenedor-dias");
         contenedorDias.innerHTML = ""; 
 
+        const hoy = new Date();
+        const mesActual = hoy.getMonth() + 1;
+        const diaActual = hoy.getDate();
+        const mesIndex = mesesData.findIndex(m => m.nombre === nombreMes) + 1;
+
         for (let i = 1; i <= cantidadDias; i++) {
+            const esHoy = (mesIndex === mesActual && i === diaActual);
             const cardDia = document.createElement("div");
-            cardDia.className = "card-dia";
+            cardDia.className = esHoy ? "card-dia card-dia--hoy" : "card-dia";
             
-            const mesIndex = mesesData.findIndex(m => m.nombre === nombreMes) + 1;
             const mesStr = String(mesIndex).padStart(2, '0');
             const diaStr = String(i).padStart(2, '0');
             const fechaKey = `${mesStr}-${diaStr}`;
+            
+            cardDia.innerHTML = esHoy
+                ? `<div class="numero">${i}</div><span class="etiqueta-hoy">Hoy</span>`
+                : `<div class="numero">${i}</div>`;
             
             cardDia.innerHTML = `<div class="numero">${i}</div>`;
             
