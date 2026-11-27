@@ -718,37 +718,44 @@ window.compartirPaginaActual = async function(btn) {
   let shareTitle = (cacheMetaCompartir.path === rutaShare && cacheMetaCompartir.title)
     ? cacheMetaCompartir.title
     : (document.title || 'ACCAR - Apologética Católica');
+  let shareText = 'Te comparto este contenido de Apologética Católica en ACCAR:';
 
   if (vistaActualPath === 'views/inicio.html') {
     shareTitle = 'ACCAR - Apologética Católica Cristiana Apostólica Romana';
+    shareText = 'Visita el portal de Apologética Católica, Santoral, Evangelio y Adoración en ACCAR:';
   } else if (vistaActualPath.includes('libro.html')) {
     const tituloLibro = document.getElementById('titulo-libro')?.innerText?.trim();
     if (tituloLibro && !/cargando/i.test(tituloLibro)) {
       shareTitle = `${tituloLibro} | Canon Bíblico - ACCAR`;
+      shareText = `Estudia el libro de ${tituloLibro} desde la exégesis católica en ACCAR:`;
     }
   } else if (vistaActualPath.includes('personaje.html')) {
     const nombrePers = document.querySelector('.hero-text h1')?.innerText?.trim();
     if (nombrePers && !/cargando/i.test(nombrePers)) {
       shareTitle = `${nombrePers} | Directorio Bíblico - ACCAR`;
+      shareText = `Conoce la historia y el sentido teológico de ${nombrePers} en ACCAR:`;
     }
   } else if (vistaActualPath.includes('santo.html')) {
     const nodoSanto = document.querySelector('.accar-santo-title') || document.querySelector('.santo-nombre');
     const nombreSanto = nodoSanto?.innerText?.trim() || shareTitle.replace(/\s*\|\s*ACCAR$/i, '');
     if (nombreSanto && !/martirologio|santoral/i.test(nombreSanto)) {
       shareTitle = `${nombreSanto} | ACCAR`;
+      shareText = `Conoce la vida, lecciones apologéticas y oración de ${nombreSanto} en ACCAR:`;
     }
   } else if (VISTA_A_SLUG[vistaActualPath] && TITULOS_SECCION[VISTA_A_SLUG[vistaActualPath]]) {
     shareTitle = TITULOS_SECCION[VISTA_A_SLUG[vistaActualPath]];
+    shareText = `${shareTitle.replace(' | ACCAR', '')} en ACCAR:`;
   } else {
     const h1Interno = document.querySelector('#spa-content h1')?.innerText?.trim();
     if (h1Interno && !/cargando|abriendo/i.test(h1Interno)) {
       shareTitle = `${h1Interno} | ACCAR`;
+      shareText = `${h1Interno} en ACCAR:`;
     }
   }
 
   if (navigator.share) {
     try {
-      await navigator.share({ title: shareTitle, url: shareUrl });
+      await navigator.share({ title: shareTitle, text: shareText, url: shareUrl });
       return;
     } catch (err) {
       if (err.name === 'AbortError') return;
@@ -756,7 +763,7 @@ window.compartirPaginaActual = async function(btn) {
   }
 
   try {
-    await navigator.clipboard.writeText(shareUrl);
+    await navigator.clipboard.writeText(`${shareText} ${shareUrl}`);
     const label = btn?.querySelector('.accar-share-fab-label');
     if (label) {
       const original = label.textContent;
@@ -764,7 +771,7 @@ window.compartirPaginaActual = async function(btn) {
       setTimeout(() => { label.textContent = original; }, 2500);
     }
   } catch (err) {
-    prompt('Copia este enlace para compartir:', shareUrl);
+    prompt('Copia este enlace para compartir:', `${shareText} ${shareUrl}`);
   }
 };
 
