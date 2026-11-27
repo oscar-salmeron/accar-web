@@ -1,698 +1,1117 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Canon Bíblico - ACCAR</title>
-    <style>
-        body {
-            background: linear-gradient(180deg, #02040a 0%, #050b1a 100%);
-            min-height: 100vh;
-            margin: 0;
-            padding: 80px 20px;
-            color: #f5f2eb;
-            font-family: Georgia, "Times New Roman", serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            position: relative;
-        }
+<!-- ===== ACCAR | CANON BÍBLICO CATÓLICO ===== -->
+<section class="accar-canon-page">
 
-        body::before {
-            content: "";
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 100vw;
-            height: 100vh;
-            background-image: url('/assets/img/canon-watermark.png');
-            background-repeat: no-repeat;
-            background-position: center center;
-            background-size: 65%;
-            opacity: 0.15;
-            z-index: 0;
-            pointer-events: none;
-        }
+  <div class="accar-canon-inner">
 
-        .accar-header {
-            text-align: center;
-            margin-bottom: 50px;
-            position: relative;
-            z-index: 1;
-        }
+    <!-- CABECERA MAESTRA ESTÁNDAR ACCAR -->
+    <header class="accar-canon-header">
+      <div class="accar-canon-kicker">
+        <span aria-hidden="true">✠</span>
+        <span>Ignorantia Scripturarum, Ignorantia Christi Est</span>
+        <span aria-hidden="true">✠</span>
+      </div>
 
-        .accar-quote {
-            display: block;
-            font-family: Georgia, "Times New Roman", serif;
-            font-size: 16px;
-            font-style: italic;
-            color: #D4AF37;
-            letter-spacing: 1px;
-            margin-top: 20px;
-            opacity: 0.9;
-        }
+      <div class="accar-canon-title-wrap">
+        <h1 class="accar-canon-title">Canon Bíblico</h1>
+      </div>
 
-        .accar-title {
-            font-size: 42px;
-            font-weight: normal;
-            color: #ffffff;
-            margin: 10px 0 0 0;
-            text-shadow: 0 4px 15px rgba(0,0,0,0.8);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
+      <p class="accar-canon-desc">
+        Los 73 libros sagrados inspirados por el Espíritu Santo y definidos infaliblemente<br class="accar-salto-editorial">
+        por la Iglesia Católica: exégesis, sentido tipológico y verdad salvífica.
+      </p>
+    </header>
 
-        .accar-divider {
-            width: 80px;
-            height: 2px;
-            background: #D4AF37;
-            margin: 20px auto 0;
-            box-shadow: 0 0 10px #D4AF37;
-        }
-
-        .apologetic-banner {
-            text-align: center;
-            max-width: 850px;
-            margin: 0 auto 40px;
-            background: rgba(212, 175, 55, 0.05);
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            padding: 20px 30px;
-            border-radius: 8px;
-            backdrop-filter: blur(3px);
-            position: relative;
-            z-index: 1;
-        }
-
-        .apologetic-banner p {
-            color: #D4AF37;
-            font-size: 16px;
-            font-style: italic;
-            margin: 0;
-            line-height: 1.6;
-        }
-
-        .testament-selector {
-            display: flex;
-            gap: 50px;
-            justify-content: center;
-            width: 100%;
-            max-width: 950px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 1;
-        }
-
-        .testament-card {
-            flex: 1;
-            cursor: pointer;
-            background: rgba(11, 22, 48, 0.2);
-            border: 1px solid rgba(212, 175, 55, 0.1);
-            border-radius: 12px;
-            padding: 30px 20px;
-            text-align: center;
-            transition: all 0.4s ease;
-            backdrop-filter: blur(4px);
-            -webkit-backdrop-filter: blur(4px);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center; /* Centrado para que no empuje el texto abajo */
-            gap: 20px; /* Separación fija entre imagen y texto */
-        }
-
-        .testament-card:hover {
-            transform: translateY(-8px);
-            border-color: rgba(212, 175, 55, 0.5);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.7);
-            background: rgba(11, 22, 48, 0.3);
-        }
-
-        .testament-img-container {
-            width: 100%;
-            height: 280px; /* Altura controlada */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .testament-card img {
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: contain;
-            filter: drop-shadow(0 8px 16px rgba(0,0,0,0.8));
-            transition: transform 0.4s ease;
-        }
-
-        .testament-card:hover img {
-            transform: scale(1.05);
-        }
-
-        .testament-label {
-            font-size: 20px;
-            color: #D4AF37;
-            font-weight: normal;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
-            border-top: 1px solid rgba(212, 175, 55, 0.2);
-            padding-top: 15px;
-            width: 80%;
-            margin: 0 auto;
-        }
-
-        .accordion-container {
-            width: 100%;
-            max-width: 1100px;
-            display: flex;
-            flex-direction: column;
-            gap: 25px; /* Un poco más de espacio entre bloques */
-            position: relative;
-            z-index: 1;
-        }
-
-        /* CAJAS MAESTRAS DEL CANON (Estilo Tomo de Libro) */
-        .master-accordion-item {
-            border: 1px solid rgba(212, 175, 55, 0.2);
-            border-left: 8px solid #D4AF37; /* Simula el lomo del libro */
-            border-radius: 4px 12px 12px 4px;
-            background: linear-gradient(to right, #070e1c, #0b162c); /* Fondo sólido, no cristal */
-            box-shadow: 0 8px 25px rgba(0,0,0,0.7);
-            overflow: hidden;
-            transition: all 0.4s ease;
-        }
-
-        .master-header {
-            padding: 25px 30px;
-            cursor: pointer;
-            border-bottom: 1px solid transparent;
-            transition: all 0.3s ease;
-        }
-
-        .master-header:hover {
-            background: rgba(212, 175, 55, 0.08);
-        }
-
-        .master-title-area {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-
-        .master-title-area h2 {
-            margin: 0;
-            color: #D4AF37;
-            font-size: 24px;
-            font-weight: normal;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.8);
-        }
-
-        .master-synopsis {
-            margin: 0;
-            color: #cbd5e1;
-            font-size: 15px;
-            font-style: italic;
-            line-height: 1.6;
-            max-width: 90%;
-        }
-
-        .master-icon {
-            font-family: monospace;
-            font-size: 28px;
-            color: #D4AF37;
-            transition: transform 0.4s ease;
-        }
-
-        .master-accordion-item.active .master-header {
-            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
-            background: rgba(0, 0, 0, 0.3);
-        }
-
-        .master-accordion-item.active .master-icon {
-            transform: rotate(45deg);
-        }
-
-        .master-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.6s ease-out, padding 0.6s ease;
-            padding: 0 30px;
-        }
-
-        .master-accordion-item.active .master-content {
-            max-height: 5000px;
-            padding: 30px;
-        }
-
-        /* GRID DE LIBROS */
-        .accar-grid-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-            gap: 25px;
-            width: 100%;
-            justify-items: center;
-        }
-
-        .book-card {
-            text-decoration: none;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            transition: transform 0.3s ease, filter 0.3s ease;
-            width: 100%;
-            max-width: 180px;
-            background: rgba(11, 22, 48, 0.4);
-            border: 1px solid rgba(212, 175, 55, 0.2);
-            border-radius: 8px;
-            padding: 15px;
-        }
-
-        .book-card:hover {
-            transform: translateY(-5px);
-            border-color: rgba(212, 175, 55, 0.6);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.6);
-        }
-
-        .book-cover {
-            width: 100%;
-            height: 220px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-
-        .book-cover img {
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: contain;
-            filter: drop-shadow(0 5px 10px rgba(0,0,0,0.6));
-        }
-
-        .book-title {
-            font-size: 16px;
-            color: #D4AF37;
-            font-weight: bold;
-            margin: 0;
-            text-align: center;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        
-        .book-subtitle {
-            font-size: 11px;
-            color: #94a3b8;
-            margin-top: 5px;
-            text-align: center;
-            font-family: sans-serif;
-            text-transform: uppercase;
-        }
-
-        .btn-compendio {
-            background: transparent;
-            border: 1px solid #D4AF37;
-            color: #D4AF37;
-            padding: 10px 25px;
-            font-family: sans-serif;
-            font-size: 11px;
-            font-weight: bold;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .btn-compendio:hover {
-            background: rgba(212, 175, 55, 0.15);
-            box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
-        }
-        
-        .loading-text, .empty-text {
-            color: #D4AF37;
-            font-family: sans-serif;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            text-align: center;
-            width: 100%;
-            padding: 20px 0;
-            grid-column: 1 / -1;
-        }
-
-        /* SUB-ACORDEONES (Para Libros Históricos) */
-        .sub-accordion-container {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            margin-top: 20px;
-            width: 100%;
-        }
-
-        .sub-accordion-item {
-            border: 1px solid rgba(212, 175, 55, 0.2);
-            border-radius: 8px;
-            background: rgba(11, 22, 48, 0.4);
-            overflow: hidden;
-            transition: all 0.3s ease;
-        }
-
-        .sub-header {
-            padding: 20px 25px;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: background 0.3s ease;
-        }
-
-        .sub-header:hover {
-            background: rgba(212, 175, 55, 0.05);
-        }
-
-        .sub-title-wrapper {
-            display: flex;
-            align-items: baseline;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
-
-        .sub-title-main {
-            color: #D4AF37;
-            font-size: 18px;
-            font-weight: bold;
-            letter-spacing: 1px;
-            margin: 0;
-        }
-
-        .sub-title-desc {
-            color: #94a3b8;
-            font-size: 12px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-family: sans-serif;
-        }
-
-        .sub-icon {
-            color: #D4AF37;
-            font-weight: bold;
-            font-size: 20px;
-            transition: transform 0.3s ease;
-        }
-
-        .sub-accordion-item.active .sub-header {
-            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
-            background: rgba(0, 0, 0, 0.2);
-        }
-
-        .sub-accordion-item.active .sub-icon {
-            transform: rotate(45deg);
-        }
-
-        .sub-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.5s ease-out, padding 0.5s ease;
-            padding: 0 25px;
-        }
-
-        .sub-accordion-item.active .sub-content {
-            max-height: 2000px;
-            padding: 25px;
-        }
-        
-        .btn-intro {
-            display: block;
-            width: fit-content;
-            margin: 0 auto 30px;
-            background: transparent;
-            border: 1px solid #D4AF37;
-            color: #D4AF37;
-            padding: 12px 30px;
-            font-family: sans-serif;
-            font-size: 12px;
-            font-weight: bold;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .btn-intro:hover {
-            background: rgba(212, 175, 55, 0.1);
-            box-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
-        }
-
-        @media (max-width: 768px) {
-            .testament-selector { flex-direction: column; align-items: center; }
-            .testament-card img { max-width: 80%; }
-        }
-    </style>
-</head>
-<body>
-
-    <div class="accar-header">
-        <h1 class="accar-title">Canon Bíblico</h1>
-        <div class="accar-divider"></div>
-        <span class="accar-quote">"Ignorantia Scripturarum, ignorantia Christi est" - San Jerónimo</span>
-    </div>
-
-    <!-- PANTALLA DE INICIO: BANNER Y SELECTOR -->
+    <!-- PANTALLA 1: SELECTOR DE TESTAMENTOS -->
     <div id="intro-canon">
-        <div class="apologetic-banner">
-            <p>"La Iglesia Católica, guiada por el Espíritu Santo, determinó infaliblemente el canon de los 73 libros sagrados.<br>
-            Aquí exploramos la exégesis, inspiración y verdad salvífica de cada texto."</p>
+      <div class="testament-selector">
+
+        <div class="testament-card" onclick="showTestament('ot')">
+          <div class="testament-card-body">
+            <div class="testament-img-container">
+              <img src="/assets/img/portada_canon_at.png" alt="Antiguo Testamento" onerror="this.src='https://placehold.co/280x320/050b1a/d4af37?text=Antiguo+Testamento'">
+            </div>
+            <span class="testament-meta">46 Libros Sagrados</span>
+            <h2 class="testament-label">Antiguo Testamento</h2>
+            <div class="testament-rule" aria-hidden="true"></div>
+            <p class="testament-desc">La creación, las alianzas patriarcales, la Ley mosaica y los Profetas que prepararon la venida del Redentor.</p>
+            <span class="testament-entrar">
+              <span>Explorar Libros</span>
+              <span class="testament-arrow" aria-hidden="true">→</span>
+            </span>
+          </div>
         </div>
 
-        <div class="testament-selector">
-            <div class="testament-card" onclick="showTestament('ot')">
-                <div class="testament-img-container">
-                    <img src="/assets/img/portada_canon_at.png" alt="Antiguo Testamento" onerror="this.src='https://placehold.co/280x320/050b1a/d4af37?text=Antiguo+Testamento'">
-                </div>
-                <div class="testament-label">Antiguo Testamento</div>
+        <div class="testament-card" onclick="showTestament('nt')">
+          <div class="testament-card-body">
+            <div class="testament-img-container">
+              <img src="/assets/img/portada_canon_nt.png" alt="Nuevo Testamento" onerror="this.src='https://placehold.co/280x320/050b1a/d4af37?text=Nuevo+Testamento'">
             </div>
-            <div class="testament-card" onclick="showTestament('nt')">
-                <div class="testament-img-container">
-                    <img src="/assets/img/portada_canon_nt.png" alt="Nuevo Testamento" onerror="this.src='https://placehold.co/280x320/050b1a/d4af37?text=Nuevo+Testamento'">
-                </div>
-                <div class="testament-label">Nuevo Testamento</div>
-            </div>
+            <span class="testament-meta">27 Libros Sagrados</span>
+            <h2 class="testament-label">Nuevo Testamento</h2>
+            <div class="testament-rule" aria-hidden="true"></div>
+            <p class="testament-desc">La plenitud de la Revelación en Nuestro Señor Jesucristo, la predicación apostólica y la gloria final de la Iglesia.</p>
+            <span class="testament-entrar">
+              <span>Explorar Libros</span>
+              <span class="testament-arrow" aria-hidden="true">→</span>
+            </span>
+          </div>
         </div>
+
+      </div>
     </div>
 
-    <!-- CONTENEDOR DEL ANTIGUO TESTAMENTO -->
-    <div id="ot-container" style="display: none; width: 100%; flex-direction: column; align-items: center;">
-        <button class="btn-compendio" onclick="volverInicio()" style="margin-bottom: 30px;">◄ Volver a los Testamentos</button>
-        <div class="accordion-container" id="accordion-ot">
-        
-            <!-- EL PENTATEUCO -->
-            <div class="master-accordion-item" id="master-pentateuco">
-                <div class="master-header" onclick="toggleMaster('master-pentateuco')">
-                    <div class="master-title-area">
-                        <h2>I. El Pentateuco</h2>
-                        <span class="master-icon">+</span>
-                    </div>
-                    <p class="master-synopsis">Los cinco libros fundacionales (La Torá). Narran desde la creación y los Patriarcas hasta la liberación de Egipto y la entrega de la Ley.</p>
-                </div>
-                <div class="master-content">
-                    <div id="grid-pentateuco" class="accar-grid-container"><p class="loading-text">Cargando libros sagrados...</p></div>
-                </div>
+    <!-- PANTALLA 2: CONTENEDOR DEL ANTIGUO TESTAMENTO -->
+    <div id="ot-container" class="accar-testament-panel" style="display: none;">
+      <div class="accar-canon-toolbar">
+        <button type="button" class="btn-compendio" onclick="volverInicio()">← Volver a los Testamentos</button>
+        <h2 class="accar-testament-heading">Antiguo Testamento</h2>
+        <div class="accar-toolbar-spacer" aria-hidden="true"></div>
+      </div>
+
+      <div class="accordion-container" id="accordion-ot">
+
+        <!-- I. EL PENTATEUCO -->
+        <div class="master-accordion-item" id="master-pentateuco">
+          <div class="master-header" onclick="toggleMaster('master-pentateuco')">
+            <div class="master-text-group">
+              <div class="master-title-area">
+                <h2>I. El Pentateuco</h2>
+              </div>
+              <p class="master-synopsis">Los cinco libros fundacionales (La Torá). Narran desde la creación y los Patriarcas hasta la liberación de Egipto y la entrega de la Ley.</p>
             </div>
-
-            <!-- LIBROS HISTÓRICOS -->
-            <div class="master-accordion-item" id="master-historicos">
-                <div class="master-header" onclick="toggleMaster('master-historicos')">
-                    <div class="master-title-area">
-                        <h2>II. Libros Históricos</h2>
-                        <span class="master-icon">+</span>
-                    </div>
-                    <p class="master-synopsis">Narran la historia del pueblo de Israel desde su entrada a la Tierra Prometida, pasando por la monarquía y el exilio babilónico, hasta la heroica resistencia de los Macabeos.</p>
-                </div>
-                <div class="master-content">
-                    
-                    <button class="btn-intro">LEER INTRODUCCIÓN TEOLÓGICA</button>
-
-                    <div class="sub-accordion-container">
-                        
-                        <!-- PRIMERA PARTE -->
-                        <div class="sub-accordion-item" id="sub-hist-1">
-                            <div class="sub-header" onclick="toggleSub('sub-hist-1')">
-                                <div class="sub-title-wrapper">
-                                    <span class="sub-title-main">PRIMERA PARTE</span>
-                                    <span class="sub-title-desc">De la Conquista al Reino de David</span>
-                                </div>
-                                <span class="sub-icon">+</span>
-                            </div>
-                            <div class="sub-content">
-                                <div id="grid-historicos-1" class="accar-grid-container"></div>
-                            </div>
-                        </div>
-
-                        <!-- SEGUNDA PARTE -->
-                        <div class="sub-accordion-item" id="sub-hist-2">
-                            <div class="sub-header" onclick="toggleSub('sub-hist-2')">
-                                <div class="sub-title-wrapper">
-                                    <span class="sub-title-main">SEGUNDA PARTE</span>
-                                    <span class="sub-title-desc">El Reino Dividido y los Profetas</span>
-                                </div>
-                                <span class="sub-icon">+</span>
-                            </div>
-                            <div class="sub-content">
-                                <div id="grid-historicos-2" class="accar-grid-container"></div>
-                            </div>
-                        </div>
-
-                        <!-- TERCERA PARTE -->
-                        <div class="sub-accordion-item" id="sub-hist-3">
-                            <div class="sub-header" onclick="toggleSub('sub-hist-3')">
-                                <div class="sub-title-wrapper">
-                                    <span class="sub-title-main">TERCERA PARTE</span>
-                                    <span class="sub-title-desc">Restauración y Relatos de Fe</span>
-                                </div>
-                                <span class="sub-icon">+</span>
-                            </div>
-                            <div class="sub-content">
-                                <div id="grid-historicos-3" class="accar-grid-container"></div>
-                            </div>
-                        </div>
-
-                        <!-- CUARTA PARTE -->
-                        <div class="sub-accordion-item" id="sub-hist-4">
-                            <div class="sub-header" onclick="toggleSub('sub-hist-4')">
-                                <div class="sub-title-wrapper">
-                                    <span class="sub-title-main">CUARTA PARTE</span>
-                                    <span class="sub-title-desc">La Resistencia Macabea</span>
-                                </div>
-                                <span class="sub-icon">+</span>
-                            </div>
-                            <div class="sub-content">
-                                <div id="grid-historicos-4" class="accar-grid-container"></div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-            
-            <!-- SAPIENCIALES Y POÉTICOS -->
-            <div class="master-accordion-item" id="master-sapienciales">
-                <div class="master-header" onclick="toggleMaster('master-sapienciales')">
-                    <div class="master-title-area">
-                        <h2>III. Libros Sapienciales y Poéticos</h2>
-                        <span class="master-icon">+</span>
-                    </div>
-                    <p class="master-synopsis">Colección de oraciones, cánticos, reflexiones existenciales y consejos prácticos para alcanzar la sabiduría. Enseñan a vivir en el temor de Dios y prefiguran a Cristo como la Sabiduría encarnada.</p>
-                </div>
-                <div class="master-content">
-                    <button class="btn-intro">LEER INTRODUCCIÓN TEOLÓGICA</button>
-                    <div id="grid-sapienciales" class="accar-grid-container"></div>
-                </div>
-            </div>
-
-            <!-- PROFÉTICOS -->
-            <div class="master-accordion-item" id="master-profeticos">
-                <div class="master-header" onclick="toggleMaster('master-profeticos')">
-                    <div class="master-title-area">
-                        <h2>IV. Libros Proféticos</h2>
-                        <span class="master-icon">+</span>
-                    </div>
-                    <p class="master-synopsis">Los mensajeros de Dios que llamaron al pueblo a la conversión, denunciaron la injusticia y anunciaron la venida del Mesías y el establecimiento del Reino definitivo.</p>
-                </div>
-                <div class="master-content">
-                    
-                    <button class="btn-intro">LEER INTRODUCCIÓN TEOLÓGICA</button>
-
-                    <div class="sub-accordion-container">
-                        
-                        <!-- PROFETAS MAYORES -->
-                        <div class="sub-accordion-item" id="sub-prof-1">
-                            <div class="sub-header" onclick="toggleSub('sub-prof-1')">
-                                <div class="sub-title-wrapper">
-                                    <span class="sub-title-main">PROFETAS MAYORES</span>
-                                    <span class="sub-title-desc">LOS GRANDES ORÁCULOS DE SALVACIÓN Y JUICIO</span>
-                                </div>
-                                <span class="sub-icon">+</span>
-                            </div>
-                            <div class="sub-content">
-                                <div id="grid-profeticos-mayores" class="accar-grid-container"></div>
-                            </div>
-                        </div>
-
-                        <!-- PROFETAS MENORES -->
-                        <div class="sub-accordion-item" id="sub-prof-2">
-                            <div class="sub-header" onclick="toggleSub('sub-prof-2')">
-                                <div class="sub-title-wrapper">
-                                    <span class="sub-title-main">PROFETAS MENORES</span>
-                                    <span class="sub-title-desc">EL LIBRO DE LOS DOCE</span>
-                                </div>
-                                <span class="sub-icon">+</span>
-                            </div>
-                            <div class="sub-content">
-                                <div id="grid-profeticos-menores" class="accar-grid-container"></div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-
+            <span class="master-icon">+</span>
+          </div>
+          <div class="master-content">
+            <div id="grid-pentateuco" class="accar-grid-container"><p class="loading-text">Cargando libros sagrados...</p></div>
+          </div>
         </div>
+
+        <!-- II. LIBROS HISTÓRICOS -->
+        <div class="master-accordion-item" id="master-historicos">
+          <div class="master-header" onclick="toggleMaster('master-historicos')">
+            <div class="master-text-group">
+              <div class="master-title-area">
+                <h2>II. Libros Históricos</h2>
+              </div>
+              <p class="master-synopsis">Narran la historia del pueblo de Israel desde su entrada a la Tierra Prometida, pasando por la monarquía y el exilio babilónico, hasta la heroica resistencia de los Macabeos.</p>
+            </div>
+            <span class="master-icon">+</span>
+          </div>
+          <div class="master-content">
+
+            <button type="button" class="btn-intro">Leer Introducción Teológica</button>
+
+            <div class="sub-accordion-container">
+
+              <!-- PRIMERA PARTE -->
+              <div class="sub-accordion-item" id="sub-hist-1">
+                <div class="sub-header" onclick="toggleSub('sub-hist-1')">
+                  <div class="sub-title-wrapper">
+                    <span class="sub-title-main">Primera Parte</span>
+                    <span class="sub-title-desc">De la Conquista al Reino de David</span>
+                  </div>
+                  <span class="sub-icon">+</span>
+                </div>
+                <div class="sub-content">
+                  <div id="grid-historicos-1" class="accar-grid-container"></div>
+                </div>
+              </div>
+
+              <!-- SEGUNDA PARTE -->
+              <div class="sub-accordion-item" id="sub-hist-2">
+                <div class="sub-header" onclick="toggleSub('sub-hist-2')">
+                  <div class="sub-title-wrapper">
+                    <span class="sub-title-main">Segunda Parte</span>
+                    <span class="sub-title-desc">El Reino Dividido y los Profetas</span>
+                  </div>
+                  <span class="sub-icon">+</span>
+                </div>
+                <div class="sub-content">
+                  <div id="grid-historicos-2" class="accar-grid-container"></div>
+                </div>
+              </div>
+
+              <!-- TERCERA PARTE -->
+              <div class="sub-accordion-item" id="sub-hist-3">
+                <div class="sub-header" onclick="toggleSub('sub-hist-3')">
+                  <div class="sub-title-wrapper">
+                    <span class="sub-title-main">Tercera Parte</span>
+                    <span class="sub-title-desc">Restauración y Relatos de Fe</span>
+                  </div>
+                  <span class="sub-icon">+</span>
+                </div>
+                <div class="sub-content">
+                  <div id="grid-historicos-3" class="accar-grid-container"></div>
+                </div>
+              </div>
+
+              <!-- CUARTA PARTE -->
+              <div class="sub-accordion-item" id="sub-hist-4">
+                <div class="sub-header" onclick="toggleSub('sub-hist-4')">
+                  <div class="sub-title-wrapper">
+                    <span class="sub-title-main">Cuarta Parte</span>
+                    <span class="sub-title-desc">La Resistencia Macabea</span>
+                  </div>
+                  <span class="sub-icon">+</span>
+                </div>
+                <div class="sub-content">
+                  <div id="grid-historicos-4" class="accar-grid-container"></div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- III. SAPIENCIALES Y POÉTICOS -->
+        <div class="master-accordion-item" id="master-sapienciales">
+          <div class="master-header" onclick="toggleMaster('master-sapienciales')">
+            <div class="master-text-group">
+              <div class="master-title-area">
+                <h2>III. Libros Sapienciales y Poéticos</h2>
+              </div>
+              <p class="master-synopsis">Colección de oraciones, cánticos, reflexiones existenciales y consejos prácticos para alcanzar la sabiduría. Enseñan a vivir en el temor de Dios y prefiguran a Cristo como la Sabiduría encarnada.</p>
+            </div>
+            <span class="master-icon">+</span>
+          </div>
+          <div class="master-content">
+            <button type="button" class="btn-intro">Leer Introducción Teológica</button>
+            <div id="grid-sapienciales" class="accar-grid-container"></div>
+          </div>
+        </div>
+
+        <!-- IV. PROFÉTICOS -->
+        <div class="master-accordion-item" id="master-profeticos">
+          <div class="master-header" onclick="toggleMaster('master-profeticos')">
+            <div class="master-text-group">
+              <div class="master-title-area">
+                <h2>IV. Libros Proféticos</h2>
+              </div>
+              <p class="master-synopsis">Los mensajeros de Dios que llamaron al pueblo a la conversión, denunciaron la injusticia y anunciaron la venida del Mesías y el establecimiento del Reino definitivo.</p>
+            </div>
+            <span class="master-icon">+</span>
+          </div>
+          <div class="master-content">
+
+            <button type="button" class="btn-intro">Leer Introducción Teológica</button>
+
+            <div class="sub-accordion-container">
+
+              <!-- PROFETAS MAYORES -->
+              <div class="sub-accordion-item" id="sub-prof-1">
+                <div class="sub-header" onclick="toggleSub('sub-prof-1')">
+                  <div class="sub-title-wrapper">
+                    <span class="sub-title-main">Profetas Mayores</span>
+                    <span class="sub-title-desc">Los Grandes Oráculos de Salvación y Juicio</span>
+                  </div>
+                  <span class="sub-icon">+</span>
+                </div>
+                <div class="sub-content">
+                  <div id="grid-profeticos-mayores" class="accar-grid-container"></div>
+                </div>
+              </div>
+
+              <!-- PROFETAS MENORES -->
+              <div class="sub-accordion-item" id="sub-prof-2">
+                <div class="sub-header" onclick="toggleSub('sub-prof-2')">
+                  <div class="sub-title-wrapper">
+                    <span class="sub-title-main">Profetas Menores</span>
+                    <span class="sub-title-desc">El Libro de los Doce</span>
+                  </div>
+                  <span class="sub-icon">+</span>
+                </div>
+                <div class="sub-content">
+                  <div id="grid-profeticos-menores" class="accar-grid-container"></div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
     </div>
 
-    <!-- CONTENEDOR DEL NUEVO TESTAMENTO -->
-    <div id="nt-container" style="display: none; width: 100%; flex-direction: column; align-items: center;">
-        <button class="btn-compendio" onclick="volverInicio()" style="margin-bottom: 30px;">◄ Volver a los Testamentos</button>
-        <div class="accordion-container" id="accordion-nt">
-            
-            <!-- EVANGELIOS Y HECHOS -->
-            <div class="master-accordion-item" id="master-evangelios">
-                <div class="master-header" onclick="toggleMaster('master-evangelios')">
-                    <div class="master-title-area">
-                        <h2>V. Evangelios y Hechos</h2>
-                        <span class="master-icon">+</span>
-                    </div>
-                    <p class="master-synopsis">La vida, pasión y resurrección de Jesucristo, y el nacimiento de Su Iglesia.</p>
-                </div>
-                <div class="master-content">
-                    <div id="grid-evangelios" class="accar-grid-container"></div>
-                </div>
-            </div>
+    <!-- PANTALLA 3: CONTENEDOR DEL NUEVO TESTAMENTO -->
+    <div id="nt-container" class="accar-testament-panel" style="display: none;">
+      <div class="accar-canon-toolbar">
+        <button type="button" class="btn-compendio" onclick="volverInicio()">← Volver a los Testamentos</button>
+        <h2 class="accar-testament-heading">Nuevo Testamento</h2>
+        <div class="accar-toolbar-spacer" aria-hidden="true"></div>
+      </div>
 
-            <!-- EPÍSTOLAS PAULINAS Y HEBREOS -->
-            <div class="master-accordion-item" id="master-paulinas">
-                <div class="master-header" onclick="toggleMaster('master-paulinas')">
-                    <div class="master-title-area">
-                        <h2>VI. Epístolas Paulinas</h2>
-                        <span class="master-icon">+</span>
-                    </div>
-                    <p class="master-synopsis">La exégesis teológica del Apóstol San Pablo dirigida a las primeras comunidades cristianas.</p>
-                </div>
-                <div class="master-content">
-                    <div id="grid-paulinas" class="accar-grid-container"></div>
-                </div>
-            </div>
+      <div class="accordion-container" id="accordion-nt">
 
-            <!-- CARTAS CATÓLICAS Y APOCALIPSIS -->
-            <div class="master-accordion-item" id="master-catolicas">
-                <div class="master-header" onclick="toggleMaster('master-catolicas')">
-                    <div class="master-title-area">
-                        <h2>VII. Cartas Católicas y Apocalipsis</h2>
-                        <span class="master-icon">+</span>
-                    </div>
-                    <p class="master-synopsis">Epístolas universales de los Apóstoles y la revelación del triunfo definitivo de Cristo.</p>
-                </div>
-                <div class="master-content">
-                    <div id="grid-catolicas" class="accar-grid-container"></div>
-                </div>
+        <!-- V. EVANGELIOS Y HECHOS -->
+        <div class="master-accordion-item" id="master-evangelios">
+          <div class="master-header" onclick="toggleMaster('master-evangelios')">
+            <div class="master-text-group">
+              <div class="master-title-area">
+                <h2>V. Evangelios y Hechos</h2>
+              </div>
+              <p class="master-synopsis">La vida, pasión y resurrección de Nuestro Señor Jesucristo, y el nacimiento histórico de su Santa Iglesia.</p>
             </div>
-
+            <span class="master-icon">+</span>
+          </div>
+          <div class="master-content">
+            <div id="grid-evangelios" class="accar-grid-container"></div>
+          </div>
         </div>
+
+        <!-- VI. EPÍSTOLAS PAULINAS -->
+        <div class="master-accordion-item" id="master-paulinas">
+          <div class="master-header" onclick="toggleMaster('master-paulinas')">
+            <div class="master-text-group">
+              <div class="master-title-area">
+                <h2>VI. Epístolas Paulinas</h2>
+              </div>
+              <p class="master-synopsis">La doctrina teológica y pastoral del Apóstol San Pablo dirigida a las primeras comunidades cristianas.</p>
+            </div>
+            <span class="master-icon">+</span>
+          </div>
+          <div class="master-content">
+            <div id="grid-paulinas" class="accar-grid-container"></div>
+          </div>
+        </div>
+
+        <!-- VII. CARTAS CATÓLICAS Y APOCALIPSIS -->
+        <div class="master-accordion-item" id="master-catolicas">
+          <div class="master-header" onclick="toggleMaster('master-catolicas')">
+            <div class="master-text-group">
+              <div class="master-title-area">
+                <h2>VII. Cartas Católicas y Apocalipsis</h2>
+              </div>
+              <p class="master-synopsis">Epístolas universales de los Apóstoles y la revelación profética del triunfo definitivo de Cristo Rey.</p>
+            </div>
+            <span class="master-icon">+</span>
+          </div>
+          <div class="master-content">
+            <div id="grid-catolicas" class="accar-grid-container"></div>
+          </div>
+        </div>
+
+      </div>
     </div>
 
-    <!-- LOGICA Y CONEXIÓN FIREBASE -->
-    
-</body>
-</html>
+  </div>
+
+</section>
+
+<style>
+.accar-canon-page,
+.accar-canon-page * {
+  box-sizing: border-box;
+}
+
+.accar-canon-page {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  min-height: 1020px;
+  padding: 86px 20px 126px;
+  color: #f8efd3;
+  font-family: Georgia, "Times New Roman", serif;
+  border-top: 1px solid rgba(212, 175, 55, 0.24);
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(16, 42, 86, 0.52) 0%, rgba(6, 16, 36, 0.88) 46%, #030816 100%);
+  box-shadow: inset 0 24px 52px rgba(0, 0, 0, 0.55);
+}
+
+/* Marca de agua calibrada al centro sin desbordes ni recortes */
+.accar-canon-page::before {
+  content: "";
+  position: absolute;
+  top: 165px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(760px, 90vw);
+  height: min(760px, 90vw);
+  background: url("/assets/img/canon-watermark.png") center center / contain no-repeat;
+  opacity: 0.085;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.accar-canon-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 1040px;
+  margin: 0 auto;
+}
+
+/* ===== CABECERA MAESTRA UNIFICADA ===== */
+.accar-canon-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  max-width: 780px;
+  margin: 0 auto 58px;
+}
+
+.accar-canon-kicker {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 6px 18px;
+  margin-bottom: 18px;
+  border-radius: 999px;
+  border: 1px solid rgba(212, 175, 55, 0.65);
+  background: rgba(3, 7, 54, 0.82);
+  color: #e8cb72;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.42);
+}
+
+.accar-canon-title-wrap {
+  display: block;
+  width: fit-content;
+  position: relative;
+  padding-bottom: 14px;
+  margin: 0 auto 20px;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.45);
+}
+
+.accar-canon-title-wrap::after {
+  content: "";
+  position: absolute;
+  bottom: -1.5px;
+  left: 24%;
+  right: 24%;
+  height: 2.5px;
+  border-radius: 2px;
+  background: #d4af37;
+  box-shadow: 0 0 12px rgba(212, 175, 55, 0.85);
+}
+
+.accar-canon-title {
+  margin: 0;
+  font-size: 2.65rem;
+  font-weight: 700;
+  line-height: 1.15;
+  color: #fff9ec;
+  letter-spacing: 0.02em;
+  text-shadow: 0 4px 18px rgba(0, 0, 0, 0.82), 0 0 16px rgba(212, 175, 55, 0.18);
+}
+
+.accar-canon-desc {
+  margin: 0 auto;
+  max-width: 720px;
+  font-size: 1.05rem;
+  line-height: 1.72;
+  color: #eae0c8;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+  text-wrap: balance;
+}
+
+/* ===== PANTALLA 1: TARJETAS DE LOS DOS TESTAMENTOS ===== */
+#intro-canon {
+  width: 100%;
+}
+
+.testament-selector {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.testament-card {
+  position: relative;
+  cursor: pointer;
+  border-radius: 22px;
+  border: 1px solid rgba(212, 175, 55, 0.48);
+  background: linear-gradient(180deg, rgba(7, 19, 42, 0.80) 0%, rgba(3, 8, 22, 0.90) 100%);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  box-shadow:
+    0 20px 44px rgba(0, 0, 0, 0.64),
+    inset 0 1px 0 rgba(255, 238, 186, 0.14),
+    inset 0 0 28px rgba(0, 0, 0, 0.35);
+  overflow: hidden;
+  transition: transform 0.34s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.34s ease, box-shadow 0.34s ease;
+}
+
+.testament-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 24%, rgba(212, 175, 55, 0.16) 0%, rgba(18, 48, 96, 0.10) 46%, transparent 72%);
+  opacity: 0.8;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.testament-card::after {
+  content: "";
+  position: absolute;
+  inset: 8px;
+  border: 1px solid rgba(212, 175, 55, 0.17);
+  border-radius: 15px;
+  pointer-events: none;
+  transition: border-color 0.34s ease;
+  z-index: 2;
+}
+
+.testament-card:hover {
+  transform: translateY(-7px);
+  border-color: #e4c76a;
+  box-shadow:
+    0 28px 56px rgba(0, 0, 0, 0.82),
+    0 0 22px rgba(212, 175, 55, 0.22),
+    inset 0 1px 0 rgba(255, 238, 186, 0.26);
+}
+
+.testament-card:hover::after {
+  border-color: rgba(212, 175, 55, 0.42);
+}
+
+.testament-card-body {
+  position: relative;
+  z-index: 3;
+  padding: 36px 30px 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  height: 100%;
+}
+
+.testament-img-container {
+  width: 100%;
+  height: 250px;
+  margin-bottom: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.testament-card img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 12px 22px rgba(0, 0, 0, 0.82));
+  transition: transform 0.36s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.testament-card:hover img {
+  transform: scale(1.05) translateY(-3px);
+}
+
+.testament-meta {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(232, 203, 114, 0.85);
+  margin-bottom: 6px;
+}
+
+.testament-label {
+  margin: 0;
+  font-size: 1.56rem;
+  font-weight: 700;
+  color: #eed076;
+  letter-spacing: 0.02em;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.75);
+  transition: color 0.25s ease;
+}
+
+.testament-card:hover .testament-label {
+  color: #fff6d6;
+}
+
+.testament-rule {
+  width: 44px;
+  height: 2px;
+  margin: 12px auto 14px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.85), transparent);
+  transition: width 0.3s ease;
+}
+
+.testament-card:hover .testament-rule {
+  width: 72px;
+}
+
+.testament-desc {
+  margin: 0 0 24px;
+  font-size: 0.95rem;
+  line-height: 1.64;
+  color: #e8dec5;
+  flex: 1;
+}
+
+.testament-entrar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 9px 22px;
+  border-radius: 999px;
+  border: 1px solid rgba(212, 175, 55, 0.48);
+  background: rgba(3, 8, 42, 0.78);
+  color: #e8cb72;
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.42);
+  transition: all 0.28s ease;
+}
+
+.testament-arrow {
+  display: inline-block;
+  font-size: 0.92rem;
+  line-height: 1;
+  transition: transform 0.28s ease;
+}
+
+.testament-card:hover .testament-entrar {
+  background: linear-gradient(180deg, rgba(212, 175, 55, 0.22) 0%, rgba(212, 175, 55, 0.10) 100%);
+  border-color: #d4af37;
+  color: #fff9ec;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.55), 0 0 14px rgba(212, 175, 55, 0.25);
+}
+
+.testament-card:hover .testament-arrow {
+  transform: translateX(4px);
+}
+
+/* ===== BARRA SUPERIOR DEL TESTAMENTO ACTIVO ===== */
+.accar-testament-panel {
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+}
+
+.accar-canon-toolbar {
+  width: 100%;
+  max-width: 980px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-bottom: 18px;
+  margin-bottom: 28px;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.30);
+}
+
+.btn-compendio {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 20px;
+  border-radius: 999px;
+  border: 1px solid rgba(212, 175, 55, 0.55);
+  background: rgba(3, 8, 42, 0.84);
+  color: #e8cb72;
+  font-family: inherit;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.42);
+  transition: all 0.25s ease;
+}
+
+.btn-compendio:hover {
+  background: rgba(212, 175, 55, 0.18);
+  border-color: #d4af37;
+  color: #fff9ec;
+  transform: translateX(-3px);
+}
+
+.accar-testament-heading {
+  margin: 0;
+  font-size: 1.72rem;
+  font-weight: 700;
+  color: #eed076;
+  letter-spacing: 0.02em;
+  text-align: center;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.75);
+}
+
+.accar-toolbar-spacer {
+  width: 225px;
+  flex-shrink: 0;
+}
+
+/* ===== ACORDEONES MAESTROS REFINADOS ===== */
+.accordion-container {
+  width: 100%;
+  max-width: 980px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.master-accordion-item {
+  position: relative;
+  border-radius: 18px;
+  border: 1px solid rgba(212, 175, 55, 0.42);
+  background: linear-gradient(180deg, rgba(7, 19, 42, 0.80) 0%, rgba(3, 8, 22, 0.90) 100%);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  box-shadow:
+    0 16px 36px rgba(0, 0, 0, 0.58),
+    inset 0 1px 0 rgba(255, 238, 186, 0.12);
+  overflow: hidden;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+/* Filete vertical sutil de orfebrería a la izquierda */
+.master-accordion-item::before {
+  content: "";
+  position: absolute;
+  top: 12px;
+  bottom: 12px;
+  left: 0;
+  width: 3.5px;
+  border-radius: 0 4px 4px 0;
+  background: linear-gradient(180deg, rgba(212, 175, 55, 0.35), #e8cb72, rgba(212, 175, 55, 0.35));
+  opacity: 0.72;
+  transition: opacity 0.3s ease, box-shadow 0.3s ease;
+}
+
+.master-accordion-item:hover {
+  border-color: rgba(228, 199, 106, 0.75);
+  box-shadow:
+    0 20px 42px rgba(0, 0, 0, 0.72),
+    0 0 18px rgba(212, 175, 55, 0.16),
+    inset 0 1px 0 rgba(255, 238, 186, 0.20);
+}
+
+.master-accordion-item:hover::before,
+.master-accordion-item.active::before {
+  opacity: 1;
+  box-shadow: 0 0 12px rgba(212, 175, 55, 0.55);
+}
+
+.master-accordion-item.active {
+  border-color: #e4c76a;
+}
+
+.master-header {
+  padding: 26px 30px 26px 32px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  border-bottom: 1px solid transparent;
+  transition: background 0.28s ease, border-color 0.28s ease;
+}
+
+.master-header:hover {
+  background: radial-gradient(ellipse at left, rgba(212, 175, 55, 0.08) 0%, transparent 75%);
+}
+
+.master-accordion-item.active .master-header {
+  border-bottom-color: rgba(212, 175, 55, 0.24);
+  background: rgba(3, 8, 28, 0.55);
+}
+
+.master-text-group {
+  flex: 1;
+  min-width: 0;
+  text-align: left;
+}
+
+.master-title-area {
+  margin-bottom: 8px;
+}
+
+.master-title-area h2 {
+  margin: 0;
+  color: #eed076;
+  font-size: 1.42rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  line-height: 1.25;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.75);
+  transition: color 0.25s ease;
+}
+
+.master-header:hover .master-title-area h2 {
+  color: #fff6d6;
+}
+
+.master-synopsis {
+  margin: 0;
+  color: #e6dbc0;
+  font-size: 0.96rem;
+  line-height: 1.64;
+}
+
+/* Medallón circular indicador (+ / -) sincronizado con el motor SPA */
+.master-icon {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  border: 1px solid rgba(212, 175, 55, 0.52);
+  background: rgba(3, 8, 42, 0.82);
+  color: #e8cb72;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: Georgia, serif;
+  font-size: 1.35rem;
+  font-weight: 700;
+  line-height: 1;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.42);
+  transition: all 0.28s ease;
+}
+
+.master-header:hover .master-icon {
+  border-color: #d4af37;
+  color: #fff9ec;
+  background: rgba(212, 175, 55, 0.16);
+}
+
+.master-accordion-item.active .master-icon {
+  background: linear-gradient(180deg, rgba(212, 175, 55, 0.28) 0%, rgba(212, 175, 55, 0.12) 100%);
+  border-color: #eed076;
+  color: #fff9ec;
+  box-shadow: 0 0 14px rgba(212, 175, 55, 0.35);
+}
+
+.master-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.55s ease-out, padding 0.45s ease;
+  padding: 0 30px;
+}
+
+.master-accordion-item.active .master-content {
+  max-height: 9000px;
+  padding: 28px 30px 32px;
+}
+
+/* ===== BOTÓN DE INTRODUCCIÓN TEOLÓGICA ===== */
+.btn-intro {
+  appearance: none;
+  display: block;
+  width: fit-content;
+  margin: 0 auto 26px;
+  padding: 9px 24px;
+  border-radius: 999px;
+  border: 1px solid rgba(212, 175, 55, 0.52);
+  background: rgba(3, 8, 42, 0.78);
+  color: #e8cb72;
+  font-family: inherit;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  cursor: pointer;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.38);
+  transition: all 0.25s ease;
+}
+
+.btn-intro:hover {
+  background: rgba(212, 175, 55, 0.18);
+  border-color: #d4af37;
+  color: #fff9ec;
+}
+
+/* ===== SUB-ACORDEONES (HISTÓRICOS Y PROFÉTICOS) ===== */
+.sub-accordion-container {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: 100%;
+}
+
+.sub-accordion-item {
+  border: 1px solid rgba(212, 175, 55, 0.28);
+  border-radius: 14px;
+  background: rgba(4, 11, 28, 0.74);
+  overflow: hidden;
+  transition: border-color 0.28s ease, background 0.28s ease;
+}
+
+.sub-accordion-item:hover,
+.sub-accordion-item.active {
+  border-color: rgba(212, 175, 55, 0.55);
+}
+
+.sub-header {
+  padding: 18px 24px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  transition: background 0.25s ease;
+}
+
+.sub-header:hover {
+  background: rgba(212, 175, 55, 0.08);
+}
+
+.sub-accordion-item.active .sub-header {
+  border-bottom: 1px solid rgba(212, 175, 55, 0.18);
+  background: rgba(2, 6, 18, 0.55);
+}
+
+.sub-title-wrapper {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  flex-wrap: wrap;
+  text-align: left;
+}
+
+.sub-title-main {
+  color: #eed076;
+  font-size: 1.08rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.sub-title-desc {
+  color: #d6c8a9;
+  font-size: 0.82rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.sub-icon {
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  border: 1px solid rgba(212, 175, 55, 0.45);
+  background: rgba(3, 8, 42, 0.78);
+  color: #e8cb72;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: Georgia, serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  line-height: 1;
+  transition: all 0.25s ease;
+}
+
+.sub-accordion-item.active .sub-icon {
+  background: rgba(212, 175, 55, 0.22);
+  border-color: #eed076;
+  color: #fff9ec;
+}
+
+.sub-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease-out, padding 0.4s ease;
+  padding: 0 24px;
+}
+
+.sub-accordion-item.active .sub-content {
+  max-height: 6000px;
+  padding: 24px;
+}
+
+/* ===== CUADRÍCULA DE LIBROS BÍBLICOS ===== */
+.accar-grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(176px, 1fr));
+  gap: 22px;
+  width: 100%;
+  justify-items: center;
+}
+
+.book-card {
+  position: relative;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 190px;
+  padding: 18px 14px 16px;
+  border-radius: 16px;
+  border: 1px solid rgba(212, 175, 55, 0.34);
+  background: linear-gradient(180deg, rgba(8, 22, 48, 0.78) 0%, rgba(3, 9, 24, 0.92) 100%);
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.55);
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.book-card:hover {
+  transform: translateY(-6px);
+  border-color: #e4c76a;
+  box-shadow: 0 18px 36px rgba(0, 0, 0, 0.75), 0 0 16px rgba(212, 175, 55, 0.22);
+}
+
+.book-cover {
+  width: 100%;
+  height: 210px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.book-cover img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 8px 14px rgba(0, 0, 0, 0.72));
+  transition: transform 0.3s ease;
+}
+
+.book-card:hover .book-cover img {
+  transform: scale(1.04);
+}
+
+.book-title {
+  margin: 0;
+  font-size: 0.98rem;
+  font-weight: 700;
+  color: #eed076;
+  text-align: center;
+  letter-spacing: 0.03em;
+  line-height: 1.3;
+}
+
+.book-subtitle {
+  margin-top: 6px;
+  font-size: 0.72rem;
+  color: #d6c8a9;
+  text-align: center;
+  letter-spacing: 0.05em;
+  line-height: 1.4;
+}
+
+.loading-text,
+.empty-text {
+  color: #e8cb72;
+  font-size: 0.86rem;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  text-align: center;
+  width: 100%;
+  padding: 22px 0;
+  grid-column: 1 / -1;
+}
+
+/* ===== RESPONSIVE IPAD / TABLET ===== */
+@media (max-width: 980px) {
+  .accar-canon-page {
+    padding: 72px 20px 110px;
+  }
+
+  .accar-canon-title {
+    font-size: 2.3rem;
+  }
+
+  .accar-toolbar-spacer {
+    width: 160px;
+  }
+}
+
+/* ===== RESPONSIVE MÓVIL ===== */
+@media (max-width: 720px) {
+  .accar-canon-page {
+    min-height: auto;
+    padding: 54px 16px 100px;
+  }
+
+  .accar-canon-page::before {
+    top: 220px;
+    width: min(500px, 94vw);
+    height: min(500px, 94vw);
+  }
+
+  .accar-canon-header {
+    margin-bottom: 42px;
+  }
+
+  .accar-canon-kicker {
+    font-size: 0.64rem;
+    padding: 6px 12px;
+    letter-spacing: 0.09em;
+  }
+
+  .accar-canon-title {
+    font-size: 1.95rem;
+  }
+
+  .accar-canon-desc {
+    font-size: 0.96rem;
+    line-height: 1.64;
+  }
+
+  .accar-canon-desc .accar-salto-editorial {
+    display: none;
+  }
+
+  .testament-selector {
+    grid-template-columns: 1fr;
+    gap: 22px;
+    max-width: 480px;
+  }
+
+  .testament-img-container {
+    height: 220px;
+  }
+
+  .accar-canon-toolbar {
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .accar-toolbar-spacer {
+    display: none;
+  }
+
+  .master-header {
+    padding: 22px 18px 22px 20px;
+    gap: 14px;
+  }
+
+  .master-title-area h2 {
+    font-size: 1.2rem;
+  }
+
+  .master-synopsis {
+    font-size: 0.91rem;
+  }
+
+  .master-icon {
+    width: 36px;
+    height: 36px;
+    font-size: 1.2rem;
+  }
+
+  .master-accordion-item.active .master-content {
+    padding: 20px 16px 24px;
+  }
+
+  .sub-header {
+    padding: 16px;
+  }
+
+  .sub-accordion-item.active .sub-content {
+    padding: 16px;
+  }
+
+  .accar-grid-container {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+
+  .book-cover {
+    height: 175px;
+  }
+}
+</style>
