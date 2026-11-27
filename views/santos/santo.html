@@ -50,22 +50,26 @@
   --santo-prayer-bg: linear-gradient(165deg, rgba(14, 52, 96, 0.94) 0%, rgba(5, 18, 38, 0.98) 100%);
 }
 
-/* 2. Santas Vírgenes: Blanco Hueso / Alabastro */
+/* 2. Santas Vírgenes: Blanco Hueso Patinado con Destello Dorado Suave */
 #app-santoral.accar-santo-ficha.santo-tema-blanco-hueso {
-  --santo-bg-top: #fcfbf7;
-  --santo-bg-mid: #f3efe4;
-  --santo-bg-deep: #e5decb;
-  --santo-halo: rgba(248, 239, 211, 0.26);
-  --santo-prayer-bg: linear-gradient(165deg, rgba(40, 34, 18, 0.92) 0%, rgba(7, 15, 34, 0.98) 100%);
+  --santo-bg-top: #eae0c4;
+  --santo-bg-mid: #ddd0ae;
+  --santo-bg-deep: #c7b68e;
+  --santo-halo: rgba(238, 208, 118, 0.28);
+  --santo-prayer-bg: linear-gradient(165deg, rgba(42, 35, 16, 0.92) 0%, rgba(7, 15, 34, 0.98) 100%);
+  background:
+    radial-gradient(circle at 50% 14%, rgba(236, 206, 122, 0.24) 0%, transparent 52%),
+    linear-gradient(90deg, rgba(138, 112, 54, 0.18) 0%, transparent 18%, transparent 82%, rgba(138, 112, 54, 0.18) 100%),
+    radial-gradient(ellipse at 50% 0%, var(--santo-bg-top) 0%, var(--santo-bg-mid) 52%, var(--santo-bg-deep) 100%) !important;
 }
 
-/* 3. Santos Religiosos, Obispos, Presbíteros y Confesores: Crema Monástico */
+/* 3. Santos Confesores, Religiosos, Obispos y Presbíteros: Beige Oscuro Opaco */
 #app-santoral.accar-santo-ficha.santo-tema-crema,
 #app-santoral.accar-santo-ficha.santo-tema-blanco {
-  --santo-bg-top: #faefd9;
-  --santo-bg-mid: #f0dfc0;
-  --santo-bg-deep: #e2cba1;
-  --santo-halo: rgba(232, 203, 114, 0.26);
+  --santo-bg-top: #c6b69c;
+  --santo-bg-mid: #b2a084;
+  --santo-bg-deep: #968367;
+  --santo-halo: rgba(212, 175, 55, 0.24);
   --santo-prayer-bg: linear-gradient(165deg, rgba(46, 35, 12, 0.92) 0%, rgba(7, 15, 34, 0.98) 100%);
 }
 
@@ -698,20 +702,25 @@ if (santoID) {
             const temasClaros = ["celeste", "blanco-hueso", "crema", "blanco", "gloria"];
 
             const colorRaw = sinAcentos(data.color || "blanco").trim();
-            const textoClave = `${sinAcentos(data.nombre_completo || "")} ${sinAcentos(data.patronazgo || "")}`;
+            const nombreClave = sinAcentos(data.nombre_completo || "");
+            const patronazgoClave = sinAcentos(data.patronazgo || "");
+            const textoClave = `${nombreClave} ${patronazgoClave}`;
+
+            const esSantaMujer = /\b(santa|santas|beata|beatas|sor|madre)\b/.test(nombreClave) &&
+                !/\b(san|santo|santos|beato|beatos)\b/.test(nombreClave);
 
             let temaElegido = "crema";
             if (["rojo", "verde", "morado", "negro", "realeza", "gloria", "celeste", "crema", "blanco-hueso"].includes(colorRaw)) {
                 temaElegido = colorRaw;
-            } else if (colorRaw === "hueso") {
+            } else if (colorRaw === "hueso" || colorRaw === "virgen") {
                 temaElegido = "blanco-hueso";
             } else {
-                // Cuando el color litúrgico base es blanco, distinguimos según la dignidad del santo
-                if (/\b(virgen maria|nuestra senora|madre de dios|inmaculada concepcion|asuncion de la|bienaventurada virgen|corazon inmaculado|dulce nombre de maria|santa maria la mayor)\b/.test(textoClave)) {
+                // Cuando el color litúrgico base es blanco, distinguimos según la dignidad real de la celebración
+                if (/\b(virgen maria|santisima virgen|nuestra senora|madre de dios|inmaculada concepcion|asuncion de la|presentacion de la virgen|visitacion de la virgen|natividad de la virgen|bienaventurada virgen|corazon inmaculado|dulce nombre de maria|santa maria la mayor|virgen de|virgen del)\b/.test(nombreClave)) {
                     temaElegido = "celeste";
-                } else if (/\b(jesucristo|nuestro senor|santisima trinidad|corpus christi|sagrado corazon de jesus|transfiguracion|ascension del senor|epifania|natividad del senor|bautismo del senor)\b/.test(textoClave)) {
+                } else if (/\b(jesucristo|nuestro senor|santisima trinidad|corpus christi|sagrado corazon de jesus|transfiguracion|ascension del senor|epifania|natividad del senor|bautismo del senor|sagrada familia)\b/.test(nombreClave)) {
                     temaElegido = "gloria";
-                } else if (/\b(virgen|virgenes)\b/.test(textoClave)) {
+                } else if (esSantaMujer && /\b(virgen|virgenes|monja|religiosa|abadesa|consagrada|carmelita|clarisa)\b/.test(textoClave) && !/\b(reina|viuda|esposa)\b/.test(textoClave)) {
                     temaElegido = "blanco-hueso";
                 } else {
                     temaElegido = "crema";
