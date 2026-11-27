@@ -13,7 +13,8 @@
       </div>
 
       <p class="accar-santoral-desc">
-        Explora el martirologio y acompáñate de la Iglesia triunfante en tu caminar diario hacia Cristo.
+        Explora el martirologio y acompáñate de la Iglesia triunfante<br class="accar-salto-editorial">
+        en tu caminar diario hacia Cristo.
       </p>
     </header>
 
@@ -234,6 +235,85 @@
 
 #app-santoral.accar-santoral-cal .card-mes:hover h2 {
   color: #eed076;
+}
+
+/* Salto tipográfico limpio en escritorio y fluido en móvil */
+#app-santoral.accar-santoral-cal .accar-santoral-desc {
+  text-wrap: balance;
+}
+
+@media (max-width: 640px) {
+  #app-santoral.accar-santoral-cal .accar-salto-editorial {
+    display: none;
+  }
+}
+
+/* ===== MES EN CURSO SEGÚN EL COLOR LITÚRGICO VIGENTE ===== */
+#app-santoral.accar-santoral-cal .card-mes.card-mes--actual {
+  border-width: 1.5px;
+  border-color: #e8cb72;
+}
+
+#app-santoral.accar-santoral-cal .card-mes.card-mes--actual::after {
+  border-color: rgba(255, 238, 186, 0.32);
+}
+
+#app-santoral.accar-santoral-cal .card-mes.card-mes--actual h2 {
+  color: #fff9ec;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.85);
+}
+
+/* Verde Litúrgico (Tiempo Ordinario) */
+#app-santoral.accar-santoral-cal .card-mes.card-mes--verde {
+  background: linear-gradient(165deg, rgba(18, 74, 44, 0.94) 0%, rgba(7, 30, 18, 0.97) 100%);
+  box-shadow:
+    0 18px 36px rgba(0, 0, 0, 0.65),
+    0 0 20px rgba(212, 175, 55, 0.24),
+    inset 0 1px 0 rgba(255, 238, 186, 0.24);
+}
+
+#app-santoral.accar-santoral-cal .card-mes.card-mes--verde:hover {
+  background: linear-gradient(165deg, rgba(23, 94, 56, 0.96) 0%, rgba(10, 40, 24, 0.98) 100%);
+}
+
+/* Morado Litúrgico (Adviento y Cuaresma) */
+#app-santoral.accar-santoral-cal .card-mes.card-mes--morado {
+  background: linear-gradient(165deg, rgba(76, 24, 102, 0.94) 0%, rgba(32, 9, 46, 0.97) 100%);
+  box-shadow:
+    0 18px 36px rgba(0, 0, 0, 0.65),
+    0 0 20px rgba(212, 175, 55, 0.24),
+    inset 0 1px 0 rgba(255, 238, 186, 0.24);
+}
+
+#app-santoral.accar-santoral-cal .card-mes.card-mes--morado:hover {
+  background: linear-gradient(165deg, rgba(94, 30, 124, 0.96) 0%, rgba(42, 12, 60, 0.98) 100%);
+}
+
+/* Blanco y Oro Litúrgico (Navidad, Pascua y Cristo Rey) */
+#app-santoral.accar-santoral-cal .card-mes.card-mes--blanco {
+  border-color: #f5df96;
+  background: linear-gradient(165deg, rgba(138, 102, 22, 0.92) 0%, rgba(56, 38, 6, 0.96) 100%);
+  box-shadow:
+    0 18px 36px rgba(0, 0, 0, 0.65),
+    0 0 22px rgba(232, 203, 114, 0.32),
+    inset 0 1px 0 rgba(255, 248, 220, 0.34);
+}
+
+#app-santoral.accar-santoral-cal .card-mes.card-mes--blanco:hover {
+  background: linear-gradient(165deg, rgba(158, 118, 28, 0.95) 0%, rgba(70, 48, 8, 0.98) 100%);
+}
+
+/* Rojo Litúrgico (Semana Santa y Pentecostés) */
+#app-santoral.accar-santoral-cal .card-mes.card-mes--rojo {
+  background: linear-gradient(165deg, rgba(139, 16, 28, 0.94) 0%, rgba(62, 6, 14, 0.97) 100%);
+  box-shadow:
+    0 18px 36px rgba(0, 0, 0, 0.65),
+    0 0 20px rgba(212, 175, 55, 0.28),
+    inset 0 1px 0 rgba(255, 238, 186, 0.26);
+}
+
+#app-santoral.accar-santoral-cal .card-mes.card-mes--rojo:hover {
+  background: linear-gradient(165deg, rgba(166, 20, 34, 0.96) 0%, rgba(82, 8, 18, 0.98) 100%);
 }
 
 /* ===== VISTA 2: BARRA SUPERIOR Y DÍAS DEL MES ===== */
@@ -590,6 +670,52 @@
         document.getElementById("vista-meses").classList.add("view-active");
     };
 
+    function getEndOfChristmasSeason(year) {
+        const jan6 = new Date(year, 0, 6);
+        const day = jan6.getDay();
+        const offset = day === 0 ? 7 : (7 - day);
+        return normalizeDate(addDays(jan6, offset));
+    }
+
+    function obtenerColorLiturgicoHoy() {
+        const hoy = normalizeDate(new Date());
+        const year = hoy.getFullYear();
+
+        const pascua = normalizeDate(getEasterSunday(year));
+        const miercolesCeniza = normalizeDate(addDays(pascua, -46));
+        const sabadoAntesRamos = normalizeDate(addDays(pascua, -8));
+        const domingoRamos = normalizeDate(addDays(pascua, -7));
+        const sabadoSanto = normalizeDate(addDays(pascua, -1));
+        const sabadoAntesPentecostes = normalizeDate(addDays(pascua, 48));
+        const pentecostes = normalizeDate(addDays(pascua, 49));
+
+        const inicioAdviento = getFirstSundayOfAdvent(year);
+        const nochebuena = new Date(year, 11, 24);
+        const cristoRey = normalizeDate(addDays(inicioAdviento, -7));
+
+        const navidadActual = new Date(year, 11, 25);
+        const finAnio = new Date(year, 11, 31);
+        const inicioAnio = new Date(year, 0, 1);
+        const finNavidadEnero = getEndOfChristmasSeason(year);
+
+        if ((hoy >= inicioAnio && hoy <= finNavidadEnero) || (hoy >= navidadActual && hoy <= finAnio) || hoy.getTime() === cristoRey.getTime()) {
+            return "blanco";
+        }
+        if (hoy >= miercolesCeniza && hoy <= sabadoAntesRamos) {
+            return "morado";
+        }
+        if ((hoy >= domingoRamos && hoy <= sabadoSanto) || hoy.getTime() === pentecostes.getTime()) {
+            return "rojo";
+        }
+        if (hoy >= pascua && hoy <= sabadoAntesPentecostes) {
+            return "blanco";
+        }
+        if (hoy >= inicioAdviento && hoy <= nochebuena) {
+            return "morado";
+        }
+        return "verde";
+    }
+
     setTimeout(() => {
         const contenedorMeses = document.getElementById("contenedor-meses");
         if(contenedorMeses) {
@@ -598,9 +724,14 @@
             const mesSolicitado = window.mesRetornoSantoral;
             window.mesRetornoSantoral = null; 
 
-            mesesData.forEach(mes => {
+            const mesActualIndex = new Date().getMonth();
+            const colorLiturgicoHoy = obtenerColorLiturgicoHoy();
+
+            mesesData.forEach((mes, idx) => {
                 const card = document.createElement("div");
-                card.className = "card-mes";
+                card.className = (idx === mesActualIndex)
+                    ? `card-mes card-mes--actual card-mes--${colorLiturgicoHoy}`
+                    : "card-mes";
                 card.innerHTML = `<h2>${mes.nombre}</h2>`;
                 card.onclick = () => window.mostrarDias(mes.nombre, mes.dias);
                 contenedorMeses.appendChild(card);
