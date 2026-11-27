@@ -1,871 +1,1214 @@
-<!-- ===== VISTA LIMPIA SPA: CATÁLOGO MULTIMEDIA (PELÍCULAS) ===== -->
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<!-- ===== ACCAR | CATÁLOGO MULTIMEDIA (PELÍCULAS) ===== -->
+<section id="accar-multimedia-root" class="accar-peliculas-page">
 
-<div id="accar-multimedia-root">
+  <div class="accar-peliculas-inner">
 
-    <!-- CABECERA Y BUSCADOR -->
-    <header class="accar-header-multimedia">
-        <h1>Catálogo Multimedia</h1>
-        <p>Formación, defensa y explicación de la fe católica a través del cine, series y documentales fieles al Magisterio de la Iglesia.</p>
-        
-        <div class="accar-buscador-wrap">
-            <input type="text" id="accar-buscador-input" placeholder="Buscar película, santo, Papa o lección..." autocomplete="off">
-            <button type="button" id="accar-buscador-limpiar" onclick="limpiarBusquedaMultimedia()" style="display: none;" aria-label="Limpiar búsqueda">✕</button>
-        </div>
+    <!-- CABECERA MAESTRA UNIFICADA Y BUSCADOR -->
+    <header class="accar-mm-header">
+      <div class="accar-mm-kicker">
+        <span aria-hidden="true">✠</span>
+        <span>Fides per Imaginem</span>
+        <span aria-hidden="true">✠</span>
+      </div>
+
+      <div class="accar-mm-title-wrap">
+        <h1 class="accar-mm-title">Catálogo Multimedia</h1>
+      </div>
+
+      <p class="accar-mm-desc">
+        Formación, defensa y explicación de la fe católica a través del cine,<br class="accar-salto-editorial">
+        series y documentales fieles al Magisterio de la Iglesia.
+      </p>
+
+      <div class="accar-buscador-wrap">
+        <span class="accar-buscador-icono" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="7"></circle>
+            <line x1="20" y1="20" x2="16.2" y2="16.2"></line>
+          </svg>
+        </span>
+        <input type="text" id="accar-buscador-input" placeholder="Buscar película, santo, Papa o lección..." autocomplete="off" aria-label="Buscar en el catálogo multimedia">
+        <button type="button" id="accar-buscador-limpiar" onclick="window.limpiarBusquedaMultimedia()" style="display: none;" aria-label="Limpiar búsqueda">✕</button>
+      </div>
     </header>
 
-    <!-- VISTA 1: RESULTADOS DE BÚSQUEDA -->
-    <section id="accar-vista-busqueda" class="accar-peliculas-container" style="display: none;">
-        <div class="accar-detalle-header">
-            <button onclick="limpiarBusquedaMultimedia()" class="accar-btn-volver">
-                <span>←</span> Volver a Categorías
-            </button>
-            <h2 id="accar-titulo-busqueda" class="accar-titulo-cinzel">Resultados de búsqueda</h2>
-        </div>
-        <div id="accar-grid-busqueda" class="accar-peliculas-grid"></div>
-    </section>
-
-    <!-- VISTA 2: 9 CATEGORÍAS PRINCIPALES -->
-    <section id="accar-seccion-madre" class="accar-peliculas-container">
-        <div class="accar-peliculas-grid">
-
-            <div class="accar-categoria-card" onclick="abrirCategoria('dios')">
-                <div class="accar-img-wrap">
-                    <img src="/assets/img/cat_madre_dios_eucaristia.jpg" alt="Nuestro Señor Jesucristo" loading="lazy">
-                    <div class="accar-overlay"><span class="accar-btn-explorar">Explorar</span></div>
-                </div>
-                <div class="accar-info"><h3>Nuestro Señor Jesucristo</h3></div>
-            </div>
-
-            <div class="accar-categoria-card" onclick="abrirCategoria('maria')">
-                <div class="accar-img-wrap">
-                    <img src="/assets/img/cat_madre_santa_maria.jpg" alt="Santa María Madre de Dios" loading="lazy">
-                    <div class="accar-overlay"><span class="accar-btn-explorar">Explorar</span></div>
-                </div>
-                <div class="accar-info"><h3>Santa María Madre de Dios</h3></div>
-            </div>
-
-            <div class="accar-categoria-card" onclick="abrirCategoria('santos')">
-                <div class="accar-img-wrap">
-                    <img src="/assets/img/cat_madre_vida_santos.jpg" alt="Vida de los Santos" loading="lazy">
-                    <div class="accar-overlay"><span class="accar-btn-explorar">Explorar</span></div>
-                </div>
-                <div class="accar-info"><h3>Vida de los Santos</h3></div>
-            </div>
-
-            <div class="accar-categoria-card" onclick="abrirCategoria('iglesia')">
-                <div class="accar-img-wrap">
-                    <img src="/assets/img/cat_madre_iglesia_fe.jpg" alt="Iglesia, Fe y Vocación" loading="lazy">
-                    <div class="accar-overlay"><span class="accar-btn-explorar">Explorar</span></div>
-                </div>
-                <div class="accar-info"><h3>Iglesia, Fe y Vocación</h3></div>
-            </div>
-
-            <div class="accar-categoria-card" onclick="abrirCategoria('biblia')">
-                <div class="accar-img-wrap">
-                    <img src="/assets/img/cat_madre_personajes_biblia.jpg" alt="Personajes de la Biblia" loading="lazy">
-                    <div class="accar-overlay"><span class="accar-btn-explorar">Explorar</span></div>
-                </div>
-                <div class="accar-info"><h3>Personajes de la Biblia</h3></div>
-            </div>
-
-            <div class="accar-categoria-card" onclick="abrirCategoria('documentales')">
-                <div class="accar-img-wrap">
-                    <img src="/assets/img/cat_madre_series_documentales.jpg" alt="Series y Documentales" loading="lazy">
-                    <div class="accar-overlay"><span class="accar-btn-explorar">Explorar</span></div>
-                </div>
-                <div class="accar-info"><h3>Series y Documentales</h3></div>
-            </div>
-
-            <div class="accar-categoria-card" onclick="abrirCategoria('papas')">
-                <div class="accar-img-wrap">
-                    <img src="/assets/img/cat_madre_sucesores_pedro.jpg" alt="Sucesores de Pedro" loading="lazy">
-                    <div class="accar-overlay"><span class="accar-btn-explorar">Explorar</span></div>
-                </div>
-                <div class="accar-info"><h3>Sucesores de Pedro (Papas)</h3></div>
-            </div>
-
-            <div class="accar-categoria-card" onclick="abrirCategoria('catequesis')">
-                <div class="accar-img-wrap">
-                    <img src="/assets/img/cat_madre_catequesis_respuestas.jpg" alt="Catequesis Respuestas" loading="lazy">
-                    <div class="accar-overlay"><span class="accar-btn-explorar">Explorar</span></div>
-                </div>
-                <div class="accar-info"><h3>Catequesis Respuestas</h3></div>
-            </div>
-
-            <div class="accar-categoria-card" onclick="abrirCategoria('apologetica')">
-                <div class="accar-img-wrap">
-                    <img src="/assets/img/cat_madre_apologetica_catolica.jpg" alt="Apologética Católica" loading="lazy">
-                    <div class="accar-overlay"><span class="accar-btn-explorar">Explorar</span></div>
-                </div>
-                <div class="accar-info"><h3>Apologética Católica</h3></div>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- VISTA 3: DETALLE DE CATEGORÍA -->
-    <section id="accar-vista-detalle" class="accar-peliculas-container" style="display: none;">
-        <div class="accar-detalle-header">
-            <button onclick="volverAlCatalogo()" class="accar-btn-volver">
-                <span>←</span> Volver a Categorías
-            </button>
-            <h2 id="accar-titulo-categoria" class="accar-titulo-cinzel">Categoría</h2>
+    <!-- =====================================================
+         VISTA 1: RESULTADOS DE BÚSQUEDA
+    ====================================================== -->
+    <div id="accar-vista-busqueda" class="accar-peliculas-container" style="display: none;">
+      <div class="accar-detalle-header">
+        <div class="accar-detalle-nav">
+          <button type="button" onclick="window.limpiarBusquedaMultimedia()" class="accar-btn-volver">
+            ← Volver a Categorías
+          </button>
         </div>
 
-        <div id="accar-grid-peliculas" class="accar-peliculas-grid"></div>
-    </section>
-
-    <!-- MODAL MODO CINE MEJORADO -->
-    <div id="accar-lightbox-teatro" class="accar-lightbox" style="display: none;" aria-hidden="true">
-        <div class="accar-lightbox-backdrop" onclick="cerrarTeatro()"></div>
-        
-        <div class="accar-teatro-contenedor">
-            <button class="accar-teatro-cerrar" onclick="cerrarTeatro()" aria-label="Cerrar reproductor">✕</button>
-            
-            <div class="accar-teatro-estructura">
-                <div class="accar-teatro-pantalla">
-                    <div class="accar-video-frame-wrapper">
-                        <iframe id="accar-reproductor-iframe" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen></iframe>
-                    </div>
-                </div>
-                
-                <div class="accar-teatro-ficha">
-                    <div class="accar-ficha-badges">
-                        <span id="accar-ficha-ano" class="accar-badge-ano">Cine</span>
-                        <span id="accar-ficha-cat" class="accar-badge-cat">ACCAR</span>
-                    </div>
-                    <h3 id="accar-ficha-titulo">Título de la Película</h3>
-                    <div class="accar-ficha-separador"></div>
-                    <div class="accar-ficha-scroll">
-                        <p id="accar-ficha-sinopsis">Sinopsis descriptiva...</p>
-                        <div id="accar-ficha-playlist" class="accar-playlist-box" style="display: none;"></div>
-                    </div>
-
-                    <a id="accar-enlace-externo" href="#" target="_blank" rel="noopener noreferrer" class="accar-btn-externo">
-                        Abrir en pestaña externa ↗
-                    </a>
-                </div>
-            </div>
+        <div class="accar-sub-title-wrap">
+          <h2 id="accar-titulo-busqueda" class="accar-sub-title">Resultados de búsqueda</h2>
         </div>
+        <span id="accar-contador-busqueda" class="accar-mm-contador"></span>
+      </div>
+
+      <div id="accar-grid-busqueda" class="accar-peliculas-grid"></div>
     </div>
 
-</div>
+    <!-- =====================================================
+         VISTA 2: 9 CATEGORÍAS PRINCIPALES (3x3)
+    ====================================================== -->
+    <div id="accar-seccion-madre" class="accar-peliculas-container">
+      <div class="accar-peliculas-grid">
+
+        <article class="accar-categoria-card" onclick="window.abrirCategoria('dios')" role="button" tabindex="0">
+          <div class="accar-img-wrap">
+            <img src="/assets/img/cat_madre_dios_eucaristia.jpg" alt="Nuestro Señor Jesucristo" loading="lazy">
+            <div class="accar-overlay"><span class="accar-btn-explorar">Explorar →</span></div>
+          </div>
+          <div class="accar-info"><h3>Nuestro Señor Jesucristo</h3></div>
+        </article>
+
+        <article class="accar-categoria-card" onclick="window.abrirCategoria('maria')" role="button" tabindex="0">
+          <div class="accar-img-wrap">
+            <img src="/assets/img/cat_madre_santa_maria.jpg" alt="Santa María Madre de Dios" loading="lazy">
+            <div class="accar-overlay"><span class="accar-btn-explorar">Explorar →</span></div>
+          </div>
+          <div class="accar-info"><h3>Santa María Madre de Dios</h3></div>
+        </article>
+
+        <article class="accar-categoria-card" onclick="window.abrirCategoria('santos')" role="button" tabindex="0">
+          <div class="accar-img-wrap">
+            <img src="/assets/img/cat_madre_vida_santos.jpg" alt="Vida de los Santos" loading="lazy">
+            <div class="accar-overlay"><span class="accar-btn-explorar">Explorar →</span></div>
+          </div>
+          <div class="accar-info"><h3>Vida de los Santos</h3></div>
+        </article>
+
+        <article class="accar-categoria-card" onclick="window.abrirCategoria('iglesia')" role="button" tabindex="0">
+          <div class="accar-img-wrap">
+            <img src="/assets/img/cat_madre_iglesia_fe.jpg" alt="Iglesia, Fe y Vocación" loading="lazy">
+            <div class="accar-overlay"><span class="accar-btn-explorar">Explorar →</span></div>
+          </div>
+          <div class="accar-info"><h3>Iglesia, Fe y Vocación</h3></div>
+        </article>
+
+        <article class="accar-categoria-card" onclick="window.abrirCategoria('biblia')" role="button" tabindex="0">
+          <div class="accar-img-wrap">
+            <img src="/assets/img/cat_madre_personajes_biblia.jpg" alt="Personajes de la Biblia" loading="lazy">
+            <div class="accar-overlay"><span class="accar-btn-explorar">Explorar →</span></div>
+          </div>
+          <div class="accar-info"><h3>Personajes de la Biblia</h3></div>
+        </article>
+
+        <article class="accar-categoria-card" onclick="window.abrirCategoria('documentales')" role="button" tabindex="0">
+          <div class="accar-img-wrap">
+            <img src="/assets/img/cat_madre_series_documentales.jpg" alt="Series y Documentales" loading="lazy">
+            <div class="accar-overlay"><span class="accar-btn-explorar">Explorar →</span></div>
+          </div>
+          <div class="accar-info"><h3>Series y Documentales</h3></div>
+        </article>
+
+        <article class="accar-categoria-card" onclick="window.abrirCategoria('papas')" role="button" tabindex="0">
+          <div class="accar-img-wrap">
+            <img src="/assets/img/cat_madre_sucesores_pedro.jpg" alt="Sucesores de Pedro" loading="lazy">
+            <div class="accar-overlay"><span class="accar-btn-explorar">Explorar →</span></div>
+          </div>
+          <div class="accar-info"><h3>Sucesores de Pedro (Papas)</h3></div>
+        </article>
+
+        <article class="accar-categoria-card" onclick="window.abrirCategoria('catequesis')" role="button" tabindex="0">
+          <div class="accar-img-wrap">
+            <img src="/assets/img/cat_madre_catequesis_respuestas.jpg" alt="Catequesis Respuestas" loading="lazy">
+            <div class="accar-overlay"><span class="accar-btn-explorar">Explorar →</span></div>
+          </div>
+          <div class="accar-info"><h3>Catequesis Respuestas</h3></div>
+        </article>
+
+        <article class="accar-categoria-card" onclick="window.abrirCategoria('apologetica')" role="button" tabindex="0">
+          <div class="accar-img-wrap">
+            <img src="/assets/img/cat_madre_apologetica_catolica.jpg" alt="Apologética Católica" loading="lazy">
+            <div class="accar-overlay"><span class="accar-btn-explorar">Explorar →</span></div>
+          </div>
+          <div class="accar-info"><h3>Apologética Católica</h3></div>
+        </article>
+
+      </div>
+    </div>
+
+    <!-- =====================================================
+         VISTA 3: DETALLE DE CATEGORÍA
+    ====================================================== -->
+    <div id="accar-vista-detalle" class="accar-peliculas-container" style="display: none;">
+      <div class="accar-detalle-header">
+        <div class="accar-detalle-nav">
+          <button type="button" onclick="window.volverAlCatalogo()" class="accar-btn-volver">
+            ← Volver a Categorías
+          </button>
+        </div>
+
+        <div class="accar-sub-title-wrap">
+          <h2 id="accar-titulo-categoria" class="accar-sub-title">Categoría</h2>
+        </div>
+        <span id="accar-contador-categoria" class="accar-mm-contador"></span>
+      </div>
+
+      <div id="accar-grid-peliculas" class="accar-peliculas-grid"></div>
+    </div>
+
+  </div>
+
+  <!-- =====================================================
+       MODAL MODO CINE SACRO
+  ====================================================== -->
+  <div id="accar-lightbox-teatro" class="accar-lightbox" style="display: none;" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="accar-ficha-titulo">
+    <div class="accar-lightbox-backdrop" onclick="window.cerrarTeatro()"></div>
+
+    <div class="accar-teatro-contenedor">
+      <button type="button" class="accar-teatro-cerrar" onclick="window.cerrarTeatro()" aria-label="Cerrar reproductor">✕</button>
+
+      <div class="accar-teatro-estructura">
+        <div class="accar-teatro-pantalla">
+          <div class="accar-video-frame-wrapper">
+            <iframe id="accar-reproductor-iframe" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen></iframe>
+          </div>
+        </div>
+
+        <div class="accar-teatro-ficha">
+          <div class="accar-ficha-badges">
+            <span id="accar-ficha-ano" class="accar-badge-ano">Cine</span>
+            <span id="accar-ficha-cat" class="accar-badge-cat">ACCAR</span>
+          </div>
+
+          <h3 id="accar-ficha-titulo">Título de la Película</h3>
+          <div class="accar-ficha-separador" aria-hidden="true"></div>
+
+          <div class="accar-ficha-scroll">
+            <p id="accar-ficha-sinopsis" class="accar-ficha-sinopsis">Sinopsis descriptiva...</p>
+            <div id="accar-ficha-playlist" class="accar-playlist-box" style="display: none;"></div>
+          </div>
+
+          <a id="accar-enlace-externo" href="#" target="_blank" rel="noopener noreferrer" class="accar-btn-externo">
+            <span>Abrir en pestaña externa</span>
+            <span aria-hidden="true">↗</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>
 
 <style>
-    #accar-multimedia-root {
-        --mm-azul: #0B1B3D;
-        --mm-azul-oscuro: #060e20;
-        --mm-alabastro: #fdfbf7;
-        --mm-oro: #d4af37;
-        --mm-oro-claro: #e4c76a;
-        font-family: 'Lora', Georgia, serif;
-        width: 100%;
-    }
+#accar-multimedia-root,
+#accar-multimedia-root * {
+  box-sizing: border-box;
+}
 
-    /* ===== ENCABEZADO Y BUSCADOR ===== */
-    .accar-header-multimedia {
-        text-align: center;
-        padding: 55px 20px 45px;
-        background: linear-gradient(to bottom, #061024, var(--mm-azul));
-        color: var(--mm-alabastro);
-        border-bottom: 2px solid var(--mm-oro);
-    }
+.accar-peliculas-page {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  min-height: 100vh;
+  padding: 86px 20px 132px;
+  color: #f8efd3;
+  font-family: Georgia, "Times New Roman", serif;
+  border-top: 1px solid rgba(212, 175, 55, 0.24);
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(16, 42, 86, 0.54) 0%, rgba(6, 16, 36, 0.90) 44%, #030816 100%);
+  box-shadow: inset 0 24px 52px rgba(0, 0, 0, 0.55);
+}
 
-    .accar-header-multimedia h1 {
-        font-family: 'Cinzel', serif;
-        font-size: clamp(30px, 5vw, 46px);
-        margin: 0 0 14px;
-        color: var(--mm-oro);
-        text-shadow: 0 4px 12px rgba(0,0,0,0.55);
-        letter-spacing: 1px;
-    }
+/* Marca de agua vectorial exclusiva de Catálogo Multimedia */
+.accar-peliculas-page::before {
+  content: "";
+  position: absolute;
+  top: 95px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(1120px, 96vw);
+  height: min(1120px, 96vw);
+  background: url("/assets/img/peliculas-watermark.png") center top / contain no-repeat;
+  opacity: 0.085;
+  pointer-events: none;
+  z-index: 0;
+}
 
-    .accar-header-multimedia p {
-        font-size: 17px;
-        max-width: 720px;
-        margin: 0 auto 28px;
-        line-height: 1.65;
-        color: #d8dee9;
-    }
+.accar-peliculas-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 1120px;
+  margin: 0 auto;
+}
 
-    .accar-buscador-wrap {
-        position: relative;
-        max-width: 560px;
-        margin: 0 auto;
-    }
+/* ===== CABECERA MAESTRA UNIFICADA ===== */
+.accar-mm-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto 58px;
+}
 
-    #accar-buscador-input {
-        width: 100%;
-        padding: 14px 44px 14px 22px;
-        border-radius: 999px;
-        border: 1px solid rgba(212, 175, 55, 0.55);
-        background: rgba(6, 14, 32, 0.85);
-        color: #fdfbf7;
-        font-family: inherit;
-        font-size: 15px;
-        outline: none;
-        box-shadow: 0 8px 20px rgba(0,0,0,0.35);
-        transition: all 0.25s ease;
-    }
+.accar-mm-kicker {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 6px 18px;
+  margin-bottom: 18px;
+  border-radius: 999px;
+  border: 1px solid rgba(212, 175, 55, 0.65);
+  background: rgba(3, 7, 54, 0.82);
+  color: #e8cb72;
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.42);
+}
 
-    #accar-buscador-input::placeholder {
-        color: rgba(253, 251, 247, 0.55);
-    }
+.accar-mm-title-wrap,
+.accar-sub-title-wrap {
+  display: block;
+  width: fit-content;
+  position: relative;
+  padding-bottom: 14px;
+  margin: 0 auto 20px;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.45);
+}
 
-    #accar-buscador-input:focus {
-        border-color: var(--mm-oro-claro);
-        box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2), 0 10px 25px rgba(0,0,0,0.45);
-    }
+.accar-mm-title-wrap::after,
+.accar-sub-title-wrap::after {
+  content: "";
+  position: absolute;
+  bottom: -1.5px;
+  left: 24%;
+  right: 24%;
+  height: 2.5px;
+  border-radius: 2px;
+  background: #d4af37;
+  box-shadow: 0 0 12px rgba(212, 175, 55, 0.85);
+}
 
-    #accar-buscador-limpiar {
-        position: absolute;
-        right: 12px;
-        top: 50%;
-        transform: translateY(-50%);
-        background: rgba(212, 175, 55, 0.2);
-        border: none;
-        color: var(--mm-oro-claro);
-        width: 28px;
-        height: 28px;
-        border-radius: 50%;
-        cursor: pointer;
-        font-size: 13px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: background 0.2s ease;
-    }
+.accar-mm-title {
+  margin: 0;
+  font-size: 2.68rem;
+  font-weight: 700;
+  line-height: 1.15;
+  color: #fff9ec;
+  letter-spacing: 0.02em;
+  text-shadow: 0 4px 18px rgba(0, 0, 0, 0.82), 0 0 16px rgba(212, 175, 55, 0.18);
+}
 
-    #accar-buscador-limpiar:hover {
-        background: var(--mm-oro);
-        color: var(--mm-azul-oscuro);
-    }
+.accar-mm-desc {
+  margin: 0 auto 30px;
+  max-width: 700px;
+  font-size: 1.05rem;
+  line-height: 1.72;
+  color: #eae0c8;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+  text-wrap: balance;
+}
 
-    /* ===== CONTENEDOR Y CUADRÍCULA ===== */
-    .accar-peliculas-container {
-        padding: 55px 20px 90px;
-        background-color: var(--mm-alabastro);
-        min-height: 55vh;
-    }
+/* ===== BUSCADOR INTEGRADO EN PENUMBRA SACRA ===== */
+.accar-buscador-wrap {
+  position: relative;
+  width: 100%;
+  max-width: 560px;
+  margin: 0 auto;
+}
 
-    .accar-peliculas-grid {
-        max-width: 1250px;
-        margin: 0 auto;
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
-        gap: 36px;
-    }
+.accar-buscador-icono {
+  position: absolute;
+  left: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 18px;
+  height: 18px;
+  color: #e8cb72;
+  pointer-events: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
 
-    .accar-detalle-header {
-        max-width: 1250px;
-        margin: 0 auto 38px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 16px;
-    }
+.accar-buscador-icono svg {
+  width: 100%;
+  height: 100%;
+}
 
-    .accar-titulo-cinzel {
-        font-family: 'Cinzel', serif;
-        font-size: clamp(24px, 3.5vw, 34px);
-        color: var(--mm-azul);
-        margin: 0;
-        text-align: center;
-        border-bottom: 2px solid var(--mm-oro);
-        padding-bottom: 10px;
-    }
+#accar-buscador-input {
+  width: 100%;
+  padding: 14px 46px 14px 46px;
+  border-radius: 999px;
+  border: 1px solid rgba(212, 175, 55, 0.48);
+  background: rgba(4, 11, 30, 0.86);
+  color: #fff9ec;
+  font-family: inherit;
+  font-size: 0.96rem;
+  outline: none;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.48), inset 0 1px 0 rgba(255, 238, 186, 0.10);
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+}
 
-    .accar-btn-volver {
-        align-self: flex-start;
-        background: var(--mm-azul);
-        border: 1px solid var(--mm-oro);
-        color: #fdfbf7;
-        padding: 10px 18px;
-        border-radius: 8px;
-        cursor: pointer;
-        font-family: 'Cinzel', serif;
-        font-size: 0.85rem;
-        font-weight: 700;
-        letter-spacing: 0.5px;
-        transition: all 0.25s ease;
-        box-shadow: 0 4px 12px rgba(11, 27, 61, 0.2);
-    }
+#accar-buscador-input::placeholder {
+  color: rgba(234, 224, 200, 0.48);
+}
 
-    .accar-btn-volver:hover {
-        background: var(--mm-oro);
-        color: var(--mm-azul-oscuro);
-        transform: translateY(-2px);
-    }
+#accar-buscador-input:focus {
+  border-color: #eed076;
+  background: rgba(6, 15, 40, 0.95);
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.18), 0 14px 32px rgba(0, 0, 0, 0.62);
+}
 
-    /* ===== TARJETAS ===== */
-    .accar-categoria-card {
-        background: #ffffff;
-        border: 1px solid var(--mm-oro);
-        border-radius: 12px;
-        overflow: hidden;
-        box-shadow: 0 10px 25px rgba(0,0,0,0.08);
-        transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
-        cursor: pointer;
-        display: flex;
-        flex-direction: column;
-    }
+#accar-buscador-limpiar {
+  position: absolute;
+  right: 11px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid rgba(212, 175, 55, 0.45);
+  background: rgba(212, 175, 55, 0.16);
+  color: #eed076;
+  cursor: pointer;
+  font-size: 0.82rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.22s ease;
+}
 
-    .accar-categoria-card:hover {
-        transform: translateY(-8px);
-        box-shadow: 0 20px 40px rgba(11,27,61,0.2), 0 0 18px rgba(212,175,55,0.28);
-        border-color: var(--mm-oro-claro);
-    }
+#accar-buscador-limpiar:hover {
+  background: #d4af37;
+  border-color: #eed076;
+  color: #050b1a;
+}
 
-    .accar-img-wrap {
-        position: relative;
-        width: 100%;
-        aspect-ratio: 2 / 3;
-        background-color: var(--mm-azul);
-        overflow: hidden;
-    }
+/* ===== CONTENEDOR Y CABECERA INTERIOR ===== */
+.accar-peliculas-container {
+  width: 100%;
+}
 
-    .accar-img-wrap img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        display: block;
-        transition: transform 0.55s ease;
-    }
+.accar-detalle-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 42px;
+}
 
-    .accar-categoria-card:hover .accar-img-wrap img {
-        transform: scale(1.07);
-    }
+.accar-detalle-nav {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 22px;
+}
 
-    .accar-overlay {
-        position: absolute;
-        inset: 0;
-        background: rgba(11, 27, 61, 0.72);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        opacity: 0;
-        transition: opacity 0.35s ease;
-    }
+.accar-btn-volver {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 22px;
+  border-radius: 999px;
+  border: 1px solid rgba(212, 175, 55, 0.56);
+  background: rgba(3, 8, 42, 0.84);
+  color: #e8cb72;
+  font-family: inherit;
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.45);
+  transition: all 0.25s ease;
+}
 
-    .accar-categoria-card:hover .accar-overlay {
-        opacity: 1;
-    }
+.accar-btn-volver:hover {
+  background: rgba(212, 175, 55, 0.18);
+  border-color: #eed076;
+  color: #fff9ec;
+  transform: translateX(-3px);
+}
 
-    .accar-btn-explorar {
-        padding: 13px 30px;
-        background: var(--mm-oro);
-        color: var(--mm-azul);
-        font-family: 'Cinzel', serif;
-        font-weight: 700;
-        font-size: 13px;
-        text-transform: uppercase;
-        letter-spacing: 1.5px;
-        border-radius: 4px;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.45);
-        pointer-events: none;
-    }
+.accar-sub-title {
+  margin: 0;
+  font-size: 2.05rem;
+  font-weight: 700;
+  line-height: 1.2;
+  color: #fff9ec;
+  text-shadow: 0 3px 14px rgba(0, 0, 0, 0.80);
+}
 
-    .accar-info {
-        padding: 18px 16px;
-        text-align: center;
-        background: linear-gradient(to bottom, #ffffff, #f8f6f0);
-        border-top: 2px solid var(--mm-oro);
-        flex-grow: 1;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
+.accar-mm-contador {
+  display: inline-block;
+  margin-top: -6px;
+  padding: 4px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(212, 175, 55, 0.34);
+  background: rgba(5, 13, 34, 0.72);
+  color: #e8cb72;
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
 
-    .accar-info h3 {
-        font-family: 'Cinzel', serif;
-        font-size: 18px;
-        line-height: 1.35;
-        color: var(--mm-azul);
-        margin: 0;
-        font-weight: 700;
-    }
+.accar-mm-contador:empty {
+  display: none;
+}
 
-    /* ===== LIGHTBOX MODO CINE MEJORADO ===== */
-    .accar-lightbox {
-        position: fixed;
-        inset: 0;
-        z-index: 200500;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 18px;
-    }
+/* ===== CUADRÍCULA DE GALERÍA CINEMATOGRÁFICA ===== */
+.accar-peliculas-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  align-items: stretch;
+}
 
-    .accar-lightbox-backdrop {
-        position: absolute;
-        inset: 0;
-        background: rgba(4, 10, 22, 0.9);
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
-    }
+.accar-categoria-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  border-radius: 20px;
+  border: 1px solid rgba(212, 175, 55, 0.48);
+  background: linear-gradient(180deg, rgba(7, 19, 42, 0.88) 0%, rgba(3, 8, 22, 0.96) 100%);
+  box-shadow:
+    0 20px 44px rgba(0, 0, 0, 0.66),
+    inset 0 1px 0 rgba(255, 238, 186, 0.15);
+  overflow: hidden;
+  transition: transform 0.34s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.34s ease, box-shadow 0.34s ease;
+}
 
-    .accar-teatro-contenedor {
-        position: relative;
-        width: 100%;
-        max-width: 1180px;
-        background: #060e20;
-        border: 1px solid rgba(212, 175, 55, 0.45);
-        border-radius: 18px;
-        box-shadow: 0 30px 70px rgba(0,0,0,0.85), 0 0 30px rgba(212, 175, 55, 0.14);
-        overflow: hidden;
-        z-index: 2;
-        animation: accarTeatroShow 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-    }
+.accar-categoria-card:hover {
+  transform: translateY(-8px);
+  border-color: #eed076;
+  box-shadow:
+    0 28px 58px rgba(0, 0, 0, 0.84),
+    0 0 24px rgba(212, 175, 55, 0.22);
+}
 
-    @keyframes accarTeatroShow {
-        from { opacity: 0; transform: scale(0.96) translateY(12px); }
-        to { opacity: 1; transform: scale(1) translateY(0); }
-    }
+.accar-img-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  background: #040b1c;
+  overflow: hidden;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.38);
+}
 
-    .accar-teatro-cerrar {
-        position: absolute;
-        top: 14px;
-        right: 14px;
-        background: rgba(6, 14, 32, 0.85);
-        border: 1px solid rgba(212, 175, 55, 0.5);
-        color: #fdfbf7;
-        width: 38px;
-        height: 38px;
-        border-radius: 50%;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 1rem;
-        z-index: 15;
-        transition: all 0.2s ease;
-    }
+.accar-img-wrap img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.52s cubic-bezier(0.22, 1, 0.36, 1);
+}
 
-    .accar-teatro-cerrar:hover {
-        background: #d4af37;
-        border-color: #d4af37;
-        color: #060e20;
-        transform: rotate(90deg);
-    }
+.accar-categoria-card:hover .accar-img-wrap img {
+  transform: scale(1.06);
+}
 
-    .accar-teatro-estructura {
-        display: grid;
-        grid-template-columns: 2.1fr 1fr;
-        min-height: 460px;
-    }
+.accar-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(4, 11, 28, 0.38) 0%, rgba(4, 11, 28, 0.78) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.32s ease;
+}
 
-    .accar-teatro-pantalla {
-        background: #000000;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        position: relative;
-        box-shadow: inset -1px 0 0 rgba(212, 175, 55, 0.2);
-    }
+.accar-categoria-card:hover .accar-overlay {
+  opacity: 1;
+}
 
-    .accar-video-frame-wrapper {
-        position: relative;
-        width: 100%;
-        padding-bottom: 56.25%;
-        height: 0;
-    }
+.accar-btn-explorar {
+  padding: 11px 24px;
+  border-radius: 999px;
+  border: 1px solid #f0d680;
+  background: linear-gradient(180deg, rgba(212, 175, 55, 0.34) 0%, rgba(120, 88, 16, 0.38) 100%);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  color: #fff9ec;
+  font-size: 0.76rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.62);
+  pointer-events: none;
+}
 
-    .accar-video-frame-wrapper iframe {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        border: 0;
-    }
+.accar-info {
+  position: relative;
+  padding: 18px 18px 20px;
+  text-align: center;
+  background: linear-gradient(180deg, rgba(7, 19, 42, 0.90) 0%, rgba(3, 8, 22, 0.98) 100%);
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
 
-    .accar-teatro-ficha {
-        padding: 36px 28px 28px;
-        display: flex;
-        flex-direction: column;
-        background: linear-gradient(155deg, #0B1B3D 0%, #060e20 100%);
-        max-height: 82vh;
-    }
+.accar-info h3 {
+  margin: 0;
+  font-size: 1.05rem;
+  line-height: 1.38;
+  color: #f8efd3;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.72);
+  transition: color 0.25s ease;
+}
 
-    .accar-ficha-badges {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
-        margin-bottom: 14px;
-        padding-right: 36px;
-    }
+.accar-categoria-card:hover .accar-info h3 {
+  color: #eed076;
+}
 
-    .accar-badge-ano {
-        background: rgba(212, 175, 55, 0.16);
-        border: 1px solid rgba(212, 175, 55, 0.45);
-        color: #e4c76a;
-        padding: 4px 10px;
-        border-radius: 6px;
-        font-size: 0.78rem;
-        font-weight: 700;
-        letter-spacing: 1px;
-        text-transform: uppercase;
-    }
+.accar-mm-vacio {
+  grid-column: 1 / -1;
+  padding: 46px 24px;
+  border-radius: 20px;
+  border: 1px solid rgba(212, 175, 55, 0.32);
+  background: rgba(5, 13, 34, 0.76);
+  text-align: center;
+  font-style: italic;
+  font-size: 1.04rem;
+  color: #e6dbc0;
+  margin: 0;
+}
 
-    .accar-badge-cat {
-        background: rgba(255, 255, 255, 0.06);
-        border: 1px solid rgba(255, 255, 255, 0.15);
-        color: #d8dee9;
-        padding: 4px 10px;
-        border-radius: 6px;
-        font-size: 0.75rem;
-        letter-spacing: 0.5px;
-    }
+/* ===== MODAL MODO CINE SACRO ===== */
+.accar-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 200500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
 
-    .accar-teatro-ficha h3 {
-        font-family: 'Cinzel', serif;
-        color: #e4c76a;
-        font-size: 1.45rem;
-        margin: 0 0 14px;
-        line-height: 1.3;
-    }
+.accar-lightbox-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(2, 6, 16, 0.90);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
 
-    .accar-ficha-separador {
-        width: 44px;
-        height: 2px;
-        background: #d4af37;
-        margin-bottom: 16px;
-        flex-shrink: 0;
-    }
+.accar-teatro-contenedor {
+  position: relative;
+  width: 100%;
+  max-width: 1180px;
+  border-radius: 22px;
+  border: 1px solid rgba(212, 175, 55, 0.56);
+  background: linear-gradient(180deg, #07132a 0%, #030816 100%);
+  box-shadow:
+    0 34px 78px rgba(0, 0, 0, 0.88),
+    0 0 32px rgba(212, 175, 55, 0.16);
+  overflow: hidden;
+  z-index: 2;
+  animation: accarTeatroShow 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+}
 
-    .accar-ficha-scroll {
-        overflow-y: auto;
-        padding-right: 6px;
-        margin-bottom: 18px;
-        flex: 1;
-    }
+.accar-teatro-contenedor::after {
+  content: "";
+  position: absolute;
+  inset: 7px;
+  border: 1px solid rgba(212, 175, 55, 0.16);
+  border-radius: 16px;
+  pointer-events: none;
+  z-index: 4;
+}
 
-    .accar-ficha-scroll::-webkit-scrollbar {
-        width: 5px;
-    }
+@keyframes accarTeatroShow {
+  from { opacity: 0; transform: scale(0.96) translateY(10px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
 
-    .accar-ficha-scroll::-webkit-scrollbar-thumb {
-        background: rgba(212, 175, 55, 0.45);
-        border-radius: 8px;
-    }
+.accar-teatro-cerrar {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1px solid rgba(212, 175, 55, 0.55);
+  background: rgba(4, 11, 28, 0.90);
+  color: #eed076;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.98rem;
+  z-index: 15;
+  transition: all 0.24s ease;
+}
 
-    .accar-ficha-sinopsis {
-        color: #fdfbf7;
-        font-size: 0.96rem;
-        line-height: 1.7;
-        opacity: 0.9;
-        margin: 0;
-    }
+.accar-teatro-cerrar:hover {
+  background: #d4af37;
+  border-color: #fff3c4;
+  color: #050b1a;
+  transform: rotate(90deg);
+}
 
-    .accar-playlist-box {
-        margin-top: 18px;
-        display: flex;
-        flex-direction: column;
-        gap: 7px;
-    }
+.accar-teatro-estructura {
+  display: grid;
+  grid-template-columns: 2.05fr 1fr;
+  min-height: 470px;
+}
 
-    .accar-btn-playlist {
-        background: rgba(255, 255, 255, 0.05);
-        border: 1px solid rgba(255, 255, 255, 0.12);
-        color: #fdfbf7;
-        padding: 9px 12px;
-        text-align: left;
-        border-radius: 6px;
-        cursor: pointer;
-        font-size: 0.85rem;
-        transition: all 0.2s ease;
-        font-family: inherit;
-    }
+.accar-teatro-pantalla {
+  background: #000000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  border-right: 1px solid rgba(212, 175, 55, 0.26);
+}
 
-    .accar-btn-playlist:hover {
-        background: rgba(212, 175, 55, 0.16);
-        border-color: rgba(212, 175, 55, 0.45);
-    }
+.accar-video-frame-wrapper {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%;
+  height: 0;
+}
 
-    .accar-btn-playlist.activo {
-        background: rgba(212, 175, 55, 0.24);
-        border-color: #d4af37;
-        color: #e4c76a;
-        font-weight: 700;
-    }
+.accar-video-frame-wrapper iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
 
-    .accar-btn-externo {
-        display: block;
-        color: #060e20;
-        background: linear-gradient(135deg, #e4c76a 0%, #d4af37 100%);
-        text-decoration: none;
-        font-family: 'Cinzel', serif;
-        font-size: 0.82rem;
-        font-weight: 700;
-        letter-spacing: 0.8px;
-        text-transform: uppercase;
-        padding: 11px 14px;
-        border-radius: 8px;
-        text-align: center;
-        transition: all 0.25s ease;
-        margin-top: auto;
-        flex-shrink: 0;
-    }
+.accar-teatro-ficha {
+  position: relative;
+  z-index: 3;
+  padding: 34px 28px 28px;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  background:
+    radial-gradient(circle at 80% 0%, rgba(212, 175, 55, 0.10) 0%, transparent 56%),
+    linear-gradient(165deg, rgba(10, 25, 54, 0.96) 0%, rgba(3, 8, 22, 0.98) 100%);
+  max-height: 84vh;
+}
 
-    .accar-btn-externo:hover {
-        filter: brightness(1.08);
-        transform: translateY(-2px);
-        box-shadow: 0 6px 18px rgba(212, 175, 55, 0.3);
-    }
+.accar-ficha-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 14px;
+  padding-right: 40px;
+}
 
-    @media (max-width: 1100px) {
-        .accar-lightbox {
-            padding: 10px;
-        }
-        .accar-teatro-contenedor {
-            max-height: 94vh;
-            overflow-y: auto;
-        }
-        .accar-teatro-estructura {
-            grid-template-columns: 1fr;
-            min-height: auto;
-        }
-        .accar-teatro-pantalla {
-            width: 100%;
-            box-shadow: none;
-        }
-        .accar-teatro-ficha {
-            padding: 22px 20px;
-            max-height: none;
-        }
-        .accar-teatro-ficha h3 {
-            font-size: 1.25rem;
-        }
-    }
+.accar-badge-ano {
+  padding: 4px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(212, 175, 55, 0.52);
+  background: rgba(212, 175, 55, 0.14);
+  color: #eed076;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.accar-badge-cat {
+  padding: 4px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(212, 175, 55, 0.28);
+  background: rgba(4, 11, 28, 0.72);
+  color: #eae0c8;
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+}
+
+.accar-teatro-ficha h3 {
+  margin: 0 0 14px;
+  color: #fff9ec;
+  font-size: 1.44rem;
+  font-weight: 700;
+  line-height: 1.28;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.75);
+}
+
+.accar-ficha-separador {
+  width: 50px;
+  height: 2px;
+  margin-bottom: 16px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, #d4af37 0%, rgba(212, 175, 55, 0.14) 100%);
+  flex-shrink: 0;
+}
+
+.accar-ficha-scroll {
+  overflow-y: auto;
+  padding-right: 6px;
+  margin-bottom: 20px;
+  flex: 1;
+}
+
+.accar-ficha-scroll::-webkit-scrollbar {
+  width: 5px;
+}
+
+.accar-ficha-scroll::-webkit-scrollbar-thumb {
+  background: rgba(212, 175, 55, 0.45);
+  border-radius: 8px;
+}
+
+.accar-ficha-sinopsis {
+  margin: 0;
+  color: #efe5cc;
+  font-size: 0.96rem;
+  line-height: 1.72;
+}
+
+.accar-playlist-box {
+  margin-top: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.accar-btn-playlist {
+  appearance: none;
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid rgba(212, 175, 55, 0.24);
+  background: rgba(4, 11, 28, 0.76);
+  color: #f3ead5;
+  text-align: left;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.86rem;
+  line-height: 1.38;
+  transition: all 0.22s ease;
+}
+
+.accar-btn-playlist:hover {
+  border-color: rgba(212, 175, 55, 0.56);
+  background: rgba(212, 175, 55, 0.14);
+}
+
+.accar-btn-playlist.activo {
+  border-color: #eed076;
+  background: linear-gradient(180deg, rgba(212, 175, 55, 0.26) 0%, rgba(128, 96, 20, 0.22) 100%);
+  color: #fff9ec;
+  font-weight: 700;
+}
+
+.accar-btn-externo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  margin-top: auto;
+  padding: 12px 18px;
+  border-radius: 999px;
+  border: 1px solid #e8cb72;
+  background: linear-gradient(180deg, rgba(212, 175, 55, 0.30) 0%, rgba(128, 96, 20, 0.26) 100%);
+  color: #fff9ec;
+  text-decoration: none;
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.52), inset 0 1px 0 rgba(255, 244, 204, 0.28);
+  transition: all 0.26s ease;
+  flex-shrink: 0;
+}
+
+.accar-btn-externo:hover {
+  transform: translateY(-2px);
+  border-color: #fff3c4;
+  background: linear-gradient(180deg, rgba(212, 175, 55, 0.42) 0%, rgba(148, 110, 22, 0.36) 100%);
+  color: #ffffff;
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.65), 0 0 18px rgba(212, 175, 55, 0.26);
+}
+
+/* ===== RESPONSIVE TABLET / IPAD ===== */
+@media (max-width: 1080px) {
+  .accar-peliculas-page {
+    padding: 72px 20px 108px;
+  }
+
+  .accar-mm-title {
+    font-size: 2.3rem;
+  }
+
+  .accar-peliculas-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+
+  .accar-lightbox {
+    padding: 12px;
+  }
+
+  .accar-teatro-contenedor {
+    max-height: 94vh;
+    overflow-y: auto;
+  }
+
+  .accar-teatro-estructura {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+
+  .accar-teatro-pantalla {
+    border-right: none;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.26);
+  }
+
+  .accar-teatro-ficha {
+    padding: 24px 22px;
+    max-height: none;
+  }
+}
+
+/* ===== RESPONSIVE MÓVIL ===== */
+@media (max-width: 640px) {
+  .accar-peliculas-page {
+    padding: 54px 16px 96px;
+  }
+
+  .accar-peliculas-page::before {
+    top: 200px;
+    width: min(500px, 94vw);
+    height: min(500px, 94vw);
+  }
+
+  .accar-mm-header {
+    margin-bottom: 40px;
+  }
+
+  .accar-mm-kicker {
+    font-size: 0.66rem;
+    padding: 5px 14px;
+  }
+
+  .accar-mm-title {
+    font-size: 1.95rem;
+  }
+
+  .accar-sub-title {
+    font-size: 1.62rem;
+  }
+
+  .accar-mm-desc {
+    font-size: 0.96rem;
+    line-height: 1.64;
+  }
+
+  .accar-mm-desc .accar-salto-editorial {
+    display: none;
+  }
+
+  .accar-peliculas-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+
+  .accar-info {
+    padding: 12px 10px 14px;
+  }
+
+  .accar-info h3 {
+    font-size: 0.88rem;
+  }
+
+  .accar-teatro-ficha h3 {
+    font-size: 1.24rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .accar-peliculas-grid {
+    grid-template-columns: 1fr;
+  }
+}
 </style>
 
 <script>
-    (function() {
-        const seccionMadre = document.getElementById('accar-seccion-madre');
-        const vistaDetalle = document.getElementById('accar-vista-detalle');
-        const vistaBusqueda = document.getElementById('accar-vista-busqueda');
-        const tituloCategoria = document.getElementById('accar-titulo-categoria');
-        const gridPeliculas = document.getElementById('accar-grid-peliculas');
-        const gridBusqueda = document.getElementById('accar-grid-busqueda');
-        const tituloBusqueda = document.getElementById('accar-titulo-busqueda');
-        const buscadorInput = document.getElementById('accar-buscador-input');
-        const buscadorLimpiar = document.getElementById('accar-buscador-limpiar');
+(function() {
+  const root = document.getElementById('accar-multimedia-root');
+  const seccionMadre = document.getElementById('accar-seccion-madre');
+  const vistaDetalle = document.getElementById('accar-vista-detalle');
+  const vistaBusqueda = document.getElementById('accar-vista-busqueda');
+  const tituloCategoria = document.getElementById('accar-titulo-categoria');
+  const contadorCategoria = document.getElementById('accar-contador-categoria');
+  const gridPeliculas = document.getElementById('accar-grid-peliculas');
+  const gridBusqueda = document.getElementById('accar-grid-busqueda');
+  const tituloBusqueda = document.getElementById('accar-titulo-busqueda');
+  const contadorBusqueda = document.getElementById('accar-contador-busqueda');
+  const buscadorInput = document.getElementById('accar-buscador-input');
+  const buscadorLimpiar = document.getElementById('accar-buscador-limpiar');
 
-        const lightbox = document.getElementById('accar-lightbox-teatro');
-        const iframeRep = document.getElementById('accar-reproductor-iframe');
-        const fichaAno = document.getElementById('accar-ficha-ano');
-        const fichaCat = document.getElementById('accar-ficha-cat');
-        const fichaTitulo = document.getElementById('accar-ficha-titulo');
-        const fichaSinopsis = document.getElementById('accar-ficha-sinopsis');
+  const lightbox = document.getElementById('accar-lightbox-teatro');
+  const iframeRep = document.getElementById('accar-reproductor-iframe');
+  const fichaAno = document.getElementById('accar-ficha-ano');
+  const fichaCat = document.getElementById('accar-ficha-cat');
+  const fichaTitulo = document.getElementById('accar-ficha-titulo');
+  const fichaSinopsis = document.getElementById('accar-ficha-sinopsis');
 
-        // Cargar base de datos bajo demanda (solo cuando se entra a Películas)
-        function asegurarBaseDatos(callback) {
-            if (typeof window.dbMultimedia !== 'undefined') {
-                callback();
-                return;
-            }
-            const script = document.createElement('script');
-            script.src = '/assets/data/db-peliculas.js';
-            script.onload = callback;
-            script.onerror = function() {
-                console.error('No se pudo cargar /assets/data/db-peliculas.js');
-            };
-            document.body.appendChild(script);
+  function normalizarTexto(str) {
+    return String(str || '')
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .toLowerCase();
+  }
+
+  function escapeHtml(str) {
+    return String(str || '')
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+
+  function asegurarBaseDatos(callback) {
+    if (typeof window.dbMultimedia !== 'undefined') {
+      callback();
+      return;
+    }
+    const existente = document.querySelector('script[src*="/assets/data/db-peliculas.js"]');
+    if (existente) {
+      existente.addEventListener('load', callback, { once: true });
+      return;
+    }
+    const script = document.createElement('script');
+    script.src = '/assets/data/db-peliculas.js';
+    script.onload = callback;
+    script.onerror = function() {
+      console.error('No se pudo cargar /assets/data/db-peliculas.js');
+    };
+    document.body.appendChild(script);
+  }
+
+  function construirEmbedUrl(urlOriginal) {
+    if (!urlOriginal) return '';
+
+    if (urlOriginal.includes('drive.google.com/file/d/')) {
+      const match = urlOriginal.match(/\/file\/d\/([^\/]+)/);
+      if (match && match[1]) {
+        return 'https://drive.google.com/file/d/' + match[1] + '/preview';
+      }
+    }
+    if (urlOriginal.includes('youtu.be/')) {
+      const idVideo = urlOriginal.split('youtu.be/')[1].split('?')[0];
+      return 'https://www.youtube.com/embed/' + idVideo + '?autoplay=1&rel=0';
+    }
+    if (urlOriginal.includes('youtube.com/watch')) {
+      try {
+        const urlObj = new URL(urlOriginal);
+        const idVideo = urlObj.searchParams.get('v');
+        if (idVideo) return 'https://www.youtube.com/embed/' + idVideo + '?autoplay=1&rel=0';
+      } catch (_) {}
+    }
+    if (urlOriginal.includes('dai.ly/')) {
+      const idVideo = urlOriginal.split('dai.ly/')[1].split('?')[0];
+      return 'https://www.dailymotion.com/embed/video/' + idVideo + '?autoplay=1';
+    }
+    if (urlOriginal.includes('dailymotion.com/video/')) {
+      const idVideo = urlOriginal.split('video/')[1].split('?')[0];
+      return 'https://www.dailymotion.com/embed/video/' + idVideo + '?autoplay=1';
+    }
+    return urlOriginal;
+  }
+
+  function crearTarjetaHtml(idCategoria, index, item) {
+    const tituloSeguro = escapeHtml(item.titulo);
+    const imagenSegura = escapeHtml(item.imagen);
+    return `
+      <article class="accar-categoria-card" onclick="window.abrirTeatro('${escapeHtml(idCategoria)}', ${index})" role="button" tabindex="0">
+        <div class="accar-img-wrap">
+          <img src="/assets/img/${imagenSegura}" alt="${tituloSeguro}" loading="lazy">
+          <div class="accar-overlay">
+            <span class="accar-btn-explorar">Reproducir ▶</span>
+          </div>
+        </div>
+        <div class="accar-info">
+          <h3>${tituloSeguro}</h3>
+        </div>
+      </article>
+    `;
+  }
+
+  function activarTecladoTarjetas(contenedor) {
+    if (!contenedor) return;
+    contenedor.querySelectorAll('.accar-categoria-card').forEach(function(card) {
+      card.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          card.click();
         }
+      });
+    });
+  }
 
-        // Convertir enlaces de Google Drive, YouTube y Dailymotion a formato Embed
-        function construirEmbedUrl(urlOriginal) {
-            if (!urlOriginal) return '';
+  activarTecladoTarjetas(seccionMadre);
 
-            // Google Drive
-            if (urlOriginal.includes('drive.google.com/file/d/')) {
-                const match = urlOriginal.match(/\/file\/d\/([^\/]+)/);
-                if (match && match[1]) {
-                    return 'https://drive.google.com/file/d/' + match[1] + '/preview';
-                }
-            }
-            // YouTube corto (youtu.be)
-            if (urlOriginal.includes('youtu.be/')) {
-                const idVideo = urlOriginal.split('youtu.be/')[1].split('?')[0];
-                return 'https://www.youtube.com/embed/' + idVideo + '?autoplay=1&rel=0';
-            }
-            // YouTube largo (youtube.com/watch)
-            if (urlOriginal.includes('youtube.com/watch')) {
-                const urlObj = new URL(urlOriginal);
-                const idVideo = urlObj.searchParams.get('v');
-                return 'https://www.youtube.com/embed/' + idVideo + '?autoplay=1&rel=0';
-            }
-            // Dailymotion
-            if (urlOriginal.includes('dai.ly/')) {
-                const idVideo = urlOriginal.split('dai.ly/')[1].split('?')[0];
-                return 'https://www.dailymotion.com/embed/video/' + idVideo + '?autoplay=1';
-            }
-            if (urlOriginal.includes('dailymotion.com/video/')) {
-                const idVideo = urlOriginal.split('video/')[1].split('?')[0];
-                return 'https://www.dailymotion.com/embed/video/' + idVideo + '?autoplay=1';
-            }
-            return urlOriginal;
-        }
+  window.abrirCategoria = function(idCategoria) {
+    asegurarBaseDatos(function() {
+      if (!window.dbMultimedia || !window.dbMultimedia[idCategoria]) return;
 
-        // Generar tarjeta de película
-        function crearTarjetaHtml(idCategoria, index, item) {
-            return `
-                <div class="accar-categoria-card" onclick="abrirTeatro('${idCategoria}', ${index})">
-                    <div class="accar-img-wrap">
-                        <img src="/assets/img/${item.imagen}" alt="${item.titulo}" loading="lazy">
-                        <div class="accar-overlay">
-                            <span class="accar-btn-explorar">Reproducir</span>
-                        </div>
-                    </div>
-                    <div class="accar-info">
-                        <h3>${item.titulo}</h3>
-                    </div>
-                </div>
-            `;
-        }
+      const listado = window.dbMultimedia[idCategoria];
+      tituloCategoria.textContent = (window.titulosCategorias && window.titulosCategorias[idCategoria]) || 'Catálogo ACCAR';
+      contadorCategoria.textContent = listado.length === 1
+        ? '1 título disponible'
+        : listado.length + ' títulos disponibles';
+      gridPeliculas.innerHTML = '';
 
-        // Abrir categoría
-        window.abrirCategoria = function(idCategoria) {
-            asegurarBaseDatos(function() {
-                if (!window.dbMultimedia || !window.dbMultimedia[idCategoria]) return;
-
-                const listado = window.dbMultimedia[idCategoria];
-                tituloCategoria.textContent = (window.titulosCategorias && window.titulosCategorias[idCategoria]) || 'Catálogo ACCAR';
-                gridPeliculas.innerHTML = '';
-
-                if (listado.length === 0) {
-                    gridPeliculas.innerHTML = '<p style="grid-column: 1/-1; text-align: center; font-style: italic; color: #555; padding: 40px 0;">Próximamente se añadirá el contenido multimedia para esta sección doctrinal.</p>';
-                } else {
-                    listado.forEach(function(item, index) {
-                        gridPeliculas.insertAdjacentHTML('beforeend', crearTarjetaHtml(idCategoria, index, item));
-                    });
-                }
-
-                seccionMadre.style.display = 'none';
-                vistaBusqueda.style.display = 'none';
-                vistaDetalle.style.display = 'block';
-                document.getElementById('accar-multimedia-root').scrollIntoView({ behavior: 'smooth', block: 'start' });
-            });
-        };
-
-        // Volver a categorías
-        window.volverAlCatalogo = function() {
-            vistaDetalle.style.display = 'none';
-            vistaBusqueda.style.display = 'none';
-            seccionMadre.style.display = 'block';
-            document.getElementById('accar-multimedia-root').scrollIntoView({ behavior: 'smooth', block: 'start' });
-        };
-
-        // Buscador en vivo
-        window.limpiarBusquedaMultimedia = function() {
-            buscadorInput.value = '';
-            buscadorLimpiar.style.display = 'none';
-            volverAlCatalogo();
-        };
-
-        buscadorInput.addEventListener('input', function() {
-            const termino = this.value.trim().toLowerCase();
-            if (termino.length === 0) {
-                buscadorLimpiar.style.display = 'none';
-                vistaBusqueda.style.display = 'none';
-                vistaDetalle.style.display = 'none';
-                seccionMadre.style.display = 'block';
-                return;
-            }
-
-            buscadorLimpiar.style.display = 'flex';
-            asegurarBaseDatos(function() {
-                gridBusqueda.innerHTML = '';
-                let encontrados = 0;
-
-                Object.keys(window.dbMultimedia).forEach(function(catId) {
-                    window.dbMultimedia[catId].forEach(function(item, idx) {
-                        const texto = (item.titulo + ' ' + (item.sinopsis || '')).toLowerCase();
-                        if (texto.includes(termino)) {
-                            gridBusqueda.insertAdjacentHTML('beforeend', crearTarjetaHtml(catId, idx, item));
-                            encontrados++;
-                        }
-                    });
-                });
-
-                tituloBusqueda.textContent = encontrados > 0
-                    ? `Resultados para "${buscadorInput.value.trim()}" (${encontrados})`
-                    : `Sin resultados para "${buscadorInput.value.trim()}"`;
-
-                if (encontrados === 0) {
-                    gridBusqueda.innerHTML = '<p style="grid-column: 1/-1; text-align: center; font-style: italic; color: #555; padding: 30px 0;">No se encontraron títulos que coincidan con tu búsqueda.</p>';
-                }
-
-                seccionMadre.style.display = 'none';
-                vistaDetalle.style.display = 'none';
-                vistaBusqueda.style.display = 'block';
-            });
+      if (listado.length === 0) {
+        gridPeliculas.innerHTML = '<p class="accar-mm-vacio">Próximamente se añadirá el contenido multimedia para esta sección doctrinal.</p>';
+      } else {
+        listado.forEach(function(item, index) {
+          gridPeliculas.insertAdjacentHTML('beforeend', crearTarjetaHtml(idCategoria, index, item));
         });
+        activarTecladoTarjetas(gridPeliculas);
+      }
 
-        // Abrir Modo Cine
-        window.abrirTeatro = function(idCategoria, index) {
-            if (!window.dbMultimedia || !window.dbMultimedia[idCategoria]) return;
-            const pelicula = window.dbMultimedia[idCategoria][index];
-            if (!pelicula) return;
+      seccionMadre.style.display = 'none';
+      vistaBusqueda.style.display = 'none';
+      vistaDetalle.style.display = 'block';
+      if (root) root.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  };
 
-            fichaTitulo.textContent = pelicula.titulo;
-            fichaAno.textContent = pelicula.ano || 'Cine';
-            fichaCat.textContent = (window.titulosCategorias && window.titulosCategorias[idCategoria]) || 'ACCAR';
-            fichaSinopsis.textContent = pelicula.sinopsis || 'Formación y defensa de la fe católica mediante material audiovisual fiel al Magisterio de la Iglesia.';
+  window.volverAlCatalogo = function() {
+    vistaDetalle.style.display = 'none';
+    vistaBusqueda.style.display = 'none';
+    seccionMadre.style.display = 'block';
+    if (root) root.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
 
-            const contenedorPlaylist = document.getElementById('accar-ficha-playlist');
-            const enlaceExterno = document.getElementById('accar-enlace-externo');
-            contenedorPlaylist.innerHTML = '';
+  window.limpiarBusquedaMultimedia = function() {
+    buscadorInput.value = '';
+    buscadorLimpiar.style.display = 'none';
+    window.volverAlCatalogo();
+  };
 
-            if (pelicula.playlist && pelicula.playlist.length > 0) {
-                contenedorPlaylist.style.display = 'flex';
-                pelicula.playlist.forEach(function(parte, i) {
-                    const btn = document.createElement('button');
-                    btn.className = 'accar-btn-playlist' + (i === 0 ? ' activo' : '');
-                    btn.textContent = (i + 1) + '. ' + parte.titulo_parte;
-                    btn.onclick = function() {
-                        iframeRep.src = construirEmbedUrl(parte.url);
-                        enlaceExterno.href = parte.url;
-                        contenedorPlaylist.querySelectorAll('.accar-btn-playlist').forEach(b => b.classList.remove('activo'));
-                        btn.classList.add('activo');
-                    };
-                    contenedorPlaylist.appendChild(btn);
-                });
+  buscadorInput.addEventListener('input', function() {
+    const textoOriginal = this.value.trim();
+    const termino = normalizarTexto(textoOriginal);
 
-                iframeRep.src = construirEmbedUrl(pelicula.playlist[0].url);
-                enlaceExterno.href = pelicula.playlist[0].url;
-            } else {
-                contenedorPlaylist.style.display = 'none';
-                iframeRep.src = construirEmbedUrl(pelicula.url);
-                enlaceExterno.href = pelicula.url;
-            }
+    if (termino.length === 0) {
+      buscadorLimpiar.style.display = 'none';
+      vistaBusqueda.style.display = 'none';
+      vistaDetalle.style.display = 'none';
+      seccionMadre.style.display = 'block';
+      return;
+    }
 
-            lightbox.style.display = 'flex';
-            lightbox.setAttribute('aria-hidden', 'false');
-            document.body.style.overflow = 'hidden';
+    buscadorLimpiar.style.display = 'flex';
+    asegurarBaseDatos(function() {
+      if (!window.dbMultimedia) return;
+      gridBusqueda.innerHTML = '';
+      let encontrados = 0;
+
+      Object.keys(window.dbMultimedia).forEach(function(catId) {
+        const nombreCat = (window.titulosCategorias && window.titulosCategorias[catId]) || '';
+        window.dbMultimedia[catId].forEach(function(item, idx) {
+          const texto = normalizarTexto(item.titulo + ' ' + (item.sinopsis || '') + ' ' + nombreCat);
+          if (texto.includes(termino)) {
+            gridBusqueda.insertAdjacentHTML('beforeend', crearTarjetaHtml(catId, idx, item));
+            encontrados++;
+          }
+        });
+      });
+
+      tituloBusqueda.textContent = encontrados > 0
+        ? 'Resultados para «' + textoOriginal + '»'
+        : 'Sin resultados para «' + textoOriginal + '»';
+
+      contadorBusqueda.textContent = encontrados > 0
+        ? (encontrados === 1 ? '1 coincidencia' : encontrados + ' coincidencias')
+        : '';
+
+      if (encontrados === 0) {
+        gridBusqueda.innerHTML = '<p class="accar-mm-vacio">No se encontraron títulos que coincidan con tu búsqueda.</p>';
+      } else {
+        activarTecladoTarjetas(gridBusqueda);
+      }
+
+      seccionMadre.style.display = 'none';
+      vistaDetalle.style.display = 'none';
+      vistaBusqueda.style.display = 'block';
+    });
+  });
+
+  window.abrirTeatro = function(idCategoria, index) {
+    if (!window.dbMultimedia || !window.dbMultimedia[idCategoria]) return;
+    const pelicula = window.dbMultimedia[idCategoria][index];
+    if (!pelicula) return;
+
+    fichaTitulo.textContent = pelicula.titulo;
+    fichaAno.textContent = pelicula.ano || 'Cine';
+    fichaCat.textContent = (window.titulosCategorias && window.titulosCategorias[idCategoria]) || 'ACCAR';
+    fichaSinopsis.textContent = pelicula.sinopsis || 'Formación y defensa de la fe católica mediante material audiovisual fiel al Magisterio de la Iglesia.';
+
+    const contenedorPlaylist = document.getElementById('accar-ficha-playlist');
+    const enlaceExterno = document.getElementById('accar-enlace-externo');
+    contenedorPlaylist.innerHTML = '';
+
+    if (pelicula.playlist && pelicula.playlist.length > 0) {
+      contenedorPlaylist.style.display = 'flex';
+      pelicula.playlist.forEach(function(parte, i) {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'accar-btn-playlist' + (i === 0 ? ' activo' : '');
+        btn.textContent = (i + 1) + '. ' + parte.titulo_parte;
+        btn.onclick = function() {
+          iframeRep.src = construirEmbedUrl(parte.url);
+          enlaceExterno.href = parte.url;
+          contenedorPlaylist.querySelectorAll('.accar-btn-playlist').forEach(function(b) {
+            b.classList.remove('activo');
+          });
+          btn.classList.add('activo');
         };
+        contenedorPlaylist.appendChild(btn);
+      });
 
-        // Cerrar Modo Cine
-        window.cerrarTeatro = function() {
-            lightbox.style.display = 'none';
-            lightbox.setAttribute('aria-hidden', 'true');
-            iframeRep.src = '';
-            document.body.style.overflow = '';
-        };
+      iframeRep.src = construirEmbedUrl(pelicula.playlist[0].url);
+      enlaceExterno.href = pelicula.playlist[0].url;
+    } else {
+      contenedorPlaylist.style.display = 'none';
+      iframeRep.src = construirEmbedUrl(pelicula.url);
+      enlaceExterno.href = pelicula.url;
+    }
 
-        // Evitar listeners duplicados en navegación SPA
-        if (window._accarTeatroEsc) {
-            document.removeEventListener('keydown', window._accarTeatroEsc);
-        }
-        window._accarTeatroEsc = function(e) {
-            if (e.key === 'Escape' && lightbox && lightbox.style.display === 'flex') {
-                window.cerrarTeatro();
-            }
-        };
-        document.addEventListener('keydown', window._accarTeatroEsc);
+    lightbox.style.display = 'flex';
+    lightbox.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  };
 
-        // Precargar la base de datos en segundo plano al abrir la sección
-        asegurarBaseDatos(function() {});
-    })();
+  window.cerrarTeatro = function() {
+    lightbox.style.display = 'none';
+    lightbox.setAttribute('aria-hidden', 'true');
+    iframeRep.src = '';
+    document.body.style.overflow = '';
+  };
+
+  if (window._accarTeatroEsc) {
+    document.removeEventListener('keydown', window._accarTeatroEsc);
+  }
+  window._accarTeatroEsc = function(e) {
+    if (e.key === 'Escape' && lightbox && lightbox.style.display === 'flex') {
+      window.cerrarTeatro();
+    }
+  };
+  document.addEventListener('keydown', window._accarTeatroEsc);
+
+  asegurarBaseDatos(function() {});
+})();
 </script>
