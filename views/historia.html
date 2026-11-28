@@ -1,219 +1,435 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <style>
-    /* ===== RESET Y CONTENEDOR ===== */
-    .historia-wrap {
-      width: min(1180px, calc(100% - 40px));
-      margin: 80px auto;
-      font-family: Georgia, "Times New Roman", serif;
-      color: #f8efd3;
-    }
+<!-- ===== ACCAR | HISTORIA DE LA IGLESIA ===== -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
 
-    /* ===== CABECERA ===== */
-    .historia-header {
-      text-align: center;
-      margin-bottom: 60px;
-    }
+<section class="accar-historia-page">
 
-    .historia-kicker {
-      display: inline-block;
-      font-size: 0.85rem;
-      font-weight: 800;
-      letter-spacing: 3px;
-      color: #D4AF37;
-      text-transform: uppercase;
-      margin-bottom: 15px;
-    }
+  <div class="accar-historia-inner">
 
-    .historia-title {
-      margin: 0 0 15px;
-      font-size: 3.2rem;
-      color: #ffffff;
-      text-shadow: 0 2px 4px rgba(0,0,0,0.8);
-      font-weight: normal;
-    }
+    <!-- CABECERA MAESTRA UNIFICADA -->
+    <header class="accar-historia-header">
+      <div class="accar-historia-kicker">
+        <span aria-hidden="true">✠</span>
+        <span>Historia Magistra Vitae</span>
+        <span aria-hidden="true">✠</span>
+      </div>
 
-    .historia-subtitle {
-      max-width: 700px;
-      margin: 0 auto 30px;
-      font-size: 1.1rem;
-      line-height: 1.6;
-      color: #a3b8cc;
-    }
+      <div class="accar-historia-title-wrap">
+        <h1 class="accar-historia-title">Historia de la Iglesia</h1>
+      </div>
 
-    .historia-divider {
-      width: 60px;
-      height: 2px;
-      background: #D4AF37;
-      margin: 0 auto;
-      box-shadow: 0 0 10px #D4AF37;
-    }
-
-    /* ===== GRID DE TARJETAS ===== */
-    .historia-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 30px;
-      justify-content: center;
-    }
-
-    /* ===== TARJETAS ===== */
-    .historia-card {
-      background: #060b14; /* Azul oscuro exacto de las tarjetas de Formación */
-      border: 1px solid rgba(255, 255, 255, 0.04);
-      border-radius: 12px;
-      padding: 40px 30px;
-      text-align: center;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-decoration: none;
-      transition: all 0.4s ease;
-      position: relative;
-      /* Sombra exterior + Destello dorado superior interno */
-      box-shadow: 
-        0 15px 30px rgba(0,0,0,0.5), 
-        inset 0 35px 45px -30px rgba(212, 175, 55, 0.25);
-      cursor: pointer;
-      overflow: hidden;
-    }
-
-    /* Línea de luz dorada en el borde superior exacto */
-    .historia-card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 10%; right: 10%;
-      height: 1px;
-      background: radial-gradient(ellipse at center, rgba(212,175,55,0.6) 0%, transparent 80%);
-      opacity: 0.8;
-      transition: opacity 0.4s ease, transform 0.4s ease;
-    }
-
-    .historia-card:hover {
-      transform: translateY(-6px);
-      background: #080f1c;
-      /* Se añade un glow exterior dorado suave */
-      box-shadow: 
-        0 20px 40px rgba(0,0,0,0.8),
-        0 0 20px rgba(212, 175, 55, 0.15),
-        inset 0 45px 55px -30px rgba(212, 175, 55, 0.4);
-      border-color: rgba(212, 175, 55, 0.4);
-    }
-
-    .historia-card:hover::before {
-      opacity: 1;
-      transform: scaleX(1.3);
-    }
-
-    /* Elementos internos */
-    .historia-icon {
-      width: 90px;
-      height: auto;
-      margin-bottom: 25px;
-      filter: drop-shadow(0 10px 15px rgba(0,0,0,0.8));
-      position: relative;
-      z-index: 3;
-      transition: transform 0.4s ease;
-    }
-
-    .historia-card:hover .historia-icon {
-      transform: scale(1.05) translateY(-4px);
-    }
-
-    .historia-card-title {
-      font-size: 1.8rem;
-      color: #D4AF37;
-      margin: 0 0 15px;
-      position: relative;
-      z-index: 3;
-      text-shadow: 0 2px 4px rgba(0,0,0,0.8);
-    }
-
-    .historia-card-desc {
-      font-size: 1rem;
-      line-height: 1.6;
-      color: #b0c4de;
-      margin: 0 0 30px;
-      position: relative;
-      z-index: 3;
-      flex-grow: 1;
-    }
-
-    .historia-acceder {
-      font-size: 0.75rem;
-      font-weight: 800;
-      letter-spacing: 2.5px;
-      color: #637792; /* Tono exacto de "ACCEDER" en las tarjetas de Formación */
-      text-transform: uppercase;
-      position: relative;
-      z-index: 3;
-      transition: color 0.3s ease;
-    }
-
-    .historia-card:hover .historia-acceder {
-      color: #ffd971;
-      text-shadow: 0 0 8px rgba(212, 175, 55, 0.6);
-    }
-
-    /* ===== RESPONSIVE ===== */
-    @media (max-width: 768px) {
-      .historia-wrap { margin: 40px auto; }
-      .historia-title { font-size: 2.4rem; }
-      .historia-card { padding: 35px 25px; }
-    }
-  </style>
-</head>
-<body>
-
-  <div class="historia-wrap">
-    
-    <div class="historia-header">
-      <span class="historia-kicker">Historia Magistra Vitae</span>
-      <h1 class="historia-title">Historia de la Iglesia</h1>
-      <p class="historia-subtitle">
-        El devenir de la barca de Pedro a través de los siglos. Conoce a los sucesores del Apóstol, 
-        los concilios que definieron la ortodoxia y los santos Padres que cimentaron nuestra fe.
+      <p class="accar-historia-desc">
+        El devenir de la barca de Pedro a través de veinte siglos de fidelidad apostólica.<br class="accar-salto-editorial">
+        Conoce a los sucesores del Apóstol, los concilios que definieron el dogma y los santos Padres que custodiaron la Tradición.
       </p>
-      <div class="historia-divider"></div>
-    </div>
+    </header>
 
-    <div class="historia-grid">
-      
-      <!-- TARJETA: PAPAS -->
-      <a href="#" onclick="event.preventDefault(); loadView('views/historia-lista-de-papas.html');" class="historia-card">
-        <img src="assets/img/icono_historia_papas.png" alt="Icono Papas" class="historia-icon">
-        <h2 class="historia-card-title">Papas</h2>
-        <p class="historia-card-desc">
-          Directorio histórico de los Sumos Pontífices, sucesores de San Pedro y Vicarios de Cristo en la tierra.
+    <!-- TRÍPTICO DE ARQUITECTURA EN PENUMBRA Y ORO PAPAL -->
+    <div class="accar-historia-grid">
+
+      <!-- PILAR 1: PAPAS -->
+      <a href="#" onclick="event.preventDefault(); loadView('views/historia-lista-de-papas.html');" class="accar-historia-card">
+        <div class="accar-historia-medallon">
+          <img src="/assets/img/icono_historia_papas.png" alt="Directorio Pontificio" class="accar-historia-icon">
+        </div>
+
+        <span class="accar-historia-tag">Sucesión Petrina · Siglos I al XXI</span>
+        <h2 class="accar-historia-card-title">Papas</h2>
+        <div class="accar-historia-rule" aria-hidden="true"></div>
+
+        <p class="accar-historia-card-desc">
+          Directorio cronológico de los 267 Sumos Pontífices, sucesores legítimos de San Pedro y Vicarios de Cristo en la tierra.
         </p>
-        <span class="historia-acceder">Acceder ➔</span>
+
+        <span class="accar-historia-cta">
+          <span>Explorar Pontífices</span>
+          <span class="accar-historia-arrow" aria-hidden="true">→</span>
+        </span>
       </a>
 
-      <!-- TARJETA: CONCILIOS -->
-      <a href="#" onclick="event.preventDefault(); loadView('views/historia-lista-de-concilios.html');" class="historia-card">
-        <img src="assets/img/icono_historia_concilios.png" alt="Icono Concilios" class="historia-icon">
-        <h2 class="historia-card-title">Concilios</h2>
-        <p class="historia-card-desc">
-          Asambleas ecuménicas que, asistidas por el Espíritu Santo, han defendido y proclamado el dogma católico.
+      <!-- PILAR 2: CONCILIOS -->
+      <a href="#" onclick="event.preventDefault(); loadView('views/historia-lista-de-concilios.html');" class="accar-historia-card">
+        <div class="accar-historia-medallon">
+          <img src="/assets/img/icono_historia_concilios.png" alt="Directorio de Concilios" class="accar-historia-icon">
+        </div>
+
+        <span class="accar-historia-tag">Magisterio Solemne · 21 Ecuménicos</span>
+        <h2 class="accar-historia-card-title">Concilios</h2>
+        <div class="accar-historia-rule" aria-hidden="true"></div>
+
+        <p class="accar-historia-card-desc">
+          Asambleas ecuménicas e históricas que, asistidas por el Espíritu Santo, erradicaron las herejías y proclamaron el dogma católico.
         </p>
-        <span class="historia-acceder">Acceder ➔</span>
+
+        <span class="accar-historia-cta">
+          <span>Explorar Concilios</span>
+          <span class="accar-historia-arrow" aria-hidden="true">→</span>
+        </span>
       </a>
 
-      <!-- TARJETA: PADRES DE LA IGLESIA -->
-      <a href="#" onclick="event.preventDefault(); loadView('views/historia-lista-de-padres.html');" class="historia-card">
-        <img src="assets/img/icono_historia_padres.png" alt="Icono Padres" class="historia-icon">
-        <h2 class="historia-card-title">Padres de la Iglesia</h2>
-        <p class="historia-card-desc">
-          Grandes teólogos, obispos y mártires de los primeros siglos que cimentaron la sagrada Tradición.
+      <!-- PILAR 3: PADRES DE LA IGLESIA -->
+      <a href="#" onclick="event.preventDefault(); loadView('views/historia-lista-de-padres.html');" class="accar-historia-card">
+        <div class="accar-historia-medallon">
+          <img src="/assets/img/icono_historia_padres.png" alt="Padres de la Iglesia" class="accar-historia-icon">
+        </div>
+
+        <span class="accar-historia-tag">Testigos de la Fe · Era Patrística</span>
+        <h2 class="accar-historia-card-title">Padres de la Iglesia</h2>
+        <div class="accar-historia-rule" aria-hidden="true"></div>
+
+        <p class="accar-historia-card-desc">
+          Grandes obispos, apologistas, teólogos y mártires de los primeros siglos que cimentaron la sagrada Tradición Apostólica.
         </p>
-        <span class="historia-acceder">Acceder ➔</span>
+
+        <span class="accar-historia-cta">
+          <span>Explorar Patrística</span>
+          <span class="accar-historia-arrow" aria-hidden="true">→</span>
+        </span>
       </a>
 
     </div>
 
   </div>
 
-</body>
-</html>
+</section>
+
+<style>
+.accar-historia-page,
+.accar-historia-page * {
+  box-sizing: border-box;
+}
+
+.accar-historia-page {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  min-height: 100vh;
+  padding: 88px 20px 136px;
+  color: #f8efd3;
+  font-family: Georgia, "Times New Roman", serif;
+  border-top: 1px solid rgba(212, 175, 55, 0.24);
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(16, 42, 86, 0.56) 0%, rgba(6, 16, 36, 0.92) 45%, #030816 100%);
+  box-shadow: inset 0 24px 52px rgba(0, 0, 0, 0.55);
+}
+
+/* Marca de agua heráldica exclusiva de Historia de la Iglesia */
+.accar-historia-page::before {
+  content: "";
+  position: absolute;
+  top: 95px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(1120px, 96vw);
+  height: min(1120px, 96vw);
+  background: url("/assets/img/historia-watermark.png") center top / contain no-repeat;
+  opacity: 0.085;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.accar-historia-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 1140px;
+  margin: 0 auto;
+}
+
+/* ===== CABECERA MAESTRA DE TRES NIVELES ===== */
+.accar-historia-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  max-width: 840px;
+  margin: 0 auto 64px;
+}
+
+.accar-historia-kicker {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 6px 18px;
+  margin-bottom: 18px;
+  border-radius: 999px;
+  border: 1px solid rgba(212, 175, 55, 0.65);
+  background: rgba(3, 7, 54, 0.84);
+  color: #e8cb72;
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.44);
+}
+
+.accar-historia-title-wrap {
+  display: block;
+  width: fit-content;
+  position: relative;
+  padding-bottom: 14px;
+  margin: 0 auto 20px;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.45);
+}
+
+.accar-historia-title-wrap::after {
+  content: "";
+  position: absolute;
+  bottom: -1.5px;
+  left: 24%;
+  right: 24%;
+  height: 2.5px;
+  border-radius: 2px;
+  background: #d4af37;
+  box-shadow: 0 0 12px rgba(212, 175, 55, 0.85);
+}
+
+.accar-historia-title {
+  margin: 0;
+  font-size: 2.75rem;
+  font-weight: 700;
+  line-height: 1.15;
+  color: #fff9ec;
+  letter-spacing: 0.02em;
+  text-shadow: 0 4px 18px rgba(0, 0, 0, 0.84), 0 0 16px rgba(212, 175, 55, 0.18);
+}
+
+.accar-historia-desc {
+  margin: 0 auto;
+  max-width: 760px;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-size: 1.22rem;
+  line-height: 1.68;
+  color: #eae0c8;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.65);
+  text-wrap: balance;
+}
+
+/* ===== TRÍPTICO DE TARJETAS RELICARIO ===== */
+.accar-historia-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 28px;
+  align-items: stretch;
+}
+
+.accar-historia-card {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 44px 30px 38px;
+  border-radius: 24px;
+  border: 1px solid rgba(212, 175, 55, 0.48);
+  background:
+    radial-gradient(circle at 50% 0%, rgba(212, 175, 55, 0.14) 0%, transparent 56%),
+    linear-gradient(180deg, rgba(7, 19, 42, 0.90) 0%, rgba(3, 8, 22, 0.98) 100%);
+  box-shadow:
+    0 24px 52px rgba(0, 0, 0, 0.68),
+    inset 0 1px 0 rgba(255, 238, 186, 0.16);
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.36s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.36s ease, box-shadow 0.36s ease;
+}
+
+/* Doble filete interior en oro papal */
+.accar-historia-card::after {
+  content: "";
+  position: absolute;
+  inset: 8px;
+  border: 1px solid rgba(212, 175, 55, 0.17);
+  border-radius: 17px;
+  pointer-events: none;
+  transition: border-color 0.36s ease;
+}
+
+.accar-historia-card:hover {
+  transform: translateY(-8px);
+  border-color: #eed076;
+  box-shadow:
+    0 32px 64px rgba(0, 0, 0, 0.84),
+    0 0 24px rgba(212, 175, 55, 0.22);
+}
+
+.accar-historia-card:hover::after {
+  border-color: rgba(212, 175, 55, 0.42);
+}
+
+.accar-historia-medallon {
+  position: relative;
+  z-index: 2;
+  width: 108px;
+  height: 108px;
+  margin-bottom: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle, rgba(212, 175, 55, 0.18) 0%, transparent 72%);
+}
+
+.accar-historia-icon {
+  width: 98px;
+  height: 98px;
+  object-fit: contain;
+  filter: drop-shadow(0 12px 18px rgba(0, 0, 0, 0.78));
+  transition: transform 0.42s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.accar-historia-card:hover .accar-historia-icon {
+  transform: scale(1.07) translateY(-4px);
+}
+
+.accar-historia-tag {
+  position: relative;
+  z-index: 2;
+  display: inline-block;
+  padding: 4px 13px;
+  margin-bottom: 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(212, 175, 55, 0.38);
+  background: rgba(3, 8, 28, 0.76);
+  color: #e8cb72;
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.accar-historia-card-title {
+  position: relative;
+  z-index: 2;
+  margin: 0;
+  font-size: 1.62rem;
+  font-weight: 700;
+  line-height: 1.24;
+  color: #fff9ec;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.80);
+  transition: color 0.26s ease;
+}
+
+.accar-historia-card:hover .accar-historia-card-title {
+  color: #eed076;
+}
+
+.accar-historia-rule {
+  position: relative;
+  z-index: 2;
+  width: 48px;
+  height: 2px;
+  margin: 13px auto 18px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, transparent, #d4af37, transparent);
+  transition: width 0.3s ease;
+}
+
+.accar-historia-card:hover .accar-historia-rule {
+  width: 74px;
+}
+
+.accar-historia-card-desc {
+  position: relative;
+  z-index: 2;
+  margin: 0 0 28px;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-size: 1.12rem;
+  line-height: 1.65;
+  color: #e6dbc0;
+  flex: 1;
+}
+
+.accar-historia-cta {
+  position: relative;
+  z-index: 2;
+  margin-top: auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 22px;
+  border-radius: 999px;
+  border: 1px solid rgba(212, 175, 55, 0.54);
+  background: rgba(3, 8, 38, 0.82);
+  color: #eed076;
+  font-size: 0.73rem;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.45);
+  transition: all 0.28s ease;
+}
+
+.accar-historia-arrow {
+  display: inline-block;
+  transition: transform 0.26s ease;
+}
+
+.accar-historia-card:hover .accar-historia-cta {
+  border-color: #fff3c4;
+  background: linear-gradient(180deg, rgba(212, 175, 55, 0.34) 0%, rgba(128, 96, 20, 0.28) 100%);
+  color: #fff9ec;
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.62), 0 0 16px rgba(212, 175, 55, 0.22);
+}
+
+.accar-historia-card:hover .accar-historia-arrow {
+  transform: translateX(4px);
+}
+
+/* ===== RESPONSIVE TABLET Y MÓVIL ===== */
+@media (max-width: 980px) {
+  .accar-historia-page {
+    padding: 72px 20px 110px;
+  }
+
+  .accar-historia-title {
+    font-size: 2.35rem;
+  }
+
+  .accar-historia-grid {
+    grid-template-columns: 1fr;
+    max-width: 540px;
+    margin: 0 auto;
+    gap: 24px;
+  }
+}
+
+@media (max-width: 640px) {
+  .accar-historia-page {
+    padding: 54px 16px 96px;
+  }
+
+  .accar-historia-page::before {
+    top: 195px;
+    width: min(500px, 94vw);
+    height: min(500px, 94vw);
+  }
+
+  .accar-historia-header {
+    margin-bottom: 44px;
+  }
+
+  .accar-historia-kicker {
+    font-size: 0.66rem;
+    padding: 5px 14px;
+  }
+
+  .accar-historia-title {
+    font-size: 1.98rem;
+  }
+
+  .accar-historia-desc {
+    font-size: 1.08rem;
+  }
+
+  .accar-historia-desc .accar-salto-editorial {
+    display: none;
+  }
+
+  .accar-historia-card {
+    padding: 36px 24px 32px;
+  }
+}
+</style>
