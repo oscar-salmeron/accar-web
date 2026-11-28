@@ -1,5 +1,9 @@
 <!-- ===== ACCAR | SALA LITÚRGICA: LITURGIA DE LAS HORAS ===== -->
-<section id="accar-breviario-root" class="accar-sala-liturgica" data-tiempo="verde" data-santo="verde">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+
+<section id="accar-breviario-root" class="accar-sala-liturgica" data-tiempo="verde">
 
   <div class="accar-sala-inner">
 
@@ -19,7 +23,7 @@
       ====================================================== -->
       <aside class="accar-sala-sidebar">
 
-        <!-- CAJA 1: FECHA Y CALENDARIO (Color del Tiempo Litúrgico) -->
+        <!-- CAJA 1: FECHA Y CALENDARIO -->
         <div class="accar-sala-box">
           <h2 class="accar-box-title">Oficio Divino</h2>
           <div class="accar-box-rule" aria-hidden="true"></div>
@@ -55,7 +59,7 @@
           <a href="#" id="brev-santo-link" class="accar-celebramos-santo" style="display: none;"></a>
         </div>
 
-        <!-- CAJA 3: ¿QUÉ QUIERES LEER? (Puente directo + Horas Canónicas Compactas) -->
+        <!-- CAJA 3: ¿QUÉ QUIERES LEER? -->
         <div class="accar-sala-box accar-box-menu-desktop">
           <h2 class="accar-box-title">¿Qué quieres leer?</h2>
           <div class="accar-box-rule" aria-hidden="true"></div>
@@ -120,13 +124,13 @@
       </aside>
 
       <!-- =====================================================
-           COLUMNA DERECHA: PLIEGO DEL BREVIARIO
+           COLUMNA DERECHA: PLIEGO EDITORIAL DEL BREVIARIO
       ====================================================== -->
       <main class="accar-pliego-lectura theme-light" id="brev-main-area">
 
         <!-- BARRA SUPERIOR DE LECTURA -->
         <div class="accar-pliego-toolbar" id="brev-text-controls" style="display: none;">
-          <button type="button" class="accar-tool-btn accar-tool-theme" id="brev-btn-theme" title="Alternar entre modo pergamino y modo noche">
+          <button type="button" class="accar-tool-btn accar-tool-theme" id="brev-btn-theme" title="Alternar entre modo pergamino y modo oscuro">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
             </svg>
@@ -135,39 +139,41 @@
 
           <div class="accar-tool-sizes" role="group" aria-label="Tamaño de letra">
             <span class="accar-tool-label">Tamaño</span>
-            <button type="button" class="accar-tool-btn btn-size" data-size="16px">A-</button>
-            <button type="button" class="accar-tool-btn btn-size active" data-size="18.5px">A</button>
-            <button type="button" class="accar-tool-btn btn-size" data-size="21.5px">A+</button>
+            <button type="button" class="accar-tool-btn btn-size" data-size-key="sm" data-size="18.5px">A-</button>
+            <button type="button" class="accar-tool-btn btn-size active" data-size-key="md" data-size="21px">A</button>
+            <button type="button" class="accar-tool-btn btn-size" data-size-key="lg" data-size="24px">A+</button>
           </div>
         </div>
 
-        <header class="accar-pliego-header">
-          <span class="accar-pliego-kicker" id="brev-kicker">✠ Oficio Divino de hoy</span>
-          <h1 class="accar-pliego-title" id="brev-hora-titulo">Liturgia de las Horas</h1>
-          <p class="accar-pliego-ref" id="brev-hora-subtitulo">Oración oficial de la Santa Madre Iglesia</p>
+        <div class="accar-pliego-folio">
+          <header class="accar-pliego-header">
+            <span class="accar-pliego-kicker" id="brev-kicker">✠ Oficio Divino de hoy</span>
+            <h1 class="accar-pliego-title" id="brev-hora-titulo">Liturgia de las Horas</h1>
+            <p class="accar-pliego-ref" id="brev-hora-subtitulo">Oración oficial de la Santa Madre Iglesia</p>
 
-          <div class="accar-pliego-actions">
-            <button type="button" class="accar-btn-share-pliego" id="btn-share-breviario" onclick="window.shareBreviarioACCAR(this)">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <circle cx="18" cy="5" r="3"></circle>
-                <circle cx="6" cy="12" r="3"></circle>
-                <circle cx="18" cy="19" r="3"></circle>
-                <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
-                <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
-              </svg>
-              <span>Compartir liturgia</span>
-            </button>
+            <div class="accar-pliego-actions">
+              <button type="button" class="accar-btn-share-pliego" id="btn-share-breviario" onclick="window.shareBreviarioACCAR(this)">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <circle cx="18" cy="5" r="3"></circle>
+                  <circle cx="6" cy="12" r="3"></circle>
+                  <circle cx="18" cy="19" r="3"></circle>
+                  <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+                  <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+                </svg>
+                <span>Compartir liturgia</span>
+              </button>
+            </div>
+          </header>
+
+          <div class="accar-pliego-body">
+            <div class="accar-sala-spinner" id="brev-spinner"></div>
+            <div id="brev-text" class="accar-brev-render"></div>
           </div>
-        </header>
 
-        <div class="accar-pliego-body">
-          <div class="accar-sala-spinner" id="brev-spinner"></div>
-          <div id="brev-text" class="accar-brev-render"></div>
+          <button type="button" id="brev-btn-top" class="accar-btn-subir" style="display: none;">
+            ↑ Volver arriba
+          </button>
         </div>
-
-        <button type="button" id="brev-btn-top" class="accar-btn-subir" style="display: none;">
-          ↑ Volver arriba
-        </button>
 
       </main>
 
@@ -200,7 +206,7 @@
 }
 
 /* =========================================================
-   CAPA 1: VARIABLES DEL TIEMPO LITÚRGICO (FONDO Y ACENTOS)
+   PALETA UNIFICADA DEL TIEMPO LITÚRGICO
 ========================================================= */
 #accar-breviario-root {
   --tiempo-bg-top: #0d3b38;
@@ -209,15 +215,11 @@
   --tiempo-badge-bg: linear-gradient(135deg, #1b7a52 0%, #115437 100%);
   --tiempo-badge-border: rgba(62, 184, 122, 0.62);
   --tiempo-badge-text: #fff9ec;
+  --tiempo-btn-sub: rgba(255, 249, 236, 0.85);
+  --tiempo-btn-glow: rgba(27, 122, 82, 0.40);
   --tiempo-semana-text: #2fb370;
   --tiempo-kicker-light: #166e46;
   --tiempo-kicker-dark: #2fb370;
-
-  --santo-btn-bg: linear-gradient(135deg, #1b7a52 0%, #115437 100%);
-  --santo-btn-border: rgba(62, 184, 122, 0.62);
-  --santo-btn-text: #fff9ec;
-  --santo-btn-sub: rgba(255, 249, 236, 0.85);
-  --santo-btn-glow: rgba(27, 122, 82, 0.40);
 
   position: relative;
   width: 100%;
@@ -237,6 +239,8 @@
   --tiempo-badge-bg: linear-gradient(135deg, #1b7a52 0%, #115437 100%);
   --tiempo-badge-border: rgba(62, 184, 122, 0.62);
   --tiempo-badge-text: #fff9ec;
+  --tiempo-btn-sub: rgba(255, 249, 236, 0.85);
+  --tiempo-btn-glow: rgba(27, 122, 82, 0.40);
   --tiempo-semana-text: #2fb370;
   --tiempo-kicker-light: #166e46;
   --tiempo-kicker-dark: #2fb370;
@@ -249,9 +253,11 @@
   --tiempo-badge-bg: linear-gradient(135deg, #6b21a8 0%, #461373 100%);
   --tiempo-badge-border: rgba(196, 155, 255, 0.58);
   --tiempo-badge-text: #fff9ec;
-  --tiempo-semana-text: #d0b0ff;
+  --tiempo-btn-sub: rgba(243, 232, 255, 0.85);
+  --tiempo-btn-glow: rgba(107, 33, 168, 0.42);
+  --tiempo-semana-text: #c084fc;
   --tiempo-kicker-light: #5b21b6;
-  --tiempo-kicker-dark: #d0b0ff;
+  --tiempo-kicker-dark: #c084fc;
 }
 
 #accar-breviario-root[data-tiempo="blanco"] {
@@ -261,7 +267,9 @@
   --tiempo-badge-bg: linear-gradient(135deg, #ead8ad 0%, #cfb474 100%);
   --tiempo-badge-border: #d4af37;
   --tiempo-badge-text: #081226;
-  --tiempo-semana-text: #f3dfb0;
+  --tiempo-btn-sub: rgba(8, 18, 38, 0.75);
+  --tiempo-btn-glow: rgba(212, 175, 55, 0.34);
+  --tiempo-semana-text: #eed076;
   --tiempo-kicker-light: #8c6514;
   --tiempo-kicker-dark: #eed076;
 }
@@ -273,9 +281,11 @@
   --tiempo-badge-bg: linear-gradient(135deg, #9f1222 0%, #6e0b17 100%);
   --tiempo-badge-border: rgba(252, 165, 165, 0.55);
   --tiempo-badge-text: #fff9ec;
-  --tiempo-semana-text: #fca5a5;
+  --tiempo-btn-sub: rgba(255, 241, 242, 0.85);
+  --tiempo-btn-glow: rgba(159, 18, 34, 0.42);
+  --tiempo-semana-text: #f87171;
   --tiempo-kicker-light: #991b1b;
-  --tiempo-kicker-dark: #fca5a5;
+  --tiempo-kicker-dark: #f87171;
 }
 
 #accar-breviario-root[data-tiempo="rosado"] {
@@ -285,74 +295,11 @@
   --tiempo-badge-bg: linear-gradient(135deg, #ad2161 0%, #7a1444 100%);
   --tiempo-badge-border: rgba(249, 168, 212, 0.58);
   --tiempo-badge-text: #fff9ec;
-  --tiempo-semana-text: #f9a8d4;
+  --tiempo-btn-sub: rgba(252, 231, 243, 0.85);
+  --tiempo-btn-glow: rgba(173, 33, 97, 0.38);
+  --tiempo-semana-text: #f472b6;
   --tiempo-kicker-light: #9d174d;
-  --tiempo-kicker-dark: #f9a8d4;
-}
-
-/* =========================================================
-   CAPA 2: VARIABLES DEL SANTO / CELEBRACIÓN (BOTONES)
-========================================================= */
-#accar-breviario-root[data-santo="verde"] {
-  --santo-btn-bg: linear-gradient(135deg, #1b7a52 0%, #115437 100%);
-  --santo-btn-border: #4fd19b;
-  --santo-btn-text: #fff9ec;
-  --santo-btn-sub: rgba(255, 249, 236, 0.84);
-  --santo-btn-glow: rgba(27, 122, 82, 0.36);
-}
-
-#accar-breviario-root[data-santo="celeste"] {
-  --santo-btn-bg: linear-gradient(135deg, #2b6cb0 0%, #194376 100%);
-  --santo-btn-border: #7dd3fc;
-  --santo-btn-text: #fff9ec;
-  --santo-btn-sub: rgba(224, 242, 254, 0.88);
-  --santo-btn-glow: rgba(56, 189, 248, 0.32);
-}
-
-#accar-breviario-root[data-santo="blanco"],
-#accar-breviario-root[data-santo="blanco-hueso"],
-#accar-breviario-root[data-santo="crema"],
-#accar-breviario-root[data-santo="gloria"] {
-  --santo-btn-bg: linear-gradient(135deg, #efe4c6 0%, #d8c394 100%);
-  --santo-btn-border: #d4af37;
-  --santo-btn-text: #081226;
-  --santo-btn-sub: rgba(8, 18, 38, 0.76);
-  --santo-btn-glow: rgba(212, 175, 55, 0.34);
-}
-
-#accar-breviario-root[data-santo="rojo"],
-#accar-breviario-root[data-santo="realeza"] {
-  --santo-btn-bg: linear-gradient(135deg, #a61b29 0%, #6e0e18 100%);
-  --santo-btn-border: #fca5a5;
-  --santo-btn-text: #fff9ec;
-  --santo-btn-sub: rgba(255, 241, 242, 0.86);
-  --santo-btn-glow: rgba(185, 28, 28, 0.38);
-}
-
-#accar-breviario-root[data-santo="morado"],
-#accar-breviario-root[data-santo="violeta"] {
-  --santo-btn-bg: linear-gradient(135deg, #6b21a8 0%, #44126e 100%);
-  --santo-btn-border: #d0b0ff;
-  --santo-btn-text: #fff9ec;
-  --santo-btn-sub: rgba(243, 232, 255, 0.86);
-  --santo-btn-glow: rgba(126, 34, 206, 0.36);
-}
-
-#accar-breviario-root[data-santo="rosado"],
-#accar-breviario-root[data-santo="rosa"] {
-  --santo-btn-bg: linear-gradient(135deg, #ad2161 0%, #7a1444 100%);
-  --santo-btn-border: #f9a8d4;
-  --santo-btn-text: #fff9ec;
-  --santo-btn-sub: rgba(252, 231, 243, 0.86);
-  --santo-btn-glow: rgba(190, 24, 93, 0.34);
-}
-
-#accar-breviario-root[data-santo="negro"] {
-  --santo-btn-bg: linear-gradient(135deg, #374151 0%, #1f2937 100%);
-  --santo-btn-border: #d4af37;
-  --santo-btn-text: #fff9ec;
-  --santo-btn-sub: rgba(243, 244, 246, 0.80);
-  --santo-btn-glow: rgba(212, 175, 55, 0.24);
+  --tiempo-kicker-dark: #f472b6;
 }
 
 /* ===== ESTRUCTURA Y SIDEBAR ===== */
@@ -494,6 +441,7 @@
   box-shadow: 0 8px 18px rgba(0, 0, 0, 0.36);
 }
 
+/* ===== REJILLA DE 3 CASILLAS EN 2 LÍNEAS (CELEBRAMOS) ===== */
 #accar-breviario-root .accar-meta-grid {
   position: relative;
   z-index: 2;
@@ -633,7 +581,7 @@
   cursor: default;
 }
 
-.accar-horas-menu {
+#accar-breviario-root .accar-horas-menu {
   position: relative;
   z-index: 2;
   display: flex;
@@ -641,7 +589,7 @@
   gap: 8px;
 }
 
-.accar-horas-menores-label {
+#accar-breviario-root .accar-horas-menores-label {
   margin: 4px 0 -2px;
   font-size: 0.66rem;
   font-weight: 700;
@@ -650,14 +598,14 @@
   color: rgba(232, 203, 114, 0.78);
 }
 
-.accar-horas-menores-row {
+#accar-breviario-root .accar-horas-menores-row {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 7px;
   margin-bottom: 2px;
 }
 
-.accar-brev-btn {
+#accar-breviario-root .accar-brev-btn {
   appearance: none;
   width: 100%;
   padding: 11px 14px;
@@ -677,14 +625,14 @@
   transition: all 0.25s ease;
 }
 
-.accar-brev-btn--menor {
+#accar-breviario-root .accar-brev-btn--menor {
   justify-content: center;
   text-align: center;
   padding: 10px 6px;
   font-size: 0.84rem;
 }
 
-.accar-hora-tag {
+#accar-breviario-root .accar-hora-tag {
   font-size: 0.68rem;
   font-weight: 400;
   letter-spacing: 0.06em;
@@ -692,30 +640,32 @@
   color: rgba(234, 224, 200, 0.56);
 }
 
-.accar-brev-btn:hover:not(.active) {
-  border-color: var(--santo-btn-border);
+#accar-breviario-root .accar-brev-btn:hover:not(.active) {
+  border-color: var(--tiempo-badge-border);
   background: rgba(12, 26, 56, 0.85);
   color: #fff9ec;
   transform: translateY(-1px);
 }
 
-.accar-brev-btn.active {
-  background: var(--santo-btn-bg);
-  border-color: var(--santo-btn-border);
-  color: var(--santo-btn-text);
-  box-shadow: 0 8px 20px var(--santo-btn-glow);
+#accar-breviario-root .accar-brev-btn.active {
+  background: var(--tiempo-badge-bg);
+  border-color: var(--tiempo-badge-border);
+  color: var(--tiempo-badge-text);
+  box-shadow: 0 8px 20px var(--tiempo-btn-glow);
 }
 
-.accar-brev-btn.active .accar-hora-tag {
-  color: var(--santo-btn-sub);
+#accar-breviario-root .accar-brev-btn.active .accar-hora-tag {
+  color: var(--tiempo-btn-sub);
 }
 
-/* ===== PLIEGO DEL BREVIARIO ===== */
+/* =========================================================
+   PLIEGO EDITORIAL ESTILO BREVIARIO ROMANO
+========================================================= */
 #accar-breviario-root .accar-pliego-lectura {
   position: relative;
-  padding: 42px 48px 46px;
+  padding: 36px 52px 50px;
   border-radius: 24px;
-  border: 1px solid rgba(212, 175, 55, 0.42);
+  border: 1px solid rgba(212, 175, 55, 0.44);
   background: linear-gradient(180deg, #091326 0%, #050b18 100%);
   box-shadow: 0 26px 56px rgba(0, 0, 0, 0.62);
   text-align: left;
@@ -723,11 +673,16 @@
 }
 
 #accar-breviario-root .accar-pliego-lectura.theme-light {
-  background: linear-gradient(180deg, #f7f0e2 0%, #f1e7d3 100%);
-  border-color: rgba(190, 152, 68, 0.55);
+  background: linear-gradient(180deg, #faf4e6 0%, #f3ead6 100%);
+  border-color: rgba(190, 152, 68, 0.58);
   box-shadow:
     0 26px 56px rgba(0, 0, 0, 0.55),
-    inset 0 0 32px rgba(180, 145, 70, 0.08);
+    inset 0 0 36px rgba(175, 138, 62, 0.08);
+}
+
+#accar-breviario-root .accar-pliego-folio {
+  max-width: 700px;
+  margin: 0 auto;
 }
 
 #accar-breviario-root .accar-pliego-toolbar {
@@ -737,7 +692,7 @@
   flex-wrap: wrap;
   gap: 12px;
   padding-bottom: 16px;
-  margin-bottom: 24px;
+  margin-bottom: 28px;
   border-bottom: 1px solid rgba(212, 175, 55, 0.24);
 }
 
@@ -789,7 +744,7 @@
 #accar-breviario-root .accar-pliego-lectura.theme-light .accar-tool-btn {
   color: #241e14;
   border-color: rgba(120, 92, 34, 0.34);
-  background: rgba(255, 255, 255, 0.42);
+  background: rgba(255, 255, 255, 0.45);
 }
 
 #accar-breviario-root .accar-tool-btn:hover {
@@ -805,17 +760,17 @@
 #accar-breviario-root .accar-pliego-header {
   margin-bottom: 26px;
   padding-bottom: 22px;
-  border-bottom: 1px solid rgba(212, 175, 55, 0.22);
+  border-bottom: 1px solid rgba(212, 175, 55, 0.24);
 }
 
 #accar-breviario-root .accar-pliego-lectura.theme-light .accar-pliego-header {
-  border-bottom-color: rgba(140, 108, 40, 0.22);
+  border-bottom-color: rgba(140, 108, 40, 0.24);
 }
 
 #accar-breviario-root .accar-pliego-kicker {
   display: block;
-  margin-bottom: 10px;
-  font-size: 0.76rem;
+  margin-bottom: 8px;
+  font-size: 0.74rem;
   font-weight: 700;
   letter-spacing: 0.16em;
   text-transform: uppercase;
@@ -827,26 +782,30 @@
 }
 
 #accar-breviario-root .accar-pliego-title {
-  margin: 0 0 8px;
-  font-size: 2.3rem;
+  margin: 0 0 6px;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-size: 2.6rem;
   font-weight: 700;
-  line-height: 1.18;
+  line-height: 1.12;
+  letter-spacing: -0.01em;
   color: #eed076;
 }
 
 #accar-breviario-root .accar-pliego-lectura.theme-light .accar-pliego-title {
-  color: #7f1d1d;
+  color: #821818;
 }
 
 #accar-breviario-root .accar-pliego-ref {
   margin: 0 0 18px;
-  font-size: 1.04rem;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-size: 1.2rem;
+  font-weight: 500;
   font-style: italic;
-  color: rgba(234, 224, 200, 0.78);
+  color: rgba(234, 224, 200, 0.84);
 }
 
 #accar-breviario-root .accar-pliego-lectura.theme-light .accar-pliego-ref {
-  color: #524634;
+  color: #4f4230;
 }
 
 #accar-breviario-root .accar-pliego-actions {
@@ -863,10 +822,10 @@
   padding: 9px 18px;
   border-radius: 999px;
   border: 1px solid rgba(212, 175, 55, 0.58);
-  background: rgba(6, 15, 38, 0.90);
+  background: rgba(6, 15, 38, 0.92);
   color: #eed076;
-  font-family: inherit;
-  font-size: 0.75rem;
+  font-family: Georgia, serif;
+  font-size: 0.73rem;
   font-weight: 700;
   letter-spacing: 0.10em;
   text-transform: uppercase;
@@ -887,21 +846,79 @@
   transform: translateY(-1px);
 }
 
-/* Renderizado tipográfico de las Horas Canónicas */
+/* ===== TIPOGRAFÍA Y JERARQUÍA DEL BREVIARIO ===== */
 .accar-brev-render,
 .accar-brev-render * {
-  font-family: Georgia, "Times New Roman", serif !important;
+  font-family: 'Crimson Pro', Georgia, "Times New Roman", serif !important;
+  font-variant-numeric: lining-nums proportional-nums;
 }
 
 .accar-brev-render {
-  font-size: 18.5px;
-  line-height: 1.86;
-  color: #efe5cc !important;
+  font-size: 21px;
+  line-height: 1.78;
+  color: #f0e6ce !important;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
   transition: font-size 0.2s ease;
 }
 
 .accar-brev-render p {
-  margin: 0 0 18px;
+  margin: 0 0 1.05em;
+}
+
+/* Secciones mayores (INVOCACIÓN INICIAL, SALMODIA, LECTURA BREVE, ORACIÓN...) */
+.accar-brev-render .accar-brev-seccion {
+  margin: 1.85em 0 0.85em !important;
+  padding-bottom: 6px;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.24);
+  font-size: 0.84em;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.accar-brev-render .accar-brev-seccion:first-child {
+  margin-top: 0.2em !important;
+}
+
+#accar-breviario-root .accar-pliego-lectura.theme-light .accar-brev-render .accar-brev-seccion {
+  border-bottom-color: rgba(139, 26, 26, 0.20);
+}
+
+/* Títulos de Himnos, Salmos y Cánticos */
+.accar-brev-render .accar-brev-pieza {
+  margin: 1.35em 0 0.65em !important;
+  font-size: 1.02em;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  line-height: 1.4;
+}
+
+/* Antífonas */
+.accar-brev-render .accar-brev-antifona {
+  margin: 0.9em 0 1.05em !important;
+  padding: 8px 14px;
+  border-left: 3px solid rgba(212, 175, 55, 0.55);
+  background: rgba(212, 175, 55, 0.06);
+  border-radius: 0 8px 8px 0;
+  line-height: 1.65;
+}
+
+#accar-breviario-root .accar-pliego-lectura.theme-light .accar-brev-render .accar-brev-antifona {
+  border-left-color: rgba(139, 26, 26, 0.52);
+  background: rgba(139, 26, 26, 0.04);
+}
+
+/* Estrofas poéticas de Himnos y Salmos */
+.accar-brev-render .accar-brev-estrofa {
+  margin: 0 0 1.15em !important;
+  padding-left: 18px;
+  border-left: 2px solid rgba(212, 175, 55, 0.20);
+  line-height: 1.72;
+}
+
+#accar-breviario-root .accar-pliego-lectura.theme-light .accar-brev-render .accar-brev-estrofa {
+  border-left-color: rgba(140, 108, 40, 0.22);
 }
 
 .accar-brev-render h1,
@@ -909,14 +926,14 @@
 .accar-brev-render h3,
 .accar-brev-render h4 {
   color: #eed076 !important;
-  margin: 26px 0 12px;
-  line-height: 1.3;
+  margin: 1.5em 0 0.6em;
+  line-height: 1.28;
 }
 
 .accar-brev-render font[color="black"],
 .accar-brev-render font[color="#000000"],
 .accar-brev-render span[style*="black"] {
-  color: #efe5cc !important;
+  color: #f0e6ce !important;
 }
 
 .accar-brev-render font[color="red"],
@@ -924,24 +941,24 @@
 .accar-brev-render font[color="#FF0000"],
 .accar-brev-render span[style*="red"] {
   color: #f87171 !important;
-  font-weight: 700;
+  font-weight: 600;
 }
 
 #accar-breviario-root .accar-pliego-lectura.theme-light .accar-brev-render {
-  color: #1e1912 !important;
+  color: #1f1912 !important;
 }
 
 #accar-breviario-root .accar-pliego-lectura.theme-light .accar-brev-render h1,
 #accar-breviario-root .accar-pliego-lectura.theme-light .accar-brev-render h2,
 #accar-breviario-root .accar-pliego-lectura.theme-light .accar-brev-render h3,
 #accar-breviario-root .accar-pliego-lectura.theme-light .accar-brev-render h4 {
-  color: #7f1d1d !important;
+  color: #821818 !important;
 }
 
 #accar-breviario-root .accar-pliego-lectura.theme-light .accar-brev-render font[color="black"],
 #accar-breviario-root .accar-pliego-lectura.theme-light .accar-brev-render font[color="#000000"],
 #accar-breviario-root .accar-pliego-lectura.theme-light .accar-brev-render span[style*="black"] {
-  color: #1e1912 !important;
+  color: #1f1912 !important;
 }
 
 #accar-breviario-root .accar-pliego-lectura.theme-light .accar-brev-render font[color="red"],
@@ -949,7 +966,7 @@
 #accar-breviario-root .accar-pliego-lectura.theme-light .accar-brev-render font[color="#FF0000"],
 #accar-breviario-root .accar-pliego-lectura.theme-light .accar-brev-render span[style*="red"] {
   color: #991b1b !important;
-  font-weight: 700;
+  font-weight: 600;
 }
 
 #accar-breviario-root .accar-btn-subir {
@@ -961,8 +978,8 @@
   border: 1px solid #c9a227;
   background: transparent;
   color: #c9a227;
-  font-family: inherit;
-  font-size: 0.76rem;
+  font-family: Georgia, serif;
+  font-size: 0.74rem;
   font-weight: 700;
   letter-spacing: 0.10em;
   text-transform: uppercase;
@@ -1020,11 +1037,11 @@
   }
 
   #accar-breviario-root .accar-pliego-lectura {
-    padding: 28px 22px 32px;
+    padding: 26px 22px 32px;
   }
 
   #accar-breviario-root .accar-pliego-title {
-    font-size: 1.88rem;
+    font-size: 2.1rem;
   }
 
   #accar-breviario-root .accar-btn-share-pliego {
@@ -1054,7 +1071,7 @@
     border-bottom: 1px solid rgba(212, 175, 55, 0.18);
     background: linear-gradient(90deg, rgba(12, 28, 60, 0.92), rgba(6, 15, 36, 0.92));
     color: #eed076;
-    font-family: inherit;
+    font-family: Georgia, serif;
     font-size: 0.73rem;
     font-weight: 700;
     letter-spacing: 0.10em;
@@ -1127,6 +1144,7 @@ const labelTheme = document.getElementById('brev-label-theme');
 const btnTop = document.getElementById('brev-btn-top');
 
 const opcionesFecha = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
+const MAPA_TAMANOS = { sm: '18.5px', md: '21px', lg: '24px' };
 
 const NOMBRES_HORAS = {
   ufficio: { kicker: '✠ Oficio de lectura de hoy', titulo: 'Oficio de lectura', sub: 'Liturgia de las Horas · Meditación bíblica y patrística' },
@@ -1142,13 +1160,13 @@ function detectarHoraCanonicaActual() {
   const h = new Date().getHours();
   const m = new Date().getMinutes();
   const minTotales = h * 60 + m;
-  if (minTotales < 300) return 'ufficio';      // 00:00 - 04:59
-  if (minTotales < 540) return 'laudi';        // 05:00 - 08:59
-  if (minTotales < 720) return 'tercia';       // 09:00 - 11:59
-  if (minTotales < 900) return 'sexta';        // 12:00 - 14:59
-  if (minTotales < 1050) return 'nona';        // 15:00 - 17:29
-  if (minTotales < 1260) return 'vespri';      // 17:30 - 20:59
-  return 'compieta';                           // 21:00 - 23:59
+  if (minTotales < 300) return 'ufficio';
+  if (minTotales < 540) return 'laudi';
+  if (minTotales < 720) return 'tercia';
+  if (minTotales < 900) return 'sexta';
+  if (minTotales < 1050) return 'nona';
+  if (minTotales < 1260) return 'vespri';
+  return 'compieta';
 }
 
 function sinAcentos(str) {
@@ -1157,6 +1175,63 @@ function sinAcentos(str) {
     .replace(/[\u0300-\u036f]/g, '')
     .toLowerCase()
     .trim();
+}
+
+// Formateador editorial de las Horas Canónicas estilo Breviario impreso
+function embellecerHtmlBreviario(htmlCrudo) {
+  const temp = document.createElement('div');
+  temp.innerHTML = htmlCrudo || '';
+
+  let primerElementoVisto = false;
+  const parrafos = Array.from(temp.querySelectorAll('p'));
+
+  parrafos.forEach((p) => {
+    const txt = (p.textContent || '').replace(/\s+/g, ' ').trim();
+    if (!txt) {
+      p.remove();
+      return;
+    }
+
+    // 1. Eliminar título duplicado inicial (ej. HORA NONA, LAUDES, VÍSPERAS...)
+    if (!primerElementoVisto) {
+      primerElementoVisto = true;
+      if (/^(HORA\s+(TERCIA|SEXTA|NONA|INTERMEDIA)|OFICIO\s+DE\s+LECTURA|LAUDES|V[ÍI]SPERAS|COMPLETAS)$/i.test(txt)) {
+        p.remove();
+        return;
+      }
+    }
+
+    // 2. Secciones litúrgicas mayores
+    if (/^(INVOCACI[ÓO]N\s+INICIAL|HIMNO|SALMODIA|LECTURA\s+BREVE|RESPONSORIO(\s+BREVE)?|C[ÁA]NTICO\s+EVANG[ÉE]LICO|PRECES|ORACI[ÓO]N(\s+FINAL)?|CONCLUSI[ÓO]N|PRIMERA\s+LECTURA|SEGUNDA\s+LECTURA|TE\s+DEUM|EXAMEN\s+DE\s+CONCIENCIA)$/i.test(txt)) {
+      p.classList.add('accar-brev-seccion');
+      return;
+    }
+
+    // 3. Encabezados de Himnos, Salmos y Cánticos
+    const brCount = p.querySelectorAll('br').length;
+    if (brCount === 0 && txt.length < 130 && /^(Himno:|Salmo\s+\d+|C[áa]ntico\b)/i.test(txt)) {
+      p.classList.add('accar-brev-pieza');
+      const walker = document.createTreeWalker(p, NodeFilter.SHOW_TEXT);
+      let node;
+      while ((node = walker.nextNode())) {
+        node.nodeValue = node.nodeValue.replace(/\s+-\s+/g, ' — ');
+      }
+      return;
+    }
+
+    // 4. Antífonas
+    if (/^Ant\.?\s*\d*\.?\s+/i.test(txt)) {
+      p.classList.add('accar-brev-antifona');
+      return;
+    }
+
+    // 5. Estrofas poéticas (Himnos, Salmos y Cánticos)
+    if (brCount >= 2 && !/^(V\.|R\.|℣|℟|Ant\.?\s)/i.test(txt)) {
+      p.classList.add('accar-brev-estrofa');
+    }
+  });
+
+  return temp.innerHTML;
 }
 
 function verificarCristoRey(fechaISO) {
@@ -1191,23 +1266,17 @@ async function obtenerSantoPorFecha(fechaISO) {
     const data = snap.data();
     const nombreCompleto = data.nombre_completo || '';
     const nombreCorto = nombreCompleto.split(',')[0].trim();
-    let color = sinAcentos(data.color || 'blanco');
-    const claveNombre = sinAcentos(nombreCompleto);
-
-    if (color === 'blanco' && /\b(virgen maria|santisima virgen|nuestra senora|madre de dios|inmaculada concepcion|asuncion|bienaventurada virgen|corazon inmaculado|dulce nombre de maria|virgen de|virgen del)\b/.test(claveNombre)) {
-      color = 'celeste';
-    }
-    return { id: idSanto, nombre: nombreCorto || nombreCompleto, color };
+    return { id: idSanto, nombre: nombreCorto || nombreCompleto };
   } catch (_) {
     return null;
   }
 }
 
-// Estado compartido entre Lecturas y Liturgia de las Horas
+// Estado compartido entre Lecturas y Oficio Divino
 const estadoGuardado = window.__accarSalaLiturgica || {};
 const hoyBogota = new Date().toLocaleDateString('en-CA', { timeZone: 'America/Bogota' });
 let currentDate = (estadoGuardado.keepDateOnce && estadoGuardado.fecha) ? estadoGuardado.fecha : hoyBogota;
-let currentFontSize = estadoGuardado.fontSize || '18.5px';
+let currentSizeKey = MAPA_TAMANOS[estadoGuardado.sizeKey] ? estadoGuardado.sizeKey : 'md';
 let isLightMode = typeof estadoGuardado.isLightMode === 'boolean' ? estadoGuardado.isLightMode : true;
 let currentHora = detectarHoraCanonicaActual();
 
@@ -1219,9 +1288,9 @@ if (datePicker) datePicker.value = currentDate;
 
 function aplicarPreferenciasBreviario() {
   if (!mainArea || !textContainer) return;
-  textContainer.style.fontSize = currentFontSize;
+  textContainer.style.fontSize = MAPA_TAMANOS[currentSizeKey] || '21px';
   botonesTamano.forEach(b => {
-    b.classList.toggle('active', b.getAttribute('data-size') === currentFontSize);
+    b.classList.toggle('active', b.getAttribute('data-size-key') === currentSizeKey);
   });
 
   if (isLightMode) {
@@ -1240,7 +1309,7 @@ window.irALecturasDesdeBreviario = function() {
   window.__accarSalaLiturgica = {
     fecha: currentDate,
     keepDateOnce: true,
-    fontSize: currentFontSize,
+    sizeKey: currentSizeKey,
     isLightMode: isLightMode
   };
   loadView('views/inicio-lecturas.html');
@@ -1250,7 +1319,7 @@ window.shareBreviarioACCAR = function(btnEl) {
   const title = tituloTarget?.textContent || 'Liturgia de las Horas';
   const tempDiv = document.createElement('div');
   tempDiv.innerHTML = textContainer?.innerHTML || '';
-  let textBody = (tempDiv.textContent || tempDiv.innerText || '').trim();
+  let textBody = (tempDiv.textContent || tempDiv.innerText || '').replace(/\s+/g, ' ').trim();
   if (textBody.length > 300) textBody = textBody.substring(0, 300) + '...';
 
   const shareData = {
@@ -1297,11 +1366,9 @@ async function cargarMetadatosDia(fechaYYYYMMDD) {
     const dataMeta = await resMeta.json();
     const fiesta = dataMeta.fiestas?.[0] || {};
 
-    // 1. Color del Tiempo Litúrgico sincronizado también en los botones de las Horas
     const colorTiempoRaw = fiesta.colorTiempo || fiesta.color || 'VERDE';
     const colorTiempoClave = sinAcentos(colorTiempoRaw);
     root.setAttribute('data-tiempo', colorTiempoClave);
-    root.setAttribute('data-santo', colorTiempoClave);
 
     if (badgeTomo) {
       badgeTomo.textContent = String(fiesta.tomo || '').replace(/^TOMO\s*/i, '').trim() || '—';
@@ -1318,7 +1385,6 @@ async function cargarMetadatosDia(fechaYYYYMMDD) {
     }
     if (semanaTarget) semanaTarget.textContent = fiesta.semana || 'Tiempo Litúrgico';
 
-    // 2. Nombre y enlace del Santo del Día
     let nombreSantoMostrar = '';
     let idSantoEnlace = null;
 
@@ -1378,7 +1444,7 @@ async function cargarHora(horaParam) {
 
     const data = await response.json();
     if (data.html && data.html.length > 50) {
-      textContainer.innerHTML = data.html;
+      textContainer.innerHTML = embellecerHtmlBreviario(data.html);
       barraControles.style.display = 'flex';
       btnTop.style.display = 'block';
     } else {
@@ -1411,8 +1477,11 @@ btnTop.addEventListener('click', () => {
 
 botonesTamano.forEach(btn => {
   btn.addEventListener('click', () => {
-    currentFontSize = btn.getAttribute('data-size') || '18.5px';
-    aplicarPreferenciasBreviario();
+    const key = btn.getAttribute('data-size-key');
+    if (key && MAPA_TAMANOS[key]) {
+      currentSizeKey = key;
+      aplicarPreferenciasBreviario();
+    }
   });
 });
 
@@ -1430,7 +1499,6 @@ if (datePicker) {
   });
 }
 
-// Arranque sincronizado: metadatos litúrgicos + Hora Canónica correspondiente al momento actual
 cargarMetadatosDia(currentDate);
 cargarHora(currentHora);
 </script>
