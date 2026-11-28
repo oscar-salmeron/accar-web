@@ -4168,27 +4168,27 @@
       .trim();
   }
 
-  // Mapa exacto de los Sumos Pontífices con enlace o ficha activa
+  // Pontífices con enlace externo oficial o ficha histórica terminada
   const FICHAS_ACTIVAS = {
     'leon xiv': {
       externo: 'https://www.vatican.va/content/leo-xiv/es.html',
-      texto: 'Portal Oficial (Santa Sede) ↗'
+      texto: 'Portal Oficial · Santa Sede ↗'
     },
     'francisco': {
       vista: 'views/directorio_papas/SIGLO 21/francisco.html',
-      texto: 'Ver Ficha Histórica →'
+      texto: '✠ Abrir Ficha Pontificia →'
     },
     'benedicto xvi': {
       vista: 'views/directorio_papas/SIGLO 21/benedicto16.html',
-      texto: 'Ver Ficha Histórica →'
+      texto: '✠ Abrir Ficha Pontificia →'
     },
     'san juan pablo ii': {
       vista: 'views/directorio_papas/SIGLO 20/juan_pablo_2.html',
-      texto: 'Ver Ficha Histórica →'
+      texto: '✠ Abrir Ficha Pontificia →'
     }
   };
 
-  // 1. Normalizar rutas de imágenes y carga diferida
+  // 1. Asegurar rutas absolutas de imágenes y carga diferida
   root.querySelectorAll('img').forEach((img, idx) => {
     const rawSrc = img.getAttribute('src') || '';
     if (rawSrc && !rawSrc.startsWith('http') && !rawSrc.startsWith('/')) {
@@ -4197,7 +4197,18 @@
     if (idx > 6) img.loading = 'lazy';
   });
 
-  // 2. Enriquecer las 269 tarjetas con su número de Sucesión Petrina y rutas exactas
+  // 2. Estilizar subtítulos cronológicos de cada siglo ("2001 – Presente | ...")
+  root.querySelectorAll('.dir-century-title-box p').forEach((p) => {
+    const txt = p.textContent || '';
+    if (txt.includes('|') && !p.querySelector('.accar-century-years')) {
+      const partes = txt.split('|');
+      const rango = partes.shift().trim();
+      const lema = partes.join('|').trim();
+      p.innerHTML = `<span class="accar-century-years">${rango}</span><span>${lema}</span>`;
+    }
+  });
+
+  // 3. Enriquecer cada tarjeta con su número de Sucesión Petrina y activar sus rutas reales
   const todasLasTarjetas = Array.from(root.querySelectorAll('.dir-pope-card'));
 
   todasLasTarjetas.forEach((card) => {
@@ -4212,10 +4223,9 @@
     const fechasTexto = fechasEl ? fechasEl.textContent.trim() : '';
     const srcImg = imgEl ? (imgEl.getAttribute('src') || '') : '';
 
-    // Calcular insignia del Anuario Pontificio
     let etiquetaNum = '';
     if (claveNombre === 'san pedro') {
-      etiquetaNum = '✠ El Primer Papa · I ✠';
+      etiquetaNum = '✠ Príncipe de los Apóstoles · I ✠';
     } else if (claveNombre === 'pio iii') {
       etiquetaNum = 'Sucesor n.º 215';
     } else if (claveNombre === 'julio ii') {
@@ -4236,13 +4246,9 @@
       card.insertBefore(badge, card.firstChild);
     }
 
-    // Texto indexado para búsqueda instantánea
     card.dataset.searchIndex = sinAcentos(`${nombreTexto} ${secularEl?.textContent || ''} ${fechasTexto} ${etiquetaNum}`);
 
-    // Conectar enlaces reales vs fichas en preparación
     const configActiva = FICHAS_ACTIVAS[claveNombre];
-    const sigloPadre = card.closest('.dir-century-acc');
-    const idSiglo = sigloPadre ? sigloPadre.dataset.sigloIdx : '';
 
     if (configActiva && btnEl) {
       card.classList.add('dir-pope-card--disponible');
@@ -4289,11 +4295,10 @@
     }
   });
 
-  // 3. Configurar acordeones de siglos con contador y memoria de retorno
+  // 4. Acordeones con contador de Pontífices y memoria al volver desde una ficha
   const acordeones = Array.from(root.querySelectorAll('.dir-century-acc'));
 
   acordeones.forEach((acc, idx) => {
-    acc.dataset.sigloIdx = String(idx);
     const header = acc.querySelector('.dir-century-header');
     const toggle = acc.querySelector('.dir-century-toggle');
     const totalCards = acc.querySelectorAll('.dir-pope-card').length;
@@ -4323,12 +4328,11 @@
     }
   });
 
-  // Si el lector regresa desde una ficha papal, reabrir su siglo automáticamente
   if (typeof window.__accarUltimoSigloPapas === 'number' && acordeones[window.__accarUltimoSigloPapas]) {
     acordeones[window.__accarUltimoSigloPapas].classList.add('open');
   }
 
-  // 4. Buscador en vivo y filtro de fichas habilitadas
+  // 5. Buscador instantáneo y filtro de fichas disponibles
   const inputSearch = document.getElementById('accar-papas-search');
   const btnClear = document.getElementById('accar-papas-clear');
   const emptyBox = document.getElementById('accar-papas-empty');
@@ -4371,7 +4375,6 @@
       }
     });
 
-    // Ocultar separadores de era durante filtrado activo para limpieza visual
     separadoresEra.forEach(sep => {
       sep.style.display = filtrandoActivo ? 'none' : '';
     });
@@ -4381,10 +4384,7 @@
     }
   }
 
-  if (inputSearch) {
-    inputSearch.addEventListener('input', aplicarFiltros);
-  }
-
+  if (inputSearch) inputSearch.addEventListener('input', aplicarFiltros);
   if (btnClear) {
     btnClear.addEventListener('click', () => {
       inputSearch.value = '';
