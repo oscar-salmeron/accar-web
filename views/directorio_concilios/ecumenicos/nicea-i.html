@@ -1,1727 +1,2375 @@
-<!-- ===== INICIO CONCILIO VATICANO II ===== -->
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Concilio Vaticano II | ACCAR</title>
-
-  <style>
-    :root{
-      --azul-oscuro:#0c1f3f;
-      --azul-medio:#123867;
-      --azul-claro:#1d4e89;
-      --oro-pontificio:#b88a44;
-      --oro-pontificio-oscuro:#9e7531;
-      --purpura-cardenal:#a31f34;
-      --verde-episcopal:#1b7340;
-      --carmesi-grad: linear-gradient(135deg, #7a1010 0%, #1a0505 100%);
-      --oro-grad: linear-gradient(180deg, var(--oro-pontificio) 0%, var(--oro-pontificio-oscuro) 100%);
-      --texto:#1b1b1b;
-      --sombra:0 18px 38px rgba(0,0,0,.18);
-      --max:1240px;
-    }
-
-    *{box-sizing:border-box}
-    html{scroll-behavior:smooth}
-    body{
-      margin:0;
-      color:var(--texto);
-      font-family:Georgia, "Times New Roman", serif;
-      background:
-        linear-gradient(rgba(8,18,35,.18), rgba(8,18,35,.18)),
-        url("../../assets/img/fondo_concilios.webp") center top / cover fixed no-repeat;
-    }
-
-    img{max-width:100%;display:block}
-    a{text-decoration:none;color:inherit}
-    button{font:inherit}
-    .wrap{
-      width:min(var(--max), calc(100% - 28px));
-      margin:0 auto;
-    }
-
-    .content-panel{display:none}
-    .content-panel.active{
-      display:block;
-      animation:fadeIn .28s ease;
-    }
-
-    @keyframes fadeIn{
-      from{opacity:0;transform:translateY(8px)}
-      to{opacity:1;transform:none}
-    }
-
-    /* ===== INICIO HERO ===== */
-    .hero {
-      position: relative;
-      overflow: hidden;
-      border-bottom: 2px solid rgba(212,175,55,.55);
-      /* Se agrega la imagen de fondo con un oscurecimiento base para legibilidad */
-      background:
-        linear-gradient(180deg, rgba(9,23,45,.30) 0%, rgba(9,23,45,.05) 50%, rgba(9,23,45,.50) 100%),
-        url("../../assets/img/fondo_concilios.webp") center center / cover no-repeat;
-    }
-
-    .hero::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      /* Se mantiene un viñeteado lateral suave */
-      background:
-        linear-gradient(90deg, rgba(7,17,34,.65) 0%, rgba(7,17,34,0) 50%, rgba(7,17,34,.65) 100%);
-      pointer-events: none;
-    }
-
-    .hero-inner{
-      position:relative;
-      z-index:1;
-      min-height:760px;
-      padding:34px 0 38px;
-    }
-
-    .back-link {
-      display: inline-block;
-      margin-bottom: 20px;
-      color: var(--oro-pontificio);
-      font-weight: bold;
-      font-size: 1.05rem;
-      text-decoration: none;
-      transition: color 0.2s ease, transform 0.2s ease;
-    }
-    .back-link:hover {
-      color: #ffd971;
-      transform: translateX(-4px);
-    }
-
-    /* ===== INICIO BANDA SUPERIOR ===== */
-    .top-brand{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:16px;
-      margin-bottom:20px;
-    }
-
-    .top-brand a{
-      display:flex;
-      align-items:center;
-      gap:16px;
-      min-width:0;
-    }
-
-    .top-brand img{
-      width:78px;
-      filter:drop-shadow(0 8px 16px rgba(0,0,0,.28));
-    }
-
-    .top-brand-text{
-      color:#f8f0d8;
-      line-height:1.1;
-      text-shadow:0 4px 16px rgba(0,0,0,.32);
-    }
-
-    .top-brand-text .line-1{
-      display:block;
-      font-size:1.95rem;
-      font-weight:bold;
-    }
-
-    .top-brand-text .line-2{
-      display:block;
-      font-size:1.45rem;
-      margin-top:2px;
-    }
-
-    .mobile-menu-toggle{
-      display:none;
-      align-items:center;
-      justify-content:center;
-      width:56px;
-      height:56px;
-      border-radius:16px;
-      border:1px solid rgba(212,175,55,.72);
-      background:linear-gradient(180deg, rgba(25,72,135,.92), rgba(16,51,95,.92));
-      box-shadow:0 10px 18px rgba(0,0,0,.18), inset 0 1px 0 rgba(255,255,255,.12);
-      cursor:pointer;
-      flex:0 0 auto;
-      padding:0;
-    }
-
-    .mobile-menu-toggle:hover{
-      transform:translateY(-1px);
-      background:linear-gradient(180deg, rgba(29,85,159,.96), rgba(18,56,103,.96));
-    }
-
-    .mobile-menu-toggle span{
-      display:block;
-      width:24px;
-      height:2.5px;
-      background:#fff4cf;
-      border-radius:999px;
-      margin:3px 0;
-      transition:.22s ease;
-    }
-
-    .mobile-menu-toggle.active span:nth-child(1){
-      transform:translateY(8px) rotate(45deg);
-    }
-
-    .mobile-menu-toggle.active span:nth-child(2){
-      opacity:0;
-    }
-
-    .mobile-menu-toggle.active span:nth-child(3){
-      transform:translateY(-8px) rotate(-45deg);
-    }
-
-    .mobile-nav-panel{
-      display:none;
-      margin-bottom:24px;
-    }
-
-    .mobile-nav-panel.active{
-      display:block;
-      animation:fadeIn .24s ease;
-    }
-
-    .mobile-nav-card{
-      border:1px solid rgba(212,175,55,.42);
-      border-radius:22px;
-      background:linear-gradient(180deg, rgba(11,31,63,.60), rgba(11,31,63,.84));
-      backdrop-filter:blur(6px);
-      box-shadow:var(--sombra);
-      padding:14px;
-    }
-
-    .mobile-nav-list{
-      display:grid;
-      gap:10px;
-    }
-
-    .mobile-nav-btn{
-      appearance:none;
-      width:100%;
-      border:1px solid rgba(212,175,55,.7);
-      background:linear-gradient(180deg, #194887 0%, #10335f 100%);
-      color:#fff4cf;
-      padding:15px 14px;
-      border-radius:16px;
-      cursor:pointer;
-      box-shadow:0 10px 18px rgba(0,0,0,.18), inset 0 1px 0 rgba(255,255,255,.12);
-      transition:.22s ease;
-      font-weight:bold;
-      font-size:1rem;
-      text-align:center;
-    }
-
-    .mobile-nav-btn.active{
-      background: var(--oro-grad);
-      color:#fff;
-      text-shadow: 0 1px 2px rgba(0,0,0,0.4);
-      box-shadow:0 12px 22px rgba(0,0,0,.3), inset 0 1px 0 rgba(255,255,255,.2);
-    }
-    /* ===== FINAL BANDA SUPERIOR ===== */
-
-    .hero-card{
-      width:100%;
-      display:grid;
-      grid-template-columns:minmax(250px, 330px) 1fr;
-      gap:34px;
-      align-items:center;
-      padding:30px;
-      border:1px solid rgba(212,175,55,.42);
-      border-radius:30px;
-      background:linear-gradient(180deg, rgba(11,31,63,.54), rgba(11,31,63,.80));
-      backdrop-filter:blur(6px);
-      box-shadow:var(--sombra);
-      overflow:hidden;
-    }
-
-    /* ===== BADGE CONCILIO ===== */
-.hero-photo-wrap{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:14px;
-}
-
-.badge-concilio{
-  background: var(--oro-grad);
-  color:#fff;
-  padding:10px 18px;
-  border-radius:999px;
-  font-weight:bold;
-  font-size:.95rem;
-  box-shadow:0 8px 18px rgba(0,0,0,.25);
-  border:1px solid #d4af37;
-  text-align:center;
-  text-shadow: 0 1px 2px rgba(0,0,0,0.4);
-}
-
-    .hero-photo img{
-      width:100%;
-      max-width:290px;
-      border-radius:28px;
-      border:3px solid rgba(212,175,55,.82);
-      background:linear-gradient(180deg, #f7f0dc, #d9c79f);
-      box-shadow:0 14px 26px rgba(0,0,0,.28);
-    }
-
-    .hero-copy{
-      color:#fff8e8;
-      min-width:0;
-    }
-
-    .hero-kicker{
-      display:inline-block;
-      margin:0 0 10px;
-      padding:8px 14px;
-      border-radius:999px;
-      border:1px solid rgba(212,175,55,.45);
-      background:rgba(255,255,255,.08);
-      font-size:.95rem;
-      letter-spacing:.02em;
-    }
-
-    .hero-copy h1{
-      margin:0 0 14px;
-      font-size:clamp(2.45rem, 5vw, 4.8rem);
-      line-height:1.02;
-      color:#fff4d0;
-      text-shadow:0 5px 18px rgba(0,0,0,.26);
-      overflow-wrap:anywhere;
-    }
-
-    .hero-copy p{
-      margin:0;
-      max-width:820px;
-      font-size:1.08rem;
-      line-height:1.8;
-      color:#f7efd9;
-      overflow-wrap:anywhere;
-    }
-
-    .hero-meta{
-      display:grid;
-      grid-template-columns:repeat(4, 1fr);
-      gap:14px;
-      margin:24px 0 0;
-    }
-
-    .hero-meta .meta-item{
-      padding:16px 16px 18px;
-      border-radius:18px;
-      border:1px solid var(--oro-pontificio);
-      background: linear-gradient(180deg, rgba(184, 138, 68, 0.15), rgba(158, 117, 49, 0.05));
-      box-shadow:inset 0 1px 0 rgba(255,255,255,.1);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      min-height:100%;
-      min-width:0;
-    }
-    .hero-meta .meta-item:hover{
-      transform: translateY(-4px);
-      box-shadow: 0 12px 24px rgba(0,0,0,.3);
-    }
-
-    .hero-meta .meta-label{
-      display:block;
-      margin-bottom:8px;
-      font-size:.82rem;
-      color:#e7d8a6;
-      text-transform:uppercase;
-      letter-spacing:.06em;
-    }
-
-    .hero-meta .meta-value{
-      font-size:.94rem;
-      line-height:1.55;
-      color:#fff9ec;
-      overflow-wrap:anywhere;
-    }
-
-    .hero-nav{
-      margin-top:24px;
-      display:flex;
-      flex-wrap:wrap;
-      gap:12px;
-      width:100%;
-      justify-content:space-between;
-      align-items:stretch;
-    }
-
-    .hero-nav button {
-      appearance: none;
-      border: 1px solid rgba(212,175,55,.3);
-      border-left: 5px solid var(--oro-pontificio);
-      background: linear-gradient(180deg, #194887 0%, #10335f 100%);
-      color: #fff4cf;
-      padding: 14px 10px; /* Margen interno reducido para igualar alturas */
-      border-radius: 16px;
-      cursor: pointer;
-      box-shadow: 0 10px 18px rgba(0,0,0,.18), inset 0 1px 0 rgba(255,255,255,.12);
-      transition: .22s ease;
-      font-weight: bold;
-      font-size: 0.9rem; /* Letra ligeramente más pequeña para que encajen textos largos */
-      text-align: center;
-      white-space: nowrap; /* Obliga al texto a mantenerse en una sola línea */
-      min-width: 140px; /* Ancho mínimo ajustado */
-      flex: 1 1 140px;
-    }
-
-    .hero-nav button:hover{
-      transform:translateY(-1px);
-      background:linear-gradient(180deg, #1d559f 0%, #123867 100%);
-    }
-
-    .hero-nav button.active{
-      background: var(--oro-grad);
-      color:#fff;
-      text-shadow: 0 1px 2px rgba(0,0,0,0.4);
-      box-shadow:0 12px 22px rgba(0,0,0,.3), inset 0 1px 0 rgba(255,255,255,.2);
-    }
-    /* ===== FINAL HERO ===== */
-
-    /* ===== INICIO MAIN ===== */
-    .main-shell{
-      background:
-        linear-gradient(rgba(245,239,225,.96), rgba(245,239,225,.97)),
-        url("../../assets/img/textura-footer-pergamino.png") center top / cover repeat;
-      padding:38px 0 52px;
-      overflow-x:hidden;
-    }
-
-    .section-box{
-      background:rgba(255,255,255,.74);
-      border:1px solid rgba(161,127,44,.22);
-      border-radius:24px;
-      box-shadow:var(--sombra);
-      padding:30px;
-      margin:0 0 24px;
-      overflow:hidden;
-    }
-
-    .section-title{
-      margin:0 0 18px;
-      font-size:clamp(2rem, 4vw, 3rem);
-      line-height:1.08;
-      color:var(--azul-oscuro);
-      overflow-wrap:anywhere;
-    }
-
-    .section-subtitle{
-      margin:0 0 16px;
-      font-size:1.6rem;
-      color:var(--azul-oscuro);
-      overflow-wrap:anywhere;
-    }
-
-    .section-box p{
-      margin:0 0 16px;
-      font-size:1.08rem;
-      line-height:1.9;
-      overflow-wrap:anywhere;
-    }
-
-    .inicio-grid{
-      display:grid;
-      grid-template-columns:repeat(2, minmax(0, 1fr));
-      gap:18px;
-      margin-top:8px;
-    }
-
-    .highlight-card, .feature-card {
-      background: rgba(255,255,255,.90);
-      border: 1px solid rgba(15,51,95,.14);
-      border-radius: 20px;
-      box-shadow: 0 10px 22px rgba(0,0,0,.08);
-      padding: 22px;
-      min-width: 0;
-      overflow-wrap: anywhere;
-      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-    }
-
-    /* ===== ASIGNACIÓN DE COLORES LITÚRGICOS POR SECCIÓN ===== */
-    
-    /* Dorado (Verdad, Magisterio, Dogma) */
-    #panel-inicio .section-box, #panel-inicio .highlight-card, #panel-inicio .feature-card,
-    #panel-documentos .section-box, #panel-documentos .highlight-card, #panel-documentos .feature-card,
-    #panel-canones .section-box, #panel-canones .highlight-card, #panel-canones .feature-card {
-      border-left: 5px solid var(--oro-pontificio);
-    }
-    
-    /* Verde (Tiempo Ordinario, Desarrollo Histórico) */
-    #panel-historia .section-box, #panel-historia .highlight-card, #panel-historia .feature-card,
-    #panel-desarrollo .section-box, #panel-desarrollo .highlight-card, #panel-desarrollo .feature-card {
-      border-left: 5px solid var(--verde-episcopal);
-    }
-    
-    /* Azul (Mundo Contemporáneo, Personajes) */
-    #panel-contexto .section-box, #panel-contexto .highlight-card, #panel-contexto .feature-card,
-    #panel-personajes .section-box, #panel-personajes .highlight-card, #panel-personajes .feature-card {
-      border-left: 5px solid var(--azul-claro);
-    }
-    
-    /* Rojo/Púrpura (Herejías, Cisma, Apologética Militante) */
-    #panel-herejias .section-box, #panel-herejias .highlight-card, #panel-herejias .feature-card,
-    #panel-armadura .section-box, #panel-armadura .highlight-card, #panel-armadura .feature-card,
-    #panel-liturgia-cisma .section-box, #panel-liturgia-cisma .highlight-card, #panel-liturgia-cisma .feature-card {
-      border-left: 5px solid var(--purpura-cardenal);
-    }
-    
-    .highlight-card:hover, .feature-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 15px 35px rgba(0,0,0,0.15);
-      background: rgba(255,255,255,.98);
-    }
-    
-    /* Clases de jerarquía visual */
-    .borde-papal { border-left: 5px solid var(--oro-pontificio) !important; }
-    .borde-cardenal { border-left: 5px solid var(--purpura-cardenal) !important; }
-    .borde-episcopal { border-left: 5px solid var(--verde-episcopal) !important; }
-
-    .highlight-card h3,
-    .highlight-card h4{
-      margin:0 0 12px;
-      color:var(--azul-oscuro);
-      font-size:1.34rem;
-      overflow-wrap:anywhere;
-    }
-
-    .highlight-card p:last-child{margin-bottom:0}
-
-    .stat-grid{
-      display:grid;
-      grid-template-columns:repeat(4, minmax(0, 1fr));
-      gap:16px;
-      margin-top:18px;
-    }
-
-    .stat-card{
-      background:linear-gradient(180deg, rgba(17,52,99,.98), rgba(14,44,84,.98));
-      color:#fff7e8;
-      border:1px solid rgba(212,175,55,.25);
-      border-left:5px solid var(--purpura-cardenal);
-      border-radius:20px;
-      padding:20px 16px;
-      text-align:center;
-      box-shadow:0 12px 22px rgba(0,0,0,.15);
-      min-width:0;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    .stat-card:hover{
-      transform: translateY(-5px);
-      box-shadow: 0 15px 35px rgba(0,0,0,0.3);
-    }
-
-    .stat-number{
-      display:block;
-      font-size:2.1rem;
-      line-height:1;
-      color:#ffd971;
-      margin-bottom:10px;
-      font-weight:bold;
-      overflow-wrap:anywhere;
-    }
-
-    .stat-label{
-      font-size:.96rem;
-      line-height:1.55;
-      color:#fff6dd;
-      overflow-wrap:anywhere;
-    }
-
-    .feature-grid{
-      display:grid;
-      grid-template-columns:repeat(2, minmax(0, 1fr));
-      gap:18px;
-    }
-
-    .feature-card{
-      background:rgba(255,255,255,.85);
-      border:1px solid rgba(15,51,95,.14);
-      border-radius:18px;
-      box-shadow:0 10px 22px rgba(0,0,0,.08);
-      padding:22px;
-      min-width:0;
-      overflow-wrap:anywhere;
-    }
-
-    .feature-card h3,
-    .feature-card h4{
-      margin:0 0 12px;
-      color:var(--azul-oscuro);
-      font-size:1.34rem;
-      overflow-wrap:anywhere;
-    }
-
-    .feature-card p:last-child{margin-bottom:0}
-
-    .timeline{
-      display:grid;
-      gap:16px;
-      margin-top:6px;
-    }
-
-    .timeline-item{
-      background:rgba(255,255,255,.84);
-      border:1px solid rgba(15,51,95,.12);
-      border-left:5px solid var(--verde-episcopal);
-      border-radius:18px;
-      padding:20px 20px 18px;
-      box-shadow:0 10px 22px rgba(0,0,0,.08);
-      min-width:0;
-      overflow-wrap:anywhere;
-      transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
-    }
-
-    .timeline-item:hover{
-      transform: translateY(-5px);
-      box-shadow: 0 15px 35px rgba(0,0,0,0.15);
-      background: rgba(255,255,255,.98);
-    }
-
-    .timeline-item h4{
-      margin:0 0 10px;
-      font-size:1.24rem;
-      color:var(--azul-oscuro);
-      overflow-wrap:anywhere;
-    }
-
-    .timeline-item p:last-child{margin-bottom:0}
-
-    .cta-row{
-      display:flex;
-      flex-wrap:wrap;
-      gap:14px;
-      justify-content:center;
-      margin-top:18px;
-    }
-
-    .cta-btn,
-    .cta-link{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      min-width:260px;
-      max-width:100%;
-      padding:15px 22px;
-      border-radius:16px;
-      border:1px solid rgba(212,175,55,.7);
-      box-shadow:0 10px 18px rgba(0,0,0,.16);
-      font-size:1.06rem;
-      font-weight:bold;
-      cursor:pointer;
-      text-align:center;
-      overflow-wrap:anywhere;
-    }
-
-    .cta-btn.azul,
-    .cta-link.azul{
-      background:linear-gradient(180deg,#194887,#10335f);
-      color:#fff4cf;
-    }
-
-    .cta-btn.dorado,
-    .cta-link.dorado{
-      background:linear-gradient(180deg,#e1bd55,#c69a25);
-      color:#241c09;
-    }
-
-    .accordion{
-      display:grid;
-      gap:16px;
-      margin-top:8px;
-    }
-
-    .acc-item{
-      border:1px solid rgba(15,51,95,.12);
-      border-radius:18px;
-      overflow:hidden;
-      background:rgba(255,255,255,.84);
-      box-shadow:0 10px 22px rgba(0,0,0,.08);
-      min-width:0;
-    }
-
-    .acc-trigger{
-      width:100%;
-      border:none;
-      background:linear-gradient(180deg, rgba(17,52,99,.98), rgba(14,44,84,.98));
-      color:#fff4cf;
-      text-align:left;
-      padding:18px 20px;
-      cursor:pointer;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:14px;
-      font-size:1.1rem;
-      font-weight:bold;
-      min-width:0;
-      overflow-wrap:anywhere;
-    }
-
-    .acc-trigger span:first-child{
-      min-width:0;
-      overflow-wrap:anywhere;
-    }
-
-    .acc-trigger span:last-child{
-      min-width:28px;
-      text-align:center;
-      font-size:1.55rem;
-      line-height:1;
-      color:#e6ca7b;
-      flex-shrink:0;
-    }
-
-    .acc-content{
-      display:none;
-      padding:20px 20px 22px;
-      background:rgba(255,255,255,.92);
-      border-top:1px solid rgba(15,51,95,.12);
-      overflow-wrap:anywhere;
-    }
-
-    .acc-item {
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    .acc-item:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 22px 42px rgba(0,0,0,.25);
-    }
-    .acc-item.open .acc-content{display:block}
-    .acc-item.open .acc-trigger{
-      background: var(--carmesi-grad);
-      border-left: 4px solid var(--dorado);
-    }
-
-    .doc-tags{
-      display:flex;
-      flex-wrap:wrap;
-      gap:8px;
-      margin:10px 0 14px;
-    }
-
-    .doc-tag{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      padding:8px 12px;
-      border-radius:999px;
-      background:#ecdfb5;
-      color:#463815;
-      border:1px solid rgba(198,154,37,.4);
-      font-size:.92rem;
-      font-weight:bold;
-      max-width:100%;
-      overflow-wrap:anywhere;
-    }
-    /* ===== FINAL MAIN ===== */
-
-    /* ===== INICIO FOOTER ===== */
-    .footer{
-      position:relative;
-      overflow:hidden;
-      color:#f8efd3;
-      padding:54px 0 30px;
-      border-top:2px solid rgba(212,175,55,.55);
-      background:
-        linear-gradient(180deg, rgba(8,24,48,.04), rgba(8,24,48,.12)),
-        url("../../assets/img/fondo_concilios.webp") center 88% / cover no-repeat;
-    }
-
-    .footer::before{
-      content:"";
-      position:absolute;
-      inset:0;
-      background:
-        linear-gradient(90deg, rgba(7,26,54,.38), rgba(12,42,86,.10), rgba(7,26,54,.38));
-      pointer-events:none;
-    }
-
-    .footer-inner{
-      position:relative;
-      z-index:1;
-    }
-
-    .footer-card{
-      border:1px solid rgba(212,175,55,.34);
-      border-radius:28px;
-      padding:30px 28px 24px;
-      background:linear-gradient(180deg, rgba(11,31,63,.54), rgba(11,31,63,.80));
-      backdrop-filter:blur(5px);
-      box-shadow:var(--sombra);
-      overflow:hidden;
-    }
-
-    .footer-top{
-      display:grid;
-      grid-template-columns:1.2fr .8fr .9fr;
-      gap:36px;
-      align-items:start;
-    }
-
-    .footer-brand{
-      display:flex;
-      align-items:flex-start;
-      gap:24px;
-    }
-
-    .footer-brand-logo{
-      flex:0 0 auto;
-    }
-
-    .footer-brand-logo img{
-      width:172px;
-      filter:drop-shadow(0 8px 16px rgba(0,0,0,.22));
-    }
-
-    .footer-brand-copy{
-      padding-top:8px;
-    }
-
-    .footer-brand-copy p{
-      margin:0 0 8px;
-      font-size:.90rem;
-      line-height:1.58;
-      color:#f6ecd0;
-      overflow-wrap:anywhere;
-    }
-
-    .footer-col h4{
-      margin:0 0 14px;
-      color:#ffd971;
-      font-size:1.7rem;
-      overflow-wrap:anywhere;
-    }
-
-    .footer-links{
-      display:flex;
-      flex-direction:column;
-      gap:10px;
-    }
-
-    .footer-links a,
-    .footer-links button{
-      background:none;
-      border:none;
-      padding:0;
-      margin:0;
-      text-align:left;
-      color:#f6ecd0;
-      font-family:Georgia, "Times New Roman", serif;
-      font-size:1.05rem;
-      cursor:pointer;
-      overflow-wrap:anywhere;
-    }
-
-    .footer-links a:hover,
-    .footer-links button:hover{
-      color:#ffe8a4;
-    }
-
-    .footer-contact{
-      display:flex;
-      flex-direction:column;
-      gap:12px;
-      color:#f6ecd0;
-      font-size:1.05rem;
-      line-height:1.7;
-      overflow-wrap:anywhere;
-    }
-
-    .footer-contact a{
-      color:#f6ecd0;
-    }
-
-    .footer-contact a:hover{
-      color:#ffe8a4;
-    }
-
-    .footer-divider{
-      width:100%;
-      height:1px;
-      margin:22px 0 18px;
-      background:linear-gradient(90deg, transparent, rgba(212,175,55,.85), transparent);
-    }
-
-    .footer-legal{
-      text-align:center;
-      color:#eadfb7;
-      font-size:1rem;
-      line-height:1.75;
-      overflow-wrap:anywhere;
-    }
-    /* ===== FINAL FOOTER ===== */
-
-    /* ===== INICIO RESPONSIVE ===== */
-    @media (max-width:1180px){
-      .hero-meta{grid-template-columns:repeat(2, 1fr)}
-      .hero-nav{
-        justify-content:center;
-      }
-      .hero-nav button{
-        flex:1 1 220px;
-        min-width:220px;
-      }
-      .stat-grid{grid-template-columns:repeat(2, minmax(0, 1fr))}
-      .footer-top{grid-template-columns:1fr 1fr}
-      .footer-col.contact-col{grid-column:1/-1}
-    }
-
-    @media (max-width:920px){
-      .hero{
-        background:
-          linear-gradient(180deg, rgba(9,23,45,.26) 0%, rgba(9,23,45,.16) 26%, rgba(9,23,45,.68) 100%);
-      }
-
-      .hero-inner{
-        min-height:auto;
-        padding:26px 0 34px;
-      }
-
-      .top-brand{
-        justify-content:space-between;
-        align-items:center;
-        text-align:left;
-        gap:12px;
-        margin-bottom:16px;
-      }
-
-      .top-brand a{
-        flex-direction:row;
-        align-items:center;
-        gap:12px;
-        min-width:0;
-        flex:1 1 auto;
-      }
-
-      .top-brand img{width:64px}
-      .top-brand-text .line-1{font-size:1.45rem}
-      .top-brand-text .line-2{font-size:1.05rem}
-
-      .mobile-menu-toggle{
-        display:inline-flex;
-      }
-
-      .hero-card{
-        grid-template-columns:1fr;
-        gap:22px;
-        padding:20px;
-      }
-
-      .hero-copy{text-align:center}
-      .hero-copy p{margin:0 auto}
-
-      .hero-nav{
-        display:none;
-      }
-
-      .inicio-grid,
-      .feature-grid{grid-template-columns:1fr}
-      .footer-top{grid-template-columns:1fr}
-      .footer-brand{
-        justify-content:center;
-        text-align:center;
-        flex-direction:column;
-        align-items:center;
-      }
-      .footer-links{align-items:center}
-      .footer-links a,
-      .footer-links button{text-align:center}
-      .footer-col{text-align:center}
-      .footer-contact{align-items:center}
-    }
-
-    @media (max-width:560px){
-      body{background-attachment:scroll}
-      .wrap{width:min(var(--max), calc(100% - 16px))}
-      .top-brand img{width:58px}
-      .top-brand-text .line-1{font-size:1.18rem}
-      .top-brand-text .line-2{font-size:.92rem}
-      .mobile-menu-toggle{
-        width:52px;
-        height:52px;
-        border-radius:14px;
-      }
-      .hero-card{border-radius:22px;padding:16px}
-      .hero-photo img{max-width:220px;border-radius:22px}
-      .hero-kicker{font-size:.85rem}
-      .hero-copy h1{font-size:2.35rem}
-      .hero-copy p{font-size:1rem;line-height:1.72}
-      .hero-meta{grid-template-columns:1fr}
-      .main-shell{padding:22px 0 30px}
-      .section-box{
-        padding:18px;
-        border-radius:20px;
-      }
-      .section-title{font-size:2.05rem}
-      .section-subtitle{font-size:1.32rem}
-      .section-box p,
-      .timeline-item p,
-      .feature-card p,
-      .highlight-card p,
-      .acc-content p,
-      .footer-brand-copy p{
-        font-size:1rem;
-        line-height:1.82;
-      }
-      .stat-grid{grid-template-columns:1fr}
-      .acc-trigger{
-        padding:16px 16px;
-        font-size:1rem;
-      }
-      .cta-btn,.cta-link{
-        min-width:100%;
-      }
-      .footer{
-        padding:32px 0 24px;
-        background:
-          linear-gradient(180deg, rgba(8,24,48,.03), rgba(8,24,48,.10)),
-          url("../../assets/img/fondo_concilios.webp") 52% 92% / cover no-repeat;
-      }
-      .footer-card{padding:20px 16px 18px}
-      .footer-brand-logo img{
-        width:146px;
-      }
-      .footer-col h4{font-size:1.4rem}
-      .footer-legal{font-size:.94rem}
-    }
-    /* ===== FINAL RESPONSIVE ===== */
-  </style>
-</head>
-<body>
-
-  <!-- ===== INICIO HERO (PORTADA DE FICHA) ===== -->
-  <section class="hero">
-    <div class="wrap hero-inner">
-
-      <a href="#" onclick="event.preventDefault(); loadView('views/historia-lista-de-concilios.html');" class="back-link">← Volver al Directorio de Concilios</a>
-
-      <div class="hero-card">
-        <div class="hero-photo-wrap">
-  <div class="hero-photo">
-    <img src="../../assets/img/concilio_vaticano_ii.png" alt="Concilio Vaticano II">
-  </div>
-
-  <div class="badge-concilio">
-    Concilio Ecuménico
-  </div>
-</div>
-
-        <div class="hero-copy">
-          <div class="hero-kicker">Sección Concilios · Siglo IV</div>
-          <h1>Concilio de Nicea I</h1>
-          <p>
-            Primer concilio ecuménico de la Santa Iglesia Católica, celebrado en el año 325. Convocado bajo el pontificado del Papa San Silvestre I y respaldado por el emperador Constantino, su fin innegociable fue erradicar la herejía arriana que negaba la divinidad del Verbo. Nicea blindó la ortodoxia definiendo dogmáticamente que Jesucristo es Dios verdadero, "consustancial" (<em>Homoousios</em>) al Padre, formulando el Símbolo de la Fe que profesamos hasta hoy.
+<!-- ===== ACCAR | CÓDICE CONCILIAR: CONCILIO DE NICEA I ===== -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+
+<section id="accar-ficha-concilio" class="accar-concilio-page">
+
+  <div class="accar-concilio-inner">
+
+    <!-- BARRA SUPERIOR: MIGAS DE PAN Y PUENTE CONCILIAR -->
+    <div class="accar-concilio-topbar">
+      <nav class="accar-concilio-breadcrumb" aria-label="Ruta de navegación">
+        <a href="#" onclick="event.preventDefault(); loadView('views/inicio.html');">Inicio</a>
+        <span aria-hidden="true">›</span>
+        <a href="#" onclick="event.preventDefault(); loadView('views/historia.html');">Historia</a>
+        <span aria-hidden="true">›</span>
+        <a href="#" onclick="event.preventDefault(); loadView('views/historia-lista-de-concilios.html');">Directorio de Concilios</a>
+        <span aria-hidden="true">›</span>
+        <strong>Concilio de Nicea I</strong>
+      </nav>
+
+      <div class="accar-concilio-peers">
+        <button type="button" class="accar-peer-btn" onclick="loadView('views/historia-lista-de-concilios.html')">
+          ← Directorio de Concilios
+        </button>
+        <button type="button" class="accar-peer-btn" onclick="loadView('views/directorio_concilios/ecumenicos/vaticano-ii.html')">
+          XXI Ecuménico: Vaticano II →
+        </button>
+      </div>
+    </div>
+
+    <!-- =========================================================
+         RELICARIO SUPERIOR CONCILIAR (HERO CARD)
+    ========================================================== -->
+    <header class="accar-concilio-hero">
+
+      <div class="accar-concilio-hero-grid">
+
+        <!-- Icono e Insignias del Concilio -->
+        <div class="accar-concilio-portrait-col">
+          <div class="accar-concilio-camafeo">
+            <img src="/assets/img/concilio_nicea_i.png" alt="Concilio Ecuménico de Nicea I">
+          </div>
+          <div class="accar-concilio-seal">✠ I Concilio Ecuménico ✠</div>
+          <div class="accar-concilio-sede-badge">
+            <span class="accar-sede-label">Sede y Celebración</span>
+            <span class="accar-sede-val">Nicea de Bitinia · Año 325 d.C.</span>
+          </div>
+          <span class="accar-concilio-popes-plate">Papa San Silvestre I · Osio de Córdoba</span>
+        </div>
+
+        <!-- Síntesis Magisterial -->
+        <div class="accar-concilio-copy-col">
+          <div class="accar-concilio-kicker">✠ Magisterio Ecuménico · Siglo IV ✠</div>
+          <h1 class="accar-concilio-name">Concilio de Nicea I</h1>
+          <p class="accar-concilio-latin-sub">Sacrosanctum Oecumenicum Concilium Nicaenum I · DH 125–126</p>
+
+          <p class="accar-concilio-lead">
+            Primer concilio ecuménico de la Santa Iglesia Católica, celebrado en el año 325 bajo el pontificado del Papa San Silvestre I —representado por Osio de Córdoba y los legados romanos Vito y Vicente— y con el respaldo material del emperador Constantino. Su fin innegociable fue erradicar la herejía arriana que negaba la divinidad eterna del Verbo, definiendo infaliblemente que Jesucristo es Dios verdadero, «engendrado, no hecho, consustancial» (<em>Homoousios</em>) al Padre.
           </p>
 
-          <div class="hero-meta">
-            <div class="meta-item">
-              <span class="meta-label">Convocado por</span>
-              <span class="meta-value">Papa San Silvestre I (legados) · Con el apoyo y protección del Emperador Constantino.</span>
+          <div class="accar-concilio-meta-grid">
+            <div class="accar-concilio-meta-card">
+              <span class="accar-meta-label">Autoridad Eclesial</span>
+              <span class="accar-meta-val">Papa San Silvestre I (mediante legados pontificios) · Convocatoria material del Emperador Constantino I.</span>
             </div>
-            <div class="meta-item">
-              <span class="meta-label">Apertura</span>
-              <span class="meta-value">20 de mayo de 325 · Palacio Imperial de Nicea (Bitinia, actual Turquía).</span>
+
+            <div class="accar-concilio-meta-card">
+              <span class="accar-meta-label">Apertura Solemne</span>
+              <span class="accar-meta-val">20 de mayo de 325 d.C. · Palacio Imperial de Nicea (Bitinia, Asia Menor, actual İznik).</span>
             </div>
-            <div class="meta-item">
-              <span class="meta-label">Clausura</span>
-              <span class="meta-value">25 de julio de 325 · Triunfo del dogma cristológico.</span>
+
+            <div class="accar-concilio-meta-card">
+              <span class="accar-meta-label">Definición y Clausura</span>
+              <span class="accar-meta-val">19 de junio (Símbolo) y 25 de julio de 325 d.C. · Triunfo dogmático cristológico y anatema a Arrio.</span>
             </div>
-            <div class="meta-item">
-              <span class="meta-label">Alcance Magisterial</span>
-              <span class="meta-value">Promulgación del Símbolo Niceno, condena de Arrio y 20 cánones disciplinares.</span>
+
+            <div class="accar-concilio-meta-card">
+              <span class="accar-meta-label">Alcance Magisterial</span>
+              <span class="accar-meta-val">Símbolo Niceno original, primer anatema ecuménico, decreto pascual universal y 20 cánones disciplinares.</span>
             </div>
           </div>
+        </div>
 
-          <div class="hero-nav">
-            <button class="nav-btn active" data-target="inicio">Inicio</button>
-            <button class="nav-btn" data-target="historia">Historia</button>
-            <button class="nav-btn" data-target="contexto">Contexto</button>
-            <button class="nav-btn" data-target="desarrollo">Desarrollo</button>
-            <button class="nav-btn" data-target="personajes">Personajes</button>
-            <button class="nav-btn" data-target="documentos">Documentos</button>
-            <button class="nav-btn" data-target="herejias">Herejías</button>
-            <button class="nav-btn" data-target="canones">Cánones</button>
-            <button class="nav-btn" data-target="armadura">Armadura</button>
-            <!-- Botón adaptado a la crisis dogmática de Nicea -->
-            <button class="nav-btn borde-cardenal" data-target="liturgia-cisma">La Crisis Arriana</button>
+      </div>
+
+      <!-- Navegación Magisterial de 10 Capítulos (5x2 en Escritorio) -->
+      <nav class="accar-concilio-tabs" id="accar-concilio-tabs-bar" aria-label="Capítulos del Códice Conciliar">
+        <button type="button" class="accar-concilio-tab active" data-target="inicio" data-label="I. Panorama Conciliar">
+          <span>I. Panorama</span>
+        </button>
+        <button type="button" class="accar-concilio-tab" data-target="historia" data-label="II. Historia y Cronología">
+          <span>II. Historia</span>
+        </button>
+        <button type="button" class="accar-concilio-tab" data-target="contexto" data-label="III. Contexto Teológico">
+          <span>III. Contexto</span>
+        </button>
+        <button type="button" class="accar-concilio-tab" data-target="desarrollo" data-label="IV. El Combate Dogmático">
+          <span>IV. Desarrollo</span>
+        </button>
+        <button type="button" class="accar-concilio-tab" data-target="personajes" data-label="V. Padres y Heresiarcas">
+          <span>V. Personajes</span>
+        </button>
+        <button type="button" class="accar-concilio-tab" data-target="documentos" data-label="VI. Símbolo y Documentos">
+          <span>VI. Documentos</span>
+        </button>
+        <button type="button" class="accar-concilio-tab" data-target="herejias" data-label="VII. Herejías Pulverizadas">
+          <span>VII. Herejías</span>
+        </button>
+        <button type="button" class="accar-concilio-tab" data-target="canones" data-label="VIII. Denzinger y Cánones">
+          <span>VIII. Denzinger</span>
+        </button>
+        <button type="button" class="accar-concilio-tab" data-target="armadura" data-label="IX. Armadura Apologética">
+          <span>IX. Armadura</span>
+        </button>
+        <button type="button" class="accar-concilio-tab accar-tab-carmesi" data-target="liturgia-cisma" data-label="X. La Crisis Arriana">
+          <span>X. Crisis Arriana</span>
+        </button>
+      </nav>
+
+    </header>
+
+    <!-- =========================================================
+         PLIEGO EDITORIAL DEL CÓDICE CONCILIAR
+    ========================================================== -->
+    <main class="accar-concilio-codex theme-light" id="accar-concilio-codex">
+
+      <!-- Barra de Herramientas del Códice -->
+      <div class="accar-codex-toolbar">
+        <span class="accar-codex-section-tag" id="accar-codex-section-tag">✠ Códice Conciliar · I. Panorama Conciliar</span>
+
+        <div class="accar-codex-controls">
+          <button type="button" class="accar-codex-tool-btn" id="accar-concilio-theme-btn" title="Alternar entre modo pergamino y modo noche">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+            <span id="accar-concilio-theme-label">Modo Oscuro</span>
+          </button>
+
+          <div class="accar-codex-sizes" role="group" aria-label="Tamaño de lectura">
+            <span class="accar-codex-size-lbl">Letra</span>
+            <button type="button" class="accar-codex-tool-btn btn-concilio-size" data-size="0.94">A-</button>
+            <button type="button" class="accar-codex-tool-btn btn-concilio-size active" data-size="1">A</button>
+            <button type="button" class="accar-codex-tool-btn btn-concilio-size" data-size="1.12">A+</button>
           </div>
         </div>
       </div>
 
-    </div>
-  </section>
-  <!-- ===== FINAL HERO ===== -->
+      <div class="accar-codex-body">
 
-  <!-- ===== INICIO MAIN ===== -->
-  <main class="main-shell">
-    <div class="wrap">
+        <!-- ==================== CAPÍTULO I: PANORAMA ==================== -->
+        <section id="panel-inicio" class="accar-concilio-panel active" data-tono="oro">
 
-      <!-- ===== INICIO PANEL INICIO ===== -->
-      <section id="panel-inicio" class="content-panel active">
+          <div class="accar-codex-intro">
+            <span class="accar-codex-kicker">Síntesis Magisterial</span>
+            <h2 class="accar-codex-h2">Panorama del Concilio de Nicea I</h2>
+            <p class="accar-dropcap-p">
+              <span class="accar-capitular">P</span>rimer concilio universal de la antigüedad cristiana y molde perpetuo de todas las asambleas ecuménicas posteriores: reunidos en Bitinia apenas doce años después del fin de las grandes persecuciones imperiales, los Padres de Nicea —muchos de ellos marcados en su propia carne por el hierro y el fuego de los verdugos paganos— sellaron con autoridad apostólica infalible la plena y eterna divinidad de Nuestro Señor Jesucristo frente a la blasfemia arriana.
+            </p>
+          </div>
 
-        <div class="section-box">
-          <h2 class="section-title">Panorama del Concilio de Nicea I</h2>
-          <p>
-            Esta sección funciona como síntesis magisterial del primer gran concilio de la antigüedad cristiana. Aquí se exponen sus datos globales, el cimiento de su Símbolo dogmático y las directrices inmutables que reafirman de manera absoluta la divinidad de Nuestro Señor Jesucristo frente a los asaltos de la herejía y la filosofía pagana.
-          </p>
-
-          <div class="stat-grid">
-            <article class="stat-card">
-              <span class="stat-number">1</span>
-              <span class="stat-label">Símbolo de la Fe promulgado</span>
+          <div class="accar-stat-grid">
+            <article class="accar-stat-plaque">
+              <span class="accar-stat-cross" aria-hidden="true">✠</span>
+              <span class="accar-stat-num">1</span>
+              <span class="accar-stat-lbl">Símbolo Dogmático Universal promulgado</span>
             </article>
 
-            <article class="stat-card">
-              <span class="stat-number">20</span>
-              <span class="stat-label">Cánones disciplinares</span>
+            <article class="accar-stat-plaque">
+              <span class="accar-stat-cross" aria-hidden="true">✠</span>
+              <span class="accar-stat-num">20</span>
+              <span class="accar-stat-lbl">Cánones disciplinares para toda la Iglesia</span>
             </article>
 
-            <article class="stat-card">
-              <span class="stat-number">318</span>
-              <span class="stat-label">Padres Conciliares (Aprox.)</span>
+            <article class="accar-stat-plaque">
+              <span class="accar-stat-cross" aria-hidden="true">✠</span>
+              <span class="accar-stat-num">318</span>
+              <span class="accar-stat-lbl">Padres Conciliares (cifra tradicional patrística)</span>
             </article>
 
-            <article class="stat-card">
-              <span class="stat-number">325</span>
-              <span class="stat-label">Año de celebración</span>
+            <article class="accar-stat-plaque">
+              <span class="accar-stat-cross" aria-hidden="true">✠</span>
+              <span class="accar-stat-num">325 d.C.</span>
+              <span class="accar-stat-lbl">Año fundacional del Magisterio conciliar ecuménico</span>
             </article>
           </div>
-        </div>
 
-        <div class="section-box">
-          <h3 class="section-subtitle">Hitos y fundamentos doctrinales</h3>
+          <div class="accar-codex-divider" aria-hidden="true"><span>✠</span></div>
 
-          <div class="inicio-grid">
-            <article class="highlight-card">
+          <h3 class="accar-codex-h3">Obra dogmática y disciplinar de la Asamblea</h3>
+
+          <article class="accar-registry-box">
+            <div class="accar-registry-head">
+              <span class="accar-registry-icon" aria-hidden="true">✠</span>
+              <h4>Decisiones capitales promulgadas en Nicea (mayo – julio de 325)</h4>
+            </div>
+            <ul class="accar-registry-list">
+              <li>
+                <strong>Definición del «Homoousios» (DH 125)</strong>
+                <span>El Hijo es consustancial (de la misma esencia y naturaleza divina) que el Padre.</span>
+              </li>
+              <li>
+                <strong>Primer Anatema Dogmático Ecuménico (DH 126)</strong>
+                <span>Excomunión solemne contra quienes digan que «hubo un tiempo en que el Verbo no fue».</span>
+              </li>
+              <li>
+                <strong>Unificación Universal de la Fecha Pascual</strong>
+                <span>Fijación de la Pascua en el domingo siguiente al plenilunio primaveral, independiente del cálculo judío.</span>
+              </li>
+              <li>
+                <strong>Solución del Cisma Meleciano en Egipto</strong>
+                <span>Restauración de la unidad jerárquica bajo la autoridad legítima del Patriarca de Alejandría.</span>
+              </li>
+              <li>
+                <strong>Disciplina sobre Lapsi, Cátaros y Paulianistas</strong>
+                <span>Normas penitenciales (cc. 8, 11–14, 19) y distinción sobre la validez trinitaria del bautismo.</span>
+              </li>
+              <li>
+                <strong>Ordenación Clerical y Sedes Patriarcales (cc. 3–6)</strong>
+                <span>Continencia sacerdotal, consagración por tres obispos y primacía consuetudinaria del Obispo de Roma.</span>
+              </li>
+            </ul>
+          </article>
+
+          <div class="accar-codex-cards-grid">
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Fundamento I</span>
               <h4>El Dogma de la Consustancialidad</h4>
               <p>
-                El Concilio definió infaliblemente que el Hijo es <em>Homoousios</em> (de la misma naturaleza o sustancia) que el Padre, pulverizando la herejía arriana que lo reducía a una simple criatura excelente. Cristo es verdadero Dios de Dios verdadero.
+                El Concilio definió infaliblemente que el Hijo es <em>Homoousios</em> (consustancial) al Padre, pulverizando la herejía arriana que lo reducía a una criatura excelsa hecha de la nada. Jesucristo es Dios verdadero de Dios verdadero.
               </p>
             </article>
 
-            <article class="highlight-card">
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Fundamento II</span>
               <h4>El Símbolo Niceno</h4>
               <p>
-                Se redactó la primera fórmula oficial, universal e inmutable del Credo. Este documento se convirtió en un escudo doctrinal inquebrantable que estableció, de una vez y para siempre, los límites de la ortodoxia católica.
+                Por vez primera la Iglesia universal fijó en una confesión vinculante para todos los obispos la regla apostólica de la fe, escudo dogmático que Constantinopla I (381) completaría en el Credo Niceno-Constantinopolitano que rezamos en cada Misa.
               </p>
             </article>
 
-            <article class="highlight-card">
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Fundamento III</span>
               <h4>La Cuestión Pascual</h4>
               <p>
-                Nicea unificó la fecha de celebración de la Pascua de Resurrección para toda la cristiandad, independizándola de los cálculos del calendario judío (cuartodecimanos) y manifestando la autoridad suprema y la unidad de la Iglesia.
+                Nicea unificó en toda la cristiandad la celebración anual de la Resurrección del Señor, superando la praxis cuartodecimana y manifestando visiblemente la autoridad litúrgica universal de la Iglesia Católica.
               </p>
             </article>
 
-            <article class="highlight-card">
-              <h4>El Anatema como Defensa</h4>
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Fundamento IV</span>
+              <h4>El Anatema como Custodia Maternal</h4>
               <p>
-                Fue el primer concilio ecuménico en utilizar formalmente el "anatema" para excomulgar y separar tajantemente del Cuerpo Místico de Cristo a quienes se obstinaran en sostener doctrinas contrarias a la fe revelada.
+                Lejos de transigir con la ambigüedad, Nicea empleó formalmente el anatema para amputar el error obstinado y preservar la salvación de los fieles sencillos frente al veneno herético.
               </p>
             </article>
           </div>
 
-          <div class="cta-row">
-            <a class="cta-link azul" href="https://apologeticaccar.com">Regresar a Apologética Católica</a>
-            <button class="cta-btn dorado" onclick="showPanel('historia')">Entrar a historia →</button>
-          </div>
-        </div>
-
-      </section>
-      <!-- ===== FINAL PANEL INICIO ===== -->
-
-      <!-- ===== INICIO PANEL HISTORIA ===== -->
-      <section id="panel-historia" class="content-panel">
-
-        <div class="section-box">
-          <h2 class="section-title">Historia del Concilio</h2>
-          <p>
-            A principios del siglo IV, apenas la Iglesia salía de las catacumbas tras las sangrientas persecuciones romanas, un enemigo interno más letal que la espada se levantó contra ella. El presbítero alejandrino Arrio comenzó a difundir el error de que el Hijo de Dios no era coeterno con el Padre, sino una criatura creada de la nada. Esta perversa doctrina, que vaciaba de sentido la Redención, amenazó con fracturar la unidad de la Iglesia.
-          </p>
-          <p>
-            En mayo del año 325, los Padres Conciliares —muchos de ellos llevando en sus cuerpos las cicatrices de la tortura bajo el yugo pagano— se reunieron en Nicea. Bajo la presidencia de los legados papales y la protección del emperador Constantino, la asamblea no se reunió para dialogar con el error, sino para aplastarlo, demostrando que la Verdad revelada no se somete a consensos humanos, sino que se custodia con la sangre.
-          </p>
-        </div>
-
-        <div class="section-box">
-          <h3 class="section-subtitle">Cronología de la Defensa Dogmática</h3>
-
-          <div class="timeline">
-            <article class="timeline-item">
-              <h4>318 d.C. · El estallido de la herejía</h4>
-              <p>Arrio comienza a predicar públicamente en Alejandría que "hubo un tiempo en que el Verbo no existía". De inmediato, ataca el corazón mismo de la fe trinitaria, ganando adeptos entre el clero y las masas mediante cantos populares heréticos.</p>
-            </article>
-
-            <article class="timeline-item">
-              <h4>320–324 d.C. · Expansión del conflicto</h4>
-              <p>El error arriano se propaga como un incendio por todo el Oriente. El patriarca San Alejandro de Alejandría excomulga a Arrio en un sínodo local, pero la herejía ya contaba con el apoyo político de obispos influyentes, sumiendo a la Iglesia en el caos.</p>
-            </article>
-
-            <article class="timeline-item">
-              <h4>Mayo de 325 d.C. · Apertura de la asamblea</h4>
-              <p>Los obispos acuden a Nicea. El anciano Papa San Silvestre I envía al obispo Osio de Córdoba y a los presbíteros romanos Vito y Vicente para presidir en su nombre, garantizando el primado de la Cátedra de Pedro en la deliberación.</p>
-            </article>
-
-            <article class="timeline-item">
-              <h4>La Batalla Teológica</h4>
-              <p>El Concilio fue escenario de un combate espiritual feroz. Un joven diácono llamado Atanasio brilla como la gran espada de la ortodoxia, desarmando uno a uno los sofismas y las manipulaciones bíblicas de los herejes arrianos.</p>
-            </article>
-
-            <article class="timeline-item">
-              <h4>19 de junio de 325 d.C. · El Símbolo de la Fe</h4>
-              <p>Se promulga el Credo Niceno, forjando el término clave <em>Homoousios</em> (Consustancial). Arrio y dos obispos obstinados que se negaron a firmar la confesión de la verdadera fe fueron inmediatamente excomulgados y desterrados.</p>
-            </article>
-
-            <article class="timeline-item">
-              <h4>25 de julio de 325 d.C. · Clausura</h4>
-              <p>Tras zanjar la fecha de la Pascua y redactar los 20 cánones de disciplina eclesiástica, el Concilio se disuelve. La Iglesia emerge de Nicea unida en torno al dogma, lista para enfrentar la turbulenta tormenta del siglo IV.</p>
-            </article>
+          <div class="accar-codex-footer-nav">
+            <button type="button" class="accar-codex-btn-sec" onclick="loadView('views/historia-lista-de-concilios.html')">
+              ← Volver al Directorio de Concilios
+            </button>
+            <button type="button" class="accar-codex-btn-pri" onclick="window.accarShowConcilioPanel('historia')">
+              Continuar a II. Historia →
+            </button>
           </div>
 
-          <div class="cta-row">
-            <a class="cta-link azul" href="https://apologeticaccar.com">Regresar a Apologética Católica</a>
-            <button class="cta-btn dorado" onclick="showPanel('contexto')">Continuar a contexto →</button>
+        </section>
+
+        <!-- ==================== CAPÍTULO II: HISTORIA ==================== -->
+        <section id="panel-historia" class="accar-concilio-panel" data-tono="verde">
+
+          <div class="accar-codex-intro">
+            <span class="accar-codex-kicker">Crónica Ecuménica</span>
+            <h2 class="accar-codex-h2">Historia del Concilio</h2>
+            <p class="accar-dropcap-p">
+              <span class="accar-capitular">A</span>penas la Iglesia emergía de tres siglos de persecución sangrienta tras el Edicto de Milán (313 d.C.), un enemigo interior más insidioso que los edictos de Diocleciano amenazó con desgarrar la fe apostólica. En Alejandría de Egipto, el presbítero Arrio comenzó a predicar públicamente que el Verbo de Dios no era eterno, sino una criatura sacada de la nada antes del tiempo, vaciando de raíz el misterio de la Santísima Trinidad y la eficacia infinita de la Redención.
+            </p>
+            <p>
+              Reunidos en Nicea en mayo de 325 bajo la presidencia eclesiástica de Osio de Córdoba y los presbíteros romanos Vito y Vicente —legados del anciano Papa San Silvestre I—, los obispos confesores no acudieron a negociar fórmulas intermedias con el error, sino a proclamar intacta la fe recibida de los Apóstoles.
+            </p>
           </div>
-        </div>
 
-      </section>
-      <!-- ===== FINAL PANEL HISTORIA ===== -->
+          <div class="accar-codex-divider" aria-hidden="true"><span>✠</span></div>
 
-      <!-- ===== INICIO PANEL CONTEXTO ===== -->
-      <section id="panel-contexto" class="content-panel">
+          <h3 class="accar-codex-h3">Cronología de la defensa dogmática</h3>
 
-        <div class="section-box">
-          <h2 class="section-title">Contexto del Concilio</h2>
-          <p>
-            Tras la victoria de Constantino en el puente Milvio y la promulgación del Edicto de Milán (313 d.C.), la Iglesia respiró paz después de tres siglos de derramamiento de sangre. Sin embargo, el demonio, al no poder destruir a la Esposa de Cristo desde el exterior mediante los leones y el fuego, intentó destruirla desde su interior mediante la herejía.
-          </p>
-          <p>
-            El arrianismo no fue un simple debate de palabras, fue un asalto racionalista al núcleo de la fe. Arrio, influenciado por la filosofía griega que despreciaba la idea de que un Dios supremo pudiera rebajarse a la materia, intentó someter el misterio de la Encarnación a la lógica humana. Al reducir a Cristo a una "súper criatura", Arrio destruía la Redención: si Cristo no es verdadero Dios, su muerte en la cruz no tiene un valor infinito y, por lo tanto, la humanidad sigue hundida en sus pecados.
-          </p>
-        </div>
-
-        <div class="section-box">
-          <h3 class="section-subtitle">Análisis Magisterial</h3>
-          <div style="background: var(--carmesi-grad); color: #fff; padding: 22px; border-radius: 16px; box-shadow: var(--sombra); margin-bottom: 24px; border-left: 5px solid var(--oro-pontificio);">
-            <h4 style="color: #ffd971; margin: 0 0 10px 0; font-size: 1.3rem;">Contexto Histórico y Rigor Dogmático</h4>
-            <p style="margin: 0; font-size: 1.05rem; line-height: 1.6;"><strong>El error combatido:</strong> El racionalismo teológico y el subordinacionismo. El Magisterio establece en Nicea que la fe no se amolda a las categorías filosóficas paganas de la época. El Misterio de la Trinidad y la divinidad del Verbo no se discuten bajo la luz de la razón humana corrompida, sino que se creen y se custodian con obediencia absoluta a la Revelación.</p>
-          </div>
-          <h3 class="section-subtitle">Claves de lectura ortodoxa</h3>
-
-          <div class="feature-grid">
-            <article class="feature-card">
-              <h4>El Veneno Racionalista</h4>
-              <p>El arrianismo es el padre de todos los modernismos y sectas racionalistas actuales (como los Testigos de Jehová). Su esencia radica en la soberbia de querer comprender el misterio infinito de Dios con una mente finita, negando lo que no entra en su lógica.</p>
+          <div class="accar-timeline">
+            <article class="accar-tl-item">
+              <div class="accar-tl-year">313 d.C.</div>
+              <div class="accar-tl-card">
+                <h4>Paz de la Iglesia tras las persecuciones</h4>
+                <p>El Edicto de Milán pone fin a las persecuciones imperiales romanas, permitiendo por primera vez que los obispos de Oriente y Occidente puedan congregarse públicamente en sínodo universal.</p>
+              </div>
             </article>
 
-            <article class="feature-card">
-              <h4>El Mito de Constantino</h4>
-              <p>Los enemigos de la Iglesia mienten al afirmar que el emperador Constantino "inventó" la divinidad de Cristo o "creó" el catolicismo en Nicea. Constantino, un catecúmeno que aún no estaba bautizado, solo convocó el evento materialmente; el dogma fue definido exclusivamente por la autoridad de los obispos bajo el amparo de Roma.</p>
+            <article class="accar-tl-item">
+              <div class="accar-tl-year">~318 d.C.</div>
+              <div class="accar-tl-card">
+                <h4>Estallido de la herejía en Alejandría</h4>
+                <p>Arrio, presbítero de la iglesia de Baucalis, difunde la máxima blasfema <em>«hubo un tiempo en que no era»</em> (<em>ēn pote hote ouk ēn</em>), propagándola entre marineros y pueblo llano mediante cantos pegadizos en su obra <em>Thalia</em>.</p>
+              </div>
             </article>
 
-            <article class="feature-card">
-              <h4>Independencia de la Iglesia</h4>
-              <p>Aunque el poder imperial brindó logística y protección, Nicea demostró que la Iglesia tiene una jerarquía y una autoridad magisterial divinamente instituidas, capaces de definir la Verdad absoluta con total independencia de las conveniencias políticas del Imperio.</p>
+            <article class="accar-tl-item">
+              <div class="accar-tl-year">320–321</div>
+              <div class="accar-tl-card">
+                <h4>Primera excomunión local en Egipto</h4>
+                <p>El patriarca San Alejandro de Alejandría convoca un sínodo de casi cien obispos egipcios y libios que depone y excomulga a Arrio; sin embargo, obispos cortesanos como Eusebio de Nicomedia protegen y expanden la herejía por Oriente.</p>
+              </div>
             </article>
 
-            <article class="feature-card">
-              <h4>La Sucesión Apostólica en Acción</h4>
-              <p>Nicea es la prueba monumental de que el Espíritu Santo guía a la Iglesia a través de los siglos. Los obispos presentes no inventaron doctrinas nuevas, sino que testificaron la misma fe que recibieron de los Apóstoles, plasmándola en un lenguaje teológico preciso.</p>
+            <article class="accar-tl-item">
+              <div class="accar-tl-year">Mayo 325</div>
+              <div class="accar-tl-card">
+                <h4>Apertura solemne de la Asamblea en Nicea</h4>
+                <p>Llegan a Bitinia cerca de trescientos obispos (318 según la tradición patrística unánime desde San Hilario y San Atanasio), presididos por Osio de Córdoba y los legados del Papa San Silvestre I, Vito y Vicente.</p>
+              </div>
+            </article>
+
+            <article class="accar-tl-item">
+              <div class="accar-tl-year">Junio 325</div>
+              <div class="accar-tl-card">
+                <h4>El combate teológico y el Símbolo (19 de junio)</h4>
+                <p>Desenmascarados los equívocos arrianos con la intervención decisiva del joven diácono Atanasio, el Concilio promulga el 19 de junio el Símbolo con el término <em>Homoousios</em>. Arrio y los obispos rebeldes Teonas y Segundo rehúsan firmar y son anatematizados.</p>
+              </div>
+            </article>
+
+            <article class="accar-tl-item">
+              <div class="accar-tl-year">25 jul. 325</div>
+              <div class="accar-tl-card">
+                <h4>Cánones, Carta Sinodal y Clausura</h4>
+                <p>Promulgados los 20 cánones disciplinares, resuelto el caso meleciano y fijada la Pascua, Osio y los legados romanos encabezan las firmas de las actas conciliares antes de su clausura el 25 de julio de 325.</p>
+              </div>
             </article>
           </div>
 
-          <div class="cta-row">
-            <a class="cta-link azul" href="https://apologeticaccar.com">Regresar a Apologética Católica</a>
-            <button class="cta-btn dorado" onclick="showPanel('desarrollo')">Continuar a desarrollo →</button>
-          </div>
-        </div>
-
-      </section>
-      <!-- ===== FINAL PANEL CONTEXTO ===== -->
-
-      <!-- ===== INICIO PANEL DESARROLLO ===== -->
-      <section id="panel-desarrollo" class="content-panel">
-
-        <div class="section-box">
-          <h2 class="section-title">Desarrollo del Concilio</h2>
-          <p>
-            El desarrollo de Nicea fue un campo de batalla espiritual donde la pureza del depósito de la Fe se enfrentó a la astucia de la herejía. Arrio y sus partidarios acudieron al concilio utilizando un lenguaje engañoso y ambiguo, citando pasajes bíblicos descontextualizados para intentar probar que el Hijo era inferior al Padre (como el famoso <em>"El Padre es mayor que yo"</em> de Jn 14, 28).
-          </p>
-          <p>
-            Frente a estas tácticas de camuflaje, los Padres Conciliares comprendieron que no bastaba con citar las Escrituras, pues los herejes las torcían a su antojo. Era necesario acuñar un término teológico implacable, ajeno al lenguaje arriano, que blindara la fe para siempre y no dejara ninguna grieta por donde se colara el error.
-          </p>
-        </div>
-
-        <div class="section-box">
-          <h3 class="section-subtitle">El Triunfo del Dogma: Defensa Apologética</h3>
-
-          <div class="feature-grid">
-            <article class="feature-card">
-              <h4>El Homoousios (Consustancial)</h4>
-              <p>Fue el arma fulminante del concilio. Al definir que el Hijo es <em>Homoousios</em> (de la misma sustancia) que el Padre, los obispos cerraron la puerta a cualquier interpretación que rebajara a Cristo. Era un término que los arrianos odiaban y no podían manipular, estableciendo un muro inexpugnable para la ortodoxia.</p>
-            </article>
-
-            <article class="feature-card">
-              <h4>Engendrado, no creado</h4>
-              <p>La declaración clarifica la diferencia infinita entre el Verbo y el resto de la creación. Nosotros fuimos "creados" de la nada, pero el Hijo es "engendrado" desde la eternidad por la naturaleza misma del Padre. Comparten la misma y única Divinidad.</p>
-            </article>
-
-            <article class="feature-card">
-              <h4>La Excomunión de los Herejes</h4>
-              <p>La asamblea no buscó una "falsa misericordia" con los lobos. Al percatarse de la obstinación de Arrio y sus principales aliados (como Eusebio de Nicomedia), el concilio actuó con la autoridad de Cristo, expulsándolos de la comunión eclesiástica para proteger al rebaño del contagio del error.</p>
-            </article>
-
-            <article class="feature-card">
-              <h4>La Fecha de la Pascua</h4>
-              <p>El Concilio intervino con plena autoridad disciplinar para poner orden en la liturgia universal, decretando que la Pascua se celebraría siempre el domingo posterior al primer plenilunio de primavera, rompiendo la dependencia con el cómputo judío de los cuartodecimanos y reafirmando el señorío de la Iglesia sobre sus ritos.</p>
-            </article>
+          <div class="accar-codex-footer-nav">
+            <button type="button" class="accar-codex-btn-sec" onclick="loadView('views/historia-lista-de-concilios.html')">
+              ← Volver al Directorio de Concilios
+            </button>
+            <button type="button" class="accar-codex-btn-pri" onclick="window.accarShowConcilioPanel('contexto')">
+              Continuar a III. Contexto →
+            </button>
           </div>
 
-          <div class="cta-row">
-            <a class="cta-link azul" href="https://apologeticaccar.com">Regresar a Apologética Católica</a>
-            <button class="cta-btn dorado" onclick="showPanel('personajes')">Continuar a personajes →</button>
+        </section>
+
+        <!-- ==================== CAPÍTULO III: CONTEXTO ==================== -->
+        <section id="panel-contexto" class="accar-concilio-panel" data-tono="azul">
+
+          <div class="accar-codex-intro">
+            <span class="accar-codex-kicker">Diagnóstico Teológico</span>
+            <h2 class="accar-codex-h2">Contexto del Concilio</h2>
+            <p class="accar-dropcap-p">
+              <span class="accar-capitular">E</span>l arrianismo no fue una disputa bizantina de sílabas griegas, sino un intento de someter la Revelación bíblica al molde rígido del neoplatonismo pagano. Incapaz de concebir que el Dios único tuviera en sí mismo una generación eterna e inmaterial, Arrio postuló un Dios solitario e incomunicable que habría fabricado al Logos como un demiurgo intermedio para crear el cosmos.
+            </p>
+            <p>
+              San Atanasio percibió de inmediato que aquella tesis demolía por completo la salvación cristiana: si el Verbo encarnado no es Dios verdadero por naturaleza, ni nos revela verdaderamente al Padre ni puede divinizarnos ni redimirnos con sacrificio de valor infinito; y adorarlo en la liturgia —como hacía la Iglesia desde los Apóstoles— sería idolatría.
+            </p>
           </div>
-        </div>
 
-      </section>
-      <!-- ===== FINAL PANEL DESARROLLO ===== -->
+          <!-- Recuadro Carmesí de Análisis Magisterial -->
+          <div class="accar-callout-dogmatico">
+            <span class="accar-callout-kicker">✠ Análisis Magisterial · Enchiridion Symbolorum ✠</span>
+            <h4>El error de fondo combatido en Nicea</h4>
+            <p>
+              <strong>El racionalismo filosófico y el subordinacionismo ontológico.</strong> Nicea estableció para todos los siglos que el Misterio de la Santísima Trinidad no se mutila para encajarlo en la filosofía mundana de turno: la razón iluminada por la fe sirve a la Revelación (como hizo con el término <em>Homoousios</em>), jamás la corrige ni rebaja la divinidad del Redentor.
+            </p>
+          </div>
 
-      <!-- ===== INICIO PANEL PERSONAJES ===== -->
-      <section id="panel-personajes" class="content-panel">
+          <h3 class="accar-codex-h3">Claves de lectura ortodoxa</h3>
 
-        <div class="section-box">
-          <h2 class="section-title">Personajes Clave y Ortodoxia</h2>
-          <p>
-            El Concilio de Nicea no fue un mero choque de ideas, sino un combate épico protagonizado por santos dispuestos al martirio y hombres cegados por la soberbia intelectual. La historia de Nicea es el testimonio vibrante de cómo Dios suscita defensores colosales de la Verdad en los momentos de mayor peligro para su Santa Iglesia.
-          </p>
-        </div>
+          <div class="accar-codex-cards-grid">
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Clave I</span>
+              <h4>Raíz de las Sectas Antitrinitarias Modernas</h4>
+              <p>El arrianismo es el antepasado directo del unitarismo racionalista y de los actuales Testigos de Jehová: la misma pretensión soberbia de negar la divinidad de Cristo porque rebasa el cálculo racionalista finito.</p>
+            </article>
 
-        <div class="section-box">
-          <h3 class="section-subtitle">Defensores de la Tradición y Herejes</h3>
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Clave II</span>
+              <h4>Falsedad Histórica del «Mito de Constantino»</h4>
+              <p>Constantino era entonces un emperador catecúmeno no bautizado cuya única preocupación inicial era la cohesión política del Imperio (llegando incluso después a favorecer a obispos pro-arrianos). El dogma fue obra exclusiva de los obispos católicos.</p>
+            </article>
 
-          <div class="feature-grid">
-            <article class="feature-card">
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Clave III</span>
+              <h4>La Salvación del Hombre en Juego</h4>
+              <p>Una criatura, por excelsa que sea, jamás puede salvar ni reconciliar infinitamente a otra criatura con Dios. Nicea defendió la consustancialidad del Hijo porque en ella descansa íntegra nuestra Redención.</p>
+            </article>
+
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Clave IV</span>
+              <h4>Lex Orandi, Lex Credendi</h4>
+              <p>Desde el siglo I la Iglesia bautizaba en el único Nombre del Padre, del Hijo y del Espíritu Santo (Mt 28,19) y adoraba a Cristo en la Eucaristía. Nicea puso por escrito dogmático lo que la Iglesia siempre oró y celebró.</p>
+            </article>
+
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Clave V</span>
+              <h4>Autoridad de los Obispos Confesores</h4>
+              <p>En los escaños de Nicea se sentaban pastores como Pafnucio de Tebas, Potamón de Heraclea o Pablo de Neocesarea con ojos vaciados y manos abrasadas en la persecución: jamás habrían sufrido el martirio por una simple criatura.</p>
+            </article>
+
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Clave VI</span>
+              <h4>Desarrollo Homogéneo del Dogma</h4>
+              <p>Los Padres no inventaron una fe nueva en 325, sino que custodiaron el mismo depósito apostólico revistiéndolo de precisión metafísica irrefutable frente a las tergiversaciones heréticas.</p>
+            </article>
+          </div>
+
+          <div class="accar-codex-footer-nav">
+            <button type="button" class="accar-codex-btn-sec" onclick="loadView('views/historia-lista-de-concilios.html')">
+              ← Volver al Directorio de Concilios
+            </button>
+            <button type="button" class="accar-codex-btn-pri" onclick="window.accarShowConcilioPanel('desarrollo')">
+              Continuar a IV. Desarrollo →
+            </button>
+          </div>
+
+        </section>
+
+        <!-- ==================== CAPÍTULO IV: DESARROLLO ==================== -->
+        <section id="panel-desarrollo" class="accar-concilio-panel" data-tono="verde">
+
+          <div class="accar-codex-intro">
+            <span class="accar-codex-kicker">Anatomía de la Definición</span>
+            <h2 class="accar-codex-h2">Desarrollo del Combate Dogmático</h2>
+            <p class="accar-dropcap-p">
+              <span class="accar-capitular">S</span>an Atanasio relata como testigo ocular en su tratado <em>De Decretis Nicaenae Synodi</em> una escena reveladora: cuando los Padres proponían definir que Cristo era «Dios», «Imagen del Padre» o «Poder de Dios» usando solo palabras bíblicas, los obispos arrianos se hacían señas y guiños entre sí aceptándolas todas, porque en secreto las interpretaban en sentido figurado o adoptivo («también los hombres son llamados dioses o hijos»).
+            </p>
+            <p>
+              Aquella astucia demostró en vivo la insuficiencia del principio que siglos después llamarían <em>Sola Scriptura</em>: puesto que todo hereje tuerce la letra bíblica, el Magisterio acuñó el vocablo ontológico **<em>Homoousios</em>** («de la misma sustancia»), contra el cual se estrelló todo subterfugio arriano.
+            </p>
+          </div>
+
+          <div class="accar-codex-divider" aria-hidden="true"><span>✠</span></div>
+
+          <h3 class="accar-codex-h3">Las armas teológicas forjadas en el aula conciliar</h3>
+
+          <div class="accar-codex-cards-grid">
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Definición I</span>
+              <h4>El «Homoousios» (Consustancial al Padre)</h4>
+              <p>Al proclamar que el Hijo es <em>de la sustancia del Padre</em> (<em>ek tēs ousias tou Patros</em>) y <em>consustancial</em> (<em>homoousios</em>) a Él, el Concilio selló la identidad numérica de la única naturaleza divina poseída íntegramente por el Padre y el Hijo.</p>
+            </article>
+
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Definición II</span>
+              <h4>«Engendrado, no hecho» (Genitum, non factum)</h4>
+              <p>Traza el abismo infinito entre el Creador y las criaturas: el universo fue «hecho» libremente de la nada en el tiempo; el Hijo es «engendrado» eternamente de la propia esencia del Padre, como Luz que brota coeternamente de la Luz.</p>
+            </article>
+
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Definición III</span>
+              <h4>Rechazo del Borrador Arriano de Eusebio</h4>
+              <p>Cuando Eusebio de Nicomedia leyó en el aula una confesión abiertamente arriana que llamaba criatura al Verbo, los Padres Conciliares la rasgaron públicamente en pedazos con santa indignación en defensa del honor de Cristo.</p>
+            </article>
+
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Definición IV</span>
+              <h4>Excomunión de los Rebeldes Obstinados</h4>
+              <p>De todos los obispos presentes, casi la totalidad suscribió el Símbolo; únicamente dos obispos libios (Teonas de Marmárica y Segundo de Tolemaida) persistieron junto a Arrio en la negación, siendo depuestos y anatematizados.</p>
+            </article>
+
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Definición V</span>
+              <h4>Unidad Litúrgica de la Pascua Cristiana</h4>
+              <p>El Concilio zanjó la divergencia con iglesias de Siria y Mesopotamia que seguían el día 14 de Nisán judío, estableciendo para todo el orbe la celebración unánime en el domingo posterior al plenilunio vernal.</p>
+            </article>
+
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Definición VI</span>
+              <h4>Primacía en las Suscripciones Sinodales</h4>
+              <p>En las listas oficiales de firmas de Nicea encabezan siempre Osio de Córdoba junto a Vito y Vicente, presbíteros de la Iglesia de Roma, testimoniando el reconocimiento universal de la Cátedra de Pedro.</p>
+            </article>
+          </div>
+
+          <div class="accar-codex-footer-nav">
+            <button type="button" class="accar-codex-btn-sec" onclick="loadView('views/historia-lista-de-concilios.html')">
+              ← Volver al Directorio de Concilios
+            </button>
+            <button type="button" class="accar-codex-btn-pri" onclick="window.accarShowConcilioPanel('personajes')">
+              Continuar a V. Personajes →
+            </button>
+          </div>
+
+        </section>
+
+        <!-- ==================== CAPÍTULO V: PERSONAJES ==================== -->
+        <section id="panel-personajes" class="accar-concilio-panel" data-tono="azul">
+
+          <div class="accar-codex-intro">
+            <span class="accar-codex-kicker">Columnas y Adversarios</span>
+            <h2 class="accar-codex-h2">Personajes Clave y Ortodoxia</h2>
+            <p class="accar-dropcap-p">
+              <span class="accar-capitular">E</span>n el aula de Nicea se vieron frente a frente la santidad heroica de los confesores de la fe y la astucia cortesana de la herejía. Conocer a sus protagonistas muestra cómo la Providencia divina levanta gigantes doctrinales en las horas más críticas de la historia eclesiástica.
+            </p>
+          </div>
+
+          <div class="accar-codex-divider" aria-hidden="true"><span>✠</span></div>
+
+          <h3 class="accar-codex-h3">Defensores de la Tradición y cabecillas de la herejía</h3>
+
+          <div class="accar-codex-cards-grid">
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Espada de la Ortodoxia</span>
               <h4>San Atanasio de Alejandría</h4>
-              <p>El verdadero protagonista teológico del concilio. Acudió como un joven diácono acompañando a su obispo, pero su brillantez y su ardor por la divinidad de Cristo desmantelaron los sofismas arrianos. Su obra posterior, <em>De Decretis Nicaenae Synodi</em>, es la fuente clave del concilio. Sufriría cinco destierros por negarse a transigir con la herejía <em>(Athanasius contra mundum)</em>.</p>
+              <p>Joven diácono y secretario de su patriarca Alejandro, cuya agudeza bíblica y metafísica desarmó los sofismas arrianos. Elegido patriarca en 328, padecería cinco destierros durante diecisiete años sin ceder una tilde de la fe nicena (<em>Athanasius contra mundum</em>).</p>
             </article>
 
-            <article class="feature-card">
-              <h4>Papa San Silvestre I</h4>
-              <p>Aunque su avanzada edad le impidió asistir personalmente a Bitinia, su autoridad primacial estuvo plenamente garantizada. Envió como legados papales a los presbíteros romanos Vito y Vicente, quienes firmaron las actas en primer lugar, demostrando la ineludible ratificación de la Cátedra de Pedro.</p>
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Romano Pontífice (314–335)</span>
+              <h4>Papa San Silvestre I y sus Legados</h4>
+              <p>Impedido de viajar a Asia Menor por su ancianidad, ejerció su autoridad primacial enviando a los presbíteros romanos Vito y Vicente, quienes presidieron junto a Osio y ratificaron las actas en primer término en nombre de la Sede Apostólica.</p>
             </article>
 
-            <article class="feature-card">
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Presidente Conciliar</span>
               <h4>Osio de Córdoba</h4>
-              <p>Obispo español de inmenso prestigio y consejero imperial. Presidió las sesiones del Concilio en nombre de la Iglesia y fue el instrumento teológico clave para la formulación de la palabra <em>Homoousios</em> (Consustancial), uniendo la teología occidental y oriental en una sola confesión de fe.</p>
+              <p>Venerable obispo hispano y confesor bajo Maximiano. Presidió las deliberaciones conciliares y desempeñó un papel capital en la inserción del término <em>Homoousios</em> (equivalente al <em>unius substantiae</em> de la tradición occidental).</p>
             </article>
 
-            <article class="feature-card">
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Patriarca de Alejandría</span>
               <h4>San Alejandro de Alejandría</h4>
-              <p>Patriarca firme y valeroso, principal opositor inicial de <span style="color: #c00000; font-weight: bold;">Arrio</span>. Fue el primero en detectar el veneno en las predicaciones de su sacerdote. Al comprobar su obstinación herética, lo excomulgó en un sínodo local antes del gran Concilio, defendiendo celosamente a su rebaño.</p>
+              <p>Pastor vigilante que detectó desde el primer instante la gravedad mortal de las tesis de <span class="accar-heretic-name">Arrio</span>, excomulgándolo canónicamente en Egipto y encabezando la defensa episcopal oriental en Nicea.</p>
             </article>
 
-            <article class="feature-card">
-              <h4>San Pafnucio de Tebas</h4>
-              <p>Obispo y "confesor" de la fe, a quien le habían sacado un ojo y mutilado una pierna durante las persecuciones romanas. Su sola presencia infundía veneración. Fue decisivo al defender la antigua tradición de la continencia clerical, oponiéndose a que los sacerdotes casados antes de la ordenación fueran separados de sus esposas, pero manteniendo intacta la regla del celibato para los ya ordenados.</p>
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Confesor Mutilado</span>
+              <h4>San Pafnucio de la Tebaida</h4>
+              <p>Obispo egipcio a quien durante la persecución de Maximino Daya vaciaron el ojo derecho y desjarretaron la pierna izquierda condenándolo a las minas. Defendió la disciplina apostólica del celibato para quienes ya habían recibido las órdenes sagradas.</p>
             </article>
 
-            <article class="feature-card">
-              <h4>San Eustasio de Antioquía y San Macario de Jerusalén</h4>
-              <p>Gigantes de la fe oriental. Eustasio fue un feroz defensor de la plena divinidad del Hijo y pronunció el discurso de apertura. Macario, custodio de los lugares santos, fue un testigo inquebrantable del simbolismo ortodoxo y un pilar contra las intrigas heréticas en Palestina.</p>
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Patriarcas de Oriente</span>
+              <h4>San Eustacio de Antioquía y San Macario de Jerusalén</h4>
+              <p>Baluartes insignes de la fe trinitaria: Eustacio brilló en los debates iniciales contra el arrianismo (sufriendo luego injusto destierro) y Macario custodió la ortodoxia en Palestina colaborando en el hallazgo de la Vera Cruz.</p>
             </article>
 
-            <article class="feature-card">
-              <h4>Marcelo de Ancira y Eusebio de Cesarea</h4>
-              <p>Marcelo fue un teólogo ferviente en la defensa de la consustancialidad del Verbo (aunque más tarde caería en excesos teológicos). Eusebio, el gran historiador eclesiástico, llegó con una teología moderadamente subordinacionista que influyó en los debates iniciales, pero terminó sometiéndose a la fórmula ortodoxa de Nicea.</p>
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Obispo Confesor</span>
+              <h4>San Nicolás de Mira</h4>
+              <p>Celebrado obispo de Licia y confesor de las prisiones romanas, recordado por la antigua tradición litúrgica oriental y occidental por su celo ardiente en defensa de la consustancialidad del Verbo frente a las blasfemias de Arrio.</p>
             </article>
 
-            <article class="feature-card">
-              <h4><span style="color: #c00000; font-weight: bold;">Arrio</span> (El Heresiarca)</h4>
-              <p>Presbítero soberbio, dotado de gran elocuencia. Manipulador hábil de las Escrituras, difundió su herejía mediante canciones populares para envenenar la mente de los ignorantes. Su negativa a someterse a la fe revelada lo condujo a la excomunión dogmática y a un fin histórico miserable.</p>
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Historiador y Teólogo</span>
+              <h4>Eusebio de Cesarea y Marcelo de Ancira</h4>
+              <p>Marcelo combatió con vehemencia a los arrianos (aunque años más tarde derivó hacia el modalismo); Eusebio, autor de la <em>Historia Eclesiástica</em>, presentó el símbolo bautismal de Cesarea y acabó suscribiendo la fórmula nicena.</p>
             </article>
 
-            <article class="feature-card">
-              <h4><span style="color: #c00000; font-weight: bold;">Eusebio de Nicomedia</span> (El Falso Hermano)</h4>
-              <p>Obispo arriano y principal operador político de la herejía. Aunque en Nicea firmó el símbolo por presión política, en su corazón siguió siendo un hereje empedernido. Tras el concilio, utilizó su cercanía con la corte imperial para perseguir despiadadamente a San Atanasio y desterrar a los obispos ortodoxos.</p>
-            </article>
-          </div>
-
-          <div class="cta-row">
-            <a class="cta-link azul" href="https://apologeticaccar.com">Regresar a Apologética Católica</a>
-            <button class="cta-btn dorado" onclick="showPanel('documentos')">Continuar a documentos →</button>
-          </div>
-        </div>
-
-      </section>
-      <!-- ===== FINAL PANEL PERSONAJES ===== -->
-
-      <!-- ===== INICIO PANEL DOCUMENTOS ===== -->
-      <section id="panel-documentos" class="content-panel">
-
-        <div class="section-box">
-          <h2 class="section-title">Los Documentos Conciliares</h2>
-          <p>
-            El Concilio de Nicea no produjo la vasta cantidad de constituciones pastorales que veríamos en concilios modernos, sino que su magisterio fue directo, quirúrgico y definitivo. Su misión principal fue fijar por escrito la fe apostólica para que no pudiera ser adulterada por interpretaciones filosóficas ajenas a la Revelación.
-          </p>
-        </div>
-
-        <div class="section-box">
-          <h3 class="section-subtitle">Textos Fundamentales promulgados</h3>
-
-          <div class="feature-grid">
-            <article class="feature-card">
-              <h4>El Símbolo de Nicea (El Credo)</h4>
-              <p>Es la base de toda la confesión ortodoxa. No es una "nueva doctrina", sino la cristalización de la fe trinitaria fundamental. Al incluir el término <em>Homoousios</em> (Consustancial), el Símbolo se convirtió en la regla absoluta de la fe contra la cual se estrellarían todas las herejías. Sería reafirmado y completado en Constantinopla en el 381.</p>
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Heresiarca Anatematizado</span>
+              <h4><span class="accar-heretic-name">Arrio de Alejandría</span></h4>
+              <p>Presbítero dialéctico de trato ascético y elocuencia seductora. Al obstinarse en negar la eternidad y consustancialidad divina del Hijo de Dios, fue depuesto y anatematizado por el Concilio, muriendo súbitamente en Constantinopla en 336.</p>
             </article>
 
-            <article class="feature-card">
-              <h4>Los 20 Cánones Disciplinares</h4>
-              <p>Además de la doctrina, Nicea promulgó 20 cánones que unificaron las normas del clero, regularon la ordenación de obispos, prohibieron los traslados de sacerdotes por ambición, condenaron la usura clerical y fortalecieron la autoridad de las sedes patriarcales.</p>
-            </article>
-
-            <article class="feature-card">
-              <h4>La Carta Sinodal a los Egipcios</h4>
-              <p>Un documento oficial enviado a la Iglesia de Alejandría, anunciando formalmente la condena y deposición del hereje <span style="color: #c00000; font-weight: bold;">Arrio</span>, así como la resolución definitiva sobre el cisma provocado por <span style="color: #c00000; font-weight: bold;">Melecio</span> de Licópolis.</p>
-            </article>
-
-            <article class="feature-card">
-              <h4>Decreto sobre la Pascua</h4>
-              <p>Definió la celebración de la Pascua promoviendo la unidad litúrgica universal. La decisión sinodal ordenó tajantemente que la Resurrección debía celebrarse el domingo posterior al primer plenilunio de primavera, rompiendo toda dependencia con el calendario judío y reafirmando el señorío de la Iglesia sobre sus ritos.</p>
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Operador Cortesano de la Herejía</span>
+              <h4><span class="accar-heretic-name">Eusebio de Nicomedia</span></h4>
+              <p>Obispo político emparentado con la corte imperial. Suscribió con hipocresía el Símbolo en Nicea pero rehusó firmar el anatema, encabezando durante décadas las intrigas palaciegas para deponer a San Atanasio y a los obispos fieles.</p>
             </article>
           </div>
 
-          <div class="cta-row">
-            <a class="cta-link azul" href="https://apologeticaccar.com">Regresar a Apologética Católica</a>
-            <button class="cta-btn dorado" onclick="showPanel('herejias')">Continuar a herejías →</button>
-          </div>
-        </div>
-
-      </section>
-      <!-- ===== FINAL PANEL DOCUMENTOS ===== -->
-
-<!-- ===== INICIO PANEL HEREJIAS ===== -->
-      <section id="panel-herejias" class="content-panel">
-
-        <div class="section-box borde-cardenal">
-          <h2 class="section-title">Herejías y Errores Condenados</h2>
-          <p>
-            Nicea se levantó como un muro de bronce frente a la soberbia del racionalismo. Las herejías condenadas en este concilio no fueron simples "opiniones diferentes", sino veneno puro que amenazaba con destruir la divinidad de Jesucristo y, por ende, anular el poder salvífico de la Cruz.
-          </p>
-        </div>
-
-        <div class="section-box">
-          <h3 class="section-subtitle">Los Errores Pulverizados por el Concilio</h3>
-
-          <div class="feature-grid">
-            <article class="feature-card">
-              <h4>1. El Arrianismo</h4>
-              <p>Promovido por <span style="color: #c00000; font-weight: bold;">Arrio</span>. Sostenía la blasfemia de que el Hijo no es eterno, argumentando que "hubo un tiempo en que no existía". Enseñaba que el Verbo era la primera y más perfecta de las criaturas, pero no Dios verdadero. Fue anatematizado por el Concilio, que definió a Cristo como Dios eterno e inmutable.</p>
-            </article>
-
-            <article class="feature-card">
-              <h4>2. El Subordinacionismo Extremo</h4>
-              <p>Consecuencia directa de la doctrina de <span style="color: #c00000; font-weight: bold;">Arrio</span> y <span style="color: #c00000; font-weight: bold;">Eusebio de Nicomedia</span>. Creían que el Verbo estaba subordinado al Padre no solo en orden de relación, sino en esencia y naturaleza. Nicea condenó esto al definir que el Padre y el Hijo comparten exactamente la misma sustancia divina (Consustancial).</p>
-            </article>
-
-            <article class="feature-card">
-              <h4>3. El Cisma Meleciano</h4>
-              <p>Impulsado por <span style="color: #c00000; font-weight: bold;">Melecio de Licópolis</span>, quien se rebeló contra el Patriarca de Alejandría, creando una jerarquía paralela y ordenando sacerdotes ilícitamente bajo una falsa apariencia de "rigor moral" frente a los pecadores. Nicea reafirmó la autoridad del obispo legítimo y prohibió las ordenaciones cismáticas.</p>
-            </article>
-
-            <article class="feature-card">
-              <h4>4. El Novacianismo (Los Cátaros)</h4>
-              <p>Herejía rigorista fundada por el antipapa <span style="color: #c00000; font-weight: bold;">Novaciano</span>. Se llamaban a sí mismos "los puros" y negaban que la Iglesia tuviera el poder de perdonar pecados graves después del bautismo. Nicea, en su canon 8, exige que, al regresar a la Iglesia Católica, reconozcan por escrito los dogmas y comuniquen con quienes han caído y se han arrepentido.</p>
-            </article>
+          <div class="accar-codex-footer-nav">
+            <button type="button" class="accar-codex-btn-sec" onclick="loadView('views/historia-lista-de-concilios.html')">
+              ← Volver al Directorio de Concilios
+            </button>
+            <button type="button" class="accar-codex-btn-pri" onclick="window.accarShowConcilioPanel('documentos')">
+              Continuar a VI. Documentos →
+            </button>
           </div>
 
-          <div class="cta-row">
-            <a class="cta-link azul" href="https://apologeticaccar.com">Regresar a Apologética Católica</a>
-            <button class="cta-btn dorado" onclick="showPanel('canones')">Continuar a cánones →</button>
-          </div>
-        </div>
+        </section>
 
-      </section>
-      <!-- ===== FINAL PANEL HEREJIAS ===== -->
+        <!-- ==================== CAPÍTULO VI: DOCUMENTOS ==================== -->
+        <section id="panel-documentos" class="accar-concilio-panel" data-tono="oro">
 
-      <!-- ===== INICIO PANEL CANONES ===== -->
-      <section id="panel-canones" class="content-panel">
-
-        <div class="section-box borde-papal">
-          <h2 class="section-title">Cánones y Declaraciones Dogmáticas</h2>
-          <p>
-            Las definiciones de Nicea son el pilar absoluto sobre el que descansa toda la teología trinitaria y la disciplina eclesiástica antigua. Las fórmulas promulgadas aquí exigen el firme asentimiento de fe de todo católico.
-          </p>
-          <p>
-            A continuación, el texto magisterial supremo referenciado según el <em>Enchiridion Symbolorum</em> (Denzinger-Hünermann) y las normativas canónicas que pulverizan las mentiras históricas de los enemigos de la Iglesia.
-          </p>
-        </div>
-
-        <div class="section-box">
-          <h3 class="section-subtitle">Dogma y Disciplina Eclesiástica</h3>
-
-          <div class="feature-grid">
-            <article class="feature-card">
-              <h4>El Símbolo de Nicea (DH 125)</h4>
-              <p><em>"Creemos en un solo Dios Padre omnipotente... y en un solo Señor Jesucristo Hijo de Dios... Dios de Dios, luz de luz, Dios verdadero de Dios verdadero, engendrado, no hecho, consustancial (homoousios) al Padre..."</em> El documento que sella la igualdad divina del Hijo.</p>
-            </article>
-
-            <article class="feature-card">
-              <h4>El Anatema contra <span style="color: #c00000; font-weight: bold;">Arrio</span> (DH 126)</h4>
-              <p><em>"Mas a los que afirman: Hubo un tiempo en que no fue y, antes de ser engendrado, no fue, y que fue hecho de la nada... los anatematiza la Iglesia Católica."</em> La primera excomunión dogmática de un concilio ecuménico.</p>
-            </article>
-
-            <article class="feature-card">
-              <h4>Canon 3: Continencia Clerical y Celibato</h4>
-              <p>Exige una separación estricta entre el clero y las mujeres, prohibiendo a obispos, presbíteros y diáconos cohabitar con mujeres (<em>subintroductae</em>) que no sean madre, hermana o tía. Sumado al Concilio de Elvira, este canon <strong>destroza el mito protestante</strong> de que el celibato o la continencia sacerdotal es "un invento de la Edad Media".</p>
-            </article>
-
-            <article class="feature-card">
-              <h4>Canon 6: Los Privilegios Patriarcales</h4>
-              <p>Confirma los privilegios jurisdiccionales inmemoriales de las sedes de Alejandría y Antioquía, justificándolo explícitamente <em>"puesto que lo mismo es costumbre para el Obispo de Roma"</em>. Es un testimonio antiquísimo y vital de la supremacía y la autoridad referencial del Papado en la Iglesia primitiva.</p>
-            </article>
-
-            <article class="feature-card">
-              <h4>Canon 1: Contra los Autocastrados</h4>
-              <p>La Iglesia rechaza el fanatismo corporal. El documento aclara rigurosamente que se prohíbe ordenar o promover al sacerdocio a quienes voluntariamente se hayan mutilado o castrado a sí mismos por un falso sentido de puritanismo.</p>
-            </article>
-
-            <article class="feature-card">
-              <h4>Canon 8 y la Condena a <span style="color: #c00000; font-weight: bold;">Melecio</span></h4>
-              <p>El concilio resolvió el Cisma de <span style="color: #c00000; font-weight: bold;">Melecio</span> y condenó a los seguidores del hereje <span style="color: #c00000; font-weight: bold;">Novaciano</span> (los "cátaros" o puros). Se exigió que, al volver a la Iglesia Católica, los herejes reconocieran por escrito los dogmas y mantuvieran comunión con los católicos que habían caído en pecado y se habían arrepentido, rechazando el falso rigorismo sectario.</p>
-            </article>
+          <div class="accar-codex-intro">
+            <span class="accar-codex-kicker">Fuentes Primarias · Año 325</span>
+            <h2 class="accar-codex-h2">El Símbolo y los Documentos Conciliares</h2>
+            <p class="accar-dropcap-p">
+              <span class="accar-capitular">E</span>l magisterio de Nicea fue conciso, lapidario e irrevocable. Conservado por testigos directos como San Atanasio, Eusebio de Cesarea, Sócrates Escolástico y las colecciones canónicas de Roma y Oriente, comprende cuatro piezas monumentales cuyo texto y síntesis documental se despliegan a continuación.
+            </p>
           </div>
 
-          <div class="cta-row">
-            <a class="cta-link azul" href="https://apologeticaccar.com">Regresar a Apologética Católica</a>
-            <button class="cta-btn dorado" onclick="showPanel('armadura')">Continuar a armadura →</button>
+          <div class="accar-codex-divider" aria-hidden="true"><span>✠</span></div>
+
+          <h3 class="accar-codex-h3">Textos oficiales promulgados por el Concilio</h3>
+
+          <div class="accar-doc-accordion">
+
+            <div class="accar-doc-item doc-constitucion open">
+              <button class="accar-doc-trigger" type="button">
+                <span class="accar-doc-title">I. El Símbolo Original de Nicea y su Anatema · 19 de junio de 325 (DH 125–126)</span>
+                <span class="accar-doc-icon">−</span>
+              </button>
+              <div class="accar-doc-content">
+                <div class="accar-doc-tags">
+                  <span class="accar-doc-tag tag-constitucion">Definición Dogmática Infalible · Texto Íntegro</span>
+                  <span class="accar-doc-tag tag-constitucion">Denzinger-Hünermann 125–126</span>
+                </div>
+                <p>Texto completo y literal de la profesión de fe promulgada solemnemente el 19 de junio de 325:</p>
+                <blockquote class="accar-credo-quote">
+                  «Creemos en un solo Dios, Padre todopoderoso, creador de todas las cosas visibles e invisibles.<br>
+                  Y en un solo Señor Jesucristo, el Hijo de Dios, engendrado del Padre como Unigénito, es decir, <strong>de la sustancia del Padre</strong> (<em>ek tēs ousias tou Patros</em>), Dios de Dios, Luz de Luz, <strong>Dios verdadero de Dios verdadero, engendrado, no hecho, consustancial al Padre</strong> (<em>homoousion tō Patri</em>), por quien todas las cosas fueron hechas, las que hay en el cielo y las que hay en la tierra; quien por nosotros los hombres y por nuestra salvación descendió y se encarnó, se hizo hombre, padeció, y resucitó al tercer día, subió a los cielos, y vendrá a juzgar a vivos y muertos.<br>
+                  Y en el Espíritu Santo.<br><br>
+                  <strong>[Anatema · DH 126]:</strong> Mas a los que afirman: <em>“Hubo un tiempo en que no fue”</em>, y <em>“Antes de ser engendrado no fue”</em>, y que <em>“Fue hecho de la nada”</em>, o a los que dicen que el Hijo de Dios es de otra hipóstasis o sustancia, o creado, o mudable o sujeto a cambio: <strong>a éstos los anatematiza la Santa Iglesia Católica y Apostólica</strong>.»
+                </blockquote>
+              </div>
+            </div>
+
+            <div class="accar-doc-item doc-decreto">
+              <button class="accar-doc-trigger" type="button">
+                <span class="accar-doc-title">II. Los 20 Cánones Disciplinares del Concilio de Nicea</span>
+                <span class="accar-doc-icon">+</span>
+              </button>
+              <div class="accar-doc-content">
+                <div class="accar-doc-tags">
+                  <span class="accar-doc-tag tag-decreto">Derecho Canónico Universal · 20 Cánones</span>
+                </div>
+                <p>Código disciplinar promulgado para unificar el gobierno de Oriente y Occidente: regula la integridad para las órdenes sagradas (cc. 1–2), la continencia clerical (c. 3), la consagración episcopal por al menos tres obispos con confirmación metropolitana (c. 4), la celebración de sínodos provinciales bianuales (c. 5), la jurisdicción de las sedes de Alejandría y Antioquía conforme a la costumbre del Obispo de Roma y el honor de Jerusalén (cc. 6–7), la reconciliación de los novacianos (c. 8), la penitencia de los caídos en la persecución y el Viático eucarístico (cc. 10–14), la prohibición de traslados ambiciosos y de la usura clerical (cc. 15–17), la subordinación litúrgica de los diáconos a los presbíteros que ofrecen el Cuerpo de Cristo (c. 18), el rebautismo de los paulianistas antitrinitarios (c. 19) y la oración de pie en domingo y tiempo pascual (c. 20).</p>
+              </div>
+            </div>
+
+            <div class="accar-doc-item doc-declaracion">
+              <button class="accar-doc-trigger" type="button">
+                <span class="accar-doc-title">III. Carta Sinodal a la Iglesia de Alejandría y de Egipto</span>
+                <span class="accar-doc-icon">+</span>
+              </button>
+              <div class="accar-doc-content">
+                <div class="accar-doc-tags">
+                  <span class="accar-doc-tag tag-declaracion">Epístola Oficial de los Padres Conciliares</span>
+                </div>
+                <p>Conservada por Sócrates Escolástico y Teodoreto de Ciro, notifica oficialmente a los fieles de Egipto, Libia y Pentápolis tres determinaciones: 1) el anatema unánime contra las blasfemias de Arrio y la deposición de Teonas y Segundo; 2) las condiciones misericordiosas pero estrictas impuestas a Melecio de Licópolis (prohibiéndole ordenar jamás y sometiendo a su clero a la confirmación del Patriarca de Alejandría); y 3) la concordia alcanzada sobre la santísima fiesta de la Pascua.</p>
+              </div>
+            </div>
+
+            <div class="accar-doc-item doc-decreto">
+              <button class="accar-doc-trigger" type="button">
+                <span class="accar-doc-title">IV. Definición Sinodal sobre la Celebración Universal de la Pascua</span>
+                <span class="accar-doc-icon">+</span>
+              </button>
+              <div class="accar-doc-content">
+                <div class="accar-doc-tags">
+                  <span class="accar-doc-tag tag-decreto">Decreto Litúrgico Ecuménico</span>
+                </div>
+                <p>Decretó que todas las Iglesias de Oriente celebraran la Pascua de Resurrección en el mismo domingo en que ya la guardaban Roma, Alejandría e Hispania —el domingo posterior al plenilunio siguiente al equinoccio vernal—, independizando definitivamente el calendario cristiano del cómputo rabínico y encomendando a la sede de Alejandría notificar cada año la fecha astronómica en comunión con Roma.</p>
+              </div>
+            </div>
+
           </div>
-        </div>
 
-      </section>
-      <!-- ===== FINAL PANEL CANONES ===== -->
+          <div class="accar-codex-footer-nav">
+            <button type="button" class="accar-codex-btn-sec" onclick="loadView('views/historia-lista-de-concilios.html')">
+              ← Volver al Directorio de Concilios
+            </button>
+            <button type="button" class="accar-codex-btn-pri" onclick="window.accarShowConcilioPanel('herejias')">
+              Continuar a VII. Herejías →
+            </button>
+          </div>
 
-      <!-- ===== INICIO PANEL ARMADURA ===== -->
-      <section id="panel-armadura" class="content-panel">
+        </section>
 
-        <div class="section-box borde-episcopal">
-          <h2 class="section-title">Armadura Apologética</h2>
-          <p>
-            El error de <span style="color: #c00000; font-weight: bold;">Arrio</span> no murió en el siglo IV. Hoy en día, sectas como los Testigos de Jehová repiten exactamente las mismas herejías, intentando reducir a Jesucristo a una creación o a un ser inferior. Además, los ataques modernos intentan deslegitimar a la Iglesia acusándola de ser una "creación imperial". Nicea nos proporciona las espadas doctrinales e históricas definitivas para refutar ambos ataques.
-          </p>
-        </div>
+        <!-- ==================== CAPÍTULO VII: HEREJÍAS ==================== -->
+        <section id="panel-herejias" class="accar-concilio-panel" data-tono="carmesi">
 
-        <div class="section-box">
-          <h3 class="section-subtitle">Argumentos para la Defensa de la Fe</h3>
+          <div class="accar-codex-intro">
+            <span class="accar-codex-kicker">Combate Doctrinal</span>
+            <h2 class="accar-codex-h2">Herejías y Cismas Pulverizados</h2>
+            <p class="accar-dropcap-p">
+              <span class="accar-capitular">N</span>icea se alzó como muralla apostólica tanto frente a las herejías trinitarias que atacaban la divinidad de Nuestro Señor como frente a los cismas rigoristas y disciplinares que desgarraban la comunión sacramental tras las persecuciones.
+            </p>
+          </div>
 
-          <div class="feature-grid">
-            <article class="feature-card">
-              <h4>El Mito de Constantino</h4>
-              <p><strong>El Arma:</strong> Ateos y protestantes afirman que el emperador Constantino "inventó" la Trinidad o el catolicismo en Nicea. Falso y absurdo. Constantino ni siquiera estaba bautizado, solo convocó el evento materialmente y buscaba paz política. La definición dogmática y disciplinar fue obra exclusiva de la autoridad de los obispos herederos de los Apóstoles.</p>
+          <div class="accar-codex-divider" aria-hidden="true"><span>✠</span></div>
+
+          <h3 class="accar-codex-h3">Seis errores condenados o corregidos por el Concilio</h3>
+
+          <div class="accar-codex-cards-grid">
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Herejía I</span>
+              <h4>El Arrianismo («Creado de la Nada»)</h4>
+              <p>Promovido por <span class="accar-heretic-name">Arrio</span>: afirmaba que el Hijo fue creado de lo no existente (<em>ex ouk onton</em>) y que «hubo un tiempo en que no era», negando su coeternidad con el Padre. Anatematizado solemnemente en DH 126.</p>
             </article>
 
-            <article class="feature-card">
-              <h4>El Respaldo de los Padres de la Iglesia</h4>
-              <p><strong>El Arma:</strong> En la historia posterior, el Concilio de Nicea no fue un "invento aislado". Fue citado constantemente como norma de fe inquebrantable por los gigantes de la cristiandad: San Atanasio, San Hilario de Poitiers, San Ambrosio, San Agustín, San Gregorio Nacianceno y San Juan Crisóstomo lo usaron como su escudo doctrinal.</p>
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Herejía II</span>
+              <h4>El Subordinacionismo Esencial</h4>
+              <p>Sostenido por <span class="accar-heretic-name">Eusebio de Nicomedia</span> y su facción: enseñaba que el Hijo posee una esencia o hipóstasis inferior y subordinada a la del Padre. Refutado mediante la definición del único ser divino consustancial (<em>Homoousios</em>).</p>
             </article>
 
-            <article class="feature-card">
-              <h4>Frente a Juan 14, 28 ("El Padre es mayor que yo")</h4>
-              <p><strong>El Arma:</strong> Las sectas usan este versículo para subordinar a Cristo. La fe nicena aclara: Cristo habla aquí según su <em>naturaleza humana</em>, en la cual se anonadó asumiendo forma de siervo (Flp 2, 7). Según su <em>naturaleza divina</em>, Él y el Padre son uno (Jn 10, 30), consustanciales y coeternos.</p>
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Herejía III</span>
+              <h4>La Mutabilidad Moral atribuida al Verbo</h4>
+              <p>Arrio llegó a sostener que el Logos era por naturaleza mudable (<em>treptos</em>) y capaz de pecar, recibiendo la filiación por previsión de sus méritos. El anatema de Nicea condenó expresamente llamar «mudable o alterable» al Hijo de Dios.</p>
             </article>
 
-            <article class="feature-card">
-              <h4>Frente a Colosenses 1, 15 ("Primogénito de la creación")</h4>
-              <p><strong>El Arma:</strong> Los modernos seguidores de <span style="color: #c00000; font-weight: bold;">Arrio</span> afirman que significa "el primer ser creado". En el contexto bíblico judío, "primogénito" (<em>Prototokos</em>) significa "Heredero universal" y "Soberano", no el primero en ser fabricado cronológicamente. El mismo texto aclara que "todo fue creado por Él", excluyéndolo a Él de lo creado.</p>
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Cisma IV</span>
+              <h4>El Cisma Meleciano en Egipto</h4>
+              <p>Iniciado por <span class="accar-heretic-name">Melecio de Licópolis</span> durante la persecución de Diocleciano al usurpar ordenaciones fuera de su diócesis contra el Patriarca de Alejandría bajo pretexto de rigor hacia los caídos. Nicea suprimió toda jurisdicción paralela.</p>
             </article>
 
-            <article class="feature-card">
-              <h4>La Naturaleza del "Engendrado"</h4>
-              <p><strong>El Arma:</strong> Cuando un artista hace una estatua, "crea" algo de distinta naturaleza (madera). Cuando un padre concibe, "engendra" a alguien de su misma e idéntica naturaleza humana. Dios no "creó" al Verbo, lo "engendró"; por lo tanto, el Hijo comparte absolutamente la naturaleza divina del Padre.</p>
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Herejía V</span>
+              <h4>El Novacianismo (Los «Puros» o Katharoi)</h4>
+              <p>Secta rigorista fundada por el antipapa <span class="accar-heretic-name">Novaciano</span> que negaba a la Iglesia la potestad de absolver a los pecadores graves y apóstatas arrepentidos. El Canon 8 les exigió aceptar por escrito la comunión con los penitentes reconciliados.</p>
             </article>
-            
-            <article class="feature-card">
-              <h4>La Tradición antes de la Biblia</h4>
-              <p><strong>El Arma:</strong> Nicea ocurre en el año 325, mucho antes de que el canon del Nuevo Testamento fuera fijado definitivamente (finales del siglo IV). Esto demuestra a los protestantes que fue la Autoridad Apostólica y la Tradición de la Iglesia (el Magisterio) quienes definieron la doctrina verdadera, no el principio de "Sola Scriptura".</p>
+
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Herejía VI</span>
+              <h4>El Paulianismo Antitrinitario</h4>
+              <p>Seguidores de <span class="accar-heretic-name">Pablo de Samosata</span>, que reducían a Cristo a un mero hombre habitado por una fuerza impersonal y corrompían el misterio trinitario. El Canon 19 ordenó bautizarlos de nuevo por ser nulo su bautismo sin fe trinitaria.</p>
             </article>
           </div>
 
-          <div class="cta-row">
-            <a class="cta-link azul" href="https://apologeticaccar.com">Regresar a Apologética Católica</a>
-            <button class="cta-btn dorado" onclick="showPanel('liturgia-cisma')">Entrar a la Crisis Arriana →</button>
-          </div>
-        </div>
-
-      </section>
-      <!-- ===== FINAL PANEL ARMADURA ===== -->
-
-     <!-- ===== INICIO PANEL LITURGIA Y CISMA ===== -->
-      <section id="panel-liturgia-cisma" class="content-panel">
-
-        <div class="section-box borde-cardenal" style="background: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(245,239,225,0.95) 100%);">
-          <h2 class="section-title">La Crisis Arriana: Atanasio contra el Mundo</h2>
-          <p>
-            El mayor drama de Nicea no ocurrió durante el concilio, sino después de él. A pesar del Símbolo y de los anatemas, la herejía arriana mutó, se disfrazó y, utilizando el poder político de los emperadores heréticos, desató una de las peores crisis de la historia de la Iglesia. Fue una época oscura donde los herejes controlaron catedrales, desterraron a los obispos fieles y engañaron a millones.
-          </p>
-          <p>
-            En palabras de San Jerónimo: <em>"El mundo gimió y se asombró de verse arriano"</em>. Esta crisis nos deja una lección apologética colosal para nuestros tiempos: la verdad católica no se define por encuestas, ni por la cantidad de obispos que la apoyen en un momento dado, sino por la fidelidad absoluta e inquebrantable a la Tradición Apostólica.
-          </p>
-        </div>
-
-        <div class="section-box">
-          <h3 class="section-subtitle">Lecciones de la Resistencia Ortodoxa</h3>
-
-          <div class="feature-grid">
-            <article class="feature-card">
-              <h4>1. Los Testigos de Jehová: Hijos de <span style="color: #c00000; font-weight: bold;">Arrio</span></h4>
-              <p>La secta moderna de los Testigos de Jehová afirma que Jesucristo es la primera creación de Dios (el arcángel Miguel) y no el Dios Todopoderoso. La crisis arriana es la prueba histórica irrefutable de que esta creencia no es una "revelación bíblica moderna", sino una blasfemia reciclada, debatida y condenada infaliblemente por los primeros cristianos en el año 325.</p>
-            </article>
-
-            <article class="feature-card">
-              <h4>2. La Trampa de la Ambigüedad</h4>
-              <p>Durante la crisis, los herejes forzaron sínodos ilegítimos (como el de Rímini) donde obligaron a muchos obispos a firmar fórmulas ambiguas que omitían la palabra <em>Homoousios</em> para "agradar a todos". La lección es clara: el lenguaje teológico no puede ser impreciso. La falta de claridad y el falso ecumenismo son el caldo de cultivo donde la herejía destruye la fe.</p>
-            </article>
-
-            <article class="feature-card">
-              <h4>3. El Estado contra la Iglesia</h4>
-              <p>Tras Nicea, el poder imperial romano (emperadores como <span style="color: #c00000; font-weight: bold;">Constancio II</span>) se volvió arriano y usó la fuerza militar para deponer a obispos católicos. Esto prueba que la verdadera fe no depende del favor del gobierno secular, ni del aplauso del mundo moderno, sino de la fidelidad a Cristo, incluso si significa perder las catedrales, el confort y la libertad.</p>
-            </article>
-
-            <article class="feature-card">
-              <h4>4. Los "Medios Tonos" (Semi-arrianos)</h4>
-              <p>El demonio introdujo el engaño del semi-arrianismo. Sugirieron cambiar la palabra <em>Homoousios</em> (Consustancial) por <em>Homoiousios</em> (de sustancia "semejante"). Una sola letra "i" (iota) dividía a la Iglesia. San Atanasio y los defensores de Nicea se negaron rotundamente a diluir el dogma: la Verdad de Cristo no acepta concesiones ni "términos medios".</p>
-            </article>
-
-            <article class="feature-card">
-              <h4>5. El Valor de la Minoría Fiel</h4>
-              <p>Durante el clímax de la crisis, herejes como <span style="color: #c00000; font-weight: bold;">Eusebio de Nicomedia</span> controlaban casi todas las sedes orientales importantes. Parecía que los herejes habían ganado la partida. Sin embargo, San Atanasio recordó a los fieles una máxima eterna frente a la desolación: <em>"Ellos tienen los edificios, pero nosotros tenemos la Fe"</em>.</p>
-            </article>
-
-            <article class="feature-card">
-              <h4>6. El Triunfo Final de la Ortodoxia</h4>
-              <p>Aunque San Atanasio fue exiliado cinco veces y parecía que la Iglesia Católica iba a sucumbir, la promesa de Cristo (<em>"Las puertas del infierno no prevalecerán"</em>) se cumplió. Los emperadores herejes murieron, el error arriano colapsó por sus propias divisiones, y la fe inmutable de Nicea triunfó definitivamente, siendo ratificada para siempre en el Concilio de Constantinopla (381).</p>
-            </article>
+          <div class="accar-codex-footer-nav">
+            <button type="button" class="accar-codex-btn-sec" onclick="loadView('views/historia-lista-de-concilios.html')">
+              ← Volver al Directorio de Concilios
+            </button>
+            <button type="button" class="accar-codex-btn-pri" onclick="window.accarShowConcilioPanel('canones')">
+              Continuar a VIII. Denzinger →
+            </button>
           </div>
 
-          <div class="cta-row">
-            <a class="cta-link azul" href="https://apologeticaccar.com">Regresar a Apologética Católica</a>
-            <button class="cta-btn dorado" onclick="showPanel('inicio')">Volver al Inicio de la Ficha ↑</button>
+        </section>
+
+        <!-- ==================== CAPÍTULO VIII: DENZINGER Y CÁNONES ==================== -->
+        <section id="panel-canones" class="accar-concilio-panel" data-tono="oro">
+
+          <div class="accar-codex-intro">
+            <span class="accar-codex-kicker">Enchiridion Symbolorum · DH 125–126 y Cánones</span>
+            <h2 class="accar-codex-h2">Definiciones Dogmáticas y Cánones Apologéticos</h2>
+            <p class="accar-dropcap-p">
+              <span class="accar-capitular">A</span>demás de sellar para siempre la teología trinitaria en `DH 125–126`, los veinte cánones disciplinares de Nicea contienen testimonios históricos de valor incalculable para la apologética católica: demuestran que en el año 325 la Iglesia universal ya profesaba la primacía referencial del Obispo de Roma, la continencia sacerdotal, el sacrificio eucarístico ofrecido por los presbíteros y la sucesión apostólica episcopal.
+            </p>
           </div>
-        </div>
 
-      </section>
-      <!-- ===== FINAL PANEL LITURGIA Y CISMA ===== -->
+          <div class="accar-codex-divider" aria-hidden="true"><span>✠</span></div>
 
-    </div>
-  </main>
-  <!-- ===== FINAL MAIN ===== -->
+          <h3 class="accar-codex-h3">Ocho asientos capitales de dogma y derecho niceno</h3>
 
-  <!-- El Footer ha sido removido por requerimientos de la arquitectura SPA -->
+          <div class="accar-codex-cards-grid">
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ DH 125 · Símbolo Dogmático</span>
+              <h4>Igualdad Divina del Hijo con el Padre</h4>
+              <p><em>«Dios de Dios, Luz de Luz, Dios verdadero de Dios verdadero, engendrado, no hecho, consustancial (homoousion) al Padre, por quien todas las cosas fueron hechas»</em>: definición irreformable de fe divina y católica.</p>
+            </article>
 
-  <script>
-    /* ===== INICIO SCRIPT AISLADO ===== */
-    (function(){
-      const panelNames = ["inicio", "historia", "contexto", "desarrollo", "personajes", "documentos", "herejias", "canones", "armadura", "liturgia-cisma"];
-      const mobileMenuToggle = document.getElementById("mobileMenuToggle");
-      const mobileNavPanel = document.getElementById("mobileNavPanel");
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ DH 126 · Anatema Trinitario</span>
+              <h4>Condena del Tiempo y la Creación en el Verbo</h4>
+              <p>Fulmina anatema contra todo el que sostenga que el Hijo tuvo comienzo temporal, que salió de la nada o que pertenece a otra hipóstasis o esencia distinta de la única sustancia divina del Padre.</p>
+            </article>
 
-      function openMobileMenu(){
-        if(!mobileMenuToggle || !mobileNavPanel) return;
-        mobileMenuToggle.classList.add("active");
-        mobileNavPanel.classList.add("active");
-        mobileMenuToggle.setAttribute("aria-expanded", "true");
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Canon 6 · Eclesiología Primitiva</span>
+              <h4>La Costumbre Normativa del Obispo de Roma</h4>
+              <p>Al confirmar la jurisdicción suprametropolitana de Alejandría sobre Egipto y Libia, Nicea da como fundamento jurídico: <em>«puesto que esto es también costumbre para el Obispo de Roma»</em>, reconociendo a la Sede Romana como modelo inmemorial de jurisdicción superior.</p>
+            </article>
+
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Canon 18 · Eucaristía y Sacerdocio</span>
+              <h4>«Ofrecer el Cuerpo de Cristo» en el año 325</h4>
+              <p>Prohíbe a los diáconos administrar la Eucaristía a los presbíteros porque no es lícito que <em>«los que no tienen potestad de ofrecer den el Cuerpo de Cristo a los que sí ofrecen»</em>: prueba fulminante del Sacrificio de la Misa y la Presencia Real en el siglo IV.</p>
+            </article>
+
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Canon 3 · Disciplina Sacerdotal</span>
+              <h4>Continencia Clerical Inmemorial</h4>
+              <p>Prohíbe absolutamente a obispos, presbíteros y diáconos cohabitar con mujer alguna (<em>syneisaktos</em>) salvo madre, hermana o tía. Unido al Concilio de Elvira (~306), refuta el mito protestante de que la continencia clerical fue inventada en la Edad Media.</p>
+            </article>
+
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Canon 4 · Orden Sagrado</span>
+              <h4>Sucesión Apostólica y Colegialidad Provincial</h4>
+              <p>Establece que el obispo sea instituido por todos los obispos de la provincia —o al menos por tres con anuencia escrita de los ausentes— y ratificado por el metropolitano, blindando la cadena legítima de la Sucesión Apostólica.</p>
+            </article>
+
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Canon 13 · Sacramento de los Moribundos</span>
+              <h4>El Sagrado Viático Eucarístico</h4>
+              <p>Ordena guardar la antigua ley apostólica de no privar jamás a ningún moribundo penitente del <em>«último y más necesario Viático»</em> (la Sagrada Eucaristía), atestiguando la reserva eucarística para los enfermos.</p>
+            </article>
+
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Cánones 8 y 19 · Sacramentos y Penitencia</span>
+              <h4>Poder de Absolver y Validez del Bautismo</h4>
+              <p>Reafirma contra los novacianos el poder de la Iglesia de reconciliar a los pecadores caídos (c. 8) y distingue entre el bautismo válido de cismáticos trinitarios y el bautismo inválido de los paulianistas que negaban la Trinidad (c. 19).</p>
+            </article>
+          </div>
+
+          <div class="accar-codex-footer-nav">
+            <button type="button" class="accar-codex-btn-sec" onclick="loadView('views/historia-lista-de-concilios.html')">
+              ← Volver al Directorio de Concilios
+            </button>
+            <button type="button" class="accar-codex-btn-pri" onclick="window.accarShowConcilioPanel('armadura')">
+              Continuar a IX. Armadura →
+            </button>
+          </div>
+
+        </section>
+
+        <!-- ==================== CAPÍTULO IX: ARMADURA APOLOGÉTICA ==================== -->
+        <section id="panel-armadura" class="accar-concilio-panel" data-tono="carmesi">
+
+          <div class="accar-codex-intro">
+            <span class="accar-codex-kicker">Defensa Militante de la Fe</span>
+            <h2 class="accar-codex-h2">Armadura Apologética</h2>
+            <p class="accar-dropcap-p">
+              <span class="accar-capitular">L</span>a herejía de <span class="accar-heretic-name">Arrio</span> reaparece hoy calle por calle en la predicación de los Testigos de Jehová, mientras novelas y panfletos anticatólicos repiten la fábula de que Constantino «inventó la divinidad de Jesús y eligió los libros de la Biblia en Nicea». Aquí tienes ocho espadas históricas y exegéticas para pulverizar ambos engaños.
+            </p>
+          </div>
+
+          <div class="accar-codex-divider" aria-hidden="true"><span>✠</span></div>
+
+          <h3 class="accar-codex-h3">Ocho refutaciones directas para defender la fe nicena</h3>
+
+          <div class="accar-codex-cards-grid">
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Espada I · Contra el Mito de Constantino y la Biblia</span>
+              <h4>Doble falsedad histórica</h4>
+              <p><strong>Respuesta:</strong> Primero, Constantino ni votó definiciones ni estaba bautizado, y Nicea ni siquiera trató ni votó jamás la lista de libros de la Biblia (fijada en Roma 382, Hipona 393 y Cartago 397). Segundo, de los ~300 obispos, casi todos firmaron libremente la fe que sus iglesias profesaban desde los mártires.</p>
+            </article>
+
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Espada II · Testimonio Pre-Niceno (Siglos I–II)</span>
+              <h4>Cristo proclamado Dios dos siglos antes de 325</h4>
+              <p><strong>Respuesta:</strong> Junto a Jn 1,1; Jn 20,28 («¡Señor mío y Dios mío!»); Tito 2,13 y Rom 9,5, ya hacia el año 107 d.C. San Ignacio de Antioquía llamaba repetidamente a Jesucristo <em>«nuestro Dios»</em> (<em>Efesios</em> praef., 7, 18; <em>Romanos</em> 3), doscientos años antes de Constantino.</p>
+            </article>
+
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Espada III · Frente a Juan 14, 28 («El Padre es mayor que yo»)</span>
+              <h4>Distinción de las dos naturalezas en Cristo</h4>
+              <p><strong>Respuesta:</strong> Según su <em>naturaleza divina</em>, Cristo declara: «Yo y el Padre somos uno» (Jn 10,30). En Jn 14,28 habla en cuanto enviado en su <em>naturaleza humana</em> asumida en estado de siervo (Flp 2,6–7) y respecto al origen trinitario del Padre, sin inferioridad alguna de esencia.</p>
+            </article>
+
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Espada IV · Frente a Colosenses 1, 15 («Primogénito de toda creación»)</span>
+              <h4>Sentido bíblico de «Prototokos»</h4>
+              <p><strong>Respuesta:</strong> Si Pablo hubiera querido decir «primer creado», habría escrito en griego <em>protoktistos</em>. Usó <em>prototokos</em> («primogénito»), título mesiánico de soberanía y preeminencia sobre la creación (Sal 89,28), pues el versículo siguiente aclara que <em>todo</em> fue creado por Él y para Él (Col 1,16–17; Jn 1,3).</p>
+            </article>
+
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Espada V · Frente a Proverbios 8, 22 (Caballo de batalla arriano)</span>
+              <h4>Sabiduría poética y verbo hebreo «Qanah»</h4>
+              <p><strong>Respuesta:</strong> Arrio se apoyaba en la traducción griega de Prov 8,22 («el Señor me creó»). Como demostró San Atanasio y confirma el texto hebreo original (<em>qanah</em>: «me poseyó / engendró»), el pasaje poetiza la Sabiduría eterna que ya existía con Dios antes de toda obra creada (Prov 8,23–30).</p>
+            </article>
+
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Espada VI · Analogía Ontológica de «Engendrar» vs. «Crear»</span>
+              <h4>Identidad de naturaleza</h4>
+              <p><strong>Respuesta:</strong> Un carpintero «fabrica o crea» una mesa de madera (naturaleza distinta de la suya); un padre «engendra» un hijo que posee exactamente su misma naturaleza humana. Dios Padre engendra eternamente a su Hijo Unigénito comunicándole su única e idéntica naturaleza divina.</p>
+            </article>
+
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Espada VII · Contra la «Sola Scriptura» Protestante</span>
+              <h4>Necesidad del Magisterio vivo y del «Homoousios»</h4>
+              <p><strong>Respuesta:</strong> Todo protestante trinitario acepta la fe de Nicea; pero Nicea derrotó a Arrio —quien citaba decenas de versículos bíblicos— introduciendo una palabra que no aparece en la Biblia (<em>Homoousios</em>) mediante la autoridad infalible de un Concilio Católico sesenta años antes de cerrarse el canon bíblico.</p>
+            </article>
+
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Espada VIII · La Iglesia de Nicea es Católica, no Evangélica</span>
+              <h4>Misa sacrificial, Viático, Continencia y Roma en 325</h4>
+              <p><strong>Respuesta:</strong> Los mismos obispos que defendieron la Trinidad en 325 legislaron en sus cánones sobre los presbíteros que «ofrecen el Cuerpo de Cristo» (c. 18), el Viático eucarístico (c. 13), la continencia clerical (c. 3) y la costumbre normativa del Obispo de Roma (c. 6).</p>
+            </article>
+          </div>
+
+          <div class="accar-codex-footer-nav">
+            <button type="button" class="accar-codex-btn-sec" onclick="loadView('views/historia-lista-de-concilios.html')">
+              ← Volver al Directorio de Concilios
+            </button>
+            <button type="button" class="accar-codex-btn-pri" onclick="window.accarShowConcilioPanel('liturgia-cisma')">
+              Continuar a X. Crisis Arriana →
+            </button>
+          </div>
+
+        </section>
+
+        <!-- ==================== CAPÍTULO X: LA CRISIS ARRIANA ==================== -->
+        <section id="panel-liturgia-cisma" class="accar-concilio-panel" data-tono="carmesi">
+
+          <div class="accar-codex-intro">
+            <span class="accar-codex-kicker">Lecciones de Resistencia Católica</span>
+            <h2 class="accar-codex-h2">La Crisis Arriana: Atanasio contra el Mundo</h2>
+            <p class="accar-dropcap-p">
+              <span class="accar-capitular">L</span>a tempestad más violenta en torno a Nicea no se libró dentro del aula conciliar, sino en el medio siglo que siguió a su clausura (325–381). Apoyada por emperadores filoarrianos como Constancio II y Valente, la facción de <span class="accar-heretic-name">Eusebio de Nicomedia</span> desterró a los obispos fieles —incluido el Papa Liberio, Osio, San Hilario de Poitiers y cinco veces a San Atanasio—, ocupó las sedes orientales e impuso fórmulas ambiguas en los concilios de Arlés, Milán y Rímini-Seleucia (359).
+            </p>
+            <p>
+              San Jerónimo inmortalizó aquel momento dramático con su célebre sentencia: <em>«Ingemuit totus orbis, et Arianum se esse miratus est»</em> («Gimió todo el orbe, y se asombró de verse arriano»). La victoria final de la fe nicena encierra seis enseñanzas perennes para todo católico en tiempos de confusión.
+            </p>
+          </div>
+
+          <div class="accar-codex-divider" aria-hidden="true"><span>✠</span></div>
+
+          <h3 class="accar-codex-h3">Seis lecciones eternas de la resistencia ortodoxa</h3>
+
+          <div class="accar-codex-cards-grid">
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Lección I</span>
+              <h4>Los Testigos de Jehová: Hijos Tardíos de Arrio</h4>
+              <p>Cuando Charles Taze Russell y la Watchtower enseñaron en el siglo XIX–XX que Jesucristo es una criatura (identificándolo con el arcángel Miguel), no descubrieron ninguna verdad bíblica oculta: reciclaron letra por letra la herejía refutada y condenada por los cristianos mártires en el año 325.</p>
+            </article>
+
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Lección II</span>
+              <h4>La Trampa Mortal de las Fórmulas Ambiguas</h4>
+              <p>En Rímini (359), los cortesanos engañaron a cientos de obispos cansados proponiéndoles suprimir la palabra <em>Homoousios</em> en nombre de «la paz y la unidad» para decir solo que el Hijo era «semejante al Padre según las Escrituras». La ambigüedad calculada es siempre el caballo de Troya de la herejía.</p>
+            </article>
+
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Lección III</span>
+              <h4>El César no es Señor del Dogma</h4>
+              <p>Cuando el emperador arriano <span class="accar-heretic-name">Constancio II</span> exclamó ante los obispos: <em>«¡Lo que yo quiero, eso sea canon!»</em>, confesores como San Atanasio, San Hilario y San Eusebio de Vercelli prefirieron las cadenas y el exilio antes que entregar la fe al poder político secular.</p>
+            </article>
+
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Lección IV</span>
+              <h4>La Batalla por una Sola Letra («Iota»)</h4>
+              <p>Los semiarrianos propusieron cambiar <em>Homoousios</em> (de la misma sustancia) por <em>Homo<strong>i</strong>ousios</em> (de sustancia semejante). El mundo se burlaba de que la Iglesia sufriera por una sola vocal <em>iota</em>; San Atanasio demostró que en esa sola letra se decidía si Cristo era Dios verdadero o un ídolo creado.</p>
+            </article>
+
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Lección V</span>
+              <h4>El Sensus Fidei del Pueblo Fiel y los Santos</h4>
+              <p>Mientras numerosos obispos palaciegos claudicaban por temor al emperador, los monjes del desierto (como San Antonio Abad), el pueblo católico fiel y santos doctores sostuvieron la antorcha. Como escribió San Atanasio desde la persecución: <em>«Ellos tienen los templos, pero nosotros tenemos la Fe apostólica»</em>.</p>
+            </article>
+
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Lección VI</span>
+              <h4>Las Puertas del Infierno no Prevalecieron</h4>
+              <p>El arrianismo —sostenido solo por el brazo estatal— terminó fragmentándose en facciones irreconciliables (homeos, homoiusianos, anomeos), mientras que gracias a Atanasio, Hilario, los Padres Capadocios y el Papa San Dámaso I, la fe inmutable de Nicea triunfó solemnemente en Constantinopla I (381).</p>
+            </article>
+          </div>
+
+          <div class="accar-synthesis-banner">
+            <span class="accar-synthesis-kicker">✠ Confesión Inmutable de Nicea ✠</span>
+            <p>
+              «Jesucristo, Hijo Unigénito de Dios: Dios de Dios, Luz de Luz, Dios verdadero de Dios verdadero, engendrado, no hecho, consustancial al Padre.»
+            </p>
+          </div>
+
+          <div class="accar-codex-footer-nav">
+            <button type="button" class="accar-codex-btn-sec" onclick="loadView('views/historia-lista-de-concilios.html')">
+              ← Volver al Directorio de Concilios
+            </button>
+            <button type="button" class="accar-codex-btn-pri" onclick="window.accarShowConcilioPanel('inicio')">
+              ↑ Volver a I. Panorama Inicial
+            </button>
+          </div>
+
+        </section>
+
+      </div>
+
+    </main>
+
+  </div>
+
+</section>
+
+<style>
+/* =====================================================================
+   ESTILOS ENCAPSULADOS ESTRICTAMENTE EN #accar-ficha-concilio
+   Protección total del Header Global y arquitectura SPA
+===================================================================== */
+#accar-ficha-concilio,
+#accar-ficha-concilio * {
+  box-sizing: border-box;
+}
+
+#accar-ficha-concilio {
+  --conc-gold: #d4af37;
+  --conc-gold-light: #eed076;
+  --conc-crimson: #8f1622;
+  --conc-green: #1b7345;
+  --conc-blue: #1d4e89;
+  --codex-scale: 1;
+
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  min-height: 100vh;
+  padding: 44px 20px 128px;
+  font-family: Georgia, "Times New Roman", serif;
+  color: #f8efd3;
+  border-top: 1px solid rgba(212, 175, 55, 0.26);
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(20, 48, 96, 0.58) 0%, rgba(6, 16, 36, 0.94) 36%, #030816 100%);
+  box-shadow: inset 0 24px 52px rgba(0, 0, 0, 0.58);
+}
+
+#accar-ficha-concilio::before {
+  content: "";
+  position: absolute;
+  top: 110px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(1140px, 96vw);
+  height: min(1140px, 96vw);
+  background: url("/assets/img/historia-watermark.png") center top / contain no-repeat;
+  opacity: 0.055;
+  pointer-events: none;
+  z-index: 0;
+}
+
+#accar-ficha-concilio .accar-concilio-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+/* ===== BARRA SUPERIOR ===== */
+#accar-ficha-concilio .accar-concilio-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-bottom: 26px;
+}
+
+#accar-ficha-concilio .accar-concilio-breadcrumb {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-size: 0.83rem;
+  color: rgba(248, 239, 211, 0.72);
+}
+
+#accar-ficha-concilio .accar-concilio-breadcrumb a {
+  color: #eed076;
+  text-decoration: none;
+  font-weight: 700;
+  transition: color 0.22s ease;
+}
+
+#accar-ficha-concilio .accar-concilio-breadcrumb a:hover {
+  color: #fff9ec;
+}
+
+#accar-ficha-concilio .accar-concilio-breadcrumb strong {
+  color: #fff9ec;
+}
+
+#accar-ficha-concilio .accar-concilio-peers {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+#accar-ficha-concilio .accar-peer-btn {
+  appearance: none;
+  padding: 7px 15px;
+  border-radius: 999px;
+  border: 1px solid rgba(212, 175, 55, 0.42);
+  background: rgba(4, 11, 28, 0.82);
+  color: #eed076;
+  font-family: inherit;
+  font-size: 0.71rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.24s ease;
+}
+
+#accar-ficha-concilio .accar-peer-btn:hover {
+  border-color: #fff3c4;
+  background: rgba(212, 175, 55, 0.22);
+  color: #fff9ec;
+  transform: translateY(-1px);
+}
+
+/* ===== RELICARIO HERO CONCILIAR ===== */
+#accar-ficha-concilio .accar-concilio-hero {
+  position: relative;
+  padding: 38px 38px 30px;
+  margin-bottom: 28px;
+  border-radius: 28px;
+  border: 1px solid rgba(212, 175, 55, 0.58);
+  background:
+    linear-gradient(180deg, rgba(8, 20, 44, 0.88) 0%, rgba(4, 10, 24, 0.96) 100%),
+    url("/assets/img/fondo_concilios.webp") center center / cover no-repeat;
+  box-shadow:
+    0 28px 60px rgba(0, 0, 0, 0.75),
+    inset 0 1px 0 rgba(255, 238, 186, 0.18);
+}
+
+#accar-ficha-concilio .accar-concilio-hero::after {
+  content: "";
+  position: absolute;
+  inset: 8px;
+  border: 1px solid rgba(212, 175, 55, 0.18);
+  border-radius: 21px;
+  pointer-events: none;
+}
+
+#accar-ficha-concilio .accar-concilio-hero-grid {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 290px 1fr;
+  gap: 38px;
+  align-items: center;
+}
+
+#accar-ficha-concilio .accar-concilio-portrait-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+#accar-ficha-concilio .accar-concilio-camafeo {
+  position: relative;
+  width: 248px;
+  height: 248px;
+  padding: 8px;
+  border-radius: 30px;
+  border: 2.5px solid #eed076;
+  background: radial-gradient(circle at 50% 30%, #243b6b 0%, #09142b 70%, #040914 100%);
+  box-shadow:
+    0 22px 44px rgba(0, 0, 0, 0.80),
+    0 0 26px rgba(212, 175, 55, 0.22);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transition: transform 0.38s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.38s ease;
+}
+
+#accar-ficha-concilio .accar-concilio-camafeo:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow:
+    0 28px 52px rgba(0, 0, 0, 0.86),
+    0 0 32px rgba(212, 175, 55, 0.32);
+}
+
+#accar-ficha-concilio .accar-concilio-camafeo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 22px;
+}
+
+#accar-ficha-concilio .accar-concilio-seal {
+  margin-top: 16px;
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: 1px solid #fff3c4;
+  background: linear-gradient(180deg, #e6c667 0%, #ad851b 100%);
+  color: #160c02;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.50);
+}
+
+#accar-ficha-concilio .accar-concilio-sede-badge {
+  margin-top: 10px;
+  width: 100%;
+  max-width: 246px;
+  padding: 9px 14px 10px;
+  border-radius: 14px;
+  border: 1px solid rgba(212, 175, 55, 0.42);
+  border-top: 2.5px solid #d4af37;
+  background: linear-gradient(180deg, #081530 0%, #040a1a 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.48);
+  transition: transform 0.26s ease, border-color 0.26s ease;
+}
+
+#accar-ficha-concilio .accar-concilio-sede-badge:hover {
+  transform: translateY(-2px);
+  border-color: #eed076;
+}
+
+#accar-ficha-concilio .accar-sede-label {
+  font-size: 0.63rem;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: #eed076;
+}
+
+#accar-ficha-concilio .accar-sede-val {
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-variant-numeric: lining-nums proportional-nums;
+  font-size: 1.02rem;
+  font-weight: 600;
+  color: #fff9ec;
+}
+
+#accar-ficha-concilio .accar-concilio-popes-plate {
+  margin-top: 7px;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-size: 0.98rem;
+  font-style: italic;
+  color: #dfd3b6;
+}
+
+/* Columna Derecha del Hero */
+#accar-ficha-concilio .accar-concilio-copy-col {
+  min-width: 0;
+}
+
+#accar-ficha-concilio .accar-concilio-kicker {
+  display: inline-block;
+  padding: 6px 16px;
+  margin-bottom: 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(238, 208, 118, 0.78);
+  background: linear-gradient(180deg, rgba(168, 126, 22, 0.42) 0%, rgba(78, 56, 8, 0.65) 100%);
+  color: #fff9ec;
+  font-size: 0.73rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.45);
+}
+
+#accar-ficha-concilio .accar-concilio-name {
+  margin: 0 0 4px;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-size: clamp(2.5rem, 4.5vw, 4rem);
+  font-weight: 700;
+  line-height: 1.04;
+  color: #fff9ec;
+  text-shadow: 0 4px 18px rgba(0, 0, 0, 0.78);
+}
+
+#accar-ficha-concilio .accar-concilio-latin-sub {
+  margin: 0 0 16px;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-variant-numeric: lining-nums proportional-nums;
+  font-size: 1.12rem;
+  font-style: italic;
+  color: #eed076;
+  letter-spacing: 0.02em;
+}
+
+#accar-ficha-concilio .accar-concilio-lead {
+  margin: 0 0 22px;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-variant-numeric: lining-nums proportional-nums;
+  font-size: 1.20rem;
+  line-height: 1.66;
+  color: #efe5cc;
+}
+
+#accar-ficha-concilio .accar-concilio-meta-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+
+#accar-ficha-concilio .accar-concilio-meta-card {
+  padding: 14px 15px 15px;
+  border-radius: 15px;
+  border: 1px solid rgba(212, 175, 55, 0.36);
+  border-top: 2.5px solid #d4af37;
+  background: rgba(4, 11, 28, 0.78);
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.28s ease, background 0.28s ease, box-shadow 0.28s ease;
+}
+
+#accar-ficha-concilio .accar-meta-label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #eed076;
+}
+
+#accar-ficha-concilio .accar-meta-val {
+  display: block;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-variant-numeric: lining-nums proportional-nums;
+  font-size: 1rem;
+  line-height: 1.45;
+  color: #fff9ec;
+}
+
+/* ===== 10 PESTAÑAS MAGISTERIALES (5x2) ===== */
+#accar-ficha-concilio .accar-concilio-tabs {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 28px;
+  padding-top: 22px;
+  border-top: 1px solid rgba(212, 175, 55, 0.28);
+}
+
+#accar-ficha-concilio .accar-concilio-tab {
+  appearance: none;
+  padding: 12px 8px;
+  border-radius: 13px;
+  border: 1px solid rgba(212, 175, 55, 0.38);
+  border-left: 3.5px solid #d4af37;
+  background: rgba(5, 14, 34, 0.88);
+  color: #e8dcc2;
+  font-family: Georgia, serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  text-align: center;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.24s ease;
+}
+
+#accar-ficha-concilio .accar-concilio-tab.accar-tab-carmesi {
+  border-left-color: #c81e2b;
+}
+
+#accar-ficha-concilio .accar-concilio-tab:hover {
+  border-color: #eed076;
+  background: rgba(18, 40, 82, 0.94);
+  color: #fff9ec;
+  transform: translateY(-2px);
+}
+
+#accar-ficha-concilio .accar-concilio-tab.active {
+  border-color: #fff3c4;
+  background: linear-gradient(180deg, #d8b24c 0%, #9e7516 100%);
+  color: #160e02;
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.58), 0 0 16px rgba(212, 175, 55, 0.35);
+}
+
+#accar-ficha-concilio .accar-concilio-tab.accar-tab-carmesi.active {
+  background: linear-gradient(180deg, #9b1622 0%, #52080f 100%);
+  color: #fff9ec;
+}
+
+/* =====================================================================
+   PLIEGO DEL CÓDICE CONCILIAR (MODO NOCHE BASE + MODO PERGAMINO)
+===================================================================== */
+#accar-ficha-concilio .accar-concilio-codex {
+  position: relative;
+  padding: 34px 48px 48px;
+  border-radius: 28px;
+  border: 1px solid rgba(212, 175, 55, 0.48);
+  background: linear-gradient(180deg, #081328 0%, #040a17 100%);
+  box-shadow: 0 28px 60px rgba(0, 0, 0, 0.72);
+  color: #efe5cc;
+  transition: background 0.32s ease, color 0.32s ease, border-color 0.32s ease;
+}
+
+#accar-ficha-concilio .accar-concilio-codex::after {
+  content: "";
+  position: absolute;
+  inset: 9px;
+  border: 1px solid rgba(212, 175, 55, 0.18);
+  border-radius: 20px;
+  pointer-events: none;
+}
+
+#accar-ficha-concilio .accar-concilio-codex.theme-light {
+  background: linear-gradient(180deg, #faf4e6 0%, #f2e8d2 100%);
+  border-color: rgba(186, 146, 58, 0.65);
+  color: #211b13;
+  box-shadow:
+    0 28px 60px rgba(0, 0, 0, 0.65),
+    inset 0 0 44px rgba(175, 136, 56, 0.09);
+}
+
+#accar-ficha-concilio .accar-concilio-codex.theme-light::after {
+  border-color: rgba(156, 118, 38, 0.24);
+}
+
+/* Barra de Herramientas */
+#accar-ficha-concilio .accar-codex-toolbar {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding-bottom: 16px;
+  margin-bottom: 30px;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.25);
+}
+
+#accar-ficha-concilio .accar-concilio-codex.theme-light .accar-codex-toolbar {
+  border-bottom-color: rgba(140, 104, 34, 0.24);
+}
+
+#accar-ficha-concilio .accar-codex-section-tag {
+  font-size: 0.73rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #eed076;
+}
+
+#accar-ficha-concilio .accar-concilio-codex.theme-light .accar-codex-section-tag {
+  color: #821818;
+}
+
+#accar-ficha-concilio .accar-codex-controls {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+#accar-ficha-concilio .accar-codex-sizes {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+#accar-ficha-concilio .accar-codex-size-lbl {
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: rgba(234, 224, 200, 0.72);
+  margin-right: 2px;
+}
+
+#accar-ficha-concilio .accar-concilio-codex.theme-light .accar-codex-size-lbl {
+  color: #544632;
+}
+
+#accar-ficha-concilio .accar-codex-tool-btn {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(212, 175, 55, 0.40);
+  background: transparent;
+  color: #f2e8ce;
+  font-family: Georgia, serif;
+  font-size: 0.76rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+#accar-ficha-concilio .accar-codex-tool-btn svg {
+  width: 14px;
+  height: 14px;
+}
+
+#accar-ficha-concilio .accar-concilio-codex.theme-light .accar-codex-tool-btn {
+  color: #241d13;
+  border-color: rgba(124, 92, 30, 0.35);
+  background: rgba(255, 255, 255, 0.48);
+}
+
+#accar-ficha-concilio .accar-codex-tool-btn:hover {
+  border-color: #d4af37;
+}
+
+#accar-ficha-concilio .accar-codex-tool-btn.active {
+  background: #d4af37;
+  border-color: #d4af37;
+  color: #081226 !important;
+}
+
+/* Cuerpo y Jerarquía Litúrgica de Tonos por Capítulo */
+#accar-ficha-concilio .accar-codex-body {
+  position: relative;
+  z-index: 2;
+  font-size: calc(20px * var(--codex-scale));
+}
+
+#accar-ficha-concilio .accar-concilio-panel {
+  --panel-accent: #c99b26;
+  display: none;
+}
+
+#accar-ficha-concilio .accar-concilio-panel[data-tono="verde"]   { --panel-accent: #1b7a48; }
+#accar-ficha-concilio .accar-concilio-panel[data-tono="azul"]    { --panel-accent: #1d4e89; }
+#accar-ficha-concilio .accar-concilio-panel[data-tono="carmesi"] { --panel-accent: #9b1622; }
+
+#accar-ficha-concilio .accar-concilio-panel.active {
+  display: block;
+  animation: accarConcPanelIn 0.3s ease;
+}
+
+@keyframes accarConcPanelIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+#accar-ficha-concilio .accar-heretic-name {
+  color: #f87171;
+  font-weight: 700;
+}
+
+#accar-ficha-concilio .accar-concilio-codex.theme-light .accar-heretic-name {
+  color: #991b1b;
+}
+
+#accar-ficha-concilio .accar-codex-intro {
+  max-width: 940px;
+  margin-bottom: 28px;
+}
+
+#accar-ficha-concilio .accar-codex-kicker {
+  display: block;
+  margin-bottom: 6px;
+  font-family: Georgia, serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #eed076;
+}
+
+#accar-ficha-concilio .accar-concilio-codex.theme-light .accar-codex-kicker {
+  color: #8b1a1a;
+}
+
+#accar-ficha-concilio .accar-codex-h2 {
+  margin: 0 0 18px;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-size: 2.55rem;
+  font-weight: 700;
+  line-height: 1.12;
+  color: #fff9ec;
+}
+
+#accar-ficha-concilio .accar-concilio-codex.theme-light .accar-codex-h2 {
+  color: #0b1e3d;
+}
+
+#accar-ficha-concilio .accar-codex-h3 {
+  margin: 0 0 20px;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #eed076;
+}
+
+#accar-ficha-concilio .accar-concilio-codex.theme-light .accar-codex-h3 {
+  color: #7f1d1d;
+}
+
+#accar-ficha-concilio .accar-codex-intro p {
+  margin: 0 0 16px;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-variant-numeric: lining-nums proportional-nums;
+  font-size: 1.05em;
+  line-height: 1.78;
+}
+
+#accar-ficha-concilio .accar-capitular {
+  float: left;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-size: 3.3em;
+  font-weight: 700;
+  line-height: 0.80;
+  padding: 0.06em 0.13em 0 0;
+  color: #eed076;
+}
+
+#accar-ficha-concilio .accar-concilio-codex.theme-light .accar-capitular {
+  color: #8b1a1a;
+}
+
+#accar-ficha-concilio .accar-codex-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 30px 0 26px;
+}
+
+#accar-ficha-concilio .accar-codex-divider::before,
+#accar-ficha-concilio .accar-codex-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.55), transparent);
+}
+
+#accar-ficha-concilio .accar-concilio-codex.theme-light .accar-codex-divider::before,
+#accar-ficha-concilio .accar-concilio-codex.theme-light .accar-codex-divider::after {
+  background: linear-gradient(90deg, transparent, rgba(140, 102, 28, 0.42), transparent);
+}
+
+#accar-ficha-concilio .accar-codex-divider span {
+  padding: 0 14px;
+  font-size: 0.9rem;
+  color: #d4af37;
+}
+
+#accar-ficha-concilio .accar-concilio-codex.theme-light .accar-codex-divider span {
+  color: #8b1a1a;
+}
+
+/* Recuadro Carmesí de Análisis Magisterial */
+#accar-ficha-concilio .accar-callout-dogmatico {
+  margin: 0 0 28px;
+  padding: 24px 28px;
+  border-radius: 20px;
+  border: 1px solid rgba(212, 175, 55, 0.55);
+  border-left: 5px solid #eed076;
+  background: linear-gradient(135deg, #6e0e18 0%, #2b0509 100%);
+  color: #fff9ec;
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.25);
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.28s ease;
+}
+
+#accar-ficha-concilio .accar-callout-kicker {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #eed076;
+}
+
+#accar-ficha-concilio .accar-callout-dogmatico h4 {
+  margin: 0 0 8px;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-size: 1.42rem;
+  color: #fff9ec;
+}
+
+#accar-ficha-concilio .accar-callout-dogmatico p {
+  margin: 0;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-size: 1em;
+  line-height: 1.66;
+  color: #f6ebd4;
+}
+
+/* ===== 4 PLACAS LAPIDARIAS DE ESTADÍSTICAS ===== */
+#accar-ficha-concilio .accar-stat-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  margin: 24px 0 10px;
+}
+
+#accar-ficha-concilio .accar-stat-plaque {
+  position: relative;
+  padding: 22px 16px 20px;
+  border-radius: 18px;
+  border: 1px solid rgba(212, 175, 55, 0.55);
+  background:
+    radial-gradient(circle at 50% 0%, rgba(212, 175, 55, 0.18) 0%, transparent 62%),
+    linear-gradient(180deg, #0c2147 0%, #050e22 100%);
+  text-align: center;
+  color: #fff9ec;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.28);
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.28s ease, border-color 0.28s ease;
+}
+
+#accar-ficha-concilio .accar-stat-plaque::after {
+  content: "";
+  position: absolute;
+  inset: 5px;
+  border: 1px solid rgba(212, 175, 55, 0.20);
+  border-radius: 13px;
+  pointer-events: none;
+}
+
+#accar-ficha-concilio .accar-stat-cross {
+  display: block;
+  font-size: 0.72rem;
+  color: rgba(238, 208, 118, 0.78);
+  margin-bottom: 4px;
+}
+
+#accar-ficha-concilio .accar-stat-num {
+  display: block;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-variant-numeric: lining-nums proportional-nums;
+  font-size: 2.35rem;
+  font-weight: 700;
+  line-height: 1.05;
+  color: #eed076;
+  margin-bottom: 8px;
+}
+
+#accar-ficha-concilio .accar-stat-lbl {
+  display: block;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-size: 0.98rem;
+  line-height: 1.38;
+  color: #f2e8ce;
+}
+
+/* ===== REGISTROS LAPIDARIOS ===== */
+#accar-ficha-concilio .accar-registry-box {
+  margin-bottom: 22px;
+  padding: 24px 26px;
+  border-radius: 20px;
+  border: 1px solid rgba(212, 175, 55, 0.34);
+  border-left: 4px solid #d4af37;
+  background: rgba(9, 22, 48, 0.62);
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.28s ease, border-color 0.28s ease;
+}
+
+#accar-ficha-concilio .accar-concilio-codex.theme-light .accar-registry-box {
+  background: rgba(255, 252, 245, 0.88);
+  border-color: rgba(160, 122, 42, 0.32);
+  border-left: 4px solid #8b1a1a;
+  box-shadow: 0 10px 24px rgba(40, 28, 8, 0.06);
+}
+
+#accar-ficha-concilio .accar-registry-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-bottom: 12px;
+  margin-bottom: 16px;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.22);
+}
+
+#accar-ficha-concilio .accar-concilio-codex.theme-light .accar-registry-head {
+  border-bottom-color: rgba(140, 104, 34, 0.20);
+}
+
+#accar-ficha-concilio .accar-registry-icon {
+  color: #d4af37;
+  font-size: 1rem;
+}
+
+#accar-ficha-concilio .accar-concilio-codex.theme-light .accar-registry-icon {
+  color: #8b1a1a;
+}
+
+#accar-ficha-concilio .accar-registry-head h4 {
+  margin: 0;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-size: 1.38rem;
+  font-weight: 700;
+  color: #fff9ec;
+}
+
+#accar-ficha-concilio .accar-concilio-codex.theme-light .accar-registry-head h4 {
+  color: #0b1e3d;
+}
+
+#accar-ficha-concilio .accar-registry-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px 28px;
+}
+
+#accar-ficha-concilio .accar-registry-list li {
+  padding-left: 14px;
+  border-left: 2px solid rgba(212, 175, 55, 0.42);
+}
+
+#accar-ficha-concilio .accar-concilio-codex.theme-light .accar-registry-list li {
+  border-left-color: rgba(180, 138, 44, 0.55);
+}
+
+#accar-ficha-concilio .accar-registry-list strong {
+  display: block;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-size: 1.02em;
+  font-weight: 700;
+  line-height: 1.3;
+  color: #eed076;
+}
+
+#accar-ficha-concilio .accar-concilio-codex.theme-light .accar-registry-list strong {
+  color: #1c160e;
+}
+
+#accar-ficha-concilio .accar-registry-list span {
+  display: block;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-variant-numeric: lining-nums proportional-nums;
+  font-size: 0.90em;
+  font-style: italic;
+  color: rgba(238, 228, 204, 0.78);
+}
+
+#accar-ficha-concilio .accar-concilio-codex.theme-light .accar-registry-list span {
+  color: #5c4c36;
+}
+
+/* ===== TARJETAS EDITORIALES DE ESTUDIO ===== */
+#accar-ficha-concilio .accar-codex-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+#accar-ficha-concilio .accar-codex-card {
+  padding: 22px 24px;
+  border-radius: 18px;
+  border: 1px solid rgba(212, 175, 55, 0.30);
+  border-left: 4px solid var(--panel-accent);
+  background: rgba(9, 22, 48, 0.62);
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.28s ease, border-color 0.28s ease;
+}
+
+#accar-ficha-concilio .accar-concilio-codex.theme-light .accar-codex-card {
+  background: rgba(255, 252, 245, 0.92);
+  border-color: rgba(160, 122, 42, 0.28);
+  border-left: 4.5px solid var(--panel-accent);
+  box-shadow: 0 10px 24px rgba(40, 28, 8, 0.06);
+}
+
+#accar-ficha-concilio .accar-card-num {
+  display: inline-block;
+  margin-bottom: 6px;
+  font-family: Georgia, serif;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #eed076;
+}
+
+#accar-ficha-concilio .accar-concilio-codex.theme-light .accar-card-num {
+  color: #8b1a1a;
+}
+
+#accar-ficha-concilio .accar-codex-card h4 {
+  margin: 0 0 10px;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-size: 1.36rem;
+  font-weight: 700;
+  line-height: 1.24;
+  color: #fff9ec;
+}
+
+#accar-ficha-concilio .accar-concilio-codex.theme-light .accar-codex-card h4 {
+  color: #0b1e3d;
+}
+
+#accar-ficha-concilio .accar-codex-card p {
+  margin: 0;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-variant-numeric: lining-nums proportional-nums;
+  font-size: 0.98em;
+  line-height: 1.68;
+}
+
+/* Cita Solemne del Símbolo de Nicea */
+#accar-ficha-concilio .accar-credo-quote {
+  margin: 14px 0 4px;
+  padding: 18px 22px;
+  border-radius: 14px;
+  border: 1px solid rgba(212, 175, 55, 0.40);
+  border-left: 4px solid #d4af37;
+  background: rgba(5, 13, 30, 0.55);
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-size: 1.02em;
+  line-height: 1.72;
+}
+
+#accar-ficha-concilio .accar-concilio-codex.theme-light .accar-credo-quote {
+  background: rgba(139, 26, 26, 0.045);
+  border-color: rgba(150, 114, 38, 0.35);
+  border-left: 4px solid #8b1a1a;
+  color: #1c150d;
+}
+
+/* Banner de Síntesis */
+#accar-ficha-concilio .accar-synthesis-banner {
+  margin-top: 26px;
+  padding: 24px 28px;
+  border-radius: 20px;
+  border: 1px solid rgba(212, 175, 55, 0.55);
+  background: linear-gradient(135deg, #0c2147 0%, #061024 100%);
+  color: #fff9ec;
+  text-align: center;
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.22);
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.28s ease, border-color 0.28s ease;
+}
+
+#accar-ficha-concilio .accar-synthesis-kicker {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 0.70rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #eed076;
+}
+
+#accar-ficha-concilio .accar-synthesis-banner p {
+  margin: 0 auto;
+  max-width: 820px;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-size: 1.08em;
+  font-style: italic;
+  line-height: 1.68;
+  color: #f5ebd4;
+}
+
+/* ===== LÍNEA DEL TIEMPO CONCILIAR ===== */
+#accar-ficha-concilio .accar-timeline {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-left: 22px;
+  border-left: 2px solid rgba(212, 175, 55, 0.48);
+}
+
+#accar-ficha-concilio .accar-concilio-codex.theme-light .accar-timeline {
+  border-left-color: rgba(155, 114, 30, 0.45);
+}
+
+#accar-ficha-concilio .accar-tl-item {
+  position: relative;
+  display: grid;
+  grid-template-columns: 108px 1fr;
+  gap: 16px;
+  align-items: start;
+}
+
+#accar-ficha-concilio .accar-tl-item::before {
+  content: "";
+  position: absolute;
+  left: -29px;
+  top: 14px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid #eed076;
+  background: #1b7345;
+}
+
+#accar-ficha-concilio .accar-tl-year {
+  padding: 7px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(212, 175, 55, 0.55);
+  background: linear-gradient(180deg, #165e38 0%, #0b331d 100%);
+  color: #fff9ec;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-variant-numeric: lining-nums proportional-nums;
+  font-size: 0.94rem;
+  font-weight: 700;
+  text-align: center;
+  white-space: nowrap;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.22);
+}
+
+#accar-ficha-concilio .accar-tl-card {
+  padding: 16px 20px;
+  border-radius: 16px;
+  border: 1px solid rgba(212, 175, 55, 0.28);
+  background: rgba(9, 22, 48, 0.60);
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.28s ease, border-color 0.28s ease;
+}
+
+#accar-ficha-concilio .accar-concilio-codex.theme-light .accar-tl-card {
+  background: rgba(255, 252, 245, 0.92);
+  border-color: rgba(160, 122, 42, 0.28);
+  box-shadow: 0 8px 20px rgba(40, 28, 8, 0.05);
+}
+
+#accar-ficha-concilio .accar-tl-card h4 {
+  margin: 0 0 6px;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-size: 1.24rem;
+  font-weight: 700;
+  color: #eed076;
+}
+
+#accar-ficha-concilio .accar-concilio-codex.theme-light .accar-tl-card h4 {
+  color: #0b1e3d;
+}
+
+#accar-ficha-concilio .accar-tl-card p {
+  margin: 0;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-variant-numeric: lining-nums proportional-nums;
+  font-size: 0.96em;
+  line-height: 1.62;
+}
+
+/* ===== ACORDEÓN MAGISTERIAL DE DOCUMENTOS ===== */
+#accar-ficha-concilio .accar-doc-accordion {
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+}
+
+#accar-ficha-concilio .accar-doc-item {
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(212, 175, 55, 0.34);
+  background: rgba(8, 20, 44, 0.72);
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.28s ease, border-color 0.28s ease;
+}
+
+#accar-ficha-concilio .accar-concilio-codex.theme-light .accar-doc-item {
+  background: rgba(255, 252, 245, 0.94);
+  border-color: rgba(150, 114, 38, 0.32);
+  box-shadow: 0 8px 20px rgba(40, 28, 8, 0.06);
+}
+
+#accar-ficha-concilio .accar-doc-item.doc-constitucion { border-left: 5px solid #c89d28; }
+#accar-ficha-concilio .accar-doc-item.doc-decreto      { border-left: 5px solid #1d4e89; }
+#accar-ficha-concilio .accar-doc-item.doc-declaracion  { border-left: 5px solid #9b1622; }
+
+#accar-ficha-concilio .accar-doc-trigger {
+  appearance: none;
+  width: 100%;
+  border: none;
+  padding: 16px 20px;
+  background: linear-gradient(180deg, #0f2854 0%, #091936 100%);
+  color: #fff6dc;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.24s ease;
+}
+
+#accar-ficha-concilio .accar-doc-item.open .accar-doc-trigger {
+  background: linear-gradient(180deg, #82131d 0%, #48070d 100%);
+}
+
+#accar-ficha-concilio .accar-doc-title {
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-variant-numeric: lining-nums proportional-nums;
+  font-size: 1.22rem;
+  font-weight: 700;
+}
+
+#accar-ficha-concilio .accar-doc-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1px solid rgba(238, 208, 118, 0.55);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.15rem;
+  color: #eed076;
+  flex-shrink: 0;
+}
+
+#accar-ficha-concilio .accar-doc-content {
+  display: none;
+  padding: 18px 22px 20px;
+  border-top: 1px solid rgba(212, 175, 55, 0.20);
+}
+
+#accar-ficha-concilio .accar-doc-item.open .accar-doc-content {
+  display: block;
+}
+
+#accar-ficha-concilio .accar-doc-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+#accar-ficha-concilio .accar-doc-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 13px;
+  border-radius: 999px;
+  font-family: Georgia, serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-decoration: none;
+}
+
+#accar-ficha-concilio .tag-constitucion {
+  background: #fbf1d4;
+  color: #57430d;
+  border: 1px solid rgba(196, 152, 34, 0.50);
+}
+
+#accar-ficha-concilio .tag-decreto {
+  background: #e4eef9;
+  color: #0e2c56;
+  border: 1px solid rgba(29, 78, 137, 0.35);
+}
+
+#accar-ficha-concilio .tag-declaracion {
+  background: #f9e2e4;
+  color: #7f121b;
+  border: 1px solid rgba(139, 0, 0, 0.35);
+}
+
+#accar-ficha-concilio .accar-doc-content p {
+  margin: 0;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-size: 0.98em;
+  line-height: 1.68;
+}
+
+/* ===== INTERACCIÓN HOVER TÁCTIL PARA PC Y LAPTOP ===== */
+@media (hover: hover) {
+  #accar-ficha-concilio .accar-concilio-meta-card:hover {
+    transform: translateY(-4px);
+    border-color: #eed076;
+    background: rgba(18, 42, 86, 0.85);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.45);
+  }
+
+  #accar-ficha-concilio .accar-stat-plaque:hover {
+    transform: translateY(-5px);
+    border-color: #eed076;
+    box-shadow: 0 20px 38px rgba(0, 0, 0, 0.42), 0 0 18px rgba(212, 175, 55, 0.20);
+  }
+
+  #accar-ficha-concilio .accar-registry-box:hover,
+  #accar-ficha-concilio .accar-codex-card:hover,
+  #accar-ficha-concilio .accar-doc-item:hover,
+  #accar-ficha-concilio .accar-callout-dogmatico:hover,
+  #accar-ficha-concilio .accar-synthesis-banner:hover {
+    transform: translateY(-4px);
+    border-color: rgba(212, 175, 55, 0.72);
+    box-shadow: 0 18px 34px rgba(0, 0, 0, 0.18);
+  }
+
+  #accar-ficha-concilio .accar-tl-card:hover {
+    transform: translateX(6px);
+    border-color: rgba(212, 175, 55, 0.68);
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.16);
+  }
+}
+
+/* ===== BOTONES INFERIORES DE NAVEGACIÓN ENTRE CAPÍTULOS ===== */
+#accar-ficha-concilio .accar-codex-footer-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 34px;
+  padding-top: 22px;
+  border-top: 1px solid rgba(212, 175, 55, 0.25);
+}
+
+#accar-ficha-concilio .accar-concilio-codex.theme-light .accar-codex-footer-nav {
+  border-top-color: rgba(140, 104, 34, 0.24);
+}
+
+#accar-ficha-concilio .accar-codex-btn-sec,
+#accar-ficha-concilio .accar-codex-btn-pri {
+  appearance: none;
+  padding: 12px 24px;
+  border-radius: 999px;
+  font-family: Georgia, serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+#accar-ficha-concilio .accar-codex-btn-sec {
+  border: 1px solid rgba(212, 175, 55, 0.55);
+  background: linear-gradient(180deg, #102a58 0%, #081734 100%);
+  color: #fff4d2;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.22);
+}
+
+#accar-ficha-concilio .accar-codex-btn-sec:hover {
+  border-color: #eed076;
+  background: linear-gradient(180deg, #163874 0%, #0b2046 100%);
+  transform: translateY(-2px);
+}
+
+#accar-ficha-concilio .accar-codex-btn-pri {
+  border: 1px solid #fff3c4;
+  background: linear-gradient(180deg, #e5c463 0%, #b88e1e 100%);
+  color: #1a1204;
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.24);
+}
+
+#accar-ficha-concilio .accar-codex-btn-pri:hover {
+  filter: brightness(1.06);
+  transform: translateY(-2px);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1120px) {
+  #accar-ficha-concilio .accar-concilio-meta-grid,
+  #accar-ficha-concilio .accar-stat-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 920px) {
+  #accar-ficha-concilio .accar-concilio-hero {
+    padding: 28px 22px 24px;
+  }
+
+  #accar-ficha-concilio .accar-concilio-hero-grid {
+    grid-template-columns: 1fr;
+    text-align: center;
+    gap: 24px;
+  }
+
+  #accar-ficha-concilio .accar-concilio-meta-grid {
+    text-align: left;
+  }
+
+  #accar-ficha-concilio .accar-concilio-tabs {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  #accar-ficha-concilio .accar-concilio-codex {
+    padding: 26px 22px 34px;
+  }
+
+  #accar-ficha-concilio .accar-registry-list,
+  #accar-ficha-concilio .accar-codex-cards-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 580px) {
+  #accar-ficha-concilio {
+    padding: 28px 12px 96px;
+  }
+
+  #accar-ficha-concilio .accar-concilio-camafeo {
+    width: 205px;
+    height: 205px;
+  }
+
+  #accar-ficha-concilio .accar-concilio-seal {
+    white-space: normal;
+  }
+
+  #accar-ficha-concilio .accar-concilio-meta-grid,
+  #accar-ficha-concilio .accar-stat-grid {
+    grid-template-columns: 1fr;
+  }
+
+  #accar-ficha-concilio .accar-concilio-tab {
+    font-size: 0.70rem;
+    padding: 11px 6px;
+  }
+
+  #accar-ficha-concilio .accar-tl-item {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  #accar-ficha-concilio .accar-tl-year {
+    width: max-content;
+  }
+
+  #accar-ficha-concilio .accar-codex-footer-nav button {
+    width: 100%;
+    justify-content: center;
+  }
+}
+</style>
+
+<script>
+(function() {
+  const root = document.getElementById('accar-ficha-concilio');
+  if (!root) return;
+
+  const codex = document.getElementById('accar-concilio-codex');
+  const sectionTag = document.getElementById('accar-codex-section-tag');
+  const themeBtn = document.getElementById('accar-concilio-theme-btn');
+  const themeLbl = document.getElementById('accar-concilio-theme-label');
+  const sizeBtns = Array.from(root.querySelectorAll('.btn-concilio-size'));
+  const tabs = Array.from(root.querySelectorAll('.accar-concilio-tab'));
+  const panels = Array.from(root.querySelectorAll('.accar-concilio-panel'));
+
+  const prefs = window.__accarPapaCodexPrefs || { isLight: true, scale: '1' };
+
+  function aplicarPrefs() {
+    root.style.setProperty('--codex-scale', prefs.scale);
+    sizeBtns.forEach(b => b.classList.toggle('active', b.dataset.size === prefs.scale));
+
+    if (prefs.isLight) {
+      codex.classList.add('theme-light');
+      if (themeLbl) themeLbl.textContent = 'Modo Oscuro';
+    } else {
+      codex.classList.remove('theme-light');
+      if (themeLbl) themeLbl.textContent = 'Modo Pergamino';
+    }
+    window.__accarPapaCodexPrefs = prefs;
+  }
+
+  aplicarPrefs();
+
+  window.accarShowConcilioPanel = function(targetName) {
+    panels.forEach(p => {
+      p.classList.toggle('active', p.id === 'panel-' + targetName);
+    });
+
+    tabs.forEach(t => {
+      const esActivo = t.dataset.target === targetName;
+      t.classList.toggle('active', esActivo);
+      if (esActivo && sectionTag && t.dataset.label) {
+        sectionTag.textContent = '✠ Códice Conciliar · ' + t.dataset.label;
       }
+    });
 
-      function closeMobileMenu(){
-        if(!mobileMenuToggle || !mobileNavPanel) return;
-        mobileMenuToggle.classList.remove("active");
-        mobileNavPanel.classList.remove("active");
-        mobileMenuToggle.setAttribute("aria-expanded", "false");
-      }
+    const tabsBar = document.getElementById('accar-concilio-tabs-bar');
+    const globalHeader = document.getElementById('accarGlobalHeader');
+    if (tabsBar) {
+      const headerH = globalHeader ? globalHeader.offsetHeight : 0;
+      const y = tabsBar.getBoundingClientRect().top + window.scrollY - headerH - 14;
+      window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' });
+    }
+  };
 
-      function toggleMobileMenu(){
-        if(!mobileNavPanel) return;
-        if(mobileNavPanel.classList.contains("active")){
-          closeMobileMenu();
-        }else{
-          openMobileMenu();
-        }
-      }
+  tabs.forEach(t => {
+    t.addEventListener('click', () => {
+      window.accarShowConcilioPanel(t.dataset.target);
+    });
+  });
 
-      function showPanel(name){
-        panelNames.forEach(panel => {
-          const panelEl = document.getElementById("panel-" + panel);
-          if(panelEl){
-            panelEl.classList.toggle("active", panel === name);
-          }
-          document.querySelectorAll('[data-target="' + panel + '"]').forEach(btnEl => {
-            btnEl.classList.toggle("active", panel === name);
-          });
-        });
+  if (themeBtn) {
+    themeBtn.addEventListener('click', () => {
+      prefs.isLight = !prefs.isLight;
+      aplicarPrefs();
+    });
+  }
 
-        closeMobileMenu();
+  sizeBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      prefs.scale = btn.dataset.size || '1';
+      aplicarPrefs();
+    });
+  });
 
-        const navBar = document.querySelector('.hero-nav');
-        const globalHeader = document.getElementById('accarGlobalHeader'); 
-        
-        if (navBar) {
-          const headerHeight = globalHeader ? globalHeader.offsetHeight : 0;
-          const absoluteY = navBar.getBoundingClientRect().top + window.scrollY;
-          
-          window.scrollTo({
-            top: absoluteY - headerHeight - 10,
-            behavior: "smooth"
-          });
-        }
-      }
+  root.querySelectorAll('.accar-doc-trigger').forEach(trigger => {
+    trigger.addEventListener('click', () => {
+      const item = trigger.closest('.accar-doc-item');
+      const estabaAbierto = item.classList.contains('open');
 
-      document.querySelectorAll(".nav-btn").forEach(btn => {
-        btn.onclick = function(e) {
-          e.preventDefault();
-          showPanel(this.dataset.target);
-        };
+      root.querySelectorAll('.accar-doc-item').forEach(acc => {
+        acc.classList.remove('open');
+        const ic = acc.querySelector('.accar-doc-icon');
+        if (ic) ic.textContent = '+';
       });
 
-      document.querySelectorAll(".mobile-nav-btn[data-target]").forEach(btn => {
-        btn.onclick = function(e) {
-          e.preventDefault();
-          showPanel(this.dataset.target);
-        };
-      });
-
-      document.querySelectorAll(".acc-trigger").forEach(trigger => {
-        trigger.onclick = function(e) {
-          e.preventDefault();
-          const item = this.parentElement;
-          const isOpen = item.classList.contains("open");
-
-          document.querySelectorAll(".acc-item").forEach(acc => {
-            acc.classList.remove("open");
-            const symbol = acc.querySelector(".acc-trigger span:last-child");
-            if(symbol) symbol.textContent = "+";
-          });
-
-          if(!isOpen){
-            item.classList.add("open");
-            const symbol = item.querySelector(".acc-trigger span:last-child");
-            if(symbol) symbol.textContent = "−";
-          }
-        };
-      });
-
-      if(mobileMenuToggle){
-        mobileMenuToggle.onclick = function(e){
-          e.preventDefault();
-          toggleMobileMenu();
-        };
+      if (!estabaAbierto) {
+        item.classList.add('open');
+        const ic = item.querySelector('.accar-doc-icon');
+        if (ic) ic.textContent = '−';
       }
-    })();
-    /* ===== FINAL SCRIPT AISLADO ===== */
-  </script>
-
-</body>
-</html>
-<!-- ===== FINAL CONCILIO VATICANO II ===== -->
+    });
+  });
+})();
+</script>
