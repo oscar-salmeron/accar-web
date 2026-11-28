@@ -1,1459 +1,2556 @@
-<!-- ===== INICIO SAN CLEMENTE DE ROMA ===== -->
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>San Clemente de Roma | ACCAR</title>
-
-  <style>
-    :root{
-      --azul-oscuro:#0c1f3f;
-      --azul-medio:#123867;
-      --azul-claro:#1d4e89;
-      --dorado:#d4af37;
-      --dorado-2:#e4c76a;
-      --purpura-cardenal:#a31f34;
-      --texto:#1b1b1b;
-      --sombra:0 18px 38px rgba(0,0,0,.18);
-      --max:1240px;
-    }
-
-    .back-link {
-      display: inline-block;
-      margin-bottom: 20px;
-      color: var(--dorado);
-      font-weight: bold;
-      font-size: 1.05rem;
-      text-decoration: none;
-      transition: color 0.2s ease, transform 0.2s ease;
-    }
-    .back-link:hover {
-      color: #ffd971;
-      transform: translateX(-4px);
-    }
-
-    /* Borde Rojo Mártir para las tarjetas */
-    .section-box, .highlight-card, .feature-card {
-      border-left: 5px solid var(--purpura-cardenal) !important;
-    }
-
-    *{box-sizing:border-box}
-    html{scroll-behavior:smooth}
-    body{
-      margin:0;
-      color:var(--texto);
-      font-family:Georgia, "Times New Roman", serif;
-      background:
-        linear-gradient(rgba(8,18,35,.18), rgba(8,18,35,.18)),
-        url("../../assets/img/bg_padres_iglesia_acccar.png") center top / cover fixed no-repeat;
-    }
-
-    img{max-width:100%;display:block}
-    a{text-decoration:none;color:inherit}
-    button{font:inherit}
-    .wrap{
-      width:min(var(--max), calc(100% - 28px));
-      margin:0 auto;
-    }
-
-    .content-panel{display:none}
-    .content-panel.active{
-      display:block;
-      animation:fadeIn .28s ease;
-    }
-
-    @keyframes fadeIn{
-      from{opacity:0;transform:translateY(8px)}
-      to{opacity:1;transform:none}
-    }
-
-    /* ===== INICIO HERO ===== */
-    .hero{
-      position:relative;
-      overflow:hidden;
-      border-bottom:2px solid rgba(212,175,55,.55);
-      background:
-        linear-gradient(180deg, rgba(9,23,45,.08) 0%, rgba(9,23,45,.03) 24%, rgba(9,23,45,.28) 100%);
-    }
-
-    .hero::before{
-      content:"";
-      position:absolute;
-      inset:0;
-      background:
-        linear-gradient(90deg, rgba(7,17,34,.28) 0%, rgba(7,17,34,.08) 44%, rgba(7,17,34,.22) 100%);
-      pointer-events:none;
-    }
-
-    .hero-inner{
-      position:relative;
-      z-index:1;
-      min-height:760px;
-      padding:34px 0 38px;
-    }
-
-    /* ===== INICIO BANDA SUPERIOR ===== */
-    .top-brand{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:16px;
-      margin-bottom:20px;
-    }
-
-    .top-brand a{
-      display:flex;
-      align-items:center;
-      gap:16px;
-      min-width:0;
-    }
-
-    .top-brand img{
-      width:78px;
-      filter:drop-shadow(0 8px 16px rgba(0,0,0,.28));
-    }
-
-    .top-brand-text{
-      color:#f8f0d8;
-      line-height:1.1;
-      text-shadow:0 4px 16px rgba(0,0,0,.32);
-    }
-
-    .top-brand-text .line-1{
-      display:block;
-      font-size:1.95rem;
-      font-weight:bold;
-    }
-
-    .top-brand-text .line-2{
-      display:block;
-      font-size:1.45rem;
-      margin-top:2px;
-    }
-
-    .mobile-menu-toggle{
-      display:none;
-      align-items:center;
-      justify-content:center;
-      width:56px;
-      height:56px;
-      border-radius:16px;
-      border:1px solid rgba(212,175,55,.72);
-      background:linear-gradient(180deg, rgba(25,72,135,.92), rgba(16,51,95,.92));
-      box-shadow:0 10px 18px rgba(0,0,0,.18), inset 0 1px 0 rgba(255,255,255,.12);
-      cursor:pointer;
-      flex:0 0 auto;
-      padding:0;
-    }
-
-    .mobile-menu-toggle:hover{
-      transform:translateY(-1px);
-      background:linear-gradient(180deg, rgba(29,85,159,.96), rgba(18,56,103,.96));
-    }
-
-    .mobile-menu-toggle span{
-      display:block;
-      width:24px;
-      height:2.5px;
-      background:#fff4cf;
-      border-radius:999px;
-      margin:3px 0;
-      transition:.22s ease;
-    }
-
-    .mobile-menu-toggle.active span:nth-child(1){
-      transform:translateY(8px) rotate(45deg);
-    }
-
-    .mobile-menu-toggle.active span:nth-child(2){
-      opacity:0;
-    }
-
-    .mobile-menu-toggle.active span:nth-child(3){
-      transform:translateY(-8px) rotate(-45deg);
-    }
-
-    .mobile-nav-panel{
-      display:none;
-      margin-bottom:24px;
-    }
-
-    .mobile-nav-panel.active{
-      display:block;
-      animation:fadeIn .24s ease;
-    }
-
-    .mobile-nav-card{
-      border:1px solid rgba(212,175,55,.42);
-      border-radius:22px;
-      background:linear-gradient(180deg, rgba(11,31,63,.60), rgba(11,31,63,.84));
-      backdrop-filter:blur(6px);
-      box-shadow:var(--sombra);
-      padding:14px;
-    }
-
-    .mobile-nav-list{
-      display:grid;
-      gap:10px;
-    }
-
-    .mobile-nav-btn{
-      appearance:none;
-      width:100%;
-      border:1px solid rgba(212,175,55,.7);
-      background:linear-gradient(180deg, #194887 0%, #10335f 100%);
-      color:#fff4cf;
-      padding:15px 14px;
-      border-radius:16px;
-      cursor:pointer;
-      box-shadow:0 10px 18px rgba(0,0,0,.18), inset 0 1px 0 rgba(255,255,255,.12);
-      transition:.22s ease;
-      font-weight:bold;
-      font-size:1rem;
-      text-align:center;
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-    }
-
-    .mobile-nav-btn.active{
-      background:linear-gradient(180deg, #e1bd55 0%, #c69a25 100%);
-      color:#241c09;
-      box-shadow:0 12px 22px rgba(0,0,0,.2), inset 0 1px 0 rgba(255,255,255,.18);
-    }
-    /* ===== FINAL BANDA SUPERIOR ===== */
-
-    .hero-card{
-      width:100%;
-      display:grid;
-      grid-template-columns:minmax(250px, 330px) 1fr;
-      gap:34px;
-      align-items:center;
-      padding:30px;
-      border:1px solid rgba(212,175,55,.42);
-      border-radius:30px;
-      background:
-        linear-gradient(180deg, rgba(11,31,63,.20), rgba(11,31,63,.55)),
-        url("../../assets/img/bg_padres_iglesia_acccar.png") center center / cover no-repeat;
-      box-shadow:var(--sombra);
-      overflow:hidden;
-    }
-
-    .hero-photo-wrap{
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      justify-content:center;
-    }
-
-    .hero-photo{
-      display:flex;
-      align-items:center;
-      justify-content:center;
-    }
-
-    .hero-photo img{
-      width:100%;
-      max-width:290px;
-      border-radius:28px;
-      border:3px solid rgba(212,175,55,.82);
-      background:linear-gradient(180deg, #f7f0dc, #d9c79f);
-      box-shadow:0 14px 26px rgba(0,0,0,.28);
-    }
-
-    /* ===== BADGE PADRE ===== */
-    .badge-padre{
-      margin-top:16px;
-      display:inline-block;
-      padding:10px 22px;
-      border-radius:999px;
-      background:linear-gradient(180deg, #e1bd55, #c69a25);
-      color:#241c09;
-      font-weight:bold;
-      font-size:.95rem;
-      line-height:1.1;
-      text-align:center;
-      box-shadow:0 8px 16px rgba(0,0,0,.18);
-    }
-
-    .hero-copy{
-      color:#fff8e8;
-      min-width:0;
-    }
-
-    .hero-kicker{
-      display:inline-block;
-      margin:0 0 10px;
-      padding:8px 14px;
-      border-radius:999px;
-      border:1px solid rgba(212,175,55,.45);
-      background:rgba(255,255,255,.08);
-      font-size:.95rem;
-      letter-spacing:.02em;
-    }
-
-    .hero-copy h1{
-      margin:0 0 14px;
-      font-size:clamp(2.15rem, 4.2vw, 3.95rem);
-      line-height:1.02;
-      color:#fff4d0;
-      text-shadow:0 5px 18px rgba(0,0,0,.26);
-      overflow-wrap:anywhere;
-    }
-
-    .hero-copy p{
-      margin:0;
-      max-width:820px;
-      font-size:1.08rem;
-      line-height:1.8;
-      color:#f7efd9;
-      overflow-wrap:anywhere;
-    }
-
-    .hero-meta{
-      display:grid;
-      grid-template-columns:repeat(4, 1fr);
-      gap:14px;
-      margin:24px 0 0;
-    }
-
-    .hero-meta .meta-item{
-      padding:16px 16px 18px;
-      border-radius:18px;
-      border:1px solid rgba(212,175,55,.34);
-      background:rgba(255,255,255,.07);
-      min-height:100%;
-      box-shadow:inset 0 1px 0 rgba(255,255,255,.05);
-      min-width:0;
-    }
-
-    .hero-meta .meta-label{
-      display:block;
-      margin-bottom:8px;
-      font-size:.82rem;
-      color:#e7d8a6;
-      text-transform:uppercase;
-      letter-spacing:.06em;
-    }
-
-    .hero-meta .meta-value{
-      font-size:.94rem;
-      line-height:1.55;
-      color:#fff9ec;
-      overflow-wrap:anywhere;
-    }
-
-    .hero-nav{
-      margin-top:24px;
-      display:flex;
-      flex-wrap:wrap;
-      gap:12px;
-      width:100%;
-      justify-content:space-between;
-      align-items:stretch;
-    }
-
-    .hero-nav button,
-    .hero-nav a{
-      appearance:none;
-      border:1px solid rgba(212,175,55,.7);
-      background:linear-gradient(180deg, #194887 0%, #10335f 100%);
-      color:#fff4cf;
-      padding:16px 14px;
-      border-radius:16px;
-      cursor:pointer;
-      box-shadow:0 10px 18px rgba(0,0,0,.18), inset 0 1px 0 rgba(255,255,255,.12);
-      transition:.22s ease;
-      font-weight:bold;
-      font-size:1rem;
-      text-align:center;
-      white-space:nowrap;
-      min-width:150px;
-      flex:1 1 150px;
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-    }
-
-    .hero-nav button:hover,
-    .hero-nav a:hover{
-      transform:translateY(-1px);
-      background:linear-gradient(180deg, #1d559f 0%, #123867 100%);
-    }
-
-    .hero-nav button.active{
-      background:linear-gradient(180deg, #e1bd55 0%, #c69a25 100%);
-      color:#241c09;
-      box-shadow:0 12px 22px rgba(0,0,0,.2), inset 0 1px 0 rgba(255,255,255,.18);
-    }
-    /* ===== FINAL HERO ===== */
-
-    /* ===== INICIO MAIN ===== */
-    .main-shell{
-      background:
-        linear-gradient(rgba(245,239,225,.96), rgba(245,239,225,.97)),
-        url("../../assets/img/textura-footer-pergamino.png") center top / cover repeat;
-      padding:38px 0 52px;
-      overflow-x:hidden;
-    }
-
-    .section-box{
-      background:rgba(255,255,255,.74);
-      border:1px solid rgba(161,127,44,.22);
-      border-radius:24px;
-      box-shadow:var(--sombra);
-      padding:30px;
-      margin:0 0 24px;
-      overflow:hidden;
-    }
-
-    .section-title{
-      margin:0 0 18px;
-      font-size:clamp(2rem, 4vw, 3rem);
-      line-height:1.08;
-      color:var(--azul-oscuro);
-      overflow-wrap:anywhere;
-    }
-
-    .section-subtitle{
-      margin:0 0 16px;
-      font-size:1.6rem;
-      color:var(--azul-oscuro);
-      overflow-wrap:anywhere;
-    }
-
-    .section-box p{
-      margin:0 0 16px;
-      font-size:1.08rem;
-      line-height:1.9;
-      overflow-wrap:anywhere;
-    }
-
-    .inicio-grid{
-      display:grid;
-      grid-template-columns:repeat(2, minmax(0, 1fr));
-      gap:18px;
-      margin-top:8px;
-    }
-
-    .highlight-card{
-      background:rgba(255,255,255,.85);
-      border:1px solid rgba(15,51,95,.14);
-      border-radius:20px;
-      box-shadow:0 10px 22px rgba(0,0,0,.08);
-      padding:22px;
-      min-width:0;
-      overflow-wrap:anywhere;
-    }
-
-    .highlight-card.full-width{
-      grid-column:1 / -1;
-    }
-
-    .highlight-card h3,
-    .highlight-card h4{
-      margin:0 0 12px;
-      color:var(--azul-oscuro);
-      font-size:1.34rem;
-      overflow-wrap:anywhere;
-    }
-
-    .highlight-card p:last-child{margin-bottom:0}
-
-    .stat-grid{
-      display:grid;
-      grid-template-columns:repeat(4, minmax(0, 1fr));
-      gap:16px;
-      margin-top:18px;
-    }
-
-    .stat-card{
-      background:linear-gradient(180deg, rgba(17,52,99,.98), rgba(14,44,84,.98));
-      color:#fff7e8;
-      border:1px solid rgba(212,175,55,.45);
-      border-radius:20px;
-      padding:20px 16px;
-      text-align:center;
-      box-shadow:0 12px 22px rgba(0,0,0,.15);
-      min-width:0;
-    }
-
-    .stat-number{
-      display:block;
-      font-size:2.1rem;
-      line-height:1;
-      color:#ffd971;
-      margin-bottom:10px;
-      font-weight:bold;
-      overflow-wrap:anywhere;
-    }
-
-    .stat-label{
-      font-size:.96rem;
-      line-height:1.55;
-      color:#fff6dd;
-      overflow-wrap:anywhere;
-    }
-
-    .feature-grid{
-      display:grid;
-      grid-template-columns:repeat(2, minmax(0, 1fr));
-      gap:18px;
-    }
-
-    .feature-card{
-      background:rgba(255,255,255,.85);
-      border:1px solid rgba(15,51,95,.14);
-      border-radius:18px;
-      box-shadow:0 10px 22px rgba(0,0,0,.08);
-      padding:22px;
-      min-width:0;
-      overflow-wrap:anywhere;
-    }
-
-    .feature-card h3,
-    .feature-card h4{
-      margin:0 0 12px;
-      color:var(--azul-oscuro);
-      font-size:1.34rem;
-      overflow-wrap:anywhere;
-    }
-
-    .feature-card p:last-child{margin-bottom:0}
-
-    .timeline{
-      display:grid;
-      gap:16px;
-      margin-top:6px;
-    }
-
-    .timeline-item{
-      background:rgba(255,255,255,.84);
-      border:1px solid rgba(15,51,95,.12);
-      border-left:5px solid var(--dorado);
-      border-radius:18px;
-      padding:20px 20px 18px;
-      box-shadow:0 10px 22px rgba(0,0,0,.08);
-      min-width:0;
-      overflow-wrap:anywhere;
-    }
-
-    .timeline-item h4{
-      margin:0 0 10px;
-      font-size:1.24rem;
-      color:var(--azul-oscuro);
-      overflow-wrap:anywhere;
-    }
-
-    .timeline-item p:last-child{margin-bottom:0}
-
-    .cta-row{
-      display:flex;
-      flex-wrap:wrap;
-      gap:14px;
-      justify-content:center;
-      margin-top:18px;
-    }
-
-    .cta-btn,
-    .cta-link{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      min-width:260px;
-      max-width:100%;
-      padding:15px 22px;
-      border-radius:16px;
-      border:1px solid rgba(212,175,55,.7);
-      box-shadow:0 10px 18px rgba(0,0,0,.16);
-      font-size:1.06rem;
-      font-weight:bold;
-      cursor:pointer;
-      text-align:center;
-      overflow-wrap:anywhere;
-    }
-
-    .cta-btn.azul,
-    .cta-link.azul{
-      background:linear-gradient(180deg,#194887,#10335f);
-      color:#fff4cf;
-    }
-
-    .cta-btn.dorado,
-    .cta-link.dorado{
-      background:linear-gradient(180deg,#e1bd55,#c69a25);
-      color:#241c09;
-    }
-
-    .accordion{
-      display:grid;
-      gap:16px;
-      margin-top:8px;
-    }
-
-    .acc-item{
-      border:1px solid rgba(15,51,95,.12);
-      border-radius:18px;
-      overflow:hidden;
-      background:rgba(255,255,255,.84);
-      box-shadow:0 10px 22px rgba(0,0,0,.08);
-      min-width:0;
-    }
-
-    .acc-trigger{
-      width:100%;
-      border:none;
-      background:linear-gradient(180deg, rgba(17,52,99,.98), rgba(14,44,84,.98));
-      color:#fff4cf;
-      text-align:left;
-      padding:18px 20px;
-      cursor:pointer;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:14px;
-      font-size:1.1rem;
-      font-weight:bold;
-      min-width:0;
-      overflow-wrap:anywhere;
-    }
-
-    .acc-trigger span:first-child{
-      min-width:0;
-      overflow-wrap:anywhere;
-    }
-
-    .acc-trigger span:last-child{
-      min-width:28px;
-      text-align:center;
-      font-size:1.55rem;
-      line-height:1;
-      color:#e6ca7b;
-      flex-shrink:0;
-    }
-
-    .acc-content{
-      display:none;
-      padding:20px 20px 22px;
-      background:rgba(255,255,255,.92);
-      border-top:1px solid rgba(15,51,95,.12);
-      overflow-wrap:anywhere;
-    }
-
-    .acc-item.open .acc-content{display:block}
-    .acc-item.open .acc-trigger{
-      background:linear-gradient(180deg, #1b4d90, #123867);
-    }
-
-    .doc-tags{
-      display:flex;
-      flex-wrap:wrap;
-      gap:8px;
-      margin:10px 0 14px;
-    }
-
-    /* Efectos Hover Globales para Foto y Tarjetas */
-    .hero-photo img,
-    .section-box,
-    .highlight-card,
-    .stat-card,
-    .feature-card,
-    .timeline-item,
-    .acc-item {
-      transition: transform 0.3s ease, box-shadow 0.3s ease !important;
-    }
-
-    .hero-photo img:hover {
-      transform: translateY(-5px) scale(1.02);
-      box-shadow: 0 22px 34px rgba(0,0,0,.35) !important;
-    }
-
-    .section-box:hover,
-    .highlight-card:hover,
-    .stat-card:hover,
-    .feature-card:hover,
-    .timeline-item:hover,
-    .acc-item:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 16px 32px rgba(0,0,0,0.14) !important;
-    }
-
-    /* ===== INICIO FOOTER ===== */
-    .footer{
-      position:relative;
-      overflow:hidden;
-      color:#f8efd3;
-      padding:54px 0 30px;
-      border-top:2px solid rgba(212,175,55,.55);
-      background:
-        linear-gradient(180deg, rgba(8,24,48,.04), rgba(8,24,48,.12)),
-        url("../../assets/img/bg_padres_iglesia_acccar.png") center 88% / cover no-repeat;
-    }
-
-    .footer::before{
-      content:"";
-      position:absolute;
-      inset:0;
-      background:
-        linear-gradient(90deg, rgba(7,26,54,.38), rgba(12,42,86,.10), rgba(7,26,54,.38));
-      pointer-events:none;
-    }
-
-    .footer-inner{
-      position:relative;
-      z-index:1;
-    }
-
-    .footer-card{
-      border:1px solid rgba(212,175,55,.34);
-      border-radius:28px;
-      padding:30px 28px 24px;
-      background:linear-gradient(180deg, rgba(11,31,63,.54), rgba(11,31,63,.80));
-      backdrop-filter:blur(5px);
-      box-shadow:var(--sombra);
-      overflow:hidden;
-    }
-
-    .footer-top{
-      display:grid;
-      grid-template-columns:1.2fr .8fr .9fr;
-      gap:36px;
-      align-items:start;
-    }
-
-    .footer-brand{
-      display:flex;
-      align-items:flex-start;
-      gap:24px;
-    }
-
-    .footer-brand-logo{
-      flex:0 0 auto;
-    }
-
-    .footer-brand-logo img{
-      width:172px;
-      filter:drop-shadow(0 8px 16px rgba(0,0,0,.22));
-    }
-
-    .footer-brand-copy{
-      padding-top:8px;
-    }
-
-    .footer-brand-copy p{
-      margin:0 0 8px;
-      font-size:.90rem;
-      line-height:1.58;
-      color:#f6ecd0;
-      overflow-wrap:anywhere;
-    }
-
-    .footer-col h4{
-      margin:0 0 14px;
-      color:#ffd971;
-      font-size:1.7rem;
-      overflow-wrap:anywhere;
-    }
-
-    .footer-links{
-      display:flex;
-      flex-direction:column;
-      gap:10px;
-    }
-
-    .footer-links a,
-    .footer-links button{
-      background:none;
-      border:none;
-      padding:0;
-      margin:0;
-      text-align:left;
-      color:#f6ecd0;
-      font-family:Georgia, "Times New Roman", serif;
-      font-size:1.05rem;
-      cursor:pointer;
-      overflow-wrap:anywhere;
-    }
-
-    .footer-links a:hover,
-    .footer-links button:hover{
-      color:#ffe8a4;
-    }
-
-    .footer-contact{
-      display:flex;
-      flex-direction:column;
-      gap:12px;
-      color:#f6ecd0;
-      font-size:1.05rem;
-      line-height:1.7;
-      overflow-wrap:anywhere;
-    }
-
-    .footer-contact a{
-      color:#f6ecd0;
-    }
-
-    .footer-contact a:hover{
-      color:#ffe8a4;
-    }
-
-    .footer-divider{
-      width:100%;
-      height:1px;
-      margin:22px 0 18px;
-      background:linear-gradient(90deg, transparent, rgba(212,175,55,.85), transparent);
-    }
-
-    .footer-legal{
-      text-align:center;
-      color:#eadfb7;
-      font-size:1rem;
-      line-height:1.75;
-      overflow-wrap:anywhere;
-    }
-    /* ===== FINAL FOOTER ===== */
-
-    /* ===== INICIO RESPONSIVE ===== */
-    @media (max-width:1180px){
-      .hero-meta{grid-template-columns:repeat(2, 1fr)}
-      .hero-nav{
-        justify-content:center;
-      }
-      .hero-nav button,
-      .hero-nav a{
-        flex:1 1 220px;
-        min-width:220px;
-      }
-      .stat-grid{grid-template-columns:repeat(2, minmax(0, 1fr))}
-      .footer-top{grid-template-columns:1fr 1fr}
-      .footer-col.contact-col{grid-column:1/-1}
-    }
-
-    @media (max-width:920px){
-      .hero{
-        background:
-          linear-gradient(180deg, rgba(9,23,45,.26) 0%, rgba(9,23,45,.16) 26%, rgba(9,23,45,.68) 100%);
-      }
-
-      .hero-inner{
-        min-height:auto;
-        padding:26px 0 34px;
-      }
-
-      .top-brand{
-        justify-content:space-between;
-        align-items:center;
-        text-align:left;
-        gap:12px;
-        margin-bottom:16px;
-      }
-
-      .top-brand a{
-        flex-direction:row;
-        align-items:center;
-        gap:12px;
-        min-width:0;
-        flex:1 1 auto;
-      }
-
-      .top-brand img{width:64px}
-      .top-brand-text .line-1{font-size:1.45rem}
-      .top-brand-text .line-2{font-size:1.05rem}
-
-      .mobile-menu-toggle{
-        display:inline-flex;
-      }
-
-      .hero-card{
-        grid-template-columns:1fr;
-        gap:22px;
-        padding:20px;
-      }
-
-      .hero-copy{text-align:center}
-      .hero-copy p{margin:0 auto}
-
-      .hero-nav{
-        display:flex;
-        flex-direction:column;
-        gap:10px;
-        margin-top:20px;
-      }
-      .hero-nav button{
-        width:100%;
-        min-width:100%;
-        padding:14px;
-        font-size:1.05rem;
-      }
-
-      .inicio-grid,
-      .feature-grid{grid-template-columns:1fr}
-      .highlight-card.full-width{
-        grid-column:auto;
-      }
-      .footer-top{grid-template-columns:1fr}
-      .footer-brand{
-        justify-content:center;
-        text-align:center;
-        flex-direction:column;
-        align-items:center;
-      }
-      .footer-links{align-items:center}
-      .footer-links a,
-      .footer-links button{text-align:center}
-      .footer-col{text-align:center}
-      .footer-contact{align-items:center}
-    }
-
-    @media (max-width:560px){
-      body{background-attachment:scroll}
-      .wrap{width:min(var(--max), calc(100% - 16px))}
-      .top-brand img{width:58px}
-      .top-brand-text .line-1{font-size:1.18rem}
-      .top-brand-text .line-2{font-size:.92rem}
-      .mobile-menu-toggle{
-        width:52px;
-        height:52px;
-        border-radius:14px;
-      }
-      .hero-card{border-radius:22px;padding:16px}
-      .hero-photo img{max-width:220px;border-radius:22px}
-      .hero-kicker{font-size:.85rem}
-      .hero-copy h1{font-size:2.35rem}
-      .hero-copy p{font-size:1rem;line-height:1.72}
-      .hero-meta{grid-template-columns:1fr}
-      .main-shell{padding:22px 0 30px}
-      .section-box{
-        padding:18px;
-        border-radius:20px;
-      }
-      .section-title{font-size:2.05rem}
-      .section-subtitle{font-size:1.32rem}
-      .section-box p,
-      .timeline-item p,
-      .feature-card p,
-      .highlight-card p,
-      .acc-content p,
-      .footer-brand-copy p{
-        font-size:1rem;
-        line-height:1.82;
-      }
-      .stat-grid{grid-template-columns:1fr}
-      .acc-trigger{
-        padding:16px 16px;
-        font-size:1rem;
-      }
-      .cta-btn,.cta-link{
-        min-width:100%;
-      }
-      .footer{
-        padding:32px 0 24px;
-        background:
-          linear-gradient(180deg, rgba(8,24,48,.03), rgba(8,24,48,.10)),
-          url("../../assets/img/bg_padres_iglesia_acccar.png") 52% 92% / cover no-repeat;
-      }
-      .footer-card{padding:20px 16px 18px}
-      .footer-brand-logo img{
-        width:146px;
-      }
-      .footer-col h4{font-size:1.4rem}
-      .footer-legal{font-size:.94rem}
-    }
-    /* ===== FINAL RESPONSIVE ===== */
-  </style>
-</head>
-<body>
-
-  <!-- ===== INICIO HERO ===== -->
-  <section class="hero">
-    <div class="wrap hero-inner">
-
-      <a href="#" onclick="event.preventDefault(); loadView('views/historia-lista-de-padres.html');" class="back-link">← Volver al Directorio de los Padres de la Iglesia</a>
-
-      <div class="hero-card">
-        <div class="hero-photo-wrap">
-          <div class="hero-photo">
-            <img src="../../assets/img/padre_clemente_de_roma.png" alt="San Clemente de Roma">
+<!-- ===== ACCAR | CÓDICE PATRÍSTICO: SAN CLEMENTE DE ROMA ===== -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+
+<section id="accar-ficha-padre" class="accar-padre-page" data-rango="papa-martir">
+
+  <div class="accar-padre-inner">
+
+    <!-- BARRA SUPERIOR: MIGAS DE PAN Y PUENTE PATRÍSTICO -->
+    <div class="accar-padre-topbar">
+      <nav class="accar-padre-breadcrumb" aria-label="Ruta de navegación">
+        <a href="#" onclick="event.preventDefault(); loadView('views/inicio.html');">Inicio</a>
+        <span aria-hidden="true">›</span>
+        <a href="#" onclick="event.preventDefault(); loadView('views/historia.html');">Historia</a>
+        <span aria-hidden="true">›</span>
+        <a href="#" onclick="event.preventDefault(); loadView('views/historia-lista-de-padres.html');">Padres de la Iglesia</a>
+        <span aria-hidden="true">›</span>
+        <strong>San Clemente de Roma</strong>
+      </nav>
+
+      <div class="accar-padre-peers">
+        <button type="button" class="accar-peer-btn" onclick="loadView('views/historia-lista-de-padres.html')">
+          ← Directorio Patrístico
+        </button>
+        <button type="button" class="accar-peer-btn" onclick="loadView('views/directorio_padres/padre_agustin_de_hipona.html')">
+          San Agustín de Hipona →
+        </button>
+      </div>
+    </div>
+
+    <!-- =========================================================
+         RELICARIO SUPERIOR PATRÍSTICO (HERO CARD)
+    ========================================================== -->
+    <header class="accar-padre-hero">
+
+      <div class="accar-padre-hero-grid">
+
+        <!-- Mosaico e Insignias del Santo Padre y Mártir -->
+        <div class="accar-padre-portrait-col">
+          <div class="accar-padre-camafeo">
+            <img src="/assets/img/padre_clemente_de_roma.png" alt="San Clemente de Roma">
           </div>
-
-          <!-- ===== INICIO BADGE PADRE ===== -->
-          <div class="badge-padre" style="background: var(--purpura-cardenal); color: white;">
-            Padre Apostólico, Papa y Mártir
+          <div class="accar-padre-seal">✠ 4.º Papa · Padre Apostólico y Mártir ✠</div>
+          <div class="accar-padre-liturgia-badge">
+            <span class="accar-liturgia-label">Memoria Litúrgica</span>
+            <span class="accar-liturgia-date">23 de noviembre</span>
           </div>
-          <!-- ===== FINAL BADGE PADRE ===== -->
+          <span class="accar-padre-latin-plate">Clemens Romanus · ~35 – 99 d.C.</span>
         </div>
 
-        <div class="hero-copy">
-          <div class="hero-kicker">Sección Padres de la Iglesia · Siglo I</div>
-          <h1>San Clemente de Roma</h1>
-          <p>
-            Cuarto Obispo de Roma (Papa) y mártir (aprox. 99 d.C.). Conocido por ser colaborador de San Pablo. Su célebre Epístola a los Corintios es un documento histórico devastador para el protestantismo: es el primer ejercicio documentado del Primado Papal en la historia, resolviendo un cisma en otra diócesis, y estableciendo la doctrina explícita de la Sucesión Apostólica en el siglo I.
+        <!-- Síntesis Magisterial y Biográfica -->
+        <div class="accar-padre-copy-col">
+          <div class="accar-padre-kicker">✠ Padre Apostólico · Papa y Mártir · Siglo I ✠</div>
+          <h1 class="accar-padre-name">San Clemente de Roma</h1>
+          <p class="accar-padre-latin-sub">Quartus Episcopus Romanus · Discipulus Apostolorum et Martyr</p>
+
+          <p class="accar-padre-lead">
+            Cuarto Obispo de Roma —tercer sucesor de San Pedro tras Lino y Anacleto—, discípulo de los Apóstoles y colaborador de San Pablo (Flp 4, 3). Su célebre <em>Primera Epístola a los Corintios</em> (~96 d.C.) es una pieza histórica demoledora frente al protestantismo: documenta en pleno siglo I el primer ejercicio del Primado de Jurisdicción Romana sobre otra diócesis —viviendo aún el apóstol San Juan—, la doctrina explícita de la Sucesión Apostólica y el carácter sacrificial del sacerdocio cristiano.
           </p>
 
-          <div class="hero-meta">
-            <div class="meta-item">
-              <span class="meta-label">Ministerio</span>
-              <span class="meta-value">4º Papa de la Iglesia Católica (sucedió a San Pedro, Lino y Cleto).</span>
+          <div class="accar-padre-meta-grid">
+            <div class="accar-padre-meta-card">
+              <span class="accar-meta-label">Ministerio Petrino</span>
+              <span class="accar-meta-val">4.º Papa de la Iglesia Católica (~88 – 97/99 d.C.) tras San Pedro, San Lino y San Anacleto.</span>
             </div>
-            <div class="meta-item">
-              <span class="meta-label">Época</span>
-              <span class="meta-value">Finales del siglo I (aprox. 35 - 99 d.C.). Colaborador apostólico.</span>
+
+            <div class="accar-padre-meta-card">
+              <span class="accar-meta-label">Raíz Apostólica</span>
+              <span class="accar-meta-val">Conoció en persona a San Pedro y San Pablo; mencionado en <em>Filipenses 4, 3</em> en el «libro de la vida».</span>
             </div>
-            <div class="meta-item">
-              <span class="meta-label">Obra principal</span>
-              <span class="meta-value">Primera Epístola a los Corintios (aprox. 96 d.C.).</span>
+
+            <div class="accar-padre-meta-card">
+              <span class="accar-meta-label">Obra Monumental</span>
+              <span class="accar-meta-val"><em>Epístola de la Iglesia de Roma a los Corintios</em> (~96 d.C., 65 capítulos íntegros).</span>
             </div>
-            <div class="meta-item">
-              <span class="meta-label">Importancia</span>
-              <span class="meta-value">Evidencia irrefutable de la Sucesión Apostólica y la supremacía de Roma.</span>
+
+            <div class="accar-padre-meta-card">
+              <span class="accar-meta-label">Corona Martirial</span>
+              <span class="accar-meta-val">Desterrado a las canteras del Quersoneso (Crimea) y martirizado en el Mar Negro (~99 d.C.).</span>
             </div>
           </div>
+        </div>
 
-          <div class="hero-nav">
-            <button class="nav-btn active" data-target="inicio">Inicio</button>
-            <button class="nav-btn" data-target="vida">Vida</button>
-            <button class="nav-btn" data-target="contexto">Contexto</button>
-            <button class="nav-btn" data-target="legado">Legado</button>
-            <!-- Botones más anchos abajo para textos largos -->
-            <button class="nav-btn" data-target="ensenanza" style="flex: 1 1 45%;">Enseñanza (Arsenal Apologético)</button>
-            <button class="nav-btn" data-target="escritos" style="flex: 1 1 45%;">Escritos Inmortales</button>
+      </div>
+
+      <!-- Navegación Patrística de 7 Capítulos (4 + 3 en Escritorio) -->
+      <nav class="accar-padre-tabs" id="accar-padre-tabs-bar" aria-label="Capítulos del Códice Patrístico">
+        <div class="accar-padre-tabs-row4">
+          <button type="button" class="accar-padre-tab active" data-target="inicio" data-label="I. Panorama Apologético">
+            <span>I. Panorama</span>
+          </button>
+          <button type="button" class="accar-padre-tab" data-target="vida" data-label="II. Vida y Martirio">
+            <span>II. Vida</span>
+          </button>
+          <button type="button" class="accar-padre-tab" data-target="contexto" data-label="III. El Cisma de Corinto">
+            <span>III. Contexto</span>
+          </button>
+          <button type="button" class="accar-padre-tab" data-target="legado" data-label="IV. Legado Eclesiológico">
+            <span>IV. Legado</span>
+          </button>
+        </div>
+
+        <div class="accar-padre-tabs-row3">
+          <button type="button" class="accar-padre-tab" data-target="ensenanza" data-label="V. Arsenal Apologético">
+            <span>V. Arsenal Apologético</span>
+          </button>
+          <button type="button" class="accar-padre-tab" data-target="escritos" data-label="VI. Escritos Inmortales">
+            <span>VI. Escritos Inmortales</span>
+          </button>
+          <button type="button" class="accar-padre-tab accar-tab-citas" data-target="citas" data-label="VII. Gran Biblioteca de Citas (48)">
+            <span>VII. Citas y Aforismos (48)</span>
+          </button>
+        </div>
+      </nav>
+
+    </header>
+
+    <!-- =========================================================
+         PLIEGO EDITORIAL DEL CÓDICE PATRÍSTICO
+    ========================================================== -->
+    <main class="accar-padre-codex theme-light" id="accar-padre-codex">
+
+      <!-- Barra de Herramientas del Códice -->
+      <div class="accar-codex-toolbar">
+        <span class="accar-codex-section-tag" id="accar-codex-section-tag">✠ Códice Patrístico · I. Panorama Apologético</span>
+
+        <div class="accar-codex-controls">
+          <button type="button" class="accar-codex-tool-btn" id="accar-padre-theme-btn" title="Alternar entre modo pergamino y modo noche">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+            <span id="accar-padre-theme-label">Modo Oscuro</span>
+          </button>
+
+          <div class="accar-codex-sizes" role="group" aria-label="Tamaño de lectura">
+            <span class="accar-codex-size-lbl">Letra</span>
+            <button type="button" class="accar-codex-tool-btn btn-padre-size" data-size="0.94">A-</button>
+            <button type="button" class="accar-codex-tool-btn btn-padre-size active" data-size="1">A</button>
+            <button type="button" class="accar-codex-tool-btn btn-padre-size" data-size="1.12">A+</button>
           </div>
         </div>
       </div>
 
-    </div>
-  </section>
-  <!-- ===== FINAL HERO ===== -->
+      <div class="accar-codex-body">
 
-  <!-- ===== INICIO MAIN ===== -->
-  <main class="main-shell">
-    <div class="wrap">
+        <!-- ==================== CAPÍTULO I: PANORAMA ==================== -->
+        <section id="panel-inicio" class="accar-padre-panel active" data-tono="oro">
 
-      <!-- ===== INICIO PANEL INICIO ===== -->
-      <section id="panel-inicio" class="content-panel active">
-
-        <div class="section-box">
-          <h2 class="section-title">Panorama Apologético</h2>
-          <p>
-            San Clemente de Roma es una pieza fundamental para demostrar el papado en los primeros albores del cristianismo. Mientras el apóstol Juan aún vivía en Éfeso, fue Clemente, el Obispo de Roma, quien dictó sentencia sobre una rebelión en la Iglesia de Corinto, demostrando que la Sede de Pedro ejercía jurisdicción universal sobre otras iglesias particulares.
-          </p>
-
-          <div class="stat-grid">
-            <article class="stat-card">
-              <span class="stat-number">1</span>
-              <span class="stat-label">Epístola universal conservada (Corintios)</span>
-            </article>
-
-            <article class="stat-card">
-              <span class="stat-number">Roma</span>
-              <span class="stat-label">Sede de su ministerio pontificio</span>
-            </article>
-
-            <article class="stat-card">
-              <span class="stat-number">Crimea</span>
-              <span class="stat-label">Lugar de su martirio (Quersoneso)</span>
-            </article>
-
-            <article class="stat-card">
-              <span class="stat-number">99 d.C.</span>
-              <span class="stat-label">Año aproximado de su martirio</span>
-            </article>
+          <div class="accar-codex-intro">
+            <span class="accar-codex-kicker">Síntesis Magisterial</span>
+            <h2 class="accar-codex-h2">Panorama Apologético</h2>
+            <p class="accar-dropcap-p">
+              <span class="accar-capitular">S</span>an Clemente de Roma constituye la prueba documental más temprana e irrefutable de la existencia del Papado y de la constitución jerárquica de la Iglesia Católica en pleno siglo I. Escrita hacia el año 96 d.C. —contemporánea al Apocalipsis de San Juan—, su epístola demuestra que mientras aún vivía en Éfeso el último de los Doce Apóstoles, fue el Obispo de Roma quien intervino con jurisdicción vinculante para sofocar un cisma en la Iglesia griega de Corinto.
+            </p>
           </div>
-        </div>
 
-        <div class="section-box">
-          <h3 class="section-subtitle">Hitos Fundamentales</h3>
-          <div class="inicio-grid">
-            <article class="highlight-card">
-              <h4>El Primado en Acción</h4>
-              <p>Su carta a los Corintios es considerada el primer documento eclesiástico post-apostólico en el cual la Iglesia de Roma interviene con autoridad jerárquica en los asuntos internos de otra diócesis para restaurar el orden.</p>
+          <div class="accar-stat-grid">
+            <article class="accar-stat-plaque">
+              <span class="accar-stat-cross" aria-hidden="true">✠</span>
+              <span class="accar-stat-num">~96 d.C.</span>
+              <span class="accar-stat-lbl">Año del escrito post-apostólico más antiguo</span>
             </article>
 
-            <article class="highlight-card">
-              <h4>La Sucesión Apostólica</h4>
-              <p>Clemente detalla sistemáticamente cómo Cristo envió a los Apóstoles, y cómo estos instituyeron a los obispos y presbíteros, ordenando que otros hombres probados les sucedieran en el ministerio a su muerte.</p>
+            <article class="accar-stat-plaque">
+              <span class="accar-stat-cross" aria-hidden="true">✠</span>
+              <span class="accar-stat-num">4.º Papa</span>
+              <span class="accar-stat-lbl">Obispo de Roma (3.º sucesor tras San Pedro)</span>
             </article>
 
-            <article class="highlight-card">
-              <h4>Mención en la Escritura</h4>
-              <p>Es ampliamente identificado con el "Clemente" mencionado por San Pablo en Filipenses 4:3, a quien describe como su colaborador y cuyo nombre "está en el libro de la vida".</p>
+            <article class="accar-stat-plaque">
+              <span class="accar-stat-cross" aria-hidden="true">✠</span>
+              <span class="accar-stat-num">65 Caps.</span>
+              <span class="accar-stat-lbl">Extensión íntegra de la Carta a los Corintios</span>
             </article>
-            
-            <article class="highlight-card">
-              <h4>Distinción Litúrgica</h4>
-              <p>Es el primero en hacer una distinción explícita usando terminología específica para separar a los ministros ordenados (el clero) de los fieles comunes (los laicos).</p>
+
+            <article class="accar-stat-plaque">
+              <span class="accar-stat-cross" aria-hidden="true">✠</span>
+              <span class="accar-stat-num">~99 d.C.</span>
+              <span class="accar-stat-lbl">Martirio con el ancla en el Quersoneso (Crimea)</span>
             </article>
           </div>
 
-          <div class="cta-row">
-            <a class="cta-link azul" href="https://apologeticaccar.com">Regresar a Apologética Católica</a>
-            <button class="cta-btn dorado" onclick="showPanel('vida')">Entrar a vida →</button>
-          </div>
-        </div>
+          <div class="accar-codex-divider" aria-hidden="true"><span>✠</span></div>
 
-      </section>
-      <!-- ===== FINAL PANEL INICIO ===== -->
+          <h3 class="accar-codex-h3">Testigos antiguos sobre San Clemente y su primado</h3>
 
-      <!-- ===== INICIO PANEL VIDA ===== -->
-      <section id="panel-vida" class="content-panel">
+          <article class="accar-registry-box">
+            <div class="accar-registry-head">
+              <span class="accar-registry-icon" aria-hidden="true">✠</span>
+              <h4>Cadena documental de la Antigüedad sobre San Clemente</h4>
+            </div>
+            <ul class="accar-registry-list">
+              <li>
+                <strong>San Pablo Apóstol · Filipenses 4, 3 (~61 d.C.)</strong>
+                <span>Lo menciona entre sus colaboradores apostólicos cuyos nombres «están en el libro de la vida».</span>
+              </li>
+              <li>
+                <strong>El Pastor de Hermas · Visión II, 4, 3 (Siglo II temprano)</strong>
+                <span>Testifica que Clemente tenía el oficio de remitir las comunicaciones oficiales de Roma a las ciudades exteriores.</span>
+              </li>
+              <li>
+                <strong>San Dionisio de Corinto · Carta al Papa Sotero (~170 d.C.)</strong>
+                <span>Certifica que 75 años después la Carta de Clemente seguía leyéndose públicamente cada domingo en Corinto.</span>
+              </li>
+              <li>
+                <strong>San Ireneo de Lyon · Adv. Haereses III, 3, 3 (~180 d.C.)</strong>
+                <span>Atestigua que Clemente vio a los Apóstoles y escribió desde Roma una «potentísima carta» pacificando a Corinto.</span>
+              </li>
+              <li>
+                <strong>Tertuliano · De Praescriptione 32 (~200 d.C.)</strong>
+                <span>Recoge la tradición romana de que Clemente fue ordenado personalmente por el mismo apóstol San Pedro.</span>
+              </li>
+              <li>
+                <strong>Canon Romano de la Misa (Plegaria Eucarística I)</strong>
+                <span>Su nombre figura desde la antigüedad tras los Apóstoles en el Canon de la Misa: «Lino, Cleto, Clemente...».</span>
+              </li>
+            </ul>
+          </article>
 
-        <div class="section-box">
-          <h2 class="section-title">Vida y Martirio: Sucesor de Pedro</h2>
-          <p>
-            San Clemente es una figura puente entre la era apostólica y la estructuración jerárquica del siglo II. Según testimonios unánimes de los primeros Padres (como San Ireneo de Lyon y Tertuliano), Clemente conoció personalmente a los apóstoles Pedro y Pablo. Ireneo atestigua que "tenía la predicación de los apóstoles todavía resonando en sus oídos y su tradición ante sus propios ojos".
-          </p>
-          <p>
-            Ocupó la Cátedra de San Pedro como su tercer sucesor (Pedro, Lino, Cleto, Clemente). Su pontificado transcurrió en la última década del siglo I, coincidiendo con la persecución del emperador Domiciano.
-          </p>
-        </div>
-
-        <div class="section-box">
-          <h3 class="section-subtitle">El Exilio y el Ancla</h3>
-          
-          <div class="feature-grid">
-            <article class="feature-card">
-              <h4>El Pastor de Roma</h4>
-              <p>Durante su pontificado, Clemente organizó la Iglesia romana distribuyéndola en siete distritos eclesiásticos. Se dedicó a mantener la unidad de la fe frente a las primeras desviaciones y demostró un liderazgo fuerte pero paternal, que excedía los límites territoriales de Italia, como se vio en su respuesta a Corinto.</p>
+          <div class="accar-codex-cards-grid">
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Hito I</span>
+              <h4>El Primado Romano en Acción</h4>
+              <p>
+                Su epístola no es una exhortación privada, sino un acto oficial de gobierno donde la Iglesia de Roma interviene en los asuntos internos de una iglesia oriental exigiendo obediencia bajo advertencia de pecado grave.
+              </p>
             </article>
 
-            <article class="feature-card">
-              <h4>Desterrado al Quersoneso</h4>
-              <p>Según la antigua tradición (Actas de los mártires), el celo de Clemente provocó la ira del emperador Trajano, quien lo exilió a las minas de mármol de Quersoneso (actual Crimea, cerca del Mar Negro). Allí se encontró con miles de cristianos condenados a trabajos forzados, a los cuales animó y organizó pastoralmente.</p>
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Hito II</span>
+              <h4>La Sucesión Apostólica Explícita</h4>
+              <p>
+                Detalla paso a paso cómo Dios envió a Cristo, Cristo a los Apóstoles, y los Apóstoles instituyeron obispos y diáconos ordenando que a su muerte otros varones probados les sucedieran perpetuamente (caps. 42–44).
+              </p>
             </article>
 
-            <article class="feature-card">
-              <h4>El Milagro del Agua</h4>
-              <p>La tradición cuenta que los prisioneros morían de sed. Clemente rezó a Dios y, guiado por la visión de un cordero, golpeó el suelo con un pico, haciendo brotar una fuente de agua cristalina. Este milagro provocó tantas conversiones entre los prisioneros y los paganos locales que enfureció aún más a sus captores.</p>
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Hito III</span>
+              <h4>Testigo del Martirio de Pedro en Roma</h4>
+              <p>
+                En el capítulo 5 ofrece el testimonio extrabíblico más antiguo del siglo I sobre el martirio conjunto de San Pedro y San Pablo en Roma bajo Nerón, demoliendo las fábulas anticatólicas modernas.
+              </p>
             </article>
 
-            <article class="feature-card">
-              <h4>Martirio por Inmersión</h4>
-              <p>Para detener su influencia, el prefecto romano ordenó que fuera atado a un ancla pesada de hierro y arrojado a las profundidades del Mar Negro, asegurándose de que los cristianos no pudieran recuperar su cuerpo. Posteriormente, en el siglo IX, los santos Cirilo y Metodio recuperaron sus presuntas reliquias y las llevaron de vuelta a Roma, a la Basílica de San Clemente.</p>
-            </article>
-          </div>
-
-          <div class="cta-row" style="margin-top: 24px;">
-            <a class="cta-link azul" href="https://apologeticaccar.com">Regresar a Apologética Católica</a>
-            <button class="cta-btn dorado" onclick="showPanel('contexto')">Continuar a contexto →</button>
-          </div>
-        </div>
-
-      </section>
-      <!-- ===== FINAL PANEL VIDA ===== -->
-
-      <!-- ===== INICIO PANEL CONTEXTO ===== -->
-      <section id="panel-contexto" class="content-panel">
-
-        <div class="section-box">
-          <h2 class="section-title">Contexto y el Cisma de Corinto</h2>
-          <p>
-            A diferencia de San Ignacio de Antioquía, que enfrentó herejías doctrinales (como el docetismo), el mayor desafío teológico y pastoral de San Clemente fue un ataque directo a la estructura jerárquica: el cisma en la comunidad de Corinto (Grecia).
-          </p>
-        </div>
-
-        <div class="section-box">
-          <div class="feature-grid">
-            <article class="feature-card">
-              <h4>La Rebelión de los Jóvenes</h4>
-              <p>Hacia el año 95-96 d.C., un grupo de miembros más jóvenes y arrogantes de la Iglesia de Corinto organizó una insurrección y destituyó injustificadamente a los presbíteros legítimos que habían sido ordenados por los apóstoles o por sus sucesores inmediatos.</p>
-              <p>Motivados por la envidia y los celos —vicios que San Clemente denuncia duramente comparándolos con los peores males del Antiguo Testamento—, estos rebeldes lograron arrastrar a gran parte de la comunidad al cisma.</p>
-              <p>El escándalo fue mayúsculo, pues la Iglesia de Corinto, que había sido fundada y elogiada por el propio San Pablo, ahora se convertía en un motivo de burla pública ante los paganos, poniendo en grave peligro la labor evangelizadora en toda Grecia.</p>
-            </article>
-
-            <article class="feature-card">
-              <h4>La Intervención de Roma (Primacía en Acción)</h4>
-              <p>Lo fascinante de este evento es la geografía y el reconocimiento jerárquico. Corinto (Grecia) estaba a unos 400 km de Éfeso, cruzando el Mar Egeo, donde aún vivía el último de los Doce: el Apóstol San Juan.</p>
-              <p>Roma, en cambio, estaba a más de 1,000 km de distancia. Lo lógico, humana y logísticamente, habría sido que Corinto acudiera al Apóstol vivo más cercano para resolver el cisma.</p>
-              <p>Sin embargo, apelaron a Roma (o Roma intervino por deber propio). Esto demuestra de forma irrefutable que, en el siglo I, la Iglesia Católica ya tenía claro que la jurisdicción suprema no residía en la presencia física de un Apóstol sobreviviente, sino en la <strong>Sucesión de la Cátedra de San Pedro</strong>. Fue el Papa Clemente, y no el Apóstol Juan, quien dictó la sentencia definitiva.</p>
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Hito IV</span>
+              <h4>Distinción entre Clero y Laicos</h4>
+              <p>
+                Introduce por primera vez en la literatura cristiana el vocablo «laico» (<em>laikos</em>), enseñando que Cristo fijó tiempos, lugares y ministros sagrados propios para ofrecer los dones litúrgicos (caps. 40 y 44).
+              </p>
             </article>
           </div>
 
-          <div class="cta-row">
-            <a class="cta-link azul" href="https://apologeticaccar.com">Regresar a Apologética Católica</a>
-            <button class="cta-btn dorado" onclick="showPanel('ensenanza')">Continuar a enseñanza →</button>
-          </div>
-        </div>
-
-      </section>
-      <!-- ===== FINAL PANEL CONTEXTO ===== -->
-
-      <!-- ===== INICIO PANEL ENSEÑANZA ===== -->
-      <section id="panel-ensenanza" class="content-panel">
-
-        <div class="section-box">
-          <h2 class="section-title">Enseñanza: El Arsenal Apologético</h2>
-          <p>
-            La Epístola de Clemente a los Corintios es un texto demoledor contra el modelo eclesiástico protestante (donde cada congregación es autónoma o elige a sus pastores). Clemente demuestra que la jerarquía viene "de arriba hacia abajo" (Cristo -> Apóstoles -> Obispos) y no por voto democrático.
-          </p>
-        </div>
-
-        <div class="section-box">
-          <h3 class="section-subtitle">Doctrinas Católicas en el Siglo I</h3>
-
-          <div class="feature-grid">
-            <article class="feature-card">
-              <h4>1. Sucesión Apostólica Ininterrumpida</h4>
-              <p><strong>El Arma:</strong> Los protestantes aseguran que el modelo eclesial se corrompió. Clemente establece formalmente: <em>"Los apóstoles nos predicaron el Evangelio de parte del Señor Jesucristo; Jesucristo fue enviado de Dios... Y así, predicando por campos y ciudades, probaron en el Espíritu a sus primicias, y los instituyeron como obispos y diáconos de los que habían de creer"</em> (Corintios 42).</p>
-            </article>
-
-            <article class="feature-card">
-              <h4>2. Ejercicio de la Autoridad Papal</h4>
-              <p><strong>El Arma:</strong> Clemente no ofrece un simple consejo a los corintios; emite un mandato vinculante exigiendo sumisión y amenazando con consecuencias espirituales: <em>"Si algunos desobedecieren a las cosas que por Él (Dios) han sido dichas por nuestro medio, sepan que se verán envueltos en no leve peligro"</em> (Corintios 59). Esta es Roma legislando para Grecia.</p>
-            </article>
-
-            <article class="feature-card">
-              <h4>3. Separación Clero-Laicos</h4>
-              <p><strong>El Arma:</strong> Refutando la idea de que "todos somos sacerdotes" (en el sentido protestante igualitario), Clemente usa la liturgia del Antiguo Testamento para hablar del Nuevo: <em>"Al sumo sacerdote le están encomendadas liturgias propias... el hombre laico por preceptos laicos está ligado"</em> (Corintios 40). Es la primera vez que se usa el término "laico" (<em>laikos</em>) en la literatura cristiana.</p>
-            </article>
-
-            <article class="feature-card">
-              <h4>4. Justificación por la Fe y las Obras</h4>
-              <p><strong>El Arma:</strong> Clemente habla maravillosamente de la gracia, pero destruye el "Sola Fide": <em>"Justifiquémonos por las obras y no por las palabras... ¿Por qué fue justificado nuestro padre Abraham? ¿No fue acaso por haber obrado la justicia y la verdad por medio de la fe?"</em> (Corintios 30, 31). Fe activa en amor y obediencia.</p>
-            </article>
+          <div class="accar-codex-footer-nav">
+            <button type="button" class="accar-codex-btn-sec" onclick="loadView('views/historia-lista-de-padres.html')">
+              ← Volver al Directorio Patrístico
+            </button>
+            <button type="button" class="accar-codex-btn-pri" onclick="window.accarShowPadrePanel('vida')">
+              Continuar a II. Vida →
+            </button>
           </div>
 
-          <div class="cta-row">
-            <a class="cta-link azul" href="https://apologeticaccar.com">Regresar a Apologética Católica</a>
-            <button class="cta-btn dorado" onclick="showPanel('legado')">Continuar a legado →</button>
-          </div>
-        </div>
+        </section>
 
-      </section>
-      <!-- ===== FINAL PANEL ENSEÑANZA ===== -->
-      
-      <!-- ===== INICIO PANEL LEGADO ===== -->
-      <section id="panel-legado" class="content-panel">
-        <div class="section-box">
-          <h2 class="section-title">El Fundamento de la Autoridad Romana</h2>
-          <p>
-            El legado eclesiológico de San Clemente es el de consolidar la Tradición, el orden jerárquico y el ejercicio primacial. La Carta a los Corintios fue tan venerada en la Iglesia antigua que en muchas comunidades se leía en la liturgia junto a las Escrituras inspiradas (como atestigua Eusebio de Cesarea), y se incluía en antiguos códices bíblicos (como el Codex Alexandrinus).
-          </p>
-        </div>
+        <!-- ==================== CAPÍTULO II: VIDA ==================== -->
+        <section id="panel-vida" class="accar-padre-panel" data-tono="verde">
 
-        <div class="section-box">
-          <h3 class="section-subtitle">Las Columnas de su Eclesiología</h3>
-          <div class="feature-grid">
-            <article class="feature-card">
-              <h4>Jurisdicción Supradiocesana</h4>
-              <p>El hecho de que Roma sintiera la obligación de disculparse por su "demora" en intervenir en los problemas de Corinto (debido a las persecuciones de Domiciano) demuestra que ambas iglesias entendían que Roma <em>tenía el deber</em> y el derecho de intervenir. Clemente establece la base del Primado de Jurisdicción.</p>
-            </article>
-            
-            <article class="feature-card">
-              <h4>La Naturaleza Indeleble del Sacerdocio</h4>
-              <p>Al condenar a los corintios por deponer a sus presbíteros, Clemente establece que un ministerio debidamente conferido por sucesión apostólica, mientras sea irreprochable en conducta, no puede ser retirado por voluntad de la congregación. El sacerdocio no es un cargo político-democrático, sino un ministerio sacrosanto.</p>
-            </article>
-
-            <article class="feature-card">
-              <h4>El Principio de Tradición</h4>
-              <p>Mucho antes de que el Nuevo Testamento estuviera codificado como lo conocemos, Clemente ya estaba apelando a la "regla de nuestra tradición" y a la autoridad de los sucesores apostólicos como la norma segura para resolver disputas y entender la voluntad de Cristo.</p>
-            </article>
+          <div class="accar-codex-intro">
+            <span class="accar-codex-kicker">Sucesor de Pedro hasta la Sangre</span>
+            <h2 class="accar-codex-h2">Vida y Martirio: El Pastor y el Ancla</h2>
+            <p class="accar-dropcap-p">
+              <span class="accar-capitular">S</span>an Clemente tiende el puente vivo entre los príncipes de los Apóstoles y el siglo II. Según la voz unánime de San Ireneo de Lyon, Orígenes, Eusebio de Cesarea y San Jerónimo, Clemente trató personalmente en Roma a San Pedro y a San Pablo: como escribe San Ireneo, <em>«tenía todavía resonando en sus oídos la predicación de los Apóstoles y su tradición delante de los ojos»</em> (*Adv. Haer.* III, 3, 3).
+            </p>
+            <p>
+              Elevado a la Cátedra Romana hacia el año 88 d.C. como tercer sucesor de Pedro (tras San Lino y San Anacleto), gobernó la Iglesia madre bajo el terror de la persecución del emperador Domiciano y coronó su pontificado con el destierro y el martirio en el Mar Negro en los albores del reinado de Trajano.
+            </p>
           </div>
 
-          <div class="cta-row" style="margin-top: 24px;">
-            <a class="cta-link azul" href="https://apologeticaccar.com">Regresar a Apologética Católica</a>
-            <button class="cta-btn dorado" onclick="showPanel('escritos')">Continuar a escritos →</button>
+          <div class="accar-codex-divider" aria-hidden="true"><span>✠</span></div>
+
+          <h3 class="accar-codex-h3">Cronología histórica y martirial</h3>
+
+          <div class="accar-timeline">
+            <article class="accar-tl-item">
+              <div class="accar-tl-year">~35 d.C.</div>
+              <div class="accar-tl-card">
+                <h4>Orígenes romanos y formación bíblica</h4>
+                <p>Nace probablemente en Roma en una familia vinculada a la casa imperial flavia o con hondas raíces helenístico-judías, lo que explica su dominio magistral del griego bíblico de los Setenta.</p>
+              </div>
+            </article>
+
+            <article class="accar-tl-item">
+              <div class="accar-tl-year">~57–67 d.C.</div>
+              <div class="accar-tl-card">
+                <h4>Colaborador de San Pablo y discípulo de San Pedro</h4>
+                <p>Combate por el Evangelio junto a San Pablo (quien lo elogia nominalmente en <em>Filipenses 4, 3</em>) y recibe formación y ordenación directa del apóstol San Pedro en Roma, según atestigua Tertuliano.</p>
+              </div>
+            </article>
+
+            <article class="accar-tl-item">
+              <div class="accar-tl-year">64–67 d.C.</div>
+              <div class="accar-tl-card">
+                <h4>Testigo de la persecución neroniana</h4>
+                <p>Presencia en Roma el martirio de San Pedro, de San Pablo y de «una gran muchedumbre de elegidos» (1 Clem. 5–6), memoria heroica que plasmará treinta años después en su epístola.</p>
+              </div>
+            </article>
+
+            <article class="accar-tl-item">
+              <div class="accar-tl-year">~88 d.C.</div>
+              <div class="accar-tl-card">
+                <h4>Elección a la Cátedra de San Pedro (4.º Papa)</h4>
+                <p>Tras los pontificados de San Lino (67–76) y San Anacleto (76–88), asume el episcopado romano organizando las actas de los mártires y consolidando la liturgia y caridad de la Urbe.</p>
+              </div>
+            </article>
+
+            <article class="accar-tl-item">
+              <div class="accar-tl-year">95–96 d.C.</div>
+              <div class="accar-tl-card">
+                <h4>Persecución de Domiciano y Carta a los Corintios</h4>
+                <p>Apenas amainan los golpes de la persecución de Domiciano en Roma, redacta la epístola oficial de la Sede Romana para extinguir el cisma de Corinto y despacha tres legados pontificios a Grecia.</p>
+              </div>
+            </article>
+
+            <article class="accar-tl-item">
+              <div class="accar-tl-year">~97–99 d.C.</div>
+              <div class="accar-tl-card">
+                <h4>Destierro al Quersoneso y Martirio con el Ancla</h4>
+                <p>Desterrado bajo Nerva/Trajano a los trabajos forzados en las canteras de mármol del Quersoneso Táurico (Sebastopol, Crimea), convierte a centenares de cautivos y paganos y es arrojado al Mar Negro atado a un ancla de hierro.</p>
+              </div>
+            </article>
+
+            <article class="accar-tl-item">
+              <div class="accar-tl-year">861–868 d.C.</div>
+              <div class="accar-tl-card">
+                <h4>Traslación de sus reliquias a Roma</h4>
+                <p>Los apóstoles de los eslavos, San Cirilo y San Metodio, recuperan sus veneradas reliquias en Crimea y las llevan solemnemente a Roma ante el Papa Adriano II, siendo depositadas en la antiquísima Basílica de San Clemente.</p>
+              </div>
+            </article>
           </div>
-        </div>
-      </section>
-      <!-- ===== FINAL PANEL LEGADO ===== -->
 
-      <!-- ===== INICIO PANEL ESCRITOS ===== -->
-      <section id="panel-escritos" class="content-panel">
+          <div class="accar-codex-footer-nav">
+            <button type="button" class="accar-codex-btn-sec" onclick="loadView('views/historia-lista-de-padres.html')">
+              ← Volver al Directorio Patrístico
+            </button>
+            <button type="button" class="accar-codex-btn-pri" onclick="window.accarShowPadrePanel('contexto')">
+              Continuar a III. Contexto →
+            </button>
+          </div>
 
-        <div class="section-box">
-          <h2 class="section-title">La Epístola a los Corintios (Extractos Clave)</h2>
-          <p>
-            A continuación, se presentan los capítulos más importantes y polémicos (apologéticamente hablando) de la Carta a los Corintios, escrita por el Papa San Clemente alrededor del año 96 d.C. Observa las armas doctrinales resaltadas en verde oscuro.
-          </p>
-        </div>
+        </section>
 
-        <div class="section-box">
-          <div class="accordion">
+        <!-- ==================== CAPÍTULO III: CONTEXTO ==================== -->
+        <section id="panel-contexto" class="accar-padre-panel" data-tono="azul">
 
-            <!-- CAPÍTULOS 1-3 -->
-            <div class="acc-item">
-              <button class="acc-trigger" type="button">
-                <span>Caps 1-3: Saludo e Intervención de Roma</span>
-                <span>+</span>
+          <div class="accar-codex-intro">
+            <span class="accar-codex-kicker">Geografía e Historia del Primado</span>
+            <h2 class="accar-codex-h2">Contexto: El Cisma de Corinto en el Año 96</h2>
+            <p class="accar-dropcap-p">
+              <span class="accar-capitular">H</span>acia el año 95 d.C., un reducido grupo de jóvenes turbulentos y soberbios promovió una revuelta dentro de la ilustre Iglesia de Corinto —fundada personalmente por San Pablo— y **depuso ilegítimamente a varios presbíteros** de vida intachable que habían sido constituidos por los Apóstoles o sus sucesores inmediatos (1 Clem. 1, 1; 44, 3–6).
+            </p>
+            <p>
+              Lo que ocurrió a continuación constituye una prueba histórica fulminante de cómo entendía el cristianismo del siglo I la autoridad suprema dentro de la Iglesia universal.
+            </p>
+          </div>
+
+          <div class="accar-callout-dogmatico">
+            <span class="accar-callout-kicker">✠ El Argumento Geográfico Irrefutable ✠</span>
+            <h4>¿Por qué intervino el Obispo de Roma mientras aún vivía el Apóstol San Juan en Éfeso?</h4>
+            <p>
+              En el año 96 d.C., el último de los Doce Apóstoles, <strong>San Juan Evangelista</strong>, vivía en <strong>Éfeso</strong>, a solo unos 400 kilómetros de Corinto cruzando directamente el mar Egeo. Roma, en cambio, distaba más de 1,200 kilómetros en pleno invierno marítimo y acababa de sufrir la persecución imperial de Domiciano. Sin embargo, Corinto acudió a Roma —y Roma intervino por deber de oficio—, probando que la jurisdicción universal no dependía de la cercanía de un Apóstol sobreviviente, sino de la <strong>Cátedra perpetua de San Pedro en Roma</strong>.
+            </p>
+          </div>
+
+          <h3 class="accar-codex-h3">Claves históricas de la intervención romana</h3>
+
+          <div class="accar-codex-cards-grid">
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Clave I · 1 Clemente 1, 1</span>
+              <h4>Conciencia del Deber Jurisdiccional</h4>
+              <p>Roma abre la carta disculpándose por no haber intervenido antes debido a «las repentinas y sucesivas calamidades» (la persecución de Domiciano). Nadie pide disculpas por demorarse en intervenir donde no tiene jurisdicción ni deber pastoral.</p>
+            </article>
+
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Clave II · 1 Clemente 44, 3–6</span>
+              <h4>Defensa de la Inamovilidad Sacerdotal</h4>
+              <p>Los rebeldes corintios actuaron como una congregación protestante moderna que «despide a su pastor» por votación. Clemente sentencia que es pecado grave privar de su ministerio a los presbíteros constituidos por sucesión apostólica.</p>
+            </article>
+
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Clave III · 1 Clemente 58, 2 – 59, 1</span>
+              <h4>Mandato Vinculante, no Simple Consejo</h4>
+              <p>Lejos de limitarse a una sugerencia fraternal, Clemente intima obediencia en nombre de Dios: <em>«Si algunos desobedecieren a las cosas dichas por Él por medio de nosotros, sepan que incurrirán en pecado y en no pequeño peligro»</em>.</p>
+            </article>
+
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Clave IV · 1 Clemente 63, 3 y 65, 1</span>
+              <h4>Envío de Tres Legados Pontificios</h4>
+              <p>Siguiendo una praxis idéntica a la de los futuros Papas en los concilios orientales, Clemente envía a Corinto tres legados oficiales de la Iglesia Romana —<strong>Claudio Éfebo, Valerio Bitón y Fortunato</strong>— como testigos plenipotenciarios para ejecutar la paz.</p>
+            </article>
+
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Clave V · 1 Clemente 63, 2</span>
+              <h4>Autoridad Asistida por el Espíritu Santo</h4>
+              <p>Al igual que el Concilio de Jerusalén en Hechos 15, 28, Clemente reclama para las directrices de la carta romana la asistencia divina: <em>«haciéndoos obedientes a lo que os hemos escrito por medio del Espíritu Santo»</em>.</p>
+            </article>
+
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Clave VI · Eusebio, H.E. IV, 22 y 23</span>
+              <h4>Acatamiento Total de la Iglesia de Corinto</h4>
+              <p>Corinto no protestó acusando a Roma de «intromisión extranjera»: acató el fallo, restituyó la paz jerárquica (como comprobó San Hegesipo in situ) y veneró tanto la carta que la leía en la liturgia dominical generación tras generación.</p>
+            </article>
+          </div>
+
+          <div class="accar-codex-footer-nav">
+            <button type="button" class="accar-codex-btn-sec" onclick="loadView('views/historia-lista-de-padres.html')">
+              ← Volver al Directorio Patrístico
+            </button>
+            <button type="button" class="accar-codex-btn-pri" onclick="window.accarShowPadrePanel('legado')">
+              Continuar a IV. Legado →
+            </button>
+          </div>
+
+        </section>
+
+        <!-- ==================== CAPÍTULO IV: LEGADO ==================== -->
+        <section id="panel-legado" class="accar-padre-panel" data-tono="oro">
+
+          <div class="accar-codex-intro">
+            <span class="accar-codex-kicker">Herencia Bimilenaria</span>
+            <h2 class="accar-codex-h2">El Cimiento Eclesiológico y Litúrgico del Siglo I</h2>
+            <p class="accar-dropcap-p">
+              <span class="accar-capitular">L</span>a *Primera Epístola de San Clemente* gozó de tal veneración en la Iglesia primitiva que llegó a copiarse al final del Nuevo Testamento en el celebérrimo *Codex Alexandrinus* del siglo V. Su lectura desmorona el mito protestante de una «apostasía constantiniana del siglo IV», mostrando plenamente formada en el año 96 d.C. la fisionomía católica y romana de la Iglesia.
+            </p>
+          </div>
+
+          <div class="accar-codex-divider" aria-hidden="true"><span>✠</span></div>
+
+          <h3 class="accar-codex-h3">Seis pilares perennes del legado clementino</h3>
+
+          <div class="accar-codex-cards-grid">
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Pilar I</span>
+              <h4>Primado Romano antes del Siglo II</h4>
+              <p>Historiadores incluso acatólicos (como Adolf von Harnack o J.B. Lightfoot) reconocieron que en la Carta de Clemente asoma ya con fuerza soberana la conciencia primacial de la Sede Romana sobre la Iglesia universal.</p>
+            </article>
+
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Pilar II</span>
+              <h4>Teología Orgánica de la Sucesión Apostólica</h4>
+              <p>Sus capítulos 42 y 44 son citados textualmente por el Concilio Vaticano I y por el Concilio Vaticano II (<em>Lumen Gentium</em> 20) como el testimonio patrístico primordial de la transmisión divina del episcopado.</p>
+            </article>
+
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Pilar III</span>
+              <h4>La Gran Plegaria Litúrgica (Capítulos 59–61)</h4>
+              <p>Conserva la oración litúrgica solemne más antigua fuera del Nuevo Testamento: una majestuosa plegaria eucarística y universal —incluyendo la intercesión por los gobernantes civiles— que refleja la liturgia romana del siglo I.</p>
+            </article>
+
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Pilar IV</span>
+              <h4>Sacralidad del Culto y Ordenación Jerárquica</h4>
+              <p>Establece que la liturgia cristiana prolonga en plenitud la armonía cultual querida por Dios, distinguiendo netamente entre los ministros sagrados ordenados y el estado de los fieles laicos.</p>
+            </article>
+
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Pilar V</span>
+              <h4>Armonía entre San Pablo y Santiago</h4>
+              <p>Como discípulo directo de Pedro y Pablo, Clemente une sin fisuras en los capítulos 30–35 la gratuidad de la justificación por la fe con la necesidad indispensable de las buenas obras y la caridad para salvarse.</p>
+            </article>
+
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Pilar VI</span>
+              <h4>Basílica Romana de San Clemente</h4>
+              <p>A pocos pasos del Coliseo se alza hoy en tres estratos arqueológicos superpuestos la Basílica de San Clemente, erigida sobre la <em>domus ecclesiae</em> romana del siglo I vinculada a su memoria y custodia de sus reliquias.</p>
+            </article>
+          </div>
+
+          <div class="accar-codex-footer-nav">
+            <button type="button" class="accar-codex-btn-sec" onclick="loadView('views/historia-lista-de-padres.html')">
+              ← Volver al Directorio Patrístico
+            </button>
+            <button type="button" class="accar-codex-btn-pri" onclick="window.accarShowPadrePanel('ensenanza')">
+              Continuar a V. Arsenal Apologético →
+            </button>
+          </div>
+
+        </section>
+
+        <!-- ==================== CAPÍTULO V: ARSENAL APOLOGÉTICO ==================== -->
+        <section id="panel-ensenanza" class="accar-padre-panel" data-tono="carmesi">
+
+          <div class="accar-codex-intro">
+            <span class="accar-codex-kicker">Defensa Militante de la Fe</span>
+            <h2 class="accar-codex-h2">Enseñanza: El Arsenal Apologético del Siglo I</h2>
+            <p class="accar-dropcap-p">
+              <span class="accar-capitular">C</span>uando un protestante o sectario afirma que «la Iglesia Católica con su Papa, sus obispos, sus sacerdotes que ofrecen la Misa, sus libros deuterocanónicos y la salvación por fe y obras nació con Constantino en el año 325», basta abrir la *Epístola de San Clemente* escrita en el **año 96 d.C.** Aquí tienes ocho espadas directas del siglo I.
+            </p>
+          </div>
+
+          <div class="accar-codex-divider" aria-hidden="true"><span>✠</span></div>
+
+          <h3 class="accar-codex-h3">Ocho dogmas católicos demostrados en el año 96 d.C.</h3>
+
+          <div class="accar-codex-cards-grid">
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Espada I · 1 Clemente 5, 4–7</span>
+              <h4>San Pedro Estuvo y Murió Mártir en Roma</h4>
+              <p><strong>Prueba:</strong> Contra quienes niegan que Pedro llegara a Roma, Clemente escribe desde la misma Roma a quienes vivieron aquella generación presentando a Pedro y Pablo juntos como mártires «entre nosotros» (6, 1) bajo la persecución neroniana.</p>
+            </article>
+
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Espada II · 1 Clemente 59, 1 y 63, 2–3</span>
+              <h4>Ejercicio del Primado Papal en Vida de San Juan</h4>
+              <p><strong>Prueba:</strong> Viviendo aún el apóstol San Juan en Éfeso, el Obispo de Roma sentencia un conflicto en Grecia advirtiendo que desobedecer lo dicho por Dios por su medio acarrea «pecado y no leve peligro», y envía legados para exigir cumplimiento.</p>
+            </article>
+
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Espada III · 1 Clemente 42 y 44</span>
+              <h4>La Sucesión Apostólica es Mandato de Cristo</h4>
+              <p><strong>Prueba:</strong> Destruye la eclesiología evangélica de pastores autoungidos: los Apóstoles sabían por Jesucristo que habría disputas sobre el episcopado y establecieron por ley divina que, al morir los primeros obispos, otros hombres probados les sucedieran.</p>
+            </article>
+
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Espada IV · 1 Clemente 44, 4</span>
+              <h4>Sacerdocio Sacrificial («Ofrecer los Dones»)</h4>
+              <p><strong>Prueba:</strong> Clemente define el oficio propio de los obispos/presbíteros como aquellos que *«han ofrecido los dones (prosenenkóntas ta dōra) irreprochable y santamente»*, atestiguando ya en el siglo I el carácter sacrificial de la Eucaristía.</p>
+            </article>
+
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Espada V · 1 Clemente 40, 1–5</span>
+              <h4>Diferencia Esencial entre Sacerdocio y Laicado</h4>
+              <p><strong>Prueba:</strong> Refuta el igualitarismo protestante: enseña que el Señor ordenó celebrar las ofrendas y liturgias en tiempos y lugares determinados por ministros sagrados propios, mientras «el hombre laico (<em>laikos</em>) está ligado por los preceptos laicos».</p>
+            </article>
+
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Espada VI · 1 Clemente 30, 3; 31, 2 y 33, 1</span>
+              <h4>Demolición del «Sola Fide» por un Colaborador de Pablo</h4>
+              <p><strong>Prueba:</strong> Quien trabajó codo a codo con San Pablo (Flp 4, 3) jamás entendió a Pablo al modo luterano: tras alabar la fe justificante (cap. 32), ordena: *«Justifiquémonos por las obras y no por las palabras»* (30, 3), recordando que Abraham fue bendecido *«por obrar justicia y verdad mediante la fe»* (31, 2).</p>
+            </article>
+
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Espada VII · 1 Clemente 27, 5 y 55, 4–5</span>
+              <h4>Uso de los Libros Deuterocanónicos en el Siglo I</h4>
+              <p><strong>Prueba:</strong> Mil cuatrocientos años antes de que Lutero rechazara Judit y Sabiduría, San Clemente cita como palabra sagrada *Sabiduría 12, 12* (27, 5; cf. Sab 2, 24 en 3, 4) y propone a **«la bienaventurada Judit»** junto a Ester como heroína bíblica del pueblo de Dios (55, 4–5).</p>
+            </article>
+
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Espada VIII · 1 Clemente 7, 2 y 51–52</span>
+              <h4>La «Regla de la Tradición» y la Confesión de Pecados</h4>
+              <p><strong>Prueba:</strong> Antes de que terminara de cerrarse el canon del Nuevo Testamento, Clemente invoca como norma obligatoria *«la gloriosa y venerable regla de nuestra Tradición»* (7, 2) y exhorta a confesar humildemente los pecados mientras estamos en esta vida (8, 5; 51–52).</p>
+            </article>
+          </div>
+
+          <div class="accar-codex-footer-nav">
+            <button type="button" class="accar-codex-btn-sec" onclick="loadView('views/historia-lista-de-padres.html')">
+              ← Volver al Directorio Patrístico
+            </button>
+            <button type="button" class="accar-codex-btn-pri" onclick="window.accarShowPadrePanel('escritos')">
+              Continuar a VI. Escritos Inmortales →
+            </button>
+          </div>
+
+        </section>
+
+        <!-- ==================== CAPÍTULO VI: ESCRITOS INMORTALES ==================== -->
+        <section id="panel-escritos" class="accar-padre-panel" data-tono="oro">
+
+          <div class="accar-codex-intro">
+            <span class="accar-codex-kicker">Fuente Primaria · Año ~96 d.C.</span>
+            <h2 class="accar-codex-h2">La Epístola a los Corintios (Extractos Clave)</h2>
+            <p class="accar-dropcap-p">
+              <span class="accar-capitular">S</span>eis pasajes textuales íntegros de la *Primera Epístola de San Clemente a los Corintios*, el documento cristiano más antiguo después de los escritos apostólicos, con las armas doctrinales resaltadas para su uso apologético inmediato.
+            </p>
+          </div>
+
+          <div class="accar-codex-divider" aria-hidden="true"><span>✠</span></div>
+
+          <h3 class="accar-codex-h3">Seis textos capitales de la Carta Romana</h3>
+
+          <div class="accar-doc-accordion">
+
+            <div class="accar-doc-item doc-oro open">
+              <button class="accar-doc-trigger" type="button">
+                <span class="accar-doc-title">I. Capítulos 1–3 · Saludo Oficial e Intervención de la Iglesia de Roma</span>
+                <span class="accar-doc-icon">−</span>
               </button>
-              <div class="acc-content">
-                <p>Roma se disculpa por el retraso y procede a reprender la rebelión en Corinto.</p>
-                <div style="max-height: 400px; overflow-y: auto; padding: 15px; background: rgba(0,0,0,0.03); border-radius: 8px; border: 1px solid rgba(15,51,95,.12); font-size: 0.95rem; line-height: 1.7;">
-                  <p>La Iglesia de Dios que peregrina en Roma, a la Iglesia de Dios que peregrina en Corinto, a los electos santificados en la voluntad de Dios por nuestro Señor Jesucristo: Gracia y paz os sean multiplicadas de parte de Dios Todopoderoso por medio de Jesucristo.</p>
-                  <p>1. <span style="background-color: #1b4528; color: #ffffff; padding: 2px 6px; border-radius: 4px; font-weight: bold;">A causa de las repentinas y sucesivas calamidades y tribulaciones que nos han sobrevenido [persecución de Domiciano], creemos, hermanos, que hemos tardado demasiado en prestar atención a los asuntos que se discuten entre vosotros.</span> Nos referimos, carísimos, a la sedición, extraña y ajena a los elegidos de Dios, detestable e impía, que unos cuantos sujetos, gentes arrojadas y arrogantes, han encendido hasta tal punto de insensatez, que vuestro nombre, venerable y celebradísimo y digno del amor de todos los hombres, ha venido a ser gravemente ultrajado.</p>
-                  <p>3. ...Así los deshonrados se levantaron contra los honrados, los sin gloria contra los gloriosos, los insensatos contra los prudentes, los jóvenes contra los ancianos. Por esto la justicia y la paz están ahora lejos de vosotros, por cuanto cada uno ha abandonado el temor de Dios y ha cegado el ojo de la fe en Él...</p>
+              <div class="accar-doc-content">
+                <div class="accar-doc-tags">
+                  <span class="accar-doc-tag tag-oro">Año ~96 d.C. · Jurisdicción Romana y Denuncia del Cisma</span>
                 </div>
+                <p>Roma encabeza su decreto disculpándose por la demora causada por la persecución de Domiciano y reprende con autoridad la rebelión en Corinto:</p>
+                <blockquote class="accar-patristic-quote">
+                  «La Iglesia de Dios que peregrina en Roma, a la Iglesia de Dios que peregrina en Corinto, a los llamados y santificados en la voluntad de Dios por medio de nuestro Señor Jesucristo: Gracia y paz a vosotros de parte de Dios omnipotente en abundancia.<br><br>
+                  1. <mark class="accar-hl">A causa de las repentinas y sucesivas calamidades y tribulaciones que nos han sobrevenido, creemos, hermanos, haber tardado acaso demasiado en prestar atención a los asuntos que se discuten entre vosotros</mark>, amados, y a esa sedición extraña y ajena a los elegidos de Dios, detestable e impía, que unas pocas personas temerarias y arrogantes han encendido hasta tal grado de locura que vuestro venerable y célebre nombre ha venido a ser gravemente blasfemado.<br><br>
+                  3. ...Así se levantaron los sin honra contra los honrados, los sin gloria contra los ilustres, los insensatos contra los prudentes, los jóvenes contra los ancianos.»
+                </blockquote>
               </div>
             </div>
 
-            <!-- CAPÍTULO 40 -->
-            <div class="acc-item">
-              <button class="acc-trigger" type="button">
-                <span>Cap 40: El Orden Litúrgico (Clero vs Laicos)</span>
-                <span>+</span>
+            <div class="accar-doc-item doc-carmesi">
+              <button class="accar-doc-trigger" type="button">
+                <span class="accar-doc-title">II. Capítulos 5–6 · Testimonio del Siglo I sobre el Martirio de Pedro y Pablo</span>
+                <span class="accar-doc-icon">+</span>
               </button>
-              <div class="acc-content">
-                <p>Clemente explica que Dios ha establecido órdenes específicos para el culto y usa por primera vez la palabra "laico".</p>
-                <div style="max-height: 400px; overflow-y: auto; padding: 15px; background: rgba(0,0,0,0.03); border-radius: 8px; border: 1px solid rgba(15,51,95,.12); font-size: 0.95rem; line-height: 1.7;">
-                  <p>40. Siendo pues estas cosas manifiestas para nosotros, y habiendo mirado a las profundidades de la voluntad divina, debemos hacer todas las cosas en orden, tal como el Señor nos ha mandado que las hagamos en sus tiempos señalados. Él nos ha mandado que se hagan las ofrendas y servicios divinos, y esto no al azar ni sin orden, sino a tiempos y horas señalados.</p>
-                  <p>Él mismo, por su voluntad suprema, ha ordenado dónde y por quién deben ser celebrados, para que todas las cosas, siendo hechas piadosamente según su buena complacencia, puedan ser aceptables a su voluntad.</p>
-                  <p><span style="background-color: #1b4528; color: #ffffff; padding: 2px 6px; border-radius: 4px; font-weight: bold;">Porque al sumo sacerdote le están encomendados sus propios servicios peculiares (liturgias), y a los sacerdotes se les ha asignado su lugar propio, y sobre los levitas recaen sus ministerios especiales; mientras que el laico está obligado por los preceptos del laico.</span></p>
+              <div class="accar-doc-content">
+                <div class="accar-doc-tags">
+                  <span class="accar-doc-tag tag-carmesi">Prueba Histórica de San Pedro y San Pablo en Roma</span>
                 </div>
+                <p>San Clemente evoca ante su propia generación el martirio de las dos máximas columnas apostólicas:</p>
+                <blockquote class="accar-patristic-quote">
+                  «5. Pero dejando los ejemplos antiguos, vengamos a los atletas muy próximos a nosotros; tomemos los nobles ejemplos de nuestra propia generación. Por celos y envidia fueron perseguidas las máximas y justísimas columnas, y combatieron hasta la muerte.<br><br>
+                  Pongamos ante nuestros ojos a los buenos Apóstoles: <mark class="accar-hl">Pedro, quien por inicua envidia soportó no uno ni dos, sino muchos trabajos, y habiendo dado así testimonio con el martirio, marchó al lugar de la gloria que le era debido.</mark><br><br>
+                  Por envidia y discordia <mark class="accar-hl">Pablo mostró el galardón de la paciencia: siete veces cargado de cadenas, desterrado, apedreado, hecho heraldo en Oriente y en Occidente... y tras haber enseñado la justicia a todo el mundo y haber llegado hasta el límite del Occidente, dio testimonio ante los gobernantes</mark>, y así partió del mundo hacia el lugar santo.»
+                </blockquote>
               </div>
             </div>
 
-            <!-- CAPÍTULO 42-44 -->
-            <div class="acc-item">
-              <button class="acc-trigger" type="button">
-                <span>Caps 42-44: La Sucesión Apostólica Explícita</span>
-                <span>+</span>
+            <div class="accar-doc-item doc-azul">
+              <button class="accar-doc-trigger" type="button">
+                <span class="accar-doc-title">III. Capítulos 30–33 · La Fe Justificante y la Necesidad de las Buenas Obras</span>
+                <span class="accar-doc-icon">+</span>
               </button>
-              <div class="acc-content">
-                <p>El núcleo de la eclesiología de Clemente: La Sucesión no es un accidente de la historia, sino un mandato de Cristo a sus apóstoles para evitar que la Iglesia se dividiera por disputas de poder.</p>
-                <div style="max-height: 400px; overflow-y: auto; padding: 15px; background: rgba(0,0,0,0.03); border-radius: 8px; border: 1px solid rgba(15,51,95,.12); font-size: 0.95rem; line-height: 1.7;">
-                  <p>42. <span style="background-color: #1b4528; color: #ffffff; padding: 2px 6px; border-radius: 4px; font-weight: bold;">Los apóstoles nos predicaron el Evangelio de parte del Señor Jesucristo; Jesucristo fue enviado de Dios. En resumen, Cristo es de Dios, y los apóstoles son de Cristo.</span> Por tanto, ambas cosas sucedieron en buen orden por la voluntad de Dios.</p>
-                  <p>Así pues, habiendo recibido el mandato y estando plenamente seguros por la resurrección de nuestro Señor Jesucristo... salieron con la buena nueva... Y así, predicando por campos y ciudades, probaron en el Espíritu a sus primicias, y los instituyeron como obispos y diáconos de los que habían de creer.</p>
-                  <p>44. Y nuestros apóstoles sabían por nuestro Señor Jesucristo que habría contiendas sobre el nombramiento del cargo de obispo. <span style="background-color: #1b4528; color: #ffffff; padding: 2px 6px; border-radius: 4px; font-weight: bold;">Por cuya causa, habiendo recibido conocimiento completo de antemano, designaron a las personas mencionadas, y después proveyeron a continuación que si éstos durmieran, otros hombres aprobados les sucedieran en su ministerio.</span></p>
-                  <p>A estos hombres, pues, que fueron nombrados por ellos, o después por otros hombres de reputación, con el consentimiento de toda la Iglesia, y que han ministrado intachablemente al rebaño de Cristo en humildad de corazón, pacífica y desinteresadamente... a estos hombres nosotros consideramos que es injusto privarles de su ministerio.</p>
-                  <p>Porque no será un pecado leve en nosotros si deponemos del puesto de obispo a los que han ofrecido los dones de manera intachable y en santidad. Bienaventurados aquellos presbíteros que han ido antes, dado que su partida fue fructífera y madura; porque no tienen temor de que nadie los mueva de su lugar asignado.</p>
+              <div class="accar-doc-content">
+                <div class="accar-doc-tags">
+                  <span class="accar-doc-tag tag-azul">Síntesis Paulina contra el «Sola Fide»</span>
                 </div>
+                <p>El propio colaborador de San Pablo expone cómo la justificación gratuita por la fe exige obrar la justicia:</p>
+                <blockquote class="accar-patristic-quote">
+                  «30. Siendo, pues, porción del Santo, practiquemos todas las obras de la santidad... <mark class="accar-hl">justificándonos por las obras y no por las palabras.</mark><br><br>
+                  31. Adhirámonos, pues, a su bendición y veamos cuáles son los caminos de la bendición. <mark class="accar-hl">¿Por qué fue bendecido nuestro padre Abraham? ¿No fue acaso por haber obrado la justicia y la verdad por medio de la fe?</mark><br><br>
+                  32–33. ...Todos han sido glorificados y engrandecidos mediante su voluntad soberana por la fe. ¿Qué haremos entonces, hermanos? ¿Cesaremos de obrar el bien y abandonaremos la caridad? ¡De ningún modo lo permita el Soberano en nosotros! Antes bien, apresurémonos con ahínco y prontitud a cumplir toda obra buena.»
+                </blockquote>
               </div>
             </div>
 
-            <!-- CAPÍTULO 57-59 -->
-            <div class="acc-item">
-              <button class="acc-trigger" type="button">
-                <span>Caps 57-59: El Ultimátum Papal</span>
-                <span>+</span>
+            <div class="accar-doc-item doc-oro">
+              <button class="accar-doc-trigger" type="button">
+                <span class="accar-doc-title">IV. Capítulos 40–41 · El Orden Divino de la Liturgia (Sacerdocio vs. Laicos)</span>
+                <span class="accar-doc-icon">+</span>
               </button>
-              <div class="acc-content">
-                <p>Roma dicta sentencia. Clemente advierte a los rebeldes que resistir las instrucciones de su carta es resistir a Dios.</p>
-                <div style="max-height: 400px; overflow-y: auto; padding: 15px; background: rgba(0,0,0,0.03); border-radius: 8px; border: 1px solid rgba(15,51,95,.12); font-size: 0.95rem; line-height: 1.7;">
-                  <p>57. Vosotros, por tanto, los que fuisteis la causa de la sedición, someteos a los presbíteros y recibid el castigo para arrepentimiento, doblando las rodillas de vuestro corazón. Aprended a someteros, deponiendo la orgullosa y arrogante obstinación de vuestra lengua...</p>
-                  <p>58. Aceptemos, pues, el consejo de Dios, y nos será provechoso... Seamos obedientes a su nombre santísimo y glorioso, escapando con ello de los castigos profetizados...</p>
-                  <p>59. <span style="background-color: #1b4528; color: #ffffff; padding: 2px 6px; border-radius: 4px; font-weight: bold;">Mas si algunos desobedecieren a las cosas que por Él (Dios) han sido dichas por nuestro medio, sepan que se verán envueltos en no leve peligro.</span> Pero nosotros seremos inocentes de este pecado...</p>
-                  <p>63. Os causará gozo y regocijo a nosotros, si sois obedientes a las cosas que os hemos escrito por medio del Espíritu Santo, y cortáis de raíz la cólera impía de vuestros celos, de acuerdo con la petición que os hemos hecho de paz y concordia en esta carta. Hemos enviado también hombres fieles y prudentes, que han vivido entre nosotros desde la juventud hasta la vejez de manera intachable, los cuales serán testigos entre vosotros y nosotros.</p>
+              <div class="accar-doc-content">
+                <div class="accar-doc-tags">
+                  <span class="accar-doc-tag tag-oro">Sacralidad Litúrgica y Primer Uso de «Laico»</span>
                 </div>
+                <p>Clemente enseña que el culto cristiano no queda al capricho individual, sino a la ordenación divina de ministros consagrados:</p>
+                <blockquote class="accar-patristic-quote">
+                  «40. Siendo esto manifiesto para nosotros, y habiendo penetrado en las profundidades del conocimiento divino, debemos hacer con orden todas las cosas que el Soberano mandó realizar en tiempos determinados. <mark class="accar-hl">Él mandó que las ofrendas y las liturgias se celebren, y esto no al acaso ni sin orden, sino en tiempos y horas fijados. Y dónde y por quiénes quiere que se celebren, Él mismo lo determinó con su suprema voluntad</mark>, para que todo, haciéndose santamente en su beneplácito, sea acepto a su voluntad.<br><br>
+                  <mark class="accar-hl">Porque al sumo sacerdote le están encomendados sus propios servicios litúrgicos; a los sacerdotes les ha sido asignado su lugar propio, y sobre los levitas recaen sus propios ministerios; el hombre laico está ligado por los preceptos de los laicos.</mark>»
+                </blockquote>
+              </div>
+            </div>
+
+            <div class="accar-doc-item doc-oro">
+              <button class="accar-doc-trigger" type="button">
+                <span class="accar-doc-title">V. Capítulos 42 y 44 · La Sucesión Apostólica Instituida por Jesucristo</span>
+                <span class="accar-doc-icon">+</span>
+              </button>
+              <div class="accar-doc-content">
+                <div class="accar-doc-tags">
+                  <span class="accar-doc-tag tag-oro">Texto Clásico citado en Lumen Gentium 20</span>
+                </div>
+                <p>Demostración irrefutable en el año 96 d.C. de que la cadena episcopal y la ofrenda eucarística proceden de Cristo:</p>
+                <blockquote class="accar-patristic-quote">
+                  «42. <mark class="accar-hl">Los apóstoles nos predicaron el Evangelio de parte del Señor Jesucristo; Jesucristo fue enviado por Dios. Cristo, pues, viene de Dios, y los apóstoles vienen de Cristo</mark>: ambas cosas sucedieron ordenadamente por voluntad de Dios. Así, habiendo recibido los mandatos y plenamente asegurados por la resurrección de nuestro Señor Jesucristo... predicando por campos y ciudades, probaron en el Espíritu a sus primicias y los instituyeron como obispos y diáconos de los que habían de creer.<br><br>
+                  44. <mark class="accar-hl">Y nuestros apóstoles conocieron por nuestro Señor Jesucristo que habría contienda sobre el título del episcopado. Por esta causa, habiendo recibido perfecto conocimiento previo, instituyeron a los antedichos y dieron luego norma de que, si éstos murieran, otros varones probados les sucedieran en su ministerio.</mark> ...Pues no será pecado pequeño para nosotros si arrojamos del episcopado a los que <mark class="accar-hl">han ofrecido los dones</mark> de modo irreprochable y santo.»
+                </blockquote>
+              </div>
+            </div>
+
+            <div class="accar-doc-item doc-carmesi">
+              <button class="accar-doc-trigger" type="button">
+                <span class="accar-doc-title">VI. Capítulos 57–59 y 63 · La Sentencia Vinculante de Roma y sus Legados</span>
+                <span class="accar-doc-icon">+</span>
+              </button>
+              <div class="accar-doc-content">
+                <div class="accar-doc-tags">
+                  <span class="accar-doc-tag tag-carmesi">Primer Decreto Primacial Posbíblico Conservado</span>
+                </div>
+                <p>Roma intima sumisión canónica en nombre de Dios y del Espíritu Santo despachando a sus plenipotenciarios:</p>
+                <blockquote class="accar-patristic-quote">
+                  «57. Vosotros, por tanto, los que pusisteis el cimiento de la sedición, someteos a los presbíteros y recibid la corrección para penitencia, doblando las rodillas de vuestro corazón. Aprended a sujetaros, deponiendo la jactanciosa y altanera soberbia de vuestra lengua...<br><br>
+                  59. <mark class="accar-hl">Mas si algunos desobedecieren a las cosas dichas por Él [Dios] por medio de nosotros, sepan que se enredarán en pecado y en no pequeño peligro.</mark><br><br>
+                  63. <mark class="accar-hl">Pues nos daréis gozo y alegría si, haciéndoos obedientes a las cosas escritas por nosotros mediante el Espíritu Santo</mark>, cortáis la ira ilícita de vuestro celo... Hemos enviado varones fieles y prudentes, de conducta irreprochable entre nosotros desde la juventud hasta la vejez [Claudio Éfebo, Valerio Bitón y Fortunato], quienes serán también testigos entre vosotros y nosotros.»
+                </blockquote>
               </div>
             </div>
 
           </div>
 
-          <div class="cta-row" style="margin-top: 24px;">
-            <a class="cta-link azul" href="https://apologeticaccar.com">Regresar a Apologética Católica</a>
-            <button class="cta-btn dorado" onclick="showPanel('inicio')">Volver al inicio →</button>
+          <div class="accar-codex-footer-nav">
+            <button type="button" class="accar-codex-btn-sec" onclick="loadView('views/historia-lista-de-padres.html')">
+              ← Volver al Directorio Patrístico
+            </button>
+            <button type="button" class="accar-codex-btn-pri" onclick="window.accarShowPadrePanel('citas')">
+              Abrir VII. Gran Biblioteca de Citas (48) →
+            </button>
           </div>
-        </div>
 
-      </section>
-      <!-- ===== FINAL PANEL ESCRITOS ===== -->
+        </section>
 
-    </div>
-  </main>
-  <!-- ===== FINAL MAIN ===== -->
+        <!-- ==================== CAPÍTULO VII: GRAN BIBLIOTECA DE CITAS (48) ==================== -->
+        <section id="panel-citas" class="accar-padre-panel" data-tono="oro">
 
-  <script>
-    /* ===== INICIO SCRIPT AISLADO ===== */
-    (function(){
-      const panelNames = ["inicio", "vida", "contexto", "ensenanza", "legado", "escritos"];
-      const mobileMenuToggle = document.getElementById("mobileMenuToggle");
-      const mobileNavPanel = document.getElementById("mobileNavPanel");
+          <div class="accar-codex-intro">
+            <span class="accar-codex-kicker">Florilegio Apostólico · 48 Sentencias del Siglo I</span>
+            <h2 class="accar-codex-h2">Gran Biblioteca de Citas y Aforismos</h2>
+            <p class="accar-dropcap-p">
+              <span class="accar-capitular">C</span>uarenta y ocho sentencias auténticas extraídas directamente de los 65 capítulos de la *Primera Epístola de San Clemente a los Corintios* (~96 d.C.), clasificadas en seis arsenales temáticos con buscador en vivo y copiado en un clic para la oración y la defensa católica.
+            </p>
+          </div>
 
-      function openMobileMenu(){
-        if(!mobileMenuToggle || !mobileNavPanel) return;
-        mobileMenuToggle.classList.add("active");
-        mobileNavPanel.classList.add("active");
-        mobileMenuToggle.setAttribute("aria-expanded", "true");
+          <!-- Buscador y Filtros Internos del Florilegio -->
+          <div class="accar-citas-controls">
+            <div class="accar-citas-search-box">
+              <input type="text" id="accar-clemente-citas-search" placeholder="Filtrar frases por palabra o tema (ej. Pedro, obispos, laico, Sangre, obras, cisma, Tradición)..." autocomplete="off" aria-label="Buscar en las 48 citas de San Clemente">
+              <span class="accar-citas-counter" id="accar-clemente-citas-count">48 citas</span>
+            </div>
+
+            <div class="accar-citas-pills" id="accar-clemente-citas-pills">
+              <button type="button" class="accar-cita-pill active" data-cat="todas">Todas (48)</button>
+              <button type="button" class="accar-cita-pill" data-cat="iglesia">Primado y Sucesión (8)</button>
+              <button type="button" class="accar-cita-pill" data-cat="cristo">Cristo y su Sangre (8)</button>
+              <button type="button" class="accar-cita-pill" data-cat="obras">Fe y Buenas Obras (8)</button>
+              <button type="button" class="accar-cita-pill" data-cat="unidad">Unidad y Contra el Cisma (8)</button>
+              <button type="button" class="accar-cita-pill" data-cat="martirio">Caridad, Tradición y Martirio (8)</button>
+              <button type="button" class="accar-cita-pill" data-cat="liturgia">Liturgia y Plegaria (8)</button>
+            </div>
+          </div>
+
+          <div id="accar-clemente-citas-empty" class="accar-citas-empty" style="display: none;">
+            No se encontraron citas con ese término. Prueba otra palabra clave o selecciona «Todas (48)».
+          </div>
+
+          <div class="accar-citas-grid" id="accar-clemente-citas-grid"></div>
+
+          <div class="accar-codex-footer-nav">
+            <button type="button" class="accar-codex-btn-sec" onclick="loadView('views/historia-lista-de-padres.html')">
+              ← Volver al Directorio Patrístico
+            </button>
+            <button type="button" class="accar-codex-btn-pri" onclick="window.accarShowPadrePanel('inicio')">
+              ↑ Volver a I. Panorama Inicial
+            </button>
+          </div>
+
+        </section>
+
+      </div>
+
+    </main>
+
+  </div>
+
+</section>
+
+<style>
+/* =====================================================================
+   ESTILOS ENCAPSULADOS ESTRICTAMENTE EN #accar-ficha-padre
+   Heráldica Papa y Mártir (Escarlata Martirial y Oro Pontificio)
+===================================================================== */
+#accar-ficha-padre,
+#accar-ficha-padre * {
+  box-sizing: border-box;
+}
+
+#accar-ficha-padre {
+  --padre-gold: #d4af37;
+  --padre-gold-light: #eed076;
+  --padre-crimson: #9e1522;
+  --codex-scale: 1;
+
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  min-height: 100vh;
+  padding: 44px 20px 128px;
+  font-family: Georgia, "Times New Roman", serif;
+  color: #f8efd3;
+  border-top: 1px solid rgba(212, 175, 55, 0.26);
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(20, 48, 96, 0.58) 0%, rgba(6, 16, 36, 0.94) 36%, #030816 100%);
+  box-shadow: inset 0 24px 52px rgba(0, 0, 0, 0.58);
+}
+
+#accar-ficha-padre::before {
+  content: "";
+  position: absolute;
+  top: 110px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(1140px, 96vw);
+  height: min(1140px, 96vw);
+  background: url("/assets/img/historia-watermark.png") center top / contain no-repeat;
+  opacity: 0.055;
+  pointer-events: none;
+  z-index: 0;
+}
+
+#accar-ficha-padre .accar-padre-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+/* ===== BARRA SUPERIOR ===== */
+#accar-ficha-padre .accar-padre-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-bottom: 26px;
+}
+
+#accar-ficha-padre .accar-padre-breadcrumb {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-size: 0.83rem;
+  color: rgba(248, 239, 211, 0.72);
+}
+
+#accar-ficha-padre .accar-padre-breadcrumb a {
+  color: #eed076;
+  text-decoration: none;
+  font-weight: 700;
+  transition: color 0.22s ease;
+}
+
+#accar-ficha-padre .accar-padre-breadcrumb a:hover {
+  color: #fff9ec;
+}
+
+#accar-ficha-padre .accar-padre-breadcrumb strong {
+  color: #fff9ec;
+}
+
+#accar-ficha-padre .accar-padre-peers {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+#accar-ficha-padre .accar-peer-btn {
+  appearance: none;
+  padding: 7px 15px;
+  border-radius: 999px;
+  border: 1px solid rgba(212, 175, 55, 0.42);
+  background: rgba(4, 11, 28, 0.82);
+  color: #eed076;
+  font-family: inherit;
+  font-size: 0.71rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.24s ease;
+}
+
+#accar-ficha-padre .accar-peer-btn:hover {
+  border-color: #fff3c4;
+  background: rgba(212, 175, 55, 0.22);
+  color: #fff9ec;
+  transform: translateY(-1px);
+}
+
+/* ===== RELICARIO HERO CON ESCRITORIO PATRÍSTICO Y HALO MARTIRIAL ===== */
+#accar-ficha-padre .accar-padre-hero {
+  position: relative;
+  padding: 38px 38px 30px;
+  margin-bottom: 28px;
+  border-radius: 28px;
+  border: 1px solid rgba(212, 175, 55, 0.58);
+  background:
+    radial-gradient(circle at 16% 24%, rgba(168, 22, 34, 0.28) 0%, transparent 46%),
+    linear-gradient(180deg, rgba(8, 20, 44, 0.80) 0%, rgba(5, 13, 30, 0.92) 100%),
+    url("/assets/img/bg_padres_iglesia_acccar.png") center center / cover no-repeat;
+  box-shadow:
+    0 28px 60px rgba(0, 0, 0, 0.75),
+    inset 0 1px 0 rgba(255, 238, 186, 0.18);
+}
+
+#accar-ficha-padre .accar-padre-hero::after {
+  content: "";
+  position: absolute;
+  inset: 8px;
+  border: 1px solid rgba(212, 175, 55, 0.20);
+  border-radius: 21px;
+  pointer-events: none;
+}
+
+#accar-ficha-padre .accar-padre-hero-grid {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 290px 1fr;
+  gap: 38px;
+  align-items: center;
+}
+
+#accar-ficha-padre .accar-padre-portrait-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+#accar-ficha-padre .accar-padre-camafeo {
+  position: relative;
+  width: 248px;
+  height: 248px;
+  padding: 7px;
+  border-radius: 30px;
+  border: 2.5px solid #eed076;
+  background: radial-gradient(circle at 50% 30%, #6b111c 0%, #1a0609 75%);
+  box-shadow:
+    0 22px 44px rgba(0, 0, 0, 0.82),
+    0 0 28px rgba(185, 28, 38, 0.28);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transition: transform 0.38s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.38s ease;
+}
+
+#accar-ficha-padre .accar-padre-camafeo:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow:
+    0 28px 52px rgba(0, 0, 0, 0.88),
+    0 0 34px rgba(212, 175, 55, 0.34);
+}
+
+#accar-ficha-padre .accar-padre-camafeo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 22px;
+}
+
+#accar-ficha-padre .accar-padre-seal {
+  margin-top: 16px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid #eed076;
+  background: linear-gradient(180deg, #b91c28 0%, #630810 100%);
+  color: #fff9ec;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.54);
+}
+
+#accar-ficha-padre .accar-padre-liturgia-badge {
+  margin-top: 10px;
+  width: 100%;
+  max-width: 248px;
+  padding: 9px 14px 10px;
+  border-radius: 14px;
+  border: 1px solid rgba(212, 175, 55, 0.42);
+  border-top: 2.5px solid #d4af37;
+  background: linear-gradient(180deg, #081530 0%, #040a1a 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.50);
+  transition: transform 0.26s ease, border-color 0.26s ease;
+}
+
+#accar-ficha-padre .accar-padre-liturgia-badge:hover {
+  transform: translateY(-2px);
+  border-color: #eed076;
+}
+
+#accar-ficha-padre .accar-liturgia-label {
+  font-size: 0.63rem;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: #eed076;
+}
+
+#accar-ficha-padre .accar-liturgia-date {
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-variant-numeric: lining-nums proportional-nums;
+  font-size: 1.04rem;
+  font-weight: 600;
+  color: #fff9ec;
+}
+
+#accar-ficha-padre .accar-padre-latin-plate {
+  margin-top: 7px;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-variant-numeric: lining-nums proportional-nums;
+  font-size: 0.96rem;
+  font-style: italic;
+  color: #e4d8be;
+}
+
+/* Columna Derecha del Hero */
+#accar-ficha-padre .accar-padre-copy-col {
+  min-width: 0;
+}
+
+#accar-ficha-padre .accar-padre-kicker {
+  display: inline-block;
+  padding: 6px 16px;
+  margin-bottom: 12px;
+  border-radius: 999px;
+  border: 1px solid #eed076;
+  background: linear-gradient(180deg, #b91c28 0%, #5c070e 100%);
+  color: #fff9ec;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.52);
+}
+
+#accar-ficha-padre .accar-padre-name {
+  margin: 0 0 4px;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-size: clamp(2.5rem, 4.5vw, 4rem);
+  font-weight: 700;
+  line-height: 1.04;
+  color: #fff9ec;
+  text-shadow: 0 4px 18px rgba(0, 0, 0, 0.84);
+}
+
+#accar-ficha-padre .accar-padre-latin-sub {
+  margin: 0 0 16px;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-size: 1.13rem;
+  font-style: italic;
+  color: #eed076;
+  letter-spacing: 0.02em;
+}
+
+#accar-ficha-padre .accar-padre-lead {
+  margin: 0 0 22px;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-variant-numeric: lining-nums proportional-nums;
+  font-size: 1.20rem;
+  line-height: 1.66;
+  color: #f4ebd6;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.65);
+}
+
+#accar-ficha-padre .accar-padre-meta-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+
+#accar-ficha-padre .accar-padre-meta-card {
+  padding: 14px 15px 15px;
+  border-radius: 15px;
+  border: 1px solid rgba(212, 175, 55, 0.38);
+  border-top: 2.5px solid #c81e2b;
+  background: rgba(4, 11, 28, 0.84);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.28s ease, background 0.28s ease, box-shadow 0.28s ease;
+}
+
+#accar-ficha-padre .accar-meta-label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #eed076;
+}
+
+#accar-ficha-padre .accar-meta-val {
+  display: block;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-variant-numeric: lining-nums proportional-nums;
+  font-size: 1rem;
+  line-height: 1.45;
+  color: #fff9ec;
+}
+
+/* ===== 7 PESTAÑAS PATRÍSTICAS (4 + 3) ===== */
+#accar-ficha-padre .accar-padre-tabs {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 28px;
+  padding-top: 22px;
+  border-top: 1px solid rgba(212, 175, 55, 0.28);
+}
+
+#accar-ficha-padre .accar-padre-tabs-row4 {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+#accar-ficha-padre .accar-padre-tabs-row3 {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+#accar-ficha-padre .accar-padre-tab {
+  appearance: none;
+  padding: 13px 10px;
+  border-radius: 13px;
+  border: 1px solid rgba(212, 175, 55, 0.40);
+  border-left: 3.5px solid #c81e2b;
+  background: rgba(5, 14, 34, 0.90);
+  color: #e8dcc2;
+  font-family: Georgia, serif;
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  text-align: center;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.24s ease;
+}
+
+#accar-ficha-padre .accar-padre-tab.accar-tab-citas {
+  border-left-color: #eed076;
+  border-color: rgba(238, 208, 118, 0.62);
+}
+
+#accar-ficha-padre .accar-padre-tab:hover {
+  border-color: #eed076;
+  background: rgba(18, 40, 82, 0.95);
+  color: #fff9ec;
+  transform: translateY(-2px);
+}
+
+#accar-ficha-padre .accar-padre-tab.active {
+  border-color: #fff3c4;
+  background: linear-gradient(180deg, #9e1522 0%, #54080f 100%);
+  color: #fff9ec;
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.58), 0 0 18px rgba(178, 24, 36, 0.45);
+}
+
+/* =====================================================================
+   PLIEGO DEL CÓDICE PATRÍSTICO (MODO NOCHE BASE + MODO PERGAMINO)
+===================================================================== */
+#accar-ficha-padre .accar-padre-codex {
+  position: relative;
+  padding: 34px 48px 48px;
+  border-radius: 28px;
+  border: 1px solid rgba(212, 175, 55, 0.48);
+  background: linear-gradient(180deg, #081328 0%, #040a17 100%);
+  box-shadow: 0 28px 60px rgba(0, 0, 0, 0.72);
+  color: #efe5cc;
+  transition: background 0.32s ease, color 0.32s ease, border-color 0.32s ease;
+}
+
+#accar-ficha-padre .accar-padre-codex::after {
+  content: "";
+  position: absolute;
+  inset: 9px;
+  border: 1px solid rgba(212, 175, 55, 0.18);
+  border-radius: 20px;
+  pointer-events: none;
+}
+
+#accar-ficha-padre .accar-padre-codex.theme-light {
+  background: linear-gradient(180deg, #faf4e6 0%, #f2e8d2 100%);
+  border-color: rgba(186, 146, 58, 0.65);
+  color: #211b13;
+  box-shadow:
+    0 28px 60px rgba(0, 0, 0, 0.65),
+    inset 0 0 44px rgba(175, 136, 56, 0.09);
+}
+
+#accar-ficha-padre .accar-padre-codex.theme-light::after {
+  border-color: rgba(156, 118, 38, 0.24);
+}
+
+/* Barra de Herramientas */
+#accar-ficha-padre .accar-codex-toolbar {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding-bottom: 16px;
+  margin-bottom: 30px;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.25);
+}
+
+#accar-ficha-padre .accar-padre-codex.theme-light .accar-codex-toolbar {
+  border-bottom-color: rgba(140, 104, 34, 0.24);
+}
+
+#accar-ficha-padre .accar-codex-section-tag {
+  font-size: 0.73rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #eed076;
+}
+
+#accar-ficha-padre .accar-padre-codex.theme-light .accar-codex-section-tag {
+  color: #821818;
+}
+
+#accar-ficha-padre .accar-codex-controls {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+#accar-ficha-padre .accar-codex-sizes {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+#accar-ficha-padre .accar-codex-size-lbl {
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: rgba(234, 224, 200, 0.72);
+  margin-right: 2px;
+}
+
+#accar-ficha-padre .accar-padre-codex.theme-light .accar-codex-size-lbl {
+  color: #544632;
+}
+
+#accar-ficha-padre .accar-codex-tool-btn {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(212, 175, 55, 0.40);
+  background: transparent;
+  color: #f2e8ce;
+  font-family: Georgia, serif;
+  font-size: 0.76rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+#accar-ficha-padre .accar-codex-tool-btn svg {
+  width: 14px;
+  height: 14px;
+}
+
+#accar-ficha-padre .accar-padre-codex.theme-light .accar-codex-tool-btn {
+  color: #241d13;
+  border-color: rgba(124, 92, 30, 0.35);
+  background: rgba(255, 255, 255, 0.48);
+}
+
+#accar-ficha-padre .accar-codex-tool-btn:hover {
+  border-color: #d4af37;
+}
+
+#accar-ficha-padre .accar-codex-tool-btn.active {
+  background: #d4af37;
+  border-color: #d4af37;
+  color: #081226 !important;
+}
+
+/* Cuerpo y Paneles */
+#accar-ficha-padre .accar-codex-body {
+  position: relative;
+  z-index: 2;
+  font-size: calc(20px * var(--codex-scale));
+}
+
+#accar-ficha-padre .accar-padre-panel {
+  --panel-accent: #9b1622;
+  display: none;
+}
+
+#accar-ficha-padre .accar-padre-panel[data-tono="oro"]     { --panel-accent: #c99b26; }
+#accar-ficha-padre .accar-padre-panel[data-tono="verde"]   { --panel-accent: #1b7a48; }
+#accar-ficha-padre .accar-padre-panel[data-tono="azul"]    { --panel-accent: #1d4e89; }
+#accar-ficha-padre .accar-padre-panel[data-tono="carmesi"] { --panel-accent: #9b1622; }
+
+#accar-ficha-padre .accar-padre-panel.active {
+  display: block;
+  animation: accarPadrePanelIn 0.3s ease;
+}
+
+@keyframes accarPadrePanelIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+#accar-ficha-padre .accar-codex-intro {
+  max-width: 940px;
+  margin-bottom: 28px;
+}
+
+#accar-ficha-padre .accar-codex-kicker {
+  display: block;
+  margin-bottom: 6px;
+  font-family: Georgia, serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #eed076;
+}
+
+#accar-ficha-padre .accar-padre-codex.theme-light .accar-codex-kicker {
+  color: #8b1a1a;
+}
+
+#accar-ficha-padre .accar-codex-h2 {
+  margin: 0 0 18px;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-size: 2.55rem;
+  font-weight: 700;
+  line-height: 1.12;
+  color: #fff9ec;
+}
+
+#accar-ficha-padre .accar-padre-codex.theme-light .accar-codex-h2 {
+  color: #0b1e3d;
+}
+
+#accar-ficha-padre .accar-codex-h3 {
+  margin: 0 0 20px;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #eed076;
+}
+
+#accar-ficha-padre .accar-padre-codex.theme-light .accar-codex-h3 {
+  color: #7f1d1d;
+}
+
+#accar-ficha-padre .accar-codex-intro p {
+  margin: 0 0 16px;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-variant-numeric: lining-nums proportional-nums;
+  font-size: 1.05em;
+  line-height: 1.78;
+}
+
+#accar-ficha-padre .accar-capitular {
+  float: left;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-size: 3.3em;
+  font-weight: 700;
+  line-height: 0.80;
+  padding: 0.06em 0.13em 0 0;
+  color: #eed076;
+}
+
+#accar-ficha-padre .accar-padre-codex.theme-light .accar-capitular {
+  color: #8b1a1a;
+}
+
+#accar-ficha-padre .accar-codex-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 30px 0 26px;
+}
+
+#accar-ficha-padre .accar-codex-divider::before,
+#accar-ficha-padre .accar-codex-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.55), transparent);
+}
+
+#accar-ficha-padre .accar-padre-codex.theme-light .accar-codex-divider::before,
+#accar-ficha-padre .accar-padre-codex.theme-light .accar-codex-divider::after {
+  background: linear-gradient(90deg, transparent, rgba(140, 102, 28, 0.42), transparent);
+}
+
+#accar-ficha-padre .accar-codex-divider span {
+  padding: 0 14px;
+  font-size: 0.9rem;
+  color: #d4af37;
+}
+
+#accar-ficha-padre .accar-padre-codex.theme-light .accar-codex-divider span {
+  color: #8b1a1a;
+}
+
+/* Recuadro Carmesí Dogmático */
+#accar-ficha-padre .accar-callout-dogmatico {
+  margin: 0 0 28px;
+  padding: 24px 28px;
+  border-radius: 20px;
+  border: 1px solid rgba(212, 175, 55, 0.55);
+  border-left: 5px solid #eed076;
+  background: linear-gradient(135deg, #6e0e18 0%, #2b0509 100%);
+  color: #fff9ec;
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.25);
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.28s ease;
+}
+
+#accar-ficha-padre .accar-callout-kicker {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #eed076;
+}
+
+#accar-ficha-padre .accar-callout-dogmatico h4 {
+  margin: 0 0 8px;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-size: 1.42rem;
+  color: #fff9ec;
+}
+
+#accar-ficha-padre .accar-callout-dogmatico p {
+  margin: 0;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-size: 1em;
+  line-height: 1.66;
+  color: #f6ebd4;
+}
+
+/* ===== 4 PLACAS LAPIDARIAS ===== */
+#accar-ficha-padre .accar-stat-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  margin: 24px 0 10px;
+}
+
+#accar-ficha-padre .accar-stat-plaque {
+  position: relative;
+  padding: 22px 16px 20px;
+  border-radius: 18px;
+  border: 1px solid rgba(212, 175, 55, 0.55);
+  background:
+    radial-gradient(circle at 50% 0%, rgba(168, 22, 34, 0.34) 0%, transparent 62%),
+    linear-gradient(180deg, #0c2147 0%, #050e22 100%);
+  text-align: center;
+  color: #fff9ec;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.28);
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.28s ease, border-color 0.28s ease;
+}
+
+#accar-ficha-padre .accar-stat-plaque::after {
+  content: "";
+  position: absolute;
+  inset: 5px;
+  border: 1px solid rgba(212, 175, 55, 0.20);
+  border-radius: 13px;
+  pointer-events: none;
+}
+
+#accar-ficha-padre .accar-stat-cross {
+  display: block;
+  font-size: 0.72rem;
+  color: rgba(238, 208, 118, 0.78);
+  margin-bottom: 4px;
+}
+
+#accar-ficha-padre .accar-stat-num {
+  display: block;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-variant-numeric: lining-nums proportional-nums;
+  font-size: 2.25rem;
+  font-weight: 700;
+  line-height: 1.05;
+  color: #eed076;
+  margin-bottom: 8px;
+}
+
+#accar-ficha-padre .accar-stat-lbl {
+  display: block;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-size: 0.96rem;
+  line-height: 1.38;
+  color: #f2e8ce;
+}
+
+/* ===== REGISTRO LAPIDARIO Y TARJETAS DE ESTUDIO ===== */
+#accar-ficha-padre .accar-registry-box {
+  margin-bottom: 22px;
+  padding: 24px 26px;
+  border-radius: 20px;
+  border: 1px solid rgba(212, 175, 55, 0.34);
+  border-left: 4px solid #c81e2b;
+  background: rgba(9, 22, 48, 0.62);
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.28s ease, border-color 0.28s ease;
+}
+
+#accar-ficha-padre .accar-padre-codex.theme-light .accar-registry-box {
+  background: rgba(255, 252, 245, 0.88);
+  border-color: rgba(160, 122, 42, 0.32);
+  border-left: 4px solid #8b1a1a;
+  box-shadow: 0 10px 24px rgba(40, 28, 8, 0.06);
+}
+
+#accar-ficha-padre .accar-registry-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-bottom: 12px;
+  margin-bottom: 16px;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.22);
+}
+
+#accar-ficha-padre .accar-padre-codex.theme-light .accar-registry-head {
+  border-bottom-color: rgba(140, 104, 34, 0.20);
+}
+
+#accar-ficha-padre .accar-registry-icon {
+  color: #d4af37;
+  font-size: 1rem;
+}
+
+#accar-ficha-padre .accar-padre-codex.theme-light .accar-registry-icon {
+  color: #8b1a1a;
+}
+
+#accar-ficha-padre .accar-registry-head h4 {
+  margin: 0;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-size: 1.38rem;
+  font-weight: 700;
+  color: #fff9ec;
+}
+
+#accar-ficha-padre .accar-padre-codex.theme-light .accar-registry-head h4 {
+  color: #0b1e3d;
+}
+
+#accar-ficha-padre .accar-registry-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px 28px;
+}
+
+#accar-ficha-padre .accar-registry-list li {
+  padding-left: 14px;
+  border-left: 2px solid rgba(212, 175, 55, 0.42);
+}
+
+#accar-ficha-padre .accar-padre-codex.theme-light .accar-registry-list li {
+  border-left-color: rgba(180, 138, 44, 0.55);
+}
+
+#accar-ficha-padre .accar-registry-list strong {
+  display: block;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-size: 1.02em;
+  font-weight: 700;
+  line-height: 1.3;
+  color: #eed076;
+}
+
+#accar-ficha-padre .accar-padre-codex.theme-light .accar-registry-list strong {
+  color: #1c160e;
+}
+
+#accar-ficha-padre .accar-registry-list span {
+  display: block;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-variant-numeric: lining-nums proportional-nums;
+  font-size: 0.90em;
+  font-style: italic;
+  color: rgba(238, 228, 204, 0.78);
+}
+
+#accar-ficha-padre .accar-padre-codex.theme-light .accar-registry-list span {
+  color: #5c4c36;
+}
+
+#accar-ficha-padre .accar-codex-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+#accar-ficha-padre .accar-codex-card {
+  padding: 22px 24px;
+  border-radius: 18px;
+  border: 1px solid rgba(212, 175, 55, 0.30);
+  border-left: 4px solid var(--panel-accent);
+  background: rgba(9, 22, 48, 0.62);
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.28s ease, border-color 0.28s ease;
+}
+
+#accar-ficha-padre .accar-padre-codex.theme-light .accar-codex-card {
+  background: rgba(255, 252, 245, 0.92);
+  border-color: rgba(160, 122, 42, 0.28);
+  border-left: 4.5px solid var(--panel-accent);
+  box-shadow: 0 10px 24px rgba(40, 28, 8, 0.06);
+}
+
+#accar-ficha-padre .accar-card-num {
+  display: inline-block;
+  margin-bottom: 6px;
+  font-family: Georgia, serif;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #eed076;
+}
+
+#accar-ficha-padre .accar-padre-codex.theme-light .accar-card-num {
+  color: #8b1a1a;
+}
+
+#accar-ficha-padre .accar-codex-card h4 {
+  margin: 0 0 10px;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-size: 1.36rem;
+  font-weight: 700;
+  line-height: 1.24;
+  color: #fff9ec;
+}
+
+#accar-ficha-padre .accar-padre-codex.theme-light .accar-codex-card h4 {
+  color: #0b1e3d;
+}
+
+#accar-ficha-padre .accar-codex-card p {
+  margin: 0;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-variant-numeric: lining-nums proportional-nums;
+  font-size: 0.98em;
+  line-height: 1.68;
+}
+
+/* ===== LÍNEA DEL TIEMPO ===== */
+#accar-ficha-padre .accar-timeline {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-left: 22px;
+  border-left: 2px solid rgba(212, 175, 55, 0.48);
+}
+
+#accar-ficha-padre .accar-padre-codex.theme-light .accar-timeline {
+  border-left-color: rgba(155, 114, 30, 0.45);
+}
+
+#accar-ficha-padre .accar-tl-item {
+  position: relative;
+  display: grid;
+  grid-template-columns: 116px 1fr;
+  gap: 16px;
+  align-items: start;
+}
+
+#accar-ficha-padre .accar-tl-item::before {
+  content: "";
+  position: absolute;
+  left: -29px;
+  top: 14px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid #eed076;
+  background: #9e1522;
+}
+
+#accar-ficha-padre .accar-tl-year {
+  padding: 7px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(212, 175, 55, 0.55);
+  background: linear-gradient(180deg, #9e1522 0%, #52080f 100%);
+  color: #fff9ec;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-variant-numeric: lining-nums proportional-nums;
+  font-size: 0.90rem;
+  font-weight: 700;
+  text-align: center;
+  white-space: nowrap;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.22);
+}
+
+#accar-ficha-padre .accar-tl-card {
+  padding: 16px 20px;
+  border-radius: 16px;
+  border: 1px solid rgba(212, 175, 55, 0.28);
+  background: rgba(9, 22, 48, 0.60);
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.28s ease, border-color 0.28s ease;
+}
+
+#accar-ficha-padre .accar-padre-codex.theme-light .accar-tl-card {
+  background: rgba(255, 252, 245, 0.92);
+  border-color: rgba(160, 122, 42, 0.28);
+  box-shadow: 0 8px 20px rgba(40, 28, 8, 0.05);
+}
+
+#accar-ficha-padre .accar-tl-card h4 {
+  margin: 0 0 6px;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-size: 1.24rem;
+  font-weight: 700;
+  color: #eed076;
+}
+
+#accar-ficha-padre .accar-padre-codex.theme-light .accar-tl-card h4 {
+  color: #0b1e3d;
+}
+
+#accar-ficha-padre .accar-tl-card p {
+  margin: 0;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-variant-numeric: lining-nums proportional-nums;
+  font-size: 0.96em;
+  line-height: 1.62;
+}
+
+/* ===== ACORDEÓN DE ESCRITOS PATRÍSTICOS ===== */
+#accar-ficha-padre .accar-doc-accordion {
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+}
+
+#accar-ficha-padre .accar-doc-item {
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(212, 175, 55, 0.34);
+  background: rgba(8, 20, 44, 0.72);
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.28s ease, border-color 0.28s ease;
+}
+
+#accar-ficha-padre .accar-padre-codex.theme-light .accar-doc-item {
+  background: rgba(255, 252, 245, 0.94);
+  border-color: rgba(150, 114, 38, 0.32);
+  box-shadow: 0 8px 20px rgba(40, 28, 8, 0.06);
+}
+
+#accar-ficha-padre .accar-doc-item.doc-oro     { border-left: 5px solid #c89d28; }
+#accar-ficha-padre .accar-doc-item.doc-azul    { border-left: 5px solid #1d4e89; }
+#accar-ficha-padre .accar-doc-item.doc-carmesi { border-left: 5px solid #9b1622; }
+
+#accar-ficha-padre .accar-doc-trigger {
+  appearance: none;
+  width: 100%;
+  border: none;
+  padding: 16px 20px;
+  background: linear-gradient(180deg, #0f2854 0%, #091936 100%);
+  color: #fff6dc;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.24s ease;
+}
+
+#accar-ficha-padre .accar-doc-item.open .accar-doc-trigger {
+  background: linear-gradient(180deg, #82131d 0%, #48070d 100%);
+}
+
+#accar-ficha-padre .accar-doc-title {
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-variant-numeric: lining-nums proportional-nums;
+  font-size: 1.22rem;
+  font-weight: 700;
+}
+
+#accar-ficha-padre .accar-doc-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1px solid rgba(238, 208, 118, 0.55);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.15rem;
+  color: #eed076;
+  flex-shrink: 0;
+}
+
+#accar-ficha-padre .accar-doc-content {
+  display: none;
+  padding: 18px 22px 22px;
+  border-top: 1px solid rgba(212, 175, 55, 0.20);
+}
+
+#accar-ficha-padre .accar-doc-item.open .accar-doc-content {
+  display: block;
+}
+
+#accar-ficha-padre .accar-doc-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+#accar-ficha-padre .accar-doc-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 13px;
+  border-radius: 999px;
+  font-family: Georgia, serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+#accar-ficha-padre .tag-oro {
+  background: #fbf1d4;
+  color: #57430d;
+  border: 1px solid rgba(196, 152, 34, 0.50);
+}
+
+#accar-ficha-padre .tag-azul {
+  background: #e4eef9;
+  color: #0e2c56;
+  border: 1px solid rgba(29, 78, 137, 0.35);
+}
+
+#accar-ficha-padre .tag-carmesi {
+  background: #f9e2e4;
+  color: #7f121b;
+  border: 1px solid rgba(139, 0, 0, 0.35);
+}
+
+#accar-ficha-padre .accar-doc-content p {
+  margin: 0;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-size: 0.98em;
+  line-height: 1.68;
+}
+
+#accar-ficha-padre .accar-patristic-quote {
+  margin: 14px 0 4px;
+  padding: 18px 22px;
+  border-radius: 14px;
+  border: 1px solid rgba(212, 175, 55, 0.40);
+  border-left: 4px solid #d4af37;
+  background: rgba(5, 13, 30, 0.58);
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-size: 1.01em;
+  line-height: 1.72;
+}
+
+#accar-ficha-padre .accar-padre-codex.theme-light .accar-patristic-quote {
+  background: rgba(139, 26, 26, 0.04);
+  border-color: rgba(150, 114, 38, 0.34);
+  border-left: 4px solid #8b1a1a;
+  color: #1c150d;
+}
+
+#accar-ficha-padre .accar-hl {
+  background: rgba(212, 175, 55, 0.22);
+  color: #fff6dc;
+  padding: 1px 6px;
+  border-radius: 5px;
+  font-weight: 700;
+}
+
+#accar-ficha-padre .accar-padre-codex.theme-light .accar-hl {
+  background: rgba(139, 26, 26, 0.11);
+  color: #6b0f14;
+}
+
+/* =====================================================================
+   CAPÍTULO VII: GRAN BIBLIOTECA DE 48 CITAS Y AFORISMOS
+===================================================================== */
+#accar-ficha-padre .accar-citas-controls {
+  margin-bottom: 24px;
+  padding: 18px 20px;
+  border-radius: 18px;
+  border: 1px solid rgba(212, 175, 55, 0.34);
+  background: rgba(6, 16, 38, 0.65);
+}
+
+#accar-ficha-padre .accar-padre-codex.theme-light .accar-citas-controls {
+  background: rgba(255, 252, 245, 0.86);
+  border-color: rgba(160, 122, 42, 0.32);
+}
+
+#accar-ficha-padre .accar-citas-search-box {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+#accar-clemente-citas-search {
+  flex: 1;
+  padding: 11px 18px;
+  border-radius: 999px;
+  border: 1px solid rgba(212, 175, 55, 0.45);
+  background: rgba(4, 10, 24, 0.85);
+  color: #fff9ec;
+  font-family: Georgia, serif;
+  font-size: 0.88rem;
+  outline: none;
+}
+
+#accar-ficha-padre .accar-padre-codex.theme-light #accar-clemente-citas-search {
+  background: #ffffff;
+  color: #1f1912;
+  border-color: rgba(150, 114, 38, 0.45);
+}
+
+#accar-clemente-citas-search:focus {
+  border-color: #d4af37;
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.18);
+}
+
+#accar-ficha-padre .accar-citas-counter {
+  padding: 6px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(212, 175, 55, 0.45);
+  background: rgba(212, 175, 55, 0.16);
+  color: #eed076;
+  font-family: Georgia, serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+#accar-ficha-padre .accar-padre-codex.theme-light .accar-citas-counter {
+  background: rgba(139, 26, 26, 0.08);
+  border-color: rgba(139, 26, 26, 0.32);
+  color: #7f1d1d;
+}
+
+#accar-ficha-padre .accar-citas-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+#accar-ficha-padre .accar-cita-pill {
+  appearance: none;
+  padding: 6px 13px;
+  border-radius: 999px;
+  border: 1px solid rgba(212, 175, 55, 0.36);
+  background: rgba(4, 11, 28, 0.72);
+  color: #e4d8be;
+  font-family: Georgia, serif;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.22s ease;
+}
+
+#accar-ficha-padre .accar-padre-codex.theme-light .accar-cita-pill {
+  background: rgba(246, 238, 220, 0.90);
+  border-color: rgba(150, 114, 38, 0.35);
+  color: #3d3120;
+}
+
+#accar-ficha-padre .accar-cita-pill:hover {
+  border-color: #d4af37;
+}
+
+#accar-ficha-padre .accar-cita-pill.active {
+  background: linear-gradient(180deg, #9e1522 0%, #52080f 100%) !important;
+  border-color: #eed076 !important;
+  color: #fff9ec !important;
+}
+
+#accar-ficha-padre .accar-citas-empty {
+  padding: 32px 20px;
+  text-align: center;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-size: 1.12rem;
+  font-style: italic;
+}
+
+#accar-ficha-padre .accar-citas-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+#accar-ficha-padre .accar-aforismo-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 22px 24px 18px;
+  border-radius: 18px;
+  border: 1px solid rgba(212, 175, 55, 0.32);
+  border-top: 3px solid #c81e2b;
+  background: rgba(9, 22, 48, 0.66);
+  overflow: hidden;
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.28s ease, border-color 0.28s ease;
+}
+
+#accar-ficha-padre .accar-padre-codex.theme-light .accar-aforismo-card {
+  background: rgba(255, 252, 245, 0.95);
+  border-color: rgba(160, 122, 42, 0.30);
+  border-top: 3px solid #8b1a1a;
+  box-shadow: 0 10px 24px rgba(40, 28, 8, 0.06);
+}
+
+#accar-ficha-padre .accar-aforismo-card::before {
+  content: "«";
+  position: absolute;
+  top: -8px;
+  right: 16px;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-size: 4.4rem;
+  line-height: 1;
+  color: rgba(212, 175, 55, 0.14);
+  pointer-events: none;
+}
+
+#accar-ficha-padre .accar-padre-codex.theme-light .accar-aforismo-card::before {
+  color: rgba(139, 26, 26, 0.10);
+}
+
+#accar-ficha-padre .accar-aforismo-top {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+#accar-ficha-padre .accar-aforismo-num {
+  font-family: Georgia, serif;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #eed076;
+}
+
+#accar-ficha-padre .accar-padre-codex.theme-light .accar-aforismo-num {
+  color: #8b1a1a;
+}
+
+#accar-ficha-padre .accar-aforismo-cat {
+  font-family: Georgia, serif;
+  font-size: 0.63rem;
+  font-weight: 700;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  color: rgba(234, 224, 200, 0.68);
+}
+
+#accar-ficha-padre .accar-padre-codex.theme-light .accar-aforismo-cat {
+  color: #6b583e;
+}
+
+#accar-ficha-padre .accar-aforismo-txt {
+  margin: 0 0 16px;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-size: 1.03em;
+  font-style: italic;
+  line-height: 1.62;
+  color: #fff9ec;
+  position: relative;
+  z-index: 1;
+}
+
+#accar-ficha-padre .accar-padre-codex.theme-light .accar-aforismo-txt {
+  color: #1b150e;
+}
+
+#accar-ficha-padre .accar-aforismo-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding-top: 11px;
+  border-top: 1px solid rgba(212, 175, 55, 0.20);
+}
+
+#accar-ficha-padre .accar-padre-codex.theme-light .accar-aforismo-foot {
+  border-top-color: rgba(140, 104, 34, 0.18);
+}
+
+#accar-ficha-padre .accar-aforismo-src {
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-variant-numeric: lining-nums proportional-nums;
+  font-size: 0.86em;
+  font-weight: 700;
+  color: #eed076;
+}
+
+#accar-ficha-padre .accar-padre-codex.theme-light .accar-aforismo-src {
+  color: #0e2852;
+}
+
+#accar-ficha-padre .accar-aforismo-copy {
+  appearance: none;
+  padding: 4px 11px;
+  border-radius: 999px;
+  border: 1px solid rgba(212, 175, 55, 0.42);
+  background: transparent;
+  color: #eed076;
+  font-family: Georgia, serif;
+  font-size: 0.64rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+
+#accar-ficha-padre .accar-padre-codex.theme-light .accar-aforismo-copy {
+  color: #7f1d1d;
+  border-color: rgba(139, 26, 26, 0.35);
+}
+
+#accar-ficha-padre .accar-aforismo-copy:hover {
+  background: #d4af37;
+  border-color: #d4af37;
+  color: #081226 !important;
+}
+
+/* ===== INTERACCIÓN HOVER TÁCTIL PARA PC Y LAPTOP ===== */
+@media (hover: hover) {
+  #accar-ficha-padre .accar-padre-meta-card:hover {
+    transform: translateY(-4px);
+    border-color: #eed076;
+    background: rgba(138, 19, 27, 0.28);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.45);
+  }
+
+  #accar-ficha-padre .accar-stat-plaque:hover {
+    transform: translateY(-5px);
+    border-color: #eed076;
+    box-shadow: 0 20px 38px rgba(0, 0, 0, 0.42), 0 0 18px rgba(212, 175, 55, 0.20);
+  }
+
+  #accar-ficha-padre .accar-registry-box:hover,
+  #accar-ficha-padre .accar-codex-card:hover,
+  #accar-ficha-padre .accar-doc-item:hover,
+  #accar-ficha-padre .accar-callout-dogmatico:hover,
+  #accar-ficha-padre .accar-aforismo-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(212, 175, 55, 0.72);
+    box-shadow: 0 18px 34px rgba(0, 0, 0, 0.18);
+  }
+
+  #accar-ficha-padre .accar-tl-card:hover {
+    transform: translateX(6px);
+    border-color: rgba(212, 175, 55, 0.68);
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.16);
+  }
+}
+
+/* ===== BOTONES INFERIORES DE NAVEGACIÓN ===== */
+#accar-ficha-padre .accar-codex-footer-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 34px;
+  padding-top: 22px;
+  border-top: 1px solid rgba(212, 175, 55, 0.25);
+}
+
+#accar-ficha-padre .accar-padre-codex.theme-light .accar-codex-footer-nav {
+  border-top-color: rgba(140, 104, 34, 0.24);
+}
+
+#accar-ficha-padre .accar-codex-btn-sec,
+#accar-ficha-padre .accar-codex-btn-pri {
+  appearance: none;
+  padding: 12px 24px;
+  border-radius: 999px;
+  font-family: Georgia, serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+#accar-ficha-padre .accar-codex-btn-sec {
+  border: 1px solid rgba(212, 175, 55, 0.55);
+  background: linear-gradient(180deg, #102a58 0%, #081734 100%);
+  color: #fff4d2;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.22);
+}
+
+#accar-ficha-padre .accar-codex-btn-sec:hover {
+  border-color: #eed076;
+  background: linear-gradient(180deg, #163874 0%, #0b2046 100%);
+  transform: translateY(-2px);
+}
+
+#accar-ficha-padre .accar-codex-btn-pri {
+  border: 1px solid #fff3c4;
+  background: linear-gradient(180deg, #e5c463 0%, #b88e1e 100%);
+  color: #1a1204;
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.24);
+}
+
+#accar-ficha-padre .accar-codex-btn-pri:hover {
+  filter: brightness(1.06);
+  transform: translateY(-2px);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1120px) {
+  #accar-ficha-padre .accar-padre-meta-grid,
+  #accar-ficha-padre .accar-stat-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 920px) {
+  #accar-ficha-padre .accar-padre-hero {
+    padding: 28px 22px 24px;
+  }
+
+  #accar-ficha-padre .accar-padre-hero-grid {
+    grid-template-columns: 1fr;
+    text-align: center;
+    gap: 24px;
+  }
+
+  #accar-ficha-padre .accar-padre-meta-grid {
+    text-align: left;
+  }
+
+  #accar-ficha-padre .accar-padre-tabs-row4 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  #accar-ficha-padre .accar-padre-tabs-row3 {
+    grid-template-columns: 1fr;
+  }
+
+  #accar-ficha-padre .accar-padre-codex {
+    padding: 26px 22px 34px;
+  }
+
+  #accar-ficha-padre .accar-registry-list,
+  #accar-ficha-padre .accar-codex-cards-grid,
+  #accar-ficha-padre .accar-citas-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 580px) {
+  #accar-ficha-padre {
+    padding: 28px 12px 96px;
+  }
+
+  #accar-ficha-padre .accar-padre-camafeo {
+    width: 205px;
+    height: 205px;
+  }
+
+  #accar-ficha-padre .accar-padre-seal {
+    white-space: normal;
+  }
+
+  #accar-ficha-padre .accar-padre-meta-grid,
+  #accar-ficha-padre .accar-stat-grid {
+    grid-template-columns: 1fr;
+  }
+
+  #accar-ficha-padre .accar-citas-search-box {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  #accar-ficha-padre .accar-citas-counter {
+    text-align: center;
+  }
+
+  #accar-ficha-padre .accar-tl-item {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  #accar-ficha-padre .accar-tl-year {
+    width: max-content;
+  }
+
+  #accar-ficha-padre .accar-codex-footer-nav button {
+    width: 100%;
+    justify-content: center;
+  }
+}
+</style>
+
+<script>
+(function() {
+  const root = document.getElementById('accar-ficha-padre');
+  if (!root) return;
+
+  const codex = document.getElementById('accar-padre-codex');
+  const sectionTag = document.getElementById('accar-codex-section-tag');
+  const themeBtn = document.getElementById('accar-padre-theme-btn');
+  const themeLbl = document.getElementById('accar-padre-theme-label');
+  const sizeBtns = Array.from(root.querySelectorAll('.btn-padre-size'));
+  const tabs = Array.from(root.querySelectorAll('.accar-padre-tab'));
+  const panels = Array.from(root.querySelectorAll('.accar-padre-panel'));
+
+  const prefs = window.__accarPapaCodexPrefs || { isLight: true, scale: '1' };
+
+  function aplicarPrefs() {
+    root.style.setProperty('--codex-scale', prefs.scale);
+    sizeBtns.forEach(b => b.classList.toggle('active', b.dataset.size === prefs.scale));
+
+    if (prefs.isLight) {
+      codex.classList.add('theme-light');
+      if (themeLbl) themeLbl.textContent = 'Modo Oscuro';
+    } else {
+      codex.classList.remove('theme-light');
+      if (themeLbl) themeLbl.textContent = 'Modo Pergamino';
+    }
+    window.__accarPapaCodexPrefs = prefs;
+  }
+
+  aplicarPrefs();
+
+  window.accarShowPadrePanel = function(targetName) {
+    panels.forEach(p => {
+      p.classList.toggle('active', p.id === 'panel-' + targetName);
+    });
+
+    tabs.forEach(t => {
+      const esActivo = t.dataset.target === targetName;
+      t.classList.toggle('active', esActivo);
+      if (esActivo && sectionTag && t.dataset.label) {
+        sectionTag.textContent = '✠ Códice Patrístico · ' + t.dataset.label;
       }
+    });
 
-      function closeMobileMenu(){
-        if(!mobileMenuToggle || !mobileNavPanel) return;
-        mobileMenuToggle.classList.remove("active");
-        mobileNavPanel.classList.remove("active");
-        mobileMenuToggle.setAttribute("aria-expanded", "false");
+    const tabsBar = document.getElementById('accar-padre-tabs-bar');
+    const globalHeader = document.getElementById('accarGlobalHeader');
+    if (tabsBar) {
+      const headerH = globalHeader ? globalHeader.offsetHeight : 0;
+      const y = tabsBar.getBoundingClientRect().top + window.scrollY - headerH - 14;
+      window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' });
+    }
+  };
+
+  tabs.forEach(t => {
+    t.addEventListener('click', () => {
+      window.accarShowPadrePanel(t.dataset.target);
+    });
+  });
+
+  if (themeBtn) {
+    themeBtn.addEventListener('click', () => {
+      prefs.isLight = !prefs.isLight;
+      aplicarPrefs();
+    });
+  }
+
+  sizeBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      prefs.scale = btn.dataset.size || '1';
+      aplicarPrefs();
+    });
+  });
+
+  root.querySelectorAll('.accar-doc-trigger').forEach(trigger => {
+    trigger.addEventListener('click', () => {
+      const item = trigger.closest('.accar-doc-item');
+      const estabaAbierto = item.classList.contains('open');
+
+      root.querySelectorAll('.accar-doc-item').forEach(acc => {
+        acc.classList.remove('open');
+        const ic = acc.querySelector('.accar-doc-icon');
+        if (ic) ic.textContent = '+';
+      });
+
+      if (!estabaAbierto) {
+        item.classList.add('open');
+        const ic = item.querySelector('.accar-doc-icon');
+        if (ic) ic.textContent = '−';
       }
+    });
+  });
 
-      function toggleMobileMenu(){
-        if(!mobileNavPanel) return;
-        if(mobileNavPanel.classList.contains("active")){
-          closeMobileMenu();
-        }else{
-          openMobileMenu();
-        }
-      }
+  // =====================================================================
+  // GRAN ANTOLOGÍA VERIFICADA DE 48 CITAS DE SAN CLEMENTE DE ROMA (~96 d.C.)
+  // =====================================================================
+  const CITAS_CLEMENTE = [
+    // 1. PRIMADO ROMANO, SUCESIÓN Y ORDEN (1–8)
+    { cat: 'iglesia', catNom: 'Primado y Sucesión', txt: 'A causa de las repentinas y sucesivas calamidades y tribulaciones que nos han sobrevenido, creemos, hermanos, haber tardado acaso demasiado en prestar atención a los asuntos que se discuten entre vosotros.', src: '1 Corintios (Clemente) 1, 1' },
+    { cat: 'iglesia', catNom: 'Primado y Sucesión', txt: 'Los apóstoles nos predicaron el Evangelio de parte del Señor Jesucristo; Jesucristo fue enviado por Dios. Cristo, pues, viene de Dios, y los apóstoles vienen de Cristo: ambas cosas sucedieron ordenadamente por voluntad de Dios.', src: '1 Corintios (Clemente) 42, 1–2' },
+    { cat: 'iglesia', catNom: 'Primado y Sucesión', txt: 'Predicando por campos y ciudades, los apóstoles probaron en el Espíritu a sus primicias y los instituyeron como obispos y diáconos de los que habían de creer.', src: '1 Corintios (Clemente) 42, 4' },
+    { cat: 'iglesia', catNom: 'Primado y Sucesión', txt: 'Nuestros apóstoles conocieron por nuestro Señor Jesucristo que habría contienda sobre el título del episcopado; por esta causa, dotados de perfecta presciencia, instituyeron a los antedichos y dieron norma de que, si éstos murieran, otros varones probados les sucedieran en su ministerio.', src: '1 Corintios (Clemente) 44, 1–2' },
+    { cat: 'iglesia', catNom: 'Primado y Sucesión', txt: 'No será pecado leve para nosotros si arrojamos del episcopado a los que han ofrecido los dones de manera irreprochable y santa.', src: '1 Corintios (Clemente) 44, 4' },
+    { cat: 'iglesia', catNom: 'Primado y Sucesión', txt: 'Al sumo sacerdote le están encomendados sus propios servicios litúrgicos; a los sacerdotes les ha sido asignado su lugar propio, y sobre los levitas recaen sus propios ministerios; el hombre laico está obligado por los preceptos de los laicos.', src: '1 Corintios (Clemente) 40, 5' },
+    { cat: 'iglesia', catNom: 'Primado y Sucesión', txt: 'Mas si algunos desobedecieren a las cosas dichas por Dios por medio de nosotros, sepan que se enredarán en pecado y en no pequeño peligro.', src: '1 Corintios (Clemente) 59, 1' },
+    { cat: 'iglesia', catNom: 'Primado y Sucesión', txt: 'Nos daréis gozo y alegría si, haciéndoos obedientes a las cosas que os hemos escrito por medio del Espíritu Santo, cortáis de raíz la ira ilícita de vuestro celo.', src: '1 Corintios (Clemente) 63, 2' },
 
-      function showPanel(name){
-        panelNames.forEach(panel => {
-          const panelEl = document.getElementById("panel-" + panel);
-          if(panelEl){
-            panelEl.classList.toggle("active", panel === name);
-          }
-          document.querySelectorAll('[data-target="' + panel + '"]').forEach(btnEl => {
-            btnEl.classList.toggle("active", panel === name);
-          });
+    // 2. CRISTO, SU SANGRE PRECIOSA Y LA REDENCIÓN (9–16)
+    { cat: 'cristo', catNom: 'Cristo y su Sangre', txt: 'Fijemos atentamente la mirada en la Sangre de Cristo y reconozcamos cuán preciosa es ante Dios su Padre, pues derramada por nuestra salvación alcanzó para todo el mundo la gracia de la conversión.', src: '1 Corintios (Clemente) 7, 4' },
+    { cat: 'cristo', catNom: 'Cristo y su Sangre', txt: 'Por el cordón de grana colgado de la casa de Rahab se manifestó proféticamente que por la Sangre del Señor habría redención para todos los que creen y esperan en Dios.', src: '1 Corintios (Clemente) 12, 7' },
+    { cat: 'cristo', catNom: 'Cristo y su Sangre', txt: 'El cetro de la majestad de Dios, nuestro Señor Jesucristo, no vino con jactancia de soberbia ni de arrogancia, aunque todo lo podía, sino con humildad, tal como el Espíritu Santo había hablado acerca de Él.', src: '1 Corintios (Clemente) 16, 2' },
+    { cat: 'cristo', catNom: 'Cristo y su Sangre', txt: 'Ved, varones queridos, cuál es el modelo que nos ha sido dado: pues si el Señor así se humilló a sí mismo, ¿qué haremos nosotros, que por medio de Él hemos venido bajo el yugo de su gracia?', src: '1 Corintios (Clemente) 16, 17' },
+    { cat: 'cristo', catNom: 'Cristo y su Sangre', txt: 'Consideremos, amados, cómo el Soberano nos muestra continuamente la resurrección futura, de la cual constituyó primicia al Señor Jesucristo resucitándolo de entre los muertos.', src: '1 Corintios (Clemente) 24, 1' },
+    { cat: 'cristo', catNom: 'Cristo y su Sangre', txt: 'Éste es el camino, amados, en el cual hallamos nuestra salvación: Jesucristo, el Sumo Sacerdote de nuestras ofrendas, el defensor y socorro de nuestra flaqueza.', src: '1 Corintios (Clemente) 36, 1' },
+    { cat: 'cristo', catNom: 'Cristo y su Sangre', txt: 'Por medio de Cristo fijamos los ojos en las alturas de los cielos; por Él contemplamos como en espejo su faz inmaculada y excelsa; por Él se abrieron los ojos de nuestro corazón.', src: '1 Corintios (Clemente) 36, 2' },
+    { cat: 'cristo', catNom: 'Cristo y su Sangre', txt: 'Por el amor que nos tuvo, Jesucristo nuestro Señor dio su sangre por nosotros por voluntad de Dios, y su carne por nuestra carne, y su alma por nuestras almas.', src: '1 Corintios (Clemente) 49, 6' },
+
+    // 3. FE VIVA, GRACIA Y BUENAS OBRAS (17–24)
+    { cat: 'obras', catNom: 'Fe y Buenas Obras', txt: 'Revestíos de concordia, siendo humildes, continentes, ajenos a toda murmuración y maledicencia, justificándoos por las obras y no por las palabras.', src: '1 Corintios (Clemente) 30, 3' },
+    { cat: 'obras', catNom: 'Fe y Buenas Obras', txt: '¿Por qué fue bendecido nuestro padre Abraham? ¿No fue acaso por haber obrado la justicia y la verdad por medio de la fe?', src: '1 Corintios (Clemente) 31, 2' },
+    { cat: 'obras', catNom: 'Fe y Buenas Obras', txt: 'No somos justificados por nosotros mismos ni por nuestra propia sabiduría, inteligencia o piedad, sino mediante la fe por la cual el Dios omnipotente justificó a todos desde el principio.', src: '1 Corintios (Clemente) 32, 4' },
+    { cat: 'obras', catNom: 'Fe y Buenas Obras', txt: '¿Qué haremos, pues, hermanos? ¿Cesaremos de obrar el bien y abandonaremos la caridad? ¡De ningún modo lo permita el Soberano en nosotros! Antes apresurémonos con ahínco y prontitud a realizar toda obra buena.', src: '1 Corintios (Clemente) 33, 1' },
+    { cat: 'obras', catNom: 'Fe y Buenas Obras', txt: 'Tengamos presente que todos los justos han sido adornados con buenas obras, y que el mismo Señor se regocijó habiéndose adornado con sus obras.', src: '1 Corintios (Clemente) 33, 8' },
+    { cat: 'obras', catNom: 'Fe y Buenas Obras', txt: 'Es necesario que estemos prontos para obrar el bien, pues nos advierte de antemano: “He aquí el Señor, y su galardón está delante de Él, para retribuir a cada uno según su obra”.', src: '1 Corintios (Clemente) 34, 3–4' },
+    { cat: 'obras', catNom: 'Fe y Buenas Obras', txt: '¿Cómo alcanzaremos los bienes prometidos? Cuando nuestra mente esté fija fielmente en Dios, cuando busquemos lo que le es grato y cumplamos lo que es conforme a su voluntad inmaculada.', src: '1 Corintios (Clemente) 35, 4' },
+    { cat: 'obras', catNom: 'Fe y Buenas Obras', txt: 'Abraham, llamado “el amigo”, fue hallado fiel por haberse hecho obediente a las palabras de Dios.', src: '1 Corintios (Clemente) 10, 1' },
+
+    // 4. UNIDAD, HUMILDAD Y CONTRA EL CISMA (25–32)
+    { cat: 'unidad', catNom: 'Unidad y Contra el Cisma', txt: '¿Por qué hay contiendas, iras, disensiones, cismas y guerra entre vosotros? ¿No tenemos un mismo Dios y un mismo Cristo, y un mismo Espíritu de gracia derramado sobre nosotros, y una misma vocación en Cristo?', src: '1 Corintios (Clemente) 46, 5–6' },
+    { cat: 'unidad', catNom: 'Unidad y Contra el Cisma', txt: '¿Por qué desgarráis y despedazáis los miembros de Cristo, y levantáis sedición contra vuestro propio cuerpo, llegando a tal locura que olvidáis que somos miembros los unos de los otros?', src: '1 Corintios (Clemente) 46, 7' },
+    { cat: 'unidad', catNom: 'Unidad y Contra el Cisma', txt: 'Es vergonzoso, amados, sumamente vergonzoso e indigno de la vida en Cristo que se oiga decir que la firmísima y antiquísima Iglesia de los corintios, por causa de una o dos personas, está en sedición contra sus presbíteros.', src: '1 Corintios (Clemente) 47, 6' },
+    { cat: 'unidad', catNom: 'Unidad y Contra el Cisma', txt: '¿Quién hay entre vosotros noble, quién compasivo, quién lleno de caridad? Diga: “Si por mi causa hay sedición, contienda y cismas, me retiro; solo quede en paz el rebaño de Cristo con sus presbíteros constituidos”.', src: '1 Corintios (Clemente) 54, 1–2' },
+    { cat: 'unidad', catNom: 'Unidad y Contra el Cisma', txt: 'Vosotros, los que pusisteis el cimiento de la sedición, someteos a los presbíteros y recibid la corrección para penitencia, doblando las rodillas de vuestro corazón y deponiendo la arrogante soberbia de vuestra lengua.', src: '1 Corintios (Clemente) 57, 1–2' },
+    { cat: 'unidad', catNom: 'Unidad y Contra el Cisma', txt: 'Seamos humildes, hermanos, deponiendo toda altanería, presunción, insensatez e ira; porque el Espíritu Santo dice: “No se gloríe el sabio en su sabiduría ni el fuerte en su fuerza, sino el que se gloría, gloríese en el Señor”.', src: '1 Corintios (Clemente) 13, 1' },
+    { cat: 'unidad', catNom: 'Unidad y Contra el Cisma', txt: 'Justo y santo es, varones hermanos, que seamos obedientes a Dios antes que seguir a los que, con soberbia y desorden, se erigen en caudillos de abominable envidia.', src: '1 Corintios (Clemente) 14, 1' },
+    { cat: 'unidad', catNom: 'Unidad y Contra el Cisma', txt: 'Consérvese íntegro todo nuestro cuerpo en Cristo Jesús, y sométase cada uno a su prójimo según el don que le fue concedido.', src: '1 Corintios (Clemente) 38, 1' },
+
+    // 5. CARIDAD, TRADICIÓN Y MARTIRIO APOSTÓLICO (33–40)
+    { cat: 'martirio', catNom: 'Caridad, Tradición y Martirio', txt: 'Dejemos las vanas y estériles preocupaciones y vengamos a la gloriosa y venerable regla de nuestra Tradición.', src: '1 Corintios (Clemente) 7, 2' },
+    { cat: 'martirio', catNom: 'Caridad, Tradición y Martirio', txt: 'Pedro, por inicua envidia, soportó no uno ni dos, sino muchos trabajos, y habiendo dado así testimonio con el martirio, marchó al lugar de la gloria que le era debido.', src: '1 Corintios (Clemente) 5, 4' },
+    { cat: 'martirio', catNom: 'Caridad, Tradición y Martirio', txt: 'Pablo mostró el galardón de la paciencia: siete veces cargado de cadenas, tras haber enseñado la justicia a todo el mundo y haber llegado hasta el límite del Occidente, dio testimonio ante los gobernantes y partió hacia el lugar santo.', src: '1 Corintios (Clemente) 5, 5–7' },
+    { cat: 'martirio', catNom: 'Caridad, Tradición y Martirio', txt: 'A estos varones de vida divina que fueron los Apóstoles se congregó una gran muchedumbre de elegidos que, sufriendo muchos ultrajes y tormentos, llegaron a ser entre nosotros hermosísimo ejemplo.', src: '1 Corintios (Clemente) 6, 1' },
+    { cat: 'martirio', catNom: 'Caridad, Tradición y Martirio', txt: 'El que tiene caridad en Cristo, cumpla los mandamientos de Cristo. ¿Quién podrá explicar el vínculo de la caridad de Dios? ¿Quién es capaz de expresar la grandeza de su hermosura?', src: '1 Corintios (Clemente) 49, 1–2' },
+    { cat: 'martirio', catNom: 'Caridad, Tradición y Martirio', txt: 'La caridad une con Dios; la caridad cubre multitud de pecados; la caridad todo lo soporta. La caridad no admite cisma, la caridad no promueve sedición, la caridad todo lo hace en concordia.', src: '1 Corintios (Clemente) 49, 5' },
+    { cat: 'martirio', catNom: 'Caridad, Tradición y Martirio', txt: 'Muchas mujeres, fortalecidas por la gracia de Dios, realizaron proezas varoniles: la bienaventurada Judit entregó su vida por amor a su patria sitiada, y Ester con fe perfecta expuso su vida para librar a las doce tribus.', src: '1 Corintios (Clemente) 55, 3–6' },
+    { cat: 'martirio', catNom: 'Caridad, Tradición y Martirio', txt: 'Mientras estamos en este mundo, arrepintámonos de todo corazón de las maldades que cometimos en la carne, para ser salvados por el Señor mientras tenemos tiempo de penitencia.', src: '1 Corintios (Clemente) 8, 5' },
+
+    // 6. LITURGIA, CREACIÓN Y PLEGARIA UNIVERSAL (41–48)
+    { cat: 'liturgia', catNom: 'Liturgia y Plegaria', txt: 'Debemos hacer en orden todas las cosas que el Soberano nos mandó realizar en tiempos determinados: mandó que las ofrendas y las liturgias se celebren no al acaso ni desordenadamente, sino en tiempos y horas fijados.', src: '1 Corintios (Clemente) 40, 1–2' },
+    { cat: 'liturgia', catNom: 'Liturgia y Plegaria', txt: 'Cada uno de nosotros, hermanos, dé gracias a Dios en su propio orden con buena conciencia, sin traspasar la regla establecida de su ministerio, con toda reverencia.', src: '1 Corintios (Clemente) 41, 1' },
+    { cat: 'liturgia', catNom: 'Liturgia y Plegaria', txt: 'Los cielos, moviéndose bajo su disposición, le están pacíficamente sujetos; el día y la noche cumplen la carrera ordenada por Él, y el sol, la luna y los coros de estrellas recorren sin desvío los límites fijados.', src: '1 Corintios (Clemente) 20, 1–3' },
+    { cat: 'liturgia', catNom: 'Liturgia y Plegaria', txt: 'El gran Artífice y Soberano del universo ordenó que todas las cosas se mantuviesen en paz y en concordia, derramando sus beneficios sobre todos y con sobreabundancia sobre nosotros por Jesucristo.', src: '1 Corintios (Clemente) 20, 11' },
+    { cat: 'liturgia', catNom: 'Liturgia y Plegaria', txt: 'Con la palabra de su majestad estableció el universo y con su palabra puede deshacerlo: “¿Quién le dirá: qué hiciste? ¿O quién resistirá a la fuerza de su poder?” (Sabiduría 12, 12).', src: '1 Corintios (Clemente) 27, 4–5' },
+    { cat: 'liturgia', catNom: 'Liturgia y Plegaria', txt: 'Esperamos en tu Nombre, principio de toda creación, habiendo abierto los ojos de nuestro corazón para conocerte a ti, el solo Altísimo en las alturas, el Santo que descansa entre los santos.', src: '1 Corintios (Clemente) 59, 3' },
+    { cat: 'liturgia', catNom: 'Liturgia y Plegaria', txt: 'Te rogamos, Soberano, que seas nuestro auxilio y amparo: salva a los atribulados, apiádate de los humildes, levanta a los caídos, sana a los enfermos y vuelve al camino a los extraviados de tu pueblo.', src: '1 Corintios (Clemente) 59, 4' },
+    { cat: 'liturgia', catNom: 'Liturgia y Plegaria', txt: 'A ti te confesamos por medio del Sumo Sacerdote y protector de nuestras almas, Jesucristo, por quien sea a ti la gloria y la majestad tanto ahora como de generación en generación y por los siglos de los siglos. Amén.', src: '1 Corintios (Clemente) 61, 3' }
+  ];
+
+  function sinAcentos(str) {
+    return String(str || '')
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .toLowerCase()
+      .trim();
+  }
+
+  const citasGrid = document.getElementById('accar-clemente-citas-grid');
+  const citasSearch = document.getElementById('accar-clemente-citas-search');
+  const citasCount = document.getElementById('accar-clemente-citas-count');
+  const citasEmpty = document.getElementById('accar-clemente-citas-empty');
+  const citasPills = Array.from(root.querySelectorAll('.accar-cita-pill'));
+
+  let catActiva = 'todas';
+
+  function renderizarCitas() {
+    if (!citasGrid) return;
+    const q = sinAcentos(citasSearch ? citasSearch.value : '');
+
+    const filtradas = CITAS_CLEMENTE.filter((item) => {
+      const okCat = catActiva === 'todas' || item.cat === catActiva;
+      const okTxt = !q || sinAcentos(`${item.txt} ${item.src} ${item.catNom}`).includes(q);
+      return okCat && okTxt;
+    });
+
+    if (citasCount) {
+      citasCount.textContent = filtradas.length === 1 ? '1 cita' : `${filtradas.length} citas`;
+    }
+
+    if (citasEmpty) {
+      citasEmpty.style.display = filtradas.length === 0 ? 'block' : 'none';
+    }
+
+    citasGrid.innerHTML = filtradas.map((item, i) => `
+      <article class="accar-aforismo-card">
+        <div>
+          <div class="accar-aforismo-top">
+            <span class="accar-aforismo-num">✠ ${String(i + 1).padStart(2, '0')}</span>
+            <span class="accar-aforismo-cat">· ${item.catNom}</span>
+          </div>
+          <p class="accar-aforismo-txt">«${item.txt}»</p>
+        </div>
+        <div class="accar-aforismo-foot">
+          <span class="accar-aforismo-src">— ${item.src}</span>
+          <button type="button" class="accar-aforismo-copy" data-idx="${CITAS_CLEMENTE.indexOf(item)}">Copiar cita</button>
+        </div>
+      </article>
+    `).join('');
+
+    citasGrid.querySelectorAll('.accar-aforismo-copy').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const obj = CITAS_CLEMENTE[Number(btn.dataset.idx)];
+        if (!obj || !navigator.clipboard) return;
+        const textoCopiar = `«${obj.txt}» — San Clemente de Roma (${obj.src})`;
+        navigator.clipboard.writeText(textoCopiar).then(() => {
+          const prev = btn.textContent;
+          btn.textContent = '✓ Copiada';
+          setTimeout(() => { btn.textContent = prev; }, 2000);
         });
-
-        closeMobileMenu();
-
-        const navBar = document.querySelector('.hero-nav');
-        const globalHeader = document.getElementById('accarGlobalHeader'); 
-        
-        if (navBar) {
-          const headerHeight = globalHeader ? globalHeader.offsetHeight : 0;
-          const absoluteY = navBar.getBoundingClientRect().top + window.scrollY;
-          
-          window.scrollTo({
-            top: absoluteY - headerHeight - 10,
-            behavior: "smooth"
-          });
-        }
-      }
-
-      document.querySelectorAll(".nav-btn").forEach(btn => {
-        btn.onclick = function(e) {
-          e.preventDefault();
-          showPanel(this.dataset.target);
-        };
       });
+    });
+  }
 
-      document.querySelectorAll(".mobile-nav-btn[data-target]").forEach(btn => {
-        btn.onclick = function(e) {
-          e.preventDefault();
-          showPanel(this.dataset.target);
-        };
-      });
+  renderizarCitas();
 
-      document.querySelectorAll(".acc-trigger").forEach(trigger => {
-        trigger.onclick = function(e) {
-          e.preventDefault();
-          const item = this.parentElement;
-          const isOpen = item.classList.contains("open");
+  if (citasSearch) {
+    citasSearch.addEventListener('input', renderizarCitas);
+  }
 
-          document.querySelectorAll(".acc-item").forEach(acc => {
-            acc.classList.remove("open");
-            const symbol = acc.querySelector(".acc-trigger span:last-child");
-            if(symbol) symbol.textContent = "+";
-          });
+  citasPills.forEach((pill) => {
+    btnListener(pill);
+  });
 
-          if(!isOpen){
-            item.classList.add("open");
-            const symbol = item.querySelector(".acc-trigger span:last-child");
-            if(symbol) symbol.textContent = "−";
-          }
-        };
-      });
-
-      if(mobileMenuToggle){
-        mobileMenuToggle.onclick = function(e){
-          e.preventDefault();
-          toggleMobileMenu();
-        };
-      }
-    })();
-    /* ===== FINAL SCRIPT AISLADO ===== */
-  </script>
-</body>
-</html>
-<!-- ===== FINAL SAN CLEMENTE DE ROMA ===== -->
+  function btnListener(pill) {
+    pill.addEventListener('click', () => {
+      catActiva = pill.dataset.cat || 'todas';
+      citasPills.forEach(p => p.classList.toggle('active', p === pill));
+      renderizarCitas();
+    });
+  }
+})();
+</script>
