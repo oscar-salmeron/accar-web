@@ -1,0 +1,2360 @@
+<!-- ===== ACCAR | CÓDICE CONCILIAR: CONCILIO APOSTÓLICO DE JERUSALÉN ===== -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+
+<section id="accar-ficha-concilio" class="accar-concilio-page">
+
+  <div class="accar-concilio-inner">
+
+    <!-- BARRA SUPERIOR: MIGAS DE PAN Y PUENTE CONCILIAR -->
+    <div class="accar-concilio-topbar">
+      <nav class="accar-concilio-breadcrumb" aria-label="Ruta de navegación">
+        <a href="#" onclick="event.preventDefault(); loadView('views/inicio.html');">Inicio</a>
+        <span aria-hidden="true">›</span>
+        <a href="#" onclick="event.preventDefault(); loadView('views/historia.html');">Historia</a>
+        <span aria-hidden="true">›</span>
+        <a href="#" onclick="event.preventDefault(); loadView('views/historia-lista-de-concilios.html');">Directorio de Concilios</a>
+        <span aria-hidden="true">›</span>
+        <strong>Concilio de Jerusalén</strong>
+      </nav>
+
+      <div class="accar-concilio-peers">
+        <button type="button" class="accar-peer-btn" onclick="loadView('views/historia-lista-de-concilios.html')">
+          ← Directorio de Concilios
+        </button>
+        <button type="button" class="accar-peer-btn" onclick="loadView('views/directorio_concilios/ecumenicos/nicea-i.html')">
+          I Ecuménico: Nicea I →
+        </button>
+      </div>
+    </div>
+
+    <!-- =========================================================
+         RELICARIO SUPERIOR CONCILIAR (HERO CARD)
+    ========================================================== -->
+    <header class="accar-concilio-hero">
+
+      <div class="accar-concilio-hero-grid">
+
+        <!-- Icono e Insignias del Concilio -->
+        <div class="accar-concilio-portrait-col">
+          <div class="accar-concilio-camafeo">
+            <img src="/assets/img/concilio_jerusalen.png" alt="Concilio Apostólico de Jerusalén">
+          </div>
+          <div class="accar-concilio-seal">✠ Concilio Apostólico · Matriz Bíblica ✠</div>
+          <div class="accar-concilio-sede-badge">
+            <span class="accar-sede-label">Sede y Celebración</span>
+            <span class="accar-sede-val">Iglesia Madre · ~49–50 d.C.</span>
+          </div>
+          <span class="accar-concilio-popes-plate">San Pedro · Santiago · San Pablo y San Bernabé</span>
+        </div>
+
+        <!-- Síntesis Magisterial -->
+        <div class="accar-concilio-copy-col">
+          <div class="accar-concilio-kicker">✠ Era Apostólica · Siglo I (Hechos 15) ✠</div>
+          <h1 class="accar-concilio-name">Concilio de Jerusalén</h1>
+          <p class="accar-concilio-latin-sub">Concilium Apostolicum Hierosolymitanum · Hechos 15, 1–35 · Gálatas 2, 1–10</p>
+
+          <p class="accar-concilio-lead">
+            Asamblea apostólica celebrada hacia el año 49–50 d.C. en la Iglesia madre de Jerusalén y registrada por inspiración divina en los <em>Hechos de los Apóstoles</em>. Constituye el arquetipo escriturístico e institución fundacional de todos los concilios de la Iglesia Católica: reunidos los Apóstoles y los presbíteros bajo el primado de San Pedro, definieron infaliblemente que el hombre se salva por la gracia de Nuestro Señor Jesucristo sin las obras rituales de la Ley mosaica, promulgando decretos vinculantes bajo el sello eterno del Magisterio: <em>«Nos ha parecido al Espíritu Santo y a nosotros»</em>.
+          </p>
+
+          <div class="accar-concilio-meta-grid">
+            <div class="accar-concilio-meta-card">
+              <span class="accar-meta-label">Autoridad Apostólica</span>
+              <span class="accar-meta-val">San Pedro (quien define la cuestión dogmática) junto con Santiago, Pablo, Bernabé y los presbíteros.</span>
+            </div>
+
+            <div class="accar-concilio-meta-card">
+              <span class="accar-meta-label">Fuentes Inspiradas</span>
+              <span class="accar-meta-val"><em>Hechos de los Apóstoles</em> 15, 1–35; 16, 4 (San Lucas) y <em>Gálatas</em> 2, 1–10 (San Pablo).</span>
+            </div>
+
+            <div class="accar-concilio-meta-card">
+              <span class="accar-meta-label">Fórmula Infalible</span>
+              <span class="accar-meta-val"><em>«Visum est Spiritui Sancto et nobis»</em> (Hch 15, 28) · Carta magna de la asistencia conciliar.</span>
+            </div>
+
+            <div class="accar-concilio-meta-card">
+              <span class="accar-meta-label">Alcance Doctrinal</span>
+              <span class="accar-meta-val">Universalidad católica de la salvación, abolición ritual mosaica y 4 cláusulas pastorales de comunión.</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Navegación Magisterial de 10 Capítulos (5x2 en Escritorio) -->
+      <nav class="accar-concilio-tabs" id="accar-concilio-tabs-bar" aria-label="Capítulos del Códice Conciliar">
+        <button type="button" class="accar-concilio-tab active" data-target="inicio" data-label="I. Panorama Apostólico">
+          <span>I. Panorama</span>
+        </button>
+        <button type="button" class="accar-concilio-tab" data-target="historia" data-label="II. Historia Bíblica">
+          <span>II. Historia</span>
+        </button>
+        <button type="button" class="accar-concilio-tab" data-target="contexto" data-label="III. Contexto Teológico">
+          <span>III. Contexto</span>
+        </button>
+        <button type="button" class="accar-concilio-tab" data-target="desarrollo" data-label="IV. Desarrollo en Hechos 15">
+          <span>IV. Desarrollo</span>
+        </button>
+        <button type="button" class="accar-concilio-tab" data-target="personajes" data-label="V. Apóstoles y Adversarios">
+          <span>V. Personajes</span>
+        </button>
+        <button type="button" class="accar-concilio-tab" data-target="documentos" data-label="VI. Decreto y Textos Bíblicos">
+          <span>VI. Documentos</span>
+        </button>
+        <button type="button" class="accar-concilio-tab" data-target="herejias" data-label="VII. Errores Condenados">
+          <span>VII. Errores</span>
+        </button>
+        <button type="button" class="accar-concilio-tab" data-target="canones" data-label="VIII. Tradición y Denzinger">
+          <span>VIII. Denzinger</span>
+        </button>
+        <button type="button" class="accar-concilio-tab" data-target="armadura" data-label="IX. Armadura Apologética">
+          <span>IX. Armadura</span>
+        </button>
+        <button type="button" class="accar-concilio-tab accar-tab-carmesi" data-target="liturgia-cisma" data-label="X. Antioquía y Judaizantes">
+          <span>X. Antioquía y Sectas</span>
+        </button>
+      </nav>
+
+    </header>
+
+    <!-- =========================================================
+         PLIEGO EDITORIAL DEL CÓDICE CONCILIAR
+    ========================================================== -->
+    <main class="accar-concilio-codex theme-light" id="accar-concilio-codex">
+
+      <!-- Barra de Herramientas del Códice -->
+      <div class="accar-codex-toolbar">
+        <span class="accar-codex-section-tag" id="accar-codex-section-tag">✠ Códice Conciliar · I. Panorama Apostólico</span>
+
+        <div class="accar-codex-controls">
+          <button type="button" class="accar-codex-tool-btn" id="accar-concilio-theme-btn" title="Alternar entre modo pergamino y modo noche">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+            <span id="accar-concilio-theme-label">Modo Oscuro</span>
+          </button>
+
+          <div class="accar-codex-sizes" role="group" aria-label="Tamaño de lectura">
+            <span class="accar-codex-size-lbl">Letra</span>
+            <button type="button" class="accar-codex-tool-btn btn-concilio-size" data-size="0.94">A-</button>
+            <button type="button" class="accar-codex-tool-btn btn-concilio-size active" data-size="1">A</button>
+            <button type="button" class="accar-codex-tool-btn btn-concilio-size" data-size="1.12">A+</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="accar-codex-body">
+
+        <!-- ==================== CAPÍTULO I: PANORAMA ==================== -->
+        <section id="panel-inicio" class="accar-concilio-panel active" data-tono="oro">
+
+          <div class="accar-codex-intro">
+            <span class="accar-codex-kicker">Matriz Sagrada de la Sinodalidad</span>
+            <h2 class="accar-codex-h2">Panorama del Concilio de Jerusalén</h2>
+            <p class="accar-dropcap-p">
+              <span class="accar-capitular">A</span>unque en la numeración canónica la lista de los 21 Concilios Ecuménicos comienza en Nicea I (325 d.C.) —cuando la Iglesia ya extendida por todo el orbe pudo congregar al episcopado universal—, el **Concilio Apostólico de Jerusalén (~50 d.C.)** ocupa un rango único e irrepetible en la historia de la salvación: es el **prototipo divinamente inspirado** de cómo la Iglesia fundada por Cristo resuelve las controversias de fe y disciplina hasta el fin de los tiempos.
+            </p>
+          </div>
+
+          <div class="accar-stat-grid">
+            <article class="accar-stat-plaque">
+              <span class="accar-stat-cross" aria-hidden="true">✠</span>
+              <span class="accar-stat-num">~50 d.C.</span>
+              <span class="accar-stat-lbl">Año aproximado de la Asamblea Apostólica</span>
+            </article>
+
+            <article class="accar-stat-plaque">
+              <span class="accar-stat-cross" aria-hidden="true">✠</span>
+              <span class="accar-stat-num">Hch 15</span>
+              <span class="accar-stat-lbl">Acta conciliar inscrita en la Sagrada Escritura</span>
+            </article>
+
+            <article class="accar-stat-plaque">
+              <span class="accar-stat-cross" aria-hidden="true">✠</span>
+              <span class="accar-stat-num">1</span>
+              <span class="accar-stat-lbl">Decreto Apostólico dogmático y disciplinar</span>
+            </article>
+
+            <article class="accar-stat-plaque">
+              <span class="accar-stat-cross" aria-hidden="true">✠</span>
+              <span class="accar-stat-num">4</span>
+              <span class="accar-stat-lbl">Cláusulas prácticas de comunión fraterna</span>
+            </article>
+          </div>
+
+          <div class="accar-codex-divider" aria-hidden="true"><span>✠</span></div>
+
+          <h3 class="accar-codex-h3">El molde bíblico de todos los concilios católicos</h3>
+
+          <article class="accar-registry-box">
+            <div class="accar-registry-head">
+              <span class="accar-registry-icon" aria-hidden="true">✠</span>
+              <h4>Las 6 etapas canónicas nacidas en Hechos 15</h4>
+            </div>
+            <ul class="accar-registry-list">
+              <li>
+                <strong>1. Controversia doctrinal local (Hch 15, 1–2a)</strong>
+                <span>Predicadores judaizantes turban a los fieles de Antioquía exigiendo la circuncisión para salvarse.</span>
+              </li>
+              <li>
+                <strong>2. Apelación a la Jerarquía Apostólica (Hch 15, 2b–4)</strong>
+                <span>La iglesia particular no se declara autónoma: envía a Pablo y Bernabé a los Apóstoles y presbíteros.</span>
+              </li>
+              <li>
+                <strong>3. Deliberación sinodal (Hch 15, 6–7a)</strong>
+                <span>Se reúnen los pastores ordenados (Apóstoles y presbíteros) examinando a fondo la cuestión («mucha discusión»).</span>
+              </li>
+              <li>
+                <strong>4. Sentencia dogmática de Pedro (Hch 15, 7b–12)</strong>
+                <span>Pedro se levanta, define la fe («creemos salvarnos por la gracia del Señor Jesús») y toda la asamblea calla.</span>
+              </li>
+              <li>
+                <strong>5. Propuesta disciplinar episcopal (Hch 15, 13–21)</strong>
+                <span>Santiago confirma la sentencia de Simón Pedro y propone cuatro normas prudenciales de paz comunitaria.</span>
+              </li>
+              <li>
+                <strong>6. Carta Sinodal y promulgación (Hch 15, 22–29; 16, 4)</strong>
+                <span>Se expide decreto escrito en nombre del Espíritu Santo y se envían legados oficiales a promulgar los <em>dogmata</em>.</span>
+              </li>
+            </ul>
+          </article>
+
+          <div class="accar-codex-cards-grid">
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Fundamento I</span>
+              <h4>Primacía de la Gracia Redentora</h4>
+              <p>
+                El Concilio definió para siempre que ni los gentiles ni los propios judíos alcanzan la justificación por las obras ceremoniales de la Ley mosaica, sino únicamente por la fe viva y la gracia de Jesucristo (Hch 15, 11; Gál 2, 16).
+              </p>
+            </article>
+
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Fundamento II</span>
+              <h4>Nacimiento Visible de la Catolicidad</h4>
+              <p>
+                Al eximir a los pueblos gentiles del yugo ritual mosaico, el Concilio impidió que el cristianismo quedara reducido a una secta étnica intrajudía y abrió las puertas de la única Iglesia a todas las naciones de la tierra.
+              </p>
+            </article>
+
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Fundamento III</span>
+              <h4>Magisterio Vivo frente a Libre Examen</h4>
+              <p>
+                La primera crisis doctrinal del cristianismo no se resolvió repartiendo rollos bíblicos para que cada creyente opinara por su cuenta, sino mediante el fallo autoritativo y vinculante del Colegio Apostólico unido a Pedro.
+              </p>
+            </article>
+
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Fundamento IV</span>
+              <h4>Distinción entre Dogma y Disciplina</h4>
+              <p>
+                Ya en el año 50 d.C. la Iglesia distinguió con sabiduría maternal entre la verdad dogmática irreformable (la gratuidad de la salvación) y las normas disciplinares pastorales dictadas para preservar la caridad fraterna.
+              </p>
+            </article>
+          </div>
+
+          <div class="accar-codex-footer-nav">
+            <button type="button" class="accar-codex-btn-sec" onclick="loadView('views/historia-lista-de-concilios.html')">
+              ← Volver al Directorio de Concilios
+            </button>
+            <button type="button" class="accar-codex-btn-pri" onclick="window.accarShowConcilioPanel('historia')">
+              Continuar a II. Historia →
+            </button>
+          </div>
+
+        </section>
+
+        <!-- ==================== CAPÍTULO II: HISTORIA ==================== -->
+        <section id="panel-historia" class="accar-concilio-panel" data-tono="verde">
+
+          <div class="accar-codex-intro">
+            <span class="accar-codex-kicker">Crónica Apostólica</span>
+            <h2 class="accar-codex-h2">Historia del Concilio</h2>
+            <p class="accar-dropcap-p">
+              <span class="accar-capitular">D</span>urante los primeros años posteriores a Pentecostés, la comunidad cristiana estuvo compuesta casi exclusivamente por judíos piadosos que acudían al Templo y observaban las costumbres mosaicas. El giro providencial comenzó cuando Dios reveló directamente a **San Pedro** en Jope y Cesarea (la conversión del centurión romano Cornelio, *Hechos 10–11*) que el Espíritu Santo descendía sobre los gentiles incircuncisos haciéndolos miembros plenos del Cuerpo de Cristo mediante el Bautismo.
+            </p>
+            <p>
+              Tras el florecimiento fulgurante de la Iglesia de Antioquía —donde los discípulos fueron llamados por primera vez «cristianos» (Hch 11, 26)— y el primer viaje misionero de Pablo y Bernabé por Chipre y Asia Menor, cristianos procedentes de la secta de los fariseos bajaron desde Judea a Antioquía sembrando una exigencia mortal para el Evangelio: <em>«Si no os circuncidáis conforme a la costumbre de Moisés, no podéis salvaros»</em> (Hch 15, 1).
+            </p>
+          </div>
+
+          <div class="accar-codex-divider" aria-hidden="true"><span>✠</span></div>
+
+          <h3 class="accar-codex-h3">Cronología bíblica del primer conflicto doctrinal</h3>
+
+          <div class="accar-timeline">
+            <article class="accar-tl-item">
+              <div class="accar-tl-year">~36–40 d.C.</div>
+              <div class="accar-tl-card">
+                <h4>San Pedro bautiza a Cornelio en Cesarea (Hechos 10–11)</h4>
+                <p>Dios escoge personalmente a Pedro —portador de las llaves del Reino— para abrir por primera vez la puerta de la Iglesia a los gentiles sin exigirles previamente la circuncisión mosaica.</p>
+              </div>
+            </article>
+
+            <article class="accar-tl-item">
+              <div class="accar-tl-year">~42–48 d.C.</div>
+              <div class="accar-tl-card">
+                <h4>Antioquía de Siria y el Primer Viaje Misionero</h4>
+                <p>Antioquía se convierte en metrópoli misionera judeo-gentil; Bernabé y Pablo evangelizan Chipre, Pisidia, Iconio, Listra y Derbe fundando iglesias con presbíteros ordenados (Hch 14, 23).</p>
+              </div>
+            </article>
+
+            <article class="accar-tl-item">
+              <div class="accar-tl-year">~49 d.C.</div>
+              <div class="accar-tl-card">
+                <h4>Irrupción de los judaizantes en Antioquía (Hechos 15, 1–2)</h4>
+                <p>«Algunos que bajaron de Judea» sin mandato apostólico enseñan que el Bautismo y la fe en Cristo no bastan sin la circuncisión y la observancia íntegra de la Ley de Moisés.</p>
+              </div>
+            </article>
+
+            <article class="accar-tl-item">
+              <div class="accar-tl-year">~49–50 d.C.</div>
+              <div class="accar-tl-card">
+                <h4>Subida de la delegación a Jerusalén (Hch 15, 3–5; Gál 2, 1–3)</h4>
+                <p>Pablo y Bernabé suben con Tito (gentil griego a quien no se obligó a circuncidarse) para exponer el Evangelio predicado entre las naciones ante las «columnas» de la Iglesia madre.</p>
+              </div>
+            </article>
+
+            <article class="accar-tl-item">
+              <div class="accar-tl-year">~50 d.C.</div>
+              <div class="accar-tl-card">
+                <h4>Sesión plenaria y Decreto Apostólico (Hechos 15, 6–29)</h4>
+                <p>Tras el debate, la definición petrina y la moción pastoral de Santiago, la asamblea redacta la primera Carta Sinodal de la historia cristiana sellada con la autoridad del Espíritu Santo.</p>
+              </div>
+            </article>
+
+            <article class="accar-tl-item">
+              <div class="accar-tl-year">~50–51 d.C.</div>
+              <div class="accar-tl-card">
+                <h4>Recepción gozosa y entrega de los «Dogmata» (Hch 15, 30; 16, 4)</h4>
+                <p>Judas y Silas leen el decreto en Antioquía llenando de consuelo a los fieles; enseguida Pablo recorre Siria, Cilicia y Licaonia entregando las decisiones conciliares para su fiel cumplimiento.</p>
+              </div>
+            </article>
+          </div>
+
+          <div class="accar-codex-footer-nav">
+            <button type="button" class="accar-codex-btn-sec" onclick="loadView('views/historia-lista-de-concilios.html')">
+              ← Volver al Directorio de Concilios
+            </button>
+            <button type="button" class="accar-codex-btn-pri" onclick="window.accarShowConcilioPanel('contexto')">
+              Continuar a III. Contexto →
+            </button>
+          </div>
+
+        </section>
+
+        <!-- ==================== CAPÍTULO III: CONTEXTO ==================== -->
+        <section id="panel-contexto" class="accar-concilio-panel" data-tono="azul">
+
+          <div class="accar-codex-intro">
+            <span class="accar-codex-kicker">Diagnóstico Teológico</span>
+            <h2 class="accar-codex-h2">Contexto de la Controversia Judaizante</h2>
+            <p class="accar-dropcap-p">
+              <span class="accar-capitular">P</span>ara medir la gravedad de lo que se jugaba en Jerusalén hay que notar que los judaizantes no negaban verbalmente a Jesús como Mesías: eran creyentes venidos del fariseísmo (Hch 15, 5) que tenían a su favor pasajes literales del Antiguo Testamento donde la circuncisión era llamada «alianza perpetua» (Gén 17, 13–14). Su argumento parecía bíblicamente irrefutable: para heredar las promesas del Mesías de Israel, el pagano debía hacerse primero prosélito judío bajo toda la Ley de Moisés.
+            </p>
+            <p>
+              Sin embargo, detrás de aquella apariencia piadosa latía una negación radical del Nuevo Testamento: si la sangre de Cristo derramada en el Calvario necesitaba ser «completada» por el cuchillo de la circuncisión y los ritos levíticos para poder salvar, entonces **Cristo habría muerto en vano** (Gál 2, 21).
+            </p>
+          </div>
+
+          <!-- Recuadro Carmesí de Análisis Magisterial -->
+          <div class="accar-callout-dogmatico">
+            <span class="accar-callout-kicker">✠ Análisis Magisterial · Teología Bíblica de las Alianzas ✠</span>
+            <h4>El error de fondo combatido en Jerusalén</h4>
+            <p>
+              <strong>El legalismo veterotestamentario que anula la suficiencia de la Cruz y la Nueva Alianza.</strong> El Concilio Apostólico esclareció que los preceptos ceremoniales y judiciales de la Ley mosaica fueron figuras pedagógicas ordenadas a Cristo (Gál 3, 24; Col 2, 17): una vez llegada la realidad del Redentor y el Bautismo de la Nueva Alianza, imponer las sombras antiguas como requisito de salvación constituye una traición al Evangelio.
+            </p>
+          </div>
+
+          <h3 class="accar-codex-h3">Claves de lectura ortodoxa</h3>
+
+          <div class="accar-codex-cards-grid">
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Clave I</span>
+              <h4>Preceptos Morales vs. Preceptos Ceremoniales</h4>
+              <p>La teología católica distingue en la Ley antigua los preceptos <em>morales</em> naturales (el Decálogo, perennes y perfeccionados por Cristo, salvo el signo ceremonial sabático trasladado al Domingo) de los preceptos <em>ceremoniales</em> (circuncisión, sacrificios y purezas alimentarias), cumplidos y cesados en la Pasión de Cristo.</p>
+            </article>
+
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Clave II</span>
+              <h4>El Bautismo, «Circuncisión de Cristo» (Col 2, 11–12)</h4>
+              <p>La circuncisión carnal del octavo día era solo prefiguración del Bautismo cristiano del octavo día (la Resurrección), sacramento que regenera interiormente el alma por el agua y el Espíritu Santo sin distinción de judío ni griego.</p>
+            </article>
+
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Clave III</span>
+              <h4>Un Solo Cuerpo Místico y una Sola Mesa</h4>
+              <p>El Concilio impidió que el cristianismo se partiera en dos iglesias paralelas e incomunicadas (una judeocristiana y otra gentil), asegurando la unidad eucarística y de mesa entre todos los bautizados (Ef 2, 14–16).</p>
+            </article>
+
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Clave IV</span>
+              <h4>Insuficiencia de la Letra sin el Magisterio</h4>
+              <p>Los judaizantes esgrimían textos bíblicos literales (Gén 17; Éx 12,48; Lev 17). Fue la autoridad viva de los Apóstoles asistidos por el Espíritu Santo la que discernió infaliblemente cómo debía leerse el Antiguo Testamento a la luz de Cristo.</p>
+            </article>
+
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Clave V</span>
+              <h4>Caridad Pastoral hacia las Conciencias Judías</h4>
+              <p>Mientras en el plano dogmático la libertad frente a la Ley ritual fue absoluta e innegociable, en el plano práctico Santiago pidió a los gentiles evitar cuatro prácticas que causaban horror ritual a los judíos de la diáspora para facilitar la convivencia fraterna (Hch 15, 19–21).</p>
+            </article>
+
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Clave VI</span>
+              <h4>Sometimiento de San Pablo a la Iglesia Visible</h4>
+              <p>Aunque Pablo había recibido su Evangelio por revelación directa de Jesucristo (Gál 1, 12), subió humildemente a Jerusalén a contrastarlo con Pedro y las columnas «no fuera que corriese o hubiese corrido en vano» (Gál 2, 2).</p>
+            </article>
+          </div>
+
+          <div class="accar-codex-footer-nav">
+            <button type="button" class="accar-codex-btn-sec" onclick="loadView('views/historia-lista-de-concilios.html')">
+              ← Volver al Directorio de Concilios
+            </button>
+            <button type="button" class="accar-codex-btn-pri" onclick="window.accarShowConcilioPanel('desarrollo')">
+              Continuar a IV. Desarrollo →
+            </button>
+          </div>
+
+        </section>
+
+        <!-- ==================== CAPÍTULO IV: DESARROLLO ==================== -->
+        <section id="panel-desarrollo" class="accar-concilio-panel" data-tono="verde">
+
+          <div class="accar-codex-intro">
+            <span class="accar-codex-kicker">Exégesis de Hechos 15</span>
+            <h2 class="accar-codex-h2">Desarrollo y Armonía Jerárquica</h2>
+            <p class="accar-dropcap-p">
+              <span class="accar-capitular">E</span>l relato inspirado de San Lucas en *Hechos 15, 6–29* retrata con precisión milimétrica la naturaleza divina y humana de un concilio católico. No hubo oráculos mágicos automáticos sin esfuerzo racional: primero hubo «mucha discusión» (<em>pollēs zētēseōs</em>, v. 7), investigación teológica en la que se escucharon las objeciones fariseas; y en el momento culminante intervino el ministerio petrino seguido de la colegialidad apostólica.
+            </p>
+            <p>
+              Observar el orden exacto de las intervenciones en el aula de Jerusalén deshace por completo las objeciones protestantes y ortodoxas contra el Primado de San Pedro.
+            </p>
+          </div>
+
+          <div class="accar-codex-divider" aria-hidden="true"><span>✠</span></div>
+
+          <h3 class="accar-codex-h3">Anatomía de la sesión apostólica paso a paso</h3>
+
+          <div class="accar-codex-cards-grid">
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Acto I · Hechos 15, 6</span>
+              <h4>«Se reunieron los Apóstoles y los Presbíteros»</h4>
+              <p>San Lucas precisa quiénes integran el órgano deliberativo con voto doctrinal: no una votación plebiscitaria de toda la comunidad, sino exclusivamente los pastores constituidos en el orden sagrado (Apóstoles y presbíteros).</p>
+            </article>
+
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Acto II · Hechos 15, 7–11</span>
+              <h4>Pedro se levanta y define la Fe Dogmática</h4>
+              <p>En medio de la viva controversia, Pedro se pone en pie, recuerda que Dios lo eligió «entre vosotros» para abrir la fe a los gentiles, califica la imposición mosaica de «tentar a Dios» y formula el dogma: <em>«Por la gracia del Señor Jesús creemos que nos salvamos lo mismo que ellos»</em>.</p>
+            </article>
+
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Acto III · Hechos 15, 12</span>
+              <h4>«Toda la multitud calló»</h4>
+              <p>Efecto inmediato de la sentencia de Pedro: cesa de golpe el tumulto y la disputa doctrinal. Como subrayan San Jerónimo y San Juan Crisóstomo, cuando Pedro habló, la controversia de fe quedó zanjada y la asamblea pasó a escuchar en silencio a Bernabé y Pablo.</p>
+            </article>
+
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Acto IV · Hechos 15, 13–18</span>
+              <h4>Santiago ratifica a «Simón» con los Profetas</h4>
+              <p>Santiago el Menor —obispo residencial de la sede anfitriona de Jerusalén— toma la palabra apoyándose expresamente en el fallo petrino: <em>«Simón ha expuesto cómo Dios visitó primero a los gentiles...»</em> (v. 14), confirmando su concordancia con el oráculo de Amós 9, 11–12.</p>
+            </article>
+
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Acto V · Hechos 15, 19–21</span>
+              <h4>Las Cuatro Cláusulas Disciplinares de Convivencia</h4>
+              <p>Como pastor directo de los judeocristianos, Santiago sugiere («por lo cual yo juzgo...») pedir a los hermanos gentiles abstenerse de carnes inmoladas a ídolos, de uniones ilícitas (<em>porneia</em>), de animales estrangulados y de sangre, «porque Moisés se lee cada sábado en las sinagogas».</p>
+            </article>
+
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Acto VI · Hechos 15, 22–29</span>
+              <h4>Promulgación Colegial e Infalible</h4>
+              <p>Los Apóstoles y presbíteros, en comunión con toda la Iglesia, envían legados portando el decreto escrito encabezándolo con la conciencia explícita de su infalibilidad asistida desde lo alto: <em>«Nos ha parecido al Espíritu Santo y a nosotros no imponeros más carga...»</em>.</p>
+            </article>
+          </div>
+
+          <div class="accar-codex-footer-nav">
+            <button type="button" class="accar-codex-btn-sec" onclick="loadView('views/historia-lista-de-concilios.html')">
+              ← Volver al Directorio de Concilios
+            </button>
+            <button type="button" class="accar-codex-btn-pri" onclick="window.accarShowConcilioPanel('personajes')">
+              Continuar a V. Personajes →
+            </button>
+          </div>
+
+        </section>
+
+        <!-- ==================== CAPÍTULO V: PERSONAJES ==================== -->
+        <section id="panel-personajes" class="accar-concilio-panel" data-tono="azul">
+
+          <div class="accar-codex-intro">
+            <span class="accar-codex-kicker">Columnas de la Iglesia Madre</span>
+            <h2 class="accar-codex-h2">Protagonistas Apostólicos y Adversarios</h2>
+            <p class="accar-dropcap-p">
+              <span class="accar-capitular">E</span>n el Concilio de Jerusalén confluyeron personalmente las grandes columnas del Nuevo Testamento (*Gálatas 2, 9*). Sus intervenciones muestran la sinfonía católica entre el Primado universal, el episcopado local, el carisma misionero y el ministerio de los legados sinodales.
+            </p>
+          </div>
+
+          <div class="accar-codex-divider" aria-hidden="true"><span>✠</span></div>
+
+          <h3 class="accar-codex-h3">Apóstoles, legados y promotores del error</h3>
+
+          <div class="accar-codex-cards-grid">
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Príncipe de los Apóstoles</span>
+              <h4>San Pedro Apóstol (Simón Cefas)</h4>
+              <p>Cabeza del Colegio Apostólico (Mt 16, 18–19; Lc 22, 32). Su intervención dogmática en Hch 15, 7–11 es la última aparición de Pedro en los *Hechos de los Apóstoles*, coronando su ministerio en Jerusalén al sellar la universalidad de la gracia.</p>
+            </article>
+
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Obispo de Jerusalén</span>
+              <h4>Santiago el Menor («Hermano del Señor»)</h4>
+              <p>Columna venerada por toda la comunidad judeocristiana y primer obispo residencial de la sede de Jerusalén. Armonizó con sabiduría pastoral la libertad dogmática definida por Pedro con el respeto delicado hacia los creyentes de origen hebreo.</p>
+            </article>
+
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Apóstol de las Naciones</span>
+              <h4>San Pablo de Tarso</h4>
+              <p>Antiguo fariseo convertido por Cristo resucitado, campeón incansable de la libertad evangélica. Expuso ante la asamblea los prodigios obrados por Dios entre los gentiles y luego promulgó celosamente los decretos conciliares (Hch 16, 4).</p>
+            </article>
+
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Apóstol y Mediador</span>
+              <h4>San Bernabé</h4>
+              <p>Levita chipriota de inmenso prestigio en la Iglesia madre de Jerusalén y padre espiritual de la misión antioquena. Subió junto a Pablo defendiendo con el testimonio de los signos divinos la plena comunión de los conversos gentiles.</p>
+            </article>
+
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Columna Apostólica y Discípulo</span>
+              <h4>San Juan Evangelista y San Tito</h4>
+              <p>San Pablo atestigua en *Gálatas 2, 9* que **Juan** estuvo presente junto a Cefas y Santiago dándoles la diestra de comunión; y **Tito**, colaborador griego de Pablo, asistió sin ser obligado a circuncidarse como prueba viva de la sentencia conciliar (Gál 2, 3).</p>
+            </article>
+
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Primeros Legados Conciliares</span>
+              <h4>Judas Barsabás y Silas (Silvano)</h4>
+              <p>Varones principales y profetas de la Iglesia de Jerusalén elegidos por el Concilio para escoltar la Carta Sinodal hasta Antioquía y certificar de viva voz su autenticidad apostólica (Hch 15, 22.27.32).</p>
+            </article>
+
+            <article class="accar-codex-card" style="grid-column: 1 / -1;">
+              <span class="accar-card-num">✠ Adversarios Desautorizados</span>
+              <h4><span class="accar-heretic-name">Los Judaizantes («Falsos Hermanos» de la Secta Farisea)</span></h4>
+              <p>Cristianos procedentes del fariseísmo (Hch 15, 1.5) a quienes San Pablo llama severamente «falsos hermanos introducidos solapadamente para espiar nuestra libertad en Cristo Jesús y reducirnos a esclavitud» (Gál 2, 4). El Decreto Apostólico los desautorizó públicamente declarando: <em>«a quienes nosotros no habíamos dado ningún mandato»</em> (Hch 15, 24).</p>
+            </article>
+          </div>
+
+          <div class="accar-codex-footer-nav">
+            <button type="button" class="accar-codex-btn-sec" onclick="loadView('views/historia-lista-de-concilios.html')">
+              ← Volver al Directorio de Concilios
+            </button>
+            <button type="button" class="accar-codex-btn-pri" onclick="window.accarShowConcilioPanel('documentos')">
+              Continuar a VI. Documentos →
+            </button>
+          </div>
+
+        </section>
+
+        <!-- ==================== CAPÍTULO VI: DOCUMENTOS ==================== -->
+        <section id="panel-documentos" class="accar-concilio-panel" data-tono="oro">
+
+          <div class="accar-codex-intro">
+            <span class="accar-codex-kicker">Actas Inspiradas · Nuevo Testamento</span>
+            <h2 class="accar-codex-h2">El Decreto Apostólico y las Fuentes Bíblicas</h2>
+            <p class="accar-dropcap-p">
+              <span class="accar-capitular">E</span>l Concilio de Jerusalén goza del privilegio único de tener sus actas y su carta sinodal incorporadas directamente al canon inspirado de la Sagrada Escritura. A continuación se presentan sus cuatro textos fundamentales para consulta y uso inmediato en la apologética.
+            </p>
+          </div>
+
+          <div class="accar-codex-divider" aria-hidden="true"><span>✠</span></div>
+
+          <h3 class="accar-codex-h3">Textos bíblicos íntegros del Concilio</h3>
+
+          <div class="accar-doc-accordion">
+
+            <div class="accar-doc-item doc-constitucion open">
+              <button class="accar-doc-trigger" type="button">
+                <span class="accar-doc-title">I. El Decreto Apostólico (Carta Sinodal · Hechos 15, 23–29)</span>
+                <span class="accar-doc-icon">−</span>
+              </button>
+              <div class="accar-doc-content">
+                <div class="accar-doc-tags">
+                  <span class="accar-doc-tag tag-constitucion">Primera Carta Conciliar de la Historia · Texto Íntegro</span>
+                  <span class="accar-doc-tag tag-constitucion">Hechos 15, 23–29</span>
+                </div>
+                <p>Texto completo de la epístola dogmática y disciplinar promulgada por el Concilio de Jerusalén:</p>
+                <blockquote class="accar-credo-quote">
+                  «Los apóstoles y los presbíteros hermanos, a los hermanos de entre los gentiles que están en Antioquía, Siria y Cilicia: Salud.<br><br>
+                  Habiendo sabido que algunos de entre nosotros, <strong>sin mandato nuestro</strong>, os han perturbado con sus palabras, trastornando vuestros ánimos, hemos decidido de común acuerdo elegir algunos varones y enviarlos a vosotros con nuestros carísimos Bernabé y Pablo, hombres que han entregado su vida por el nombre de nuestro Señor Jesucristo. Enviamos, pues, a Judas y a Silas, quienes os referirán también de palabra esto mismo.<br><br>
+                  <strong>Porque ha parecido bien al Espíritu Santo y a nosotros</strong> no imponeros ninguna otra carga más que estas cosas necesarias: que os abstengáis de lo sacrificado a los ídolos, de la sangre, de los animales estrangulados y de las uniones ilícitas (<em>porneia</em>). De las cuales cosas haréis bien en guardaros. Pasadlo bien.»
+                </blockquote>
+              </div>
+            </div>
+
+            <div class="accar-doc-item doc-constitucion">
+              <button class="accar-doc-trigger" type="button">
+                <span class="accar-doc-title">II. La Definición Dogmática de San Pedro (Hechos 15, 7–11)</span>
+                <span class="accar-doc-icon">+</span>
+              </button>
+              <div class="accar-doc-content">
+                <div class="accar-doc-tags">
+                  <span class="accar-doc-tag tag-constitucion">Intervención Primacial Petrina · Texto Íntegro</span>
+                </div>
+                <p>Alocución con la que el Príncipe de los Apóstoles cerró el debate dogmático sobre la justificación:</p>
+                <blockquote class="accar-credo-quote">
+                  «Después de mucha discusión, se levantó Pedro y les dijo: “Hermanos, vosotros sabéis que desde los primeros días Dios me eligió entre vosotros para que por mi boca oyesen los gentiles la palabra del Evangelio y creyeran. Y Dios, conocedor de los corazones, dio testimonio en su favor dándoles el Espíritu Santo igual que a nosotros; y no hizo distinción alguna entre nosotros y ellos, <strong>purificando sus corazones por la fe</strong>.<br><br>
+                  Ahora, pues, ¿por qué tentáis a Dios queriendo poner sobre el cuello de los discípulos un yugo que ni nuestros padres ni nosotros pudimos llevar? <strong>Antes bien, por la gracia del Señor Jesús creemos que nos salvamos lo mismo que ellos</strong>”.»
+                </blockquote>
+              </div>
+            </div>
+
+            <div class="accar-doc-item doc-decreto">
+              <button class="accar-doc-trigger" type="button">
+                <span class="accar-doc-title">III. El Discurso Pastoral de Santiago el Menor (Hechos 15, 13–21)</span>
+                <span class="accar-doc-icon">+</span>
+              </button>
+              <div class="accar-doc-content">
+                <div class="accar-doc-tags">
+                  <span class="accar-doc-tag tag-decreto">Confirmación Escriturística y Canon Disciplinar</span>
+                </div>
+                <p>Santiago ratifica la exposición de Simón Pedro citando a Amós 9, 11–12 sobre la reedificación de la tienda de David para que «el resto de los hombres busque al Señor, y todas las naciones sobre las cuales ha sido invocado mi Nombre», y propone no molestar a los gentiles convertidos sino prescribirles las cuatro abstenciones prácticas en atención a las comunidades con presencia sinagogal.</p>
+              </div>
+            </div>
+
+            <div class="accar-doc-item doc-declaracion">
+              <button class="accar-doc-trigger" type="button">
+                <span class="accar-doc-title">IV. Gálatas 2, 1–10 y la Promulgación de los «Dogmata» (Hechos 16, 4)</span>
+                <span class="accar-doc-icon">+</span>
+              </button>
+              <div class="accar-doc-content">
+                <div class="accar-doc-tags">
+                  <span class="accar-doc-tag tag-declaracion">Testimonio Paulino y Recepción Eclesial</span>
+                </div>
+                <p>En <em>Gálatas</em> 2, 1–10 San Pablo confirma como testigo directo que Cefas (Pedro), Santiago y Juan reconocieron la gracia que le había sido dada, no impusieron nada a Tito y sellaron la plena comunión de fe encargándole recordar a los pobres. Y en <em>Hechos</em> 16, 4 San Lucas consigna el carácter jurídico obligatorio del Concilio: <em>«Al pasar por las ciudades, les iban entregando los decretos (ta dogmata) promulgados por los apóstoles y presbíteros de Jerusalén, para que los guardasen»</em>.</p>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="accar-codex-footer-nav">
+            <button type="button" class="accar-codex-btn-sec" onclick="loadView('views/historia-lista-de-concilios.html')">
+              ← Volver al Directorio de Concilios
+            </button>
+            <button type="button" class="accar-codex-btn-pri" onclick="window.accarShowConcilioPanel('herejias')">
+              Continuar a VII. Errores →
+            </button>
+          </div>
+
+        </section>
+
+        <!-- ==================== CAPÍTULO VII: ERRORES CONDENADOS ==================== -->
+        <section id="panel-herejias" class="accar-concilio-panel" data-tono="carmesi">
+
+          <div class="accar-codex-intro">
+            <span class="accar-codex-kicker">Combate Doctrinal</span>
+            <h2 class="accar-codex-h2">Errores y Desviaciones Condenados</h2>
+            <p class="accar-dropcap-p">
+              <span class="accar-capitular">L</span>a sentencia apostólica de Jerusalén cortó de raíz la primera gran herejía interna del cristianismo primitivo y dejó juzgadas de antemano todas sus reediciones antiguas y contemporáneas.
+            </p>
+          </div>
+
+          <div class="accar-codex-divider" aria-hidden="true"><span>✠</span></div>
+
+          <h3 class="accar-codex-h3">Seis errores refutados por el Concilio Apostólico</h3>
+
+          <div class="accar-codex-cards-grid">
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Error I</span>
+              <h4>La Herejía Judaizante (Necesidad de la Circuncisión)</h4>
+              <p>Sostenía que la fe en Cristo y el Bautismo eran insuficientes para la salvación sin circuncidarse y observar los ritos mosaicos (Hch 15, 1.5). Condenada como «tentar a Dios» y «trastornar las almas» (vv. 10.24).</p>
+            </article>
+
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Error II</span>
+              <h4>El Ebionismo Subsecuente (Siglos I–III)</h4>
+              <p>Cuando los judaizantes obstinados rechazaron el fallo conciliar de Jerusalén, degeneraron en la secta herética de los <span class="accar-heretic-name">ebionitas</span> (denunciados por San Ireneo y Epifanio), que exigían la Ley mosaica, repudiaban a San Pablo y terminaron negando la divinidad y concepción virginal de Cristo.</p>
+            </article>
+
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Error III</span>
+              <h4>Predicación sin Misión Canónica («Sin mandato nuestro»)</h4>
+              <p>La Carta Sinodal señala la raíz formal del desorden: individuos que salieron a enseñar doctrina <em>«sin que nosotros les hubiéramos dado mandato»</em> (Hch 15, 24; cf. Rom 10, 15). Nadie puede arrogarse el ministerio doctrinal en la Iglesia por autodesignación.</p>
+            </article>
+
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Error IV</span>
+              <h4>El Particularismo Nacionalista frente a la Catolicidad</h4>
+              <p>Pretendía reducir el Reino mesiánico a un privilegio carnal exclusivo de una nación. El Concilio proclamó que Dios purifica por igual los corazones de judíos y gentiles formando un solo Pueblo universal.</p>
+            </article>
+
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Error V</span>
+              <h4>El Independientismo Eclesial («Congregaciones Autónomas»)</h4>
+              <p>Refuta de raíz el modelo protestante donde cada pastor o iglesia local decide su propia doctrina sin instancia superior: ni siquiera la insigne Iglesia de Antioquía con Pablo y Bernabé se consideró independiente del juicio jerárquico central.</p>
+            </article>
+
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Error VI</span>
+              <h4>Movimientos Modernos de «Raíces Hebreas» y Sabatismo</h4>
+              <p>Grupos contemporáneos que intimidan a cristianos exigiéndoles guardar fiestas levíticas, dietas <em>kosher</em> o el sábado mosaico para ser «verdaderos creyentes» caen exactamente bajo la reprobación apostólica de Hechos 15 y Gálatas 5, 1–4.</p>
+            </article>
+          </div>
+
+          <div class="accar-codex-footer-nav">
+            <button type="button" class="accar-codex-btn-sec" onclick="loadView('views/historia-lista-de-concilios.html')">
+              ← Volver al Directorio de Concilios
+            </button>
+            <button type="button" class="accar-codex-btn-pri" onclick="window.accarShowConcilioPanel('canones')">
+              Continuar a VIII. Denzinger →
+            </button>
+          </div>
+
+        </section>
+
+        <!-- ==================== CAPÍTULO VIII: DENZINGER Y TRADICIÓN ==================== -->
+        <section id="panel-canones" class="accar-concilio-panel" data-tono="oro">
+
+          <div class="accar-codex-intro">
+            <span class="accar-codex-kicker">Magisterio Perenne y Patrística</span>
+            <h2 class="accar-codex-h2">Recepción en Denzinger y en los Santos Padres</h2>
+            <p class="accar-dropcap-p">
+              <span class="accar-capitular">A</span>l ser un acontecimiento neotestamentario, el Concilio de Jerusalén precede al inicio cronológico del *Enchiridion Symbolorum* de Denzinger; sin embargo, sus fórmulas y determinaciones constituyen el fundamento escriturístico expreso de definiciones dogmáticas capitales en los Concilios de **Florencia**, **Trento**, **Vaticano I** y **Vaticano II**, así como de la exégesis patrística unánime.
+            </p>
+          </div>
+
+          <div class="accar-codex-divider" aria-hidden="true"><span>✠</span></div>
+
+          <h3 class="accar-codex-h3">Ocho hitos magisteriales y patrísticos sobre Hechos 15</h3>
+
+          <div class="accar-codex-cards-grid">
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Concilio de Florencia (1442) · DH 1348</span>
+              <h4>Definición Dogmática sobre las Cláusulas de Hechos 15</h4>
+              <p>En la bula <em>Cantate Domino</em>, la Iglesia definió dogmáticamente que las ceremonias mosaicas cesaron con el Evangelio y explicó infaliblemente por qué los Apóstoles prohibieron temporalmente «lo estrangulado y la sangre» en Hch 15: para edificar una sola Iglesia uniendo en la mesa común a judíos y gentiles hasta que la costumbre antigua quedara superada.</p>
+            </article>
+
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Concilio de Trento (1547) · DH 1521 y 1532</span>
+              <h4>Gratuidad Absoluta de la Justificación (Hch 15, 11)</h4>
+              <p>El Decreto tridentino sobre la Justificación recoge el corazón de la sentencia de San Pedro en Jerusalén: ni los gentiles por las fuerzas de la naturaleza ni los judíos por la letra de la Ley de Moisés podían liberarse del pecado sin la gracia preveniente de Jesucristo.</p>
+            </article>
+
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Concilios Vaticano I y II · DH 3053 y DH 4146</span>
+              <h4>Fundamento Bíblico del Colegio Episcopal con su Cabeza</h4>
+              <p>La constitución de Cristo reflejada en Jerusalén —los Apóstoles deliberando colegialmente junto con Pedro como su Cabeza visible— es invocada por el Magisterio como raíz divina de los concilios ecuménicos presididos y confirmados por el Romano Pontífice.</p>
+            </article>
+
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Sello Conciliar · Hechos 15, 28</span>
+              <h4>«Visum est Spiritui Sancto et nobis»</h4>
+              <p>Desde los sínodos africanos de San Cipriano y los grandes concilios orientales hasta Trento y el Vaticano, los Padres Conciliares han estampado en sus decretos la misma fórmula de Jerusalén como expresión de la asistencia infalible prometida en Jn 14, 26 y 16, 13.</p>
+            </article>
+
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ San Juan Crisóstomo (~347–407) · Hom. 32–33 in Acta</span>
+              <h4>Pedro define la Fe; Santiago gobierna la Sede Local</h4>
+              <p>El gran Padre griego subraya que Pedro habla primero con parresía y autoridad suprema cuando el debate arreciaba, cerrando la disputa dogmática; mientras que Santiago interviene después sin contradecirlo en nada porque tenía la investidura episcopal local sobre los fieles de Jerusalén.</p>
+            </article>
+
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ San Jerónimo (~347–420) · Epístola 112 a San Agustín</span>
+              <h4>«Pedro fue el Príncipe de aquel Decreto»</h4>
+              <p>Comentando *Hechos 15*, el Doctor Máximo de la Sagrada Escritura destaca que Pedro habló con su habitual libertad apostólica pronunciando la sentencia a la cual Santiago y todos los demás ancianos se adhirieron de común acuerdo.</p>
+            </article>
+
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ San Ireneo de Lyon (~180 d.C.) · Adv. Haereses III, 12, 14</span>
+              <h4>Prueba contra Marción y contra los Judaizantes</h4>
+              <p>San Ireneo utiliza el Concilio de Jerusalén contra dos herejías opuestas: contra los judaizantes prueba la libertad evangélica, y contra el gnóstico Marción demuestra que Pedro, Santiago y Pablo adoraban al mismo y único Dios del Antiguo y del Nuevo Testamento.</p>
+            </article>
+
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Las 4 Cláusulas · Moral Perenne vs. Rito Temporal</span>
+              <h4>Por qué una cláusula sigue vigente y tres fueron transitorias</h4>
+              <p>De las cuatro abstenciones de Hch 15, 29, evitar la idolatría formal y la <em>porneia</em> (uniones sexuales ilícitas/incestuosas de Lev 18) pertenece a la ley moral natural perenne; en cambio, el no comer sangre ni carne ahogada fue precepto positivo eclesiástico temporal para no escandalizar a los judeocristianos (cf. 1 Cor 8; 10, 25–27; DH 1348).</p>
+            </article>
+          </div>
+
+          <div class="accar-codex-footer-nav">
+            <button type="button" class="accar-codex-btn-sec" onclick="loadView('views/historia-lista-de-concilios.html')">
+              ← Volver al Directorio de Concilios
+            </button>
+            <button type="button" class="accar-codex-btn-pri" onclick="window.accarShowConcilioPanel('armadura')">
+              Continuar a IX. Armadura →
+            </button>
+          </div>
+
+        </section>
+
+        <!-- ==================== CAPÍTULO IX: ARMADURA APOLOGÉTICA ==================== -->
+        <section id="panel-armadura" class="accar-concilio-panel" data-tono="carmesi">
+
+          <div class="accar-codex-intro">
+            <span class="accar-codex-kicker">Defensa Militante de la Fe</span>
+            <h2 class="accar-codex-h2">Armadura Apologética</h2>
+            <p class="accar-dropcap-p">
+              <span class="accar-capitular">P</span>ocos capítulos de toda la Biblia resultan tan devastadores contra las doctrinas protestantes y sectarias como *Hechos 15*. Con la Biblia abierta en la mano, el Concilio de Jerusalén proporciona al católico ocho argumentos irrefutables.
+            </p>
+          </div>
+
+          <div class="accar-codex-divider" aria-hidden="true"><span>✠</span></div>
+
+          <h3 class="accar-codex-h3">Ocho espadas bíblicas forjadas en Hechos 15</h3>
+
+          <div class="accar-codex-cards-grid">
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Espada I · Contra la «Sola Scriptura» Protestante</span>
+              <h4>La disputa no se zanjó con interpretación privada</h4>
+              <p><strong>Respuesta:</strong> En el año 50 los judaizantes tenían la Escritura veterotestamentaria exigiendo la circuncisión (Gén 17, 13–14). Si bastara la «Sola Scriptura» y el libre examen, cada cristiano habría sacado su conclusión. En vez de eso, se convocó un Concilio jerárquico vivo cuya interpretación obligó a todas las iglesias (Hch 16, 4).</p>
+            </article>
+
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Espada II · Respuesta a «¿Presidió Santiago y no Pedro?»</span>
+              <h4>Distinción exacta entre definición dogmática y moción local</h4>
+              <p><strong>Respuesta:</strong> 1) Mientras hubo debate, nadie pudo callarlo hasta que **Pedro** se levantó, definió el dogma de la salvación por la gracia y *«toda la multitud calló»* (vv. 7–12). 2) **Santiago** habló después apoyándose en Pedro (*«Simón ha expuesto...»*, v. 14) y propuso las 4 medidas prácticas porque era el obispo local de Jerusalén de donde habían salido los alborotadores (v. 24). Ambos actuaron en perfecta comunión católica.</p>
+            </article>
+
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Espada III · Contra Testigos de Jehová y las Transfusiones</span>
+              <h4>Hechos 15, 29 trata de dieta ritual, jamás de medicina</h4>
+              <p><strong>Respuesta:</strong> La Watchtower tuerce «abstenerse de sangre» para prohibir transfusiones médicas dejando morir pacientes. Falso por partida triple: 1) El contexto es estrictamente alimentario junto a «carne sacrificada y animal estrangulado» (sin desangrar); 2) Una transfusión no es digerir alimento sino trasplantar tejido vivo que **salva** la vida, bien supremo sobre todo precepto ritual (Mt 12, 11–12); 3) El motivo explícito fue no escandalizar a los judíos de las sinagogas (v. 21; cf. Mc 7, 18–19; DH 1348).</p>
+            </article>
+
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Espada IV · Contra Adventistas y Sabatistas</span>
+              <h4>El Concilio jamás impuso guardar el Sábado judío</h4>
+              <p><strong>Respuesta:</strong> Si observar el sábado mosaico fuera requisito para los cristianos gentiles, el Concilio de Jerusalén habría estado obligado a incluirlo en la lista taxativa de *«no imponeros ninguna otra carga más que estas cosas necesarias»* (Hch 15, 28–29). ¡No lo mencionó siquiera!, confirmando que los cristianos no están bajo el sábado mosaico (Col 2, 16) sino que celebran el Día del Señor (Hch 20, 7).</p>
+            </article>
+
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Espada V · Contra el Congregacionalismo Independiente</span>
+              <h4>Jurisdicción supralocal vinculante (Hechos 16, 4)</h4>
+              <p><strong>Respuesta:</strong> En el protestantismo evangélico cada congregación local es autónoma. En la Biblia ocurre lo opuesto: un concilio celebrado en Jerusalén legisla decretos obligatorios (<em>dogmata</em>) para las iglesias de Antioquía, Siria, Cilicia y Galacia situadas a cientos de kilómetros.</p>
+            </article>
+
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Espada VI · Prueba Bíblica de la Infalibilidad del Magisterio</span>
+              <h4>«Ha parecido bien al Espíritu Santo y a nosotros» (Hch 15, 28)</h4>
+              <p><strong>Respuesta:</strong> Los protestantes objetan que «hombres pecadores no pueden dictar decretos infalibles». Hechos 15, 28 refuta esa objeción: hombres frágiles reunidos legítimamente como Colegio Apostólico hablan con tal asistencia divina que su fallo es simultáneamente fallo del Espíritu Santo.</p>
+            </article>
+
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Espada VII · Prueba de la Jerarquía Ordenada («Presbíteros»)</span>
+              <h4>El gobierno doctrinal reside en el Orden Sagrado</h4>
+              <p><strong>Respuesta:</strong> Cinco veces repite el texto quiénes juzgaron y decretaron la doctrina: *«los apóstoles y los presbíteros»* (15, 2.4.6.22.23; 16, 4), prefigurando exactamente el binomio católico del orden episcopal sucesor de los Apóstoles asistido por el orden presbiteral.</p>
+            </article>
+
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Espada VIII · Fe Viva frente al «Sola Fide» Luterano</h4>
+              <h4>«Purificando sus corazones por la fe» (Hch 15, 9; Gál 5, 6)</h4>
+              <p><strong>Respuesta:</strong> Cuando Pedro y Pablo rechazan «las obras de la Ley» (circuncisión y ritos mosaicos), no enseñan la fe muerta sin caridad ni mandamientos de Lutero, sino una purificación interior real del corazón: «En Cristo Jesús ni la circuncisión vale nada ni la incircuncisión, sino **la fe que actúa por la caridad**» (Gál 5, 6; Santiago 2, 24).</p>
+            </article>
+          </div>
+
+          <div class="accar-codex-footer-nav">
+            <button type="button" class="accar-codex-btn-sec" onclick="loadView('views/historia-lista-de-concilios.html')">
+              ← Volver al Directorio de Concilios
+            </button>
+            <button type="button" class="accar-codex-btn-pri" onclick="window.accarShowConcilioPanel('liturgia-cisma')">
+              Continuar a X. Antioquía y Sectas →
+            </button>
+          </div>
+
+        </section>
+
+        <!-- ==================== CAPÍTULO X: ANTIOQUÍA Y SECTAS ==================== -->
+        <section id="panel-liturgia-cisma" class="accar-concilio-panel" data-tono="carmesi">
+
+          <div class="accar-codex-intro">
+            <span class="accar-codex-kicker">Cuestión Disputada · Gálatas 2, 11–14</span>
+            <h2 class="accar-codex-h2">El Incidente de Antioquía y el Peligro Neojudaizante</h2>
+            <p class="accar-dropcap-p">
+              <span class="accar-capitular">E</span>xiste un pasaje estrechamente ligado al Concilio de Jerusalén que protestantes y enemigos del Papado esgrimen sin cesar para negar la infalibilidad pontificia: el llamado **Incidente de Antioquía** (*Gálatas 2, 11–14*), donde San Pablo relata que «resistió cara a cara a Cefas (Pedro)» porque éste, tras comer con los gentiles, se retrajo por temor a los venidos de parte de Santiago.
+            </p>
+            <p>
+              Lejos de contradecir el dogma católico, aquel episodio confirma con luminosa precisión la diferencia teológica entre **infalibilidad magisterial** e **impecabilidad personal**, y advierte contra la tentación recurrente de recaer en la servidumbre judaizante.
+            </p>
+          </div>
+
+          <div class="accar-codex-divider" aria-hidden="true"><span>✠</span></div>
+
+          <h3 class="accar-codex-h3">Seis claves teológicas definitivas sobre Gálatas 2 y su actualidad</h3>
+
+          <div class="accar-codex-cards-grid">
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Clave I · Doctrina vs. Conducta Práctica</span>
+              <h4>Pedro no enseñó ningún error dogmático</h4>
+              <p>San Pablo no acusa a Pedro de predicar herejía, sino de *«no proceder rectamente conforme a la verdad del Evangelio»* (Gál 2, 14): una falta prudencial de conducta práctica (simulación o timidez al retirarse de la mesa gentil) que contradecía en los hechos la doctrina verdadera que el propio Pedro había definido en el Concilio.</p>
+            </article>
+
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Clave II · Infalibilidad no es Impecabilidad</h4>
+              <h4>Distinción clásica de Santo Tomás y el Vaticano I</h4>
+              <p>La Iglesia jamás ha enseñado que el Papa sea impecable o inmune a debilidades prudenciales de trato personal (Pedro se confiesa pecador y sus sucesores se confiesan regularmente). El carisma de la infalibilidad impide únicamente que Pedro y sus sucesores definan el error al enseñar fe o moral a toda la Iglesia.</p>
+            </article>
+
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Clave III · Pablo apela a la Propia Doctrina de Pedro</h4>
+              <h4>Homenaje implícito al Primado de Cefas</h4>
+              <p>precisamente porque Pedro era la roca visible de referencia (a quien hasta el mismo Bernabé imitó al verlo retraerse, Gál 2, 13), su simple gesto silencioso en la mesa tenía peso público capaz de confundir a los fieles; y Pablo le recuerda a Pedro su propia enseñanza conciliar (Gál 2, 15–16 = Hch 15, 10–11).</p>
+            </article>
+
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Clave IV · Humildad Santa de Pedro (2 Pedro 3, 15)</h4>
+              <h4>Comunión inquebrantable entre ambos Apóstoles</h4>
+              <p>Como admiran San Agustín y San Gregorio Magno, el primero de los Apóstoles aceptó con humildad ejemplar la corrección fraterna de Pablo en materia de conducta, llamándolo afectuosamente en su carta encíclica <em>«nuestro carísimo hermano Pablo»</em> (2 Pe 3, 15) y sellando ambos su unidad con el martirio en Roma.</p>
+            </article>
+
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Clave V · Corrección Fraterna vs. Rebelión Cismática</h4>
+              <h4>Ejemplo perenne en la historia de la Iglesia</h4>
+              <p>Así como San Pablo corrigió respetuosamente una vacilación práctica sin jamás negar la autoridad de Cefas ni fundar una «iglesia paulina» separada —como harían siglos después Santa Catalina de Siena con Gregorio XI—, el católico fiel jamás confunde la advertencia filial con el cisma.</p>
+            </article>
+
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Clave VI · Advertencia Actual contra el Neojudaísmo</h4>
+              <h4>«Estad firmes y no volváis al yugo de esclavitud» (Gál 5, 1)</h4>
+              <p>Frente a sectas actuales que seducen a fieles hispanos con kipás, shofares, nombres hebreos obligatorios, prohibiciones dietéticas levíticas y desprecio a la Tradición Católica Romana, resuena intacto el fallo del Concilio de Jerusalén: en Cristo se cumplieron las sombras y en su Iglesia Católica habita la plenitud de la Nueva y Eterna Alianza.</p>
+            </article>
+          </div>
+
+          <div class="accar-synthesis-banner">
+            <span class="accar-synthesis-kicker">✠ Sello Eterno del Concilio de Jerusalén ✠</span>
+            <p>
+              «Porque ha parecido bien al Espíritu Santo y a nosotros... Por la gracia del Señor Jesús creemos que nos salvamos.» (Hechos 15, 11.28)
+            </p>
+          </div>
+
+          <div class="accar-codex-footer-nav">
+            <button type="button" class="accar-codex-btn-sec" onclick="loadView('views/historia-lista-de-concilios.html')">
+              ← Volver al Directorio de Concilios
+            </button>
+            <button type="button" class="accar-codex-btn-pri" onclick="window.accarShowConcilioPanel('inicio')">
+              ↑ Volver a I. Panorama Inicial
+            </button>
+          </div>
+
+        </section>
+
+      </div>
+
+    </main>
+
+  </div>
+
+</section>
+
+<style>
+/* =====================================================================
+   ESTILOS ENCAPSULADOS ESTRICTAMENTE EN #accar-ficha-concilio
+   Protección total del Header Global y arquitectura SPA
+===================================================================== */
+#accar-ficha-concilio,
+#accar-ficha-concilio * {
+  box-sizing: border-box;
+}
+
+#accar-ficha-concilio {
+  --conc-gold: #d4af37;
+  --conc-gold-light: #eed076;
+  --conc-crimson: #8f1622;
+  --conc-green: #1b7345;
+  --conc-blue: #1d4e89;
+  --codex-scale: 1;
+
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  min-height: 100vh;
+  padding: 44px 20px 128px;
+  font-family: Georgia, "Times New Roman", serif;
+  color: #f8efd3;
+  border-top: 1px solid rgba(212, 175, 55, 0.26);
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(20, 48, 96, 0.58) 0%, rgba(6, 16, 36, 0.94) 36%, #030816 100%);
+  box-shadow: inset 0 24px 52px rgba(0, 0, 0, 0.58);
+}
+
+#accar-ficha-concilio::before {
+  content: "";
+  position: absolute;
+  top: 110px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(1140px, 96vw);
+  height: min(1140px, 96vw);
+  background: url("/assets/img/historia-watermark.png") center top / contain no-repeat;
+  opacity: 0.055;
+  pointer-events: none;
+  z-index: 0;
+}
+
+#accar-ficha-concilio .accar-concilio-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+/* ===== BARRA SUPERIOR ===== */
+#accar-ficha-concilio .accar-concilio-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-bottom: 26px;
+}
+
+#accar-ficha-concilio .accar-concilio-breadcrumb {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-size: 0.83rem;
+  color: rgba(248, 239, 211, 0.72);
+}
+
+#accar-ficha-concilio .accar-concilio-breadcrumb a {
+  color: #eed076;
+  text-decoration: none;
+  font-weight: 700;
+  transition: color 0.22s ease;
+}
+
+#accar-ficha-concilio .accar-concilio-breadcrumb a:hover {
+  color: #fff9ec;
+}
+
+#accar-ficha-concilio .accar-concilio-breadcrumb strong {
+  color: #fff9ec;
+}
+
+#accar-ficha-concilio .accar-concilio-peers {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+#accar-ficha-concilio .accar-peer-btn {
+  appearance: none;
+  padding: 7px 15px;
+  border-radius: 999px;
+  border: 1px solid rgba(212, 175, 55, 0.42);
+  background: rgba(4, 11, 28, 0.82);
+  color: #eed076;
+  font-family: inherit;
+  font-size: 0.71rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.24s ease;
+}
+
+#accar-ficha-concilio .accar-peer-btn:hover {
+  border-color: #fff3c4;
+  background: rgba(212, 175, 55, 0.22);
+  color: #fff9ec;
+  transform: translateY(-1px);
+}
+
+/* ===== RELICARIO HERO CONCILIAR ===== */
+#accar-ficha-concilio .accar-concilio-hero {
+  position: relative;
+  padding: 38px 38px 30px;
+  margin-bottom: 28px;
+  border-radius: 28px;
+  border: 1px solid rgba(212, 175, 55, 0.58);
+  background:
+    linear-gradient(180deg, rgba(8, 20, 44, 0.88) 0%, rgba(4, 10, 24, 0.96) 100%),
+    url("/assets/img/fondo_concilios.webp") center center / cover no-repeat;
+  box-shadow:
+    0 28px 60px rgba(0, 0, 0, 0.75),
+    inset 0 1px 0 rgba(255, 238, 186, 0.18);
+}
+
+#accar-ficha-concilio .accar-concilio-hero::after {
+  content: "";
+  position: absolute;
+  inset: 8px;
+  border: 1px solid rgba(212, 175, 55, 0.18);
+  border-radius: 21px;
+  pointer-events: none;
+}
+
+#accar-ficha-concilio .accar-concilio-hero-grid {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 290px 1fr;
+  gap: 38px;
+  align-items: center;
+}
+
+#accar-ficha-concilio .accar-concilio-portrait-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+#accar-ficha-concilio .accar-concilio-camafeo {
+  position: relative;
+  width: 248px;
+  height: 248px;
+  padding: 8px;
+  border-radius: 30px;
+  border: 2.5px solid #eed076;
+  background: radial-gradient(circle at 50% 30%, #4d121a 0%, #170812 70%, #050914 100%);
+  box-shadow:
+    0 22px 44px rgba(0, 0, 0, 0.80),
+    0 0 26px rgba(212, 175, 55, 0.22);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transition: transform 0.38s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.38s ease;
+}
+
+#accar-ficha-concilio .accar-concilio-camafeo:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow:
+    0 28px 52px rgba(0, 0, 0, 0.86),
+    0 0 32px rgba(212, 175, 55, 0.32);
+}
+
+#accar-ficha-concilio .accar-concilio-camafeo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 22px;
+}
+
+#accar-ficha-concilio .accar-concilio-seal {
+  margin-top: 16px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid #fff3c4;
+  background: linear-gradient(180deg, #e6c667 0%, #ad851b 100%);
+  color: #160c02;
+  font-size: 0.69rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.50);
+}
+
+#accar-ficha-concilio .accar-concilio-sede-badge {
+  margin-top: 10px;
+  width: 100%;
+  max-width: 252px;
+  padding: 9px 14px 10px;
+  border-radius: 14px;
+  border: 1px solid rgba(212, 175, 55, 0.42);
+  border-top: 2.5px solid #d4af37;
+  background: linear-gradient(180deg, #081530 0%, #040a1a 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.48);
+  transition: transform 0.26s ease, border-color 0.26s ease;
+}
+
+#accar-ficha-concilio .accar-concilio-sede-badge:hover {
+  transform: translateY(-2px);
+  border-color: #eed076;
+}
+
+#accar-ficha-concilio .accar-sede-label {
+  font-size: 0.63rem;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: #eed076;
+}
+
+#accar-ficha-concilio .accar-sede-val {
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-variant-numeric: lining-nums proportional-nums;
+  font-size: 1.02rem;
+  font-weight: 600;
+  color: #fff9ec;
+}
+
+#accar-ficha-concilio .accar-concilio-popes-plate {
+  margin-top: 7px;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-size: 0.96rem;
+  font-style: italic;
+  color: #dfd3b6;
+}
+
+/* Columna Derecha del Hero */
+#accar-ficha-concilio .accar-concilio-copy-col {
+  min-width: 0;
+}
+
+#accar-ficha-concilio .accar-concilio-kicker {
+  display: inline-block;
+  padding: 6px 16px;
+  margin-bottom: 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(238, 208, 118, 0.78);
+  background: linear-gradient(180deg, #8f141e 0%, #48060b 100%);
+  color: #fff9ec;
+  font-size: 0.73rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.45);
+}
+
+#accar-ficha-concilio .accar-concilio-name {
+  margin: 0 0 4px;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-size: clamp(2.5rem, 4.5vw, 4rem);
+  font-weight: 700;
+  line-height: 1.04;
+  color: #fff9ec;
+  text-shadow: 0 4px 18px rgba(0, 0, 0, 0.78);
+}
+
+#accar-ficha-concilio .accar-concilio-latin-sub {
+  margin: 0 0 16px;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-variant-numeric: lining-nums proportional-nums;
+  font-size: 1.12rem;
+  font-style: italic;
+  color: #eed076;
+  letter-spacing: 0.02em;
+}
+
+#accar-ficha-concilio .accar-concilio-lead {
+  margin: 0 0 22px;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-variant-numeric: lining-nums proportional-nums;
+  font-size: 1.20rem;
+  line-height: 1.66;
+  color: #efe5cc;
+}
+
+#accar-ficha-concilio .accar-concilio-meta-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+
+#accar-ficha-concilio .accar-concilio-meta-card {
+  padding: 14px 15px 15px;
+  border-radius: 15px;
+  border: 1px solid rgba(212, 175, 55, 0.36);
+  border-top: 2.5px solid #d4af37;
+  background: rgba(4, 11, 28, 0.78);
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.28s ease, background 0.28s ease, box-shadow 0.28s ease;
+}
+
+#accar-ficha-concilio .accar-meta-label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #eed076;
+}
+
+#accar-ficha-concilio .accar-meta-val {
+  display: block;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-variant-numeric: lining-nums proportional-nums;
+  font-size: 1rem;
+  line-height: 1.45;
+  color: #fff9ec;
+}
+
+/* ===== 10 PESTAÑAS MAGISTERIALES (5x2) ===== */
+#accar-ficha-concilio .accar-concilio-tabs {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 28px;
+  padding-top: 22px;
+  border-top: 1px solid rgba(212, 175, 55, 0.28);
+}
+
+#accar-ficha-concilio .accar-concilio-tab {
+  appearance: none;
+  padding: 12px 8px;
+  border-radius: 13px;
+  border: 1px solid rgba(212, 175, 55, 0.38);
+  border-left: 3.5px solid #d4af37;
+  background: rgba(5, 14, 34, 0.88);
+  color: #e8dcc2;
+  font-family: Georgia, serif;
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  text-align: center;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.24s ease;
+}
+
+#accar-ficha-concilio .accar-concilio-tab.accar-tab-carmesi {
+  border-left-color: #c81e2b;
+}
+
+#accar-ficha-concilio .accar-concilio-tab:hover {
+  border-color: #eed076;
+  background: rgba(18, 40, 82, 0.94);
+  color: #fff9ec;
+  transform: translateY(-2px);
+}
+
+#accar-ficha-concilio .accar-concilio-tab.active {
+  border-color: #fff3c4;
+  background: linear-gradient(180deg, #d8b24c 0%, #9e7516 100%);
+  color: #160e02;
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.58), 0 0 16px rgba(212, 175, 55, 0.35);
+}
+
+#accar-ficha-concilio .accar-concilio-tab.accar-tab-carmesi.active {
+  background: linear-gradient(180deg, #9b1622 0%, #52080f 100%);
+  color: #fff9ec;
+}
+
+/* =====================================================================
+   PLIEGO DEL CÓDICE CONCILIAR (MODO NOCHE BASE + MODO PERGAMINO)
+===================================================================== */
+#accar-ficha-concilio .accar-concilio-codex {
+  position: relative;
+  padding: 34px 48px 48px;
+  border-radius: 28px;
+  border: 1px solid rgba(212, 175, 55, 0.48);
+  background: linear-gradient(180deg, #081328 0%, #040a17 100%);
+  box-shadow: 0 28px 60px rgba(0, 0, 0, 0.72);
+  color: #efe5cc;
+  transition: background 0.32s ease, color 0.32s ease, border-color 0.32s ease;
+}
+
+#accar-ficha-concilio .accar-concilio-codex::after {
+  content: "";
+  position: absolute;
+  inset: 9px;
+  border: 1px solid rgba(212, 175, 55, 0.18);
+  border-radius: 20px;
+  pointer-events: none;
+}
+
+#accar-ficha-concilio .accar-concilio-codex.theme-light {
+  background: linear-gradient(180deg, #faf4e6 0%, #f2e8d2 100%);
+  border-color: rgba(186, 146, 58, 0.65);
+  color: #211b13;
+  box-shadow:
+    0 28px 60px rgba(0, 0, 0, 0.65),
+    inset 0 0 44px rgba(175, 136, 56, 0.09);
+}
+
+#accar-ficha-concilio .accar-concilio-codex.theme-light::after {
+  border-color: rgba(156, 118, 38, 0.24);
+}
+
+/* Barra de Herramientas */
+#accar-ficha-concilio .accar-codex-toolbar {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding-bottom: 16px;
+  margin-bottom: 30px;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.25);
+}
+
+#accar-ficha-concilio .accar-concilio-codex.theme-light .accar-codex-toolbar {
+  border-bottom-color: rgba(140, 104, 34, 0.24);
+}
+
+#accar-ficha-concilio .accar-codex-section-tag {
+  font-size: 0.73rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #eed076;
+}
+
+#accar-ficha-concilio .accar-concilio-codex.theme-light .accar-codex-section-tag {
+  color: #821818;
+}
+
+#accar-ficha-concilio .accar-codex-controls {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+#accar-ficha-concilio .accar-codex-sizes {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+#accar-ficha-concilio .accar-codex-size-lbl {
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: rgba(234, 224, 200, 0.72);
+  margin-right: 2px;
+}
+
+#accar-ficha-concilio .accar-concilio-codex.theme-light .accar-codex-size-lbl {
+  color: #544632;
+}
+
+#accar-ficha-concilio .accar-codex-tool-btn {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(212, 175, 55, 0.40);
+  background: transparent;
+  color: #f2e8ce;
+  font-family: Georgia, serif;
+  font-size: 0.76rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+#accar-ficha-concilio .accar-codex-tool-btn svg {
+  width: 14px;
+  height: 14px;
+}
+
+#accar-ficha-concilio .accar-concilio-codex.theme-light .accar-codex-tool-btn {
+  color: #241d13;
+  border-color: rgba(124, 92, 30, 0.35);
+  background: rgba(255, 255, 255, 0.48);
+}
+
+#accar-ficha-concilio .accar-codex-tool-btn:hover {
+  border-color: #d4af37;
+}
+
+#accar-ficha-concilio .accar-codex-tool-btn.active {
+  background: #d4af37;
+  border-color: #d4af37;
+  color: #081226 !important;
+}
+
+/* Cuerpo y Jerarquía Litúrgica de Tonos por Capítulo */
+#accar-ficha-concilio .accar-codex-body {
+  position: relative;
+  z-index: 2;
+  font-size: calc(20px * var(--codex-scale));
+}
+
+#accar-ficha-concilio .accar-concilio-panel {
+  --panel-accent: #c99b26;
+  display: none;
+}
+
+#accar-ficha-concilio .accar-concilio-panel[data-tono="verde"]   { --panel-accent: #1b7a48; }
+#accar-ficha-concilio .accar-concilio-panel[data-tono="azul"]    { --panel-accent: #1d4e89; }
+#accar-ficha-concilio .accar-concilio-panel[data-tono="carmesi"] { --panel-accent: #9b1622; }
+
+#accar-ficha-concilio .accar-concilio-panel.active {
+  display: block;
+  animation: accarConcPanelIn 0.3s ease;
+}
+
+@keyframes accarConcPanelIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+#accar-ficha-concilio .accar-heretic-name {
+  color: #f87171;
+  font-weight: 700;
+}
+
+#accar-ficha-concilio .accar-concilio-codex.theme-light .accar-heretic-name {
+  color: #991b1b;
+}
+
+#accar-ficha-concilio .accar-codex-intro {
+  max-width: 940px;
+  margin-bottom: 28px;
+}
+
+#accar-ficha-concilio .accar-codex-kicker {
+  display: block;
+  margin-bottom: 6px;
+  font-family: Georgia, serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #eed076;
+}
+
+#accar-ficha-concilio .accar-concilio-codex.theme-light .accar-codex-kicker {
+  color: #8b1a1a;
+}
+
+#accar-ficha-concilio .accar-codex-h2 {
+  margin: 0 0 18px;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-size: 2.55rem;
+  font-weight: 700;
+  line-height: 1.12;
+  color: #fff9ec;
+}
+
+#accar-ficha-concilio .accar-concilio-codex.theme-light .accar-codex-h2 {
+  color: #0b1e3d;
+}
+
+#accar-ficha-concilio .accar-codex-h3 {
+  margin: 0 0 20px;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #eed076;
+}
+
+#accar-ficha-concilio .accar-concilio-codex.theme-light .accar-codex-h3 {
+  color: #7f1d1d;
+}
+
+#accar-ficha-concilio .accar-codex-intro p {
+  margin: 0 0 16px;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-variant-numeric: lining-nums proportional-nums;
+  font-size: 1.05em;
+  line-height: 1.78;
+}
+
+#accar-ficha-concilio .accar-capitular {
+  float: left;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-size: 3.3em;
+  font-weight: 700;
+  line-height: 0.80;
+  padding: 0.06em 0.13em 0 0;
+  color: #eed076;
+}
+
+#accar-ficha-concilio .accar-concilio-codex.theme-light .accar-capitular {
+  color: #8b1a1a;
+}
+
+#accar-ficha-concilio .accar-codex-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 30px 0 26px;
+}
+
+#accar-ficha-concilio .accar-codex-divider::before,
+#accar-ficha-concilio .accar-codex-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.55), transparent);
+}
+
+#accar-ficha-concilio .accar-concilio-codex.theme-light .accar-codex-divider::before,
+#accar-ficha-concilio .accar-concilio-codex.theme-light .accar-codex-divider::after {
+  background: linear-gradient(90deg, transparent, rgba(140, 102, 28, 0.42), transparent);
+}
+
+#accar-ficha-concilio .accar-codex-divider span {
+  padding: 0 14px;
+  font-size: 0.9rem;
+  color: #d4af37;
+}
+
+#accar-ficha-concilio .accar-concilio-codex.theme-light .accar-codex-divider span {
+  color: #8b1a1a;
+}
+
+/* Recuadro Carmesí de Análisis Magisterial */
+#accar-ficha-concilio .accar-callout-dogmatico {
+  margin: 0 0 28px;
+  padding: 24px 28px;
+  border-radius: 20px;
+  border: 1px solid rgba(212, 175, 55, 0.55);
+  border-left: 5px solid #eed076;
+  background: linear-gradient(135deg, #6e0e18 0%, #2b0509 100%);
+  color: #fff9ec;
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.25);
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.28s ease;
+}
+
+#accar-ficha-concilio .accar-callout-kicker {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #eed076;
+}
+
+#accar-ficha-concilio .accar-callout-dogmatico h4 {
+  margin: 0 0 8px;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-size: 1.42rem;
+  color: #fff9ec;
+}
+
+#accar-ficha-concilio .accar-callout-dogmatico p {
+  margin: 0;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-size: 1em;
+  line-height: 1.66;
+  color: #f6ebd4;
+}
+
+/* ===== 4 PLACAS LAPIDARIAS DE ESTADÍSTICAS ===== */
+#accar-ficha-concilio .accar-stat-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  margin: 24px 0 10px;
+}
+
+#accar-ficha-concilio .accar-stat-plaque {
+  position: relative;
+  padding: 22px 16px 20px;
+  border-radius: 18px;
+  border: 1px solid rgba(212, 175, 55, 0.55);
+  background:
+    radial-gradient(circle at 50% 0%, rgba(212, 175, 55, 0.18) 0%, transparent 62%),
+    linear-gradient(180deg, #0c2147 0%, #050e22 100%);
+  text-align: center;
+  color: #fff9ec;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.28);
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.28s ease, border-color 0.28s ease;
+}
+
+#accar-ficha-concilio .accar-stat-plaque::after {
+  content: "";
+  position: absolute;
+  inset: 5px;
+  border: 1px solid rgba(212, 175, 55, 0.20);
+  border-radius: 13px;
+  pointer-events: none;
+}
+
+#accar-ficha-concilio .accar-stat-cross {
+  display: block;
+  font-size: 0.72rem;
+  color: rgba(238, 208, 118, 0.78);
+  margin-bottom: 4px;
+}
+
+#accar-ficha-concilio .accar-stat-num {
+  display: block;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-variant-numeric: lining-nums proportional-nums;
+  font-size: 2.3rem;
+  font-weight: 700;
+  line-height: 1.05;
+  color: #eed076;
+  margin-bottom: 8px;
+}
+
+#accar-ficha-concilio .accar-stat-lbl {
+  display: block;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-size: 0.98rem;
+  line-height: 1.38;
+  color: #f2e8ce;
+}
+
+/* ===== REGISTROS LAPIDARIOS ===== */
+#accar-ficha-concilio .accar-registry-box {
+  margin-bottom: 22px;
+  padding: 24px 26px;
+  border-radius: 20px;
+  border: 1px solid rgba(212, 175, 55, 0.34);
+  border-left: 4px solid #d4af37;
+  background: rgba(9, 22, 48, 0.62);
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.28s ease, border-color 0.28s ease;
+}
+
+#accar-ficha-concilio .accar-concilio-codex.theme-light .accar-registry-box {
+  background: rgba(255, 252, 245, 0.88);
+  border-color: rgba(160, 122, 42, 0.32);
+  border-left: 4px solid #8b1a1a;
+  box-shadow: 0 10px 24px rgba(40, 28, 8, 0.06);
+}
+
+#accar-ficha-concilio .accar-registry-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-bottom: 12px;
+  margin-bottom: 16px;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.22);
+}
+
+#accar-ficha-concilio .accar-concilio-codex.theme-light .accar-registry-head {
+  border-bottom-color: rgba(140, 104, 34, 0.20);
+}
+
+#accar-ficha-concilio .accar-registry-icon {
+  color: #d4af37;
+  font-size: 1rem;
+}
+
+#accar-ficha-concilio .accar-concilio-codex.theme-light .accar-registry-icon {
+  color: #8b1a1a;
+}
+
+#accar-ficha-concilio .accar-registry-head h4 {
+  margin: 0;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-size: 1.38rem;
+  font-weight: 700;
+  color: #fff9ec;
+}
+
+#accar-ficha-concilio .accar-concilio-codex.theme-light .accar-registry-head h4 {
+  color: #0b1e3d;
+}
+
+#accar-ficha-concilio .accar-registry-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px 28px;
+}
+
+#accar-ficha-concilio .accar-registry-list li {
+  padding-left: 14px;
+  border-left: 2px solid rgba(212, 175, 55, 0.42);
+}
+
+#accar-ficha-concilio .accar-concilio-codex.theme-light .accar-registry-list li {
+  border-left-color: rgba(180, 138, 44, 0.55);
+}
+
+#accar-ficha-concilio .accar-registry-list strong {
+  display: block;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-size: 1.02em;
+  font-weight: 700;
+  line-height: 1.3;
+  color: #eed076;
+}
+
+#accar-ficha-concilio .accar-concilio-codex.theme-light .accar-registry-list strong {
+  color: #1c160e;
+}
+
+#accar-ficha-concilio .accar-registry-list span {
+  display: block;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-variant-numeric: lining-nums proportional-nums;
+  font-size: 0.90em;
+  font-style: italic;
+  color: rgba(238, 228, 204, 0.78);
+}
+
+#accar-ficha-concilio .accar-concilio-codex.theme-light .accar-registry-list span {
+  color: #5c4c36;
+}
+
+/* ===== TARJETAS EDITORIALES DE ESTUDIO ===== */
+#accar-ficha-concilio .accar-codex-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+#accar-ficha-concilio .accar-codex-card {
+  padding: 22px 24px;
+  border-radius: 18px;
+  border: 1px solid rgba(212, 175, 55, 0.30);
+  border-left: 4px solid var(--panel-accent);
+  background: rgba(9, 22, 48, 0.62);
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.28s ease, border-color 0.28s ease;
+}
+
+#accar-ficha-concilio .accar-concilio-codex.theme-light .accar-codex-card {
+  background: rgba(255, 252, 245, 0.92);
+  border-color: rgba(160, 122, 42, 0.28);
+  border-left: 4.5px solid var(--panel-accent);
+  box-shadow: 0 10px 24px rgba(40, 28, 8, 0.06);
+}
+
+#accar-ficha-concilio .accar-card-num {
+  display: inline-block;
+  margin-bottom: 6px;
+  font-family: Georgia, serif;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #eed076;
+}
+
+#accar-ficha-concilio .accar-concilio-codex.theme-light .accar-card-num {
+  color: #8b1a1a;
+}
+
+#accar-ficha-concilio .accar-codex-card h4 {
+  margin: 0 0 10px;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-size: 1.36rem;
+  font-weight: 700;
+  line-height: 1.24;
+  color: #fff9ec;
+}
+
+#accar-ficha-concilio .accar-concilio-codex.theme-light .accar-codex-card h4 {
+  color: #0b1e3d;
+}
+
+#accar-ficha-concilio .accar-codex-card p {
+  margin: 0;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-variant-numeric: lining-nums proportional-nums;
+  font-size: 0.98em;
+  line-height: 1.68;
+}
+
+/* Cita Solemne del Decreto Apostólico */
+#accar-ficha-concilio .accar-credo-quote {
+  margin: 14px 0 4px;
+  padding: 18px 22px;
+  border-radius: 14px;
+  border: 1px solid rgba(212, 175, 55, 0.40);
+  border-left: 4px solid #d4af37;
+  background: rgba(5, 13, 30, 0.55);
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-size: 1.02em;
+  line-height: 1.72;
+}
+
+#accar-ficha-concilio .accar-concilio-codex.theme-light .accar-credo-quote {
+  background: rgba(139, 26, 26, 0.045);
+  border-color: rgba(150, 114, 38, 0.35);
+  border-left: 4px solid #8b1a1a;
+  color: #1c150d;
+}
+
+/* Banner de Síntesis */
+#accar-ficha-concilio .accar-synthesis-banner {
+  margin-top: 26px;
+  padding: 24px 28px;
+  border-radius: 20px;
+  border: 1px solid rgba(212, 175, 55, 0.55);
+  background: linear-gradient(135deg, #0c2147 0%, #061024 100%);
+  color: #fff9ec;
+  text-align: center;
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.22);
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.28s ease, border-color 0.28s ease;
+}
+
+#accar-ficha-concilio .accar-synthesis-kicker {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 0.70rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #eed076;
+}
+
+#accar-ficha-concilio .accar-synthesis-banner p {
+  margin: 0 auto;
+  max-width: 820px;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-size: 1.08em;
+  font-style: italic;
+  line-height: 1.68;
+  color: #f5ebd4;
+}
+
+/* ===== LÍNEA DEL TIEMPO CONCILIAR ===== */
+#accar-ficha-concilio .accar-timeline {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-left: 22px;
+  border-left: 2px solid rgba(212, 175, 55, 0.48);
+}
+
+#accar-ficha-concilio .accar-concilio-codex.theme-light .accar-timeline {
+  border-left-color: rgba(155, 114, 30, 0.45);
+}
+
+#accar-ficha-concilio .accar-tl-item {
+  position: relative;
+  display: grid;
+  grid-template-columns: 112px 1fr;
+  gap: 16px;
+  align-items: start;
+}
+
+#accar-ficha-concilio .accar-tl-item::before {
+  content: "";
+  position: absolute;
+  left: -29px;
+  top: 14px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid #eed076;
+  background: #1b7345;
+}
+
+#accar-ficha-concilio .accar-tl-year {
+  padding: 7px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(212, 175, 55, 0.55);
+  background: linear-gradient(180deg, #165e38 0%, #0b331d 100%);
+  color: #fff9ec;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-variant-numeric: lining-nums proportional-nums;
+  font-size: 0.92rem;
+  font-weight: 700;
+  text-align: center;
+  white-space: nowrap;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.22);
+}
+
+#accar-ficha-concilio .accar-tl-card {
+  padding: 16px 20px;
+  border-radius: 16px;
+  border: 1px solid rgba(212, 175, 55, 0.28);
+  background: rgba(9, 22, 48, 0.60);
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.28s ease, border-color 0.28s ease;
+}
+
+#accar-ficha-concilio .accar-concilio-codex.theme-light .accar-tl-card {
+  background: rgba(255, 252, 245, 0.92);
+  border-color: rgba(160, 122, 42, 0.28);
+  box-shadow: 0 8px 20px rgba(40, 28, 8, 0.05);
+}
+
+#accar-ficha-concilio .accar-tl-card h4 {
+  margin: 0 0 6px;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-size: 1.24rem;
+  font-weight: 700;
+  color: #eed076;
+}
+
+#accar-ficha-concilio .accar-concilio-codex.theme-light .accar-tl-card h4 {
+  color: #0b1e3d;
+}
+
+#accar-ficha-concilio .accar-tl-card p {
+  margin: 0;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-variant-numeric: lining-nums proportional-nums;
+  font-size: 0.96em;
+  line-height: 1.62;
+}
+
+/* ===== ACORDEÓN MAGISTERIAL DE DOCUMENTOS ===== */
+#accar-ficha-concilio .accar-doc-accordion {
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+}
+
+#accar-ficha-concilio .accar-doc-item {
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(212, 175, 55, 0.34);
+  background: rgba(8, 20, 44, 0.72);
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.28s ease, border-color 0.28s ease;
+}
+
+#accar-ficha-concilio .accar-concilio-codex.theme-light .accar-doc-item {
+  background: rgba(255, 252, 245, 0.94);
+  border-color: rgba(150, 114, 38, 0.32);
+  box-shadow: 0 8px 20px rgba(40, 28, 8, 0.06);
+}
+
+#accar-ficha-concilio .accar-doc-item.doc-constitucion { border-left: 5px solid #c89d28; }
+#accar-ficha-concilio .accar-doc-item.doc-decreto      { border-left: 5px solid #1d4e89; }
+#accar-ficha-concilio .accar-doc-item.doc-declaracion  { border-left: 5px solid #9b1622; }
+
+#accar-ficha-concilio .accar-doc-trigger {
+  appearance: none;
+  width: 100%;
+  border: none;
+  padding: 16px 20px;
+  background: linear-gradient(180deg, #0f2854 0%, #091936 100%);
+  color: #fff6dc;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.24s ease;
+}
+
+#accar-ficha-concilio .accar-doc-item.open .accar-doc-trigger {
+  background: linear-gradient(180deg, #82131d 0%, #48070d 100%);
+}
+
+#accar-ficha-concilio .accar-doc-title {
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-variant-numeric: lining-nums proportional-nums;
+  font-size: 1.22rem;
+  font-weight: 700;
+}
+
+#accar-ficha-concilio .accar-doc-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1px solid rgba(238, 208, 118, 0.55);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.15rem;
+  color: #eed076;
+  flex-shrink: 0;
+}
+
+#accar-ficha-concilio .accar-doc-content {
+  display: none;
+  padding: 18px 22px 20px;
+  border-top: 1px solid rgba(212, 175, 55, 0.20);
+}
+
+#accar-ficha-concilio .accar-doc-item.open .accar-doc-content {
+  display: block;
+}
+
+#accar-ficha-concilio .accar-doc-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+#accar-ficha-concilio .accar-doc-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 13px;
+  border-radius: 999px;
+  font-family: Georgia, serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-decoration: none;
+}
+
+#accar-ficha-concilio .tag-constitucion {
+  background: #fbf1d4;
+  color: #57430d;
+  border: 1px solid rgba(196, 152, 34, 0.50);
+}
+
+#accar-ficha-concilio .tag-decreto {
+  background: #e4eef9;
+  color: #0e2c56;
+  border: 1px solid rgba(29, 78, 137, 0.35);
+}
+
+#accar-ficha-concilio .tag-declaracion {
+  background: #f9e2e4;
+  color: #7f121b;
+  border: 1px solid rgba(139, 0, 0, 0.35);
+}
+
+#accar-ficha-concilio .accar-doc-content p {
+  margin: 0;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-size: 0.98em;
+  line-height: 1.68;
+}
+
+/* ===== INTERACCIÓN HOVER TÁCTIL PARA PC Y LAPTOP ===== */
+@media (hover: hover) {
+  #accar-ficha-concilio .accar-concilio-meta-card:hover {
+    transform: translateY(-4px);
+    border-color: #eed076;
+    background: rgba(18, 42, 86, 0.85);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.45);
+  }
+
+  #accar-ficha-concilio .accar-stat-plaque:hover {
+    transform: translateY(-5px);
+    border-color: #eed076;
+    box-shadow: 0 20px 38px rgba(0, 0, 0, 0.42), 0 0 18px rgba(212, 175, 55, 0.20);
+  }
+
+  #accar-ficha-concilio .accar-registry-box:hover,
+  #accar-ficha-concilio .accar-codex-card:hover,
+  #accar-ficha-concilio .accar-doc-item:hover,
+  #accar-ficha-concilio .accar-callout-dogmatico:hover,
+  #accar-ficha-concilio .accar-synthesis-banner:hover {
+    transform: translateY(-4px);
+    border-color: rgba(212, 175, 55, 0.72);
+    box-shadow: 0 18px 34px rgba(0, 0, 0, 0.18);
+  }
+
+  #accar-ficha-concilio .accar-tl-card:hover {
+    transform: translateX(6px);
+    border-color: rgba(212, 175, 55, 0.68);
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.16);
+  }
+}
+
+/* ===== BOTONES INFERIORES DE NAVEGACIÓN ENTRE CAPÍTULOS ===== */
+#accar-ficha-concilio .accar-codex-footer-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 34px;
+  padding-top: 22px;
+  border-top: 1px solid rgba(212, 175, 55, 0.25);
+}
+
+#accar-ficha-concilio .accar-concilio-codex.theme-light .accar-codex-footer-nav {
+  border-top-color: rgba(140, 104, 34, 0.24);
+}
+
+#accar-ficha-concilio .accar-codex-btn-sec,
+#accar-ficha-concilio .accar-codex-btn-pri {
+  appearance: none;
+  padding: 12px 24px;
+  border-radius: 999px;
+  font-family: Georgia, serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+#accar-ficha-concilio .accar-codex-btn-sec {
+  border: 1px solid rgba(212, 175, 55, 0.55);
+  background: linear-gradient(180deg, #102a58 0%, #081734 100%);
+  color: #fff4d2;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.22);
+}
+
+#accar-ficha-concilio .accar-codex-btn-sec:hover {
+  border-color: #eed076;
+  background: linear-gradient(180deg, #163874 0%, #0b2046 100%);
+  transform: translateY(-2px);
+}
+
+#accar-ficha-concilio .accar-codex-btn-pri {
+  border: 1px solid #fff3c4;
+  background: linear-gradient(180deg, #e5c463 0%, #b88e1e 100%);
+  color: #1a1204;
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.24);
+}
+
+#accar-ficha-concilio .accar-codex-btn-pri:hover {
+  filter: brightness(1.06);
+  transform: translateY(-2px);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1120px) {
+  #accar-ficha-concilio .accar-concilio-meta-grid,
+  #accar-ficha-concilio .accar-stat-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 920px) {
+  #accar-ficha-concilio .accar-concilio-hero {
+    padding: 28px 22px 24px;
+  }
+
+  #accar-ficha-concilio .accar-concilio-hero-grid {
+    grid-template-columns: 1fr;
+    text-align: center;
+    gap: 24px;
+  }
+
+  #accar-ficha-concilio .accar-concilio-meta-grid {
+    text-align: left;
+  }
+
+  #accar-ficha-concilio .accar-concilio-tabs {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  #accar-ficha-concilio .accar-concilio-codex {
+    padding: 26px 22px 34px;
+  }
+
+  #accar-ficha-concilio .accar-registry-list,
+  #accar-ficha-concilio .accar-codex-cards-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 580px) {
+  #accar-ficha-concilio {
+    padding: 28px 12px 96px;
+  }
+
+  #accar-ficha-concilio .accar-concilio-camafeo {
+    width: 205px;
+    height: 205px;
+  }
+
+  #accar-ficha-concilio .accar-concilio-seal {
+    white-space: normal;
+  }
+
+  #accar-ficha-concilio .accar-concilio-meta-grid,
+  #accar-ficha-concilio .accar-stat-grid {
+    grid-template-columns: 1fr;
+  }
+
+  #accar-ficha-concilio .accar-concilio-tab {
+    font-size: 0.70rem;
+    padding: 11px 6px;
+  }
+
+  #accar-ficha-concilio .accar-tl-item {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  #accar-ficha-concilio .accar-tl-year {
+    width: max-content;
+  }
+
+  #accar-ficha-concilio .accar-codex-footer-nav button {
+    width: 100%;
+    justify-content: center;
+  }
+}
+</style>
+
+<script>
+(function() {
+  const root = document.getElementById('accar-ficha-concilio');
+  if (!root) return;
+
+  const codex = document.getElementById('accar-concilio-codex');
+  const sectionTag = document.getElementById('accar-codex-section-tag');
+  const themeBtn = document.getElementById('accar-concilio-theme-btn');
+  const themeLbl = document.getElementById('accar-concilio-theme-label');
+  const sizeBtns = Array.from(root.querySelectorAll('.btn-concilio-size'));
+  const tabs = Array.from(root.querySelectorAll('.accar-concilio-tab'));
+  const panels = Array.from(root.querySelectorAll('.accar-concilio-panel'));
+
+  const prefs = window.__accarPapaCodexPrefs || { isLight: true, scale: '1' };
+
+  function aplicarPrefs() {
+    root.style.setProperty('--codex-scale', prefs.scale);
+    sizeBtns.forEach(b => b.classList.toggle('active', b.dataset.size === prefs.scale));
+
+    if (prefs.isLight) {
+      codex.classList.add('theme-light');
+      if (themeLbl) themeLbl.textContent = 'Modo Oscuro';
+    } else {
+      codex.classList.remove('theme-light');
+      if (themeLbl) themeLbl.textContent = 'Modo Pergamino';
+    }
+    window.__accarPapaCodexPrefs = prefs;
+  }
+
+  aplicarPrefs();
+
+  window.accarShowConcilioPanel = function(targetName) {
+    panels.forEach(p => {
+      p.classList.toggle('active', p.id === 'panel-' + targetName);
+    });
+
+    tabs.forEach(t => {
+      const esActivo = t.dataset.target === targetName;
+      t.classList.toggle('active', esActivo);
+      if (esActivo && sectionTag && t.dataset.label) {
+        sectionTag.textContent = '✠ Códice Conciliar · ' + t.dataset.label;
+      }
+    });
+
+    const tabsBar = document.getElementById('accar-concilio-tabs-bar');
+    const globalHeader = document.getElementById('accarGlobalHeader');
+    if (tabsBar) {
+      const headerH = globalHeader ? globalHeader.offsetHeight : 0;
+      const y = tabsBar.getBoundingClientRect().top + window.scrollY - headerH - 14;
+      window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' });
+    }
+  };
+
+  tabs.forEach(t => {
+    t.addEventListener('click', () => {
+      window.accarShowConcilioPanel(t.dataset.target);
+    });
+  });
+
+  if (themeBtn) {
+    themeBtn.addEventListener('click', () => {
+      prefs.isLight = !prefs.isLight;
+      aplicarPrefs();
+    });
+  }
+
+  sizeBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      prefs.scale = btn.dataset.size || '1';
+      aplicarPrefs();
+    });
+  });
+
+  root.querySelectorAll('.accar-doc-trigger').forEach(trigger => {
+    trigger.addEventListener('click', () => {
+      const item = trigger.closest('.accar-doc-item');
+      const estabaAbierto = item.classList.contains('open');
+
+      root.querySelectorAll('.accar-doc-item').forEach(acc => {
+        acc.classList.remove('open');
+        const ic = acc.querySelector('.accar-doc-icon');
+        if (ic) ic.textContent = '+';
+      });
+
+      if (!estabaAbierto) {
+        item.classList.add('open');
+        const ic = item.querySelector('.accar-doc-icon');
+        if (ic) ic.textContent = '−';
+      }
+    });
+  });
+})();
+</script>
