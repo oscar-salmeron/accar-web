@@ -1875,6 +1875,34 @@
   transform: translateY(-2px);
 }
 
+#accar-ficha-papa .accar-papa-sucesor-seal {
+  white-space: nowrap;
+  font-size: 0.72rem;
+  padding: 8px 15px;
+}
+
+@media (hover: hover) {
+  #accar-ficha-papa .accar-registry-box,
+  #accar-ficha-papa .accar-doc-item,
+  #accar-ficha-papa .accar-synthesis-banner {
+    transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.28s ease, border-color 0.28s ease;
+  }
+
+  #accar-ficha-papa .accar-registry-box:hover,
+  #accar-ficha-papa .accar-doc-item:hover,
+  #accar-ficha-papa .accar-synthesis-banner:hover {
+    transform: translateY(-4px);
+    border-color: rgba(212, 175, 55, 0.68);
+    box-shadow: 0 18px 34px rgba(0, 0, 0, 0.18);
+  }
+
+  #accar-ficha-papa .accar-stat-plaque:hover {
+    transform: translateY(-5px);
+    border-color: #eed076;
+    box-shadow: 0 20px 38px rgba(0, 0, 0, 0.42), 0 0 18px rgba(212, 175, 55, 0.20);
+  }
+}
+
 /* ===== RESPONSIVE ===== */
 @media (max-width: 1080px) {
   #accar-ficha-papa .accar-papa-meta-grid,
