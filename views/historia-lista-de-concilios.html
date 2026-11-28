@@ -1,857 +1,1757 @@
-<!-- ===== INICIO DIRECTORIO DE CONCILIOS ===== -->
+<!-- ===== ACCAR | DIRECTORIO DE CONCILIOS Y SÍNODOS (42 ASAMBLEAS) ===== -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+
+<section id="accar-dir-concilios-root">
+
+  <div class="accar-conc-dir-wrap">
+
+    <!-- BARRA SUPERIOR: MIGAS DE RETORNO + CONMUTADOR DE SALAS HISTÓRICAS -->
+    <div class="accar-hist-topbar">
+      <nav class="accar-hist-breadcrumb" aria-label="Ruta de navegación">
+        <a href="#" onclick="event.preventDefault(); loadView('views/inicio.html');">Inicio</a>
+        <span aria-hidden="true">›</span>
+        <a href="#" onclick="event.preventDefault(); loadView('views/historia.html');">Historia de la Iglesia</a>
+        <span aria-hidden="true">›</span>
+        <strong>Directorio de Concilios</strong>
+      </nav>
+
+      <div class="accar-hist-switch" role="navigation" aria-label="Cambiar de directorio histórico">
+        <button type="button" class="accar-hist-switch-btn" onclick="loadView('views/historia-lista-de-papas.html')">Papas</button>
+        <button type="button" class="accar-hist-switch-btn activa" aria-current="page">Concilios</button>
+        <button type="button" class="accar-hist-switch-btn" onclick="loadView('views/historia-lista-de-padres.html')">Padres</button>
+      </div>
+    </div>
+
+    <!-- CABECERA MAESTRA Y BUSCADOR APOLOGÉTICO -->
+    <header class="accar-dir-header">
+      <div class="accar-dir-kicker">
+        <span aria-hidden="true">✠</span>
+        <span>Visum est Spiritui Sancto et nobis · 42 Asambleas</span>
+        <span aria-hidden="true">✠</span>
+      </div>
+
+      <div class="accar-dir-title-wrap">
+        <h1 class="accar-dir-title">Directorio de Concilios</h1>
+      </div>
+
+      <p class="accar-dir-motto">«Ubi Petrus, ibi Ecclesia»</p>
+
+      <div class="accar-conc-tools">
+        <div class="accar-conc-search-wrap">
+          <span class="accar-conc-search-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="7"></circle>
+              <line x1="20" y1="20" x2="16.2" y2="16.2"></line>
+            </svg>
+          </span>
+          <input type="text" id="accar-conc-search" placeholder="Buscar por concilio, Papa, año o dogma (ej. Jerusalén, Canon bíblico, Theotokos, Trento)..." autocomplete="off" aria-label="Buscar Concilio o Sínodo">
+          <button type="button" id="accar-conc-clear" aria-label="Limpiar búsqueda">✕</button>
+        </div>
+
+        <div class="accar-conc-filters">
+          <button type="button" class="accar-conc-filter-btn activo" data-filtro="todos">Todas las asambleas (42)</button>
+          <button type="button" class="accar-conc-filter-btn" data-filtro="disponibles">✠ Códices disponibles (3)</button>
+        </div>
+      </div>
+    </header>
+
+    <div id="accar-conc-empty">No se encontraron concilios ni sínodos que coincidan con tu búsqueda.</div>
+
+    <!-- =========================================================
+         ACORDEONES CONCILIARES (ORDEN HISTÓRICO-GENÉTICO)
+    ========================================================== -->
+    <div class="accar-conc-accordion-list">
+
+      <!-- =====================================================
+           1. SÍNODOS Y CONCILIOS PARTICULARES (RAÍZ HISTÓRICA)
+      ====================================================== -->
+      <div class="accar-conc-acc" data-acc-idx="0">
+        <button type="button" class="accar-conc-acc-trigger">
+          <div class="accar-conc-acc-left">
+            <img src="/assets/img/concilios_particulares.png" alt="Sínodos y Concilios Particulares" class="accar-conc-acc-icon">
+            <div class="accar-conc-acc-copy">
+              <span class="accar-acc-era-pill">Siglos I al XI · Raíz Apostólica y Disciplina Antigua</span>
+              <h2>Sínodos y Concilios Particulares</h2>
+              <p>Inaugurados por el Concilio Apostólico de Jerusalén (~50 d.C.), estas asambleas provinciales y regionales precedieron durante casi tres siglos a los concilios ecuménicos y, en comunión con la Sede de Pedro, fijaron el canon bíblico, forjaron la disciplina clerical y abatieron las herejías locales.</p>
+            </div>
+          </div>
+
+          <div class="accar-conc-acc-right">
+            <span class="accar-conc-count">21 Asambleas</span>
+            <span class="accar-conc-toggle" aria-hidden="true">+</span>
+          </div>
+        </button>
+
+        <div class="accar-conc-acc-body">
+          <div class="accar-conc-grid">
+
+            <!-- 1. JERUSALÉN (ACTIVO) -->
+            <article class="accar-conc-card accar-conc-card--apostolico" data-vista="views/directorio_concilios/particulares/jerusalen.html">
+              <div class="accar-conc-img-box">
+                <img src="/assets/img/concilio_jerusalen.png" alt="Concilio de Jerusalén">
+              </div>
+              <div class="accar-conc-info">
+                <div class="accar-conc-meta-top">
+                  <span class="accar-conc-rank">✠ Concilio Apostólico</span>
+                  <span class="accar-conc-year">~50 d.C.</span>
+                </div>
+                <h3>Jerusalén</h3>
+                <p class="accar-conc-pope">San Pedro, Santiago, San Pablo y San Bernabé</p>
+                <p class="accar-conc-desc">Matriz bíblica conciliar (Hechos 15): salvación por la gracia de Cristo sin circuncisión mosaica.</p>
+                <a href="#" class="accar-conc-btn">✠ Abrir Códice Conciliar →</a>
+              </div>
+            </article>
+
+            <!-- 2. ELVIRA -->
+            <article class="accar-conc-card">
+              <div class="accar-conc-img-box">
+                <img src="/assets/img/concilio_elvira.png" alt="Concilio de Elvira" loading="lazy">
+              </div>
+              <div class="accar-conc-info">
+                <div class="accar-conc-meta-top">
+                  <span class="accar-conc-rank">Sínodo Hispano</span>
+                  <span class="accar-conc-year">~306 d.C.</span>
+                </div>
+                <h3>Elvira</h3>
+                <p class="accar-conc-pope">Hispania Baetica · Osio de Córdoba y 19 Obispos</p>
+                <p class="accar-conc-desc">81 cánones antiquísimos; primer testimonio legal escrito de la continencia y celibato clerical (c. 33).</p>
+                <a href="#" class="accar-conc-btn">Ficha en preparación →</a>
+              </div>
+            </article>
+
+            <!-- 3. ANCIRA -->
+            <article class="accar-conc-card">
+              <div class="accar-conc-img-box">
+                <img src="/assets/img/sinodo_ancira.png" alt="Sínodo de Ancira" loading="lazy">
+              </div>
+              <div class="accar-conc-info">
+                <div class="accar-conc-meta-top">
+                  <span class="accar-conc-rank">Sínodo Oriental</span>
+                  <span class="accar-conc-year">314 d.C.</span>
+                </div>
+                <h3>Ancira</h3>
+                <p class="accar-conc-pope">Anatolia (Galacia) · Marcelo de Ancira y Vital de Antioquía</p>
+                <p class="accar-conc-desc">Disciplina penitencial sacramental para reconciliar a los caídos (lapsi) tras la persecución de Maximino.</p>
+                <a href="#" class="accar-conc-btn">Ficha en preparación →</a>
+              </div>
+            </article>
+
+            <!-- 4. ARLÉS -->
+            <article class="accar-conc-card">
+              <div class="accar-conc-img-box">
+                <img src="/assets/img/concilio_arles.png" alt="Concilio de Arlés" loading="lazy">
+              </div>
+              <div class="accar-conc-info">
+                <div class="accar-conc-meta-top">
+                  <span class="accar-conc-rank">Concilio Occidental</span>
+                  <span class="accar-conc-year">314 d.C.</span>
+                </div>
+                <h3>Arlés</h3>
+                <p class="accar-conc-pope">Papa San Silvestre I (Legados)</p>
+                <p class="accar-conc-desc">Condena del cisma donatista y afirmación de la validez objetiva del bautismo trinitario (ex opere operato).</p>
+                <a href="#" class="accar-conc-btn">Ficha en preparación →</a>
+              </div>
+            </article>
+
+            <!-- 5. SÁRDICA -->
+            <article class="accar-conc-card">
+              <div class="accar-conc-img-box">
+                <img src="/assets/img/concilio_sardica.png" alt="Concilio de Sárdica" loading="lazy">
+              </div>
+              <div class="accar-conc-info">
+                <div class="accar-conc-meta-top">
+                  <span class="accar-conc-rank">Concilio General</span>
+                  <span class="accar-conc-year">343 d.C.</span>
+                </div>
+                <h3>Sárdica</h3>
+                <p class="accar-conc-pope">Papa San Julio I · Presidencia de Osio de Córdoba</p>
+                <p class="accar-conc-desc">Rehabilitación de San Atanasio y promulgación de los célebres cánones de apelación suprema al Obispo de Roma.</p>
+                <a href="#" class="accar-conc-btn">Ficha en preparación →</a>
+              </div>
+            </article>
+
+            <!-- 6. LAODICEA -->
+            <article class="accar-conc-card">
+              <div class="accar-conc-img-box">
+                <img src="/assets/img/concilio_laodicea.png" alt="Concilio de Laodicea" loading="lazy">
+              </div>
+              <div class="accar-conc-info">
+                <div class="accar-conc-meta-top">
+                  <span class="accar-conc-rank">Sínodo de Asia Menor</span>
+                  <span class="accar-conc-year">~363 – 364 d.C.</span>
+                </div>
+                <h3>Laodicea</h3>
+                <p class="accar-conc-pope">Frigia Pacatiana · Obispos de Asia Menor</p>
+                <p class="accar-conc-desc">Ordenación litúrgica del culto, guarda del Domingo frente al judaísmo (c. 29) y lecturas canónicas.</p>
+                <a href="#" class="accar-conc-btn">Ficha en preparación →</a>
+              </div>
+            </article>
+
+            <!-- 7. AQUILEA -->
+            <article class="accar-conc-card">
+              <div class="accar-conc-img-box">
+                <img src="/assets/img/concilio_aquilea.png" alt="Concilio de Aquilea" loading="lazy">
+              </div>
+              <div class="accar-conc-info">
+                <div class="accar-conc-meta-top">
+                  <span class="accar-conc-rank">Concilio Itálico</span>
+                  <span class="accar-conc-year">381 d.C.</span>
+                </div>
+                <h3>Aquilea</h3>
+                <p class="accar-conc-pope">San Valeriano de Aquilea y San Ambrosio de Milán</p>
+                <p class="accar-conc-desc">Deposición de los últimos obispos arrianos de Iliria y defensa del Primado de la Iglesia Romana.</p>
+                <a href="#" class="accar-conc-btn">Ficha en preparación →</a>
+              </div>
+            </article>
+
+            <!-- 8. ROMA -->
+            <article class="accar-conc-card">
+              <div class="accar-conc-img-box">
+                <img src="/assets/img/sinodo_roma.png" alt="Sínodo de Roma" loading="lazy">
+              </div>
+              <div class="accar-conc-info">
+                <div class="accar-conc-meta-top">
+                  <span class="accar-conc-rank">Sínodo Romano</span>
+                  <span class="accar-conc-year">382 d.C.</span>
+                </div>
+                <h3>Roma</h3>
+                <p class="accar-conc-pope">Papa San Dámaso I · San Jerónimo</p>
+                <p class="accar-conc-desc">El Tomo de Dámaso y el elenco oficial de los 73 libros inspirados del Canon Católico de la Biblia.</p>
+                <a href="#" class="accar-conc-btn">Ficha en preparación →</a>
+              </div>
+            </article>
+
+            <!-- 9. HIPONA -->
+            <article class="accar-conc-card">
+              <div class="accar-conc-img-box">
+                <img src="/assets/img/concilio_hipona.png" alt="Sínodo de Hipona" loading="lazy">
+              </div>
+              <div class="accar-conc-info">
+                <div class="accar-conc-meta-top">
+                  <span class="accar-conc-rank">Concilio Africano</span>
+                  <span class="accar-conc-year">393 d.C.</span>
+                </div>
+                <h3>Hipona</h3>
+                <p class="accar-conc-pope">Aurelio de Cartago · Alocución de San Agustín</p>
+                <p class="accar-conc-desc">Primer concilio plenario de África; promulgación del Canon Bíblico íntegro (incluidos los deuterocanónicos).</p>
+                <a href="#" class="accar-conc-btn">Ficha en preparación →</a>
+              </div>
+            </article>
+
+            <!-- 10. CARTAGO III -->
+            <article class="accar-conc-card">
+              <div class="accar-conc-img-box">
+                <img src="/assets/img/concilio_cartago_iii.png" alt="Concilio de Cartago III" loading="lazy">
+              </div>
+              <div class="accar-conc-info">
+                <div class="accar-conc-meta-top">
+                  <span class="accar-conc-rank">Concilio Africano</span>
+                  <span class="accar-conc-year">397 d.C.</span>
+                </div>
+                <h3>Cartago III</h3>
+                <p class="accar-conc-pope">Aurelio de Cartago y San Agustín de Hipona</p>
+                <p class="accar-conc-desc">Ratificación solemne del Canon de los 46 libros del Antiguo Testamento y 27 del Nuevo remitida a Roma.</p>
+                <a href="#" class="accar-conc-btn">Ficha en preparación →</a>
+              </div>
+            </article>
+
+            <!-- 11. TOLEDO I -->
+            <article class="accar-conc-card">
+              <div class="accar-conc-img-box">
+                <img src="/assets/img/concilio_toledo_i.png" alt="Concilio de Toledo I" loading="lazy">
+              </div>
+              <div class="accar-conc-info">
+                <div class="accar-conc-meta-top">
+                  <span class="accar-conc-rank">Concilio Hispano</span>
+                  <span class="accar-conc-year">400 d.C.</span>
+                </div>
+                <h3>Toledo I</h3>
+                <p class="accar-conc-pope">Patruino de Mérida · 19 Obispos Hispanos</p>
+                <p class="accar-conc-desc">Condena dogmática del gnosticismo priscilianista y profesión explícita de la procesión trinitaria del Espíritu Santo.</p>
+                <a href="#" class="accar-conc-btn">Ficha en preparación →</a>
+              </div>
+            </article>
+
+            <!-- 12. CARTAGO (SÍNODO) -->
+            <article class="accar-conc-card">
+              <div class="accar-conc-img-box">
+                <img src="/assets/img/sinodo_cartago.png" alt="Sínodo de Cartago" loading="lazy">
+              </div>
+              <div class="accar-conc-info">
+                <div class="accar-conc-meta-top">
+                  <span class="accar-conc-rank">Concilio Plenario</span>
+                  <span class="accar-conc-year">418 – 419 d.C.</span>
+                </div>
+                <h3>Cartago (Sínodo)</h3>
+                <p class="accar-conc-pope">África del Norte · Confirmado por el Papa San Zósimo</p>
+                <p class="accar-conc-desc">Nueve cánones infalibles sobre el pecado original, el bautismo de niños y la necesidad absoluta de la gracia (DH 222–230).</p>
+                <a href="#" class="accar-conc-btn">Ficha en preparación →</a>
+              </div>
+            </article>
+
+            <!-- 13. ORANGE II -->
+            <article class="accar-conc-card">
+              <div class="accar-conc-img-box">
+                <img src="/assets/img/concilio_orange_ii.png" alt="Concilio de Orange II" loading="lazy">
+              </div>
+              <div class="accar-conc-info">
+                <div class="accar-conc-meta-top">
+                  <span class="accar-conc-rank">Concilio Confirmado</span>
+                  <span class="accar-conc-year">529 d.C.</span>
+                </div>
+                <h3>Orange II</h3>
+                <p class="accar-conc-pope">San Cesáreo de Arlés · Confirmado por Bonifacio II</p>
+                <p class="accar-conc-desc">25 cánones sobre la gracia preveniente contra el semipelagianismo y rechazo de la predestinación al mal (DH 370–397).</p>
+                <a href="#" class="accar-conc-btn">Ficha en preparación →</a>
+              </div>
+            </article>
+
+            <!-- 14. BRAGA I -->
+            <article class="accar-conc-card">
+              <div class="accar-conc-img-box">
+                <img src="/assets/img/concilio_braga_i.png" alt="Concilio de Braga I" loading="lazy">
+              </div>
+              <div class="accar-conc-info">
+                <div class="accar-conc-meta-top">
+                  <span class="accar-conc-rank">Concilio Galaico</span>
+                  <span class="accar-conc-year">561 d.C.</span>
+                </div>
+                <h3>Braga I</h3>
+                <p class="accar-conc-pope">Lucrecio de Braga y San Martín de Dumio</p>
+                <p class="accar-conc-desc">17 anatemas doctrinales que erradicaron definitivamente el priscilianismo y el fatalismo astrológico en el reino suevo.</p>
+                <a href="#" class="accar-conc-btn">Ficha en preparación →</a>
+              </div>
+            </article>
+
+            <!-- 15. TOLEDO III -->
+            <article class="accar-conc-card">
+              <div class="accar-conc-img-box">
+                <img src="/assets/img/concilio_toledo_iii.png" alt="Concilio de Toledo III" loading="lazy">
+              </div>
+              <div class="accar-conc-info">
+                <div class="accar-conc-meta-top">
+                  <span class="accar-conc-rank">Concilio Nacional</span>
+                  <span class="accar-conc-year">589 d.C.</span>
+                </div>
+                <h3>Toledo III</h3>
+                <p class="accar-conc-pope">San Leandro de Sevilla y Rey Recaredo I</p>
+                <p class="accar-conc-desc">Abjuración oficial del arrianismo visigodo, unidad católica de Hispania y canto litúrgico del Credo con el Filioque.</p>
+                <a href="#" class="accar-conc-btn">Ficha en preparación →</a>
+              </div>
+            </article>
+
+            <!-- 16. TOLEDO IV -->
+            <article class="accar-conc-card">
+              <div class="accar-conc-img-box">
+                <img src="/assets/img/concilio_toledo_iv.png" alt="Concilio de Toledo IV" loading="lazy">
+              </div>
+              <div class="accar-conc-info">
+                <div class="accar-conc-meta-top">
+                  <span class="accar-conc-rank">Concilio General Hispano</span>
+                  <span class="accar-conc-year">633 d.C.</span>
+                </div>
+                <h3>Toledo IV</h3>
+                <p class="accar-conc-pope">San Isidoro de Sevilla · 62 Obispos</p>
+                <p class="accar-conc-desc">Unificación litúrgica hispana, creación de escuelas catedralicias (precursoras de los seminarios) y ordenación político-moral.</p>
+                <a href="#" class="accar-conc-btn">Ficha en preparación →</a>
+              </div>
+            </article>
+
+            <!-- 17. WHITBY -->
+            <article class="accar-conc-card">
+              <div class="accar-conc-img-box">
+                <img src="/assets/img/concilio_whitby.png" alt="Sínodo de Whitby" loading="lazy">
+              </div>
+              <div class="accar-conc-info">
+                <div class="accar-conc-meta-top">
+                  <span class="accar-conc-rank">Sínodo Anglosajón</span>
+                  <span class="accar-conc-year">664 d.C.</span>
+                </div>
+                <h3>Whitby</h3>
+                <p class="accar-conc-pope">San Wilfrido de York y Rey Oswiu de Northumbria</p>
+                <p class="accar-conc-desc">Adopción en las Islas Británicas del cómputo pascual y usos romanos por reverencia a las llaves conferidas a San Pedro.</p>
+                <a href="#" class="accar-conc-btn">Ficha en preparación →</a>
+              </div>
+            </article>
+
+            <!-- 18. TOLEDO XI -->
+            <article class="accar-conc-card">
+              <div class="accar-conc-img-box">
+                <img src="/assets/img/concilio_toledo_xii.png" alt="Concilio de Toledo XI" loading="lazy">
+              </div>
+              <div class="accar-conc-info">
+                <div class="accar-conc-meta-top">
+                  <span class="accar-conc-rank">Concilio Dogmático</span>
+                  <span class="accar-conc-year">675 d.C.</span>
+                </div>
+                <h3>Toledo XI</h3>
+                <p class="accar-conc-pope">Quirico de Toledo · Hispania Visigoda</p>
+                <p class="accar-conc-desc">Promulgación de la célebre Fórmula de Fe Toledana, joya de precisión teológica trinitaria y cristológica (DH 525–541).</p>
+                <a href="#" class="accar-conc-btn">Ficha en preparación →</a>
+              </div>
+            </article>
+
+            <!-- 19. FRANKFURT -->
+            <article class="accar-conc-card">
+              <div class="accar-conc-img-box">
+                <img src="/assets/img/concilio_frankfurt.png" alt="Concilio de Frankfurt" loading="lazy">
+              </div>
+              <div class="accar-conc-info">
+                <div class="accar-conc-meta-top">
+                  <span class="accar-conc-rank">Concilio Carolingio</span>
+                  <span class="accar-conc-year">794 d.C.</span>
+                </div>
+                <h3>Frankfurt</h3>
+                <p class="accar-conc-pope">Legados del Papa Adriano I y Carlomagno</p>
+                <p class="accar-conc-desc">Condena definitiva de la herejía adopcionista de Elipando de Toledo y Félix de Urgel en comunión con Roma.</p>
+                <a href="#" class="accar-conc-btn">Ficha en preparación →</a>
+              </div>
+            </article>
+
+            <!-- 20. COYANZA -->
+            <article class="accar-conc-card">
+              <div class="accar-conc-img-box">
+                <img src="/assets/img/concilio_coyanza.png" alt="Concilio de Coyanza" loading="lazy">
+              </div>
+              <div class="accar-conc-info">
+                <div class="accar-conc-meta-top">
+                  <span class="accar-conc-rank">Concilio Leonés</span>
+                  <span class="accar-conc-year">1055 d.C.</span>
+                </div>
+                <h3>Coyanza</h3>
+                <p class="accar-conc-pope">Reino de León · Fernando I y Sancha</p>
+                <p class="accar-conc-desc">Renovación moral del clero, restauración litúrgica y preludio hispano de la gran Reforma Gregoriana.</p>
+                <a href="#" class="accar-conc-btn">Ficha en preparación →</a>
+              </div>
+            </article>
+
+            <!-- 21. CLERMONT -->
+            <article class="accar-conc-card">
+              <div class="accar-conc-img-box">
+                <img src="/assets/img/concilio_clermont.png" alt="Concilio de Clermont" loading="lazy">
+              </div>
+              <div class="accar-conc-info">
+                <div class="accar-conc-meta-top">
+                  <span class="accar-conc-rank">Concilio Pontificio</span>
+                  <span class="accar-conc-year">1095 d.C.</span>
+                </div>
+                <h3>Clermont</h3>
+                <p class="accar-conc-pope">Presidido personalmente por el Papa Beato Urbano II</p>
+                <p class="accar-conc-desc">Decretos contra la simonía y la investidura laica, promulgación de la Tregua de Dios y auxilio a los cristianos de Oriente.</p>
+                <a href="#" class="accar-conc-btn">Ficha en preparación →</a>
+              </div>
+            </article>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- =====================================================
+           2. CONCILIOS ECUMÉNICOS (MAGISTERIO UNIVERSAL)
+      ====================================================== -->
+      <div class="accar-conc-acc" data-acc-idx="1">
+        <button type="button" class="accar-conc-acc-trigger">
+          <div class="accar-conc-acc-left">
+            <img src="/assets/img/concilios_ecumenicos_icon.png" alt="Concilios Ecuménicos" class="accar-conc-acc-icon">
+            <div class="accar-conc-acc-copy">
+              <span class="accar-acc-era-pill">Siglos IV al XX · Infalibilidad del Colegio Episcopal con Pedro</span>
+              <h2>Concilios Ecuménicos</h2>
+              <p>Las veintiuna asambleas universales convocadas, presididas y solemnemente confirmadas bajo la autoridad del Romano Pontífice, cuyas definiciones dogmáticas en materia de fe y costumbres obligan infaliblemente a toda la Iglesia Católica.</p>
+            </div>
+          </div>
+
+          <div class="accar-conc-acc-right">
+            <span class="accar-conc-count">21 Ecuménicos</span>
+            <span class="accar-conc-toggle" aria-hidden="true">+</span>
+          </div>
+        </button>
+
+        <div class="accar-conc-acc-body">
+          <div class="accar-conc-grid">
+
+            <!-- 1. NICEA I (ACTIVO) -->
+            <article class="accar-conc-card" data-vista="views/directorio_concilios/ecumenicos/nicea-i.html">
+              <div class="accar-conc-img-box">
+                <img src="/assets/img/concilio_nicea_i.png" alt="Concilio de Nicea I">
+              </div>
+              <div class="accar-conc-info">
+                <div class="accar-conc-meta-top">
+                  <span class="accar-conc-rank">✠ I Ecuménico</span>
+                  <span class="accar-conc-year">325 d.C.</span>
+                </div>
+                <h3>Nicea I</h3>
+                <p class="accar-conc-pope">Papa San Silvestre I · Osio de Córdoba</p>
+                <p class="accar-conc-desc">Consustancialidad divina del Hijo con el Padre (Homoousios), Símbolo Niceno y anatema contra Arrio.</p>
+                <a href="#" class="accar-conc-btn">✠ Abrir Códice Conciliar →</a>
+              </div>
+            </article>
+
+            <!-- 2. CONSTANTINOPLA I -->
+            <article class="accar-conc-card">
+              <div class="accar-conc-img-box">
+                <img src="/assets/img/concilio_constantinopla_i.png" alt="Concilio de Constantinopla I" loading="lazy">
+              </div>
+              <div class="accar-conc-info">
+                <div class="accar-conc-meta-top">
+                  <span class="accar-conc-rank">II Ecuménico</span>
+                  <span class="accar-conc-year">381 d.C.</span>
+                </div>
+                <h3>Constantinopla I</h3>
+                <p class="accar-conc-pope">Papa San Dámaso I</p>
+                <p class="accar-conc-desc">Divinidad del Espíritu Santo contra los macedonianos y culminación del Credo Niceno-Constantinopolitano.</p>
+                <a href="#" class="accar-conc-btn">Ficha en preparación →</a>
+              </div>
+            </article>
+
+            <!-- 3. ÉFESO -->
+            <article class="accar-conc-card">
+              <div class="accar-conc-img-box">
+                <img src="/assets/img/concilio_efeso.png" alt="Concilio de Éfeso" loading="lazy">
+              </div>
+              <div class="accar-conc-info">
+                <div class="accar-conc-meta-top">
+                  <span class="accar-conc-rank">III Ecuménico</span>
+                  <span class="accar-conc-year">431 d.C.</span>
+                </div>
+                <h3>Éfeso</h3>
+                <p class="accar-conc-pope">Papa San Celestino I · San Cirilo de Alejandría</p>
+                <p class="accar-conc-desc">Unidad hipostática de Cristo y proclamación dogmática de la Virgen María como Madre de Dios (Theotokos) contra Nestorio.</p>
+                <a href="#" class="accar-conc-btn">Ficha en preparación →</a>
+              </div>
+            </article>
+
+            <!-- 4. CALCEDONIA -->
+            <article class="accar-conc-card">
+              <div class="accar-conc-img-box">
+                <img src="/assets/img/concilio_calcedonia.png" alt="Concilio de Calcedonia" loading="lazy">
+              </div>
+              <div class="accar-conc-info">
+                <div class="accar-conc-meta-top">
+                  <span class="accar-conc-rank">IV Ecuménico</span>
+                  <span class="accar-conc-year">451 d.C.</span>
+                </div>
+                <h3>Calcedonia</h3>
+                <p class="accar-conc-pope">Papa San León I Magno («Pedro ha hablado por León»)</p>
+                <p class="accar-conc-desc">Definición de las dos naturalezas de Cristo —divina y humana— unidas en una sola Persona sin confusión ni división contra Eutiques.</p>
+                <a href="#" class="accar-conc-btn">Ficha en preparación →</a>
+              </div>
+            </article>
+
+            <!-- 5. CONSTANTINOPLA II -->
+            <article class="accar-conc-card">
+              <div class="accar-conc-img-box">
+                <img src="/assets/img/concilio_constantinopla_ii.png" alt="Concilio de Constantinopla II" loading="lazy">
+              </div>
+              <div class="accar-conc-info">
+                <div class="accar-conc-meta-top">
+                  <span class="accar-conc-rank">V Ecuménico</span>
+                  <span class="accar-conc-year">553 d.C.</span>
+                </div>
+                <h3>Constantinopla II</h3>
+                <p class="accar-conc-pope">Papa Vigilio</p>
+                <p class="accar-conc-desc">Condena de los «Tres Capítulos» filonestorianos y defensa de la virginidad perpetua de María Santísima.</p>
+                <a href="#" class="accar-conc-btn">Ficha en preparación →</a>
+              </div>
+            </article>
+
+            <!-- 6. CONSTANTINOPLA III -->
+            <article class="accar-conc-card">
+              <div class="accar-conc-img-box">
+                <img src="/assets/img/concilio_constantinopla_iii.png" alt="Concilio de Constantinopla III" loading="lazy">
+              </div>
+              <div class="accar-conc-info">
+                <div class="accar-conc-meta-top">
+                  <span class="accar-conc-rank">VI Ecuménico</span>
+                  <span class="accar-conc-year">680 – 681 d.C.</span>
+                </div>
+                <h3>Constantinopla III</h3>
+                <p class="accar-conc-pope">Papa San Agatón y San León II</p>
+                <p class="accar-conc-desc">Condena de la herejía monotelita: Cristo posee dos voluntades naturales (divina y humana) en perfecta armonía.</p>
+                <a href="#" class="accar-conc-btn">Ficha en preparación →</a>
+              </div>
+            </article>
+
+            <!-- 7. NICEA II -->
+            <article class="accar-conc-card">
+              <div class="accar-conc-img-box">
+                <img src="/assets/img/concilio_nicea_ii.png" alt="Concilio de Nicea II" loading="lazy">
+              </div>
+              <div class="accar-conc-info">
+                <div class="accar-conc-meta-top">
+                  <span class="accar-conc-rank">VII Ecuménico</span>
+                  <span class="accar-conc-year">787 d.C.</span>
+                </div>
+                <h3>Nicea II</h3>
+                <p class="accar-conc-pope">Papa Adriano I</p>
+                <p class="accar-conc-desc">Derrota de la iconoclasia: legitimidad dogmática de las sagradas imágenes distiguiendo veneración (proskynesis) de adoración (latría).</p>
+                <a href="#" class="accar-conc-btn">Ficha en preparación →</a>
+              </div>
+            </article>
+
+            <!-- 8. CONSTANTINOPLA IV -->
+            <article class="accar-conc-card">
+              <div class="accar-conc-img-box">
+                <img src="/assets/img/concilio_constantinopla_iv.png" alt="Concilio de Constantinopla IV" loading="lazy">
+              </div>
+              <div class="accar-conc-info">
+                <div class="accar-conc-meta-top">
+                  <span class="accar-conc-rank">VIII Ecuménico</span>
+                  <span class="accar-conc-year">869 – 870 d.C.</span>
+                </div>
+                <h3>Constantinopla IV</h3>
+                <p class="accar-conc-pope">Papa Adriano II</p>
+                <p class="accar-conc-desc">Resolución del cisma fociano, restitución del patriarca San Ignacio y primado de la Sede Apostólica Romana.</p>
+                <a href="#" class="accar-conc-btn">Ficha en preparación →</a>
+              </div>
+            </article>
+
+            <!-- 9. LETRÁN I -->
+            <article class="accar-conc-card">
+              <div class="accar-conc-img-box">
+                <img src="/assets/img/concilio_letran_i.png" alt="Concilio de Letrán I" loading="lazy">
+              </div>
+              <div class="accar-conc-info">
+                <div class="accar-conc-meta-top">
+                  <span class="accar-conc-rank">IX Ecuménico</span>
+                  <span class="accar-conc-year">1123 d.C.</span>
+                </div>
+                <h3>Letrán I</h3>
+                <p class="accar-conc-pope">Papa Calixto II</p>
+                <p class="accar-conc-desc">Primer concilio ecuménico celebrado en Occidente; ratificación del Concordato de Worms que puso fin a la Querella de las Investiduras.</p>
+                <a href="#" class="accar-conc-btn">Ficha en preparación →</a>
+              </div>
+            </article>
+
+            <!-- 10. LETRÁN II -->
+            <article class="accar-conc-card">
+              <div class="accar-conc-img-box">
+                <img src="/assets/img/concilio_letran_ii.png" alt="Concilio de Letrán II" loading="lazy">
+              </div>
+              <div class="accar-conc-info">
+                <div class="accar-conc-meta-top">
+                  <span class="accar-conc-rank">X Ecuménico</span>
+                  <span class="accar-conc-year">1139 d.C.</span>
+                </div>
+                <h3>Letrán II</h3>
+                <p class="accar-conc-pope">Papa Inocencio II</p>
+                <p class="accar-conc-desc">Clausura del cisma de Anacleto II, condena de los errores antisacramentales de Pedro de Bruys y sanción canónica del celibato mayor.</p>
+                <a href="#" class="accar-conc-btn">Ficha en preparación →</a>
+              </div>
+            </article>
+
+            <!-- 11. LETRÁN III -->
+            <article class="accar-conc-card">
+              <div class="accar-conc-img-box">
+                <img src="/assets/img/concilio_letran_iii.png" alt="Concilio de Letrán III" loading="lazy">
+              </div>
+              <div class="accar-conc-info">
+                <div class="accar-conc-meta-top">
+                  <span class="accar-conc-rank">XI Ecuménico</span>
+                  <span class="accar-conc-year">1179 d.C.</span>
+                </div>
+                <h3>Letrán III</h3>
+                <p class="accar-conc-pope">Papa Alejandro III</p>
+                <p class="accar-conc-desc">Establecimiento de la mayoría de dos tercios de los cardenales para elegir al Romano Pontífice y condena de cátaros y valdenses.</p>
+                <a href="#" class="accar-conc-btn">Ficha en preparación →</a>
+              </div>
+            </article>
+
+            <!-- 12. LETRÁN IV -->
+            <article class="accar-conc-card">
+              <div class="accar-conc-img-box">
+                <img src="/assets/img/concilio_letran_iv.png" alt="Concilio de Letrán IV" loading="lazy">
+              </div>
+              <div class="accar-conc-info">
+                <div class="accar-conc-meta-top">
+                  <span class="accar-conc-rank">XII Ecuménico</span>
+                  <span class="accar-conc-year">1215 d.C.</span>
+                </div>
+                <h3>Letrán IV</h3>
+                <p class="accar-conc-pope">Papa Inocencio III</p>
+                <p class="accar-conc-desc">Gran concilio medieval: profesión dogmática Firmiter contra albigenses, consagración del término «Transubstanciación» y confesión anual.</p>
+                <a href="#" class="accar-conc-btn">Ficha en preparación →</a>
+              </div>
+            </article>
+
+            <!-- 13. LYON I -->
+            <article class="accar-conc-card">
+              <div class="accar-conc-img-box">
+                <img src="/assets/img/concilio_lyon_i.png" alt="Concilio de Lyon I" loading="lazy">
+              </div>
+              <div class="accar-conc-info">
+                <div class="accar-conc-meta-top">
+                  <span class="accar-conc-rank">XIII Ecuménico</span>
+                  <span class="accar-conc-year">1245 d.C.</span>
+                </div>
+                <h3>Lyon I</h3>
+                <p class="accar-conc-pope">Papa Inocencio IV</p>
+                <p class="accar-conc-desc">Defensa de la libertad de la Iglesia frente al absolutismo imperial de Federico II y reforma procesal canónica.</p>
+                <a href="#" class="accar-conc-btn">Ficha en preparación →</a>
+              </div>
+            </article>
+
+            <!-- 14. LYON II -->
+            <article class="accar-conc-card">
+              <div class="accar-conc-img-box">
+                <img src="/assets/img/concilio_lyon_ii.png" alt="Concilio de Lyon II" loading="lazy">
+              </div>
+              <div class="accar-conc-info">
+                <div class="accar-conc-meta-top">
+                  <span class="accar-conc-rank">XIV Ecuménico</span>
+                  <span class="accar-conc-year">1274 d.C.</span>
+                </div>
+                <h3>Lyon II</h3>
+                <p class="accar-conc-pope">Papa Beato Gregorio X · San Buenaventura</p>
+                <p class="accar-conc-desc">Unión efímera con los griegos, definición dogmática del Filioque, del Purgatorio y de los siete Sacramentos, y ley del Cónclave.</p>
+                <a href="#" class="accar-conc-btn">Ficha en preparación →</a>
+              </div>
+            </article>
+
+            <!-- 15. VIENNE -->
+            <article class="accar-conc-card">
+              <div class="accar-conc-img-box">
+                <img src="/assets/img/concilio_vienne.png" alt="Concilio de Vienne" loading="lazy">
+              </div>
+              <div class="accar-conc-info">
+                <div class="accar-conc-meta-top">
+                  <span class="accar-conc-rank">XV Ecuménico</span>
+                  <span class="accar-conc-year">1311 – 1312 d.C.</span>
+                </div>
+                <h3>Vienne</h3>
+                <p class="accar-conc-pope">Papa Clemente V</p>
+                <p class="accar-conc-desc">Definición dogmática del alma racional como forma sustancial del cuerpo humano (DH 902), cuestión templaria y cátedras de lenguas orientales.</p>
+                <a href="#" class="accar-conc-btn">Ficha en preparación →</a>
+              </div>
+            </article>
+
+            <!-- 16. CONSTANZA -->
+            <article class="accar-conc-card">
+              <div class="accar-conc-img-box">
+                <img src="/assets/img/concilio_constanza.png" alt="Concilio de Constanza" loading="lazy">
+              </div>
+              <div class="accar-conc-info">
+                <div class="accar-conc-meta-top">
+                  <span class="accar-conc-rank">XVI Ecuménico</span>
+                  <span class="accar-conc-year">1414 – 1418 d.C.</span>
+                </div>
+                <h3>Constanza</h3>
+                <p class="accar-conc-pope">Papa Gregorio XII y Martín V</p>
+                <p class="accar-conc-desc">Extinción del Gran Cisma de Occidente mediante la elección de Martín V y condena de las herejías preprotestantes de Wycliffe y Hus.</p>
+                <a href="#" class="accar-conc-btn">Ficha en preparación →</a>
+              </div>
+            </article>
+
+            <!-- 17. BASILEA - FERRARA - FLORENCIA -->
+            <article class="accar-conc-card">
+              <div class="accar-conc-img-box">
+                <img src="/assets/img/concilio_basilea.png" alt="Concilio de Basilea-Florencia" loading="lazy">
+              </div>
+              <div class="accar-conc-info">
+                <div class="accar-conc-meta-top">
+                  <span class="accar-conc-rank">XVII Ecuménico</span>
+                  <span class="accar-conc-year">1431 – 1445 d.C.</span>
+                </div>
+                <h3>Basilea-Florencia</h3>
+                <p class="accar-conc-pope">Papa Eugenio IV</p>
+                <p class="accar-conc-desc">Derrota del conciliarismo y bulas dogmáticas de unión con griegos, armenios y coptos sobre Primado Papal, Sacramentos y Canon Bíblico.</p>
+                <a href="#" class="accar-conc-btn">Ficha en preparación →</a>
+              </div>
+            </article>
+
+            <!-- 18. LETRÁN V -->
+            <article class="accar-conc-card">
+              <div class="accar-conc-img-box">
+                <img src="/assets/img/concilio_letran_v.png" alt="Concilio de Letrán V" loading="lazy">
+              </div>
+              <div class="accar-conc-info">
+                <div class="accar-conc-meta-top">
+                  <span class="accar-conc-rank">XVIII Ecuménico</span>
+                  <span class="accar-conc-year">1512 – 1517 d.C.</span>
+                </div>
+                <h3>Letrán V</h3>
+                <p class="accar-conc-pope">Papa Julio II y León X</p>
+                <p class="accar-conc-desc">Definición dogmática de la inmortalidad individual del alma humana frente al neoaristotelismo secular (Bula Apostolici regiminis, DH 1440).</p>
+                <a href="#" class="accar-conc-btn">Ficha en preparación →</a>
+              </div>
+            </article>
+
+            <!-- 19. TRENTO -->
+            <article class="accar-conc-card">
+              <div class="accar-conc-img-box">
+                <img src="/assets/img/concilio_trento.png" alt="Concilio de Trento" loading="lazy">
+              </div>
+              <div class="accar-conc-info">
+                <div class="accar-conc-meta-top">
+                  <span class="accar-conc-rank">XIX Ecuménico</span>
+                  <span class="accar-conc-year">1545 – 1563 d.C.</span>
+                </div>
+                <h3>Trento</h3>
+                <p class="accar-conc-pope">Paulo III, Julio III y Pío IV</p>
+                <p class="accar-conc-desc">Muralla dogmática frente a Lutero y Calvino: Escritura y Tradición, Pecado Original, Justificación, los 7 Sacramentos y el Sacrificio de la Misa.</p>
+                <a href="#" class="accar-conc-btn">Ficha en preparación →</a>
+              </div>
+            </article>
+
+            <!-- 20. VATICANO I -->
+            <article class="accar-conc-card">
+              <div class="accar-conc-img-box">
+                <img src="/assets/img/concilio_vaticano_i.png" alt="Concilio Vaticano I" loading="lazy">
+              </div>
+              <div class="accar-conc-info">
+                <div class="accar-conc-meta-top">
+                  <span class="accar-conc-rank">XX Ecuménico</span>
+                  <span class="accar-conc-year">1869 – 1870 d.C.</span>
+                </div>
+                <h3>Vaticano I</h3>
+                <p class="accar-conc-pope">Papa Beato Pío IX</p>
+                <p class="accar-conc-desc">Constitución Dei Filius sobre fe y razón contra racionalismo y fideísmo, y Pastor Aeternus definiendo el Primado y la Infalibilidad Papal.</p>
+                <a href="#" class="accar-conc-btn">Ficha en preparación →</a>
+              </div>
+            </article>
+
+            <!-- 21. VATICANO II (ACTIVO) -->
+            <article class="accar-conc-card" data-vista="views/directorio_concilios/ecumenicos/vaticano-ii.html">
+              <div class="accar-conc-img-box">
+                <img src="/assets/img/concilio_vaticano_ii.png" alt="Concilio Vaticano II">
+              </div>
+              <div class="accar-conc-info">
+                <div class="accar-conc-meta-top">
+                  <span class="accar-conc-rank">✠ XXI Ecuménico</span>
+                  <span class="accar-conc-year">1962 – 1965 d.C.</span>
+                </div>
+                <h3>Vaticano II</h3>
+                <p class="accar-conc-pope">San Juan XXIII y San Pablo VI</p>
+                <p class="accar-conc-desc">Custodia y exposición pastoral del Depositum Fidei en 16 documentos (Lumen Gentium, Dei Verbum, Sacrosanctum Concilium, Gaudium et Spes).</p>
+                <a href="#" class="accar-conc-btn">✠ Abrir Códice Conciliar →</a>
+              </div>
+            </article>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
 <style>
-  .dir-concilios-wrapper {
-    background-color: #081223;
-    padding: 60px 20px;
-    font-family: Georgia, "Times New Roman", serif;
-    color: #fff;
-    min-height: 100vh;
-  }
-  
-  .dir-header {
-    text-align: center;
-    margin-bottom: 50px;
-  }
-  
-  .dir-title {
-    color: #d4af37;
-    font-size: 2.8rem;
-    font-weight: bold;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    margin: 0 0 10px 0;
-    text-shadow: 0 4px 12px rgba(0,0,0,0.5);
-  }
-  
-  .dir-divider {
-    width: 280px;
-    height: 2px;
-    margin: 0 auto 15px auto;
-    background: radial-gradient(circle, rgba(212,175,55,1) 0%, rgba(212,175,55,0) 100%);
-    box-shadow: 0 0 8px rgba(212,175,55,0.6);
-  }
+#accar-dir-concilios-root,
+#accar-dir-concilios-root * {
+  box-sizing: border-box;
+}
 
-  .dir-subtitle {
-    color: #a3b8cc;
-    font-size: 1.25rem;
-    font-style: italic;
-    display: inline-block;
-  }
+#accar-dir-concilios-root {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  min-height: 100vh;
+  padding: 52px 20px 136px;
+  font-family: Georgia, "Times New Roman", serif;
+  color: #f8efd3;
+  border-top: 1px solid rgba(212, 175, 55, 0.24);
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(18, 46, 94, 0.56) 0%, rgba(6, 16, 36, 0.92) 38%, #030816 100%);
+  box-shadow: inset 0 24px 52px rgba(0, 0, 0, 0.55);
+}
 
-  .dir-accordion {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-  }
+#accar-dir-concilios-root::before {
+  content: "";
+  position: absolute;
+  top: 90px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(1100px, 96vw);
+  height: min(1100px, 96vw);
+  background: url("/assets/img/historia-watermark.png") center top / contain no-repeat;
+  opacity: 0.065;
+  pointer-events: none;
+  z-index: 0;
+}
 
-  .dir-acc-item {
-    background: linear-gradient(180deg, #0c1f3f 0%, #081223 100%);
-    border: 1px solid rgba(212,175,55,0.4);
-    border-radius: 16px;
-    box-shadow: 0 12px 30px rgba(0,0,0,0.3);
-    overflow: hidden;
-    transition: border-color 0.3s ease;
-  }
+#accar-dir-concilios-root .accar-conc-dir-wrap {
+  position: relative;
+  z-index: 1;
+  max-width: 1180px;
+  margin: 0 auto;
+}
 
-  .dir-acc-item.active {
-    border-color: rgba(212,175,55,0.8);
-  }
+/* ===== BARRA SUPERIOR: MIGAS Y CONMUTADOR ===== */
+#accar-dir-concilios-root .accar-hist-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-bottom: 38px;
+}
 
-  .dir-acc-trigger {
-    width: 100%;
-    background: transparent;
-    border: none;
-    padding: 25px 30px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    cursor: pointer;
-    color: #fff;
-    text-align: left;
-  }
+#accar-dir-concilios-root .accar-hist-breadcrumb {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-size: 0.82rem;
+  color: rgba(248, 239, 211, 0.72);
+}
 
-  .dir-acc-trigger-left {
-    display: flex;
-    align-items: center;
-    gap: 25px;
-  }
+#accar-dir-concilios-root .accar-hist-breadcrumb a {
+  color: #eed076;
+  text-decoration: none;
+  font-weight: 700;
+  transition: color 0.22s ease;
+}
 
-  .dir-acc-icon-img {
-    width: 90px;
-    height: 90px;
-    border-radius: 50%;
-    box-shadow: 0 6px 15px rgba(0,0,0,0.6);
-    background: transparent;
-  }
+#accar-dir-concilios-root .accar-hist-breadcrumb a:hover {
+  color: #fff9ec;
+}
 
-  .dir-acc-text h3 {
-    margin: 0 0 8px 0;
-    font-size: 1.8rem;
-    color: #d4af37;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-  }
+#accar-dir-concilios-root .accar-hist-breadcrumb strong {
+  color: #fff9ec;
+}
 
-  .dir-acc-text p {
-    margin: 0;
-    color: #a3b8cc;
-    font-size: 1.05rem;
-    font-style: italic;
-    line-height: 1.5;
-    max-width: 850px;
-  }
+#accar-dir-concilios-root .accar-hist-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px;
+  border-radius: 999px;
+  border: 1px solid rgba(212, 175, 55, 0.36);
+  background: rgba(3, 8, 24, 0.84);
+}
 
-  .dir-acc-toggle-icon {
-    color: #d4af37;
-    font-size: 2.2rem;
-    font-weight: 300;
-    transition: transform 0.3s ease;
-  }
+#accar-dir-concilios-root .accar-hist-switch-btn {
+  appearance: none;
+  padding: 7px 15px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: rgba(234, 224, 200, 0.76);
+  font-family: inherit;
+  font-size: 0.70rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.24s ease;
+}
 
-  .dir-acc-content {
-    display: none;
-    padding: 35px;
-    border-top: 1px solid rgba(212,175,55,0.2);
-    background: #060d1a;
-  }
+#accar-dir-concilios-root .accar-hist-switch-btn:hover {
+  color: #fff9ec;
+  background: rgba(212, 175, 55, 0.12);
+}
 
-  .dir-acc-item.active .dir-acc-content {
-    display: block;
-    animation: fadeInGrid 0.4s ease forwards;
-  }
+#accar-dir-concilios-root .accar-hist-switch-btn.activa {
+  border-color: rgba(232, 203, 114, 0.65);
+  background: linear-gradient(180deg, rgba(212, 175, 55, 0.28) 0%, rgba(128, 96, 20, 0.24) 100%);
+  color: #fff9ec;
+  cursor: default;
+}
 
-  /* CUADRÍCULA 2 COLUMNAS Y TARJETAS HORIZONTALES */
-  .dir-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 30px;
-  }
+/* ===== CABECERA MAESTRA Y BUSCADOR ===== */
+#accar-dir-concilios-root .accar-dir-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  max-width: 840px;
+  margin: 0 auto 48px;
+}
 
-  .dir-card {
-    background: linear-gradient(135deg, #0f2447 0%, #060d1a 100%);
-    border: 1px solid rgba(212,175,55,0.2);
-    border-radius: 12px;
-    padding: 20px;
-    text-align: left;
-    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 25px;
-  }
+#accar-dir-concilios-root .accar-dir-kicker {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 6px 18px;
+  margin-bottom: 18px;
+  border-radius: 999px;
+  border: 1px solid rgba(212, 175, 55, 0.65);
+  background: rgba(3, 7, 54, 0.84);
+  color: #e8cb72;
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.44);
+}
 
-  .dir-card:hover {
+#accar-dir-concilios-root .accar-dir-title-wrap {
+  display: block;
+  width: fit-content;
+  position: relative;
+  padding-bottom: 14px;
+  margin: 0 auto 18px;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.45);
+}
+
+#accar-dir-concilios-root .accar-dir-title-wrap::after {
+  content: "";
+  position: absolute;
+  bottom: -1.5px;
+  left: 24%;
+  right: 24%;
+  height: 2.5px;
+  border-radius: 2px;
+  background: #d4af37;
+  box-shadow: 0 0 12px rgba(212, 175, 55, 0.85);
+}
+
+#accar-dir-concilios-root .accar-dir-title {
+  margin: 0;
+  font-size: 2.7rem;
+  font-weight: 700;
+  line-height: 1.15;
+  color: #fff9ec;
+  letter-spacing: 0.02em;
+  text-shadow: 0 4px 18px rgba(0, 0, 0, 0.84), 0 0 16px rgba(212, 175, 55, 0.18);
+}
+
+#accar-dir-concilios-root .accar-dir-motto {
+  margin: 0 0 26px;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-size: 1.26rem;
+  font-style: italic;
+  color: #eed076;
+  letter-spacing: 0.04em;
+}
+
+#accar-dir-concilios-root .accar-conc-tools {
+  width: 100%;
+  max-width: 720px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+#accar-dir-concilios-root .accar-conc-search-wrap {
+  position: relative;
+  width: 100%;
+}
+
+#accar-dir-concilios-root .accar-conc-search-icon {
+  position: absolute;
+  left: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 18px;
+  height: 18px;
+  color: #e8cb72;
+  pointer-events: none;
+  display: inline-flex;
+}
+
+#accar-conc-search {
+  width: 100%;
+  padding: 13px 44px 13px 46px;
+  border-radius: 999px;
+  border: 1px solid rgba(212, 175, 55, 0.48);
+  background: rgba(4, 11, 30, 0.88);
+  color: #fff9ec;
+  font-family: inherit;
+  font-size: 0.94rem;
+  outline: none;
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.48);
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+#accar-conc-search::placeholder {
+  color: rgba(234, 224, 200, 0.48);
+}
+
+#accar-conc-search:focus {
+  border-color: #eed076;
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.18), 0 14px 30px rgba(0, 0, 0, 0.62);
+}
+
+#accar-conc-clear {
+  position: absolute;
+  right: 11px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1px solid rgba(212, 175, 55, 0.45);
+  background: rgba(212, 175, 55, 0.16);
+  color: #eed076;
+  cursor: pointer;
+  font-size: 0.8rem;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+#accar-conc-clear:hover {
+  background: #d4af37;
+  color: #050b1a;
+}
+
+#accar-dir-concilios-root .accar-conc-filters {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+#accar-dir-concilios-root .accar-conc-filter-btn {
+  appearance: none;
+  padding: 7px 16px;
+  border-radius: 999px;
+  border: 1px solid rgba(212, 175, 55, 0.38);
+  background: rgba(4, 11, 28, 0.78);
+  color: rgba(234, 224, 200, 0.80);
+  font-family: inherit;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.24s ease;
+}
+
+#accar-dir-concilios-root .accar-conc-filter-btn:hover {
+  border-color: #eed076;
+  color: #fff9ec;
+}
+
+#accar-dir-concilios-root .accar-conc-filter-btn.activo {
+  border-color: #f0d680;
+  background: linear-gradient(180deg, rgba(212, 175, 55, 0.32) 0%, rgba(128, 96, 20, 0.26) 100%);
+  color: #fff9ec;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.45);
+}
+
+#accar-conc-empty {
+  display: none;
+  padding: 40px 24px;
+  margin: 24px auto;
+  max-width: 640px;
+  border-radius: 20px;
+  border: 1px solid rgba(212, 175, 55, 0.34);
+  background: rgba(5, 13, 34, 0.78);
+  text-align: center;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-size: 1.18rem;
+  font-style: italic;
+  color: #e6dbc0;
+}
+
+/* ===== ACORDEONES MONUMENTALES DE ASAMBLEAS ===== */
+#accar-dir-concilios-root .accar-conc-accordion-list {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+#accar-dir-concilios-root .accar-conc-acc {
+  position: relative;
+  border-radius: 24px;
+  border: 1px solid rgba(212, 175, 55, 0.50);
+  background:
+    radial-gradient(circle at 8% 50%, rgba(212, 175, 55, 0.12) 0%, transparent 45%),
+    linear-gradient(180deg, rgba(8, 22, 48, 0.94) 0%, rgba(3, 8, 20, 0.98) 100%);
+  box-shadow:
+    0 22px 48px rgba(0, 0, 0, 0.70),
+    inset 0 1px 0 rgba(255, 238, 186, 0.16);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+#accar-dir-concilios-root .accar-conc-acc::before {
+  content: "";
+  position: absolute;
+  inset: 7px;
+  border: 1px solid rgba(212, 175, 55, 0.16);
+  border-radius: 17px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+#accar-dir-concilios-root .accar-conc-acc:hover,
+#accar-dir-concilios-root .accar-conc-acc.open {
+  border-color: #eed076;
+  box-shadow:
+    0 28px 58px rgba(0, 0, 0, 0.82),
+    0 0 24px rgba(212, 175, 55, 0.18);
+}
+
+#accar-dir-concilios-root .accar-conc-acc-trigger {
+  appearance: none;
+  width: 100%;
+  border: none;
+  background: transparent;
+  padding: 28px 34px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  text-align: left;
+  color: inherit;
+  cursor: pointer;
+  position: relative;
+  z-index: 2;
+}
+
+#accar-dir-concilios-root .accar-conc-acc-left {
+  display: flex;
+  align-items: center;
+  gap: 26px;
+  min-width: 0;
+}
+
+#accar-dir-concilios-root .accar-conc-acc-icon {
+  width: 92px;
+  height: 92px;
+  border-radius: 50%;
+  object-fit: contain;
+  flex-shrink: 0;
+  filter: drop-shadow(0 10px 18px rgba(0, 0, 0, 0.82));
+  transition: transform 0.38s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+#accar-dir-concilios-root .accar-conc-acc-trigger:hover .accar-conc-acc-icon {
+  transform: scale(1.06);
+}
+
+#accar-dir-concilios-root .accar-conc-acc-copy {
+  min-width: 0;
+}
+
+#accar-dir-concilios-root .accar-acc-era-pill {
+  display: inline-block;
+  padding: 3px 12px;
+  margin-bottom: 8px;
+  border-radius: 999px;
+  border: 1px solid rgba(212, 175, 55, 0.40);
+  background: rgba(3, 8, 26, 0.72);
+  color: #e8cb72;
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+#accar-dir-concilios-root .accar-conc-acc-copy h2 {
+  margin: 0 0 8px;
+  font-size: 1.92rem;
+  font-weight: 700;
+  font-variant: small-caps;
+  letter-spacing: 0.05em;
+  color: #fff9ec;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.85);
+}
+
+#accar-dir-concilios-root .accar-conc-acc-copy p {
+  margin: 0;
+  max-width: 780px;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-size: 1.13rem;
+  font-style: italic;
+  line-height: 1.52;
+  color: #dfd3b6;
+}
+
+#accar-dir-concilios-root .accar-conc-acc-right {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  flex-shrink: 0;
+}
+
+#accar-dir-concilios-root .accar-conc-count {
+  padding: 6px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(212, 175, 55, 0.42);
+  background: rgba(3, 8, 26, 0.75);
+  color: #e8cb72;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+#accar-dir-concilios-root .accar-conc-toggle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid rgba(212, 175, 55, 0.55);
+  background: rgba(3, 8, 28, 0.82);
+  color: #eed076;
+  font-size: 1.5rem;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+#accar-dir-concilios-root .accar-conc-acc.open .accar-conc-toggle {
+  transform: rotate(45deg);
+  background: #d4af37;
+  border-color: #fff3c4;
+  color: #050b1a;
+}
+
+/* ===== GALERÍA DE TARJETAS CONCILIARES (2 COLUMNAS) ===== */
+#accar-dir-concilios-root .accar-conc-acc-body {
+  display: none;
+  padding: 34px 32px 38px;
+  background: rgba(2, 6, 16, 0.88);
+  border-top: 1px solid rgba(212, 175, 55, 0.28);
+  border-radius: 0 0 23px 23px;
+  position: relative;
+  z-index: 2;
+}
+
+#accar-dir-concilios-root .accar-conc-acc.open .accar-conc-acc-body {
+  display: block;
+  animation: accarConcDirIn 0.34s ease;
+}
+
+@keyframes accarConcDirIn {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+#accar-dir-concilios-root .accar-conc-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+}
+
+/* ===== TARJETAS RELICARIO CONCILIARES ===== */
+#accar-dir-concilios-root .accar-conc-card {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  gap: 20px;
+  padding: 20px 22px;
+  border-radius: 20px;
+  border: 1px solid rgba(212, 175, 55, 0.32);
+  background:
+    radial-gradient(circle at 0% 20%, rgba(212, 175, 55, 0.08) 0%, transparent 55%),
+    linear-gradient(135deg, rgba(10, 24, 52, 0.92) 0%, rgba(4, 9, 22, 0.98) 100%);
+  box-shadow:
+    0 16px 34px rgba(0, 0, 0, 0.62),
+    inset 0 1px 0 rgba(255, 238, 186, 0.12);
+  cursor: pointer;
+  transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.32s ease, box-shadow 0.32s ease;
+}
+
+#accar-dir-concilios-root .accar-conc-card::after {
+  content: "";
+  position: absolute;
+  inset: 6px;
+  border: 1px solid rgba(212, 175, 55, 0.13);
+  border-radius: 14px;
+  pointer-events: none;
+}
+
+/* Tarjetas con Códice Activo (Jerusalén, Nicea I, Vaticano II) */
+#accar-dir-concilios-root .accar-conc-card--disponible {
+  border-color: rgba(238, 208, 118, 0.72);
+  background:
+    radial-gradient(circle at 12% 20%, rgba(158, 21, 28, 0.34) 0%, rgba(212, 175, 55, 0.14) 42%, transparent 70%),
+    linear-gradient(135deg, rgba(13, 30, 64, 0.96) 0%, rgba(4, 10, 24, 0.99) 100%);
+  box-shadow:
+    0 20px 42px rgba(0, 0, 0, 0.75),
+    0 0 20px rgba(212, 175, 55, 0.15);
+}
+
+#accar-dir-concilios-root .accar-conc-card--apostolico {
+  border-color: #eed076;
+  background:
+    radial-gradient(circle at 12% 20%, rgba(178, 26, 34, 0.42) 0%, rgba(212, 175, 55, 0.16) 45%, transparent 72%),
+    linear-gradient(135deg, rgba(48, 12, 22, 0.95) 0%, rgba(8, 18, 40, 0.98) 100%);
+}
+
+#accar-dir-concilios-root .accar-conc-img-box {
+  position: relative;
+  z-index: 2;
+  flex: 0 0 132px;
+  width: 132px;
+  height: 132px;
+  align-self: center;
+  border-radius: 14px;
+  padding: 4px;
+  border: 2px solid rgba(212, 175, 55, 0.72);
+  background: radial-gradient(circle, #3d1218 0%, #091124 100%);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.75);
+  overflow: hidden;
+}
+
+#accar-dir-concilios-root .accar-conc-img-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+  display: block;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+#accar-dir-concilios-root .accar-conc-info {
+  position: relative;
+  z-index: 2;
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+}
+
+#accar-dir-concilios-root .accar-conc-meta-top {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 6px;
+}
+
+#accar-dir-concilios-root .accar-conc-rank {
+  padding: 2px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(212, 175, 55, 0.40);
+  background: rgba(3, 8, 24, 0.78);
+  color: #e8cb72;
+  font-size: 0.63rem;
+  font-weight: 700;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+}
+
+#accar-dir-concilios-root .accar-conc-card--disponible .accar-conc-rank {
+  border-color: #fff3c4;
+  background: linear-gradient(180deg, #e5c565 0%, #b0871b 100%);
+  color: #160c02;
+}
+
+#accar-dir-concilios-root .accar-conc-year {
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-variant-numeric: lining-nums proportional-nums;
+  font-size: 0.96rem;
+  font-weight: 700;
+  color: #eed076;
+}
+
+#accar-dir-concilios-root .accar-conc-info h3 {
+  margin: 0 0 3px;
+  font-size: 1.38rem;
+  font-weight: 700;
+  line-height: 1.2;
+  color: #fff9ec;
+  transition: color 0.24s ease;
+}
+
+#accar-dir-concilios-root .accar-conc-pope {
+  margin: 0 0 7px;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-size: 0.98rem;
+  font-style: italic;
+  color: #d8cab0;
+  line-height: 1.3;
+}
+
+#accar-dir-concilios-root .accar-conc-desc {
+  margin: 0 0 14px;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-variant-numeric: lining-nums proportional-nums;
+  font-size: 0.98rem;
+  line-height: 1.45;
+  color: rgba(244, 236, 216, 0.86);
+  flex-grow: 1;
+}
+
+/* Botón de Códice Disponible vs En Preparación */
+#accar-dir-concilios-root .accar-conc-btn {
+  margin-top: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 15px;
+  border-radius: 999px;
+  border: 1px solid rgba(212, 175, 55, 0.28);
+  background: rgba(3, 8, 26, 0.68);
+  color: rgba(234, 224, 200, 0.66);
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: all 0.25s ease;
+}
+
+#accar-dir-concilios-root .accar-conc-card--disponible .accar-conc-btn {
+  border-color: #eed076;
+  background: linear-gradient(180deg, rgba(212, 175, 55, 0.36) 0%, rgba(132, 98, 18, 0.32) 100%);
+  color: #fff9ec;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.48), inset 0 1px 0 rgba(255, 244, 204, 0.24);
+}
+
+@media (hover: hover) {
+  #accar-dir-concilios-root .accar-conc-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 15px 35px rgba(0,0,0,0.4);
-    border-color: rgba(212,175,55,0.6);
+    border-color: #fff3c4;
+    box-shadow:
+      0 24px 46px rgba(0, 0, 0, 0.82),
+      0 0 22px rgba(212, 175, 55, 0.20);
   }
 
-  .dir-card-img-wrap {
-    flex: 0 0 140px;
+  #accar-dir-concilios-root .accar-conc-card:hover .accar-conc-img-box img {
+    transform: scale(1.06);
   }
 
-  .dir-card-img {
-    width: 140px;
-    height: 140px;
-    border-radius: 6px;
-    border: 2px solid #d4af37;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.5);
-    object-fit: cover;
-    display: block;
+  #accar-dir-concilios-root .accar-conc-card:hover h3 {
+    color: #eed076;
   }
 
-  .dir-card-content {
-    flex: 1;
-    display: flex;
+  #accar-dir-concilios-root .accar-conc-card:hover .accar-conc-btn {
+    border-color: #eed076;
+    color: #fff9ec;
+  }
+
+  #accar-dir-concilios-root .accar-conc-card--disponible:hover .accar-conc-btn {
+    border-color: #fff3c4;
+    background: linear-gradient(180deg, rgba(212, 175, 55, 0.50) 0%, rgba(148, 110, 22, 0.42) 100%);
+  }
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1020px) {
+  #accar-dir-concilios-root .accar-conc-grid {
+    grid-template-columns: 1fr;
+  }
+
+  #accar-dir-concilios-root .accar-conc-count {
+    display: none;
+  }
+}
+
+@media (max-width: 720px) {
+  #accar-dir-concilios-root {
+    padding: 36px 14px 100px;
+  }
+
+  #accar-dir-concilios-root .accar-hist-topbar {
     flex-direction: column;
+    align-items: flex-start;
+  }
+
+  #accar-dir-concilios-root .accar-hist-switch {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  #accar-dir-concilios-root .accar-hist-switch-btn {
+    flex: 1;
+    text-align: center;
+    padding: 7px 6px;
+    font-size: 0.65rem;
+  }
+
+  #accar-dir-concilios-root .accar-dir-title {
+    font-size: 2.05rem;
+  }
+
+  #accar-dir-concilios-root .accar-conc-acc-trigger {
+    padding: 20px 18px;
+    gap: 14px;
+  }
+
+  #accar-dir-concilios-root .accar-conc-acc-left {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  #accar-dir-concilios-root .accar-conc-acc-icon {
+    width: 72px;
+    height: 72px;
+  }
+
+  #accar-dir-concilios-root .accar-conc-acc-copy h2 {
+    font-size: 1.52rem;
+  }
+
+  #accar-dir-concilios-root .accar-conc-acc-body {
+    padding: 22px 16px;
+  }
+}
+
+@media (max-width: 540px) {
+  #accar-dir-concilios-root .accar-conc-card {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 24px 18px;
+  }
+
+  #accar-dir-concilios-root .accar-conc-img-box {
+    flex: 0 0 auto;
+    width: 148px;
+    height: 148px;
+  }
+
+  #accar-dir-concilios-root .accar-conc-info {
+    align-items: center;
+    text-align: center;
+  }
+
+  #accar-dir-concilios-root .accar-conc-meta-top {
     justify-content: center;
+    gap: 10px;
   }
-
-  .dir-card h4 {
-    color: #d4af37;
-    font-size: 1.45rem;
-    margin: 0 0 8px 0;
-  }
-
-  .dir-card-sub {
-    color: #a3b8cc;
-    font-size: 0.95rem;
-    margin: 0 0 8px 0;
-  }
-
-  .dir-card-dates {
-    color: #d4af37;
-    font-size: 0.9rem;
-    margin: 0 0 15px 0;
-    font-weight: bold;
-    letter-spacing: 1px;
-  }
-
-  .dir-card-link {
-    color: #a3b8cc;
-    font-size: 0.85rem;
-    font-weight: bold;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    transition: color 0.2s ease;
-    margin-top: auto;
-  }
-
-  .dir-card:hover .dir-card-link {
-    color: #d4af37;
-  }
-
-  @keyframes fadeInGrid {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  @media (max-width: 992px) {
-    .dir-grid {
-      grid-template-columns: 1fr;
-    }
-  }
-
-  @media (max-width: 768px) {
-    .dir-acc-trigger-left {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 15px;
-    }
-  }
-
-  @media (max-width: 560px) {
-    .dir-card {
-      flex-direction: column;
-      text-align: center;
-    }
-    .dir-card-img-wrap {
-      flex: 0 0 auto;
-    }
-    .dir-card-img {
-      width: 100%;
-      max-width: 200px;
-      height: auto;
-      margin: 0 auto;
-    }
-  }
+}
 </style>
 
-<div class="dir-concilios-wrapper">
-  <div class="dir-header">
-    <h1 class="dir-title">Directorio de Concilios</h1>
-    <div class="dir-divider"></div>
-    <span class="dir-subtitle">«Ubi Petrus, ibi Ecclesia»</span>
-  </div>
-
-  <div class="dir-accordion">
-    
-    <!-- CATEGORÍA 1: ECUMÉNICOS -->
-    <div class="dir-acc-item">
-      <button class="dir-acc-trigger" onclick="toggleDirAccordion(this)">
-        <div class="dir-acc-trigger-left">
-          <img src="../../assets/img/concilios_ecumenicos_icon.png" alt="Ecumenicos" class="dir-acc-icon-img">
-          <div class="dir-acc-text">
-            <h3>Concilios Ecuménicos</h3>
-            <p>Asambleas universales convocadas bajo la autoridad del Romano Pontífice, cuyas definiciones dogmáticas en materia de fe y moral obligan a toda la Iglesia y resplandecen como faros inmutables de la Tradición Apostólica.</p>
-          </div>
-        </div>
-        <span class="dir-acc-toggle-icon">+</span>
-      </button>
-      
-      <div class="dir-acc-content">
-        <div class="dir-grid">
-
-          <!-- 1. NICEA I -->
-          <div class="dir-card">
-            <div class="dir-card-img-wrap">
-              <img src="assets/img/concilio_nicea_i.png" alt="Concilio de Nicea I" class="dir-card-img">
-            </div>
-            <div class="dir-card-content">
-              <h4>Nicea I</h4>
-              <p class="dir-card-sub">Papa San Silvestre I</p>
-              <p class="dir-card-dates">325 d.C.</p>
-              <a href="#" onclick="event.preventDefault(); loadView('views/directorio_concilios/ecumenicos/nicea-i.html');" class="dir-card-link">Ver Ficha Histórica →</a>
-            </div>
-          </div>
-
-          <!-- 2. CONSTANTINOPLA I -->
-          <div class="dir-card">
-            <div class="dir-card-img-wrap">
-              <img src="../../assets/img/concilio_constantinopla_i.png" alt="Concilio de Constantinopla I" class="dir-card-img">
-            </div>
-            <div class="dir-card-content">
-              <h4>Constantinopla I</h4>
-              <p class="dir-card-sub">Papa San Dámaso I</p>
-              <p class="dir-card-dates">381 d.C.</p>
-              <a href="ecumenicos/constantinopla-i.html" class="dir-card-link">Ver Ficha Histórica →</a>
-            </div>
-          </div>
-
-          <!-- 3. ÉFESO -->
-          <div class="dir-card">
-            <div class="dir-card-img-wrap">
-              <img src="../../assets/img/concilio_efeso.png" alt="Concilio de Éfeso" class="dir-card-img">
-            </div>
-            <div class="dir-card-content">
-              <h4>Éfeso</h4>
-              <p class="dir-card-sub">Papa San Celestino I</p>
-              <p class="dir-card-dates">431 d.C.</p>
-              <a href="ecumenicos/efeso.html" class="dir-card-link">Ver Ficha Histórica →</a>
-            </div>
-          </div>
-
-          <!-- 4. CALCEDONIA -->
-          <div class="dir-card">
-            <div class="dir-card-img-wrap">
-              <img src="../../assets/img/concilio_calcedonia.png" alt="Concilio de Calcedonia" class="dir-card-img">
-            </div>
-            <div class="dir-card-content">
-              <h4>Calcedonia</h4>
-              <p class="dir-card-sub">Papa San León I Magno</p>
-              <p class="dir-card-dates">451 d.C.</p>
-              <a href="ecumenicos/calcedonia.html" class="dir-card-link">Ver Ficha Histórica →</a>
-            </div>
-          </div>
-
-          <!-- 5. CONSTANTINOPLA II -->
-          <div class="dir-card">
-            <div class="dir-card-img-wrap">
-              <img src="../../assets/img/concilio_constantinopla_ii.png" alt="Concilio de Constantinopla II" class="dir-card-img">
-            </div>
-            <div class="dir-card-content">
-              <h4>Constantinopla II</h4>
-              <p class="dir-card-sub">Papa Vigilio</p>
-              <p class="dir-card-dates">553 d.C.</p>
-              <a href="ecumenicos/constantinopla-ii.html" class="dir-card-link">Ver Ficha Histórica →</a>
-            </div>
-          </div>
-
-          <!-- 6. CONSTANTINOPLA III -->
-          <div class="dir-card">
-            <div class="dir-card-img-wrap">
-              <img src="../../assets/img/concilio_constantinopla_iii.png" alt="Concilio de Constantinopla III" class="dir-card-img">
-            </div>
-            <div class="dir-card-content">
-              <h4>Constantinopla III</h4>
-              <p class="dir-card-sub">Papa San Agatón y San León II</p>
-              <p class="dir-card-dates">680 – 681 d.C.</p>
-              <a href="ecumenicos/constantinopla-iii.html" class="dir-card-link">Ver Ficha Histórica →</a>
-            </div>
-          </div>
-
-          <!-- 7. NICEA II -->
-          <div class="dir-card">
-            <div class="dir-card-img-wrap">
-              <img src="../../assets/img/concilio_nicea_ii.png" alt="Concilio de Nicea II" class="dir-card-img">
-            </div>
-            <div class="dir-card-content">
-              <h4>Nicea II</h4>
-              <p class="dir-card-sub">Papa Adriano I</p>
-              <p class="dir-card-dates">787 d.C.</p>
-              <a href="ecumenicos/nicea-ii.html" class="dir-card-link">Ver Ficha Histórica →</a>
-            </div>
-          </div>
-
-          <!-- 8. CONSTANTINOPLA IV -->
-          <div class="dir-card">
-            <div class="dir-card-img-wrap">
-              <img src="../../assets/img/concilio_constantinopla_iv.png" alt="Concilio de Constantinopla IV" class="dir-card-img">
-            </div>
-            <div class="dir-card-content">
-              <h4>Constantinopla IV</h4>
-              <p class="dir-card-sub">Papa Adriano II</p>
-              <p class="dir-card-dates">869 – 870 d.C.</p>
-              <a href="ecumenicos/constantinopla-iv.html" class="dir-card-link">Ver Ficha Histórica →</a>
-            </div>
-          </div>
-
-          <!-- 9. LETRÁN I -->
-          <div class="dir-card">
-            <div class="dir-card-img-wrap">
-              <img src="../../assets/img/concilio_letran_i.png" alt="Concilio de Letrán I" class="dir-card-img">
-            </div>
-            <div class="dir-card-content">
-              <h4>Letrán I</h4>
-              <p class="dir-card-sub">Papa Calixto II</p>
-              <p class="dir-card-dates">1123 d.C.</p>
-              <a href="ecumenicos/letran-i.html" class="dir-card-link">Ver Ficha Histórica →</a>
-            </div>
-          </div>
-
-          <!-- 10. LETRÁN II -->
-          <div class="dir-card">
-            <div class="dir-card-img-wrap">
-              <img src="../../assets/img/concilio_letran_ii.png" alt="Concilio de Letrán II" class="dir-card-img">
-            </div>
-            <div class="dir-card-content">
-              <h4>Letrán II</h4>
-              <p class="dir-card-sub">Papa Inocencio II</p>
-              <p class="dir-card-dates">1139 d.C.</p>
-              <a href="ecumenicos/letran-ii.html" class="dir-card-link">Ver Ficha Histórica →</a>
-            </div>
-          </div>
-
-          <!-- 11. LETRÁN III -->
-          <div class="dir-card">
-            <div class="dir-card-img-wrap">
-              <img src="assets/img/concilio_letran_iii.png" alt="Concilio de Letrán III" class="dir-card-img">
-            </div>
-            <div class="dir-card-content">
-              <h4>Letrán III</h4>
-              <p class="dir-card-sub">Papa Alejandro III</p>
-              <p class="dir-card-dates">1179 d.C.</p>
-              <a href="#" onclick="event.preventDefault(); loadView('views/directorio_concilios/ecumenicos/letran-iii.html');" class="dir-card-link">Ver Ficha Histórica →</a>
-            </div>
-          </div>
-
-          <!-- 12. LETRÁN IV -->
-          <div class="dir-card">
-            <div class="dir-card-img-wrap">
-              <img src="assets/img/concilio_letran_iv.png" alt="Concilio de Letrán IV" class="dir-card-img">
-            </div>
-            <div class="dir-card-content">
-              <h4>Letrán IV</h4>
-              <p class="dir-card-sub">Papa Inocencio III</p>
-              <p class="dir-card-dates">1215 d.C.</p>
-              <a href="#" onclick="event.preventDefault(); loadView('views/directorio_concilios/ecumenicos/letran-iv.html');" class="dir-card-link">Ver Ficha Histórica →</a>
-            </div>
-          </div>
-
-          <!-- 13. LYON I -->
-          <div class="dir-card">
-            <div class="dir-card-img-wrap">
-              <img src="assets/img/concilio_lyon_i.png" alt="Concilio de Lyon I" class="dir-card-img">
-            </div>
-            <div class="dir-card-content">
-              <h4>Lyon I</h4>
-              <p class="dir-card-sub">Papa Inocencio IV</p>
-              <p class="dir-card-dates">1245 d.C.</p>
-              <a href="#" onclick="event.preventDefault(); loadView('views/directorio_concilios/ecumenicos/lyon-i.html');" class="dir-card-link">Ver Ficha Histórica →</a>
-            </div>
-          </div>
-
-          <!-- 14. LYON II -->
-          <div class="dir-card">
-            <div class="dir-card-img-wrap">
-              <img src="assets/img/concilio_lyon_ii.png" alt="Concilio de Lyon II" class="dir-card-img">
-            </div>
-            <div class="dir-card-content">
-              <h4>Lyon II</h4>
-              <p class="dir-card-sub">Papa Beato Gregorio X</p>
-              <p class="dir-card-dates">1274 d.C.</p>
-              <a href="#" onclick="event.preventDefault(); loadView('views/directorio_concilios/ecumenicos/lyon-ii.html');" class="dir-card-link">Ver Ficha Histórica →</a>
-            </div>
-          </div>
-
-          <!-- 15. VIENNE -->
-          <div class="dir-card">
-            <div class="dir-card-img-wrap">
-              <img src="assets/img/concilio_vienne.png" alt="Concilio de Vienne" class="dir-card-img">
-            </div>
-            <div class="dir-card-content">
-              <h4>Vienne</h4>
-              <p class="dir-card-sub">Papa Clemente V</p>
-              <p class="dir-card-dates">1311 – 1312 d.C.</p>
-              <a href="#" onclick="event.preventDefault(); loadView('views/directorio_concilios/ecumenicos/vienne.html');" class="dir-card-link">Ver Ficha Histórica →</a>
-            </div>
-          </div>
-
-          <!-- 16. CONSTANZA -->
-          <div class="dir-card">
-            <div class="dir-card-img-wrap">
-              <img src="assets/img/concilio_constanza.png" alt="Concilio de Constanza" class="dir-card-img">
-            </div>
-            <div class="dir-card-content">
-              <h4>Constanza</h4>
-              <p class="dir-card-sub">Papa Gregorio XII y Martín V</p>
-              <p class="dir-card-dates">1414 – 1418 d.C.</p>
-              <a href="#" onclick="event.preventDefault(); loadView('views/directorio_concilios/ecumenicos/constanza.html');" class="dir-card-link">Ver Ficha Histórica →</a>
-            </div>
-          </div>
-
-          <!-- 17. BASILEA - FERRARA - FLORENCIA -->
-          <div class="dir-card">
-            <div class="dir-card-img-wrap">
-              <img src="assets/img/concilio_basilea.png" alt="Concilio de Basilea-Florencia" class="dir-card-img">
-            </div>
-            <div class="dir-card-content">
-              <h4>Basilea-Florencia</h4>
-              <p class="dir-card-sub">Papa Eugenio IV</p>
-              <p class="dir-card-dates">1431 – 1445 d.C.</p>
-              <a href="#" onclick="event.preventDefault(); loadView('views/directorio_concilios/ecumenicos/basilea.html');" class="dir-card-link">Ver Ficha Histórica →</a>
-            </div>
-          </div>
-
-          <!-- 18. LETRÁN V -->
-          <div class="dir-card">
-            <div class="dir-card-img-wrap">
-              <img src="assets/img/concilio_letran_v.png" alt="Concilio de Letrán V" class="dir-card-img">
-            </div>
-            <div class="dir-card-content">
-              <h4>Letrán V</h4>
-              <p class="dir-card-sub">Papa Julio II y León X</p>
-              <p class="dir-card-dates">1512 – 1517 d.C.</p>
-              <a href="#" onclick="event.preventDefault(); loadView('views/directorio_concilios/ecumenicos/letran-v.html');" class="dir-card-link">Ver Ficha Histórica →</a>
-            </div>
-          </div>
-
-          <!-- 19. TRENTO -->
-          <div class="dir-card">
-            <div class="dir-card-img-wrap">
-              <img src="assets/img/concilio_trento.png" alt="Concilio de Trento" class="dir-card-img">
-            </div>
-            <div class="dir-card-content">
-              <h4>Trento</h4>
-              <p class="dir-card-sub">Paulo III, Julio III y Pío IV</p>
-              <p class="dir-card-dates">1545 – 1563 d.C.</p>
-              <a href="#" onclick="event.preventDefault(); loadView('views/directorio_concilios/ecumenicos/trento.html');" class="dir-card-link">Ver Ficha Histórica →</a>
-            </div>
-          </div>
-
-          <!-- 20. VATICANO I -->
-          <div class="dir-card">
-            <div class="dir-card-img-wrap">
-              <img src="assets/img/concilio_vaticano_i.png" alt="Concilio Vaticano I" class="dir-card-img">
-            </div>
-            <div class="dir-card-content">
-              <h4>Vaticano I</h4>
-              <p class="dir-card-sub">Papa Pío IX</p>
-              <p class="dir-card-dates">1869 – 1870 d.C.</p>
-              <a href="#" onclick="event.preventDefault(); loadView('views/directorio_concilios/ecumenicos/vaticano-i.html');" class="dir-card-link">Ver Ficha Histórica →</a>
-            </div>
-          </div>
-
-          <!-- 21. VATICANO II -->
-          <div class="dir-card">
-            <div class="dir-card-img-wrap">
-              <img src="assets/img/concilio_vaticano_ii.png" alt="Concilio Vaticano II" class="dir-card-img">
-            </div>
-            <div class="dir-card-content">
-              <h4>Vaticano II</h4>
-              <p class="dir-card-sub">San Juan XXIII y San Pablo VI</p>
-              <p class="dir-card-dates">1962 – 1965 d.C.</p>
-              <a href="#" onclick="event.preventDefault(); loadView('views/directorio_concilios/ecumenicos/vaticano-ii.html');" class="dir-card-link">Ver Ficha Histórica →</a>
-            </div>
-          </div>
-          
-        </div>
-      </div>
-    </div>
-
-    <!-- CATEGORÍA 2: SÍNODOS Y PARTICULARES -->
-    <div class="dir-acc-item">
-      <button class="dir-acc-trigger" onclick="toggleDirAccordion(this)">
-        <div class="dir-acc-trigger-left">
-          <img src="../../assets/img/concilios_particulares.png" alt="Particulares" class="dir-acc-icon-img">
-          <div class="dir-acc-text">
-            <h3>Sínodos y Concilios Particulares</h3>
-            <p>Concilios locales y asambleas provinciales que, en profunda comunión con la Sede de Pedro, han forjado la disciplina, purificado las costumbres y defendido la ortodoxia en momentos cruciales de la Cristiandad.</p>
-          </div>
-        </div>
-        <span class="dir-acc-toggle-icon">+</span>
-      </button>
-      
-      <div class="dir-acc-content">
-        <div class="dir-grid">
-
-          <!-- 1. JERUSALÉN -->
-          <div class="dir-card">
-            <div class="dir-card-img-wrap">
-              <img src="assets/img/concilio_jerusalen.png" alt="Concilio de Jerusalén" class="dir-card-img">
-            </div>
-            <div class="dir-card-content">
-              <h4>Jerusalén</h4>
-              <p class="dir-card-sub">Apostólico</p>
-              <p class="dir-card-dates">50 d.C.</p>
-              <a href="#" onclick="event.preventDefault(); loadView('views/directorio_concilios/particulares/jerusalen.html');" class="dir-card-link">Ver Ficha Histórica →</a>
-            </div>
-          </div>
-
-          <!-- 2. ELVIRA -->
-          <div class="dir-card">
-            <div class="dir-card-img-wrap">
-              <img src="assets/img/concilio_elvira.png" alt="Concilio de Elvira" class="dir-card-img">
-            </div>
-            <div class="dir-card-content">
-              <h4>Elvira</h4>
-              <p class="dir-card-sub">Hispania Baetica</p>
-              <p class="dir-card-dates">~306 d.C.</p>
-              <a href="#" onclick="event.preventDefault(); loadView('views/directorio_concilios/particulares/elvira.html');" class="dir-card-link">Ver Ficha Histórica →</a>
-            </div>
-          </div>
-
-          <!-- 3. ANCIRA -->
-          <div class="dir-card">
-            <div class="dir-card-img-wrap">
-              <img src="assets/img/sinodo_ancira.png" alt="Sínodo de Ancira" class="dir-card-img">
-            </div>
-            <div class="dir-card-content">
-              <h4>Ancira</h4>
-              <p class="dir-card-sub">Anatolia (Galacia)</p>
-              <p class="dir-card-dates">314 d.C.</p>
-              <a href="#" onclick="event.preventDefault(); loadView('views/directorio_concilios/particulares/ancira.html');" class="dir-card-link">Ver Ficha Histórica →</a>
-            </div>
-          </div>
-
-          <!-- 4. ARLÉS -->
-          <div class="dir-card">
-            <div class="dir-card-img-wrap">
-              <img src="assets/img/concilio_arles.png" alt="Concilio de Arlés" class="dir-card-img">
-            </div>
-            <div class="dir-card-content">
-              <h4>Arlés</h4>
-              <p class="dir-card-sub">Papa San Silvestre I (Legados)</p>
-              <p class="dir-card-dates">314 d.C.</p>
-              <a href="#" onclick="event.preventDefault(); loadView('views/directorio_concilios/particulares/arles.html');" class="dir-card-link">Ver Ficha Histórica →</a>
-            </div>
-          </div>
-
-          <!-- 5. SÁRDICA -->
-          <div class="dir-card">
-            <div class="dir-card-img-wrap">
-              <img src="assets/img/concilio_sardica.png" alt="Concilio de Sárdica" class="dir-card-img">
-            </div>
-            <div class="dir-card-content">
-              <h4>Sárdica</h4>
-              <p class="dir-card-sub">Osio de Córdoba</p>
-              <p class="dir-card-dates">343 d.C.</p>
-              <a href="#" onclick="event.preventDefault(); loadView('views/directorio_concilios/particulares/sardica.html');" class="dir-card-link">Ver Ficha Histórica →</a>
-            </div>
-          </div>
-
-          <!-- 6. LAODICEA -->
-          <div class="dir-card">
-            <div class="dir-card-img-wrap">
-              <img src="assets/img/concilio_laodicea.png" alt="Concilio de Laodicea" class="dir-card-img">
-            </div>
-            <div class="dir-card-content">
-              <h4>Laodicea</h4>
-              <p class="dir-card-sub">Frigia (Asia Menor)</p>
-              <p class="dir-card-dates">~363 – 364 d.C.</p>
-              <a href="#" onclick="event.preventDefault(); loadView('views/directorio_concilios/particulares/laodicea.html');" class="dir-card-link">Ver Ficha Histórica →</a>
-            </div>
-          </div>
-
-          <!-- 7. AQUILEA -->
-          <div class="dir-card">
-            <div class="dir-card-img-wrap">
-              <img src="assets/img/concilio_aquilea.png" alt="Concilio de Aquilea" class="dir-card-img">
-            </div>
-            <div class="dir-card-content">
-              <h4>Aquilea</h4>
-              <p class="dir-card-sub">San Ambrosio de Milán</p>
-              <p class="dir-card-dates">381 d.C.</p>
-              <a href="#" onclick="event.preventDefault(); loadView('views/directorio_concilios/particulares/aquilea.html');" class="dir-card-link">Ver Ficha Histórica →</a>
-            </div>
-          </div>
-
-          <!-- 8. ROMA -->
-          <div class="dir-card">
-            <div class="dir-card-img-wrap">
-              <img src="assets/img/sinodo_roma.png" alt="Sínodo de Roma" class="dir-card-img">
-            </div>
-            <div class="dir-card-content">
-              <h4>Roma</h4>
-              <p class="dir-card-sub">Papa San Dámaso I</p>
-              <p class="dir-card-dates">382 d.C.</p>
-              <a href="#" onclick="event.preventDefault(); loadView('views/directorio_concilios/particulares/roma.html');" class="dir-card-link">Ver Ficha Histórica →</a>
-            </div>
-          </div>
-
-          <!-- 9. HIPONA -->
-          <div class="dir-card">
-            <div class="dir-card-img-wrap">
-              <img src="assets/img/concilio_hipona.png" alt="Sínodo de Hipona" class="dir-card-img">
-            </div>
-            <div class="dir-card-content">
-              <h4>Hipona</h4>
-              <p class="dir-card-sub">África del Norte (San Agustín)</p>
-              <p class="dir-card-dates">393 d.C.</p>
-              <a href="#" onclick="event.preventDefault(); loadView('views/directorio_concilios/particulares/hipona.html');" class="dir-card-link">Ver Ficha Histórica →</a>
-            </div>
-          </div>
-
-          <!-- 10. CARTAGO III -->
-          <div class="dir-card">
-            <div class="dir-card-img-wrap">
-              <img src="assets/img/concilio_cartago_iii.png" alt="Concilio de Cartago III" class="dir-card-img">
-            </div>
-            <div class="dir-card-content">
-              <h4>Cartago III</h4>
-              <p class="dir-card-sub">Aurelio de Cartago</p>
-              <p class="dir-card-dates">397 d.C.</p>
-              <a href="#" onclick="event.preventDefault(); loadView('views/directorio_concilios/particulares/cartago-iii.html');" class="dir-card-link">Ver Ficha Histórica →</a>
-            </div>
-          </div>
-
-          <!-- 11. TOLEDO I -->
-          <div class="dir-card">
-            <div class="dir-card-img-wrap">
-              <img src="assets/img/concilio_toledo_i.png" alt="Concilio de Toledo I" class="dir-card-img">
-            </div>
-            <div class="dir-card-content">
-              <h4>Toledo I</h4>
-              <p class="dir-card-sub">Patronus de Toledo</p>
-              <p class="dir-card-dates">400 d.C.</p>
-              <a href="#" onclick="event.preventDefault(); loadView('views/directorio_concilios/particulares/toledo-i.html');" class="dir-card-link">Ver Ficha Histórica →</a>
-            </div>
-          </div>
-
-          <!-- 12. CARTAGO (SÍNODO) -->
-          <div class="dir-card">
-            <div class="dir-card-img-wrap">
-              <img src="assets/img/sinodo_cartago.png" alt="Sínodo de Cartago" class="dir-card-img">
-            </div>
-            <div class="dir-card-content">
-              <h4>Cartago (Sínodo)</h4>
-              <p class="dir-card-sub">África del Norte</p>
-              <p class="dir-card-dates">419 d.C.</p>
-              <a href="#" onclick="event.preventDefault(); loadView('views/directorio_concilios/particulares/cartago.html');" class="dir-card-link">Ver Ficha Histórica →</a>
-            </div>
-          </div>
-
-          <!-- 13. ORANGE II -->
-          <div class="dir-card">
-            <div class="dir-card-img-wrap">
-              <img src="assets/img/concilio_orange_ii.png" alt="Concilio de Orange II" class="dir-card-img">
-            </div>
-            <div class="dir-card-content">
-              <h4>Orange II</h4>
-              <p class="dir-card-sub">Cesáreo de Arlés</p>
-              <p class="dir-card-dates">529 d.C.</p>
-              <a href="#" onclick="event.preventDefault(); loadView('views/directorio_concilios/particulares/orange-ii.html');" class="dir-card-link">Ver Ficha Histórica →</a>
-            </div>
-          </div>
-
-          <!-- 14. BRAGA I -->
-          <div class="dir-card">
-            <div class="dir-card-img-wrap">
-              <img src="assets/img/concilio_braga_i.png" alt="Concilio de Braga I" class="dir-card-img">
-            </div>
-            <div class="dir-card-content">
-              <h4>Braga I</h4>
-              <p class="dir-card-sub">Lucrecio de Braga</p>
-              <p class="dir-card-dates">561 d.C.</p>
-              <a href="#" onclick="event.preventDefault(); loadView('views/directorio_concilios/particulares/braga-i.html');" class="dir-card-link">Ver Ficha Histórica →</a>
-            </div>
-          </div>
-
-          <!-- 15. TOLEDO III -->
-          <div class="dir-card">
-            <div class="dir-card-img-wrap">
-              <img src="assets/img/concilio_toledo_iii.png" alt="Concilio de Toledo III" class="dir-card-img">
-            </div>
-            <div class="dir-card-content">
-              <h4>Toledo III</h4>
-              <p class="dir-card-sub">San Leandro y Rey Recaredo</p>
-              <p class="dir-card-dates">589 d.C.</p>
-              <a href="#" onclick="event.preventDefault(); loadView('views/directorio_concilios/particulares/toledo-iii.html');" class="dir-card-link">Ver Ficha Histórica →</a>
-            </div>
-          </div>
-
-          <!-- 16. TOLEDO IV -->
-          <div class="dir-card">
-            <div class="dir-card-img-wrap">
-              <img src="assets/img/concilio_toledo_iv.png" alt="Concilio de Toledo IV" class="dir-card-img">
-            </div>
-            <div class="dir-card-content">
-              <h4>Toledo IV</h4>
-              <p class="dir-card-sub">San Isidoro de Sevilla</p>
-              <p class="dir-card-dates">633 d.C.</p>
-              <a href="#" onclick="event.preventDefault(); loadView('views/directorio_concilios/particulares/toledo-iv.html');" class="dir-card-link">Ver Ficha Histórica →</a>
-            </div>
-          </div>
-
-          <!-- 17. WHITBY -->
-          <div class="dir-card">
-            <div class="dir-card-img-wrap">
-              <img src="assets/img/concilio_whitby.png" alt="Sínodo de Whitby" class="dir-card-img">
-            </div>
-            <div class="dir-card-content">
-              <h4>Whitby</h4>
-              <p class="dir-card-sub">Rey Oswiu de Northumbria</p>
-              <p class="dir-card-dates">664 d.C.</p>
-              <a href="#" onclick="event.preventDefault(); loadView('views/directorio_concilios/particulares/whitby.html');" class="dir-card-link">Ver Ficha Histórica →</a>
-            </div>
-          </div>
-
-          <!-- 18. TOLEDO XI -->
-          <div class="dir-card">
-            <div class="dir-card-img-wrap">
-              <img src="assets/img/concilio_toledo_xii.png" alt="Concilio de Toledo XI" class="dir-card-img">
-            </div>
-            <div class="dir-card-content">
-              <h4>Toledo XI</h4>
-              <p class="dir-card-sub">Hispania Visigoda</p>
-              <p class="dir-card-dates">675 d.C.</p>
-              <a href="#" onclick="event.preventDefault(); loadView('views/directorio_concilios/particulares/toledo-xi.html');" class="dir-card-link">Ver Ficha Histórica →</a>
-            </div>
-          </div>
-
-          <!-- 19. FRANKFURT -->
-          <div class="dir-card">
-            <div class="dir-card-img-wrap">
-              <img src="assets/img/concilio_frankfurt.png" alt="Concilio de Frankfurt" class="dir-card-img">
-            </div>
-            <div class="dir-card-content">
-              <h4>Frankfurt</h4>
-              <p class="dir-card-sub">Carlomagno</p>
-              <p class="dir-card-dates">794 d.C.</p>
-              <a href="#" onclick="event.preventDefault(); loadView('views/directorio_concilios/particulares/frankfurt.html');" class="dir-card-link">Ver Ficha Histórica →</a>
-            </div>
-          </div>
-
-          <!-- 20. COYANZA -->
-          <div class="dir-card">
-            <div class="dir-card-img-wrap">
-              <img src="assets/img/concilio_coyanza.png" alt="Concilio de Coyanza" class="dir-card-img">
-            </div>
-            <div class="dir-card-content">
-              <h4>Coyanza</h4>
-              <p class="dir-card-sub">Reino de León</p>
-              <p class="dir-card-dates">1055 d.C.</p>
-              <a href="#" onclick="event.preventDefault(); loadView('views/directorio_concilios/particulares/coyanza.html');" class="dir-card-link">Ver Ficha Histórica →</a>
-            </div>
-          </div>
-
-          <!-- 21. CLERMONT -->
-          <div class="dir-card">
-            <div class="dir-card-img-wrap">
-              <img src="assets/img/concilio_clermont.png" alt="Concilio de Clermont" class="dir-card-img">
-            </div>
-            <div class="dir-card-content">
-              <h4>Clermont</h4>
-              <p class="dir-card-sub">Beato Urbano II</p>
-              <p class="dir-card-dates">1095 d.C.</p>
-              <a href="#" onclick="event.preventDefault(); loadView('views/directorio_concilios/particulares/clermont.html');" class="dir-card-link">Ver Ficha Histórica →</a>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </div>
-
-  </div>
-</div>
-
 <script>
-  function toggleDirAccordion(button) {
-    const item = button.closest('.dir-acc-item');
-    const icon = button.querySelector('.dir-acc-toggle-icon');
-    const isActive = item.classList.contains('active');
-    
-    document.querySelectorAll('.dir-acc-item').forEach(acc => {
-      acc.classList.remove('active');
-      acc.querySelector('.dir-acc-toggle-icon').textContent = '+';
+(function() {
+  const root = document.getElementById('accar-dir-concilios-root');
+  if (!root) return;
+
+  function sinAcentos(str) {
+    return String(str || '')
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .toLowerCase()
+      .trim();
+  }
+
+  const acordeones = Array.from(root.querySelectorAll('.accar-conc-acc'));
+  const tarjetas = Array.from(root.querySelectorAll('.accar-conc-card'));
+
+  // 1. Indexar las 42 tarjetas y activar rutas seguras SPA
+  tarjetas.forEach((card) => {
+    const vistaActiva = card.getAttribute('data-vista');
+    const btn = card.querySelector('.accar-conc-btn');
+    const accPadre = card.closest('.accar-conc-acc');
+    const idxPadre = accPadre ? Number(accPadre.dataset.accIdx) : 0;
+
+    card.dataset.searchIndex = sinAcentos(card.textContent || '');
+
+    if (vistaActiva) {
+      card.classList.add('accar-conc-card--disponible');
+      card.dataset.disponible = '1';
+      const irAFicha = (e) => {
+        e.preventDefault();
+        window.__accarUltimoAcordeonConcilios = idxPadre;
+        loadView(vistaActiva);
+      };
+      if (btn) btn.onclick = irAFicha;
+      card.onclick = (e) => {
+        if (e.target.closest('a')) return;
+        irAFicha(e);
+      };
+    } else {
+      card.dataset.disponible = '0';
+      const irAConstruccion = (e) => {
+        e.preventDefault();
+        window.__accarUltimoAcordeonConcilios = idxPadre;
+        loadView('views/construccion.html');
+      };
+      if (btn) btn.onclick = irAConstruccion;
+      card.onclick = (e) => {
+        if (e.target.closest('a')) return;
+        irAConstruccion(e);
+      };
+    }
+  });
+
+  // 2. Comportamiento de acordeón desplegable con memoria al regresar
+  acordeones.forEach((acc, idx) => {
+    const trigger = acc.querySelector('.accar-conc-acc-trigger');
+    if (!trigger) return;
+
+    trigger.addEventListener('click', () => {
+      const estabaAbierto = acc.classList.contains('open');
+      acordeones.forEach(a => a.classList.remove('open'));
+
+      if (!estabaAbierto) {
+        acc.classList.add('open');
+        window.__accarUltimoAcordeonConcilios = idx;
+        setTimeout(() => {
+          trigger.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 160);
+      } else {
+        window.__accarUltimoAcordeonConcilios = null;
+      }
+    });
+  });
+
+  if (typeof window.__accarUltimoAcordeonConcilios === 'number' && acordeones[window.__accarUltimoAcordeonConcilios]) {
+    acordeones[window.__accarUltimoAcordeonConcilios].classList.add('open');
+  }
+
+  // 3. Buscador instantáneo y filtro de códices disponibles
+  const inputSearch = document.getElementById('accar-conc-search');
+  const btnClear = document.getElementById('accar-conc-clear');
+  const emptyBox = document.getElementById('accar-conc-empty');
+  const filterBtns = Array.from(root.querySelectorAll('.accar-conc-filter-btn'));
+
+  let filtroActual = 'todos';
+
+  function aplicarFiltros() {
+    const termino = sinAcentos(inputSearch?.value || '');
+    if (btnClear) btnClear.style.display = termino.length > 0 ? 'inline-flex' : 'none';
+
+    const filtrandoActivo = termino.length > 0 || filtroActual === 'disponibles';
+    let totalVisibles = 0;
+
+    acordeones.forEach((acc) => {
+      const cards = Array.from(acc.querySelectorAll('.accar-conc-card'));
+      let visiblesEnGrupo = 0;
+
+      cards.forEach((c) => {
+        const cumpleTexto = !termino || (c.dataset.searchIndex || '').includes(termino);
+        const cumpleDisp = filtroActual === 'todos' || c.dataset.disponible === '1';
+        const mostrar = cumpleTexto && cumpleDisp;
+        c.style.display = mostrar ? '' : 'none';
+        if (mostrar) {
+          visiblesEnGrupo++;
+          totalVisibles++;
+        }
+      });
+
+      if (!filtrandoActivo) {
+        acc.style.display = '';
+        acc.classList.remove('open');
+      } else if (visiblesEnGrupo > 0) {
+        acc.style.display = '';
+        acc.classList.add('open');
+      } else {
+        acc.style.display = 'none';
+        acc.classList.remove('open');
+      }
     });
 
-    if (!isActive) {
-      item.classList.add('active');
-      icon.innerHTML = '&times;';
+    if (emptyBox) {
+      emptyBox.style.display = totalVisibles === 0 ? 'block' : 'none';
     }
   }
+
+  if (inputSearch) inputSearch.addEventListener('input', aplicarFiltros);
+  if (btnClear) {
+    btnClear.addEventListener('click', () => {
+      inputSearch.value = '';
+      aplicarFiltros();
+    });
+  }
+
+  filterBtns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      filtroActual = btn.dataset.filtro || 'todos';
+      filterBtns.forEach(b => b.classList.toggle('activo', b === btn));
+      aplicarFiltros();
+    });
+  });
+})();
 </script>
-<!-- ===== FINAL DIRECTORIO DE CONCILIOS ===== -->
