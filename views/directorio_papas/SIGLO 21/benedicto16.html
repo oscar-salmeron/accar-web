@@ -1,1547 +1,2044 @@
-<!-- ===== INICIO PAPA BENEDICTO XVI ===== -->
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Papa Benedicto XVI | ACCAR</title>
-
-  <style>
-    :root{
-      --azul-oscuro:#0c1f3f;
-      --azul-medio:#123867;
-      --azul-claro:#1d4e89;
-      --dorado:#d4af37;
-      --dorado-2:#e4c76a;
-      --texto:#1b1b1b;
-      --sombra:0 18px 38px rgba(0,0,0,.18);
-      --max:1240px;
-    }
-
-    *{box-sizing:border-box}
-    html{scroll-behavior:smooth}
-    body{
-      margin:0;
-      color:var(--texto);
-      font-family:Georgia, "Times New Roman", serif;
-      background:
-        linear-gradient(rgba(8,18,35,.18), rgba(8,18,35,.18)),
-        url("../../../assets/img/fondo_papas.webp") center top / cover fixed no-repeat;
-    }
-
-    img{max-width:100%;display:block}
-    a{text-decoration:none;color:inherit}
-    button{font:inherit}
-    .wrap{
-      width:min(var(--max), calc(100% - 28px));
-      margin:0 auto;
-    }
-
-    .content-panel{display:none}
-    .content-panel.active{
-      display:block;
-      animation:fadeIn .28s ease;
-    }
-
-    @keyframes fadeIn{
-      from{opacity:0;transform:translateY(8px)}
-      to{opacity:1;transform:none}
-    }
-
-    /* ===== INICIO HERO ===== */
-    .hero{
-      position:relative;
-      overflow:hidden;
-      border-bottom:2px solid rgba(212,175,55,.55);
-      background:
-        linear-gradient(180deg, rgba(9,23,45,.24) 0%, rgba(9,23,45,.12) 24%, rgba(9,23,45,.62) 100%);
-    }
-
-    .hero::before{
-      content:"";
-      position:absolute;
-      inset:0;
-      background:
-        linear-gradient(90deg, rgba(7,17,34,.56) 0%, rgba(7,17,34,.18) 44%, rgba(7,17,34,.46) 100%);
-      pointer-events:none;
-    }
-
-    .hero-inner{
-      position:relative;
-      z-index:1;
-      min-height:760px;
-      padding:34px 0 38px;
-    }
-
-    /* ===== INICIO BANDA SUPERIOR ===== */
-    .top-brand{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:16px;
-      margin-bottom:20px;
-    }
-
-    .top-brand a{
-      display:flex;
-      align-items:center;
-      gap:16px;
-      min-width:0;
-    }
-
-    .top-brand img{
-      width:78px;
-      filter:drop-shadow(0 8px 16px rgba(0,0,0,.28));
-    }
-
-    .top-brand-text{
-      color:#f8f0d8;
-      line-height:1.1;
-      text-shadow:0 4px 16px rgba(0,0,0,.32);
-    }
-
-    .top-brand-text .line-1{
-      display:block;
-      font-size:1.95rem;
-      font-weight:bold;
-    }
-
-    .top-brand-text .line-2{
-      display:block;
-      font-size:1.45rem;
-      margin-top:2px;
-    }
-
-    .mobile-menu-toggle{
-      display:none;
-      align-items:center;
-      justify-content:center;
-      width:56px;
-      height:56px;
-      border-radius:16px;
-      border:1px solid rgba(212,175,55,.72);
-      background:linear-gradient(180deg, rgba(25,72,135,.92), rgba(16,51,95,.92));
-      box-shadow:0 10px 18px rgba(0,0,0,.18), inset 0 1px 0 rgba(255,255,255,.12);
-      cursor:pointer;
-      flex:0 0 auto;
-      padding:0;
-    }
-
-    .mobile-menu-toggle:hover{
-      transform:translateY(-1px);
-      background:linear-gradient(180deg, rgba(29,85,159,.96), rgba(18,56,103,.96));
-    }
-
-    .mobile-menu-toggle span{
-      display:block;
-      width:24px;
-      height:2.5px;
-      background:#fff4cf;
-      border-radius:999px;
-      margin:3px 0;
-      transition:.22s ease;
-    }
-
-    .mobile-menu-toggle.active span:nth-child(1){
-      transform:translateY(8px) rotate(45deg);
-    }
-
-    .mobile-menu-toggle.active span:nth-child(2){
-      opacity:0;
-    }
-
-    .mobile-menu-toggle.active span:nth-child(3){
-      transform:translateY(-8px) rotate(-45deg);
-    }
-
-    .mobile-nav-panel{
-      display:none;
-      margin-bottom:24px;
-    }
-
-    .mobile-nav-panel.active{
-      display:block;
-      animation:fadeIn .24s ease;
-    }
-
-    .mobile-nav-card{
-      border:1px solid rgba(212,175,55,.42);
-      border-radius:22px;
-      background:linear-gradient(180deg, rgba(11,31,63,.60), rgba(11,31,63,.84));
-      backdrop-filter:blur(6px);
-      box-shadow:var(--sombra);
-      padding:14px;
-    }
-
-    .mobile-nav-list{
-      display:grid;
-      gap:10px;
-    }
-
-    .mobile-nav-btn{
-      appearance:none;
-      width:100%;
-      border:1px solid rgba(212,175,55,.7);
-      background:linear-gradient(180deg, #194887 0%, #10335f 100%);
-      color:#fff4cf;
-      padding:15px 14px;
-      border-radius:16px;
-      cursor:pointer;
-      box-shadow:0 10px 18px rgba(0,0,0,.18), inset 0 1px 0 rgba(255,255,255,.12);
-      transition:.22s ease;
-      font-weight:bold;
-      font-size:1rem;
-      text-align:center;
-    }
-
-    .mobile-nav-btn.active{
-      background:linear-gradient(180deg, #e1bd55 0%, #c69a25 100%);
-      color:#241c09;
-      box-shadow:0 12px 22px rgba(0,0,0,.2), inset 0 1px 0 rgba(255,255,255,.18);
-    }
-    /* ===== FINAL BANDA SUPERIOR ===== */
-
-    .hero-card{
-      width:100%;
-      display:grid;
-      grid-template-columns:minmax(250px, 330px) 1fr;
-      gap:34px;
-      align-items:center;
-      padding:30px;
-      border:1px solid rgba(212,175,55,.42);
-      border-radius:30px;
-      background:linear-gradient(180deg, rgba(11,31,63,.54), rgba(11,31,63,.80));
-      backdrop-filter:blur(6px);
-      box-shadow:var(--sombra);
-      overflow:hidden;
-    }
-
-    .hero-photo{
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      flex-direction:column;
-      gap:14px;
-    }
-
-    .hero-photo img{
-      width:100%;
-      max-width:290px;
-      border-radius:28px;
-      border:3px solid rgba(212,175,55,.82);
-      /* Fondo de museo: Foco de luz superior, carmesí profundo y viñeta oscura */
-      background:
-        linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.5) 100%),
-        radial-gradient(circle at 50% 30%, #9e1515 0%, #4a0505 50%, #1a0101 100%);
-      box-shadow:0 18px 32px rgba(0,0,0,.45);
-      transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
-      cursor: pointer;
-    }
-
-    .hero-photo img:hover {
-      transform: scale(1.04) translateY(-4px);
-      box-shadow: 0 25px 45px rgba(0,0,0,.5), 0 0 25px rgba(212,175,55,.3);
-    }
-
-    .hero-pope-badge{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      min-height:46px;
-      padding:12px 20px;
-      border-radius:999px;
-      border:1px solid #d4af37;
-      background:linear-gradient(180deg, #d4af37 0%, #997a15 100%);
-      color:#1b1b1b;
-      box-shadow:0 10px 18px rgba(0,0,0,.3), inset 0 1px 0 rgba(255,255,255,.25);
-      font-weight:bold;
-      font-size:1rem;
-      text-align:center;
-      line-height:1.2;
-      max-width:100%;
-    }
-
-    .hero-copy{
-      color:#fff8e8;
-      min-width:0;
-    }
-
-    .hero-kicker{
-      display:inline-block;
-      margin:0 0 10px;
-      padding:8px 14px;
-      border-radius:999px;
-      border:1px solid #d4af37;
-      background:linear-gradient(180deg, #9e1515 0%, #1a0101 100%);
-      color:#f8efd3;
-      font-size:.95rem;
-      font-weight:bold;
-      letter-spacing:.02em;
-      box-shadow:0 6px 12px rgba(0,0,0,.3);
-    }
-
-    .hero-copy h1{
-      margin:0 0 14px;
-      font-size:clamp(2.45rem, 5vw, 4.8rem);
-      line-height:1.02;
-      color:#fff4d0;
-      text-shadow:0 5px 18px rgba(0,0,0,.26);
-      overflow-wrap:anywhere;
-    }
-
-    .hero-copy p{
-      margin:0;
-      max-width:820px;
-      font-size:1.08rem;
-      line-height:1.8;
-      color:#f7efd9;
-      overflow-wrap:anywhere;
-    }
-
-    .hero-meta{
-      display:grid;
-      grid-template-columns:repeat(4, 1fr);
-      gap:14px;
-      margin:24px 0 0;
-    }
-
-    .hero-meta .meta-item{
-      padding:16px 16px 18px;
-      border-radius:18px;
-      border:1px solid rgba(212,175,55,.34);
-      background:rgba(255,255,255,.07);
-      min-height:100%;
-      box-shadow:inset 0 1px 0 rgba(255,255,255,.05);
-      min-width:0;
-      transition: all 0.3s ease;
-    }
-
-    .hero-meta .meta-item:hover {
-      transform: translateY(-5px);
-      background: rgba(138,19,19,.15);
-      border-color: rgba(158,21,21,.8);
-      box-shadow: 0 12px 25px rgba(0,0,0,.4), inset 0 1px 0 rgba(255,255,255,.15);
-    }
-
-    .hero-meta .meta-label{
-      display:block;
-      margin-bottom:8px;
-      font-size:.82rem;
-      color:#d4af37;
-      font-weight:bold;
-      text-transform:uppercase;
-      letter-spacing:.06em;
-    }
-
-    .hero-meta .meta-value{
-      font-size:.94rem;
-      line-height:1.55;
-      color:#fff9ec;
-      overflow-wrap:anywhere;
-    }
-
-    .hero-nav{
-      margin-top:24px;
-      display:grid;
-      grid-template-columns:repeat(6, minmax(0, 1fr));
-      gap:12px;
-      width:100%;
-    }
-
-    .hero-nav button{
-      appearance:none;
-      border:1px solid rgba(212,175,55,.7);
-      background:linear-gradient(180deg, #194887 0%, #10335f 100%);
-      color:#fff4cf;
-      padding:16px 10px;
-      border-radius:16px;
-      cursor:pointer;
-      box-shadow:0 10px 18px rgba(0,0,0,.18), inset 0 1px 0 rgba(255,255,255,.12);
-      transition:.22s ease;
-      font-weight:bold;
-      font-size:1rem;
-      text-align:center;
-      white-space:nowrap;
-      min-width:0;
-    }
-
-    .hero-nav button:hover{
-      transform:translateY(-1px);
-      background:linear-gradient(180deg, #9e1515 0%, #1a0101 100%);
-      border-color: #d4af37;
-      color: #f8efd3;
-      box-shadow:0 8px 16px rgba(0,0,0,.4);
-    }
-
-    .hero-nav button.active{
-      background:linear-gradient(180deg, #8a1313 0%, #1a0101 100%);
-      border-color: #d4af37;
-      color:#f8efd3;
-      box-shadow:0 12px 22px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.2);
-    }
-    /* ===== FINAL HERO ===== */
-
-    /* ===== INICIO MAIN ===== */
-    .main-shell{
-      background:
-        linear-gradient(rgba(245,239,225,.96), rgba(245,239,225,.97)),
-        url("../../assets/img/textura-footer-pergamino.png") center top / cover repeat;
-      padding:38px 0 52px;
-      overflow-x:hidden;
-    }
-
-    .section-box{
-      background:rgba(255,255,255,.74);
-      border:1px solid rgba(161,127,44,.22);
-      border-radius:24px;
-      box-shadow:var(--sombra);
-      padding:30px;
-      margin:0 0 24px;
-      overflow:hidden;
-    }
-
-    .section-title{
-      margin:0 0 18px;
-      font-size:clamp(2rem, 4vw, 3rem);
-      line-height:1.08;
-      color:var(--azul-oscuro);
-      overflow-wrap:anywhere;
-    }
-
-    .section-subtitle{
-      margin:0 0 16px;
-      font-size:1.6rem;
-      color:var(--azul-oscuro);
-      overflow-wrap:anywhere;
-    }
-
-    .section-box p{
-      margin:0 0 16px;
-      font-size:1.08rem;
-      line-height:1.9;
-      overflow-wrap:anywhere;
-    }
-
-    .inicio-grid{
-      display:grid;
-      grid-template-columns:repeat(2, minmax(0, 1fr));
-      gap:18px;
-      margin-top:8px;
-    }
-
-    .highlight-card{
-      background:rgba(255,255,255,.85);
-      border:1px solid rgba(15,51,95,.14);
-      border-left:5px solid var(--azul-medio);
-      border-radius:20px;
-      box-shadow:0 10px 22px rgba(0,0,0,.08);
-      padding:22px 22px 22px 18px;
-      min-width:0;
-      overflow-wrap:anywhere;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .highlight-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 15px 30px rgba(0,0,0,0.15);
-    }
-
-    .highlight-card h3,
-    .highlight-card h4{
-      margin:0 0 12px;
-      color:var(--azul-oscuro);
-      font-size:1.34rem;
-      overflow-wrap:anywhere;
-    }
-
-    .highlight-card p:last-child{margin-bottom:0}
-
-    .stat-grid{
-      display:grid;
-      grid-template-columns:repeat(4, minmax(0, 1fr));
-      gap:16px;
-      margin-top:18px;
-    }
-
-    .stat-card{
-      background:linear-gradient(180deg, rgba(17,52,99,.98), rgba(14,44,84,.98));
-      color:#fff7e8;
-      border:1px solid rgba(212,175,55,.45);
-      border-radius:20px;
-      padding:20px 16px;
-      text-align:center;
-      box-shadow:0 12px 22px rgba(0,0,0,.15);
-      min-width:0;
-    }
-
-    .stat-number{
-      display:block;
-      font-size:2.1rem;
-      line-height:1;
-      color:#ffd971;
-      margin-bottom:10px;
-      font-weight:bold;
-      overflow-wrap:anywhere;
-    }
-
-    .stat-label{
-      font-size:.96rem;
-      line-height:1.55;
-      color:#fff6dd;
-      overflow-wrap:anywhere;
-    }
-
-    .feature-grid{
-      display:grid;
-      grid-template-columns:repeat(2, minmax(0, 1fr));
-      gap:18px;
-    }
-
-    .feature-card{
-      background:rgba(255,255,255,.85);
-      border:1px solid rgba(15,51,95,.14);
-      border-left:5px solid var(--azul-claro);
-      border-radius:18px;
-      box-shadow:0 10px 22px rgba(0,0,0,.08);
-      padding:22px 22px 22px 18px;
-      min-width:0;
-      overflow-wrap:anywhere;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .feature-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 15px 30px rgba(0,0,0,0.15);
-    }
-
-    .feature-card h3,
-    .feature-card h4{
-      margin:0 0 12px;
-      color:var(--azul-oscuro);
-      font-size:1.34rem;
-      overflow-wrap:anywhere;
-    }
-
-    .feature-card p:last-child{margin-bottom:0}
-
-    .timeline{
-      display:grid;
-      gap:16px;
-      margin-top:6px;
-    }
-
-    .timeline-item{
-      background:rgba(255,255,255,.84);
-      border:1px solid rgba(15,51,95,.12);
-      border-left:5px solid var(--dorado);
-      border-radius:18px;
-      padding:20px 20px 18px;
-      box-shadow:0 10px 22px rgba(0,0,0,.08);
-      min-width:0;
-      overflow-wrap:anywhere;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .timeline-item:hover {
-      transform: translateX(6px); /* Se mueve suavemente hacia la derecha */
-      box-shadow: 0 15px 30px rgba(0,0,0,0.15);
-    }
-
-    .timeline-item h4{
-      margin:0 0 10px;
-      font-size:1.24rem;
-      color:var(--azul-oscuro);
-      overflow-wrap:anywhere;
-    }
-
-    .timeline-item p:last-child{margin-bottom:0}
-
-    .cta-row{
-      display:flex;
-      flex-wrap:wrap;
-      gap:14px;
-      justify-content:center;
-      margin-top:18px;
-    }
-
-    .cta-btn,
-    .cta-link{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      min-width:260px;
-      max-width:100%;
-      padding:15px 22px;
-      border-radius:16px;
-      border:1px solid rgba(212,175,55,.7);
-      box-shadow:0 10px 18px rgba(0,0,0,.16);
-      font-size:1.06rem;
-      font-weight:bold;
-      cursor:pointer;
-      text-align:center;
-      overflow-wrap:anywhere;
-    }
-
-    .cta-btn.azul,
-    .cta-link.azul{
-      background:linear-gradient(180deg,#194887,#10335f);
-      color:#fff4cf;
-    }
-
-    .cta-btn.dorado,
-    .cta-link.dorado{
-      background:linear-gradient(180deg,#e1bd55,#c69a25);
-      color:#241c09;
-    }
-
-    .accordion{
-      display:grid;
-      gap:16px;
-      margin-top:8px;
-    }
-
-    .acc-item{
-      border:1px solid rgba(15,51,95,.12);
-      border-radius:18px;
-      overflow:hidden;
-      background:rgba(255,255,255,.84);
-      box-shadow:0 10px 22px rgba(0,0,0,.08);
-      min-width:0;
-    }
-
-    .acc-trigger{
-      width:100%;
-      border:none;
-      background:linear-gradient(180deg, rgba(17,52,99,.98), rgba(14,44,84,.98));
-      color:#fff4cf;
-      text-align:left;
-      padding:18px 20px;
-      cursor:pointer;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:14px;
-      font-size:1.1rem;
-      font-weight:bold;
-      min-width:0;
-      overflow-wrap:anywhere;
-    }
-
-    .acc-trigger span:first-child{
-      min-width:0;
-      overflow-wrap:anywhere;
-    }
-
-    .acc-trigger span:last-child{
-      min-width:28px;
-      text-align:center;
-      font-size:1.55rem;
-      line-height:1;
-      color:#e6ca7b;
-      flex-shrink:0;
-    }
-
-    .acc-content{
-      display:none;
-      padding:20px 20px 22px;
-      background:rgba(255,255,255,.92);
-      border-top:1px solid rgba(15,51,95,.12);
-      overflow-wrap:anywhere;
-    }
-
-    .acc-item.open .acc-content{display:block}
-    .acc-item.open .acc-trigger{
-      background:linear-gradient(180deg, #1b4d90, #123867);
-    }
-
-    .doc-tags{
-      display:flex;
-      flex-wrap:wrap;
-      gap:8px;
-      margin:10px 0 14px;
-    }
-
-    .doc-tag{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      padding:8px 12px;
-      border-radius:999px;
-      font-size:.92rem;
-      font-weight:bold;
-      max-width:100%;
-      overflow-wrap:anywhere;
-    }
-
-    /* Jerarquía visual de documentos */
-    .acc-item.doc-enciclica { border-left: 5px solid #8b0000; }
-    .tag-enciclica { background: #fae6e6; color: #8b0000; border: 1px solid rgba(139,0,0,.4); }
-
-    .acc-item.doc-exhortacion { border-left: 5px solid var(--azul-claro); }
-    .tag-exhortacion { background: #e6f0fa; color: var(--azul-oscuro); border: 1px solid rgba(29,78,137,.4); }
-
-    .acc-item.doc-gobierno { border-left: 5px solid var(--dorado); }
-    .tag-gobierno { background: #fcf6e3; color: #5a4a18; border: 1px solid rgba(212,175,55,.6); }
-    /* ===== FINAL MAIN ===== */
-
-    /* ===== INICIO FOOTER ===== */
-    .footer{
-      position:relative;
-      overflow:hidden;
-      color:#f8efd3;
-      padding:54px 0 30px;
-      border-top:2px solid rgba(212,175,55,.55);
-      background:
-        linear-gradient(180deg, rgba(8,24,48,.04), rgba(8,24,48,.12)),
-        url("../../assets/img/fondo_papas.webp") center 28% / cover no-repeat;
-    }
-
-    .footer::before{
-      content:"";
-      position:absolute;
-      inset:0;
-      background:
-        linear-gradient(90deg, rgba(7,26,54,.38), rgba(12,42,86,.10), rgba(7,26,54,.38));
-      pointer-events:none;
-    }
-
-    .footer-inner{
-      position:relative;
-      z-index:1;
-    }
-
-    .footer-card{
-      border:1px solid rgba(212,175,55,.34);
-      border-radius:28px;
-      padding:30px 28px 24px;
-      background:linear-gradient(180deg, rgba(11,31,63,.54), rgba(11,31,63,.80));
-      backdrop-filter:blur(5px);
-      box-shadow:var(--sombra);
-      overflow:hidden;
-    }
-
-    .footer-top{
-      display:grid;
-      grid-template-columns:1.2fr .8fr .9fr;
-      gap:36px;
-      align-items:start;
-    }
-
-    .footer-brand{
-      display:flex;
-      align-items:flex-start;
-      gap:24px;
-    }
-
-    .footer-brand-logo{
-      flex:0 0 auto;
-    }
-
-    .footer-brand-logo img{
-      width:172px;
-      filter:drop-shadow(0 8px 16px rgba(0,0,0,.22));
-    }
-
-    .footer-brand-copy{
-      padding-top:8px;
-    }
-
-    .footer-brand-copy p{
-      margin:0 0 8px;
-      font-size:.90rem;
-      line-height:1.58;
-      color:#f6ecd0;
-      overflow-wrap:anywhere;
-    }
-
-    .footer-col h4{
-      margin:0 0 14px;
-      color:#ffd971;
-      font-size:1.7rem;
-      overflow-wrap:anywhere;
-    }
-
-    .footer-links{
-      display:flex;
-      flex-direction:column;
-      gap:10px;
-    }
-
-    .footer-links a,
-    .footer-links button{
-      background:none;
-      border:none;
-      padding:0;
-      margin:0;
-      text-align:left;
-      color:#f6ecd0;
-      font-family:Georgia, "Times New Roman", serif;
-      font-size:1.05rem;
-      cursor:pointer;
-      overflow-wrap:anywhere;
-    }
-
-    .footer-links a:hover,
-    .footer-links button:hover{
-      color:#ffe8a4;
-    }
-
-    .footer-contact{
-      display:flex;
-      flex-direction:column;
-      gap:12px;
-      color:#f6ecd0;
-      font-size:1.05rem;
-      line-height:1.7;
-      overflow-wrap:anywhere;
-    }
-
-    .footer-contact a{
-      color:#f6ecd0;
-    }
-
-    .footer-contact a:hover{
-      color:#ffe8a4;
-    }
-
-    .footer-divider{
-      width:100%;
-      height:1px;
-      margin:22px 0 18px;
-      background:linear-gradient(90deg, transparent, rgba(212,175,55,.85), transparent);
-    }
-
-    .footer-legal{
-      text-align:center;
-      color:#eadfb7;
-      font-size:1rem;
-      line-height:1.75;
-      overflow-wrap:anywhere;
-    }
-    /* ===== FINAL FOOTER ===== */
-
-    /* ===== INICIO RESPONSIVE ===== */
-    @media (max-width:1180px){
-      .hero-meta{grid-template-columns:repeat(2, 1fr)}
-      .hero-nav{grid-template-columns:repeat(3, minmax(0, 1fr))}
-      .stat-grid{grid-template-columns:repeat(2, minmax(0, 1fr))}
-      .footer-top{grid-template-columns:1fr 1fr}
-      .footer-col.contact-col{grid-column:1/-1}
-    }
-
-    @media (max-width:920px){
-      .hero{
-        background:
-          linear-gradient(180deg, rgba(9,23,45,.26) 0%, rgba(9,23,45,.16) 26%, rgba(9,23,45,.68) 100%);
-      }
-
-      .hero-inner{
-        min-height:auto;
-        padding:26px 0 34px;
-      }
-
-      .top-brand{
-        justify-content:space-between;
-        align-items:center;
-        text-align:left;
-        gap:12px;
-        margin-bottom:16px;
-      }
-
-      .top-brand a{
-        flex-direction:row;
-        align-items:center;
-        gap:12px;
-        min-width:0;
-        flex:1 1 auto;
-      }
-
-      .top-brand img{width:64px}
-      .top-brand-text .line-1{font-size:1.45rem}
-      .top-brand-text .line-2{font-size:1.05rem}
-
-      .mobile-menu-toggle{
-        display:inline-flex;
-      }
-
-      .hero-card{
-        grid-template-columns:1fr;
-        gap:22px;
-        padding:20px;
-      }
-
-      .hero-copy{text-align:center}
-      .hero-copy p{margin:0 auto}
-      .hero-nav{
-        display:grid;
-        grid-template-columns:repeat(2, 1fr);
-        gap:10px;
-        margin-top:24px;
-      }
-      .hero-nav button{
-        padding:12px 8px;
-        font-size:0.9rem;
-      }
-      .inicio-grid,
-      .feature-grid{grid-template-columns:1fr}
-      .footer-top{grid-template-columns:1fr}
-      .footer-brand{
-        justify-content:center;
-        text-align:center;
-        flex-direction:column;
-        align-items:center;
-      }
-      .footer-links{align-items:center}
-      .footer-links a,
-      .footer-links button{text-align:center}
-      .footer-col{text-align:center}
-      .footer-contact{align-items:center}
-    }
-
-    @media (max-width:560px){
-      body{background-attachment:scroll}
-      .wrap{width:min(var(--max), calc(100% - 16px))}
-      .top-brand img{width:58px}
-      .top-brand-text .line-1{font-size:1.18rem}
-      .top-brand-text .line-2{font-size:.92rem}
-      .mobile-menu-toggle{
-        width:52px;
-        height:52px;
-        border-radius:14px;
-      }
-      .hero-card{border-radius:22px;padding:16px}
-      .hero-photo img{max-width:220px;border-radius:22px}
-      .hero-pope-badge{
-        min-height:42px;
-        padding:10px 16px;
-        font-size:.95rem;
-      }
-      .hero-kicker{font-size:.85rem}
-      .hero-copy h1{font-size:2.35rem}
-      .hero-copy p{font-size:1rem;line-height:1.72}
-      .hero-meta{grid-template-columns:1fr}
-      .main-shell{padding:22px 0 30px}
-      .section-box{
-        padding:18px;
-        border-radius:20px;
-      }
-      .section-title{font-size:2.05rem}
-      .section-subtitle{font-size:1.32rem}
-      .section-box p,
-      .timeline-item p,
-      .feature-card p,
-      .highlight-card p,
-      .acc-content p,
-      .footer-brand-copy p{
-        font-size:1rem;
-        line-height:1.82;
-      }
-      .stat-grid{grid-template-columns:1fr}
-      .acc-trigger{
-        padding:16px 16px;
-        font-size:1rem;
-      }
-      .cta-btn,.cta-link{
-        min-width:100%;
-      }
-      .footer{
-        padding:32px 0 24px;
-        background:
-          linear-gradient(180deg, rgba(8,24,48,.03), rgba(8,24,48,.10)),
-          url("../../assets/img/fondo_papas.webp") 58% 24% / cover no-repeat;
-      }
-      .footer-card{padding:20px 16px 18px}
-      .footer-brand-logo img{
-        width:146px;
-      }
-      .footer-col h4{font-size:1.4rem}
-      .footer-legal{font-size:.94rem}
-    }
-    /* ===== FINAL RESPONSIVE ===== */
-  </style>
-</head>
-<body>
-
-  <!-- ===== INICIO HERO LOCAL ===== -->
-  <section class="hero">
-    <div class="wrap hero-inner" style="min-height:auto; padding-top:40px;">
-      
-      <!-- Breadcrumb con enlace SPA correcto -->
-      <nav aria-label="breadcrumb" style="margin-bottom:20px; color:#d4af37; font-size:0.95rem; font-weight:bold;">
-        <a href="#" onclick="event.preventDefault(); loadView('views/historia-lista-de-papas.html');">← Volver al Directorio Pontificio</a>
+<!-- ===== ACCAR | CÓDICE PONTIFICIO: PAPA BENEDICTO XVI ===== -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+
+<section id="accar-ficha-papa" class="accar-papa-page" data-rango="pontifice">
+
+  <div class="accar-papa-inner">
+
+    <!-- BARRA SUPERIOR: MIGAS DE PAN Y SUCESIÓN PETRINA -->
+    <div class="accar-papa-topbar">
+      <nav class="accar-papa-breadcrumb" aria-label="Ruta de navegación">
+        <a href="#" onclick="event.preventDefault(); loadView('views/inicio.html');">Inicio</a>
+        <span aria-hidden="true">›</span>
+        <a href="#" onclick="event.preventDefault(); loadView('views/historia.html');">Historia</a>
+        <span aria-hidden="true">›</span>
+        <a href="#" onclick="event.preventDefault(); loadView('views/historia-lista-de-papas.html');">Directorio Pontificio</a>
+        <span aria-hidden="true">›</span>
+        <strong>Papa Benedicto XVI</strong>
       </nav>
 
-      <div class="hero-card">
-        <div class="hero-photo">
-          <img src="../../assets/img/265_benedetto_XVI.png" alt="Papa Benedicto XVI">
-          <div class="hero-pope-badge">Sucesor del Apóstol Pedro n.º 265</div>
+      <div class="accar-papa-Peers">
+        <button type="button" class="accar-peer-btn" onclick="loadView('views/directorio_papas/SIGLO 21/francisco.html')">
+          ← Sucesor: Francisco
+        </button>
+        <button type="button" class="accar-peer-btn" onclick="loadView('views/historia-lista-de-papas.html')">
+          Directorio
+        </button>
+        <button type="button" class="accar-peer-btn" onclick="loadView('views/directorio_papas/SIGLO 20/juan_pablo_2.html')">
+          Predecesor: San Juan Pablo II →
+        </button>
+      </div>
+    </div>
+
+    <!-- =========================================================
+         RELICARIO SUPERIOR PONTIFICIO (HERO CARD)
+    ========================================================== -->
+    <header class="accar-papa-hero">
+
+      <div class="accar-papa-hero-grid">
+
+        <!-- Retrato Camafeo Pontificio -->
+        <div class="accar-papa-portrait-col">
+          <div class="accar-papa-camafeo">
+            <img src="/assets/img/265_benedetto_XVI.png" alt="Papa Benedicto XVI">
+          </div>
+          <div class="accar-papa-sucesor-seal">✠ Sucesor de San Pedro n.º 265 ✠</div>
+          <span class="accar-papa-secular-plate">Joseph Aloisius Ratzinger · 1927 – 2022</span>
         </div>
 
-        <div class="hero-copy">
-          <div class="hero-kicker">Sección Papas · Siglo XXI</div>
-          <h1>Papa Benedicto XVI</h1>
-          <p>
-            Joseph Ratzinger fue elegido Papa el 19 de abril de 2005. Su pontificado se distinguió por una brillante profundidad teológica, la defensa de la relación entre fe y razón, la hermenéutica de la continuidad para interpretar el Concilio Vaticano II y una profunda centralidad litúrgica y cristocéntrica.
+        <!-- Síntesis y Pilares del Pontificado -->
+        <div class="accar-papa-copy-col">
+          <div class="accar-papa-kicker">✠ Sumo Pontífice · Siglo XXI ✠</div>
+          <h1 class="accar-papa-name">Papa Benedicto XVI</h1>
+          <p class="accar-papa-latin-sub">Episcopus Romanus · Cooperatores Veritatis (2005 – 2013)</p>
+
+          <p class="accar-papa-lead">
+            Joseph Ratzinger fue elegido Sumo Pontífice el 19 de abril de 2005. Su pontificado resplandeció por una luminosa hondura teológica, la defensa de la alianza entre la fe y la razón (<em>Logos</em>), la «hermenéutica de la continuidad» en la lectura del Concilio Vaticano II, la restauración del sentido sagrado de la Liturgia y un profundo cristocentrismo.
           </p>
 
-          <div class="hero-meta">
-            <div class="meta-item">
-              <span class="meta-label">Duración del pontificado</span>
-              <span class="meta-value">19 de abril de 2005 – 28 de febrero de 2013. Falleció en el Vaticano el 31 de diciembre de 2022.</span>
+          <div class="accar-papa-meta-grid">
+            <div class="accar-papa-meta-card">
+              <span class="accar-meta-label">Pontificado</span>
+              <span class="accar-meta-val">19 de abril de 2005 – 28 de febrero de 2013 · Falleció en el Vaticano el 31 de diciembre de 2022.</span>
             </div>
-            <div class="meta-item">
-              <span class="meta-label">Elección pontificia</span>
-              <span class="meta-value">19 de abril de 2005 · Elegido tras el largo pontificado de San Juan Pablo II, de quien fue su más estrecho colaborador.</span>
+
+            <div class="accar-papa-meta-card">
+              <span class="accar-meta-label">Renuncia Histórica</span>
+              <span class="accar-meta-val">28 de febrero de 2013 · Primer Pontífice en seis siglos en renunciar libremente, retirándose en oración.</span>
             </div>
-            <div class="meta-item">
-              <span class="meta-label">Renuncia al pontificado</span>
-              <span class="meta-value">28 de febrero de 2013 · Primer Papa en renunciar libremente al ministerio petrino en varios siglos.</span>
+
+            <div class="accar-papa-meta-card">
+              <span class="accar-meta-label">Lema Pontificio</span>
+              <span class="accar-meta-val"><em>«Cooperatores veritatis»</em> · Colaboradores de la verdad (3 Jn 8).</span>
             </div>
-            <div class="meta-item">
-              <span class="meta-label">Perfil general</span>
-              <span class="meta-value">Teólogo excepcional, defensor de la verdad frente al relativismo, promotor de la liturgia tradicional y autor de "Jesús de Nazaret".</span>
+
+            <div class="accar-papa-meta-card">
+              <span class="accar-meta-label">Ejes del Ministerio</span>
+              <span class="accar-meta-val">Fe y Razón, lucha contra el relativismo, decoro litúrgico, Patrística y trilogía <em>Jesús de Nazaret</em>.</span>
             </div>
           </div>
+        </div>
 
-          <div class="hero-nav">
-            <button class="nav-btn active" data-target="inicio">Inicio</button>
-            <button class="nav-btn" data-target="biografia">Biografía</button>
-            <button class="nav-btn" data-target="contexto">Contexto</button>
-            <button class="nav-btn" data-target="pontificado">Pontificado</button>
-            <button class="nav-btn" data-target="documentos">Documentos</button>
-            <button class="nav-btn" data-target="apologetica">Apologética</button>
+      </div>
+
+      <!-- Navegación Magisterial de 6 Pestañas -->
+      <nav class="accar-papa-tabs" id="accar-papa-tabs-bar" aria-label="Secciones de la ficha pontificia">
+        <button type="button" class="accar-papa-tab active" data-target="inicio" data-label="Panorama del Pontificado">
+          <span>I. Panorama</span>
+        </button>
+        <button type="button" class="accar-papa-tab" data-target="biografia" data-label="Biografía y Cronología">
+          <span>II. Biografía</span>
+        </button>
+        <button type="button" class="accar-papa-tab" data-target="contexto" data-label="Contexto Eclesial">
+          <span>III. Contexto</span>
+        </button>
+        <button type="button" class="accar-papa-tab" data-target="pontificado" data-label="Gobierno y Magisterio">
+          <span>IV. Pontificado</span>
+        </button>
+        <button type="button" class="accar-papa-tab" data-target="documentos" data-label="Documentos Principales">
+          <span>V. Documentos</span>
+        </button>
+        <button type="button" class="accar-papa-tab" data-target="apologetica" data-label="Aporte a la Apologética">
+          <span>VI. Apologética</span>
+        </button>
+      </nav>
+
+    </header>
+
+    <!-- =========================================================
+         PLIEGO EDITORIAL DEL CÓDICE PONTIFICIO
+    ========================================================== -->
+    <main class="accar-papa-codex theme-light" id="accar-papa-codex">
+
+      <!-- Barra de Herramientas del Códice -->
+      <div class="accar-codex-toolbar">
+        <span class="accar-codex-section-tag" id="accar-codex-section-tag">✠ Códice Pontificio · Panorama del Pontificado</span>
+
+        <div class="accar-codex-controls">
+          <button type="button" class="accar-codex-tool-btn" id="accar-papa-theme-btn" title="Alternar entre modo pergamino y modo noche">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+            <span id="accar-papa-theme-label">Modo Oscuro</span>
+          </button>
+
+          <div class="accar-codex-sizes" role="group" aria-label="Tamaño de lectura">
+            <span class="accar-codex-size-lbl">Letra</span>
+            <button type="button" class="accar-codex-tool-btn btn-papa-size" data-size="0.94">A-</button>
+            <button type="button" class="accar-codex-tool-btn btn-papa-size active" data-size="1">A</button>
+            <button type="button" class="accar-codex-tool-btn btn-papa-size" data-size="1.12">A+</button>
           </div>
         </div>
       </div>
 
-    </div>
-  </section>
-  <!-- ===== FINAL HERO -->
+      <div class="accar-codex-body" id="accar-codex-body">
 
-  <!-- ===== INICIO MAIN ===== -->
-  <main class="main-shell">
-    <div class="wrap">
+        <!-- ==================== PANEL 1: INICIO / PANORAMA ==================== -->
+        <section id="panel-inicio" class="accar-papa-panel active">
 
-      <!-- ===== INICIO PANEL INICIO ===== -->
-      <section id="panel-inicio" class="content-panel active">
-
-        <div class="section-box">
-          <h2 class="section-title">Panorama del pontificado</h2>
-          <p>
-            Esta sección inicial funciona como panel-resumen del pontificado. Aquí se concentran los hitos generales, las cifras de santidad promovida y los ejes mayores de un papado caracterizado por la enseñanza luminosa de las virtudes teologales y la rectitud doctrinal.
-          </p>
-
-          <div class="stat-grid">
-            <article class="stat-card">
-              <span class="stat-number">44</span>
-              <span class="stat-label">Santos canonizados durante su pontificado</span>
-            </article>
-
-            <article class="stat-card">
-              <span class="stat-number">~288</span>
-              <span class="stat-label">Personas beatificadas (incluyendo 498 mártires de España)</span>
-            </article>
-
-            <article class="stat-card">
-              <span class="stat-number">3</span>
-              <span class="stat-label">Encíclicas principales de Benedicto XVI</span>
-            </article>
-
-            <article class="stat-card">
-              <span class="stat-number">2005–2013</span>
-              <span class="stat-label">Período completo del pontificado</span>
-            </article>
-          </div>
-        </div>
-
-        <div class="section-box">
-          <h3 class="section-subtitle">Hitos y referencias rápidas</h3>
-
-          <div class="inicio-grid">
-            <article class="highlight-card" style="grid-column: 1 / -1;">
-              <h4>Canonizaciones destacadas del pontificado</h4>
-              <ul style="list-style: none; padding: 0; margin: 0; column-count: 2; column-gap: 30px; font-size: 0.95rem;">
-                <li style="margin-bottom: 10px; break-inside: avoid;"><strong>San Alberto Hurtado</strong><br>23 de octubre de 2005</li>
-                <li style="margin-bottom: 10px; break-inside: avoid;"><strong>San Rafael Arnáiz Barón</strong><br>11 de octubre de 2009</li>
-                <li style="margin-bottom: 10px; break-inside: avoid;"><strong>San Damián de Veuster (Padre Damián)</strong><br>11 de octubre de 2009</li>
-                <li style="margin-bottom: 10px; break-inside: avoid;"><strong>Santa Cándida María de Jesús</strong><br>17 de octubre de 2010</li>
-                <li style="margin-bottom: 10px; break-inside: avoid;"><strong>Santa Hildegarda de Bingen (Doctora de la Iglesia)</strong><br>10 de mayo de 2012 / 7 de oct de 2012</li>
-                <li style="margin-bottom: 10px; break-inside: avoid;"><strong>San Juan de Ávila (Doctor de la Iglesia)</strong><br>7 de octubre de 2012</li>
-                <li style="margin-bottom: 10px; break-inside: avoid;"><strong>Santa Catalina Tekakwitha</strong><br>21 de octubre de 2012</li>
-              </ul>
-            </article>
-
-            <article class="highlight-card">
-              <h4>Grandes ejes del pontificado</h4>
-              <p>
-                Armonía entre fe y razón, denuncia de la "dictadura del relativismo", cristocentrismo absoluto, redescubrimiento de los Padres de la Iglesia y una propuesta litúrgica anclada en el sentido de lo sagrado.
-              </p>
-            </article>
-
-            <article class="highlight-card">
-              <h4>Documentos mayores a recordar</h4>
-              <p>
-                Las encíclicas <em>Deus caritas est</em>, <em>Spe salvi</em> y <em>Caritas in veritate</em>, los <em>Motu proprio</em> <em>Summorum Pontificum</em> y <em>Porta fidei</em>, y su obra cumbre "Jesús de Nazaret".
-              </p>
-            </article>
-
-            <article class="highlight-card" style="border-left: 4px solid #d4af37;">
-              <h4>El teólogo del Papa</h4>
-              <p>
-                Antes de su pontificado, sirvió casi 25 años como Prefecto de la Congregación para la Doctrina de la Fe bajo San Juan Pablo II, blindando la ortodoxia católica frente a la Teología de la Liberación y otras desviaciones.
-              </p>
-            </article>
-          </div>
-
-          <div class="cta-row">
-            <a class="cta-link azul" href="https://apologeticaccar.com">Regresar a Apologética Católica</a>
-            <button class="cta-btn dorado" onclick="showPanel('biografia')">Entrar a biografía →</button>
-          </div>
-        </div>
-
-      </section>
-      <!-- ===== FINAL PANEL INICIO ===== -->
-
-      <!-- ===== INICIO PANEL BIOGRAFIA ===== -->
-      <section id="panel-biografia" class="content-panel">
-
-        <div class="section-box">
-          <h2 class="section-title">Biografía</h2>
-          <p>
-            Joseph Ratzinger nació en Marktl am Inn, Baviera (Alemania), el 16 de abril de 1927, un Sábado Santo, y fue bautizado ese mismo día con el agua recién bendecida. Creció en una familia de profundas raíces católicas que le transmitieron un amor inmenso por la liturgia y la fe, sufriendo en su juventud los horrores y la persecución del régimen nazi.
-          </p>
-          <p>
-            Fue ordenado sacerdote el 29 de junio de 1951. Destacó rápidamente como una de las mentes teológicas más brillantes de Alemania, siendo catedrático en diversas universidades (Bonn, Münster, Tubinga, Ratisbona) y participando como experto teológico (perito) en el Concilio Vaticano II. En 1977 fue nombrado arzobispo de Múnich y creado cardenal, hasta su elección como Papa el 19 de abril de 2005.
-          </p>
-        </div>
-
-        <div class="section-box">
-          <h3 class="section-subtitle">Cronología esencial</h3>
-
-          <div class="timeline">
-            <article class="timeline-item">
-              <h4>1927 · Nacimiento</h4>
-              <p>Nació en Baviera, Alemania, el 16 de abril de 1927.</p>
-            </article>
-
-            <article class="timeline-item">
-              <h4>1951 · Ordenación sacerdotal</h4>
-              <p>Ordenado sacerdote en la catedral de Frisinga en la solemnidad de San Pedro y San Pablo.</p>
-            </article>
-
-            <article class="timeline-item">
-              <h4>1962 · Concilio Vaticano II</h4>
-              <p>Participó activamente en el Concilio como asesor teológico del cardenal Frings, siendo una voz muy influyente.</p>
-            </article>
-
-            <article class="timeline-item">
-              <h4>1977 · Arzobispo y Cardenal</h4>
-              <p>Pablo VI lo nombró arzobispo de Múnich y Freising, y ese mismo año fue creado cardenal.</p>
-            </article>
-
-            <article class="timeline-item">
-              <h4>1981 · Prefecto para la Doctrina de la Fe</h4>
-              <p>San Juan Pablo II lo llamó a Roma para liderar el antiguo Santo Oficio, donde sirvió por casi 25 años como guardián incansable de la ortodoxia.</p>
-            </article>
-
-            <article class="timeline-item">
-              <h4>2005 · Elección como Papa</h4>
-              <p>Elegido Sumo Pontífice el 19 de abril de 2005, tomando el nombre de Benedicto XVI en honor a San Benito (patrón de Europa).</p>
-            </article>
-
-            <article class="timeline-item">
-              <h4>2013 · Renuncia al ministerio petrino</h4>
-              <p>Anunció su renuncia el 11 de febrero, haciéndose efectiva el 28 de febrero de 2013, pasando a ser Papa Emérito.</p>
-            </article>
-
-            <article class="timeline-item">
-              <h4>2022 · Fallecimiento</h4>
-              <p>Falleció a los 95 años en el monasterio Mater Ecclesiae del Vaticano, el 31 de diciembre de 2022. Sus últimas palabras fueron: "¡Señor, te amo!".</p>
-            </article>
-          </div>
-
-          <div class="cta-row">
-            <a class="cta-link azul" href="https://apologeticaccar.com">Regresar a Apologética Católica</a>
-            <button class="cta-btn dorado" onclick="showPanel('contexto')">Continuar a contexto →</button>
-          </div>
-        </div>
-
-      </section>
-      <!-- ===== FINAL PANEL BIOGRAFIA ===== -->
-
-      <!-- ===== INICIO PANEL CONTEXTO ===== -->
-      <section id="panel-contexto" class="content-panel">
-
-        <div class="section-box">
-          <h2 class="section-title">Contexto del pontificado</h2>
-          <p>
-            Benedicto XVI asumió la cátedra de Pedro en un mundo occidental fuertemente marcado por la secularización y lo que él mismo denominó como la "dictadura del relativismo". Su misión principal fue devolver a Europa y a Occidente el sentido de Dios, demostrando que la fe cristiana no es un mito del pasado, sino la máxima expresión de la Razón creadora (Logos).
-          </p>
-          <p>
-            Fue un pontificado intelectualmente brillante pero sometido a fuertes tormentas externas e internas, incluyendo el laicismo agresivo y la dolorosa purificación de la Iglesia por el estallido de la crisis de los abusos, frente a la cual legisló con firmeza estableciendo políticas severas.
-          </p>
-        </div>
-
-        <div class="section-box">
-          <h3 class="section-subtitle">Claves de lectura</h3>
-
-          <div class="feature-grid">
-            <article class="feature-card">
-              <h4>Fe y Razón (Logos)</h4>
-              <p>Mostró incansablemente que ser católico es ser profundamente racional. Dios es el Logos eterno y la fe cristiana abraza y purifica la inteligencia humana.</p>
-            </article>
-
-            <article class="feature-card">
-              <h4>Hermenéutica de la Continuidad</h4>
-              <p>Enseñó que el Vaticano II no puede interpretarse como una "ruptura" que crea una Iglesia nueva, sino en total continuidad con la Tradición bimilenaria.</p>
-            </article>
-
-            <article class="feature-card">
-              <h4>Cristocentrismo absoluto</h4>
-              <p>Toda su enseñanza, especialmente su obra "Jesús de Nazaret", buscó devolver la mirada de los fieles a la persona histórica y divina de Jesucristo.</p>
-            </article>
-
-            <article class="feature-card">
-              <h4>Belleza Litúrgica</h4>
-              <p>Promovió una liturgia que respetara el misterio, el asombro y la sacralidad, afirmando que "la verdadera liturgia canta con los ángeles".</p>
-            </article>
-          </div>
-
-          <div class="cta-row">
-            <a class="cta-link azul" href="https://apologeticaccar.com">Regresar a Apologética Católica</a>
-            <button class="cta-btn dorado" onclick="showPanel('pontificado')">Continuar a pontificado →</button>
-          </div>
-        </div>
-
-      </section>
-      <!-- ===== FINAL PANEL CONTEXTO ===== -->
-
-      <!-- ===== INICIO PANEL PONTIFICADO ===== -->
-      <section id="panel-pontificado" class="content-panel">
-
-        <div class="section-box">
-          <h2 class="section-title">Pontificado</h2>
-          <p>
-            El papado de Benedicto XVI se centró en ir a la esencia del cristianismo: Dios es amor (Caridad) y Dios es verdad (Logos). Sus encíclicas se enfocaron en las virtudes teologales, dejando un corpus doctrinal que alimentará a la Iglesia durante siglos.
-          </p>
-        </div>
-
-        <div class="section-box">
-          <h3 class="section-subtitle">Líneas principales</h3>
-
-          <div class="feature-grid">
-            <article class="feature-card">
-              <h4>Restauración de lo sagrado</h4>
-              <p>Con <em>Summorum Pontificum</em>, reconoció el derecho inmemorial de los sacerdotes a celebrar la Misa Tridentina sin necesidad de permisos especiales, enriqueciendo la vida espiritual de la Iglesia.</p>
-            </article>
-
-            <article class="feature-card">
-              <h4>Diálogo Ecuménico histórico</h4>
-              <p>Publicó <em>Anglicanorum coetibus</em>, creando ordinariatos para permitir a grupos enteros de anglicanos regresar a la comunión católica conservando su hermoso patrimonio litúrgico.</p>
-            </article>
-
-            <article class="feature-card">
-              <h4>Año de la Fe y Año Sacerdotal</h4>
-              <p>Convocó años temáticos intensos para revitalizar la identidad de los sacerdotes y la fe de todo el pueblo de Dios frente a la apostasía silenciosa moderna.</p>
-            </article>
-
-            <article class="feature-card">
-              <h4>Purificación moral</h4>
-              <p>Tomó medidas drásticas endureciendo el derecho canónico para erradicar los abusos del clero, pidiendo a la Iglesia "penitencia y limpieza".</p>
-            </article>
-          </div>
-
-          <div class="section-box" style="margin-top:20px;margin-bottom:0;">
-            <h3 class="section-subtitle">Síntesis</h3>
-            <p>
-              El pontificado de Benedicto XVI será recordado como el de un "Doctor de la Iglesia" de la época contemporánea. A pesar de la hostilidad del mundo secular, dejó a la Iglesia un magisterio luminoso, blindando la Tradición y demostrando que la fe cristiana es el verdadero motor de la razón.
+          <div class="accar-codex-intro">
+            <span class="accar-codex-kicker">Síntesis Histórica</span>
+            <h2 class="accar-codex-h2">Panorama del pontificado</h2>
+            <p class="accar-dropcap-p">
+              <span class="accar-capitular">E</span>l pontificado de Benedicto XVI ofreció a la Iglesia universal uno de los magisterios más transparentes, profundos y articulados de la edad contemporánea: centrado en las virtudes teologales, en la primacía de Dios frente al secularismo y en la contemplación del rostro histórico y divino de Jesucristo.
             </p>
           </div>
 
-          <div class="cta-row">
-            <a class="cta-link azul" href="https://apologeticaccar.com">Regresar a Apologética Católica</a>
-            <button class="cta-btn dorado" onclick="showPanel('documentos')">Continuar a documentos →</button>
-          </div>
-        </div>
-
-      </section>
-      <!-- ===== FINAL PANEL PONTIFICADO ===== -->
-
-      <!-- ===== INICIO PANEL DOCUMENTOS ===== -->
-      <section id="panel-documentos" class="content-panel">
-
-        <div class="section-box">
-          <h2 class="section-title">Documentos principales</h2>
-          <p>
-            El Magisterio de Benedicto XVI es de una riqueza teológica inagotable. Sus tres encíclicas son verdaderos tratados de espiritualidad, y sus documentos pastorales marcaron un antes y un después en la disciplina eclesial.
-          </p>
-        </div>
-
-        <div class="section-box">
-          <h3 class="section-subtitle">Selección de estudio</h3>
-
-          <div class="accordion">
-
-            <div class="acc-item doc-enciclica open">
-              <button class="acc-trigger" type="button">
-                <span>Deus caritas est · 25 de diciembre de 2005</span>
-                <span>−</span>
-              </button>
-              <div class="acc-content">
-                <div class="doc-tags">
-                  <span class="doc-tag tag-enciclica">Encíclica</span>
-                  <span class="doc-tag tag-enciclica">Amor y Caridad</span>
-                </div>
-                <p>Su primera encíclica. Una obra maestra que explica la relación entre el amor humano (eros) y el amor divino donado (ágape), demostrando que Dios purifica y eleva el amor verdadero.</p>
-              </div>
-            </div>
-
-            <div class="acc-item doc-enciclica">
-              <button class="acc-trigger" type="button">
-                <span>Spe salvi · 30 de noviembre de 2007</span>
-                <span>+</span>
-              </button>
-              <div class="acc-content">
-                <div class="doc-tags">
-                  <span class="doc-tag tag-enciclica">Encíclica</span>
-                  <span class="doc-tag tag-enciclica">Esperanza cristiana</span>
-                </div>
-                <p>Sobre la esperanza. Explica cómo la fe ciega en el progreso científico y en el marxismo fracasaron en dar sentido al hombre, recordando que solo la vida eterna y el encuentro con Cristo salvan.</p>
-              </div>
-            </div>
-
-            <div class="acc-item doc-enciclica">
-              <button class="acc-trigger" type="button">
-                <span>Caritas in veritate · 29 de junio de 2009</span>
-                <span>+</span>
-              </button>
-              <div class="acc-content">
-                <div class="doc-tags">
-                  <span class="doc-tag tag-enciclica">Encíclica</span>
-                  <span class="doc-tag tag-enciclica">Doctrina Social</span>
-                </div>
-                <p>Su gran documento social. Advierte que el desarrollo económico y tecnológico que no esté iluminado por la caridad en la verdad, corre el riesgo de volverse contra el propio ser humano.</p>
-              </div>
-            </div>
-
-            <div class="acc-item doc-gobierno">
-              <button class="acc-trigger" type="button">
-                <span>Summorum Pontificum · 7 de julio de 2007</span>
-                <span>+</span>
-              </button>
-              <div class="acc-content">
-                <div class="doc-tags">
-                  <span class="doc-tag tag-gobierno">Motu Proprio</span>
-                  <span class="doc-tag tag-gobierno">Liturgia Tradicional</span>
-                </div>
-                <p>Documento de enorme impacto apologético. Declaró que el Misal de San Pío V nunca fue abrogado, reconociendo el derecho a celebrar esta "Forma Extraordinaria" del Rito Romano.</p>
-              </div>
-            </div>
-
-            <div class="acc-item doc-exhortacion">
-              <button class="acc-trigger" type="button">
-                <span>Sacramentum caritatis · 22 de febrero de 2007</span>
-                <span>+</span>
-              </button>
-              <div class="acc-content">
-                <div class="doc-tags">
-                  <span class="doc-tag tag-exhortacion">Exhortación postsinodal</span>
-                  <span class="doc-tag tag-exhortacion">Eucaristía</span>
-                </div>
-                <p>Aborda el sacramento de la Eucaristía como fuente y culmen de la vida de la Iglesia, exigiendo decoro litúrgico, canto sagrado y un profundo respeto al misterio eucarístico (ars celebrandi).</p>
-              </div>
-            </div>
-
-            <div class="acc-item doc-exhortacion">
-              <button class="acc-trigger" type="button">
-                <span>Verbum Domini · 30 de septiembre de 2010</span>
-                <span>+</span>
-              </button>
-              <div class="acc-content">
-                <div class="doc-tags">
-                  <span class="doc-tag tag-exhortacion">Exhortación postsinodal</span>
-                  <span class="doc-tag tag-exhortacion">Sagrada Escritura</span>
-                </div>
-                <p>Sobre la Palabra de Dios. Enfatiza que la Biblia solo puede interpretarse correctamente dentro de la Tradición viva de la Iglesia y bajo la guía del Magisterio, frenando la exégesis puramente secular.</p>
-              </div>
-            </div>
-
-            <div class="acc-item doc-gobierno">
-              <button class="acc-trigger" type="button">
-                <span>Anglicanorum coetibus · 4 de noviembre de 2009</span>
-                <span>+</span>
-              </button>
-              <div class="acc-content">
-                <div class="doc-tags">
-                  <span class="doc-tag tag-gobierno">Constitución Apostólica</span>
-                  <span class="doc-tag tag-gobierno">Ecumenismo</span>
-                </div>
-                <p>Un hito en la unidad cristiana. Abrió las puertas a los grupos anglicanos que, descontentos con la deriva doctrinal de su comunión, deseaban retornar a la fe católica conservando su identidad.</p>
-              </div>
-            </div>
-
-          </div>
-
-          <div class="cta-row">
-            <a class="cta-link azul" href="https://apologeticaccar.com">Regresar a Apologética Católica</a>
-            <button class="cta-btn dorado" onclick="showPanel('apologetica')">Continuar a Apologética →</button>
-          </div>
-        </div>
-
-      </section>
-      <!-- ===== FINAL PANEL DOCUMENTOS ===== -->
-
-      <!-- ===== INICIO PANEL APOLOGÉTICA ===== -->
-      <section id="panel-apologetica" class="content-panel">
-
-        <div class="section-box">
-          <h2 class="section-title">Aporte a la Apologética y la Tradición</h2>
-          <p>
-            Benedicto XVI es considerado uno de los apologetas más brillantes de la era moderna. Su pontificado fue un bastión doctrinal inexpugnable contra el relativismo moral, la herejía modernista y la pérdida del sentido de lo sagrado.
-          </p>
-        </div>
-
-        <div class="section-box">
-          <h3 class="section-subtitle">Puntos clave</h3>
-
-          <div class="feature-grid">
-            <article class="feature-card">
-              <h4>Contra la Dictadura del Relativismo</h4>
-              <p>Denunció proféticamente a la sociedad moderna que "no reconoce nada como definitivo y deja como última medida el propio yo y sus antojos", oponiendo a esto la verdad objetiva revelada por Cristo.</p>
+          <!-- 4 Placas Lapidarias en Azul Noche y Oro -->
+          <div class="accar-stat-grid">
+            <article class="accar-stat-plaque">
+              <span class="accar-stat-cross" aria-hidden="true">✠</span>
+              <span class="accar-stat-num">45</span>
+              <span class="accar-stat-lbl">Santos canonizados durante su pontificado</span>
             </article>
 
-            <article class="feature-card">
-              <h4>Fe y Razón (Discurso de Ratisbona)</h4>
-              <p>En su magistral discurso de 2006, demostró apologéticamente que actuar contra la razón es contrario a la naturaleza de Dios, blindando al cristianismo tanto del secularismo ateo como del fanatismo religioso ciego.</p>
+            <article class="accar-stat-plaque">
+              <span class="accar-stat-cross" aria-hidden="true">✠</span>
+              <span class="accar-stat-num">869</span>
+              <span class="accar-stat-lbl">Siervos de Dios beatificados (incl. 498 mártires)</span>
             </article>
 
-            <article class="feature-card">
+            <article class="accar-stat-plaque">
+              <span class="accar-stat-cross" aria-hidden="true">✠</span>
+              <span class="accar-stat-num">3</span>
+              <span class="accar-stat-lbl">Cartas encíclicas magistrales</span>
+            </article>
+
+            <article class="accar-stat-plaque">
+              <span class="accar-stat-cross" aria-hidden="true">✠</span>
+              <span class="accar-stat-num">24</span>
+              <span class="accar-stat-lbl">Viajes apostólicos internacionales</span>
+            </article>
+          </div>
+
+          <div class="accar-codex-divider" aria-hidden="true"><span>✠</span></div>
+
+          <h3 class="accar-codex-h3">Fastos y referencias rápidas</h3>
+
+          <!-- Registro Lapidario 1: Canonizaciones -->
+          <article class="accar-registry-box">
+            <div class="accar-registry-head">
+              <span class="accar-registry-icon" aria-hidden="true">✠</span>
+              <h4>Canonizaciones y proclamaciones doctorales destacadas</h4>
+            </div>
+            <ul class="accar-registry-list">
+              <li>
+                <strong>San Alberto Hurtado Cruchaga</strong>
+                <span>23 de octubre de 2005 · Sacerdote jesuita chileno</span>
+              </li>
+              <li>
+                <strong>San Rafael Arnáiz Barón</strong>
+                <span>11 de octubre de 2009 · Monje trapense y místico español</span>
+              </li>
+              <li>
+                <strong>San Damián de Veuster (Padre Damián de Molokai)</strong>
+                <span>11 de octubre de 2009 · Apóstol heroico de los leprosos</span>
+              </li>
+              <li>
+                <strong>San André Bessette y Santa Cándida María de Jesús</strong>
+                <span>17 de octubre de 2010 · Plaza de San Pedro</span>
+              </li>
+              <li>
+                <strong>Santa Hildegarda de Bingen (Doctora de la Iglesia)</strong>
+                <span>10 de mayo / 7 de octubre de 2012 · Canonización equipolente</span>
+              </li>
+              <li>
+                <strong>San Juan de Ávila (Doctor de la Iglesia Universal)</strong>
+                <span>7 de octubre de 2012 · Patrono del clero secular español</span>
+              </li>
+              <li>
+                <strong>Santa Catalina Tekakwitha y San Pedro Calungsod</strong>
+                <span>21 de octubre de 2012 · Último consistorio de canonización</span>
+              </li>
+            </ul>
+          </article>
+
+          <!-- Registro Lapidario 2: Hitos Históricos -->
+          <article class="accar-registry-box">
+            <div class="accar-registry-head">
+              <span class="accar-registry-icon" aria-hidden="true">✠</span>
+              <h4>Hitos históricos del pontificado</h4>
+            </div>
+            <ul class="accar-registry-list">
+              <li>
+                <strong>Jornada Mundial de la Juventud en Colonia</strong>
+                <span>Agosto de 2005 · Primer viaje apostólico ante un millón de jóvenes</span>
+              </li>
+              <li>
+                <strong>Discurso a la Curia Romana («Hermenéutica de la continuidad»)</strong>
+                <span>22 de diciembre de 2005 · Clave magisterial sobre el Vaticano II</span>
+              </li>
+              <li>
+                <strong>Lección Magistral en la Universidad de Ratisbona</strong>
+                <span>12 de septiembre de 2006 · Armonía entre Fe cristiana y Logos</span>
+              </li>
+              <li>
+                <strong>Promulgación del Motu Proprio Summorum Pontificum</strong>
+                <span>7 de julio de 2007 · Paz litúrgica en el Rito Romano</span>
+              </li>
+              <li>
+                <strong>Constitución Apostólica Anglicanorum coetibus</strong>
+                <span>4 de noviembre de 2009 · Ordinariatos para antiguos anglicanos</span>
+              </li>
+              <li>
+                <strong>Visita de Estado al Reino Unido y Beatificación de Newman</strong>
+                <span>16 – 19 de septiembre de 2010 · Discurso en Westminster Hall</span>
+              </li>
+              <li>
+                <strong>Convocatoria del Año de la Fe (Porta fidei)</strong>
+                <span>11 de octubre de 2012 · 50.º aniversario del Concilio Vaticano II</span>
+              </li>
+              <li>
+                <strong>Renuncia al Ministerio Petrino y retiro orante</strong>
+                <span>11 / 28 de febrero de 2013 · Monasterio Mater Ecclesiae</span>
+              </li>
+            </ul>
+          </article>
+
+          <div class="accar-codex-cards-grid">
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Síntesis Doctrinal</span>
+              <h4>Grandes ejes del pontificado</h4>
+              <p>
+                Alianza fecunda entre fe y razón, denuncia profética de la «dictadura del relativismo», cristocentrismo absoluto, redescubrimiento catequético de los Apóstoles y de los Padres de la Iglesia, y renovación del asombro sagrado en la Liturgia.
+              </p>
+            </article>
+
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Corpus Magisterial</span>
+              <h4>Documentos y obras mayores a recordar</h4>
+              <p>
+                Sus encíclicas <em>Deus caritas est</em>, <em>Spe salvi</em> y <em>Caritas in veritate</em>; las exhortaciones <em>Sacramentum caritatis</em> y <em>Verbum Domini</em>; los motu proprio <em>Summorum Pontificum</em> y <em>Porta fidei</em>, y su trilogía teológica <em>Jesús de Nazaret</em>.
+              </p>
+            </article>
+          </div>
+
+          <div class="accar-codex-footer-nav">
+            <button type="button" class="accar-codex-btn-sec" onclick="loadView('views/historia-lista-de-papas.html')">
+              ← Volver al Directorio Pontificio
+            </button>
+            <button type="button" class="accar-codex-btn-pri" onclick="window.accarShowPapaPanel('biografia')">
+              Continuar a Biografía →
+            </button>
+          </div>
+
+        </section>
+
+        <!-- ==================== PANEL 2: BIOGRAFÍA ==================== -->
+        <section id="panel-biografia" class="accar-papa-panel">
+
+          <div class="accar-codex-intro">
+            <span class="accar-codex-kicker">Iter Vitae</span>
+            <h2 class="accar-codex-h2">Biografía</h2>
+            <p class="accar-dropcap-p">
+              <span class="accar-capitular">J</span>oseph Aloisius Ratzinger nació en Marktl am Inn, Baviera (Alemania), el 16 de abril de 1927, Sábado Santo, recibiendo el bautismo aquella misma mañana con el agua pascual recién bendecida. Forjado en un hogar profundamente católico que resistió la ideología nacionalsocialista, descubrió desde niño en la belleza de la liturgia el manantial de su vocación sacerdotal.
+            </p>
+            <p>
+              Ordenado sacerdote el 29 de junio de 1951 junto a su hermano Georg, se consagró como uno de los mayores teólogos del siglo XX en las cátedras de Bonn, Münster, Tubinga y Ratisbona. Tras participar como perito en el Concilio Vaticano II y cofundar en 1972 la revista <em>Communio</em>, fue nombrado arzobispo de Múnich y Freising y cardenal en 1977. Llamado a Roma por San Juan Pablo II en 1981, custodió durante casi veinticuatro años la integridad doctrinal de la fe al frente de la Congregación para la Doctrina de la Fe, presidiendo además la comisión redactora del <em>Catecismo de la Iglesia Católica</em> hasta su elección como Romano Pontífice el 19 de abril de 2005.
+            </p>
+          </div>
+
+          <div class="accar-codex-divider" aria-hidden="true"><span>✠</span></div>
+
+          <h3 class="accar-codex-h3">Cronología esencial</h3>
+
+          <div class="accar-timeline">
+            <article class="accar-tl-item">
+              <div class="accar-tl-year">1927</div>
+              <div class="accar-tl-card">
+                <h4>Nacimiento y bautismo en Sábado Santo</h4>
+                <p>Nació en Marktl am Inn (Baviera, Alemania) el 16 de abril de 1927, signo providencial que él mismo consideró clave de toda su existencia cristiana.</p>
+              </div>
+            </article>
+
+            <article class="accar-tl-item">
+              <div class="accar-tl-year">1951</div>
+              <div class="accar-tl-card">
+                <h4>Ordenación sacerdotal y doctorado</h4>
+                <p>Recibió el orden presbiteral en la Catedral de Frisinga el 29 de junio de 1951; poco después se doctoró en Teología con una tesis sobre San Agustín y se habilitó sobre San Buenaventura.</p>
+              </div>
+            </article>
+
+            <article class="accar-tl-item">
+              <div class="accar-tl-year">1962</div>
+              <div class="accar-tl-card">
+                <h4>Perito teológico en el Concilio Vaticano II</h4>
+                <p>Intervino en las cuatro etapas conciliares (1962–1965) como consultor del cardenal Josef Frings de Colonia y perito oficial del Concilio.</p>
+              </div>
+            </article>
+
+            <article class="accar-tl-item">
+              <div class="accar-tl-year">1977</div>
+              <div class="accar-tl-card">
+                <h4>Arzobispo de Múnich y Cardenal</h4>
+                <p>San Pablo VI lo nombró arzobispo de Múnich y Freising en marzo de 1977 —escogiendo por lema <em>«Cooperatores veritatis»</em>— y lo creó cardenal el 27 de junio del mismo año.</p>
+              </div>
+            </article>
+
+            <article class="accar-tl-item">
+              <div class="accar-tl-year">1981</div>
+              <div class="accar-tl-card">
+                <h4>Prefecto de la Congregación para la Doctrina de la Fe</h4>
+                <p>San Juan Pablo II lo puso al frente del antiguo Santo Oficio el 25 de noviembre de 1981, desde donde dirigió la redacción del Catecismo (1986–1992) y defendió la ortodoxia católica.</p>
+              </div>
+            </article>
+
+            <article class="accar-tl-item">
+              <div class="accar-tl-year">2005</div>
+              <div class="accar-tl-card">
+                <h4>Elección al Solio de San Pedro</h4>
+                <p>Elegido Sumo Pontífice el 19 de abril de 2005, tomó el nombre de Benedicto XVI en honor a Benedicto XV (Papa de la paz) y a San Benito de Nursia, patrono de Europa.</p>
+              </div>
+            </article>
+
+            <article class="accar-tl-item">
+              <div class="accar-tl-year">2013</div>
+              <div class="accar-tl-card">
+                <h4>Renuncia libre al Ministerio Petrino</h4>
+                <p>Anunció en latín su renuncia el 11 de febrero de 2013 ante el consistorio cardenalicio, haciéndose efectiva el 28 de febrero para dedicarse a sostener a la Iglesia con la oración.</p>
+              </div>
+            </article>
+
+            <article class="accar-tl-item">
+              <div class="accar-tl-year">2022</div>
+              <div class="accar-tl-card">
+                <h4>Tránsito al Padre en el Vaticano</h4>
+                <p>Falleció a los 95 años en el Monasterio <em>Mater Ecclesiae</em> el 31 de diciembre de 2022. Sus últimas palabras audibles en la madrugada fueron: <em>«¡Señor, te amo!»</em>.</p>
+              </div>
+            </article>
+          </div>
+
+          <div class="accar-codex-footer-nav">
+            <button type="button" class="accar-codex-btn-sec" onclick="loadView('views/historia-lista-de-papas.html')">
+              ← Volver al Directorio Pontificio
+            </button>
+            <button type="button" class="accar-codex-btn-pri" onclick="window.accarShowPapaPanel('contexto')">
+              Continuar a Contexto →
+            </button>
+          </div>
+
+        </section>
+
+        <!-- ==================== PANEL 3: CONTEXTO ==================== -->
+        <section id="panel-contexto" class="accar-papa-panel">
+
+          <div class="accar-codex-intro">
+            <span class="accar-codex-kicker">Marco Eclesial e Histórico</span>
+            <h2 class="accar-codex-h2">Contexto del pontificado</h2>
+            <p class="accar-dropcap-p">
+              <span class="accar-capitular">B</span>enedicto XVI recibió el timón de la barca de Pedro en medio de un Occidente afectado por el eclipse de Dios, la amnesia de sus raíces cristianas y lo que ya en la misa <em>Pro eligendo Romano Pontifice</em> había diagnosticado con lucidez como la «dictadura del relativismo». Su misión capital consistió en mostrar que la fe católica ensancha la razón humana y la preserva de caer en el nihilismo.
+            </p>
+            <p>
+              Al mismo tiempo, afrontó con valentía paterna y rigor jurídico las tempestades internas de la Iglesia, promulgando normas canónicas severas de purificación moral frente a los abusos y zanjando décadas de disputas posconciliares mediante el principio de la reforma en la continuidad del único sujeto Iglesia.
+            </p>
+          </div>
+
+          <div class="accar-codex-divider" aria-hidden="true"><span>✠</span></div>
+
+          <h3 class="accar-codex-h3">Claves de lectura</h3>
+
+          <div class="accar-codex-cards-grid">
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Clave I</span>
+              <h4>Primacía de la Razón Creadora (Logos)</h4>
+              <p>Enseñó en Ratisbona, París y Berlín que en el principio no está el azar irracional, sino el <em>Logos</em> eterno: creer en Dios es el acto supremamente razonable del espíritu humano.</p>
+            </article>
+
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Clave II</span>
               <h4>Hermenéutica de la Continuidad</h4>
-              <p>Desmontó la falsa idea de una "Iglesia pre-conciliar" y "post-conciliar". Afirmó que la Iglesia es un único sujeto histórico que crece en el tiempo pero siempre sigue siendo el mismo, anclando el Concilio Vaticano II a la Tradición constante.</p>
+              <p>Estableció ante la Curia Romana en 2005 que el Concilio Vaticano II jamás autorizó una ruptura con el pasado, sino una lectura fiel dentro de la Tradición bimilenaria.</p>
             </article>
 
-            <article class="feature-card">
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Clave III</span>
+              <h4>Cristocentrismo y «Jesús de Nazaret»</h4>
+              <p>Escribió su célebre trilogía <em>Jesús de Nazaret</em> para demostrar que el Jesús histórico de los Evangelios coincide íntegramente con el Cristo de la fe proclamado por los concilios.</p>
+            </article>
+
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Clave IV</span>
+              <h4>Sacralidad y «Ars Celebrandi»</h4>
+              <p>Reorientó la liturgia hacia el primado de la adoración a Dios —colocando el Crucifijo en el centro del altar—, recordando que en la Misa la tierra se une a la liturgia celestial.</p>
+            </article>
+
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Clave V</span>
+              <h4>Raíces Cristianas de Occidente</h4>
+              <p>Ante los parlamentos de Londres y Berlín defendió los fundamentos naturales del derecho frente al positivismo jurídico desvinculado de la ley moral objetiva.</p>
+            </article>
+
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Clave VI</span>
+              <h4>Escuela Viva de los Santos Padres</h4>
+              <p>Dedicó años enteros de sus audiencias generales a recorrer a los Apóstoles, los Padres Apostólicos, los grandes Padres orientales y latinos y los Doctores medievales.</p>
+            </article>
+          </div>
+
+          <div class="accar-codex-footer-nav">
+            <button type="button" class="accar-codex-btn-sec" onclick="loadView('views/historia-lista-de-papas.html')">
+              ← Volver al Directorio Pontificio
+            </button>
+            <button type="button" class="accar-codex-btn-pri" onclick="window.accarShowPapaPanel('pontificado')">
+              Continuar a Pontificado →
+            </button>
+          </div>
+
+        </section>
+
+        <!-- ==================== PANEL 4: PONTIFICADO ==================== -->
+        <section id="panel-pontificado" class="accar-papa-panel">
+
+          <div class="accar-codex-intro">
+            <span class="accar-codex-kicker">Ministerio Petrino · 2005 – 2013</span>
+            <h2 class="accar-codex-h2">Gobierno y Magisterio</h2>
+            <p class="accar-dropcap-p">
+              <span class="accar-capitular">E</span>l gobierno pontificio de Benedicto XVI fue a la esencia misma de la revelación cristiana: <em>«No se comienza a ser cristiano por una decisión ética o una gran idea, sino por el encuentro con un acontecimiento, con una Persona»</em> (<em>Deus caritas est</em>, 1). Sus encíclicas sobre la caridad, la esperanza y el desarrollo integral conforman una verdadera suma espiritual para nuestro tiempo.
+            </p>
+          </div>
+
+          <div class="accar-codex-divider" aria-hidden="true"><span>✠</span></div>
+
+          <h3 class="accar-codex-h3">Líneas principales de su gobierno</h3>
+
+          <div class="accar-codex-cards-grid">
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Eje I</span>
+              <h4>Reconciliación y Paz Litúrgica</h4>
+              <p>Con el motu proprio <em>Summorum Pontificum</em> (2007) declaró que el Misal Romano anterior a 1970 nunca fue jurídicamente abrogado, buscando la reconciliación interna en el seno de la Iglesia.</p>
+            </article>
+
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Eje II</span>
+              <h4>Retorno a la Plena Comunión (Ordinariatos)</h4>
+              <p>Promulgó la constitución apostólica <em>Anglicanorum coetibus</em> (2009), erigiendo ordinariatos personales para acoger corporativamente a fieles y clérigos procedentes del anglicanismo.</p>
+            </article>
+
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Eje III</span>
+              <h4>Año Paulino, Año Sacerdotal y Año de la Fe</h4>
+              <p>Convocó grandes tiempos de gracia universal para fortalecer la identidad del sacerdocio ministerial y reavivar el estudio del Catecismo frente a la secularización interna.</p>
+            </article>
+
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Eje IV</span>
+              <h4>Nueva Evangelización y Atrio de los Gentiles</h4>
+              <p>Instituyó en 2010 el Pontificio Consejo para la Promoción de la Nueva Evangelización e impulsó el diálogo intelectual con no creyentes en busca de la verdad.</p>
+            </article>
+
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Eje V</span>
+              <h4>Purificación Moral y Reforma Canónica</h4>
+              <p>Endureció las normas sobre los <em>delicta graviora</em> en 2010, reuniéndose personalmente con las víctimas y exigiendo penitencia, verdad y rigor disciplinar en el clero.</p>
+            </article>
+
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Eje VI</span>
+              <h4>Doctrina Social en la Verdad</h4>
+              <p>En <em>Caritas in veritate</em> enseñó frente a la crisis financiera global de 2008 que sin verdad la caridad degenera en sentimentalismo y la economía pierde su medida humana.</p>
+            </article>
+          </div>
+
+          <div class="accar-synthesis-banner">
+            <span class="accar-synthesis-kicker">✠ Valoración de Conjunto ✠</span>
+            <p>
+              El pontificado de Benedicto XVI permanece en la memoria de la Iglesia con la estatura intelectual y espiritual de un Padre y Doctor moderno: humilde obrero en la viña del Señor que confirmó a sus hermanos en la verdad revelada.
+            </p>
+          </div>
+
+          <div class="accar-codex-footer-nav">
+            <button type="button" class="accar-codex-btn-sec" onclick="loadView('views/historia-lista-de-papas.html')">
+              ← Volver al Directorio Pontificio
+            </button>
+            <button type="button" class="accar-codex-btn-pri" onclick="window.accarShowPapaPanel('documentos')">
+              Continuar a Documentos →
+            </button>
+          </div>
+
+        </section>
+
+        <!-- ==================== PANEL 5: DOCUMENTOS ==================== -->
+        <section id="panel-documentos" class="accar-papa-panel">
+
+          <div class="accar-codex-intro">
+            <span class="accar-codex-kicker">Archivo Magisterial</span>
+            <h2 class="accar-codex-h2">Documentos principales</h2>
+            <p class="accar-dropcap-p">
+              <span class="accar-capitular">E</span>l corpus magisterial de Benedicto XVI se distingue por una claridad cristalina y una densidad bíblica y patrística extraordinarias. Cada una de sus encíclicas, exhortaciones y constituciones apostólicas ofrece acceso directo a su texto oficial íntegro en el portal de la Santa Sede.
+            </p>
+          </div>
+
+          <div class="accar-codex-divider" aria-hidden="true"><span>✠</span></div>
+
+          <h3 class="accar-codex-h3">Selección comentada de estudio</h3>
+
+          <div class="accar-doc-accordion">
+
+            <div class="accar-doc-item doc-enciclica open">
+              <button class="accar-doc-trigger" type="button">
+                <span class="accar-doc-title">Deus caritas est · 25 de diciembre de 2005</span>
+                <span class="accar-doc-icon">−</span>
+              </button>
+              <div class="accar-doc-content">
+                <div class="accar-doc-tags">
+                  <a href="https://www.vatican.va/content/benedict-xvi/es/encyclicals/documents/hf_ben-xvi_enc_20051225_deus-caritas-est.html" target="_blank" rel="noopener noreferrer" class="accar-doc-tag tag-enciclica">Leer en Vatican.va ↗</a>
+                  <span class="accar-doc-tag tag-enciclica">Carta Encíclica · El Amor Cristiano</span>
+                </div>
+                <p>Primera encíclica de su pontificado. Expone magistralmente la articulación entre el amor ascendente (<em>eros</em>) y el amor oblativo que desciende de Dios (<em>ágape</em>), así como el ejercicio eclesial de la caridad.</p>
+              </div>
+            </div>
+
+            <div class="accar-doc-item doc-exhortacion">
+              <button class="accar-doc-trigger" type="button">
+                <span class="accar-doc-title">Sacramentum caritatis · 22 de febrero de 2007</span>
+                <span class="accar-doc-icon">+</span>
+              </button>
+              <div class="accar-doc-content">
+                <div class="accar-doc-tags">
+                  <a href="https://www.vatican.va/content/benedict-xvi/es/apost_exhortations/documents/hf_ben-xvi_exh_20070222_sacramentum-caritatis.html" target="_blank" rel="noopener noreferrer" class="accar-doc-tag tag-exhortacion">Leer en Vatican.va ↗</a>
+                  <span class="accar-doc-tag tag-exhortacion">Exhortación Postsinodal · Sagrada Eucaristía</span>
+                </div>
+                <p>Profundiza en la Eucaristía como misterio que se ha de creer, celebrar y vivir, defendiendo el decoro litúrgico (<em>ars celebrandi</em>), el canto gregoriano y la adoración eucarística.</p>
+              </div>
+            </div>
+
+            <div class="accar-doc-item doc-gobierno">
+              <button class="accar-doc-trigger" type="button">
+                <span class="accar-doc-title">Summorum Pontificum · 7 de julio de 2007</span>
+                <span class="accar-doc-icon">+</span>
+              </button>
+              <div class="accar-doc-content">
+                <div class="accar-doc-tags">
+                  <a href="https://www.vatican.va/content/benedict-xvi/es/motu_proprio/documents/hf_ben-xvi_motu-proprio_20070707_summorum-pontificum.html" target="_blank" rel="noopener noreferrer" class="accar-doc-tag tag-gobierno">Leer en Vatican.va ↗</a>
+                  <span class="accar-doc-tag tag-gobierno">Motu Proprio · Liturgia Romana</span>
+                </div>
+                <p>Reconoció el uso del Misal Romano promulgado por San Juan XXIII en 1962 como expresión extraordinaria de la misma <em>lex orandi</em> de la Iglesia Católica.</p>
+              </div>
+            </div>
+
+            <div class="accar-doc-item doc-enciclica">
+              <button class="accar-doc-trigger" type="button">
+                <span class="accar-doc-title">Spe salvi · 30 de noviembre de 2007</span>
+                <span class="accar-doc-icon">+</span>
+              </button>
+              <div class="accar-doc-content">
+                <div class="accar-doc-tags">
+                  <a href="https://www.vatican.va/content/benedict-xvi/es/encyclicals/documents/hf_ben-xvi_enc_20071130_spe-salvi.html" target="_blank" rel="noopener noreferrer" class="accar-doc-tag tag-enciclica">Leer en Vatican.va ↗</a>
+                  <span class="accar-doc-tag tag-enciclica">Carta Encíclica · Esperanza Cristiana</span>
+                </div>
+                <p>Desmonta los falsos mesianismos seculares del cientificismo y del marxismo, mostrando que solo la gran esperanza fundada en Cristo redentor y en la vida eterna salva al hombre.</p>
+              </div>
+            </div>
+
+            <div class="accar-doc-item doc-enciclica">
+              <button class="accar-doc-trigger" type="button">
+                <span class="accar-doc-title">Caritas in veritate · 29 de junio de 2009</span>
+                <span class="accar-doc-icon">+</span>
+              </button>
+              <div class="accar-doc-content">
+                <div class="accar-doc-tags">
+                  <a href="https://www.vatican.va/content/benedict-xvi/es/encyclicals/documents/hf_ben-xvi_enc_20090629_caritas-in-veritate.html" target="_blank" rel="noopener noreferrer" class="accar-doc-tag tag-enciclica">Leer en Vatican.va ↗</a>
+                  <span class="accar-doc-tag tag-enciclica">Carta Encíclica · Doctrina Social</span>
+                </div>
+                <p>Actualiza la enseñanza social de <em>Populorum progressio</em>, advirtiendo que el desarrollo económico y biotecnológico divorciado de la verdad moral y del respeto a la vida termina destruyendo al hombre.</p>
+              </div>
+            </div>
+
+            <div class="accar-doc-item doc-gobierno">
+              <button class="accar-doc-trigger" type="button">
+                <span class="accar-doc-title">Anglicanorum coetibus · 4 de noviembre de 2009</span>
+                <span class="accar-doc-icon">+</span>
+              </button>
+              <div class="accar-doc-content">
+                <div class="accar-doc-tags">
+                  <a href="https://www.vatican.va/content/benedict-xvi/es/apost_constitutions/documents/hf_ben-xvi_apc_20091104_anglicanorum-coetibus.html" target="_blank" rel="noopener noreferrer" class="accar-doc-tag tag-gobierno">Leer en Vatican.va ↗</a>
+                  <span class="accar-doc-tag tag-gobierno">Constitución Apostólica · Unidad Cristiana</span>
+                </div>
+                <p>Hito jurídico e histórico que abrió cauce canónico estable para recibir en la plena comunión católica a comunidades anglicanas enteras conservando su legítimo patrimonio espiritual y litúrgico.</p>
+              </div>
+            </div>
+
+            <div class="accar-doc-item doc-exhortacion">
+              <button class="accar-doc-trigger" type="button">
+                <span class="accar-doc-title">Verbum Domini · 30 de septiembre de 2010</span>
+                <span class="accar-doc-icon">+</span>
+              </button>
+              <div class="accar-doc-content">
+                <div class="accar-doc-tags">
+                  <a href="https://www.vatican.va/content/benedict-xvi/es/apost_exhortations/documents/hf_ben-xvi_exh_20100930_verbum-domini.html" target="_blank" rel="noopener noreferrer" class="accar-doc-tag tag-exhortacion">Leer en Vatican.va ↗</a>
+                  <span class="accar-doc-tag tag-exhortacion">Exhortación Postsinodal · Sagrada Escritura</span>
+                </div>
+                <p>Reafirma que el cristianismo no es una «religión del libro» mudo, sino de la Palabra viva encarnada, cuya exégesis auténtica es inseparable de la Tradición y del Magisterio de la Iglesia.</p>
+              </div>
+            </div>
+
+            <div class="accar-doc-item doc-gobierno">
+              <button class="accar-doc-trigger" type="button">
+                <span class="accar-doc-title">Porta fidei · 11 de octubre de 2011</span>
+                <span class="accar-doc-icon">+</span>
+              </button>
+              <div class="accar-doc-content">
+                <div class="accar-doc-tags">
+                  <a href="https://www.vatican.va/content/benedict-xvi/es/motu_proprio/documents/hf_ben-xvi_motu-proprio_20111011_porta-fidei.html" target="_blank" rel="noopener noreferrer" class="accar-doc-tag tag-gobierno">Leer en Vatican.va ↗</a>
+                  <span class="accar-doc-tag tag-gobierno">Motu Proprio · Convocatoria del Año de la Fe</span>
+                </div>
+                <p>Convocó a toda la Iglesia al Año de la Fe (2012–2013), invitando a redescubrir los contenidos íntegros del Credo y del <em>Catecismo de la Iglesia Católica</em>.</p>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="accar-codex-footer-nav">
+            <button type="button" class="accar-codex-btn-sec" onclick="loadView('views/historia-lista-de-papas.html')">
+              ← Volver al Directorio Pontificio
+            </button>
+            <button type="button" class="accar-codex-btn-pri" onclick="window.accarShowPapaPanel('apologetica')">
+              Continuar a Apologética →
+            </button>
+          </div>
+
+        </section>
+
+        <!-- ==================== PANEL 6: APOLOGÉTICA ==================== -->
+        <section id="panel-apologetica" class="accar-papa-panel">
+
+          <div class="accar-codex-intro">
+            <span class="accar-codex-kicker">Defensa de la Fe</span>
+            <h2 class="accar-codex-h2">Aporte a la Apologética y la Tradición</h2>
+            <p class="accar-dropcap-p">
+              <span class="accar-capitular">J</span>oseph Ratzinger —primero como Prefecto de la Doctrina de la Fe y luego como Benedicto XVI— forjó algunas de las armas intelectuales más penetrantes de la apologética contemporánea, desarticulando con serenidad y rigor tanto el escepticismo relativista como el modernismo exegético y litúrgico.
+            </p>
+          </div>
+
+          <div class="accar-codex-divider" aria-hidden="true"><span>✠</span></div>
+
+          <h3 class="accar-codex-h3">Bastiones doctrinales</h3>
+
+          <div class="accar-codex-cards-grid">
+            <article class="accar-codex-card accar-codex-card--apologetica">
+              <span class="accar-card-num">✠ Baluarte I</span>
+              <h4>Contra la «Dictadura del Relativismo»</h4>
+              <p>Desenmascaró la tiranía ideológica moderna que «no reconoce nada como definitivo y deja como última medida solo el propio yo y sus antojos», oponiéndole la verdad objetiva y liberadora de Cristo.</p>
+            </article>
+
+            <article class="accar-codex-card accar-codex-card--apologetica">
+              <span class="accar-card-num">✠ Baluarte II</span>
+              <h4>Síntesis entre Fe y Razón (Ratisbona)</h4>
+              <p>Demostró apologéticamente que no actuar según la razón es contrario a la naturaleza de Dios, refutando a un tiempo el irracionalismo violento y el positivismo cientificista que amputa la razón humana.</p>
+            </article>
+
+            <article class="accar-codex-card accar-codex-card--apologetica">
+              <span class="accar-card-num">✠ Baluarte III</span>
+              <h4>Hermenéutica de la Continuidad</h4>
+              <p>Sepultó la falsa dialéctica entre una «Iglesia preconciliar» y otra «posconciliar», probando que la Iglesia es un único sujeto histórico vivo que profundiza sin contradecir jamás el depósito revelado.</p>
+            </article>
+
+            <article class="accar-codex-card accar-codex-card--apologetica">
+              <span class="accar-card-num">✠ Baluarte IV</span>
               <h4>Defensa de la Liturgia Bimilenaria</h4>
-              <p>Con <em>Summorum Pontificum</em>, no solo hizo un acto de justicia hacia los fieles tradicionales, sino que estableció un principio teológico inamovible: "Lo que para las generaciones anteriores era sagrado, también para nosotros permanece sagrado y grande, y no puede ser improvisamente totalmente prohibido".</p>
+              <p>Sentó un axioma teológico imperecedero: <em>«Lo que para las generaciones anteriores era sagrado, también para nosotros permanece sagrado y grande, y no puede ser de improviso totalmente prohibido»</em>.</p>
+            </article>
+
+            <article class="accar-codex-card accar-codex-card--apologetica">
+              <span class="accar-card-num">✠ Baluarte V</span>
+              <h4>Exégesis Creyente frente al Racionalismo</h4>
+              <p>En <em>Verbum Domini</em> y <em>Jesús de Nazaret</em> refutó la crítica bíblica racionalista que divorciaba al Jesús histórico del Cristo de los Evangelios, reivindicando la lectura canónica en el seno de la Iglesia.</p>
+            </article>
+
+            <article class="accar-codex-card accar-codex-card--apologetica">
+              <span class="accar-card-num">✠ Baluarte VI</span>
+              <h4>Unicidad Salvífica de Cristo y de la Iglesia</h4>
+              <p>Desde la declaración <em>Dominus Iesus</em> hasta su magisterio pontificio defendió sin ambigüedad que Jesucristo es el único Salvador universal y que la Iglesia de Cristo subsiste plenamente en la Iglesia Católica.</p>
             </article>
           </div>
 
-          <div class="cta-row">
-            <a class="cta-link azul" href="https://apologeticaccar.com">Regresar a Apologética Católica</a>
-            <button class="cta-btn dorado" onclick="showPanel('inicio')">Volver al inicio →</button>
+          <div class="accar-codex-footer-nav">
+            <button type="button" class="accar-codex-btn-sec" onclick="loadView('views/historia-lista-de-papas.html')">
+              ← Volver al Directorio Pontificio
+            </button>
+            <button type="button" class="accar-codex-btn-pri" onclick="window.accarShowPapaPanel('inicio')">
+              ↑ Volver al Panorama Inicial
+            </button>
           </div>
-        </div>
 
-      </section>
-      <!-- ===== FINAL PANEL APOLOGÉTICA ===== -->
+        </section>
 
-    </div>
-  </main>
-  <!-- ===== FINAL MAIN ===== -->
+      </div>
 
-  <script>
-    /* ===== INICIO SCRIPT AISLADO ===== */
-    (function(){
-      const panelNames = ["inicio", "biografia", "contexto", "pontificado", "documentos", "apologetica"];
-      const mobileMenuToggle = document.getElementById("mobileMenuToggle");
-      const mobileNavPanel = document.getElementById("mobileNavPanel");
+    </main>
 
-      function openMobileMenu(){
-        if(!mobileMenuToggle || !mobileNavPanel) return;
-        mobileMenuToggle.classList.add("active");
-        mobileNavPanel.classList.add("active");
-        mobileMenuToggle.setAttribute("aria-expanded", "true");
+  </div>
+
+</section>
+
+<style>
+/* =====================================================================
+   ESTILOS ENCAPSULADOS ESTRICTAMENTE EN #accar-ficha-papa
+   Incluye soporte heráldico para data-rango="pontifice | santo | martir"
+===================================================================== */
+#accar-ficha-papa,
+#accar-ficha-papa * {
+  box-sizing: border-box;
+}
+
+#accar-ficha-papa {
+  --papa-gold: #d4af37;
+  --papa-gold-light: #eed076;
+  --papa-kicker-bg: linear-gradient(180deg, #7a1420 0%, #3d060c 100%);
+  --papa-tab-active-bg: linear-gradient(180deg, #8f1622 0%, #4d070e 100%);
+  --codex-scale: 1;
+
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  min-height: 100vh;
+  padding: 44px 20px 128px;
+  font-family: Georgia, "Times New Roman", serif;
+  color: #f8efd3;
+  border-top: 1px solid rgba(212, 175, 55, 0.26);
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(20, 48, 96, 0.58) 0%, rgba(6, 16, 36, 0.94) 36%, #030816 100%);
+  box-shadow: inset 0 24px 52px rgba(0, 0, 0, 0.58);
+}
+
+/* Variaciones Heráldicas para Santos Confesores y Papas Mártires */
+#accar-ficha-papa[data-rango="santo"] {
+  --papa-kicker-bg: linear-gradient(180deg, #b5891c 0%, #6e5008 100%);
+}
+
+#accar-ficha-papa[data-rango="martir"] {
+  --papa-kicker-bg: linear-gradient(180deg, #b91c1c 0%, #5c0707 100%);
+  --papa-tab-active-bg: linear-gradient(180deg, #b91c1c 0%, #630808 100%);
+}
+
+#accar-ficha-papa::before {
+  content: "";
+  position: absolute;
+  top: 110px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(1140px, 96vw);
+  height: min(1140px, 96vw);
+  background: url("/assets/img/historia-watermark.png") center top / contain no-repeat;
+  opacity: 0.055;
+  pointer-events: none;
+  z-index: 0;
+}
+
+#accar-ficha-papa .accar-papa-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+/* ===== BARRA SUPERIOR ===== */
+#accar-ficha-papa .accar-papa-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-bottom: 26px;
+}
+
+#accar-ficha-papa .accar-papa-breadcrumb {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-size: 0.83rem;
+  color: rgba(248, 239, 211, 0.72);
+}
+
+#accar-ficha-papa .accar-papa-breadcrumb a {
+  color: #eed076;
+  text-decoration: none;
+  font-weight: 700;
+  transition: color 0.22s ease;
+}
+
+#accar-ficha-papa .accar-papa-breadcrumb a:hover {
+  color: #fff9ec;
+}
+
+#accar-ficha-papa .accar-papa-breadcrumb strong {
+  color: #fff9ec;
+}
+
+#accar-ficha-papa .accar-papa-Peers {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+#accar-ficha-papa .accar-peer-btn {
+  appearance: none;
+  padding: 7px 15px;
+  border-radius: 999px;
+  border: 1px solid rgba(212, 175, 55, 0.42);
+  background: rgba(4, 11, 28, 0.82);
+  color: #eed076;
+  font-family: inherit;
+  font-size: 0.71rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.24s ease;
+}
+
+#accar-ficha-papa .accar-peer-btn:hover {
+  border-color: #fff3c4;
+  background: rgba(212, 175, 55, 0.22);
+  color: #fff9ec;
+  transform: translateY(-1px);
+}
+
+/* ===== RELICARIO HERO PONTIFICIO ===== */
+#accar-ficha-papa .accar-papa-hero {
+  position: relative;
+  padding: 38px 38px 30px;
+  margin-bottom: 28px;
+  border-radius: 28px;
+  border: 1px solid rgba(212, 175, 55, 0.54);
+  background:
+    radial-gradient(circle at 18% 25%, rgba(138, 19, 27, 0.30) 0%, transparent 48%),
+    radial-gradient(circle at 85% 0%, rgba(212, 175, 55, 0.14) 0%, transparent 45%),
+    linear-gradient(180deg, rgba(9, 23, 50, 0.94) 0%, rgba(4, 10, 24, 0.98) 100%);
+  box-shadow:
+    0 28px 60px rgba(0, 0, 0, 0.72),
+    inset 0 1px 0 rgba(255, 238, 186, 0.18);
+}
+
+#accar-ficha-papa .accar-papa-hero::after {
+  content: "";
+  position: absolute;
+  inset: 8px;
+  border: 1px solid rgba(212, 175, 55, 0.18);
+  border-radius: 21px;
+  pointer-events: none;
+}
+
+#accar-ficha-papa .accar-papa-hero-grid {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 290px 1fr;
+  gap: 38px;
+  align-items: center;
+}
+
+#accar-ficha-papa .accar-papa-portrait-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+#accar-ficha-papa .accar-papa-camafeo {
+  position: relative;
+  width: 248px;
+  height: 248px;
+  padding: 10px;
+  border-radius: 32px;
+  border: 2.5px solid #d4af37;
+  background:
+    radial-gradient(circle at 50% 28%, #a31621 0%, #4d060b 58%, #1a0204 100%);
+  box-shadow:
+    0 22px 44px rgba(0, 0, 0, 0.78),
+    inset 0 0 24px rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.38s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.38s ease;
+}
+
+#accar-ficha-papa .accar-papa-camafeo:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow:
+    0 28px 52px rgba(0, 0, 0, 0.85),
+    0 0 26px rgba(212, 175, 55, 0.25);
+}
+
+#accar-ficha-papa .accar-papa-camafeo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 22px;
+  filter: drop-shadow(0 12px 20px rgba(0, 0, 0, 0.72));
+}
+
+#accar-ficha-papa .accar-papa-sucesor-seal {
+  margin-top: 16px;
+  padding: 8px 15px;
+  border-radius: 999px;
+  border: 1px solid #fff3c4;
+  background: linear-gradient(180deg, #e6c667 0%, #ad851b 100%);
+  color: #160c02;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.50);
+}
+
+#accar-ficha-papa .accar-papa-secular-plate {
+  margin-top: 9px;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-variant-numeric: lining-nums proportional-nums;
+  font-size: 0.98rem;
+  font-style: italic;
+  color: #dfd3b6;
+}
+
+/* Columna Derecha del Hero */
+#accar-ficha-papa .accar-papa-copy-col {
+  min-width: 0;
+}
+
+#accar-ficha-papa .accar-papa-kicker {
+  display: inline-block;
+  padding: 6px 16px;
+  margin-bottom: 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(238, 208, 118, 0.75);
+  background: var(--papa-kicker-bg);
+  color: #fff9ec;
+  font-size: 0.73rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.45);
+}
+
+#accar-ficha-papa .accar-papa-name {
+  margin: 0 0 4px;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-size: clamp(2.6rem, 4.6vw, 4.1rem);
+  font-weight: 700;
+  line-height: 1.04;
+  color: #fff9ec;
+  text-shadow: 0 4px 18px rgba(0, 0, 0, 0.75);
+}
+
+#accar-ficha-papa .accar-papa-latin-sub {
+  margin: 0 0 16px;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-variant-numeric: lining-nums proportional-nums;
+  font-size: 1.14rem;
+  font-style: italic;
+  color: #eed076;
+  letter-spacing: 0.03em;
+}
+
+#accar-ficha-papa .accar-papa-lead {
+  margin: 0 0 22px;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-variant-numeric: lining-nums proportional-nums;
+  font-size: 1.22rem;
+  line-height: 1.66;
+  color: #efe5cc;
+}
+
+#accar-ficha-papa .accar-papa-meta-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+
+#accar-ficha-papa .accar-papa-meta-card {
+  padding: 14px 15px 15px;
+  border-radius: 15px;
+  border: 1px solid rgba(212, 175, 55, 0.34);
+  border-top: 2.5px solid #d4af37;
+  background: rgba(4, 11, 28, 0.72);
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.28s ease, background 0.28s ease, box-shadow 0.28s ease;
+}
+
+#accar-ficha-papa .accar-meta-label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #eed076;
+}
+
+#accar-ficha-papa .accar-meta-val {
+  display: block;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-variant-numeric: lining-nums proportional-nums;
+  font-size: 1.01rem;
+  line-height: 1.45;
+  color: #fff9ec;
+}
+
+/* Pestañas Magisteriales */
+#accar-ficha-papa .accar-papa-tabs {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 28px;
+  padding-top: 22px;
+  border-top: 1px solid rgba(212, 175, 55, 0.26);
+}
+
+#accar-ficha-papa .accar-papa-tab {
+  appearance: none;
+  padding: 13px 10px;
+  border-radius: 13px;
+  border: 1px solid rgba(212, 175, 55, 0.38);
+  background: rgba(5, 14, 34, 0.85);
+  color: #e8dcc2;
+  font-family: Georgia, serif;
+  font-size: 0.80rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-align: center;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.25s ease;
+}
+
+#accar-ficha-papa .accar-papa-tab:hover {
+  border-color: #eed076;
+  background: rgba(18, 40, 82, 0.92);
+  color: #fff9ec;
+  transform: translateY(-2px);
+}
+
+#accar-ficha-papa .accar-papa-tab.active {
+  border-color: #fff3c4;
+  background: var(--papa-tab-active-bg);
+  color: #fff9ec;
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.58), 0 0 16px rgba(155, 22, 34, 0.45);
+}
+
+/* =====================================================================
+   PLIEGO DEL CÓDICE PONTIFICIO (MODO NOCHE BASE + MODO PERGAMINO)
+===================================================================== */
+#accar-ficha-papa .accar-papa-codex {
+  position: relative;
+  padding: 34px 48px 48px;
+  border-radius: 28px;
+  border: 1px solid rgba(212, 175, 55, 0.48);
+  background: linear-gradient(180deg, #081328 0%, #040a17 100%);
+  box-shadow: 0 28px 60px rgba(0, 0, 0, 0.72);
+  color: #efe5cc;
+  transition: background 0.32s ease, color 0.32s ease, border-color 0.32s ease;
+}
+
+#accar-ficha-papa .accar-papa-codex::after {
+  content: "";
+  position: absolute;
+  inset: 9px;
+  border: 1px solid rgba(212, 175, 55, 0.18);
+  border-radius: 20px;
+  pointer-events: none;
+}
+
+#accar-ficha-papa .accar-papa-codex.theme-light {
+  background: linear-gradient(180deg, #faf4e6 0%, #f2e8d2 100%);
+  border-color: rgba(186, 146, 58, 0.65);
+  color: #211b13;
+  box-shadow:
+    0 28px 60px rgba(0, 0, 0, 0.65),
+    inset 0 0 44px rgba(175, 136, 56, 0.09);
+}
+
+#accar-ficha-papa .accar-papa-codex.theme-light::after {
+  border-color: rgba(156, 118, 38, 0.24);
+}
+
+/* Barra de Herramientas del Códice */
+#accar-ficha-papa .accar-codex-toolbar {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding-bottom: 16px;
+  margin-bottom: 30px;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.25);
+}
+
+#accar-ficha-papa .accar-papa-codex.theme-light .accar-codex-toolbar {
+  border-bottom-color: rgba(140, 104, 34, 0.24);
+}
+
+#accar-ficha-papa .accar-codex-section-tag {
+  font-size: 0.73rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #eed076;
+}
+
+#accar-ficha-papa .accar-papa-codex.theme-light .accar-codex-section-tag {
+  color: #821818;
+}
+
+#accar-ficha-papa .accar-codex-controls {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+#accar-ficha-papa .accar-codex-sizes {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+#accar-ficha-papa .accar-codex-size-lbl {
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: rgba(234, 224, 200, 0.72);
+  margin-right: 2px;
+}
+
+#accar-ficha-papa .accar-papa-codex.theme-light .accar-codex-size-lbl {
+  color: #544632;
+}
+
+#accar-ficha-papa .accar-codex-tool-btn {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(212, 175, 55, 0.40);
+  background: transparent;
+  color: #f2e8ce;
+  font-family: Georgia, serif;
+  font-size: 0.76rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+#accar-ficha-papa .accar-codex-tool-btn svg {
+  width: 14px;
+  height: 14px;
+}
+
+#accar-ficha-papa .accar-papa-codex.theme-light .accar-codex-tool-btn {
+  color: #241d13;
+  border-color: rgba(124, 92, 30, 0.35);
+  background: rgba(255, 255, 255, 0.48);
+}
+
+#accar-ficha-papa .accar-codex-tool-btn:hover {
+  border-color: #d4af37;
+}
+
+#accar-ficha-papa .accar-codex-tool-btn.active {
+  background: #d4af37;
+  border-color: #d4af37;
+  color: #081226 !important;
+}
+
+/* Paneles y Tipografía Editorial */
+#accar-ficha-papa .accar-codex-body {
+  position: relative;
+  z-index: 2;
+  font-size: calc(20px * var(--codex-scale));
+}
+
+#accar-ficha-papa .accar-papa-panel {
+  display: none;
+}
+
+#accar-ficha-papa .accar-papa-panel.active {
+  display: block;
+  animation: accarPapaPanelIn 0.3s ease;
+}
+
+@keyframes accarPapaPanelIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+#accar-ficha-papa .accar-codex-intro {
+  max-width: 920px;
+  margin-bottom: 28px;
+}
+
+#accar-ficha-papa .accar-codex-kicker {
+  display: block;
+  margin-bottom: 6px;
+  font-family: Georgia, serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #eed076;
+}
+
+#accar-ficha-papa .accar-papa-codex.theme-light .accar-codex-kicker {
+  color: #8b1a1a;
+}
+
+#accar-ficha-papa .accar-codex-h2 {
+  margin: 0 0 18px;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-size: 2.55rem;
+  font-weight: 700;
+  line-height: 1.12;
+  color: #fff9ec;
+}
+
+#accar-ficha-papa .accar-papa-codex.theme-light .accar-codex-h2 {
+  color: #0b1e3d;
+}
+
+#accar-ficha-papa .accar-codex-h3 {
+  margin: 0 0 20px;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #eed076;
+}
+
+#accar-ficha-papa .accar-papa-codex.theme-light .accar-codex-h3 {
+  color: #7f1d1d;
+}
+
+#accar-ficha-papa .accar-codex-intro p {
+  margin: 0 0 16px;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-variant-numeric: lining-nums proportional-nums;
+  font-size: 1.05em;
+  line-height: 1.78;
+}
+
+#accar-ficha-papa .accar-capitular {
+  float: left;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-size: 3.3em;
+  font-weight: 700;
+  line-height: 0.80;
+  padding: 0.06em 0.13em 0 0;
+  color: #eed076;
+}
+
+#accar-ficha-papa .accar-papa-codex.theme-light .accar-capitular {
+  color: #8b1a1a;
+}
+
+#accar-ficha-papa .accar-codex-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 30px 0 26px;
+}
+
+#accar-ficha-papa .accar-codex-divider::before,
+#accar-ficha-papa .accar-codex-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.55), transparent);
+}
+
+#accar-ficha-papa .accar-papa-codex.theme-light .accar-codex-divider::before,
+#accar-ficha-papa .accar-papa-codex.theme-light .accar-codex-divider::after {
+  background: linear-gradient(90deg, transparent, rgba(140, 102, 28, 0.42), transparent);
+}
+
+#accar-ficha-papa .accar-codex-divider span {
+  padding: 0 14px;
+  font-size: 0.9rem;
+  color: #d4af37;
+}
+
+#accar-ficha-papa .accar-papa-codex.theme-light .accar-codex-divider span {
+  color: #8b1a1a;
+}
+
+/* ===== 4 PLACAS LAPIDARIAS DE ESTADÍSTICAS ===== */
+#accar-ficha-papa .accar-stat-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  margin: 24px 0 10px;
+}
+
+#accar-ficha-papa .accar-stat-plaque {
+  position: relative;
+  padding: 22px 16px 20px;
+  border-radius: 18px;
+  border: 1px solid rgba(212, 175, 55, 0.55);
+  background:
+    radial-gradient(circle at 50% 0%, rgba(158, 21, 28, 0.34) 0%, transparent 62%),
+    linear-gradient(180deg, #0c2147 0%, #050e22 100%);
+  text-align: center;
+  color: #fff9ec;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.28);
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.28s ease, border-color 0.28s ease;
+}
+
+#accar-ficha-papa .accar-stat-plaque::after {
+  content: "";
+  position: absolute;
+  inset: 5px;
+  border: 1px solid rgba(212, 175, 55, 0.20);
+  border-radius: 13px;
+  pointer-events: none;
+}
+
+#accar-ficha-papa .accar-stat-cross {
+  display: block;
+  font-size: 0.72rem;
+  color: rgba(238, 208, 118, 0.78);
+  margin-bottom: 4px;
+}
+
+#accar-ficha-papa .accar-stat-num {
+  display: block;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-variant-numeric: lining-nums proportional-nums;
+  font-size: 2.35rem;
+  font-weight: 700;
+  line-height: 1.05;
+  color: #eed076;
+  margin-bottom: 8px;
+}
+
+#accar-ficha-papa .accar-stat-lbl {
+  display: block;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-size: 0.98rem;
+  line-height: 1.38;
+  color: #f2e8ce;
+}
+
+/* ===== REGISTROS LAPIDARIOS (CANONIZACIONES E HITOS) ===== */
+#accar-ficha-papa .accar-registry-box {
+  margin-bottom: 20px;
+  padding: 24px 26px;
+  border-radius: 20px;
+  border: 1px solid rgba(212, 175, 55, 0.34);
+  border-left: 4px solid #d4af37;
+  background: rgba(9, 22, 48, 0.62);
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.28s ease, border-color 0.28s ease;
+}
+
+#accar-ficha-papa .accar-papa-codex.theme-light .accar-registry-box {
+  background: rgba(255, 252, 245, 0.88);
+  border-color: rgba(160, 122, 42, 0.32);
+  border-left: 4px solid #8b1a1a;
+  box-shadow: 0 10px 24px rgba(40, 28, 8, 0.06);
+}
+
+#accar-ficha-papa .accar-registry-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-bottom: 12px;
+  margin-bottom: 16px;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.22);
+}
+
+#accar-ficha-papa .accar-papa-codex.theme-light .accar-registry-head {
+  border-bottom-color: rgba(140, 104, 34, 0.20);
+}
+
+#accar-ficha-papa .accar-registry-icon {
+  color: #d4af37;
+  font-size: 1rem;
+}
+
+#accar-ficha-papa .accar-papa-codex.theme-light .accar-registry-icon {
+  color: #8b1a1a;
+}
+
+#accar-ficha-papa .accar-registry-head h4 {
+  margin: 0;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-size: 1.38rem;
+  font-weight: 700;
+  color: #fff9ec;
+}
+
+#accar-ficha-papa .accar-papa-codex.theme-light .accar-registry-head h4 {
+  color: #0b1e3d;
+}
+
+#accar-ficha-papa .accar-registry-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px 28px;
+}
+
+#accar-ficha-papa .accar-registry-list li {
+  padding-left: 14px;
+  border-left: 2px solid rgba(212, 175, 55, 0.42);
+}
+
+#accar-ficha-papa .accar-papa-codex.theme-light .accar-registry-list li {
+  border-left-color: rgba(180, 138, 44, 0.55);
+}
+
+#accar-ficha-papa .accar-registry-list strong {
+  display: block;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-size: 1.02em;
+  font-weight: 700;
+  line-height: 1.3;
+  color: #eed076;
+}
+
+#accar-ficha-papa .accar-papa-codex.theme-light .accar-registry-list strong {
+  color: #1c160e;
+}
+
+#accar-ficha-papa .accar-registry-list span {
+  display: block;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-variant-numeric: lining-nums proportional-nums;
+  font-size: 0.90em;
+  font-style: italic;
+  color: rgba(238, 228, 204, 0.78);
+}
+
+#accar-ficha-papa .accar-papa-codex.theme-light .accar-registry-list span {
+  color: #5c4c36;
+}
+
+/* ===== TARJETAS EDITORIALES DE ESTUDIO ===== */
+#accar-ficha-papa .accar-codex-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+#accar-ficha-papa .accar-codex-card {
+  padding: 22px 24px;
+  border-radius: 18px;
+  border: 1px solid rgba(212, 175, 55, 0.30);
+  border-top: 3px solid #d4af37;
+  background: rgba(9, 22, 48, 0.62);
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.28s ease, border-color 0.28s ease;
+}
+
+#accar-ficha-papa .accar-papa-codex.theme-light .accar-codex-card {
+  background: rgba(255, 252, 245, 0.90);
+  border-color: rgba(160, 122, 42, 0.28);
+  border-top: 3px solid #0c2348;
+  box-shadow: 0 10px 24px rgba(40, 28, 8, 0.06);
+}
+
+#accar-ficha-papa .accar-papa-codex.theme-light .accar-codex-card--apologetica {
+  border-top-color: #8b1a1a;
+}
+
+#accar-ficha-papa .accar-card-num {
+  display: inline-block;
+  margin-bottom: 6px;
+  font-family: Georgia, serif;
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #eed076;
+}
+
+#accar-ficha-papa .accar-papa-codex.theme-light .accar-card-num {
+  color: #8b1a1a;
+}
+
+#accar-ficha-papa .accar-codex-card h4 {
+  margin: 0 0 10px;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-size: 1.36rem;
+  font-weight: 700;
+  line-height: 1.24;
+  color: #fff9ec;
+}
+
+#accar-ficha-papa .accar-papa-codex.theme-light .accar-codex-card h4 {
+  color: #0b1e3d;
+}
+
+#accar-ficha-papa .accar-codex-card p {
+  margin: 0;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-variant-numeric: lining-nums proportional-nums;
+  font-size: 0.98em;
+  line-height: 1.68;
+}
+
+/* Banner de Síntesis */
+#accar-ficha-papa .accar-synthesis-banner {
+  margin-top: 24px;
+  padding: 24px 28px;
+  border-radius: 20px;
+  border: 1px solid rgba(212, 175, 55, 0.55);
+  background: linear-gradient(135deg, #0c2147 0%, #061024 100%);
+  color: #fff9ec;
+  text-align: center;
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.22);
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.28s ease, border-color 0.28s ease;
+}
+
+#accar-ficha-papa .accar-synthesis-kicker {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 0.70rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #eed076;
+}
+
+#accar-ficha-papa .accar-synthesis-banner p {
+  margin: 0 auto;
+  max-width: 820px;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-size: 1.06em;
+  font-style: italic;
+  line-height: 1.68;
+  color: #f5ebd4;
+}
+
+/* ===== LÍNEA DEL TIEMPO PONTIFICIA (BIOGRAFÍA) ===== */
+#accar-ficha-papa .accar-timeline {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-left: 22px;
+  border-left: 2px solid rgba(212, 175, 55, 0.48);
+}
+
+#accar-ficha-papa .accar-papa-codex.theme-light .accar-timeline {
+  border-left-color: rgba(155, 114, 30, 0.45);
+}
+
+#accar-ficha-papa .accar-tl-item {
+  position: relative;
+  display: grid;
+  grid-template-columns: 88px 1fr;
+  gap: 16px;
+  align-items: start;
+}
+
+#accar-ficha-papa .accar-tl-item::before {
+  content: "";
+  position: absolute;
+  left: -29px;
+  top: 14px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid #eed076;
+  background: #8a131b;
+}
+
+#accar-ficha-papa .accar-tl-year {
+  padding: 7px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(212, 175, 55, 0.55);
+  background: linear-gradient(180deg, #8a131b 0%, #4d070c 100%);
+  color: #fff9ec;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-variant-numeric: lining-nums proportional-nums;
+  font-size: 0.98rem;
+  font-weight: 700;
+  text-align: center;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.22);
+}
+
+#accar-ficha-papa .accar-tl-card {
+  padding: 16px 20px;
+  border-radius: 16px;
+  border: 1px solid rgba(212, 175, 55, 0.28);
+  background: rgba(9, 22, 48, 0.60);
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.28s ease, border-color 0.28s ease;
+}
+
+#accar-ficha-papa .accar-papa-codex.theme-light .accar-tl-card {
+  background: rgba(255, 252, 245, 0.90);
+  border-color: rgba(160, 122, 42, 0.28);
+  box-shadow: 0 8px 20px rgba(40, 28, 8, 0.05);
+}
+
+#accar-ficha-papa .accar-tl-card h4 {
+  margin: 0 0 6px;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-size: 1.24rem;
+  font-weight: 700;
+  color: #eed076;
+}
+
+#accar-ficha-papa .accar-papa-codex.theme-light .accar-tl-card h4 {
+  color: #0b1e3d;
+}
+
+#accar-ficha-papa .accar-tl-card p {
+  margin: 0;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-variant-numeric: lining-nums proportional-nums;
+  font-size: 0.96em;
+  line-height: 1.62;
+}
+
+/* ===== ACORDEÓN MAGISTERIAL DE DOCUMENTOS ===== */
+#accar-ficha-papa .accar-doc-accordion {
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+}
+
+#accar-ficha-papa .accar-doc-item {
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(212, 175, 55, 0.34);
+  background: rgba(8, 20, 44, 0.72);
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.28s ease, border-color 0.28s ease;
+}
+
+#accar-ficha-papa .accar-papa-codex.theme-light .accar-doc-item {
+  background: rgba(255, 252, 245, 0.94);
+  border-color: rgba(150, 114, 38, 0.32);
+  box-shadow: 0 8px 20px rgba(40, 28, 8, 0.06);
+}
+
+#accar-ficha-papa .accar-doc-item.doc-enciclica { border-left: 5px solid #9b1622; }
+#accar-ficha-papa .accar-doc-item.doc-exhortacion { border-left: 5px solid #1d4e89; }
+#accar-ficha-papa .accar-doc-item.doc-gobierno { border-left: 5px solid #c89d28; }
+
+#accar-ficha-papa .accar-doc-trigger {
+  appearance: none;
+  width: 100%;
+  border: none;
+  padding: 16px 20px;
+  background: linear-gradient(180deg, #0f2854 0%, #091936 100%);
+  color: #fff6dc;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.24s ease;
+}
+
+#accar-ficha-papa .accar-doc-item.open .accar-doc-trigger {
+  background: linear-gradient(180deg, #82131d 0%, #48070d 100%);
+}
+
+#accar-ficha-papa .accar-doc-title {
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-variant-numeric: lining-nums proportional-nums;
+  font-size: 1.22rem;
+  font-weight: 700;
+}
+
+#accar-ficha-papa .accar-doc-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1px solid rgba(238, 208, 118, 0.55);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.15rem;
+  color: #eed076;
+  flex-shrink: 0;
+}
+
+#accar-ficha-papa .accar-doc-content {
+  display: none;
+  padding: 18px 22px 20px;
+  border-top: 1px solid rgba(212, 175, 55, 0.20);
+}
+
+#accar-ficha-papa .accar-doc-item.open .accar-doc-content {
+  display: block;
+}
+
+#accar-ficha-papa .accar-doc-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+#accar-ficha-papa .accar-doc-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 13px;
+  border-radius: 999px;
+  font-family: Georgia, serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+#accar-ficha-papa a.accar-doc-tag:hover {
+  filter: brightness(1.08);
+  transform: translateY(-1px);
+}
+
+#accar-ficha-papa .tag-enciclica {
+  background: #f9e2e4;
+  color: #7f121b;
+  border: 1px solid rgba(139, 0, 0, 0.35);
+}
+
+#accar-ficha-papa .tag-exhortacion {
+  background: #e4eef9;
+  color: #0e2c56;
+  border: 1px solid rgba(29, 78, 137, 0.35);
+}
+
+#accar-ficha-papa .tag-gobierno {
+  background: #fbf1d4;
+  color: #57430d;
+  border: 1px solid rgba(196, 152, 34, 0.50);
+}
+
+#accar-ficha-papa .accar-doc-content p {
+  margin: 0;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-size: 0.98em;
+  line-height: 1.68;
+}
+
+/* ===== INTERACCIÓN HOVER TÁCTIL PARA PC Y LAPTOP ===== */
+@media (hover: hover) {
+  #accar-ficha-papa .accar-papa-meta-card:hover {
+    transform: translateY(-4px);
+    border-color: #eed076;
+    background: rgba(138, 19, 27, 0.22);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.42);
+  }
+
+  #accar-ficha-papa .accar-stat-plaque:hover {
+    transform: translateY(-5px);
+    border-color: #eed076;
+    box-shadow: 0 20px 38px rgba(0, 0, 0, 0.42), 0 0 18px rgba(212, 175, 55, 0.20);
+  }
+
+  #accar-ficha-papa .accar-registry-box:hover,
+  #accar-ficha-papa .accar-codex-card:hover,
+  #accar-ficha-papa .accar-doc-item:hover,
+  #accar-ficha-papa .accar-synthesis-banner:hover {
+    transform: translateY(-4px);
+    border-color: rgba(212, 175, 55, 0.70);
+    box-shadow: 0 18px 34px rgba(0, 0, 0, 0.18);
+  }
+
+  #accar-ficha-papa .accar-tl-card:hover {
+    transform: translateX(6px);
+    border-color: rgba(212, 175, 55, 0.68);
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.16);
+  }
+}
+
+/* ===== BOTONES INFERIORES DE NAVEGACIÓN ENTRE CAPÍTULOS ===== */
+#accar-ficha-papa .accar-codex-footer-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 34px;
+  padding-top: 22px;
+  border-top: 1px solid rgba(212, 175, 55, 0.25);
+}
+
+#accar-ficha-papa .accar-papa-codex.theme-light .accar-codex-footer-nav {
+  border-top-color: rgba(140, 104, 34, 0.24);
+}
+
+#accar-ficha-papa .accar-codex-btn-sec,
+#accar-ficha-papa .accar-codex-btn-pri {
+  appearance: none;
+  padding: 12px 24px;
+  border-radius: 999px;
+  font-family: Georgia, serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+#accar-ficha-papa .accar-codex-btn-sec {
+  border: 1px solid rgba(212, 175, 55, 0.55);
+  background: linear-gradient(180deg, #102a58 0%, #081734 100%);
+  color: #fff4d2;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.22);
+}
+
+#accar-ficha-papa .accar-codex-btn-sec:hover {
+  border-color: #eed076;
+  background: linear-gradient(180deg, #163874 0%, #0b2046 100%);
+  transform: translateY(-2px);
+}
+
+#accar-ficha-papa .accar-codex-btn-pri {
+  border: 1px solid #fff3c4;
+  background: linear-gradient(180deg, #e5c463 0%, #b88e1e 100%);
+  color: #1a1204;
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.24);
+}
+
+#accar-ficha-papa .accar-codex-btn-pri:hover {
+  filter: brightness(1.06);
+  transform: translateY(-2px);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1080px) {
+  #accar-ficha-papa .accar-papa-meta-grid,
+  #accar-ficha-papa .accar-stat-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  #accar-ficha-papa .accar-papa-tabs {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 880px) {
+  #accar-ficha-papa .accar-papa-hero {
+    padding: 28px 22px 24px;
+  }
+
+  #accar-ficha-papa .accar-papa-hero-grid {
+    grid-template-columns: 1fr;
+    text-align: center;
+    gap: 24px;
+  }
+
+  #accar-ficha-papa .accar-papa-meta-grid {
+    text-align: left;
+  }
+
+  #accar-ficha-papa .accar-papa-codex {
+    padding: 26px 22px 34px;
+  }
+
+  #accar-ficha-papa .accar-registry-list,
+  #accar-ficha-papa .accar-codex-cards-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 580px) {
+  #accar-ficha-papa {
+    padding: 28px 12px 96px;
+  }
+
+  #accar-ficha-papa .accar-papa-camafeo {
+    width: 205px;
+    height: 205px;
+  }
+
+  #accar-ficha-papa .accar-papa-sucesor-seal {
+    white-space: normal;
+  }
+
+  #accar-ficha-papa .accar-papa-meta-grid,
+  #accar-ficha-papa .accar-stat-grid {
+    grid-template-columns: 1fr;
+  }
+
+  #accar-ficha-papa .accar-papa-tabs {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  #accar-ficha-papa .accar-tl-item {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  #accar-ficha-papa .accar-tl-year {
+    width: max-content;
+  }
+
+  #accar-ficha-papa .accar-codex-footer-nav button {
+    width: 100%;
+    justify-content: center;
+  }
+}
+</style>
+
+<script>
+(function() {
+  const root = document.getElementById('accar-ficha-papa');
+  if (!root) return;
+
+  const codex = document.getElementById('accar-papa-codex');
+  const sectionTag = document.getElementById('accar-codex-section-tag');
+  const themeBtn = document.getElementById('accar-papa-theme-btn');
+  const themeLbl = document.getElementById('accar-papa-theme-label');
+  const sizeBtns = Array.from(root.querySelectorAll('.btn-papa-size'));
+  const tabs = Array.from(root.querySelectorAll('.accar-papa-tab'));
+  const panels = Array.from(root.querySelectorAll('.accar-papa-panel'));
+
+  const prefs = window.__accarPapaCodexPrefs || { isLight: true, scale: '1' };
+
+  function aplicarPrefs() {
+    root.style.setProperty('--codex-scale', prefs.scale);
+    sizeBtns.forEach(b => b.classList.toggle('active', b.dataset.size === prefs.scale));
+
+    if (prefs.isLight) {
+      codex.classList.add('theme-light');
+      if (themeLbl) themeLbl.textContent = 'Modo Oscuro';
+    } else {
+      codex.classList.remove('theme-light');
+      if (themeLbl) themeLbl.textContent = 'Modo Pergamino';
+    }
+    window.__accarPapaCodexPrefs = prefs;
+  }
+
+  aplicarPrefs();
+
+  window.accarShowPapaPanel = function(targetName) {
+    panels.forEach(p => {
+      p.classList.toggle('active', p.id === 'panel-' + targetName);
+    });
+
+    tabs.forEach(t => {
+      const esActivo = t.dataset.target === targetName;
+      t.classList.toggle('active', esActivo);
+      if (esActivo && sectionTag && t.dataset.label) {
+        sectionTag.textContent = '✠ Códice Pontificio · ' + t.dataset.label;
       }
+    });
 
-      function closeMobileMenu(){
-        if(!mobileMenuToggle || !mobileNavPanel) return;
-        mobileMenuToggle.classList.remove("active");
-        mobileNavPanel.classList.remove("active");
-        mobileMenuToggle.setAttribute("aria-expanded", "false");
-      }
+    const tabsBar = document.getElementById('accar-papa-tabs-bar');
+    const globalHeader = document.getElementById('accarGlobalHeader');
+    if (tabsBar) {
+      const headerH = globalHeader ? globalHeader.offsetHeight : 0;
+      const y = tabsBar.getBoundingClientRect().top + window.scrollY - headerH - 14;
+      window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' });
+    }
+  };
 
-      function toggleMobileMenu(){
-        if(!mobileNavPanel) return;
-        if(mobileNavPanel.classList.contains("active")){
-          closeMobileMenu();
-        }else{
-          openMobileMenu();
-        }
-      }
+  tabs.forEach(t => {
+    t.addEventListener('click', () => {
+      window.accarShowPapaPanel(t.dataset.target);
+    });
+  });
 
-      function showPanel(name){
-        panelNames.forEach(panel => {
-          const panelEl = document.getElementById("panel-" + panel);
-          if(panelEl){
-            panelEl.classList.toggle("active", panel === name);
-          }
-          document.querySelectorAll('[data-target="' + panel + '"]').forEach(btnEl => {
-            btnEl.classList.toggle("active", panel === name);
-          });
-        });
+  if (themeBtn) {
+    themeBtn.addEventListener('click', () => {
+      prefs.isLight = !prefs.isLight;
+      aplicarPrefs();
+    });
+  }
 
-        closeMobileMenu();
+  sizeBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      prefs.scale = btn.dataset.size || '1';
+      aplicarPrefs();
+    });
+  });
 
-        // SCROLL EXACTO
-        const navBar = document.querySelector('.hero-nav');
-        const globalHeader = document.getElementById('accarGlobalHeader'); 
-        
-        if (navBar) {
-          const headerHeight = globalHeader ? globalHeader.offsetHeight : 0;
-          const absoluteY = navBar.getBoundingClientRect().top + window.scrollY;
-          
-          window.scrollTo({
-            top: absoluteY - headerHeight - 10,
-            behavior: "smooth"
-          });
-        }
-      }
+  root.querySelectorAll('.accar-doc-trigger').forEach(trigger => {
+    trigger.addEventListener('click', () => {
+      const item = trigger.closest('.accar-doc-item');
+      const estabaAbierto = item.classList.contains('open');
 
-      // ASIGNACIÓN SEGURA DE EVENTOS (Evita duplicados)
-      document.querySelectorAll(".nav-btn").forEach(btn => {
-        btn.onclick = function(e) {
-          e.preventDefault();
-          showPanel(this.dataset.target);
-        };
+      root.querySelectorAll('.accar-doc-item').forEach(acc => {
+        acc.classList.remove('open');
+        const ic = acc.querySelector('.acc-icon, .accar-doc-icon');
+        if (ic) ic.textContent = '+';
       });
 
-      document.querySelectorAll(".mobile-nav-btn[data-target]").forEach(btn => {
-        btn.onclick = function(e) {
-          e.preventDefault();
-          showPanel(this.dataset.target);
-        };
-      });
-
-      document.querySelectorAll(".acc-trigger").forEach(trigger => {
-        trigger.onclick = function(e) {
-          e.preventDefault();
-          const item = this.parentElement;
-          const isOpen = item.classList.contains("open");
-
-          document.querySelectorAll(".acc-item").forEach(acc => {
-            acc.classList.remove("open");
-            const symbol = acc.querySelector(".acc-trigger span:last-child");
-            if(symbol) symbol.textContent = "+";
-          });
-
-          if(!isOpen){
-            item.classList.add("open");
-            const symbol = item.querySelector(".acc-trigger span:last-child");
-            if(symbol) symbol.textContent = "−";
-          }
-        };
-      });
-
-      if(mobileMenuToggle){
-        mobileMenuToggle.onclick = function(e){
-          e.preventDefault();
-          toggleMobileMenu();
-        };
+      if (!estabaAbierto) {
+        item.classList.add('open');
+        const ic = item.querySelector('.accar-doc-icon');
+        if (ic) ic.textContent = '−';
       }
-    })();
-    /* ===== FINAL SCRIPT AISLADO ===== */
-  </script>
-
-</body>
-</html>
-<!-- ===== FINAL PAPA BENEDICTO XVI ===== -->
+    });
+  });
+})();
+</script>
