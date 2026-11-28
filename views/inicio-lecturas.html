@@ -1,4 +1,8 @@
 <!-- ===== ACCAR | SALA LITÚRGICA: EVANGELIO Y LECTURAS ===== -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+
 <section id="accar-lecturas-root" class="accar-sala-liturgica" data-tiempo="verde">
 
   <div class="accar-sala-inner">
@@ -93,7 +97,7 @@
 
             <button type="button" class="accar-menu-btn" data-target="reflexion" id="btn-reflexion" style="display: none;">
               <span class="accar-btn-nombre">Reflexión</span>
-              <span class="accar-btn-cita"></span>
+              <span class="accar-btn-cita" id="cita-btn-reflexion"></span>
             </button>
           </nav>
         </div>
@@ -111,7 +115,7 @@
       </aside>
 
       <!-- =====================================================
-           COLUMNA DERECHA: PLIEGO DE LECTURA
+           COLUMNA DERECHA: PLIEGO EDITORIAL DE LECTURA
       ====================================================== -->
       <main class="accar-pliego-lectura theme-light" id="main-content-area">
 
@@ -126,39 +130,41 @@
 
           <div class="accar-tool-sizes" role="group" aria-label="Tamaño de letra">
             <span class="accar-tool-label">Tamaño</span>
-            <button type="button" class="accar-tool-btn btn-size" data-size="16px">A-</button>
-            <button type="button" class="accar-tool-btn btn-size active" data-size="18.5px">A</button>
-            <button type="button" class="accar-tool-btn btn-size" data-size="21.5px">A+</button>
+            <button type="button" class="accar-tool-btn btn-size" data-size-key="sm" data-size="18.5px">A-</button>
+            <button type="button" class="accar-tool-btn btn-size active" data-size-key="md" data-size="21px">A</button>
+            <button type="button" class="accar-tool-btn btn-size" data-size-key="lg" data-size="24px">A+</button>
           </div>
         </div>
 
-        <header class="accar-pliego-header">
-          <span class="accar-pliego-kicker" id="reading-label">✠ Evangelio de hoy</span>
-          <h1 class="accar-pliego-title" id="reading-title">Evangelio</h1>
-          <p class="accar-pliego-ref" id="reading-ref">Conectando con el Leccionario...</p>
+        <div class="accar-pliego-folio">
+          <header class="accar-pliego-header">
+            <span class="accar-pliego-kicker" id="reading-label">✠ Evangelio de hoy</span>
+            <h1 class="accar-pliego-title" id="reading-title">Evangelio</h1>
+            <p class="accar-pliego-ref" id="reading-ref">Conectando con el Leccionario...</p>
 
-          <div class="accar-pliego-actions">
-            <button type="button" class="accar-btn-share-pliego" id="btn-share-lectura" onclick="window.shareLecturaACCAR(this)">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <circle cx="18" cy="5" r="3"></circle>
-                <circle cx="6" cy="12" r="3"></circle>
-                <circle cx="18" cy="19" r="3"></circle>
-                <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
-                <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
-              </svg>
-              <span>Compartir lectura</span>
-            </button>
+            <div class="accar-pliego-actions">
+              <button type="button" class="accar-btn-share-pliego" id="btn-share-lectura" onclick="window.shareLecturaACCAR(this)">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <circle cx="18" cy="5" r="3"></circle>
+                  <circle cx="6" cy="12" r="3"></circle>
+                  <circle cx="18" cy="19" r="3"></circle>
+                  <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+                  <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+                </svg>
+                <span>Compartir lectura</span>
+              </button>
+            </div>
+          </header>
+
+          <div class="accar-pliego-body">
+            <div class="accar-sala-spinner" id="reading-spinner"></div>
+            <div id="reading-text" class="accar-pliego-texto"></div>
           </div>
-        </header>
 
-        <div class="accar-pliego-body">
-          <div class="accar-sala-spinner" id="reading-spinner"></div>
-          <div id="reading-text" class="accar-pliego-texto"></div>
+          <button type="button" id="btn-back-top" class="accar-btn-subir" style="display: none;">
+            ↑ Volver arriba
+          </button>
         </div>
-
-        <button type="button" id="btn-back-top" class="accar-btn-subir" style="display: none;">
-          ↑ Volver arriba
-        </button>
 
       </main>
 
@@ -198,7 +204,7 @@
   --tiempo-badge-bg: linear-gradient(135deg, #1b7a52 0%, #115437 100%);
   --tiempo-badge-border: rgba(62, 184, 122, 0.62);
   --tiempo-badge-text: #fff9ec;
-  --tiempo-btn-sub: rgba(255, 249, 236, 0.85);
+  --tiempo-btn-sub: rgba(255, 249, 236, 0.88);
   --tiempo-btn-glow: rgba(27, 122, 82, 0.40);
   --tiempo-semana-text: #2fb370;
   --tiempo-kicker-light: #166e46;
@@ -222,7 +228,7 @@
   --tiempo-badge-bg: linear-gradient(135deg, #1b7a52 0%, #115437 100%);
   --tiempo-badge-border: rgba(62, 184, 122, 0.62);
   --tiempo-badge-text: #fff9ec;
-  --tiempo-btn-sub: rgba(255, 249, 236, 0.85);
+  --tiempo-btn-sub: rgba(255, 249, 236, 0.88);
   --tiempo-btn-glow: rgba(27, 122, 82, 0.40);
   --tiempo-semana-text: #2fb370;
   --tiempo-kicker-light: #166e46;
@@ -236,7 +242,7 @@
   --tiempo-badge-bg: linear-gradient(135deg, #6b21a8 0%, #461373 100%);
   --tiempo-badge-border: rgba(196, 155, 255, 0.58);
   --tiempo-badge-text: #fff9ec;
-  --tiempo-btn-sub: rgba(243, 232, 255, 0.85);
+  --tiempo-btn-sub: rgba(243, 232, 255, 0.88);
   --tiempo-btn-glow: rgba(107, 33, 168, 0.42);
   --tiempo-semana-text: #c084fc;
   --tiempo-kicker-light: #5b21b6;
@@ -250,7 +256,7 @@
   --tiempo-badge-bg: linear-gradient(135deg, #ead8ad 0%, #cfb474 100%);
   --tiempo-badge-border: #d4af37;
   --tiempo-badge-text: #081226;
-  --tiempo-btn-sub: rgba(8, 18, 38, 0.75);
+  --tiempo-btn-sub: rgba(8, 18, 38, 0.78);
   --tiempo-btn-glow: rgba(212, 175, 55, 0.34);
   --tiempo-semana-text: #eed076;
   --tiempo-kicker-light: #8c6514;
@@ -264,7 +270,7 @@
   --tiempo-badge-bg: linear-gradient(135deg, #9f1222 0%, #6e0b17 100%);
   --tiempo-badge-border: rgba(252, 165, 165, 0.55);
   --tiempo-badge-text: #fff9ec;
-  --tiempo-btn-sub: rgba(255, 241, 242, 0.85);
+  --tiempo-btn-sub: rgba(255, 241, 242, 0.88);
   --tiempo-btn-glow: rgba(159, 18, 34, 0.42);
   --tiempo-semana-text: #f87171;
   --tiempo-kicker-light: #991b1b;
@@ -278,7 +284,7 @@
   --tiempo-badge-bg: linear-gradient(135deg, #ad2161 0%, #7a1444 100%);
   --tiempo-badge-border: rgba(249, 168, 212, 0.58);
   --tiempo-badge-text: #fff9ec;
-  --tiempo-btn-sub: rgba(252, 231, 243, 0.85);
+  --tiempo-btn-sub: rgba(252, 231, 243, 0.88);
   --tiempo-btn-glow: rgba(173, 33, 97, 0.38);
   --tiempo-semana-text: #f472b6;
   --tiempo-kicker-light: #9d174d;
@@ -566,7 +572,7 @@
   cursor: default;
 }
 
-/* ===== MENÚ DE LECTURAS (UNIFICADO AL COLOR LITÚRGICO) ===== */
+/* ===== MENÚ DE LECTURAS EN 2 LÍNEAS ELEGANTES ===== */
 #accar-lecturas-root .accar-lecturas-menu {
   position: relative;
   z-index: 2;
@@ -592,14 +598,14 @@
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
-  gap: 4px;
+  gap: 3px;
   transition: all 0.26s ease;
 }
 
 #accar-lecturas-root .accar-btn-nombre {
   display: block;
   width: 100%;
-  font-size: 0.94rem;
+  font-size: 0.93rem;
   font-weight: 700;
   line-height: 1.25;
 }
@@ -607,11 +613,13 @@
 #accar-lecturas-root .accar-btn-cita {
   display: block;
   width: 100%;
-  font-size: 0.78rem;
-  font-weight: 400;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-variant-numeric: lining-nums proportional-nums;
+  font-size: 0.88rem;
+  font-weight: 500;
   font-style: italic;
-  line-height: 1.35;
-  color: rgba(232, 203, 114, 0.84);
+  line-height: 1.3;
+  color: rgba(232, 203, 114, 0.88);
   text-align: left;
 }
 
@@ -638,13 +646,13 @@
 }
 
 /* =========================================================
-   PLIEGO DE LECTURA (MODO NOCHE BASE + MODO PERGAMINO SUAVE)
+   PLIEGO EDITORIAL ESTILO LECCIONARIO ROMANO
 ========================================================= */
 #accar-lecturas-root .accar-pliego-lectura {
   position: relative;
-  padding: 42px 48px 46px;
+  padding: 36px 52px 50px;
   border-radius: 24px;
-  border: 1px solid rgba(212, 175, 55, 0.42);
+  border: 1px solid rgba(212, 175, 55, 0.44);
   background: linear-gradient(180deg, #091326 0%, #050b18 100%);
   box-shadow: 0 26px 56px rgba(0, 0, 0, 0.62);
   text-align: left;
@@ -652,11 +660,16 @@
 }
 
 #accar-lecturas-root .accar-pliego-lectura.theme-light {
-  background: linear-gradient(180deg, #f7f0e2 0%, #f1e7d3 100%);
-  border-color: rgba(190, 152, 68, 0.55);
+  background: linear-gradient(180deg, #faf4e6 0%, #f3ead6 100%);
+  border-color: rgba(190, 152, 68, 0.58);
   box-shadow:
     0 26px 56px rgba(0, 0, 0, 0.55),
-    inset 0 0 32px rgba(180, 145, 70, 0.08);
+    inset 0 0 36px rgba(175, 138, 62, 0.08);
+}
+
+#accar-lecturas-root .accar-pliego-folio {
+  max-width: 700px;
+  margin: 0 auto;
 }
 
 #accar-lecturas-root .accar-pliego-toolbar {
@@ -666,7 +679,7 @@
   flex-wrap: wrap;
   gap: 12px;
   padding-bottom: 16px;
-  margin-bottom: 24px;
+  margin-bottom: 28px;
   border-bottom: 1px solid rgba(212, 175, 55, 0.24);
 }
 
@@ -718,7 +731,7 @@
 #accar-lecturas-root .accar-pliego-lectura.theme-light .accar-tool-btn {
   color: #241e14;
   border-color: rgba(120, 92, 34, 0.34);
-  background: rgba(255, 255, 255, 0.42);
+  background: rgba(255, 255, 255, 0.45);
 }
 
 #accar-lecturas-root .accar-tool-btn:hover {
@@ -731,21 +744,21 @@
   color: #081226 !important;
 }
 
-/* Cabecera del Pliego */
+/* Cabecera Tipográfica del Pliego */
 #accar-lecturas-root .accar-pliego-header {
-  margin-bottom: 26px;
+  margin-bottom: 28px;
   padding-bottom: 22px;
-  border-bottom: 1px solid rgba(212, 175, 55, 0.22);
+  border-bottom: 1px solid rgba(212, 175, 55, 0.24);
 }
 
 #accar-lecturas-root .accar-pliego-lectura.theme-light .accar-pliego-header {
-  border-bottom-color: rgba(140, 108, 40, 0.22);
+  border-bottom-color: rgba(140, 108, 40, 0.24);
 }
 
 #accar-lecturas-root .accar-pliego-kicker {
   display: block;
-  margin-bottom: 10px;
-  font-size: 0.76rem;
+  margin-bottom: 8px;
+  font-size: 0.74rem;
   font-weight: 700;
   letter-spacing: 0.16em;
   text-transform: uppercase;
@@ -757,26 +770,31 @@
 }
 
 #accar-lecturas-root .accar-pliego-title {
-  margin: 0 0 8px;
-  font-size: 2.35rem;
+  margin: 0 0 6px;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-size: 2.65rem;
   font-weight: 700;
-  line-height: 1.18;
+  line-height: 1.12;
+  letter-spacing: -0.01em;
   color: #eed076;
 }
 
 #accar-lecturas-root .accar-pliego-lectura.theme-light .accar-pliego-title {
-  color: #7f1d1d;
+  color: #821818;
 }
 
 #accar-lecturas-root .accar-pliego-ref {
   margin: 0 0 18px;
-  font-size: 1.08rem;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-variant-numeric: lining-nums proportional-nums;
+  font-size: 1.24rem;
+  font-weight: 500;
   font-style: italic;
-  color: rgba(234, 224, 200, 0.78);
+  color: rgba(234, 224, 200, 0.84);
 }
 
 #accar-lecturas-root .accar-pliego-lectura.theme-light .accar-pliego-ref {
-  color: #524634;
+  color: #4f4230;
 }
 
 #accar-lecturas-root .accar-pliego-actions {
@@ -793,10 +811,10 @@
   padding: 9px 18px;
   border-radius: 999px;
   border: 1px solid rgba(212, 175, 55, 0.58);
-  background: rgba(6, 15, 38, 0.90);
+  background: rgba(6, 15, 38, 0.92);
   color: #eed076;
-  font-family: inherit;
-  font-size: 0.75rem;
+  font-family: Georgia, serif;
+  font-size: 0.73rem;
   font-weight: 700;
   letter-spacing: 0.10em;
   text-transform: uppercase;
@@ -817,43 +835,131 @@
   transform: translateY(-1px);
 }
 
-/* Cuerpo de texto bíblico */
+/* ===== CUERPO DE LECTURA ESTILO MISAL ===== */
 #accar-lecturas-root .accar-pliego-texto {
-  font-size: 18.5px;
-  line-height: 1.88;
-  color: #efe5cc;
+  font-family: 'Crimson Pro', Georgia, "Times New Roman", serif;
+  font-variant-numeric: lining-nums proportional-nums;
+  font-size: 21px;
+  font-weight: 400;
+  line-height: 1.78;
+  color: #f0e6ce;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
   transition: font-size 0.2s ease;
 }
 
 #accar-lecturas-root .accar-pliego-lectura.theme-light .accar-pliego-texto {
-  color: #1e1912;
+  color: #1f1912;
 }
 
 #accar-lecturas-root .accar-pliego-texto p {
-  margin: 0 0 22px;
+  margin: 0 0 1.15em;
+  clear: none;
 }
 
-#accar-lecturas-root .accar-pliego-texto p:last-child {
-  margin-bottom: 0;
+#accar-lecturas-root .accar-pliego-texto p + p {
+  clear: left;
 }
 
-#accar-lecturas-root .accar-pliego-texto b,
-#accar-lecturas-root .accar-pliego-texto strong {
+#accar-lecturas-root .accar-incipit {
+  font-style: italic;
+  font-weight: 500;
+  color: rgba(238, 208, 118, 0.90);
+  margin-bottom: 1.1em !important;
+}
+
+#accar-lecturas-root .accar-pliego-lectura.theme-light .accar-incipit {
+  color: #5c4b32;
+}
+
+/* Letra Capitular Litúrgica */
+#accar-lecturas-root .accar-capitular {
+  float: left;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-size: 3.35em;
+  font-weight: 700;
+  line-height: 0.80;
+  padding: 0.06em 0.14em 0 0;
   color: #eed076;
 }
 
-#accar-lecturas-root .accar-pliego-lectura.theme-light .accar-pliego-texto b,
-#accar-lecturas-root .accar-pliego-lectura.theme-light .accar-pliego-texto strong {
-  color: #7f1d1d;
+#accar-lecturas-root .accar-pliego-lectura.theme-light .accar-capitular {
+  color: #8b1a1a;
 }
 
 #accar-lecturas-root .accar-rubrica-roja {
   color: #f87171;
   font-weight: 700;
+  font-style: normal;
 }
 
 #accar-lecturas-root .accar-pliego-lectura.theme-light .accar-rubrica-roja {
   color: #991b1b;
+}
+
+/* Maquetación Poética del Salmo Responsorial */
+#accar-lecturas-root .accar-salmo-antifona {
+  margin: 0 0 1.35em;
+  padding: 14px 18px;
+  border-radius: 12px;
+  border-left: 3.5px solid #d4af37;
+  background: rgba(212, 175, 55, 0.08);
+  font-weight: 600;
+  line-height: 1.6;
+}
+
+#accar-lecturas-root .accar-pliego-lectura.theme-light .accar-salmo-antifona {
+  border-left-color: #8b1a1a;
+  background: rgba(139, 26, 26, 0.05);
+}
+
+#accar-lecturas-root .accar-salmo-estrofa {
+  margin: 0 0 1.2em !important;
+  padding-left: 18px;
+  border-left: 2px solid rgba(212, 175, 55, 0.22);
+  line-height: 1.74;
+}
+
+#accar-lecturas-root .accar-pliego-lectura.theme-light .accar-salmo-estrofa {
+  border-left-color: rgba(140, 108, 40, 0.24);
+}
+
+#accar-lecturas-root .accar-salmo-respuesta-intermedia {
+  margin: -0.35em 0 1.25em !important;
+  font-style: italic;
+  font-weight: 600;
+}
+
+/* Aclamación Litúrgica Final */
+#accar-lecturas-root .accar-aclamacion-final {
+  clear: both;
+  margin-top: 1.8em;
+  padding-top: 1.1em;
+  border-top: 1px solid rgba(212, 175, 55, 0.22);
+}
+
+#accar-lecturas-root .accar-pliego-lectura.theme-light .accar-aclamacion-final {
+  border-top-color: rgba(140, 108, 40, 0.22);
+}
+
+#accar-lecturas-root .accar-aclamacion-v {
+  margin: 0 0 0.2em !important;
+  font-weight: 700;
+  color: #eed076;
+}
+
+#accar-lecturas-root .accar-pliego-lectura.theme-light .accar-aclamacion-v {
+  color: #2b2114;
+}
+
+#accar-lecturas-root .accar-aclamacion-r {
+  margin: 0 !important;
+  font-style: italic;
+  color: rgba(240, 230, 206, 0.88);
+}
+
+#accar-lecturas-root .accar-pliego-lectura.theme-light .accar-aclamacion-r {
+  color: #4a3d2b;
 }
 
 #accar-lecturas-root .accar-btn-subir {
@@ -865,8 +971,8 @@
   border: 1px solid #c9a227;
   background: transparent;
   color: #c9a227;
-  font-family: inherit;
-  font-size: 0.76rem;
+  font-family: Georgia, serif;
+  font-size: 0.74rem;
   font-weight: 700;
   letter-spacing: 0.10em;
   text-transform: uppercase;
@@ -924,11 +1030,11 @@
   }
 
   #accar-lecturas-root .accar-pliego-lectura {
-    padding: 28px 22px 32px;
+    padding: 26px 22px 32px;
   }
 
   #accar-lecturas-root .accar-pliego-title {
-    font-size: 1.88rem;
+    font-size: 2.1rem;
   }
 
   #accar-lecturas-root .accar-btn-share-pliego {
@@ -958,7 +1064,7 @@
     border-bottom: 1px solid rgba(212, 175, 55, 0.18);
     background: linear-gradient(90deg, rgba(12, 28, 60, 0.92), rgba(6, 15, 36, 0.92));
     color: #eed076;
-    font-family: inherit;
+    font-family: Georgia, serif;
     font-size: 0.73rem;
     font-weight: 700;
     letter-spacing: 0.10em;
@@ -1029,6 +1135,7 @@ const labelThemeToggle = document.getElementById('label-theme-toggle');
 const btnBackTop = document.getElementById('btn-back-top');
 
 const opcionesFecha = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
+const MAPA_TAMANOS = { sm: '18.5px', md: '21px', lg: '24px' };
 
 function sinAcentos(str) {
   return String(str || '')
@@ -1041,6 +1148,161 @@ function sinAcentos(str) {
 function capitalizarPalabra(str) {
   const limpio = String(str || '').toLowerCase().trim();
   return limpio ? limpio.charAt(0).toUpperCase() + limpio.slice(1) : '';
+}
+
+function formatearCitaBiblica(raw) {
+  let s = String(raw || '').trim().replace(/:$/, '').trim();
+  if (!s) return '';
+  s = s.replace(/,\s*-+\s*/g, ' — ');
+  s = s.replace(/;\s*-+\s*/g, '; ');
+  s = s.replace(/\s*--\s*/g, ' — ');
+  s = s.replace(/\s{2,}/g, ' ');
+  return s;
+}
+
+function limpiarEspaciosPuntuacion(str) {
+  return String(str || '')
+    .replace(/\s+([,.;:?!»”])/g, '$1')
+    .replace(/([«“¿¡])\s+/g, '$1')
+    .replace(/\s{2,}/g, ' ')
+    .trim();
+}
+
+function extraerBloquesCrudos(rawText) {
+  if (Array.isArray(rawText)) {
+    return rawText.map(x => String(x || '').trim()).filter(Boolean);
+  }
+  return String(rawText || '')
+    .split(/<br\s*\/?>\s*<br\s*\/?>|\n\s*\n/i)
+    .map(x => x.trim())
+    .filter(Boolean);
+}
+
+// Reconstrucción editorial y gramatical de lecturas en prosa
+function formatearProsaLectura(rawText, tipoClave) {
+  let bloques = extraerBloquesCrudos(rawText).map(b =>
+    limpiarEspaciosPuntuacion(b.replace(/<br\s*\/?>/gi, ' '))
+  ).filter(Boolean);
+
+  if (bloques.length === 0) return '';
+
+  // Retirar fórmula final cruda si viniera en el texto para no duplicarla
+  bloques[bloques.length - 1] = bloques[bloques.length - 1]
+    .replace(/\s*(Palabra de Dios\.?|Palabra del Señor\.?)(\s*(R\/?\.?\s*)?(Te alabamos,?\s*Señor\.?|Gloria a ti,?\s*Señor Jesús\.?))?\s*$/i, '')
+    .trim();
+  bloques = bloques.filter(Boolean);
+  if (bloques.length === 0) return '';
+
+  // 1. Unir versículos cortados a mitad de oración (ej. termina en ":" o "," o el siguiente inicia en minúscula)
+  const oraciones = [];
+  for (let i = 0; i < bloques.length; i++) {
+    const actual = bloques[i];
+    if (oraciones.length === 0) {
+      oraciones.push(actual);
+      continue;
+    }
+    const prev = oraciones[oraciones.length - 1];
+    const prevIncompleto = /[,;:]\s*$/.test(prev) || !/[.?!»"”]\s*$/.test(prev);
+    const actualContinua = /^[a-záéíóúüñ]/.test(actual);
+
+    if (prevIncompleto || actualContinua) {
+      oraciones[oraciones.length - 1] = `${prev} ${actual}`;
+    } else {
+      oraciones.push(actual);
+    }
+  }
+
+  // 2. Separar incipit litúrgico si existiera
+  let incipitHtml = '';
+  if (oraciones.length > 1 && /^(Lectura\s+de|Comienzo\s+de| Conclusión\s+de)/i.test(oraciones[0]) && oraciones[0].length < 130) {
+    incipitHtml = `<p class="accar-incipit">${oraciones.shift()}</p>`;
+  }
+
+  // 3. Agrupar versículos breves en párrafos equilibrados de Misal (~280 caracteres)
+  const parrafos = [];
+  for (let i = 0; i < oraciones.length; i++) {
+    const frag = oraciones[i];
+    if (parrafos.length === 0) {
+      parrafos.push(frag);
+      continue;
+    }
+    const ultimo = parrafos[parrafos.length - 1];
+    const iniciaDialogo = /^[—\-«"“]/.test(frag);
+    const umbral = parrafos.length === 1 ? 220 : 280;
+
+    if (!iniciaDialogo && ultimo.length < umbral && (ultimo.length + frag.length) < 430) {
+      parrafos[parrafos.length - 1] = `${ultimo} ${frag}`;
+    } else {
+      parrafos.push(frag);
+    }
+  }
+
+  // 4. Aplicar Letra Capitular Roja al primer párrafo de la lectura
+  const htmlParrafos = parrafos.map((p, idx) => {
+    let contenido = p.replace(/(R\/\.|R\.)/g, '<span class="accar-rubrica-roja">$1</span>');
+    if (idx === 0 && !/^</.test(contenido)) {
+      const m = contenido.match(/^([«"“¿¡]?)([A-ZÁÉÍÓÚÜÑa-záéíóúüñ])(.*)$/s);
+      if (m) {
+        contenido = `<span class="accar-capitular">${m[1]}${m[2]}</span>${m[3]}`;
+      }
+    }
+    return `<p>${contenido}</p>`;
+  }).join('');
+
+  // 5. Aclamación litúrgica correspondiente al cierre
+  let aclamacionHtml = '';
+  if (tipoClave === 'primera' || tipoClave === 'segunda') {
+    aclamacionHtml = `
+      <div class="accar-aclamacion-final">
+        <p class="accar-aclamacion-v">Palabra de Dios.</p>
+        <p class="accar-aclamacion-r"><span class="accar-rubrica-roja">R/.</span> Te alabamos, Señor.</p>
+      </div>`;
+  } else if (tipoClave === 'evangelio') {
+    aclamacionHtml = `
+      <div class="accar-aclamacion-final">
+        <p class="accar-aclamacion-v">Palabra del Señor.</p>
+        <p class="accar-aclamacion-r"><span class="accar-rubrica-roja">R/.</span> Gloria a ti, Señor Jesús.</p>
+      </div>`;
+  }
+
+  return incipitHtml + htmlParrafos + aclamacionHtml;
+}
+
+// Maquetación poética y antifonal para el Salmo Responsorial
+function formatearSalmoLecturas(rawText) {
+  const bloques = extraerBloquesCrudos(rawText);
+  if (bloques.length === 0) return '';
+
+  const piezasHtml = [];
+
+  bloques.forEach((bloque, idx) => {
+    let limpio = bloque
+      .replace(/\r?\n/g, '<br>')
+      .replace(/(<br\s*\/?>\s*){2,}/gi, '<br>')
+      .trim();
+
+    const sinTags = limpio.replace(/<[^>]+>/g, '').trim();
+
+    // Antífona principal al inicio del Salmo
+    if (idx === 0 && /^(R\/?\.?)\s+/i.test(sinTags)) {
+      const cuerpoAntifona = limpio.replace(/^(R\/?\.?)\s*/i, '');
+      piezasHtml.push(`<div class="accar-salmo-antifona"><span class="accar-rubrica-roja">R/.</span> ${cuerpoAntifona}</div>`);
+      return;
+    }
+
+    // Respuesta intercalada breve en línea independiente
+    if (/^(R\/?\.?)\s+/i.test(sinTags) && !/<br/i.test(limpio) && sinTags.length < 130) {
+      const cuerpoResp = limpio.replace(/^(R\/?\.?)\s*/i, '');
+      piezasHtml.push(`<p class="accar-salmo-respuesta-intermedia"><span class="accar-rubrica-roja">R/.</span> ${cuerpoResp}</p>`);
+      return;
+    }
+
+    // Estrofa poética del salmo
+    limpio = limpio.replace(/\b(R\/\.|R\.)/g, '<span class="accar-rubrica-roja">R/.</span>');
+    piezasHtml.push(`<p class="accar-salmo-estrofa">${limpio}</p>`);
+  });
+
+  return piezasHtml.join('');
 }
 
 function verificarCristoRey(fechaISO) {
@@ -1085,7 +1347,7 @@ async function obtenerSantoPorFecha(fechaISO) {
 const estadoGuardado = window.__accarSalaLiturgica || {};
 const hoyBogota = new Date().toLocaleDateString('en-CA', { timeZone: 'America/Bogota' });
 let currentDate = (estadoGuardado.keepDateOnce && estadoGuardado.fecha) ? estadoGuardado.fecha : hoyBogota;
-let currentFontSize = estadoGuardado.fontSize || '18.5px';
+let currentSizeKey = MAPA_TAMANOS[estadoGuardado.sizeKey] ? estadoGuardado.sizeKey : 'md';
 let isLightMode = typeof estadoGuardado.isLightMode === 'boolean' ? estadoGuardado.isLightMode : true;
 
 if (estadoGuardado.keepDateOnce) {
@@ -1096,9 +1358,9 @@ if (datePicker) datePicker.value = currentDate;
 
 function aplicarPreferenciasLectura() {
   if (!mainContentArea || !textContainer) return;
-  textContainer.style.fontSize = currentFontSize;
+  textContainer.style.fontSize = MAPA_TAMANOS[currentSizeKey] || '21px';
   botonesTamano.forEach(b => {
-    b.classList.toggle('active', b.getAttribute('data-size') === currentFontSize);
+    b.classList.toggle('active', b.getAttribute('data-size-key') === currentSizeKey);
   });
 
   if (isLightMode) {
@@ -1117,19 +1379,18 @@ window.irALiturgiaHorasDesdeLecturas = function() {
   window.__accarSalaLiturgica = {
     fecha: currentDate,
     keepDateOnce: true,
-    fontSize: currentFontSize,
+    sizeKey: currentSizeKey,
     isLightMode: isLightMode
   };
   loadView('views/inicio-breviario.html');
 };
 
-// Compartir lectura con confirmación limpia
 window.shareLecturaACCAR = function(btnEl) {
   const title = titleTarget?.textContent || 'Lectura del día';
   const ref = refTarget?.textContent || '';
   const tempDiv = document.createElement('div');
   tempDiv.innerHTML = textContainer?.innerHTML || '';
-  let textBody = (tempDiv.textContent || tempDiv.innerText || '').trim();
+  let textBody = (tempDiv.textContent || tempDiv.innerText || '').replace(/\s+/g, ' ').trim();
   if (textBody.length > 300) textBody = textBody.substring(0, 300) + '...';
 
   const shareData = {
@@ -1165,14 +1426,14 @@ async function cargarLecturas(fechaYYYYMMDD) {
   if (barraControles) barraControles.style.display = 'none';
 
   liturgiaData = {
-    evangelio: { titulo: 'Evangelio', ref: '', texto: '' },
-    primera: { titulo: 'Primera Lectura', ref: '', texto: '' },
-    salmo: { titulo: 'Salmo Responsorial', ref: '', texto: '' },
-    segunda: { titulo: 'Segunda Lectura', ref: '', texto: '' },
-    reflexion: { titulo: 'Reflexión', ref: '', texto: '' }
+    evangelio: { titulo: 'Evangelio', ref: '', html: '' },
+    primera: { titulo: 'Primera Lectura', ref: '', html: '' },
+    salmo: { titulo: 'Salmo Responsorial', ref: '', html: '' },
+    segunda: { titulo: 'Segunda Lectura', ref: '', html: '' },
+    reflexion: { titulo: 'Reflexión', ref: '', html: '' }
   };
 
-  ['evangelio', 'primera', 'salmo', 'segunda'].forEach(k => {
+  ['evangelio', 'primera', 'salmo', 'segunda', 'reflexion'].forEach(k => {
     const c = document.getElementById(`cita-btn-${k}`);
     if (c) c.textContent = '';
   });
@@ -1200,7 +1461,6 @@ async function cargarLecturas(fechaYYYYMMDD) {
     const data = await resEv.json();
     const fiesta = data.fiestas?.[0] || {};
 
-    // Aplicar Color del Tiempo Litúrgico en todo el recinto y botones
     const colorTiempoRaw = fiesta.colorTiempo || fiesta.color || 'VERDE';
     const colorTiempoClave = sinAcentos(colorTiempoRaw);
     root.setAttribute('data-tiempo', colorTiempoClave);
@@ -1218,7 +1478,6 @@ async function cargarLecturas(fechaYYYYMMDD) {
       semanaTarget.textContent = fiesta.semana || 'Tiempo Litúrgico';
     }
 
-    // Mostrar Santo del Día con ortografía real y enlace a su biografía
     let nombreSantoMostrar = '';
     let idSantoEnlace = null;
 
@@ -1249,42 +1508,61 @@ async function cargarLecturas(fechaYYYYMMDD) {
       }
     }
 
-    // Cargar textos bíblicos
     if (Array.isArray(data.readings) && data.readings.length > 0) {
       data.readings.forEach(reading => {
-        let textoLimpio = typeof reading.text === 'string' ? reading.text : reading.text.join('<br><br>');
-        textoLimpio = textoLimpio.replace(/(R\/\.|R\.)/g, '<span class="accar-rubrica-roja">$1</span>');
-        const refLimpia = String(reading.referencia || '').replace(/:$/, '').trim();
+        const refBase = formatearCitaBiblica(reading.referencia || reading.title || '');
 
         if (reading.type === 'GSP') {
-          liturgiaData.evangelio = { titulo: 'Evangelio', ref: refLimpia, texto: textoLimpio };
+          liturgiaData.evangelio = {
+            titulo: 'Evangelio',
+            ref: refBase,
+            html: formatearProsaLectura(reading.text, 'evangelio')
+          };
           const c = document.getElementById('cita-btn-evangelio');
-          if (c) c.textContent = refLimpia;
+          if (c) c.textContent = refBase;
         } else if (reading.type === 'FR') {
-          liturgiaData.primera = { titulo: 'Primera Lectura', ref: refLimpia, texto: textoLimpio };
+          liturgiaData.primera = {
+            titulo: 'Primera Lectura',
+            ref: refBase,
+            html: formatearProsaLectura(reading.text, 'primera')
+          };
           const c = document.getElementById('cita-btn-primera');
-          if (c) c.textContent = refLimpia;
+          if (c) c.textContent = refBase;
         } else if (reading.type === 'PS') {
-          } else if (reading.type === 'PS') {
-          const refSalmo = refLimpia || 'Salmo Responsorial';
-          const citaSalmoCompleta = /^salmo/i.test(refSalmo) ? refSalmo : `Salmo ${refSalmo}`;
-          liturgiaData.salmo = { titulo: 'Salmo Responsorial', ref: citaSalmoCompleta, texto: textoLimpio };
+          const esGenerico = /^(salmo(\s+responsorial)?)$/i.test(refBase);
+          let citaSalmo = esGenerico ? '' : refBase;
+          if (citaSalmo && /^\d/.test(citaSalmo)) {
+            citaSalmo = `Salmo ${citaSalmo}`;
+          }
+          liturgiaData.salmo = {
+            titulo: 'Salmo Responsorial',
+            ref: citaSalmo || 'Salmo Responsorial',
+            html: formatearSalmoLecturas(reading.text)
+          };
           const c = document.getElementById('cita-btn-salmo');
-          if (c) c.textContent = refLimpia ? citaSalmoCompleta : '';
+          if (c) c.textContent = citaSalmo;
         } else if (reading.type === 'SR') {
-          liturgiaData.segunda = { titulo: 'Segunda Lectura', ref: refLimpia, texto: textoLimpio };
+          liturgiaData.segunda = {
+            titulo: 'Segunda Lectura',
+            ref: refBase,
+            html: formatearProsaLectura(reading.text, 'segunda')
+          };
           const c = document.getElementById('cita-btn-segunda');
-          if (c) c.textContent = refLimpia;
+          if (c) c.textContent = refBase;
           document.getElementById('btn-segunda').style.display = 'flex';
           document.getElementById('btn-segunda-mobile').style.display = 'inline-flex';
         } else if (reading.type === 'RE') {
-          liturgiaData.reflexion = { titulo: 'Reflexión', ref: refLimpia, texto: textoLimpio };
+          liturgiaData.reflexion = {
+            titulo: 'Reflexión',
+            ref: esRefDuplicada(refBase, 'Reflexión') ? '' : refBase,
+            html: formatearProsaLectura(reading.text, 'reflexion')
+          };
           document.getElementById('btn-reflexion').style.display = 'flex';
           document.getElementById('btn-reflexion-mobile').style.display = 'inline-flex';
         }
       });
 
-      if (!liturgiaData[currentTarget]?.texto) {
+      if (!liturgiaData[currentTarget]?.html && currentTarget !== 'salmo') {
         currentTarget = 'evangelio';
       }
 
@@ -1308,21 +1586,25 @@ async function cargarLecturas(fechaYYYYMMDD) {
   }
 }
 
+function esRefDuplicada(ref, titulo) {
+  return sinAcentos(ref) === sinAcentos(titulo);
+}
+
 function renderReading(targetId) {
   const d = liturgiaData[targetId];
-  if (!d || !d.texto) return;
+  if (!d) return;
 
   lblTarget.textContent = `✠ ${d.titulo.toUpperCase()} DE HOY`;
   titleTarget.textContent = d.titulo;
 
-  if (!d.ref || d.ref === d.titulo) {
+  if (!d.ref || esRefDuplicada(d.ref, d.titulo)) {
     refTarget.style.display = 'none';
   } else {
     refTarget.style.display = 'block';
     refTarget.textContent = d.ref;
   }
 
-  textContainer.innerHTML = `<p>${d.texto}</p>`;
+  textContainer.innerHTML = d.html || '<p>El texto completo de esta sección no se encuentra disponible en la fuente digital para la fecha seleccionada.</p>';
   barraControles.style.display = 'flex';
   btnBackTop.style.display = 'block';
 }
@@ -1333,8 +1615,11 @@ btnBackTop.addEventListener('click', () => {
 
 botonesTamano.forEach(btn => {
   btn.addEventListener('click', () => {
-    currentFontSize = btn.getAttribute('data-size') || '18.5px';
-    aplicarPreferenciasLectura();
+    const key = btn.getAttribute('data-size-key');
+    if (key && MAPA_TAMANOS[key]) {
+      currentSizeKey = key;
+      aplicarPreferenciasLectura();
+    }
   });
 });
 
