@@ -1,80 +1,262 @@
-<section class="accar-adoracion-page">
-  
+<!-- ===== ACCAR | SANCTA SANCTORUM: ADORACIÓN EUCARÍSTICA PERPETUA ===== -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+
+<section id="accar-adoracion-root" class="accar-adoracion-page">
+
+  <!-- =========================================================
+       ALTAR MAYOR DIGITAL Y CAPILLA DE ADORACIÓN EN VIVO
+  ========================================================== -->
   <div class="accar-adoracion-header">
-    <span class="accar-adoracion-kicker">Santuario Digital</span>
-    <h1 class="accar-adoracion-title">Adoración Eucarística</h1>
-    <p class="accar-adoracion-desc">Adoración perpetua en vivo. Acompaña a Jesús Sacramentado orando con los himnos tradicionales de la Iglesia.</p>
-    
+
+    <div class="accar-adoracion-kicker">
+      <span aria-hidden="true">✠</span>
+      <span>Sancta Sanctorum · Adoración Perpetua</span>
+      <span aria-hidden="true">✠</span>
+    </div>
+
+    <div class="accar-adoracion-title-wrap">
+      <h1 class="accar-adoracion-title">Adoración Eucarística</h1>
+    </div>
+
+    <p class="accar-adoracion-desc">
+      Capilla de velación perpetua en directo ante Jesús Sacramentado.<br class="accar-salto-editorial">
+      Acompaña al Señor en silencio orante con el tesoro de los himnos y plegarias tradicionales de la Iglesia.
+    </p>
+
+    <!-- Barra Superior del Altar en Vivo + Controles de Velación -->
     <div class="accar-live-status-container">
       <div class="accar-live-left">
         <div class="accar-live-pill">
-          <span class="accar-live-pulse-dot"></span> EN VIVO
+          <span class="accar-live-pulse-dot"></span>
+          <span>EN VIVO</span>
         </div>
-        <span class="accar-live-location">NIEPOKALANÓW, POLONIA</span>
+        <span class="accar-live-location">Santuario de Niepokalanów · Polonia</span>
       </div>
-      <div class="accar-live-clock-box">
-        <span id="accar-polonia-time">--:--:--</span>
+
+      <div class="accar-live-right">
+        <button type="button" class="accar-altar-ctrl-btn" id="accar-btn-recogimiento" title="Atenuar el entorno para orar en penumbra">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 2c1.8 3.2 3 5.4 3 7.5a3 3 0 1 1-6 0C9 7.4 10.2 5.2 12 2z"></path>
+            <path d="M9 14h6v7H9z"></path>
+            <path d="M7 21h10"></path>
+          </svg>
+          <span>Modo Recogimiento</span>
+        </button>
+
+        <button type="button" class="accar-altar-ctrl-btn active" id="accar-btn-pin-video" title="Mantener visible una mini-ventana del Santísimo al bajar a leer los himnos">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="2" y="4" width="20" height="14" rx="2"></rect>
+            <rect x="12" y="10" width="8" height="6" rx="1"></rect>
+          </svg>
+          <span>Custodia Flotante</span>
+        </button>
+
+        <div class="accar-live-clock-box" title="Hora local en el Santuario de Niepokalanów (Polonia)">
+          <span class="accar-clock-label">Polonia</span>
+          <span id="accar-polonia-time">--:--:--</span>
+        </div>
       </div>
     </div>
 
-    <div class="accar-adoracion-video-container">
-      <div class="accar-video-wrapper">
-        <iframe 
-          src="https://www.youtube.com/embed/Orc7lHFSqNY?autoplay=1&mute=1" 
-          title="Adoración Eucarística en Vivo" 
-          frameborder="0" 
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-          allowfullscreen>
-        </iframe>
+    <!-- Espacio reservado anti-saltos + Relicario de Video -->
+    <div class="accar-video-slot" id="accar-video-slot">
+      <div class="accar-adoracion-video-container" id="accar-video-relicario">
+        <div class="accar-floating-bar">
+          <span class="accar-floating-title">✠ Santísimo Sacramento · En Vivo</span>
+          <div class="accar-floating-actions">
+            <button type="button" id="accar-floating-top" title="Subir al Altar principal">↑ Subir</button>
+            <button type="button" id="accar-floating-close" title="Desactivar ventana flotante">✕</button>
+          </div>
+        </div>
+        <div class="accar-video-wrapper">
+          <iframe
+            src="https://www.youtube.com/embed/Orc7lHFSqNY?autoplay=1&mute=1&rel=0"
+            title="Adoración Eucarística Perpetua en Vivo — Niepokalanów"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen>
+          </iframe>
+        </div>
       </div>
     </div>
+
   </div>
 
-  <div class="accar-misal-container">
-    
-    <div class="accar-misal-tabs">
-      <button class="accar-tab-btn active" onclick="window.abrirOracion(event, 'visita')">Visita al Santísimo</button>
-      <button class="accar-tab-btn" onclick="window.abrirOracion(event, 'adoro')">Adoro te devote</button>
-      <button class="accar-tab-btn" onclick="window.abrirOracion(event, 'pange')">Pange lingua</button>
-      <button class="accar-tab-btn" onclick="window.abrirOracion(event, 'tantum')">Tantum ergo</button>
-      <button class="accar-tab-btn" onclick="window.abrirOracion(event, 'lauda')">Lauda Sion</button>
-      <button class="accar-tab-btn" onclick="window.abrirOracion(event, 'sacris')">Sacris solemniis</button>
-      <button class="accar-tab-btn" onclick="window.abrirOracion(event, 'jesu')">Iesu dulcis memoria</button>
-      <button class="accar-tab-btn" onclick="window.abrirOracion(event, 'verbum')">Verbum supernum</button>
+  <!-- =========================================================
+       EUCOLOGIO Y DEVOCIONARIO EUCARÍSTICO BILINGÜE
+  ========================================================== -->
+  <div class="accar-misal-container" id="accar-eucologio-codex">
+
+    <!-- Barra de Herramientas del Eucologio -->
+    <div class="accar-eucologio-toolbar">
+      <span class="accar-eucologio-tag" id="accar-eucologio-tag">✠ Eucologio Eucarístico · Visita al Santísimo</span>
+
+      <div class="accar-eucologio-controls">
+        <div class="accar-lang-switch" role="group" aria-label="Idioma de las oraciones">
+          <button type="button" class="accar-lang-btn active" data-lang="dual">Bilingüe</button>
+          <button type="button" class="accar-lang-btn" data-lang="esp">Español</button>
+          <button type="button" class="accar-lang-btn" data-lang="lat">Latín</button>
+        </div>
+
+        <button type="button" class="accar-eucologio-tool-btn" id="accar-adoracion-theme-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+          </svg>
+          <span id="accar-adoracion-theme-lbl">Modo Pergamino</span>
+        </button>
+
+        <div class="accar-eucologio-sizes" role="group" aria-label="Tamaño de letra">
+          <button type="button" class="accar-eucologio-tool-btn btn-adoracion-size" data-size="0.93">A-</button>
+          <button type="button" class="accar-eucologio-tool-btn btn-adoracion-size active" data-size="1">A</button>
+          <button type="button" class="accar-eucologio-tool-btn btn-adoracion-size" data-size="1.12">A+</button>
+        </div>
+      </div>
     </div>
 
-    <div class="accar-misal-content">
+    <!-- Pestañas Litúrgicas -->
+    <div class="accar-misal-tabs" role="tablist" aria-label="Oraciones e himnos eucarísticos">
+      <button type="button" class="accar-tab-btn active" onclick="window.abrirOracion(event, 'visita')">Visita al Santísimo</button>
+      <button type="button" class="accar-tab-btn" onclick="window.abrirOracion(event, 'horasanta')">Guía de Hora Santa</button>
+      <button type="button" class="accar-tab-btn" onclick="window.abrirOracion(event, 'desagravio')">Actos de Desagravio</button>
+      <button type="button" class="accar-tab-btn" onclick="window.abrirOracion(event, 'adoro')">Adoro te devote</button>
+      <button type="button" class="accar-tab-btn" onclick="window.abrirOracion(event, 'pange')">Pange lingua</button>
+      <button type="button" class="accar-tab-btn" onclick="window.abrirOracion(event, 'tantum')">Tantum ergo</button>
+      <button type="button" class="accar-tab-btn" onclick="window.abrirOracion(event, 'lauda')">Lauda Sion</button>
+      <button type="button" class="accar-tab-btn" onclick="window.abrirOracion(event, 'sacris')">Sacris solemniis</button>
+      <button type="button" class="accar-tab-btn" onclick="window.abrirOracion(event, 'jesu')">Iesu dulcis memoria</button>
+      <button type="button" class="accar-tab-btn" onclick="window.abrirOracion(event, 'verbum')">Verbum supernum</button>
+    </div>
 
+    <div class="accar-misal-content" id="accar-eucologio-body">
+
+      <!-- 1. VISITA AL SANTÍSIMO SACRAMENTO (TEXTO RESTAURADO Y CORREGIDO) -->
       <div id="visita" class="accar-oracion-tab active">
         <h3 class="accar-oracion-titulo">Visita al Santísimo Sacramento</h3>
-        
+
         <div class="accar-audio-group">
           <div class="accar-audio-player">
-            <span>🎧 Cantos Eucarísticos (1 Hora):</span>
-            <audio controls controlsList="nodownload"><source src="../media/cantos-eucaristicos.mp3" type="audio/mpeg"></audio>
+            <span>Cantos Eucarísticos (1 Hora)</span>
+            <audio controls controlsList="nodownload" preload="none"><source src="/media/cantos-eucaristicos.mp3" type="audio/mpeg"></audio>
           </div>
           <div class="accar-audio-player">
-            <span>🎧 Canciones al Santísimo:</span>
-            <audio controls controlsList="nodownload"><source src="../media/canciones-santisimo.mp3" type="audio/mpeg"></audio>
+            <span>Canciones al Santísimo</span>
+            <audio controls controlsList="nodownload" preload="none"><source src="/media/canciones-santisimo.mp3" type="audio/mpeg"></audio>
           </div>
         </div>
 
         <div class="accar-oracion-columnas">
           <div class="accar-oracion-col lat">
-            <strong>Visitatio Ssimi. Sacramenti</strong><br><br>
+            <strong>Salutátio Eucharística</strong><br>
             V. Adorémus in ætérnum Sanctíssimum Sacraméntum.<br>
             R. Adorémus in ætérnum Sanctíssimum Sacraméntum.<br><br>
-            <em>Pater noster, Ave Maria, Glória Patri (ter repetitur).</em><br><br>
-            <strong>COMMUNIO SPIRITUALIS</strong><br>
-            Yo quidem, Seńor, recíbime cum aquella pureza, humilidad y devoción cum que os recibió vuestra Santísima Madre, cum el espíritu y fervor de los santos.
+            V. Laudétur et adorétur in ætérnum Sanctíssimum Sacraméntum.<br>
+            R. Amen.<br><br>
+            <em>Pater noster, Ave María et Glória Patri (ter repetítur in honórem Iesu Sacraménti).</em><br><br>
+            <strong>Commúnio Spirituális (S. Alphónsi)</strong><br>
+            Iesu mi, credo te vere ac reáliter in Sanctíssimo Altáris Sacraménto præséntem esse. Super ómnia te díligo et in ánima mea te pósito desídero. Cum autem nunc te sacramentáliter suscípere néqueam, veni saltem spirituáliter in cor meum.<br><br>
+            Quasi iam venísset, te ampléctor et totum me tibi coniúngo: ne permíttas me umquam a te separári. Amen.
           </div>
           <div class="accar-oracion-col esp">
-            <strong>Visita al Santísimo</strong><br><br>
-            V. ¡Viva Jesús Sacramentado!<br>
-            R. ¡Viva y de todos sea amado!<br><br>
-            <em>Padre nuestro, Avemaría, Gloria (tres veces).</em><br><br>
-            <strong>COMUNIÓN ESPIRITUAL</strong><br>
-            Yo quisiera, Señor, recibiros con aquella pureza, humildad y devoción con que os recibió vuestra Santísima Madre, con el espíritu y fervor de los santos.
+            <strong>Estación y Saludo al Santísimo</strong><br>
+            V. Adoremos para siempre al Santísimo Sacramento.<br>
+            R. Adoremos para siempre al Santísimo Sacramento.<br><br>
+            V. Sea por siempre bendito y alabado Jesús Sacramentado.<br>
+            R. Amén.<br><br>
+            <em>Rezar tres veces Padre nuestro, Avemaría y Gloria en reverencia a Jesús en el Altar.</em><br><br>
+            <strong>Comunión Espiritual (San Alfonso M.ª de Ligorio)</strong><br>
+            Creo, Jesús mío, que estás real y verdaderamente presente en el Santísimo Sacramento del Altar. Te amo sobre todas las cosas y deseo vivamente recibirte dentro de mi alma; pero no pudiendo hacerlo ahora sacramentalmente, ven al menos espiritualmente a mi corazón.<br><br>
+            Y como si ya te hubiese recibido, te abrazo y me uno del todo a Ti. Señor, no permitas que jamás me aparte de Ti. Amén.
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. GUÍA PASTORAL DE LOS 4 TIEMPOS PARA LA HORA SANTA -->
+      <div id="horasanta" class="accar-oracion-tab" style="display:none;">
+        <h3 class="accar-oracion-titulo">Guía para la Hora Santa Eucarística</h3>
+
+        <div class="accar-guia-grid">
+          <article class="accar-guia-card">
+            <span class="accar-guia-step">✠ Primer Tiempo · 15 min</span>
+            <h4>I. Adoración y Silencio Interior</h4>
+            <p>Aquieta tus pensamientos ante la Custodia recordando la pregunta del Señor en Getsemaní: <em>«¿No habéis podido velar una hora conmigo?»</em> (Mt 26, 40). Rinde tu inteligencia y tu voluntad reconociendo que bajo el velo de la Hostia consagrada está presente Cristo vivo en Cuerpo, Sangre, Alma y Divinidad.</p>
+            <span class="accar-guia-cita">Lectura sugerida: Juan 6, 51–58 · Himno: Adoro te devote</span>
+          </article>
+
+          <article class="accar-guia-card">
+            <span class="accar-guia-step">✠ Segundo Tiempo · 15 min</span>
+            <h4>II. Acción de Gracias (Eucharistía)</h4>
+            <p>«Eucaristía» significa acción de gracias. Agradece pausadamente al Señor el don de la vida, la fe católica, el Bautismo, el perdón recibido en la Confesión, la protección de María Santísima, tu familia y hasta las cruces que purifican tu alma.</p>
+            <span class="accar-guia-cita">Lectura sugerida: Salmo 116 (115) · Himno: Lauda Sion</span>
+          </article>
+
+          <article class="accar-guia-card">
+            <span class="accar-guia-step">✠ Tercer Tiempo · 15 min</span>
+            <h4>III. Reparación y Desagravio Amoroso</h4>
+            <p>Consuela el Corazón Eucarístico de Jesús por la frialdad, el olvido de tantos sagrarios solitarios, las comuniones sacrílegas y las ofensas contra su Iglesia, ofreciendo tu compañía humilde en unión con la Santísima Virgen al pie de la Cruz.</p>
+            <span class="accar-guia-cita">Lectura sugerida: Isaías 53, 3–6 · Pestaña: Actos de Desagravio</span>
+          </article>
+
+          <article class="accar-guia-card">
+            <span class="accar-guia-step">✠ Cuarto Tiempo · 15 min</span>
+            <h4>IV. Súplica e Intercesión Sacerdotal</h4>
+            <p>Cristo vive siempre para interceder por nosotros (Hb 7, 25). Presenta ante el Altar al Romano Pontífice, la santificación de los sacerdotes, la conversión de los pecadores, los agonizantes de hoy, las almas del Purgatorio y tus propias necesidades, cerrando con la Comunión Espiritual y el <em>Tantum ergo</em>.</p>
+            <span class="accar-guia-cita">Lectura sugerida: Hebreos 4, 14–16 · Himno: Tantum ergo</span>
+          </article>
+        </div>
+      </div>
+
+      <!-- 3. ACTOS DE FE, ADORACIÓN Y DESAGRAVIO EUCARÍSTICO -->
+      <div id="desagravio" class="accar-oracion-tab" style="display:none;">
+        <h3 class="accar-oracion-titulo">Actos de Adoración y Desagravio</h3>
+
+        <div class="accar-oracion-columnas">
+          <div class="accar-oracion-col lat">
+            <strong>Actus Fídei et Adoratiónis</strong><br>
+            Dómine Iesu Christe, Verbum Patris ætérnum, fırma fide confíteor te sub spéciebus sacraménti vere, reáliter ac substantiáliter adésse. Adóro te cum María Matre tua et cum ómnibus Ángelis sanctísque cæli.<br><br>
+            <strong>Invocátio Ángeli Pacis</strong><br>
+            Deus meus, credo, adóro, spero et amo Te! Véniam peto pro iis qui non credunt, non adórant, non sperant nec amant Te.<br><br>
+            <strong>Ánima Christi (s. XIV)</strong><br>
+            Ánima Christi, sanctífica me.<br>
+            Corpus Christi, salva me.<br>
+            Sanguis Christi, inébria me.<br>
+            Aqua láteris Christi, lava me.<br>
+            Pássio Christi, confórta me.<br>
+            O bone Iesu, exáudi me.<br>
+            Intra tua vúlnera abscónde me.<br>
+            Ne permíttas me separári a te.<br>
+            Ab hoste malígno defénde me.<br>
+            In hora mortis meæ voca me.<br>
+            Et iube me veníre ad te,<br>
+            ut cum Sanctis tuis laudem te<br>
+            in sǽcula sæculórum. Amen.
+          </div>
+          <div class="accar-oracion-col esp">
+            <strong>Acto de Fe y Adoración</strong><br>
+            Señor Jesucristo, Verbo eterno del Padre, confieso con fe inquebrantable que estás presente verdadera, real y sustancialmente bajo los velos sacramentales. Te adoro profundamente unido a María, tu Madre Inmaculada, y a todos los Ángeles y Santos del cielo.<br><br>
+            <strong>Súplica de Reparación Eucarística</strong><br>
+            ¡Dios mío, yo creo, adoro, espero y te amo! Te pido perdón por todos aquellos que no creen, no adoran, no esperan y no te aman.<br><br>
+            <strong>Alma de Cristo (Plegaria del s. XIV)</strong><br>
+            Alma de Cristo, santifícame.<br>
+            Cuerpo de Cristo, sálvame.<br>
+            Sangre de Cristo, embriágame.<br>
+            Agua del costado de Cristo, lávame.<br>
+            Pasión de Cristo, confórtame.<br>
+            ¡Oh buen Jesús!, óyeme.<br>
+            Dentro de tus llagas, escóndeme.<br>
+            No permitas que me aparte de Ti.<br>
+            Del enemigo maligno, defiéndeme.<br>
+            En la hora de mi muerte, llámame;<br>
+            y mándame ir a Ti,<br>
+            para que con tus Santos te alabe<br>
+            por los siglos de los siglos. Amén.
           </div>
         </div>
       </div>
@@ -291,327 +473,1330 @@
 </section>
 
 <style>
-/* FONDO DEL SANTUARIO */
-.accar-adoracion-page {
-  background: linear-gradient(180deg, #04091a 0%, #02040a 100%);
+/* =====================================================================
+   ESTILOS ENCAPSULADOS ESTRICTAMENTE EN #accar-adoracion-root
+   Protección absoluta del Header Global y arquitectura SPA
+===================================================================== */
+#accar-adoracion-root,
+#accar-adoracion-root * {
+  box-sizing: border-box;
+}
+
+#accar-adoracion-root {
+  --ador-gold: #d4af37;
+  --ador-gold-light: #eed076;
+  --ador-crimson: #9e1522;
+  --ador-scale: 1;
+
+  position: relative;
+  overflow-x: clip;
+  width: 100%;
   min-height: 100vh;
-  padding: 80px 20px 100px;
-  color: #fdfbf7;
+  padding: 76px 20px 136px;
   font-family: Georgia, "Times New Roman", serif;
+  color: #f8efd3;
+  border-top: 1px solid rgba(212, 175, 55, 0.24);
+  background:
+    radial-gradient(ellipse at 50% 8%, rgba(20, 48, 96, 0.56) 0%, rgba(5, 13, 32, 0.94) 42%, #020611 100%);
+  box-shadow: inset 0 24px 52px rgba(0, 0, 0, 0.58);
+  transition: background 0.5s ease;
 }
 
-/* CABECERA Y VIDEO FIJO (Sticky) */
-.accar-adoracion-header {
-  max-width: 900px;
-  margin: 0 auto 50px;
-  position: sticky;
-  top: 20px;
-  z-index: 100;
+/* Marca de agua exclusiva de Custodia Eucarística */
+#accar-adoracion-root::before {
+  content: "";
+  position: absolute;
+  top: 85px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(1080px, 95vw);
+  height: min(1080px, 95vw);
+  background: url("/assets/img/adoracion-watermark.png") center top / contain no-repeat;
+  opacity: 0.065;
+  pointer-events: none;
+  z-index: 0;
+  transition: opacity 0.5s ease;
 }
 
-.accar-adoracion-kicker {
-  display: inline-block;
-  padding: 6px 20px;
-  border-radius: 50px;
-  border: 1px solid rgba(212,175,55,0.4);
-  color: #D4AF37;
+/* MODO RECOGIMIENTO (PENUMBRA PROFUNDA DE SAGRARIO) */
+#accar-adoracion-root.modo-recogimiento {
+  background:
+    radial-gradient(ellipse at 50% 14%, rgba(44, 30, 8, 0.34) 0%, rgba(3, 6, 15, 0.98) 48%, #010308 100%);
+}
+
+#accar-adoracion-root.modo-recogimiento::before {
+  opacity: 0.025;
+}
+
+#accar-adoracion-root.modo-recogimiento .accar-adoracion-kicker,
+#accar-adoracion-root.modo-recogimiento .accar-adoracion-title-wrap,
+#accar-adoracion-root.modo-recogimiento .accar-adoracion-desc {
+  opacity: 0.45;
+  transition: opacity 0.4s ease;
+}
+
+#accar-adoracion-root.modo-recogimiento .accar-adoracion-header:hover .accar-adoracion-kicker,
+#accar-adoracion-root.modo-recogimiento .accar-adoracion-header:hover .accar-adoracion-title-wrap,
+#accar-adoracion-root.modo-recogimiento .accar-adoracion-header:hover .accar-adoracion-desc {
+  opacity: 0.92;
+}
+
+#accar-adoracion-root.modo-recogimiento .accar-adoracion-video-container {
+  border-color: #eed076;
+  box-shadow:
+    0 32px 80px rgba(0, 0, 0, 0.92),
+    0 0 68px rgba(212, 175, 55, 0.28);
+}
+
+/* ===== CABECERA MAESTRA Y ALTAR EN VIVO ===== */
+#accar-adoracion-root .accar-adoracion-header {
+  position: relative;
+  z-index: 5;
+  max-width: 960px;
+  margin: 0 auto 48px;
+  text-align: center;
+}
+
+#accar-adoracion-root .accar-adoracion-kicker {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 6px 18px;
+  margin-bottom: 18px;
+  border-radius: 999px;
+  border: 1px solid rgba(212, 175, 55, 0.65);
+  background: rgba(3, 7, 54, 0.84);
+  color: #e8cb72;
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  font-size: 12px;
-  letter-spacing: 2px;
-  margin-bottom: 20px;
-  background: rgba(4, 9, 26, 0.8);
-  margin-left: auto;
-  margin-right: auto;
-  text-align: center;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.44);
 }
 
-.accar-adoracion-header {
-  text-align: center;
-}
-
-/* Ajuste de Títulos para que no se encimen */
-.accar-adoracion-title {
-  display: block !important;
-  margin: 10px auto 20px !important;
-  font-size: 42px;
-  color: #ffffff;
-  font-weight: normal;
-  text-shadow: 0 4px 10px rgba(0,0,0,0.8);
-  background: none !important;
-  text-align: center;
-}
-
-.accar-adoracion-desc {
+#accar-adoracion-root .accar-adoracion-title-wrap {
   display: block;
-  max-width: 700px;
-  margin: 0 auto 40px;
-  color: rgba(255,255,255,0.7);
-  font-size: 18px;
+  width: fit-content;
+  position: relative;
+  padding-bottom: 14px;
+  margin: 0 auto 18px;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.45);
 }
 
-/* DISEÑO DE BARRA PROFESIONAL */
-.accar-live-status-container {
+#accar-adoracion-root .accar-adoracion-title-wrap::after {
+  content: "";
+  position: absolute;
+  bottom: -1.5px;
+  left: 24%;
+  right: 24%;
+  height: 2.5px;
+  border-radius: 2px;
+  background: #d4af37;
+  box-shadow: 0 0 12px rgba(212, 175, 55, 0.85);
+}
+
+#accar-adoracion-root .accar-adoracion-title {
+  margin: 0;
+  font-size: 2.75rem;
+  font-weight: 700;
+  line-height: 1.15;
+  color: #fff9ec;
+  letter-spacing: 0.02em;
+  text-shadow: 0 4px 18px rgba(0, 0, 0, 0.84), 0 0 16px rgba(212, 175, 55, 0.18);
+}
+
+#accar-adoracion-root .accar-adoracion-desc {
+  max-width: 740px;
+  margin: 0 auto 34px;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-size: 1.22rem;
+  line-height: 1.66;
+  color: #eae0c8;
+  text-wrap: balance;
+}
+
+/* ===== BARRA DE ESTADO EN VIVO Y CONTROLES DEL ALTAR ===== */
+#accar-adoracion-root .accar-live-status-container {
   display: flex;
+  align-items: center;
   justify-content: space-between;
-  align-items: center;
-  margin-bottom: 12px;
-  padding: 0 4px;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 14px;
+  padding: 10px 16px;
+  border-radius: 16px;
+  border: 1px solid rgba(212, 175, 55, 0.34);
+  background: rgba(4, 10, 26, 0.84);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.50);
 }
 
-.accar-live-left {
-  display: flex;
+#accar-adoracion-root .accar-live-left {
+  display: inline-flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: 12px;
 }
 
-/* Botón Píldora Rojo Destellante */
-.accar-live-pill {
-  background: #ff3b3b;
-  color: #ffffff;
-  padding: 5px 14px;
-  border-radius: 20px;
-  display: flex;
+#accar-adoracion-root .accar-live-pill {
+  display: inline-flex;
   align-items: center;
-  gap: 8px;
-  font-family: sans-serif;
-  font-weight: 800;
-  font-size: 11px;
-  letter-spacing: 0.5px;
-  box-shadow: 0 0 15px rgba(255, 59, 59, 0.4);
-}
-
-.accar-live-pulse-dot {
-  width: 8px;
-  height: 8px;
-  background-color: #ffffff;
-  border-radius: 50%;
-  animation: accar-blink 1.2s infinite;
-}
-
-@keyframes accar-blink {
-  0% { opacity: 1; }
-  50% { opacity: 0.3; }
-  100% { opacity: 1; }
-}
-
-.accar-live-location {
-  color: #e6dfcc;
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  font-family: sans-serif;
-}
-
-/* Marco de Cristal para la Hora (Sin texto adicional) */
-.accar-live-clock-box {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  padding: 5px 18px;
-  border-radius: 8px;
+  gap: 7px;
+  padding: 5px 13px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 180, 180, 0.45);
+  background: linear-gradient(180deg, #d92626 0%, #991111 100%);
   color: #ffffff;
-  font-family: 'Courier New', monospace;
-  font-size: 14px;
-  font-weight: 800;
-  box-shadow: inset 0 0 10px rgba(255,255,255,0.02);
+  font-family: Georgia, serif;
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  box-shadow: 0 0 16px rgba(220, 38, 38, 0.45);
 }
 
-/* MARCO DORADO EXCLUSIVO PARA EL VIDEO */
-.accar-adoracion-video-container {
-  border: 2px solid #d4af37;
-  border-radius: 12px;
+#accar-adoracion-root .accar-live-pulse-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #ffffff;
+  animation: accarAdorPulse 1.4s infinite ease-in-out;
+}
+
+@keyframes accarAdorPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.35; transform: scale(0.85); }
+}
+
+#accar-adoracion-root .accar-live-location {
+  color: #f3e8ce;
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+}
+
+#accar-adoracion-root .accar-live-right {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+#accar-adoracion-root .accar-altar-ctrl-btn {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 13px;
+  border-radius: 999px;
+  border: 1px solid rgba(212, 175, 55, 0.40);
+  background: rgba(8, 19, 44, 0.78);
+  color: #e6dbc0;
+  font-family: Georgia, serif;
+  font-size: 0.69rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  transition: all 0.24s ease;
+}
+
+#accar-adoracion-root .accar-altar-ctrl-btn svg {
+  width: 14px;
+  height: 14px;
+  color: #eed076;
+}
+
+#accar-adoracion-root .accar-altar-ctrl-btn:hover {
+  border-color: #eed076;
+  color: #fff9ec;
+}
+
+#accar-adoracion-root .accar-altar-ctrl-btn.active {
+  border-color: #fff3c4;
+  background: linear-gradient(180deg, rgba(212, 175, 55, 0.32) 0%, rgba(128, 96, 20, 0.28) 100%);
+  color: #fff9ec;
+}
+
+#accar-adoracion-root .accar-live-clock-box {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 5px 13px;
+  border-radius: 999px;
+  border: 1px solid rgba(212, 175, 55, 0.36);
+  background: rgba(2, 6, 18, 0.85);
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-variant-numeric: tabular-nums lining-nums;
+  font-size: 0.96rem;
+  font-weight: 700;
+  color: #fff9ec;
+}
+
+#accar-adoracion-root .accar-clock-label {
+  font-family: Georgia, serif;
+  font-size: 0.62rem;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  color: #eed076;
+}
+
+/* ===== RELICARIO DEL VIDEO EN VIVO Y CUSTODIA FLOTANTE ===== */
+#accar-adoracion-root .accar-video-slot {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+}
+
+#accar-adoracion-root .accar-adoracion-video-container {
+  position: relative;
+  width: 100%;
   padding: 10px;
-  background: rgba(255,255,255,0.05);
-  box-shadow: 0 20px 50px rgba(0,0,0,0.6), 0 0 30px rgba(212,175,55,0.15);
+  border-radius: 22px;
+  border: 2px solid rgba(212, 175, 55, 0.78);
+  background: linear-gradient(180deg, rgba(12, 26, 56, 0.90) 0%, rgba(4, 10, 24, 0.96) 100%);
+  box-shadow:
+    0 26px 60px rgba(0, 0, 0, 0.78),
+    0 0 38px rgba(212, 175, 55, 0.16),
+    inset 0 1px 0 rgba(255, 240, 195, 0.22);
+  transition: box-shadow 0.4s ease, border-color 0.4s ease;
 }
 
-.accar-video-wrapper {
+#accar-adoracion-root .accar-adoracion-video-container::after {
+  content: "";
+  position: absolute;
+  inset: 5px;
+  border: 1px solid rgba(212, 175, 55, 0.22);
+  border-radius: 16px;
+  pointer-events: none;
+}
+
+#accar-adoracion-root .accar-floating-bar {
+  display: none;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 4px 8px 8px;
+}
+
+#accar-adoracion-root .accar-floating-title {
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: #eed076;
+}
+
+#accar-adoracion-root .accar-floating-actions {
+  display: inline-flex;
+  gap: 6px;
+}
+
+#accar-adoracion-root .accar-floating-actions button {
+  appearance: none;
+  padding: 2px 8px;
+  border-radius: 999px;
+  border: 1px solid rgba(212, 175, 55, 0.45);
+  background: rgba(4, 10, 24, 0.9);
+  color: #fff9ec;
+  font-family: Georgia, serif;
+  font-size: 0.62rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+#accar-adoracion-root .accar-floating-actions button:hover {
+  background: #d4af37;
+  color: #050b1a;
+}
+
+/* Estado Flotante (Picture-in-Page sin recargar el stream de YouTube) */
+#accar-adoracion-root .accar-adoracion-video-container.is-floating {
+  position: fixed;
+  right: 22px;
+  bottom: 22px;
+  width: 348px;
+  padding: 8px;
+  border-radius: 16px;
+  z-index: 950;
+  box-shadow:
+    0 24px 54px rgba(0, 0, 0, 0.88),
+    0 0 26px rgba(212, 175, 55, 0.26);
+  animation: accarFloatIn 0.3s ease;
+}
+
+#accar-adoracion-root .accar-adoracion-video-container.is-floating .accar-floating-bar {
+  display: flex;
+}
+
+@keyframes accarFloatIn {
+  from { opacity: 0; transform: translateY(14px) scale(0.96); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+#accar-adoracion-root .accar-video-wrapper {
   position: relative;
   padding-bottom: 56.25%;
   height: 0;
   overflow: hidden;
-  border-radius: 6px;
+  border-radius: 13px;
   background: #000;
 }
 
-.accar-video-wrapper iframe {
+#accar-adoracion-root .accar-video-wrapper iframe {
   position: absolute;
-  top: 0;
-  left: 0;
+  inset: 0;
   width: 100%;
   height: 100%;
 }
 
-/* MISAL: PESTAÑAS (TABS) */
-.accar-misal-container {
-  max-width: 1100px;
-  margin: 0 auto;
-  background: rgba(11, 27, 61, 0.4);
-  border: 1px solid rgba(212,175,55,0.2);
-  border-radius: 16px;
-  padding: 30px;
-  box-shadow: inset 0 0 50px rgba(0,0,0,0.5);
+/* =====================================================================
+   EUCOLOGIO / CÓDICE EUCARÍSTICO (MODO VELACIÓN + MODO PERGAMINO)
+===================================================================== */
+#accar-adoracion-root .accar-misal-container {
   position: relative;
-  z-index: 10;
+  z-index: 4;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 32px 44px 46px;
+  border-radius: 28px;
+  border: 1px solid rgba(212, 175, 55, 0.48);
+  background: linear-gradient(180deg, rgba(8, 19, 42, 0.94) 0%, rgba(4, 9, 22, 0.98) 100%);
+  box-shadow:
+    0 28px 60px rgba(0, 0, 0, 0.75),
+    inset 0 1px 0 rgba(255, 238, 186, 0.14);
+  color: #efe5cc;
+  transition: background 0.32s ease, color 0.32s ease, border-color 0.32s ease;
 }
 
-.accar-misal-tabs {
+#accar-adoracion-root .accar-misal-container::after {
+  content: "";
+  position: absolute;
+  inset: 9px;
+  border: 1px solid rgba(212, 175, 55, 0.16);
+  border-radius: 20px;
+  pointer-events: none;
+}
+
+/* Modo Pergamino de Altar */
+#accar-adoracion-root .accar-misal-container.theme-light {
+  background: linear-gradient(180deg, #faf4e6 0%, #f2e8d2 100%);
+  border-color: rgba(186, 146, 58, 0.68);
+  color: #211b13;
+  box-shadow:
+    0 28px 60px rgba(0, 0, 0, 0.65),
+    inset 0 0 44px rgba(175, 136, 56, 0.09);
+}
+
+#accar-adoracion-root .accar-misal-container.theme-light::after {
+  border-color: rgba(156, 118, 38, 0.24);
+}
+
+/* Barra de Herramientas del Eucologio */
+#accar-adoracion-root .accar-eucologio-toolbar {
+  position: relative;
+  z-index: 2;
   display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding-bottom: 16px;
+  margin-bottom: 22px;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.24);
+}
+
+#accar-adoracion-root .accar-misal-container.theme-light .accar-eucologio-toolbar {
+  border-bottom-color: rgba(140, 104, 34, 0.24);
+}
+
+#accar-adoracion-root .accar-eucologio-tag {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #eed076;
+}
+
+#accar-adoracion-root .accar-misal-container.theme-light .accar-eucologio-tag {
+  color: #8b1a1a;
+}
+
+#accar-adoracion-root .accar-eucologio-controls {
+  display: inline-flex;
+  align-items: center;
   flex-wrap: wrap;
   gap: 10px;
-  justify-content: center;
-  margin-bottom: 40px;
-  border-bottom: 1px solid rgba(212,175,55,0.3);
-  padding-bottom: 20px;
 }
 
-.accar-tab-btn {
+#accar-adoracion-root .accar-lang-switch {
+  display: inline-flex;
+  padding: 3px;
+  border-radius: 999px;
+  border: 1px solid rgba(212, 175, 55, 0.38);
+  background: rgba(3, 8, 24, 0.75);
+}
+
+#accar-adoracion-root .accar-misal-container.theme-light .accar-lang-switch {
+  background: rgba(235, 224, 198, 0.85);
+  border-color: rgba(140, 104, 34, 0.35);
+}
+
+#accar-adoracion-root .accar-lang-btn {
+  appearance: none;
+  padding: 5px 12px;
+  border-radius: 999px;
+  border: none;
   background: transparent;
-  color: #e6dfcc;
-  border: 1px solid rgba(212,175,55,0.5);
-  padding: 10px 20px;
-  border-radius: 8px;
+  color: rgba(238, 228, 204, 0.78);
+  font-family: Georgia, serif;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
   cursor: pointer;
-  font-family: inherit;
-  font-size: 15px;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
 }
 
-.accar-tab-btn:hover {
-  background: rgba(212,175,55,0.1);
-  color: #ffffff;
+#accar-adoracion-root .accar-misal-container.theme-light .accar-lang-btn {
+  color: #4a3c28;
 }
 
-.accar-tab-btn.active {
+#accar-adoracion-root .accar-lang-btn.active {
   background: #d4af37;
-  color: #060e20;
-  border-color: #d4af37;
-  font-weight: bold;
-  box-shadow: 0 4px 15px rgba(212,175,55,0.3);
+  color: #081226 !important;
 }
 
-/* CONTENIDO DE LAS ORACIONES */
-.accar-oracion-titulo {
+#accar-adoracion-root .accar-eucologio-sizes {
+  display: inline-flex;
+  gap: 5px;
+}
+
+#accar-adoracion-root .accar-eucologio-tool-btn {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(212, 175, 55, 0.40);
+  background: transparent;
+  color: #f2e8ce;
+  font-family: Georgia, serif;
+  font-size: 0.74rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+#accar-adoracion-root .accar-eucologio-tool-btn svg {
+  width: 14px;
+  height: 14px;
+}
+
+#accar-adoracion-root .accar-misal-container.theme-light .accar-eucologio-tool-btn {
+  color: #241d13;
+  border-color: rgba(124, 92, 30, 0.35);
+  background: rgba(255, 255, 255, 0.52);
+}
+
+#accar-adoracion-root .accar-eucologio-tool-btn:hover {
+  border-color: #d4af37;
+}
+
+#accar-adoracion-root .accar-eucologio-tool-btn.active {
+  background: #d4af37;
+  border-color: #d4af37;
+  color: #081226 !important;
+}
+
+/* Pestañas del Misal */
+#accar-adoracion-root .accar-misal-tabs {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 9px;
+  margin-bottom: 30px;
+  padding-bottom: 22px;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.24);
+}
+
+#accar-adoracion-root .accar-misal-container.theme-light .accar-misal-tabs {
+  border-bottom-color: rgba(140, 104, 34, 0.22);
+}
+
+#accar-adoracion-root .accar-tab-btn {
+  appearance: none;
+  padding: 11px 8px;
+  border-radius: 12px;
+  border: 1px solid rgba(212, 175, 55, 0.36);
+  background: rgba(4, 12, 30, 0.80);
+  color: #e8dcc2;
+  font-family: Georgia, serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
   text-align: center;
-  color: #d4af37;
-  font-size: 28px;
-  margin-bottom: 25px;
-  font-weight: normal;
-  border-bottom: 1px dotted rgba(212,175,55,0.3);
-  padding-bottom: 15px;
+  cursor: pointer;
+  transition: all 0.24s ease;
+}
+
+#accar-adoracion-root .accar-misal-container.theme-light .accar-tab-btn {
+  background: rgba(255, 252, 244, 0.88);
+  border-color: rgba(150, 114, 38, 0.34);
+  color: #2b2115;
+}
+
+#accar-adoracion-root .accar-tab-btn:hover {
+  border-color: #eed076;
+  transform: translateY(-2px);
+}
+
+#accar-adoracion-root .accar-tab-btn.active {
+  border-color: #fff3c4 !important;
+  background: linear-gradient(180deg, #9e1522 0%, #54080f 100%) !important;
+  color: #fff9ec !important;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.38);
+}
+
+/* Cabecera Interna de cada Himno / Oración */
+#accar-adoracion-root .accar-misal-content {
+  position: relative;
+  z-index: 2;
+  font-size: calc(20px * var(--ador-scale));
+}
+
+#accar-adoracion-root .accar-oracion-titulo {
+  margin: 0 0 6px;
+  text-align: center;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-size: 2.35rem;
+  font-weight: 700;
+  line-height: 1.15;
+  color: #fff9ec;
+}
+
+#accar-adoracion-root .accar-misal-container.theme-light .accar-oracion-titulo {
+  color: #0b1e3d;
+}
+
+#accar-adoracion-root .accar-hymn-sub {
+  display: block;
+  text-align: center;
+  margin: 0 auto 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.22);
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-size: 1.02rem;
+  font-style: italic;
+  color: #eed076;
+}
+
+#accar-adoracion-root .accar-misal-container.theme-light .accar-hymn-sub {
+  color: #8b1a1a;
+  border-bottom-color: rgba(140, 104, 34, 0.20);
+}
+
+/* =====================================================================
+   REPRODUCTORES DE AUDIO LITÚRGICOS PERSONALIZADOS (SIN BARRA BLANCA)
+===================================================================== */
+#accar-adoracion-root .accar-audio-group {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 30px;
+}
+
+#accar-adoracion-root .accar-audio-player {
+  flex: 1 1 340px;
+  max-width: 500px;
+  padding: 13px 18px;
+  border-radius: 16px;
+  border: 1px solid rgba(212, 175, 55, 0.45);
+  background: linear-gradient(180deg, #0b1e42 0%, #050f24 100%);
+  color: #fff9ec;
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.34);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+#accar-adoracion-root .accar-chant-play {
+  appearance: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid #fff3c4;
+  background: linear-gradient(180deg, #e6c667 0%, #ad851b 100%);
+  color: #160c02;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  cursor: pointer;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.45);
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+#accar-adoracion-root .accar-chant-play:hover {
+  transform: scale(1.06);
+  filter: brightness(1.07);
+}
+
+#accar-adoracion-root .accar-chant-play svg {
+  width: 16px;
+  height: 16px;
+}
+
+#accar-adoracion-root .accar-chant-body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+#accar-adoracion-root .accar-chant-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+#accar-adoracion-root .accar-chant-title {
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #eed076;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#accar-adoracion-root .accar-chant-time {
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-variant-numeric: tabular-nums lining-nums;
+  font-size: 0.86rem;
+  color: rgba(245, 236, 214, 0.82);
+  white-space: nowrap;
+}
+
+#accar-adoracion-root .accar-chant-range {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 5px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.16);
+  outline: none;
+  cursor: pointer;
+}
+
+#accar-adoracion-root .accar-chant-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: #eed076;
+  border: 2px solid #081530;
+  box-shadow: 0 0 8px rgba(212, 175, 55, 0.7);
+}
+
+/* =====================================================================
+   MAQUETACIÓN POÉTICA ESTROFA POR ESTROFA (LATÍN · ESPAÑOL)
+===================================================================== */
+#accar-adoracion-root .accar-stanza-sheet {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+#accar-adoracion-root .accar-stanza-head-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  padding: 0 18px 8px;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.24);
+  font-family: Georgia, serif;
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #eed076;
+}
+
+#accar-adoracion-root .accar-misal-container.theme-light .accar-stanza-head-row {
+  color: #8b1a1a;
+  border-bottom-color: rgba(140, 104, 34, 0.22);
+}
+
+#accar-adoracion-root .accar-stanza-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  padding: 16px 20px;
+  border-radius: 16px;
+  border: 1px solid rgba(212, 175, 55, 0.18);
+  background: rgba(6, 15, 35, 0.52);
+  transition: border-color 0.24s ease, background 0.24s ease;
+}
+
+#accar-adoracion-root .accar-misal-container.theme-light .accar-stanza-row {
+  background: rgba(255, 252, 245, 0.86);
+  border-color: rgba(160, 122, 42, 0.24);
+}
+
+#accar-adoracion-root .accar-stanza-row:hover {
+  border-color: rgba(212, 175, 55, 0.48);
+}
+
+#accar-adoracion-root .accar-stanza-cell {
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-variant-numeric: lining-nums proportional-nums;
+  font-size: 1.03em;
+  line-height: 1.74;
+}
+
+#accar-adoracion-root .accar-stanza-cell.col-lat {
+  padding-right: 22px;
+  border-right: 1px solid rgba(212, 175, 55, 0.22);
+  font-style: italic;
+  color: #e8dcc2;
+}
+
+#accar-adoracion-root .accar-misal-container.theme-light .accar-stanza-cell.col-lat {
+  border-right-color: rgba(140, 104, 34, 0.22);
+  color: #3b2f1e;
+}
+
+#accar-adoracion-root .accar-stanza-cell.col-esp {
+  color: #fff9ec;
+}
+
+#accar-adoracion-root .accar-misal-container.theme-light .accar-stanza-cell.col-esp {
+  color: #1b150e;
+}
+
+#accar-adoracion-root .accar-verse-num {
   display: inline-block;
+  min-width: 24px;
+  margin-right: 6px;
+  font-family: Georgia, serif;
+  font-style: normal;
+  font-size: 0.72em;
+  font-weight: 700;
+  color: #eed076;
+}
+
+#accar-adoracion-root .accar-misal-container.theme-light .accar-verse-num {
+  color: #8b1a1a;
+}
+
+#accar-adoracion-root .accar-rubrica {
+  font-style: normal;
+  font-weight: 700;
+  color: #f87171;
+}
+
+#accar-adoracion-root .accar-misal-container.theme-light .accar-rubrica {
+  color: #991b1b;
+}
+
+/* Modos Monolingües (Solo Español o Solo Latín) */
+#accar-adoracion-root .accar-misal-container[data-lang="esp"] .accar-stanza-head-row,
+#accar-adoracion-root .accar-misal-container[data-lang="lat"] .accar-stanza-head-row {
+  display: none;
+}
+
+#accar-adoracion-root .accar-misal-container[data-lang="esp"] .accar-stanza-row,
+#accar-adoracion-root .accar-misal-container[data-lang="lat"] .accar-stanza-row {
+  grid-template-columns: 1fr;
+  max-width: 720px;
+  margin: 0 auto;
   width: 100%;
 }
 
-/* GRUPO DE AUDIOS (Lado a lado) */
-.accar-audio-group {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 20px;
-  margin-bottom: 40px;
+#accar-adoracion-root .accar-misal-container[data-lang="esp"] .col-lat {
+  display: none;
 }
 
-.accar-audio-player {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 15px;
-  background: rgba(0,0,0,0.3);
-  padding: 15px;
-  border-radius: 50px;
-  border: 1px solid rgba(255,255,255,0.1);
-  flex: 1;
-  max-width: 450px;
-  min-width: 300px;
+#accar-adoracion-root .accar-misal-container[data-lang="lat"] .col-esp {
+  display: none;
 }
 
-.accar-audio-player span {
-  font-size: 14px;
-  color: #e6dfcc;
+#accar-adoracion-root .accar-misal-container[data-lang="lat"] .col-lat {
+  border-right: none;
+  padding-right: 0;
+  font-style: normal;
+}
+
+/* Tarjetas de la Guía de Hora Santa */
+#accar-adoracion-root .accar-guia-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+#accar-adoracion-root .accar-guia-card {
+  padding: 24px 26px;
+  border-radius: 18px;
+  border: 1px solid rgba(212, 175, 55, 0.34);
+  border-top: 3px solid #d4af37;
+  background: rgba(6, 16, 38, 0.65);
+  transition: transform 0.28s ease, border-color 0.28s ease;
+}
+
+#accar-adoracion-root .accar-misal-container.theme-light .accar-guia-card {
+  background: rgba(255, 252, 245, 0.94);
+  border-color: rgba(160, 122, 42, 0.30);
+  border-top: 3px solid #8b1a1a;
+}
+
+#accar-adoracion-root .accar-guia-card:hover {
+  transform: translateY(-4px);
+  border-color: #eed076;
+}
+
+#accar-adoracion-root .accar-guia-step {
+  display: inline-block;
+  margin-bottom: 6px;
+  font-family: Georgia, serif;
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: #eed076;
+}
+
+#accar-adoracion-root .accar-misal-container.theme-light .accar-guia-step {
+  color: #8b1a1a;
+}
+
+#accar-adoracion-root .accar-guia-card h4 {
+  margin: 0 0 10px;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-size: 1.38rem;
+  font-weight: 700;
+  color: #fff9ec;
+}
+
+#accar-adoracion-root .accar-misal-container.theme-light .accar-guia-card h4 {
+  color: #0b1e3d;
+}
+
+#accar-adoracion-root .accar-guia-card p {
+  margin: 0 0 14px;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-size: 0.98em;
+  line-height: 1.66;
+}
+
+#accar-adoracion-root .accar-guia-cita {
+  display: block;
+  padding-top: 10px;
+  border-top: 1px solid rgba(212, 175, 55, 0.20);
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-size: 0.88em;
   font-style: italic;
+  font-weight: 600;
+  color: #eed076;
 }
 
-.accar-audio-player audio {
-  height: 35px;
-  border-radius: 20px;
-  outline: none;
+#accar-adoracion-root .accar-misal-container.theme-light .accar-guia-cita {
+  color: #7f1d1d;
+  border-top-color: rgba(140, 104, 34, 0.18);
 }
 
-.accar-oracion-columnas {
-  display: flex;
-  gap: 40px;
-}
-
-.accar-oracion-col {
-  flex: 1;
-  font-size: 17px;
-  line-height: 2;
-  color: #e6dfcc;
-}
-
-.accar-oracion-col.lat {
-  border-right: 1px solid rgba(212,175,55,0.3);
-  padding-right: 40px;
-}
-
-@media (max-width: 800px) {
-  .accar-oracion-columnas {
-    flex-direction: column;
-    gap: 20px;
+/* ===== RESPONSIVE ===== */
+@media (max-width: 980px) {
+  #accar-adoracion-root .accar-misal-tabs {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
-  .accar-oracion-col.lat {
+
+  #accar-adoracion-root .accar-guia-grid {
+    grid-template-columns: 1fr;
+  }
+
+  #accar-adoracion-root .accar-adoracion-video-container.is-floating {
+    width: 280px;
+    right: 12px;
+    bottom: 12px;
+  }
+}
+
+@media (max-width: 780px) {
+  #accar-adoracion-root {
+    padding: 52px 14px 104px;
+  }
+
+  #accar-adoracion-root .accar-adoracion-title {
+    font-size: 2.1rem;
+  }
+
+  #accar-adoracion-root .accar-adoracion-desc .accar-salto-editorial {
+    display: none;
+  }
+
+  #accar-adoracion-root .accar-live-status-container {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  #accar-adoracion-root .accar-live-right {
+    justify-content: center;
+  }
+
+  #accar-btn-pin-video {
+    display: none !important;
+  }
+
+  #accar-adoracion-root .accar-misal-container {
+    padding: 24px 18px 32px;
+  }
+
+  #accar-adoracion-root .accar-stanza-head-row {
+    display: none;
+  }
+
+  #accar-adoracion-root .accar-stanza-row {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  #accar-adoracion-root .accar-stanza-cell.col-lat {
     border-right: none;
-    border-bottom: 1px solid rgba(212,175,55,0.3);
     padding-right: 0;
-    padding-bottom: 20px;
-  }
-  .accar-live-status-container {
-    flex-direction: column;
-    gap: 10px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.20);
   }
 }
 </style>
 
 <script>
-window.abrirOracion = function(evento, idOracion) {
-  var contenidos = document.getElementsByClassName("accar-oracion-tab");
-  for (var i = 0; i < contenidos.length; i++) {
-    contenidos[i].style.display = "none";
-  }
+(function() {
+  const root = document.getElementById('accar-adoracion-root');
+  if (!root) return;
 
-  var botones = document.getElementsByClassName("accar-tab-btn");
-  for (var i = 0; i < botones.length; i++) {
-    botones[i].className = botones[i].className.replace(" active", "");
-  }
+  const codex = document.getElementById('accar-eucologio-codex');
+  const tagEl = document.getElementById('accar-eucologio-tag');
+  const videoSlot = document.getElementById('accar-video-slot');
+  const videoRelicario = document.getElementById('accar-video-relicario');
+  const btnRecogimiento = document.getElementById('accar-btn-recogimiento');
+  const btnPinVideo = document.getElementById('accar-btn-pin-video');
+  const btnFloatTop = document.getElementById('accar-floating-top');
+  const btnFloatClose = document.getElementById('accar-floating-close');
 
-  document.getElementById(idOracion).style.display = "block";
-  evento.currentTarget.className += " active";
-  
-  var audios = document.getElementsByTagName("audio");
-  for(var i = 0; i < audios.length; i++) {
-    audios[i].pause();
-  }
-};
-
-// Reloj en tiempo real para Polonia (Santuario de Niepokalanów)
-function actualizarHoraPolonia() {
-  const elementoReloj = document.getElementById('accar-polonia-time');
-  if (!elementoReloj) return;
-
-  const opcionesHora = { 
-    timeZone: 'Europe/Warsaw', 
-    hour: '2-digit', 
-    minute: '2-digit', 
-    second: '2-digit',
-    hour12: true 
+  // Metadatos históricos y litúrgicos de cada oración/himno
+  const META_ORACIONES = {
+    visita:     { tag: 'Visita al Santísimo',     sub: 'Piedad Eucarística Tradicional · Estación Mayor y Comunión Espiritual de San Alfonso M.ª de Ligorio' },
+    horasanta:  { tag: 'Guía de Hora Santa',      sub: 'Método Eucarístico de los Cuatro Fines · Inspirado en San Pedro Julián Eymard' },
+    desagravio: { tag: 'Actos de Desagravio',     sub: 'Reparación al Corazón Eucarístico de Jesús e invocación medieval Ánima Christi (s. XIV)' },
+    adoro:      { tag: 'Adoro te devote',         sub: 'Santo Tomás de Aquino (~1264) · Himno de contemplación ante la Presencia Real' },
+    pange:      { tag: 'Pange lingua',            sub: 'Santo Tomás de Aquino (1264) · Himno procesional solemne del Corpus Christi' },
+    tantum:     { tag: 'Tantum ergo',             sub: 'Santo Tomás de Aquino · Himno y Oración Colecta para la Bendición con el Santísimo Sacramento' },
+    lauda:      { tag: 'Lauda Sion',              sub: 'Santo Tomás de Aquino (1264) · Secuencia dogmática de la Solemnidad del Cuerpo y la Sangre de Cristo' },
+    sacris:     { tag: 'Sacris solemniis',        sub: 'Santo Tomás de Aquino (1264) · Himno del Oficio de Lectura del Corpus Christi (incluye Panis Angelicus)' },
+    jesu:       { tag: 'Iesu dulcis memoria',     sub: 'Tradición Monástica Cisterciense (s. XII) · Himno místico sobre la dulzura del Nombre de Jesús' },
+    verbum:     { tag: 'Verbum supernum',         sub: 'Santo Tomás de Aquino (1264) · Himno de Laudes del Corpus Christi (incluye O Salutaris Hostia)' }
   };
-  
-  const horaPolonia = new Intl.DateTimeFormat('es-ES', opcionesHora).format(new Date());
-  elementoReloj.textContent = horaPolonia;
-}
 
-// Iniciar el reloj inmediatamente y actualizar cada segundo
-actualizarHoraPolonia();
-setInterval(actualizarHoraPolonia, 1000);
+  // 1. Formatear estrofas en paralelo, corregir errata latina e inyectar subtítulos históricos
+  function formatearCeldaLiturgica(rawHtml) {
+    let s = String(rawHtml || '').trim();
+    s = s.replace(/nunc\s+áspice/gi, 'nunc aspício');
+
+    const mNum = s.match(/^(\d+)\.\s*/);
+    let badgeNum = '';
+    if (mNum) {
+      badgeNum = `<span class="accar-verse-num">${mNum[1]}.</span>`;
+      s = s.slice(mNum[0].length);
+    }
+
+    s = s
+      .replace(/(^|<br\s*\/?>)\s*(V\.|V\/\.|R\.|R\/\.)/g, '$1<span class="accar-rubrica">$2</span>')
+      .replace(/\b(Orémus:|Oremos:|Amen\.|Amén\.)/g, '<span class="accar-rubrica">$1</span>');
+
+    return badgeNum + s;
+  }
+
+  root.querySelectorAll('.accar-oracion-tab').forEach((tab) => {
+    const id = tab.id;
+    const tituloEl = tab.querySelector('.accar-oracion-titulo');
+    if (tituloEl && META_ORACIONES[id] && !tab.querySelector('.accar-hymn-sub')) {
+      const sub = document.createElement('span');
+      sub.className = 'accar-hymn-sub';
+      sub.textContent = META_ORACIONES[id].sub;
+      tituloEl.insertAdjacentElement('afterend', sub);
+    }
+
+    const colsWrap = tab.querySelector('.accar-oracion-columnas');
+    if (!colsWrap || colsWrap.dataset.formatted === '1') return;
+
+    const latEl = colsWrap.querySelector('.lat');
+    const espEl = colsWrap.querySelector('.esp');
+    if (!latEl || !espEl) return;
+
+    const latBloques = latEl.innerHTML.split(/(?:<br\s*\/?>\s*){2,}/i).map(b => b.trim()).filter(Boolean);
+    const espBloques = espEl.innerHTML.split(/(?:<br\s*\/?>\s*){2,}/i).map(b => b.trim()).filter(Boolean);
+    const total = Math.max(latBloques.length, espBloques.length);
+
+    const sheet = document.createElement('div');
+    sheet.className = 'accar-stanza-sheet';
+    sheet.innerHTML = `
+      <div class="accar-stanza-head-row" aria-hidden="true">
+        <span>Texto Latino Tradicional</span>
+        <span>Traducción Castellana</span>
+      </div>
+    `;
+
+    for (let i = 0; i < total; i++) {
+      const row = document.createElement('div');
+      row.className = 'accar-stanza-row';
+      row.innerHTML = `
+        <div class="accar-stanza-cell col-lat">${formatearCeldaLiturgica(latBloques[i] || '')}</div>
+        <div class="accar-stanza-cell col-esp">${formatearCeldaLiturgica(espBloques[i] || '')}</div>
+      `;
+      sheet.appendChild(row);
+    }
+
+    colsWrap.replaceWith(sheet);
+  });
+
+  // 2. Transformar barras blancas <audio> en reproductores litúrgicos dorados
+  const SVG_PLAY = '<svg viewBox="0 0 24 24" fill="currentColor"><polygon points="6 4 20 12 6 20 6 4"></polygon></svg>';
+  const SVG_PAUSE = '<svg viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>';
+
+  function fmtSegundos(seg) {
+    if (!isFinite(seg) || seg < 0) return '00:00';
+    const h = Math.floor(seg / 3600);
+    const m = Math.floor((seg % 3600) / 60);
+    const s = Math.floor(seg % 60);
+    if (h > 0) return `${h}:${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+    return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+  }
+
+  function pausarTodosLosAudios(exceptoAudio) {
+    root.querySelectorAll('audio').forEach((a) => {
+      if (a !== exceptoAudio && !a.paused) a.pause();
+    });
+  }
+
+  root.querySelectorAll('.accar-audio-player').forEach((wrap) => {
+    const audio = wrap.querySelector('audio');
+    const spanLbl = wrap.querySelector('span');
+    if (!audio || wrap.dataset.upgraded === '1') return;
+    wrap.dataset.upgraded = '1';
+
+    // Normalizar ruta ../media/... a /media/... para SPA
+    const srcEl = audio.querySelector('source');
+    if (srcEl) {
+      const rawSrc = srcEl.getAttribute('src') || '';
+      if (rawSrc.startsWith('../media/')) {
+        srcEl.setAttribute('src', rawSrc.replace(/^\.\.\/media\//, '/media/'));
+        audio.load();
+      }
+    }
+
+    const tituloLimpio = (spanLbl ? spanLbl.textContent : 'Canto Sagrado')
+      .replace(/🎧/g, '')
+      .replace(/:\s*$/, '')
+      .trim();
+
+    audio.removeAttribute('controls');
+    audio.style.display = 'none';
+    if (spanLbl) spanLbl.remove();
+
+    const playBtn = document.createElement('button');
+    playBtn.type = 'button';
+    playBtn.className = 'accar-chant-play';
+    playBtn.setAttribute('aria-label', 'Reproducir o pausar ' + tituloLimpio);
+    playBtn.innerHTML = SVG_PLAY;
+
+    const body = document.createElement('div');
+    body.className = 'accar-chant-body';
+    body.innerHTML = `
+      <div class="accar-chant-top">
+        <span class="accar-chant-title">✠ ${tituloLimpio}</span>
+        <span class="accar-chant-time">00:00 / --:--</span>
+      </div>
+      <input type="range" class="accar-chant-range" min="0" max="1000" value="0" aria-label="Progreso del audio">
+    `;
+
+    wrap.insertBefore(body, audio);
+    wrap.insertBefore(playBtn, body);
+
+    const timeEl = body.querySelector('.accar-chant-time');
+    const rangeEl = body.querySelector('.accar-chant-range');
+
+    playBtn.addEventListener('click', () => {
+      if (audio.paused) {
+        pausarTodosLosAudios(audio);
+        audio.play().catch(() => {});
+      } else {
+        audio.pause();
+      }
+    });
+
+    audio.addEventListener('play', () => { playBtn.innerHTML = SVG_PAUSE; });
+    audio.addEventListener('pause', () => { playBtn.innerHTML = SVG_PLAY; });
+    audio.addEventListener('ended', () => {
+      playBtn.innerHTML = SVG_PLAY;
+      rangeEl.value = 0;
+    });
+
+    audio.addEventListener('loadedmetadata', () => {
+      timeEl.textContent = `00:00 / ${fmtSegundos(audio.duration)}`;
+    });
+
+    audio.addEventListener('timeupdate', () => {
+      const dur = audio.duration || 0;
+      timeEl.textContent = `${fmtSegundos(audio.currentTime)} / ${dur ? fmtSegundos(dur) : '--:--'}`;
+      if (dur > 0) {
+        rangeEl.value = Math.round((audio.currentTime / dur) * 1000);
+      }
+    });
+
+    rangeEl.addEventListener('input', () => {
+      if (audio.duration) {
+        audio.currentTime = (Number(rangeEl.value) / 1000) * audio.duration;
+      }
+    });
+  });
+
+  // 3. Navegación entre pestañas de oración
+  window.abrirOracion = function(evento, idOracion) {
+    if (evento) evento.preventDefault();
+    pausarTodosLosAudios(null);
+
+    root.querySelectorAll('.accar-oracion-tab').forEach((panel) => {
+      const activo = panel.id === idOracion;
+      panel.style.display = activo ? 'block' : 'none';
+      panel.classList.toggle('active', activo);
+    });
+
+    root.querySelectorAll('.accar-tab-btn').forEach((btn) => {
+      btn.classList.remove('active');
+    });
+
+    if (evento && evento.currentTarget) {
+      evento.currentTarget.classList.add('active');
+    }
+
+    if (tagEl && META_ORACIONES[idOracion]) {
+      tagEl.textContent = '✠ Eucologio Eucarístico · ' + META_ORACIONES[idOracion].tag;
+    }
+  };
+
+  // 4. Controles del Eucologio (Idioma, Tema Velación/Pergamino y Tamaño de Letra)
+  const langBtns = Array.from(root.querySelectorAll('.accar-lang-btn'));
+  const sizeBtns = Array.from(root.querySelectorAll('.btn-adoracion-size'));
+  const themeBtn = document.getElementById('accar-adoracion-theme-btn');
+  const themeLbl = document.getElementById('accar-adoracion-theme-lbl');
+
+  langBtns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const lang = btn.dataset.lang || 'dual';
+      codex.setAttribute('data-lang', lang);
+      langBtns.forEach(b => b.classList.toggle('active', b === btn));
+    });
+  });
+
+  if (themeBtn) {
+    themeBtn.addEventListener('click', () => {
+      const esClaro = codex.classList.toggle('theme-light');
+      if (themeLbl) themeLbl.textContent = esClaro ? 'Modo Velación' : 'Modo Pergamino';
+    });
+  }
+
+  sizeBtns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const sc = btn.dataset.size || '1';
+      root.style.setProperty('--ador-scale', sc);
+      sizeBtns.forEach(b => b.classList.toggle('active', b === btn));
+    });
+  });
+
+  // 5. Modo Recogimiento y Custodia Flotante sin recargar el directo
+  let pinHabilitado = window.innerWidth > 780;
+
+  if (btnRecogimiento) {
+    btnRecogimiento.addEventListener('click', () => {
+      const activo = root.classList.toggle('modo-recogimiento');
+      btnRecogimiento.classList.toggle('active', activo);
+    });
+  }
+
+  function evaluarCustodiaFlotante() {
+    if (!document.body.contains(root)) {
+      window.removeEventListener('scroll', evaluarCustodiaFlotante);
+      return;
+    }
+    if (!videoSlot || !videoRelicario) return;
+
+    if (!pinHabilitado || window.innerWidth <= 780) {
+      videoRelicario.classList.remove('is-floating');
+      return;
+    }
+
+    const rect = videoSlot.getBoundingClientRect();
+    if (rect.bottom < 90) {
+      videoRelicario.classList.add('is-floating');
+    } else {
+      videoRelicario.classList.remove('is-floating');
+    }
+  }
+
+  if (window.__accarAdoracionScrollFn) {
+    window.removeEventListener('scroll', window.__accarAdoracionScrollFn);
+  }
+  window.__accarAdoracionScrollFn = evaluarCustodiaFlotante;
+  window.addEventListener('scroll', evaluarCustodiaFlotante, { passive: true });
+
+  if (btnPinVideo) {
+    btnPinVideo.classList.toggle('active', pinHabilitado);
+    btnPinVideo.addEventListener('click', () => {
+      pinHabilitado = !pinHabilitado;
+      btnPinVideo.classList.toggle('active', pinHabilitado);
+      evaluarCustodiaFlotante();
+    });
+  }
+
+  if (btnFloatTop) {
+    btnFloatTop.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+
+  if (btnFloatClose) {
+    btnFloatClose.addEventListener('click', () => {
+      pinHabilitado = false;
+      if (btnPinVideo) btnPinVideo.classList.remove('active');
+      evaluarCustodiaFlotante();
+    });
+  }
+
+  // 6. Reloj en vivo de Niepokalanów (Europe/Warsaw) protegido contra fugas SPA
+  function actualizarHoraPolonia() {
+    const el = document.getElementById('accar-polonia-time');
+    if (!el || !document.body.contains(root)) {
+      if (window.__accarPoloniaTimer) clearInterval(window.__accarPoloniaTimer);
+      return;
+    }
+    const fmt = new Intl.DateTimeFormat('es-ES', {
+      timeZone: 'Europe/Warsaw',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      hour12: true
+    });
+    el.textContent = fmt.format(new Date());
+  }
+
+  if (window.__accarPoloniaTimer) clearInterval(window.__accarPoloniaTimer);
+  actualizarHoraPolonia();
+  window.__accarPoloniaTimer = setInterval(actualizarHoraPolonia, 1000);
+})();
 </script>
