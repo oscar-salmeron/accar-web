@@ -1,8 +1,111 @@
+import http from 'node:http';
+import https from 'node:https';
+import zlib from 'node:zlib';
 import * as cheerio from 'cheerio';
 
 const CACHE_ANTIFONAS = new Map();
 
-function extraerLineaRespuesta(htmlCrudo) {
+function descargarTextoRemoto(urlStr, timeoutMs = 4200, redirectCount = 0) {
+  return new Promise((resolve) => {
+    if (!urlStr || redirectCount > 3) return resolve('');
+    let settled = false;
+    const finalizar = (val) => {
+      if (!settled) {
+        settled = true;
+        resolve(val || '');
+      }
+    };
+
+    try {
+      const u = new URL(urlStr);
+      const mod = u.protocol === 'https:' ? https : http;
+      const req = mod.get(
+        urlStr,
+        {
+          rejectUnauthorized: false,
+          headers: {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
+            'Accept': 'text/html,application/xhtml+xml,application/json;q=0.9,*/*;q=0.8',
+            'Accept-Language': 'es-ES,es;q=0.9',
+            'Accept-Encoding': 'gzip, deflate'
+          }
+        },
+        (res) => {
+          const code = res.statusCode || 0;
+          if ([301, 302, 303, 307, 308].includes(code) && res.headers.location) {
+            res.resume();
+            const nextUrl = new URL(res.headers.location, urlStr).toString();
+            descargarTextoRemoto(nextUrl, timeoutMs, redirectCount + 1).then(finalizar);
+            return;
+          }
+          if (code < 200 || code >= 300) {
+            res.resume();
+            return finalizar('');
+          }
+
+          const encoding = String(res.headers['content-encoding'] || '').toLowerCase();
+          let stream = res;
+          if (encoding.includes('gzip')) {
+            stream = res.pipe(zlib.createGunzip());
+          } else if (encoding.includes('deflate')) {
+            stream = res.pipe(zlib.createInflate());
+          }
+
+          const chunks = [];
+          stream.on('data', (chunk) => chunks.push(chunk));
+          stream.on('end', () => {
+            try {
+              const buf = Buffer.concat(chunks);
+              const ctype = String(res.headers['content-type'] || '').toLowerCase();
+              let texto = ctype.includes('iso-8859-1') || ctype.includes('latin1')
+                ? buf.toString('latin1')
+                : buf.toString('utf8');
+              if (texto.includes('\uFFFD')) {
+                texto = buf.toString('latin1');
+              }
+              finalizar(texto);
+            } catch (_) {
+              finalizar('');
+            }
+          });
+          stream.on('error', () => finalizar(''));
+        }
+      );
+
+      req.setTimeout(timeoutMs, () => {
+        req.destroy();
+        finalizar('');
+      });
+      req.on('error', () => finalizar(''));
+    } catch (_) {
+      finalizar('');
+    }
+  });
+}
+
+function limpiarCandidatoAntifona(raw) {
+  if (!raw) return '';
+  let s = String(raw)
+    .replace(/\s+/g, ' ')
+    .replace(/^(?:R\s*\/\.?|R\.|R:|℟\.?|Respuesta:?)\s*/i, '')
+    .replace(/^\((?:cf\.?\s*)?[0-9A-Za-zÁÉÍÓÚÜÑáéíóúüñ.,:\-\s]{1,48}\)\s*/, '')
+    .replace(/\s*(?:R\s*\/\.?|R\.|℟\.?)\s*$/i, '')
+    .trim();
+
+  if (s.length < 5 || s.length > 210) return '';
+  if (/^(?:te alabamos|gloria a ti|demos gracias|alabanza a ti|palabra de|lectura de|salmo\s*\d|salmo\s+responsorial|sal\.?\s*\d|\d)/i.test(s)) {
+    return '';
+  }
+  if (/extra[íi]do de|copyright|derechos reservados|evangelizo|conferencia episcopal|libro del pueblo de dios/i.test(s)) {
+    return '';
+  }
+  if (!/[.!?»”]$/.test(s)) {
+    s += '.';
+  }
+  return s;
+}
+
+function extraerAntifonaDeSalmoPuro(htmlCrudo) {
   if (!htmlCrudo) return '';
   const normalizado = String(htmlCrudo)
     .replace(/<br\s*\/?>/gi, '\n')
@@ -12,42 +115,94 @@ function extraerLineaRespuesta(htmlCrudo) {
   const lineas = $.root().text()
     .split('\n')
     .map(l => l.replace(/\s+/g, ' ').trim())
+    .filter(l => l && !/extra[íi]do de|copyright|evangelizo|libro del pueblo de dios|todos los derechos/i.test(l));
+
+  // 1. Línea explícita iniciada con R. / R/. / ℟
+  for (const linea of lineas) {
+    const m = linea.match(/^(?:R\s*\/\.?|R\.|R:|℟\.?)\s*(.+)$/i);
+    if (m && m[1]) {
+      const cand = limpiarCandidatoAntifona(m[1]);
+      if (cand) return cand;
+    }
+  }
+
+  // 2. Estribillo repetido entre estrofas (formato de Evangelizo en español sin "R.")
+  const conteo = new Map();
+  const originalPorClave = new Map();
+  for (const linea of lineas) {
+    const clave = linea
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .toLowerCase()
+      .replace(/[^a-z0-9]/g, '');
+    if (clave.length < 6) continue;
+    conteo.set(clave, (conteo.get(clave) || 0) + 1);
+    if (!originalPorClave.has(clave)) originalPorClave.set(clave, linea);
+  }
+  for (const [clave, num] of conteo.entries()) {
+    if (num >= 2) {
+      const cand = limpiarCandidatoAntifona(originalPorClave.get(clave));
+      if (cand) return cand;
+    }
+  }
+
+  // 3. Primera línea destacada en negrita o cursiva al encabezar el Salmo
+  const $raw = cheerio.load(String(htmlCrudo));
+  const primerDestacado = $raw('b, strong, i, em').first().text().trim();
+  if (primerDestacado) {
+    const cand = limpiarCandidatoAntifona(primerDestacado);
+    if (cand) return cand;
+  }
+
+  return '';
+}
+
+function extraerAntifonaDePaginaCompleta(htmlPagina) {
+  if (!htmlPagina) return '';
+  const $limpio = cheerio.load(String(htmlPagina));
+  $limpio('script, style, noscript, nav, header, footer, aside').remove();
+
+  const htmlSinRuido = $limpio.html() || '';
+  const normalizado = htmlSinRuido
+    .replace(/<br\s*\/?>/gi, '\n')
+    .replace(/<\/(p|div|li|h\d|tr|blockquote|section|article)>/gi, '\n');
+
+  const $ = cheerio.load(normalizado);
+  const lineas = $.root().text()
+    .split('\n')
+    .map(l => l.replace(/\s+/g, ' ').trim())
     .filter(Boolean);
 
-  for (const linea of lineas) {
-    const m = linea.match(/^(?:R\/\.?|R\.|℟\.?)\s*(.+)$/i);
-    if (m && m[1]) {
-      const limpia = m[1]
-        .replace(/^\([^)]{1,45}\)\s*/, '')
-        .replace(/\s*(?:R\/\.?|R\.)$/, '')
-        .trim();
-      if (limpia.length > 4) return limpia;
+  for (let i = 0; i < lineas.length; i++) {
+    const lin = lineas[i];
+    if (lin.length < 95 && /^(?:salmo(?:\s+responsorial)?\b|sal\.?\s*\d+)/i.test(lin)) {
+      const bloqueSalmo = [];
+      for (let j = i; j < Math.min(lineas.length, i + 45); j++) {
+        if (j > i && /^(?:segunda\s+lectura|2[ªa]\s+lectura|evangelio\b|lectura\s+del\s+santo\s+evangelio|aclamaci[óo]n\s+antes)/i.test(lineas[j])) {
+          break;
+        }
+        bloqueSalmo.push(lineas[j]);
+      }
+
+      for (const bLin of bloqueSalmo) {
+        const m = bLin.match(/^(?:R\s*\/\.?|R\.|R:|℟\.?)\s*(.+)$/i) || bLin.match(/(?:^|\s)(?:R\s*\/\.?|℟\.?)\s*(.+)$/i);
+        if (m && m[1]) {
+          const cand = limpiarCandidatoAntifona(m[1]);
+          if (cand) return cand;
+        }
+      }
+
+      const candRep = extraerAntifonaDeSalmoPuro(bloqueSalmo.join('\n'));
+      if (candRep) return candRep;
     }
   }
   return '';
 }
 
-async function fetchConTimeout(url, ms = 2800) {
-  const ctrl = new AbortController();
-  const timer = setTimeout(() => ctrl.abort(), ms);
-  try {
-    const r = await fetch(url, {
-      signal: ctrl.signal,
-      headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)' }
-    });
-    if (!r.ok) return '';
-    return await r.text();
-  } catch (_) {
-    return '';
-  } finally {
-    clearTimeout(timer);
-  }
-}
-
 async function resolverAntifonaSalmo(dateParam, dataEWTN) {
   const salmoObj = dataEWTN?.lecturas?.salmo || {};
 
-  // 1. Revisar si el propio JSON ya incluye la antífona en algún campo
+  // 1. Revisar si el propio JSON ya incluye la antífona
   const directa = (
     salmoObj.antifona ||
     salmoObj.respuesta ||
@@ -60,42 +215,79 @@ async function resolverAntifonaSalmo(dateParam, dataEWTN) {
     ''
   ).toString().trim();
 
-  if (directa) {
-    return directa.replace(/^(?:R\/\.?|R\.|℟\.?)\s*/i, '').trim();
-  }
+  const directaLimpia = limpiarCandidatoAntifona(directa);
+  if (directaLimpia) return directaLimpia;
 
-  // 2. Revisar si viene incrustada en la primera línea del texto
+  // 2. Revisar si viene en la primera línea del texto del JSON
   const primerBloque = Array.isArray(salmoObj.texto) ? salmoObj.texto[0] : String(salmoObj.texto || '').split(/\n|<br/i)[0];
-  const mTexto = String(primerBloque || '').trim().match(/^(?:R\/\.?|R\.|℟\.?)\s*(.+)$/i);
-  if (mTexto && mTexto[1] && mTexto[1].trim().length > 4) {
-    return mTexto[1].trim();
+  const mTexto = String(primerBloque || '').trim().match(/^(?:R\s*\/\.?|R\.|℟\.?)\s*(.+)$/i);
+  if (mTexto && mTexto[1]) {
+    const candLocal = limpiarCandidatoAntifona(mTexto[1]);
+    if (candLocal) return candLocal;
   }
 
-  // 3. Consultar caché en memoria de la instancia
+  // 3. Consultar caché en memoria
   if (CACHE_ANTIFONAS.has(dateParam)) {
     return CACHE_ANTIFONAS.get(dateParam);
   }
 
-  // 4. Obtener antífona litúrgica oficial desde Evangelizo (con respaldo en USCCB Español)
-  const ymd = dateParam.replace(/-/g, '');
-  const htmlEv = await fetchConTimeout(`https://feed.evangelizo.org/v2/reader.php?date=${ymd}&type=reading&lang=SP&content=PS`);
-  let antifona = extraerLineaRespuesta(htmlEv);
+  const exigirNoVacio = async (fn) => {
+    const res = await fn();
+    if (res && res.trim()) return res.trim();
+    throw new Error('vacio');
+  };
 
-  if (!antifona) {
-    const [yyyy, mm, dd] = dateParam.split('-');
-    const htmlUsccb = await fetchConTimeout(`https://bible.usccb.org/es/bible/lecturas/${mm}${dd}${yyyy.slice(-2)}.cfm`);
-    if (htmlUsccb) {
-      const idxSalmo = htmlUsccb.search(/Salmo\s+Responsorial/i);
-      const recorte = idxSalmo >= 0 ? htmlUsccb.slice(idxSalmo, idxSalmo + 4500) : htmlUsccb;
-      antifona = extraerLineaRespuesta(recorte);
+  const [yyyy, mm, dd] = dateParam.split('-');
+  const ymd = `${yyyy}${mm}${dd}`;
+  const dNum = parseInt(dd, 10);
+  const mNum = parseInt(mm, 10);
+
+  // 4. Consulta paralela ultrarrápida a 5 fuentes litúrgicas oficiales
+  try {
+    const antifona = await Promise.any([
+      exigirNoVacio(async () => {
+        const html = await descargarTextoRemoto(`https://www.ciudadredonda.org/calendario-lecturas/evangelio-del-dia/?f=${dateParam}`);
+        return extraerAntifonaDePaginaCompleta(html);
+      }),
+      exigirNoVacio(async () => {
+        const rawJson = await descargarTextoRemoto(`https://publication.evangelizo.ws/SP/days/${dateParam}`);
+        if (!rawJson) return '';
+        const parsed = JSON.parse(rawJson);
+        const lecturas = parsed?.data?.readings || parsed?.readings || [];
+        const ps = lecturas.find(r =>
+          r?.type === 'psalm' ||
+          /salmo|c[áa]ntico/i.test(String(r?.title || r?.liturgic_title || ''))
+        );
+        if (!ps) return '';
+        return (
+          limpiarCandidatoAntifona(ps.chorus || ps.refrain || ps.antiphon || '') ||
+          (/^R\b/i.test(String(ps.liturgic_title || '').trim()) ? limpiarCandidatoAntifona(ps.liturgic_title) : '') ||
+          extraerAntifonaDeSalmoPuro(ps.text || '')
+        );
+      }),
+      exigirNoVacio(async () => {
+        const html = await descargarTextoRemoto(`http://feed.evangelizo.org/v2/reader.php?date=${ymd}&type=reading&lang=SP&content=PS`);
+        return extraerAntifonaDeSalmoPuro(html);
+      }),
+      exigirNoVacio(async () => {
+        const html = await descargarTextoRemoto(`https://www.dominicos.org/predicacion/evangelio-del-dia/${dNum}-${mNum}-${yyyy}/`);
+        return extraerAntifonaDePaginaCompleta(html);
+      }),
+      exigirNoVacio(async () => {
+        const html = await descargarTextoRemoto(`https://bible.usccb.org/es/bible/lecturas/${mm}${dd}${yyyy.slice(-2)}.cfm`);
+        return extraerAntifonaDePaginaCompleta(html);
+      })
+    ]);
+
+    if (antifona) {
+      CACHE_ANTIFONAS.set(dateParam, antifona);
+      return antifona;
     }
+  } catch (_) {
+    // Ninguna fuente externa devolvió resultado
   }
 
-  if (antifona) {
-    CACHE_ANTIFONAS.set(dateParam, antifona);
-  }
-
-  return antifona;
+  return '';
 }
 
 export default async function handler(req, res) {
@@ -168,7 +360,6 @@ export default async function handler(req, res) {
     return addDaysUTC(jan6, daysToSunday);
   };
 
-  // Motor matemático completo del Año Litúrgico Romano
   const calcularCalendarioLiturgico = (fechaISO) => {
     const [yStr, mStr, dStr] = fechaISO.split('-');
     const year = parseInt(yStr, 10);
@@ -190,7 +381,6 @@ export default async function handler(req, res) {
     const pentecost = addDaysUTC(easter, 49);
     const cristoRey = addDaysUTC(advent1, -7);
 
-    // Año litúrgico (cambia en el I Domingo de Adviento)
     const litYear = d >= advent1 ? year + 1 : year;
     const modCiclo = litYear % 3;
     const ciclo = modCiclo === 1 ? 'CICLO A' : (modCiclo === 2 ? 'CICLO B' : 'CICLO C');
@@ -203,7 +393,6 @@ export default async function handler(req, res) {
     let psalterWeek = 1;
     let esDiaSupremo = false;
 
-    // 1. ADVIENTO
     if (d >= advent1 && d < christmas) {
       tiempo = 'Adviento';
       const weekNum = Math.floor(diffDaysUTC(d, advent1) / 7) + 1;
@@ -212,9 +401,7 @@ export default async function handler(req, res) {
       psalterWeek = ((weekNum - 1) % 4) + 1;
       colorTiempo = (dow === 0 && weekNum === 3) ? 'ROSADO' : 'MORADO';
       if (dow === 0) esDiaSupremo = true;
-    }
-    // 2. NAVIDAD (25 dic – Bautismo del Señor)
-    else if (d >= christmas || d <= baptismSunday) {
+    } else if (d >= christmas || d <= baptismSunday) {
       tiempo = 'Navidad';
       colorTiempo = 'BLANCO';
       tomo = 'TOMO I';
@@ -232,18 +419,14 @@ export default async function handler(req, res) {
         psalterWeek = 1;
         if (diffDaysUTC(d, baptismSunday) === 0 || (month === 1 && day === 6)) esDiaSupremo = true;
       }
-    }
-    // 3. TIEMPO ORDINARIO (1ª PARTE: tras Bautismo hasta víspera de Ceniza)
-    else if (d > baptismSunday && d < ashWednesday) {
+    } else if (d > baptismSunday && d < ashWednesday) {
       tiempo = 'Tiempo Ordinario';
       const weekNum = Math.max(1, Math.round(diffDaysUTC(sundayOfWeek, baptismSunday) / 7) + 1);
       semana = `${toRoman(weekNum)} Semana del Tiempo Ordinario`;
       colorTiempo = 'VERDE';
       tomo = 'TOMO III';
       psalterWeek = ((weekNum - 1) % 4) + 1;
-    }
-    // 4. CUARESMA Y SEMANA SANTA
-    else if (d >= ashWednesday && d < easter) {
+    } else if (d >= ashWednesday && d < easter) {
       tomo = 'TOMO II';
       if (d < lent1) {
         tiempo = 'Cuaresma';
@@ -271,9 +454,7 @@ export default async function handler(req, res) {
           colorTiempo = 'MORADO';
         }
       }
-    }
-    // 5. TIEMPO PASCUAL (Domingo de Pascua – Pentecostés)
-    else if (d >= easter && d <= pentecost) {
+    } else if (d >= easter && d <= pentecost) {
       tiempo = 'Pascua';
       tomo = 'TOMO II';
       const weekNum = Math.floor(diffDaysUTC(d, easter) / 7) + 1;
@@ -293,9 +474,7 @@ export default async function handler(req, res) {
         psalterWeek = ((weekNum - 1) % 4) + 1;
         if (dow === 0) esDiaSupremo = true;
       }
-    }
-    // 6. TIEMPO ORDINARIO (2ª PARTE: tras Pentecostés hasta víspera de Adviento)
-    else {
+    } else {
       tiempo = 'Tiempo Ordinario';
       const diffWeeks = Math.round(diffDaysUTC(cristoRey, sundayOfWeek) / 7);
       let weekNum = 34 - diffWeeks;
