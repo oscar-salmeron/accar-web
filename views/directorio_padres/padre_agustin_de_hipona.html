@@ -1,1400 +1,2568 @@
-<!-- ===== INICIO SAN AGUSTÍN DE HIPONA ===== -->
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>San Agustín de Hipona | ACCAR</title>
-
-  <style>
-    :root{
-      --azul-oscuro:#0c1f3f;
-      --azul-medio:#123867;
-      --azul-claro:#1d4e89;
-      --dorado:#d4af37;
-      --dorado-2:#e4c76a;
-      --purpura-cardenal:#a31f34;
-      --texto:#1b1b1b;
-      --sombra:0 18px 38px rgba(0,0,0,.18);
-      --max:1240px;
-    }
-
-    .back-link {
-      display: inline-block;
-      margin-bottom: 20px;
-      color: var(--dorado);
-      font-weight: bold;
-      font-size: 1.05rem;
-      text-decoration: none;
-      transition: color 0.2s ease, transform 0.2s ease;
-    }
-    .back-link:hover {
-      color: #ffd971;
-      transform: translateX(-4px);
-    }
-
-    /* Borde Dorado para Obispo/Doctor */
-    .section-box, .highlight-card, .feature-card {
-      border-left: 5px solid var(--dorado) !important;
-    }
-
-    *{box-sizing:border-box}
-    html{scroll-behavior:smooth}
-    body{
-      margin:0;
-      color:var(--texto);
-      font-family:Georgia, "Times New Roman", serif;
-      background:
-        linear-gradient(rgba(8,18,35,.18), rgba(8,18,35,.18)),
-        url("../../assets/img/bg_padres_iglesia_acccar.png") center top / cover fixed no-repeat;
-    }
-
-    img{max-width:100%;display:block}
-    a{text-decoration:none;color:inherit}
-    button{font:inherit}
-    .wrap{
-      width:min(var(--max), calc(100% - 28px));
-      margin:0 auto;
-    }
-
-    .content-panel{display:none}
-    .content-panel.active{
-      display:block;
-      animation:fadeIn .28s ease;
-    }
-
-    @keyframes fadeIn{
-      from{opacity:0;transform:translateY(8px)}
-      to{opacity:1;transform:none}
-    }
-
-    /* ===== INICIO HERO ===== */
-    .hero{
-      position:relative;
-      overflow:hidden;
-      border-bottom:2px solid rgba(212,175,55,.55);
-      background:
-        linear-gradient(180deg, rgba(9,23,45,.08) 0%, rgba(9,23,45,.03) 24%, rgba(9,23,45,.28) 100%);
-    }
-
-    .hero::before{
-      content:"";
-      position:absolute;
-      inset:0;
-      background:
-        linear-gradient(90deg, rgba(7,17,34,.28) 0%, rgba(7,17,34,.08) 44%, rgba(7,17,34,.22) 100%);
-      pointer-events:none;
-    }
-
-    .hero-inner{
-      position:relative;
-      z-index:1;
-      min-height:760px;
-      padding:34px 0 38px;
-    }
-
-    /* ===== INICIO BANDA SUPERIOR ===== */
-    .top-brand{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:16px;
-      margin-bottom:20px;
-    }
-
-    .top-brand a{
-      display:flex;
-      align-items:center;
-      gap:16px;
-      min-width:0;
-    }
-
-    .top-brand img{
-      width:78px;
-      filter:drop-shadow(0 8px 16px rgba(0,0,0,.28));
-    }
-
-    .top-brand-text{
-      color:#f8f0d8;
-      line-height:1.1;
-      text-shadow:0 4px 16px rgba(0,0,0,.32);
-    }
-
-    .top-brand-text .line-1{
-      display:block;
-      font-size:1.95rem;
-      font-weight:bold;
-    }
-
-    .top-brand-text .line-2{
-      display:block;
-      font-size:1.45rem;
-      margin-top:2px;
-    }
-
-    .mobile-menu-toggle{
-      display:none;
-      align-items:center;
-      justify-content:center;
-      width:56px;
-      height:56px;
-      border-radius:16px;
-      border:1px solid rgba(212,175,55,.72);
-      background:linear-gradient(180deg, rgba(25,72,135,.92), rgba(16,51,95,.92));
-      box-shadow:0 10px 18px rgba(0,0,0,.18), inset 0 1px 0 rgba(255,255,255,.12);
-      cursor:pointer;
-      flex:0 0 auto;
-      padding:0;
-    }
-
-    .mobile-menu-toggle:hover{
-      transform:translateY(-1px);
-      background:linear-gradient(180deg, rgba(29,85,159,.96), rgba(18,56,103,.96));
-    }
-
-    .mobile-menu-toggle span{
-      display:block;
-      width:24px;
-      height:2.5px;
-      background:#fff4cf;
-      border-radius:999px;
-      margin:3px 0;
-      transition:.22s ease;
-    }
-
-    .mobile-menu-toggle.active span:nth-child(1){
-      transform:translateY(8px) rotate(45deg);
-    }
-
-    .mobile-menu-toggle.active span:nth-child(2){
-      opacity:0;
-    }
-
-    .mobile-menu-toggle.active span:nth-child(3){
-      transform:translateY(-8px) rotate(-45deg);
-    }
-
-    .mobile-nav-panel{
-      display:none;
-      margin-bottom:24px;
-    }
-
-    .mobile-nav-panel.active{
-      display:block;
-      animation:fadeIn .24s ease;
-    }
-
-    .mobile-nav-card{
-      border:1px solid rgba(212,175,55,.42);
-      border-radius:22px;
-      background:linear-gradient(180deg, rgba(11,31,63,.60), rgba(11,31,63,.84));
-      backdrop-filter:blur(6px);
-      box-shadow:var(--sombra);
-      padding:14px;
-    }
-
-    .mobile-nav-list{
-      display:grid;
-      gap:10px;
-    }
-
-    .mobile-nav-btn{
-      appearance:none;
-      width:100%;
-      border:1px solid rgba(212,175,55,.7);
-      background:linear-gradient(180deg, #194887 0%, #10335f 100%);
-      color:#fff4cf;
-      padding:15px 14px;
-      border-radius:16px;
-      cursor:pointer;
-      box-shadow:0 10px 18px rgba(0,0,0,.18), inset 0 1px 0 rgba(255,255,255,.12);
-      transition:.22s ease;
-      font-weight:bold;
-      font-size:1rem;
-      text-align:center;
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-    }
-
-    .mobile-nav-btn.active{
-      background:linear-gradient(180deg, #e1bd55 0%, #c69a25 100%);
-      color:#241c09;
-      box-shadow:0 12px 22px rgba(0,0,0,.2), inset 0 1px 0 rgba(255,255,255,.18);
-    }
-    /* ===== FINAL BANDA SUPERIOR ===== */
-
-    .hero-card{
-      width:100%;
-      display:grid;
-      grid-template-columns:minmax(250px, 330px) 1fr;
-      gap:34px;
-      align-items:center;
-      padding:30px;
-      border:1px solid rgba(212,175,55,.42);
-      border-radius:30px;
-      background:
-        linear-gradient(180deg, rgba(11,31,63,.20), rgba(11,31,63,.55)),
-        url("../../assets/img/bg_padres_iglesia_acccar.png") center center / cover no-repeat;
-      box-shadow:var(--sombra);
-      overflow:hidden;
-    }
-
-    .hero-photo-wrap{
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      justify-content:center;
-    }
-
-    .hero-photo{
-      display:flex;
-      align-items:center;
-      justify-content:center;
-    }
-
-    .hero-photo img{
-      width:100%;
-      max-width:290px;
-      border-radius:28px;
-      border:3px solid rgba(212,175,55,.82);
-      background:linear-gradient(180deg, #f7f0dc, #d9c79f);
-      box-shadow:0 14px 26px rgba(0,0,0,.28);
-    }
-
-    /* ===== BADGE PADRE ===== */
-    .badge-padre{
-      margin-top:16px;
-      display:inline-block;
-      padding:10px 22px;
-      border-radius:999px;
-      background:linear-gradient(180deg, #e1bd55, #c69a25);
-      color:#241c09;
-      font-weight:bold;
-      font-size:.95rem;
-      line-height:1.1;
-      text-align:center;
-      box-shadow:0 8px 16px rgba(0,0,0,.18);
-    }
-
-    .hero-copy{
-      color:#fff8e8;
-      min-width:0;
-    }
-
-    .hero-kicker{
-      display:inline-block;
-      margin:0 0 10px;
-      padding:8px 14px;
-      border-radius:999px;
-      border:1px solid rgba(212,175,55,.45);
-      background:rgba(255,255,255,.08);
-      font-size:.95rem;
-      letter-spacing:.02em;
-    }
-
-    .hero-copy h1{
-      margin:0 0 14px;
-      font-size:clamp(2.15rem, 4.2vw, 3.95rem);
-      line-height:1.02;
-      color:#fff4d0;
-      text-shadow:0 5px 18px rgba(0,0,0,.26);
-      overflow-wrap:anywhere;
-    }
-
-    .hero-copy p{
-      margin:0;
-      max-width:820px;
-      font-size:1.08rem;
-      line-height:1.8;
-      color:#f7efd9;
-      overflow-wrap:anywhere;
-    }
-
-    .hero-meta{
-      display:grid;
-      grid-template-columns:repeat(4, 1fr);
-      gap:14px;
-      margin:24px 0 0;
-    }
-
-    .hero-meta .meta-item{
-      padding:16px 16px 18px;
-      border-radius:18px;
-      border:1px solid rgba(212,175,55,.34);
-      background:rgba(255,255,255,.07);
-      min-height:100%;
-      box-shadow:inset 0 1px 0 rgba(255,255,255,.05);
-      min-width:0;
-    }
-
-    .hero-meta .meta-label{
-      display:block;
-      margin-bottom:8px;
-      font-size:.82rem;
-      color:#e7d8a6;
-      text-transform:uppercase;
-      letter-spacing:.06em;
-    }
-
-    .hero-meta .meta-value{
-      font-size:.94rem;
-      line-height:1.55;
-      color:#fff9ec;
-      overflow-wrap:anywhere;
-    }
-
-    .hero-nav{
-      margin-top:24px;
-      display:flex;
-      flex-wrap:wrap;
-      gap:12px;
-      width:100%;
-      justify-content:space-between;
-      align-items:stretch;
-    }
-
-    .hero-nav button,
-    .hero-nav a{
-      appearance:none;
-      border:1px solid rgba(212,175,55,.7);
-      background:linear-gradient(180deg, #194887 0%, #10335f 100%);
-      color:#fff4cf;
-      padding:16px 14px;
-      border-radius:16px;
-      cursor:pointer;
-      box-shadow:0 10px 18px rgba(0,0,0,.18), inset 0 1px 0 rgba(255,255,255,.12);
-      transition:.22s ease;
-      font-weight:bold;
-      font-size:1rem;
-      text-align:center;
-      white-space:nowrap;
-      min-width:150px;
-      flex:1 1 150px;
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-    }
-
-    .hero-nav button:hover,
-    .hero-nav a:hover{
-      transform:translateY(-1px);
-      background:linear-gradient(180deg, #1d559f 0%, #123867 100%);
-    }
-
-    .hero-nav button.active{
-      background:linear-gradient(180deg, #e1bd55 0%, #c69a25 100%);
-      color:#241c09;
-      box-shadow:0 12px 22px rgba(0,0,0,.2), inset 0 1px 0 rgba(255,255,255,.18);
-    }
-
-    /* Tarjetas para la sección de citas */
-    .cita-card {
-      background:rgba(255,255,255,.85);
-      border:1px solid rgba(15,51,95,.14);
-      border-radius:18px;
-      box-shadow:0 10px 22px rgba(0,0,0,.08);
-      padding:22px;
-      min-width:0;
-      overflow-wrap:anywhere;
-      transition: transform 0.3s ease, box-shadow 0.3s ease !important;
-      position: relative;
-    }
-    
-    .cita-card::before {
-      content: '"';
-      position: absolute;
-      top: 5px;
-      left: 15px;
-      font-size: 4rem;
-      color: rgba(212,175,55,0.2);
-      font-family: Georgia, serif;
-      pointer-events: none;
-    }
-
-    .cita-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 15px 30px rgba(0,0,0,0.15) !important;
-    }
-
-    .cita-texto {
-      font-size: 1.15rem;
-      font-style: italic;
-      color: var(--azul-oscuro);
-      line-height: 1.6;
-      margin-bottom: 12px;
-      position: relative;
-      z-index: 1;
-    }
-
-    .cita-fuente {
-      font-size: 0.9rem;
-      color: #666;
-      text-align: right;
-      font-weight: bold;
-    }
-
-    /* ===== FINAL HERO ===== */
-
-    /* ===== INICIO MAIN ===== */
-    .main-shell{
-      background:
-        linear-gradient(rgba(245,239,225,.96), rgba(245,239,225,.97)),
-        url("../../assets/img/textura-footer-pergamino.png") center top / cover repeat;
-      padding:38px 0 52px;
-      overflow-x:hidden;
-    }
-
-    .section-box{
-      background:rgba(255,255,255,.74);
-      border:1px solid rgba(161,127,44,.22);
-      border-radius:24px;
-      box-shadow:var(--sombra);
-      padding:30px;
-      margin:0 0 24px;
-      overflow:hidden;
-    }
-
-    .section-title{
-      margin:0 0 18px;
-      font-size:clamp(2rem, 4vw, 3rem);
-      line-height:1.08;
-      color:var(--azul-oscuro);
-      overflow-wrap:anywhere;
-    }
-
-    .section-subtitle{
-      margin:0 0 16px;
-      font-size:1.6rem;
-      color:var(--azul-oscuro);
-      overflow-wrap:anywhere;
-    }
-
-    .section-box p{
-      margin:0 0 16px;
-      font-size:1.08rem;
-      line-height:1.9;
-      overflow-wrap:anywhere;
-    }
-
-    .inicio-grid{
-      display:grid;
-      grid-template-columns:repeat(2, minmax(0, 1fr));
-      gap:18px;
-      margin-top:8px;
-    }
-
-    .highlight-card{
-      background:rgba(255,255,255,.85);
-      border:1px solid rgba(15,51,95,.14);
-      border-radius:20px;
-      box-shadow:0 10px 22px rgba(0,0,0,.08);
-      padding:22px;
-      min-width:0;
-      overflow-wrap:anywhere;
-    }
-
-    .highlight-card.full-width{
-      grid-column:1 / -1;
-    }
-
-    .highlight-card h3,
-    .highlight-card h4{
-      margin:0 0 12px;
-      color:var(--azul-oscuro);
-      font-size:1.34rem;
-      overflow-wrap:anywhere;
-    }
-
-    .highlight-card p:last-child{margin-bottom:0}
-
-    .stat-grid{
-      display:grid;
-      grid-template-columns:repeat(4, minmax(0, 1fr));
-      gap:16px;
-      margin-top:18px;
-    }
-
-    .stat-card{
-      background:linear-gradient(180deg, rgba(17,52,99,.98), rgba(14,44,84,.98));
-      color:#fff7e8;
-      border:1px solid rgba(212,175,55,.45);
-      border-radius:20px;
-      padding:20px 16px;
-      text-align:center;
-      box-shadow:0 12px 22px rgba(0,0,0,.15);
-      min-width:0;
-    }
-
-    .stat-number{
-      display:block;
-      font-size:2.1rem;
-      line-height:1;
-      color:#ffd971;
-      margin-bottom:10px;
-      font-weight:bold;
-      overflow-wrap:anywhere;
-    }
-
-    .stat-label{
-      font-size:.96rem;
-      line-height:1.55;
-      color:#fff6dd;
-      overflow-wrap:anywhere;
-    }
-
-    .feature-grid{
-      display:grid;
-      grid-template-columns:repeat(2, minmax(0, 1fr));
-      gap:18px;
-    }
-
-    .feature-card{
-      background:rgba(255,255,255,.85);
-      border:1px solid rgba(15,51,95,.14);
-      border-radius:18px;
-      box-shadow:0 10px 22px rgba(0,0,0,.08);
-      padding:22px;
-      min-width:0;
-      overflow-wrap:anywhere;
-    }
-
-    .feature-card h3,
-    .feature-card h4{
-      margin:0 0 12px;
-      color:var(--azul-oscuro);
-      font-size:1.34rem;
-      overflow-wrap:anywhere;
-    }
-
-    .feature-card p:last-child{margin-bottom:0}
-
-    .timeline{
-      display:grid;
-      gap:16px;
-      margin-top:6px;
-    }
-
-    .timeline-item{
-      background:rgba(255,255,255,.84);
-      border:1px solid rgba(15,51,95,.12);
-      border-left:5px solid var(--dorado);
-      border-radius:18px;
-      padding:20px 20px 18px;
-      box-shadow:0 10px 22px rgba(0,0,0,.08);
-      min-width:0;
-      overflow-wrap:anywhere;
-    }
-
-    .timeline-item h4{
-      margin:0 0 10px;
-      font-size:1.24rem;
-      color:var(--azul-oscuro);
-      overflow-wrap:anywhere;
-    }
-
-    .timeline-item p:last-child{margin-bottom:0}
-
-    .cta-row{
-      display:flex;
-      flex-wrap:wrap;
-      gap:14px;
-      justify-content:center;
-      margin-top:18px;
-    }
-
-    .cta-btn,
-    .cta-link{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      min-width:260px;
-      max-width:100%;
-      padding:15px 22px;
-      border-radius:16px;
-      border:1px solid rgba(212,175,55,.7);
-      box-shadow:0 10px 18px rgba(0,0,0,.16);
-      font-size:1.06rem;
-      font-weight:bold;
-      cursor:pointer;
-      text-align:center;
-      overflow-wrap:anywhere;
-    }
-
-    .cta-btn.azul,
-    .cta-link.azul{
-      background:linear-gradient(180deg,#194887,#10335f);
-      color:#fff4cf;
-    }
-
-    .cta-btn.dorado,
-    .cta-link.dorado{
-      background:linear-gradient(180deg,#e1bd55,#c69a25);
-      color:#241c09;
-    }
-
-    .accordion{
-      display:grid;
-      gap:16px;
-      margin-top:8px;
-    }
-
-    .acc-item{
-      border:1px solid rgba(15,51,95,.12);
-      border-radius:18px;
-      overflow:hidden;
-      background:rgba(255,255,255,.84);
-      box-shadow:0 10px 22px rgba(0,0,0,.08);
-      min-width:0;
-    }
-
-    .acc-trigger{
-      width:100%;
-      border:none;
-      background:linear-gradient(180deg, rgba(17,52,99,.98), rgba(14,44,84,.98));
-      color:#fff4cf;
-      text-align:left;
-      padding:18px 20px;
-      cursor:pointer;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:14px;
-      font-size:1.1rem;
-      font-weight:bold;
-      min-width:0;
-      overflow-wrap:anywhere;
-    }
-
-    .acc-trigger span:first-child{
-      min-width:0;
-      overflow-wrap:anywhere;
-    }
-
-    .acc-trigger span:last-child{
-      min-width:28px;
-      text-align:center;
-      font-size:1.55rem;
-      line-height:1;
-      color:#e6ca7b;
-      flex-shrink:0;
-    }
-
-    .acc-content{
-      display:none;
-      padding:20px 20px 22px;
-      background:rgba(255,255,255,.92);
-      border-top:1px solid rgba(15,51,95,.12);
-      overflow-wrap:anywhere;
-    }
-
-    .acc-item.open .acc-content{display:block}
-    .acc-item.open .acc-trigger{
-      background:linear-gradient(180deg, #1b4d90, #123867);
-    }
-
-    .doc-tags{
-      display:flex;
-      flex-wrap:wrap;
-      gap:8px;
-      margin:10px 0 14px;
-    }
-
-    /* Efectos Hover Globales para Foto y Tarjetas */
-    .hero-photo img,
-    .section-box,
-    .highlight-card,
-    .stat-card,
-    .feature-card,
-    .timeline-item,
-    .acc-item {
-      transition: transform 0.3s ease, box-shadow 0.3s ease !important;
-    }
-
-    .hero-photo img:hover {
-      transform: translateY(-5px) scale(1.02);
-      box-shadow: 0 22px 34px rgba(0,0,0,.35) !important;
-    }
-
-    .section-box:hover,
-    .highlight-card:hover,
-    .stat-card:hover,
-    .feature-card:hover,
-    .timeline-item:hover,
-    .acc-item:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 16px 32px rgba(0,0,0,0.14) !important;
-    }
-
-    /* ===== FINAL MAIN ===== */
-  </style>
-</head>
-<body>
-
-  <!-- ===== INICIO HERO ===== -->
-  <section class="hero">
-    <div class="wrap hero-inner">
-
-      <a href="#" onclick="event.preventDefault(); loadView('views/historia-lista-de-padres.html');" class="back-link">← Volver al Directorio de los Padres de la Iglesia</a>
-
-      <div class="hero-card">
-        <div class="hero-photo-wrap">
-          <div class="hero-photo">
-            <img src="../../assets/img/padre_agustin_de_hipona.png" alt="San Agustín de Hipona">
+<!-- ===== ACCAR | CÓDICE PATRÍSTICO: SAN AGUSTÍN DE HIPONA ===== -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+
+<section id="accar-ficha-padre" class="accar-padre-page" data-rango="doctor">
+
+  <div class="accar-padre-inner">
+
+    <!-- BARRA SUPERIOR: MIGAS DE PAN Y PUENTE PATRÍSTICO -->
+    <div class="accar-padre-topbar">
+      <nav class="accar-padre-breadcrumb" aria-label="Ruta de navegación">
+        <a href="#" onclick="event.preventDefault(); loadView('views/inicio.html');">Inicio</a>
+        <span aria-hidden="true">›</span>
+        <a href="#" onclick="event.preventDefault(); loadView('views/historia.html');">Historia</a>
+        <span aria-hidden="true">›</span>
+        <a href="#" onclick="event.preventDefault(); loadView('views/historia-lista-de-padres.html');">Padres de la Iglesia</a>
+        <span aria-hidden="true">›</span>
+        <strong>San Agustín de Hipona</strong>
+      </nav>
+
+      <div class="accar-padre-peers">
+        <button type="button" class="accar-peer-btn" onclick="loadView('views/directorio_padres/padre_clemente_de_roma.html')">
+          ← San Clemente de Roma
+        </button>
+        <button type="button" class="accar-peer-btn" onclick="loadView('views/historia-lista-de-padres.html')">
+          Directorio Patrístico →
+        </button>
+      </div>
+    </div>
+
+    <!-- =========================================================
+         RELICARIO SUPERIOR PATRÍSTICO (HERO CARD)
+    ========================================================== -->
+    <header class="accar-padre-hero">
+
+      <div class="accar-padre-hero-grid">
+
+        <!-- Mosaico e Insignias del Santo Padre -->
+        <div class="accar-padre-portrait-col">
+          <div class="accar-padre-camafeo">
+            <img src="/assets/img/padre_agustin_de_hipona.png" alt="San Agustín de Hipona">
           </div>
-
-          <!-- ===== INICIO BADGE PADRE ===== -->
-          <div class="badge-padre" style="background: var(--dorado); color: var(--azul-oscuro);">
-            Padre Latino, Obispo y Doctor
+          <div class="accar-padre-seal">✠ Padre Latino · Obispo y Doctor ✠</div>
+          <div class="accar-padre-liturgia-badge">
+            <span class="accar-liturgia-label">Memoria Litúrgica</span>
+            <span class="accar-liturgia-date">28 de agosto</span>
           </div>
-          <!-- ===== FINAL BADGE PADRE ===== -->
+          <span class="accar-padre-latin-plate">Aurelius Augustinus · 354 – 430 d.C.</span>
         </div>
 
-        <div class="hero-copy">
-          <div class="hero-kicker">Sección Padres de la Iglesia · Siglos IV-V</div>
-          <h1>San Agustín de Hipona</h1>
-          <p>
-            El Genio de Occidente (354-430 d.C.). El teólogo más influyente de toda la historia cristiana después de San Pablo. Obispo de Hipona y azote de tres herejías monstruosas: el maniqueísmo, el donatismo y el pelagianismo. Su intelecto enciclopédico sentó las bases de la teología católica sobre la gracia, la predestinación, los sacramentos, la Santísima Trinidad y la Ciudad de Dios. Agustín es la prueba absoluta de que la fe católica no teme a la razón, sino que la eleva a su máxima perfección.
+        <!-- Síntesis Magisterial y Biográfica -->
+        <div class="accar-padre-copy-col">
+          <div class="accar-padre-kicker">✠ Doctor Gratiae · Siglos IV – V ✠</div>
+          <h1 class="accar-padre-name">San Agustín de Hipona</h1>
+          <p class="accar-padre-latin-sub">Episcopus Hipponensis · Pater Occidentis et Doctor Ecclesiae</p>
+
+          <p class="accar-padre-lead">
+            El mayor genio teológico y filosófico de la Cristiandad después de San Pablo (354–430 d.C.). Obispo de Hipona y martillo implacable de tres grandes herejías —el maniqueísmo, el donatismo y el pelagianismo—, su obra monumental cimienta la doctrina católica sobre la Santísima Trinidad, el pecado original y la gracia, la eficacia objetiva de los sacramentos, la autoridad de la Iglesia sobre el Canon bíblico y la teología cristiana de la historia.
           </p>
 
-          <div class="hero-meta">
-            <div class="meta-item">
-              <span class="meta-label">Ministerio</span>
-              <span class="meta-value">Obispo de Hipona (norte de África, actual Argelia).</span>
+          <div class="accar-padre-meta-grid">
+            <div class="accar-padre-meta-card">
+              <span class="accar-meta-label">Ministerio Episcopal</span>
+              <span class="accar-meta-val">Obispo de Hipona Regia (África Proconsular, actual Argelia) entre 395 y 430 d.C.</span>
             </div>
-            <div class="meta-item">
-              <span class="meta-label">Época</span>
-              <span class="meta-value">354 - 430 d.C. Era de la caída del Imperio Romano de Occidente.</span>
+
+            <div class="accar-padre-meta-card">
+              <span class="accar-meta-label">Época Histórica</span>
+              <span class="accar-meta-val">13 nov. 354 – 28 ago. 430 d.C. · Ocaso del Imperio Romano de Occidente y concilios africanos.</span>
             </div>
-            <div class="meta-item">
-              <span class="meta-label">Obra principal</span>
-              <span class="meta-value">"Confesiones", "La Ciudad de Dios" y "De Trinitate" (Sobre la Trinidad).</span>
+
+            <div class="accar-padre-meta-card">
+              <span class="accar-meta-label">Trilogía Cumbre</span>
+              <span class="accar-meta-val"><em>Las Confesiones</em>, <em>La Ciudad de Dios</em> (<em>De Civitate Dei</em>) y <em>De Trinitate</em>.</span>
             </div>
-            <div class="meta-item">
-              <span class="meta-label">Importancia</span>
-              <span class="meta-value">El Doctor de la Gracia. Sintetizó toda la teología de la Iglesia antigua.</span>
+
+            <div class="accar-padre-meta-card">
+              <span class="accar-meta-label">Importancia Apologética</span>
+              <span class="accar-meta-val"><em>Doctor de la Gracia</em> · Defensor supremo de la Cátedra de Pedro, la Eucaristía y la Tradición.</span>
             </div>
           </div>
+        </div>
 
-          <!-- SECCIÓN AÑADIDA: Pestaña de Citas y Aforismos -->
-          <div class="hero-nav">
-            <!-- PRIMERA FILA (4 botones) -->
-            <button class="nav-btn active" data-target="inicio" style="flex: 1 1 21%;">Inicio</button>
-            <button class="nav-btn" data-target="vida" style="flex: 1 1 21%;">Vida</button>
-            <button class="nav-btn" data-target="contexto" style="flex: 1 1 21%;">Contexto</button>
-            <button class="nav-btn" data-target="legado" style="flex: 1 1 21%;">Legado</button>
-            
-            <!-- SEGUNDA FILA (3 botones largos) -->
-            <button class="nav-btn" data-target="ensenanza" style="flex: 1 1 31%;">Arsenal Apologético</button>
-            <button class="nav-btn" data-target="escritos" style="flex: 1 1 31%;">Escritos Inmortales</button>
-            <button class="nav-btn" data-target="citas" style="flex: 1 1 31%;">Citas y Aforismos</button>
+      </div>
+
+      <!-- Navegación Patrística de 7 Capítulos (4 + 3 en Escritorio) -->
+      <nav class="accar-padre-tabs" id="accar-padre-tabs-bar" aria-label="Capítulos del Códice Patrístico">
+        <div class="accar-padre-tabs-row4">
+          <button type="button" class="accar-padre-tab active" data-target="inicio" data-label="I. Panorama Apologético">
+            <span>I. Panorama</span>
+          </button>
+          <button type="button" class="accar-padre-tab" data-target="vida" data-label="II. Vida y Conversión">
+            <span>II. Vida</span>
+          </button>
+          <button type="button" class="accar-padre-tab" data-target="contexto" data-label="III. Las Tres Controversias">
+            <span>III. Contexto</span>
+          </button>
+          <button type="button" class="accar-padre-tab" data-target="legado" data-label="IV. Legado Universal">
+            <span>IV. Legado</span>
+          </button>
+        </div>
+
+        <div class="accar-padre-tabs-row3">
+          <button type="button" class="accar-padre-tab" data-target="ensenanza" data-label="V. Arsenal Apologético">
+            <span>V. Arsenal Apologético</span>
+          </button>
+          <button type="button" class="accar-padre-tab" data-target="escritos" data-label="VI. Escritos Inmortales">
+            <span>VI. Escritos Inmortales</span>
+          </button>
+          <button type="button" class="accar-padre-tab accar-tab-citas" data-target="citas" data-label="VII. Gran Biblioteca de Citas (60)">
+            <span>VII. Citas y Aforismos (60)</span>
+          </button>
+        </div>
+      </nav>
+
+    </header>
+
+    <!-- =========================================================
+         PLIEGO EDITORIAL DEL CÓDICE PATRÍSTICO
+    ========================================================== -->
+    <main class="accar-padre-codex theme-light" id="accar-padre-codex">
+
+      <!-- Barra de Herramientas del Códice -->
+      <div class="accar-codex-toolbar">
+        <span class="accar-codex-section-tag" id="accar-codex-section-tag">✠ Códice Patrístico · I. Panorama Apologético</span>
+
+        <div class="accar-codex-controls">
+          <button type="button" class="accar-codex-tool-btn" id="accar-padre-theme-btn" title="Alternar entre modo pergamino y modo noche">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+            <span id="accar-padre-theme-label">Modo Oscuro</span>
+          </button>
+
+          <div class="accar-codex-sizes" role="group" aria-label="Tamaño de lectura">
+            <span class="accar-codex-size-lbl">Letra</span>
+            <button type="button" class="accar-codex-tool-btn btn-padre-size" data-size="0.94">A-</button>
+            <button type="button" class="accar-codex-tool-btn btn-padre-size active" data-size="1">A</button>
+            <button type="button" class="accar-codex-tool-btn btn-padre-size" data-size="1.12">A+</button>
           </div>
         </div>
       </div>
 
-    </div>
-  </section>
-  <!-- ===== FINAL HERO ===== -->
+      <div class="accar-codex-body">
 
-  <!-- ===== INICIO MAIN ===== -->
-  <main class="main-shell">
-    <div class="wrap">
+        <!-- ==================== CAPÍTULO I: PANORAMA ==================== -->
+        <section id="panel-inicio" class="accar-padre-panel active" data-tono="oro">
 
-      <!-- ===== INICIO PANEL INICIO ===== -->
-      <section id="panel-inicio" class="content-panel active">
+          <div class="accar-codex-intro">
+            <span class="accar-codex-kicker">Síntesis Magisterial</span>
+            <h2 class="accar-codex-h2">Panorama Apologético</h2>
+            <p class="accar-dropcap-p">
+              <span class="accar-capitular">S</span>an Agustín es el arquitecto supremo de la teología occidental y el padre de la apologética filosófica cristiana. Contra el dualismo maniqueo —que imaginaba un dios del mal coeterno con el Dios bueno—, demostró metafísicamente que toda sustancia creada por Dios es buena y que el mal no es un ser positivo, sino la **privación de un bien debido** (<em>privatio boni</em>) nacida del mal uso de la libertad creada.
+            </p>
+            <p>
+              En eclesiología y teología sacramental, pulverizó el puritanismo cismático de los donatistas fijando para siempre la doctrina católica de la eficacia objetiva de los sacramentos: el ministro humano no es dueño sino instrumento; cuando un sacerdote bautiza o consagra, **es Jesucristo mismo quien obra la gracia**, sin que la indignidad moral del ministro pueda anular la fidelidad de Dios.
+            </p>
+          </div>
 
-        <div class="section-box">
-          <h2 class="section-title">Panorama Apologético</h2>
-          <p>
-            Agustín es el padre de la apologética filosófica cristiana. Destruyó el Maniqueísmo (que afirmaba que el universo es una guerra entre un Dios bueno y un Dios malo) formulando la doctrina clásica sobre el mal: el mal no es una "sustancia" ni un ente creado, sino la "privación del bien", una corrupción provocada por el libre albedrío de las criaturas.
-          </p>
-          <p>
-            En la eclesiología, Agustín fulminó a los Donatistas (una secta que afirmaba que los sacramentos dados por sacerdotes pecadores no eran válidos). Agustín estableció el dogma sacramental católico: el ministro (el sacerdote) es solo un instrumento. Cuando un sacerdote católico bautiza o consagra, es Cristo mismo quien actúa y garantiza la gracia, independientemente de la miseria moral del sacerdote.
-          </p>
-
-          <div class="stat-grid">
-            <article class="stat-card">
-              <span class="stat-number">100+</span>
-              <span class="stat-label">Libros teológicos y filosóficos escritos durante su vida</span>
+          <div class="accar-stat-grid">
+            <article class="accar-stat-plaque">
+              <span class="accar-stat-cross" aria-hidden="true">✠</span>
+              <span class="accar-stat-num">113+</span>
+              <span class="accar-stat-lbl">Tratados y libros (más ~250 cartas y ~500 sermones)</span>
             </article>
 
-            <article class="stat-card">
-              <span class="stat-number">Hipona</span>
-              <span class="stat-label">La ciudad portuaria que defendió hasta su último aliento</span>
+            <article class="accar-stat-plaque">
+              <span class="accar-stat-cross" aria-hidden="true">✠</span>
+              <span class="accar-stat-num">387 d.C.</span>
+              <span class="accar-stat-lbl">Bautismo pascual en Milán por San Ambrosio</span>
             </article>
 
-            <article class="stat-card">
-              <span class="stat-number">387 d.C.</span>
-              <span class="stat-label">Año en que fue bautizado por San Ambrosio de Milán</span>
+            <article class="accar-stat-plaque">
+              <span class="accar-stat-cross" aria-hidden="true">✠</span>
+              <span class="accar-stat-num">35 años</span>
+              <span class="accar-stat-lbl">Gobierno episcopal y defensa en Hipona Regia</span>
             </article>
 
-            <article class="stat-card">
-              <span class="stat-number">Doctor</span>
-              <span class="stat-label">Título: "Doctor de la Gracia" (Doctor Gratiae)</span>
+            <article class="accar-stat-plaque">
+              <span class="accar-stat-cross" aria-hidden="true">✠</span>
+              <span class="accar-stat-num">Doctor</span>
+              <span class="accar-stat-lbl">Proclamado «Doctor Gratiae» de la Iglesia Universal</span>
             </article>
           </div>
-        </div>
 
-        <div class="section-box">
-          <h3 class="section-subtitle">Hitos Fundamentales</h3>
-          <div class="inicio-grid">
-            <article class="highlight-card">
+          <div class="accar-codex-divider" aria-hidden="true"><span>✠</span></div>
+
+          <h3 class="accar-codex-h3">Monumentos literarios y frentes doctrinales</h3>
+
+          <article class="accar-registry-box">
+            <div class="accar-registry-head">
+              <span class="accar-registry-icon" aria-hidden="true">✠</span>
+              <h4>Obras capitales del corpus agustiniano</h4>
+            </div>
+            <ul class="accar-registry-list">
+              <li>
+                <strong>Confessiones (13 libros · ~397–400 d.C.)</strong>
+                <span>Itinerario espiritual e intelectual del alma desde el pecado hasta el descanso en Dios.</span>
+              </li>
+              <li>
+                <strong>De Civitate Dei (22 libros · 413–426 d.C.)</strong>
+                <span>Magna apología contra el paganismo y teología universal de las dos ciudades en la historia.</span>
+              </li>
+              <li>
+                <strong>De Trinitate (15 libros · 399–419 d.C.)</strong>
+                <span>Cumbre especulativa latina sobre las relaciones intratrinitarias y las huellas divinas en el alma.</span>
+              </li>
+              <li>
+                <strong>De Doctrina Christiana (4 libros · 397–426 d.C.)</strong>
+                <span>Primer tratado sistemático de hermenéutica bíblica, predicación y Canon de 73 libros.</span>
+              </li>
+              <li>
+                <strong>Enarrationes in Psalmos y Tractatus in Ioannem</strong>
+                <span>Monumentales comentarios exegéticos, cristológicos y eucarísticos predicados a su pueblo.</span>
+              </li>
+              <li>
+                <strong>Enchiridion y Retractationes (~421–427 d.C.)</strong>
+                <span>Compendio de la fe, esperanza y caridad, y revisión humilde de toda su producción escrita.</span>
+              </li>
+            </ul>
+          </article>
+
+          <div class="accar-codex-cards-grid">
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Hito I</span>
               <h4>La Ciudad de Dios</h4>
-              <p>Tras el impactante saqueo de Roma por los bárbaros (410 d.C.), los paganos culparon al cristianismo de la caída del Imperio. Agustín respondió con su obra cumbre, demostrando que la historia es una lucha entre la Ciudad de Dios (los que aman a Dios) y la Ciudad Terrena (los que se aman a sí mismos).</p>
+              <p>
+                Tras el saqueo de Roma por Alarico (410 d.C.), cuando el paganismo culpó a los cristianos de la ruina imperial, Agustín escribió 22 libros demostrando que toda la historia humana es el combate dramático entre la Ciudad de Dios y la Ciudad Terrena.
+              </p>
             </article>
 
-            <article class="highlight-card">
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Hito II</span>
               <h4>El Defensor de la Gracia</h4>
-              <p>Destrozó el Pelagianismo, una herejía que afirmaba que el hombre podía salvarse y dejar de pecar por su propia fuerza de voluntad, sin necesidad de la gracia divina ni del bautismo. Agustín demostró que sin la gracia de Cristo, la voluntad humana está esclavizada por el pecado original.</p>
+              <p>
+                Desarticuló el naturalismo soberbio de Pelagio —quien afirmaba que el hombre podía cumplir toda justicia y salvarse por sus solas fuerzas sin gracia interior—, probando la herida real del pecado original y la primacía absoluta de la gracia de Cristo.
+              </p>
             </article>
 
-            <article class="highlight-card">
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Hito III</span>
               <h4>El Teólogo de la Trinidad</h4>
-              <p>Escribió "De Trinitate", la obra maestra sobre el dogma trinitario. Para explicar el misterio a la mente humana, usó brillantes analogías psicológicas: así como la mente, el conocimiento y el amor son tres facultades distintas pero forman una sola alma, el Padre, el Verbo y el Espíritu forman un solo Dios.</p>
+              <p>
+                En <em>De Trinitate</em> iluminó el misterio supremo mostrando cómo el alma humana, creada a imagen de Dios en su memoria, inteligencia y voluntad amante, refleja en una sola esencia la vida eterna del Padre, del Verbo y del Espíritu Santo.
+              </p>
             </article>
-            
-            <article class="highlight-card">
+
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Hito IV</span>
               <h4>Las Confesiones</h4>
-              <p>Inventó el género de la autobiografía en occidente. "Las Confesiones" es una exploración psicológica brutalmente honesta sobre sus propios pecados, sus luchas contra la lujuria, su conversión y el triunfo de la misericordia de Dios sobre la miseria humana.</p>
+              <p>
+                Inauguró la introspección espiritual moderna en un diálogo ardiente con Dios donde narra sin máscaras sus caídas juveniles, las lágrimas perseverantes de Santa Mónica y el triunfo omnipotente de la misericordia divina.
+              </p>
             </article>
           </div>
 
-          <div class="cta-row">
-            <a class="cta-link azul" href="https://apologeticaccar.com">Regresar a Apologética Católica</a>
-            <button class="cta-btn dorado" onclick="showPanel('vida')">Entrar a vida →</button>
-          </div>
-        </div>
-
-      </section>
-      <!-- ===== FINAL PANEL INICIO ===== -->
-
-      <!-- ===== INICIO PANEL VIDA ===== -->
-      <section id="panel-vida" class="content-panel">
-
-        <div class="section-box">
-          <h2 class="section-title">Vida: La Larga Búsqueda de la Verdad</h2>
-          <p>
-            Nacido en el año 354 d.C. en Tagaste (África Menor), hijo de un padre pagano (Patricio) y de una madre cristiana devota (Santa Mónica). Su intelecto era tan prodigioso como indomables eran sus pasiones.
-          </p>
-        </div>
-
-        <div class="section-box">
-          <h3 class="section-subtitle">Del Orgullo Intelectual a la Conversión</h3>
-          
-          <div class="feature-grid">
-            <article class="feature-card">
-              <h4>El Esclavo de la Lujuria</h4>
-              <p>En su juventud, Agustín despreció la fe de su madre. Se mudó a Cartago para estudiar retórica, donde tomó una concubina (con la que tuvo un hijo, Adeodato) y se sumergió en una vida de lujuria y ambición. Creyendo que el cristianismo era para ignorantes, se unió a la secta de los maniqueos buscando respuestas puramente racionales al problema del mal.</p>
-            </article>
-
-            <article class="feature-card">
-              <h4>El Encuentro con Ambrosio</h4>
-              <p>Buscando fama y dinero, huyó de su madre (quien no paraba de llorar y rezar por él) y viajó a Roma y luego a Milán como profesor imperial. Allí fue a escuchar al Obispo Ambrosio, no por fe, sino para burlarse de su oratoria. Para su asombro, la majestuosidad de Ambrosio y su interpretación profunda de la Biblia despedazaron el orgullo intelectual de Agustín.</p>
-            </article>
-
-            <article class="feature-card">
-              <h4>"Toma y Lee"</h4>
-              <p>La conversión final ocurrió en un jardín de Milán (386 d.C.). Desesperado y llorando por su incapacidad para romper con sus vicios carnales, escuchó la voz de un niño que cantaba: <em>"Tolle, lege"</em> (Toma y lee). Abrió las epístolas de San Pablo al azar (Romanos 13, 13) y la luz de la gracia inundó su corazón, dándole la fuerza para abandonar el mundo y abrazar la castidad.</p>
-            </article>
-
-            <article class="feature-card">
-              <h4>El Obispo Asediado</h4>
-              <p>Tras la muerte de su madre, regresó a África, donde fue ordenado sacerdote y luego Obispo de Hipona. Durante casi 40 años, su pluma no descansó, refutando herejías y organizando la vida monástica y clerical. En el año 430 d.C., con la ciudad de Hipona asediada por los feroces bárbaros vándalos, el gran Agustín murió en su cama rezando los salmos penitenciales.</p>
-            </article>
+          <div class="accar-codex-footer-nav">
+            <button type="button" class="accar-codex-btn-sec" onclick="loadView('views/historia-lista-de-padres.html')">
+              ← Volver al Directorio Patrístico
+            </button>
+            <button type="button" class="accar-codex-btn-pri" onclick="window.accarShowPadrePanel('vida')">
+              Continuar a II. Vida →
+            </button>
           </div>
 
-          <div class="cta-row" style="margin-top: 24px;">
-            <a class="cta-link azul" href="https://apologeticaccar.com">Regresar a Apologética Católica</a>
-            <button class="cta-btn dorado" onclick="showPanel('contexto')">Continuar a contexto →</button>
-          </div>
-        </div>
+        </section>
 
-      </section>
-      <!-- ===== FINAL PANEL VIDA ===== -->
+        <!-- ==================== CAPÍTULO II: VIDA ==================== -->
+        <section id="panel-vida" class="accar-padre-panel" data-tono="verde">
 
-      <!-- ===== INICIO PANEL CONTEXTO ===== -->
-      <section id="panel-contexto" class="content-panel">
-
-        <div class="section-box">
-          <h2 class="section-title">Contexto: El Donatismo y el Maniqueísmo</h2>
-          <p>
-            Agustín tuvo que luchar en múltiples frentes para salvar a la Iglesia. Sus combates más letales en el norte de África fueron contra dos sectas masivas: los donatistas y los maniqueos.
-          </p>
-        </div>
-
-        <div class="section-box">
-          <div class="feature-grid">
-            <article class="feature-card">
-              <h4>El Cisma Donatista</h4>
-              <p>Los donatistas eran herejes puritanos. Afirmaban que la Iglesia Católica en África había perdido la gracia porque algunos de sus obispos habían sido cobardes durante las persecuciones romanas. Concluían que cualquier bautismo o eucaristía celebrada por un sacerdote católico "indigno" era nula e inválida.</p>
-              <p>Agustín destrozó este argumento: Si la validez del sacramento dependiera de la santidad del sacerdote, nadie sabría si está realmente bautizado o no, pues la santidad interior solo la conoce Dios. La Iglesia no es una "secta de puros", sino un hospital de pecadores donde Cristo opera los sacramentos, no el hombre.</p>
-            </article>
-
-            <article class="feature-card">
-              <h4>El Maniqueísmo y el Origen del Mal</h4>
-              <p>Los maniqueos (a los que Agustín había pertenecido) creían que existían dos dioses: un Dios de luz (espíritu) y un Dios de oscuridad (materia). El mal, decían, es una fuerza física creada por el Dios malo. Agustín recurrió a la filosofía platónica cristianizada para refutarlos.</p>
-              <p>Demostró que todo lo que existe es bueno porque Dios lo creó. El mal no existe por sí mismo; el mal es simplemente la "ausencia" o corrupción del bien (como la ceguera es la ausencia de vista). El mal entra al mundo no porque Dios lo creara, sino cuando las criaturas libres (ángeles y humanos) eligen alejarse de la Luz.</p>
-            </article>
+          <div class="accar-codex-intro">
+            <span class="accar-codex-kicker">Iter Conversionis</span>
+            <h2 class="accar-codex-h2">Vida: Del Orgullo Intelectual al Altar de Hipona</h2>
+            <p class="accar-dropcap-p">
+              <span class="accar-capitular">A</span>urelio Agustín nació el 13 de noviembre de 354 d.C. en Tagaste (Numidia, África romana), hijo de Patricio, decurión pagano que abrazaría la fe antes de morir, y de **Santa Mónica**, modelo eterno de madres cristianas que durante casi dos décadas siguió a su hijo con oraciones y lágrimas hasta verlo renacer en las aguas bautismales.
+            </p>
+            <p>
+              Dotado de un ingenio fulgurante pero arrastrado en su juventud por la concupiscencia y la vanagloria retórica, recorrió Cartago, Roma y Milán buscando la sabiduría fuera de la Iglesia, hasta que la predicación de **San Ambrosio** y la gracia fulminante de Dios quebraron sus cadenas y lo convirtieron en el pastor infatigable de Hipona durante treinta y cinco años.
+            </p>
           </div>
 
-          <div class="cta-row">
-            <a class="cta-link azul" href="https://apologeticaccar.com">Regresar a Apologética Católica</a>
-            <button class="cta-btn dorado" onclick="showPanel('ensenanza')">Continuar a enseñanza →</button>
-          </div>
-        </div>
+          <div class="accar-codex-divider" aria-hidden="true"><span>✠</span></div>
 
-      </section>
-      <!-- ===== FINAL PANEL CONTEXTO ===== -->
+          <h3 class="accar-codex-h3">Cronología esencial de su vida y ministerio</h3>
 
-      <!-- ===== INICIO PANEL ENSEÑANZA ===== -->
-      <section id="panel-ensenanza" class="content-panel">
-
-        <div class="section-box">
-          <h2 class="section-title">Enseñanza: El Arsenal Apologético</h2>
-          <p>
-            San Agustín es la muralla inexpugnable de la teología católica. Los protestantes modernos a menudo intentan secuestrar sus citas sobre la fe, pero ocultan deliberadamente que Agustín fue el mayor defensor histórico de la autoridad infalible de la Iglesia Católica, la Sucesión Apostólica, el Papado, el Purgatorio y la Misa como sacrificio.
-          </p>
-          <p>
-            En su lucha contra el pelagianismo, Agustín definió el dogma del Pecado Original y la necesidad absoluta de la Gracia para la salvación. Demostró que el hombre no puede dar un solo paso hacia Dios sin que Dios lo mueva primero por su gracia preveniente.
-          </p>
-        </div>
-
-        <div class="section-box">
-          <h3 class="section-subtitle">Doctrinas Católicas en el Siglo V</h3>
-
-          <div class="feature-grid">
-            <article class="feature-card">
-              <h4>1. La Autoridad de la Iglesia Católica</h4>
-              <p><strong>El Arma:</strong> Agustín aniquila la "Sola Scriptura" protestante. Cuando los herejes maniqueos intentaron usar la Biblia contra él, Agustín dictó su sentencia suprema: <em>"No creería en el Evangelio si no me moviera a ello la autoridad de la Iglesia Católica"</em>. La Biblia no se sostiene sola; recibe su autoridad del Magisterio que la canonizó.</p>
+          <div class="accar-timeline">
+            <article class="accar-tl-item">
+              <div class="accar-tl-year">354 d.C.</div>
+              <div class="accar-tl-card">
+                <h4>Nacimiento en Tagaste</h4>
+                <p>Nace el 13 de noviembre de 354 en Tagaste (actual Souk Ahras, Argelia); Santa Mónica lo inscribe como catecúmeno sembrando en su infancia la reverencia imborrable al Nombre de Jesús.</p>
+              </div>
             </article>
 
-            <article class="feature-card">
-              <h4>2. "Roma Locuta, Causa Finita"</h4>
-              <p><strong>El Arma:</strong> En el año 417, tras recibir la confirmación del Papa Inocencio I condenando la herejía pelagiana, Agustín pronunció en un sermón (Sermón 131) la base de la infalibilidad papal: <em>"Ya han sido enviados a la Sede Apostólica los decretos de dos concilios; los rescriptos (de Roma) han llegado. Roma ha hablado, el caso está cerrado (Causa finita est)"</em>.</p>
+            <article class="accar-tl-item">
+              <div class="accar-tl-year">371–373</div>
+              <div class="accar-tl-card">
+                <h4>Cartago, el «Hortensio» y el extravío maniqueo</h4>
+                <p>Estudia retórica en Cartago, vive en unión libre de la que nace su hijo Adeodato (372), despierta al deseo de la sabiduría leyendo a Cicerón y cae durante nueve años como «oyente» en la secta dualista de los maniqueos.</p>
+              </div>
             </article>
 
-            <article class="feature-card">
-              <h4>3. La Sucesión Apostólica Visible</h4>
-              <p><strong>El Arma:</strong> Para demostrar a los donatistas que su secta era falsa, Agustín no usó argumentos etéreos, sino historia pura. Publicó la lista exacta de los Obispos de Roma desde San Pedro hasta el Papa Siricio (el de su tiempo), diciendo: <em>"En este orden de sucesión no se encuentra ningún obispo donatista"</em>. Si tu iglesia no tiene sucesión ininterrumpida desde los apóstoles, no es la Iglesia de Cristo.</p>
+            <article class="accar-tl-item">
+              <div class="accar-tl-year">383–385</div>
+              <div class="accar-tl-card">
+                <h4>De Roma a la cátedra imperial de Milán</h4>
+                <p>Desengañado del obispo maniqueo Fausto, viaja a Roma y obtiene en 384 la cátedra oficial de retórica en la corte imperial de Milán, donde acude a escuchar a San Ambrosio y descubre la exégesis espiritual de la Biblia.</p>
+              </div>
             </article>
 
-            <article class="feature-card">
-              <h4>4. El Bautismo de los Niños</h4>
-              <p><strong>El Arma:</strong> Contra los pelagianos (que negaban el pecado original), Agustín defendió que el bautismo de los recién nacidos es una tradición apostólica innegociable. El niño debe ser bautizado inmediatamente para que la sangre de Cristo lave la mancha del pecado de Adán y lo incorpore a la vida de la gracia.</p>
+            <article class="accar-tl-item">
+              <div class="accar-tl-year">Agosto 386</div>
+              <div class="accar-tl-card">
+                <h4>El jardín de Milán: «¡Tolle, lege!» (Toma y lee)</h4>
+                <p>En medio de un llanto desgarrador por su esclavitud carnal, oye la voz infantil: <em>«Tolle, lege!»</em>; abre las cartas de San Pablo en <em>Romanos 13, 13–14</em> y una luz de serenidad divina disipa al instante todas sus tinieblas.</p>
+              </div>
+            </article>
+
+            <article class="accar-tl-item">
+              <div class="accar-tl-year">Pascua 387</div>
+              <div class="accar-tl-card">
+                <h4>Bautismo en Milán y tránsito de Santa Mónica en Ostia</h4>
+                <p>En la noche del 24 al 25 de abril de 387 es bautizado por San Ambrosio junto con su hijo Adeodato y su amigo Alipio; de regreso a África, comparte con Santa Mónica el éxtasis de Ostia antes de la santa muerte de su madre.</p>
+              </div>
+            </article>
+
+            <article class="accar-tl-item">
+              <div class="accar-tl-year">391–396</div>
+              <div class="accar-tl-card">
+                <h4>Sacerdocio, vida monástica y Episcopado en Hipona</h4>
+                <p>Ordenado presbítero por aclamación en Hipona (391) y consagrado obispo coadjutor (395) y titular (396), instaura en su casa episcopal un monasterio clerical regido por la pobreza apostólica y el estudio sagrado.</p>
+              </div>
+            </article>
+
+            <article class="accar-tl-item">
+              <div class="accar-tl-year">393–418</div>
+              <div class="accar-tl-card">
+                <h4>Alma de los grandes Concilios Africanos</h4>
+                <p>Lidera teológicamente los concilios de Hipona (393) y Cartago (397) sobre el Canon bíblico, derrota intelectualmente al donatismo en la Conferencia de Cartago (411) y logra la condena del pelagianismo en 418 confirmada por Roma.</p>
+              </div>
+            </article>
+
+            <article class="accar-tl-item">
+              <div class="accar-tl-year">28 ago. 430</div>
+              <div class="accar-tl-card">
+                <h4>Santa muerte durante el asedio vándalo</h4>
+                <p>A los 75 años, mientras las hordas arrianas de Genserico sitian las murallas de Hipona, hace copiar en grandes pliegos los Salmos penitenciales frente a su lecho y entrega su alma a Dios en oración y lágrimas.</p>
+              </div>
             </article>
           </div>
 
-          <div class="cta-row">
-            <a class="cta-link azul" href="https://apologeticaccar.com">Regresar a Apologética Católica</a>
-            <button class="cta-btn dorado" onclick="showPanel('legado')">Continuar a legado →</button>
-          </div>
-        </div>
-
-      </section>
-      <!-- ===== FINAL PANEL ENSEÑANZA ===== -->
-      
-      <!-- ===== INICIO PANEL LEGADO ===== -->
-      <section id="panel-legado" class="content-panel">
-        <div class="section-box">
-          <h2 class="section-title">El Fundamento de Occidente</h2>
-          <p>
-            El legado de San Agustín es tan vasto que es imposible comprender la historia, la filosofía o la teología occidental sin él. Desde Santo Tomás de Aquino hasta los Concilios modernos, la Iglesia Católica respira la teología agustiniana.
-          </p>
-        </div>
-
-        <div class="section-box">
-          <h3 class="section-subtitle">Las Columnas de su Influencia</h3>
-          <div class="feature-grid">
-            <article class="feature-card">
-              <h4>El Doctor de la Gracia</h4>
-              <p>El Concilio de Cartago y el Concilio de Orange sellaron para siempre la doctrina de San Agustín sobre la gracia: el ser humano, herido por el pecado original, necesita absolutamente de la gracia de Dios no solo para salvarse, sino para tener siquiera el primer buen deseo de buscar a Dios.</p>
-            </article>
-            
-            <article class="feature-card">
-              <h4>La Regla de San Agustín</h4>
-              <p>Escribió una regla de vida monástica basada en el amor a Dios y la caridad fraterna extrema. Esta "Regla de San Agustín" es hoy la base de cientos de órdenes religiosas en todo el mundo, incluyendo a los Agustinos, los Dominicos y muchas congregaciones modernas.</p>
-            </article>
-
-            <article class="feature-card">
-              <h4>La Ciudad de Dios y la Filosofía de la Historia</h4>
-              <p>Su obra monumental "La Ciudad de Dios" fue el libro de cabecera de Carlomagno y el pilar sobre el cual se construyó la Cristiandad de la Edad Media. Enseñó a Europa que los imperios humanos nacen y mueren, pero solo la Ciudad de Dios peregrina eternamente hacia la victoria final.</p>
-            </article>
+          <div class="accar-codex-footer-nav">
+            <button type="button" class="accar-codex-btn-sec" onclick="loadView('views/historia-lista-de-padres.html')">
+              ← Volver al Directorio Patrístico
+            </button>
+            <button type="button" class="accar-codex-btn-pri" onclick="window.accarShowPadrePanel('contexto')">
+              Continuar a III. Contexto →
+            </button>
           </div>
 
-          <div class="cta-row" style="margin-top: 24px;">
-            <a class="cta-link azul" href="https://apologeticaccar.com">Regresar a Apologética Católica</a>
-            <button class="cta-btn dorado" onclick="showPanel('escritos')">Continuar a escritos →</button>
+        </section>
+
+        <!-- ==================== CAPÍTULO III: CONTEXTO ==================== -->
+        <section id="panel-contexto" class="accar-padre-panel" data-tono="azul">
+
+          <div class="accar-codex-intro">
+            <span class="accar-codex-kicker">Tres Frentes Doctrinales</span>
+            <h2 class="accar-codex-h2">Contexto: Maniqueos, Donatistas y Pelagianos</h2>
+            <p class="accar-dropcap-p">
+              <span class="accar-capitular">A</span> lo largo de cuatro décadas de ministerio incesante, San Agustín libró simultáneamente tres batallas gigantescas que fijaron para siempre las fronteras del dogma católico sobre la Creación y el mal, sobre la Iglesia y los sacramentos, y sobre el pecado original y la gracia redentora.
+            </p>
           </div>
-        </div>
-      </section>
-      <!-- ===== FINAL PANEL LEGADO ===== -->
 
-      <!-- ===== INICIO PANEL ESCRITOS ===== -->
-      <section id="panel-escritos" class="content-panel">
+          <div class="accar-callout-dogmatico">
+            <span class="accar-callout-kicker">✠ Vigencia Permanente del Combate Agustiniano ✠</span>
+            <h4>Tres herejías antiguas que reaparecen disfrazadas hoy</h4>
+            <p>
+              El <strong>maniqueísmo</strong> revive en los dualismos gnósticos y esotéricos modernos que niegan la responsabilidad moral del pecado; el <strong>donatismo</strong> resurge en todo sectarismo puritano o cismático que declara inválida a la Iglesia por los pecados de sus ministros; y el <strong>pelagianismo</strong> domina la cultura secular de la autoayuda que pretende alcanzar la rectitud y la salvación sin la gracia sobrenatural de Cristo.
+            </p>
+          </div>
 
-        <div class="section-box">
-          <h2 class="section-title">Confesiones y Tratados Antiherejes</h2>
-          <p>
-            A continuación, los pasajes más gloriosos y devastadores de la pluma de San Agustín. Observa las armas doctrinales resaltadas en verde oscuro que establecen definitivamente la autoridad de la Iglesia Católica y destruyen el relativismo moderno.
-          </p>
-        </div>
+          <h3 class="accar-codex-h3">Radiografía de sus grandes batallas</h3>
 
-        <div class="section-box">
-          <div class="accordion">
+          <div class="accar-codex-cards-grid">
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Frente I · Contra el Maniqueísmo</span>
+              <h4>Bondad de la Creación y Origen del Mal</h4>
+              <p>Los maniqueos despreciaban la materia, el matrimonio y el Antiguo Testamento atribuyéndolos a un principio maligno. Agustín demostró que Dios creó todas las naturalezas buenas de la nada y que el mal moral nace exclusivamente de la voluntad libre que se aparta del Bien sumo.</p>
+            </article>
 
-            <!-- 1. LA AUTORIDAD DE LA IGLESIA -->
-            <div class="acc-item">
-              <button class="acc-trigger" type="button">
-                <span>Contra la Carta de Maniqueo (La Autoridad Católica)</span>
-                <span>+</span>
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Frente II · Contra el Cisma Donatista</span>
+              <h4>Cristo, Autor Invisible de los Sacramentos</h4>
+              <p>Los donatistas rebautizaban a los católicos alegando que los obispos que flaquearon en la persecución habían invalidado los sacramentos. Agustín probó que si el sacramento dependiera de la santidad oculta del ministro, nadie tendría certeza de su bautismo: es Cristo quien bautiza y consagra (<em>ex opere operato</em>).</p>
+            </article>
+
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Frente III · Contra el Cisma Donatista</span>
+              <h4>La Iglesia, «Corpus Permixtum» de Trigo y Cizaña</h4>
+              <p>Contra la soberbia de creerse una «iglesia solo de puros», Agustín expuso las parábolas del trigo y la cizaña y de la red con peces buenos y malos (Mt 13): en la tierra la Iglesia peregrina alberga santos y pecadores llamados a conversión hasta la criba del Juicio final.</p>
+            </article>
+
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Frente IV · Contra el Pelagianismo</span>
+              <h4>Realidad del Pecado Original y Gracia Preveniente</h4>
+              <p>Pelagio, Celestio y Julián de Eclana sostenían que Adán solo dañó a su prole con mal ejemplo y que los recién nacidos no necesitaban redención del pecado. Agustín demostró con Rom 5, 12 y la praxis apostólica del bautismo infantil que sin Cristo nadie es librado de la caída.</p>
+            </article>
+
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Frente V · Armonía entre Gracia y Libre Albedrío</span>
+              <h4>La Gracia no destruye la Libertad: la sana y libera</h4>
+              <p>Frente al semipelagianismo y al determinismo fatalista, enseñó que el libre albedrío herido necesita ser prevenido, sanado y acompañado por la gracia divina para querer y obrar el bien meritorio de vida eterna.</p>
+            </article>
+
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Frente VI · Contra el Paganismo Imperial</span>
+              <h4>Caída de Roma (410 d.C.) y Esperanza Escatológica</h4>
+              <p>Ante el derrumbe político de Roma, desligó para siempre el destino eterno de la Iglesia Católica de cualquier imperio terrenal caduco: los reinos del mundo pasan, la Ciudad de Dios permanece.</p>
+            </article>
+          </div>
+
+          <div class="accar-codex-footer-nav">
+            <button type="button" class="accar-codex-btn-sec" onclick="loadView('views/historia-lista-de-padres.html')">
+              ← Volver al Directorio Patrístico
+            </button>
+            <button type="button" class="accar-codex-btn-pri" onclick="window.accarShowPadrePanel('legado')">
+              Continuar a IV. Legado →
+            </button>
+          </div>
+
+        </section>
+
+        <!-- ==================== CAPÍTULO IV: LEGADO ==================== -->
+        <section id="panel-legado" class="accar-padre-panel" data-tono="oro">
+
+          <div class="accar-codex-intro">
+            <span class="accar-codex-kicker">Huella Bimilenaria</span>
+            <h2 class="accar-codex-h2">El Fundamento Teológico de Occidente</h2>
+            <p class="accar-dropcap-p">
+              <span class="accar-capitular">N</span>ingún escritor eclesiástico fuera de los autores inspirados de la Biblia ha ejercido una influencia comparable a la de San Agustín: Santo Tomás de Aquino lo cita miles de veces en la *Suma Teológica* llamándolo reverentemente «el Teólogo», los Concilios de Cartago, Orange II, Trento y Vaticano II consagraron sus fórmulas, y el *Catecismo de la Iglesia Católica* lo cita más que a cualquier otro Padre o Doctor.
+            </p>
+          </div>
+
+          <div class="accar-codex-divider" aria-hidden="true"><span>✠</span></div>
+
+          <h3 class="accar-codex-h3">Seis columnas perennes de su herencia</h3>
+
+          <div class="accar-codex-cards-grid">
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Columna I</span>
+              <h4>Magisterio Oficial sobre la Gracia (DH 222–230; 370–397)</h4>
+              <p>Sus enseñanzas sobre el pecado original y la necesidad de la gracia para todo acto saludable, incluso para el inicio de la fe, fueron canonizadas por la Iglesia universal en Cartago (418), Orange II (529) y Trento (1547).</p>
+            </article>
+
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Columna II</span>
+              <h4>La Regla de San Agustín («Un solo alma y corazón»)</h4>
+              <p>Inspirada en Hechos 4, 32, su regla monástica —<em>«tener una sola alma y un solo corazón orientados hacia Dios»</em>— dio origen a la Orden de San Agustín, a los Canónigos Regulares, a la Orden de Predicadores (Dominicos) y a centenares de institutos religiosos.</p>
+            </article>
+
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Columna III</span>
+              <h4>Doctrina del Carácter Sacramental Indeleble</h4>
+              <p>Formuló con nitidez la diferencia entre el *carácter* espiritual imborrable del Bautismo y del Orden (como el sello militar que permanece incluso en el desertor) y el *fruto* de la gracia que solo fructifica plenamente en la comunión católica.</p>
+            </article>
+
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Columna IV</span>
+              <h4>Reglas Católicas de Interpretación Bíblica</h4>
+              <p>En <em>De Doctrina Christiana</em> sentó que toda interpretación auténtica de la Escritura debe someterse a la *regula fidei* recibida de la Iglesia y edificar siempre la doble caridad hacia Dios y el prójimo.</p>
+            </article>
+
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Columna V</span>
+              <h4>Ley Natural, Paz y Doctrina de la Guerra Justa</h4>
+              <p>Sus definiciones de la ley eterna, de la ley injusta como violencia sin fuerza moral y de la paz como «tranquilidad del orden» fundamentaron todo el derecho público cristiano y la filosofía política clásica.</p>
+            </article>
+
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Columna VI</span>
+              <h4>Síntesis entre Fe y Razón («Crede ut intelligas»)</h4>
+              <p>Mostró para todos los siglos la circularidad fecunda del pensar católico: la razón precede a la fe examinando los motivos de credibilidad, y la fe ilumina y eleva a la razón para penetrar los misterios divinos.</p>
+            </article>
+          </div>
+
+          <div class="accar-codex-footer-nav">
+            <button type="button" class="accar-codex-btn-sec" onclick="loadView('views/historia-lista-de-padres.html')">
+              ← Volver al Directorio Patrístico
+            </button>
+            <button type="button" class="accar-codex-btn-pri" onclick="window.accarShowPadrePanel('ensenanza')">
+              Continuar a V. Arsenal Apologético →
+            </button>
+          </div>
+
+        </section>
+
+        <!-- ==================== CAPÍTULO V: ARSENAL APOLOGÉTICO ==================== -->
+        <section id="panel-ensenanza" class="accar-padre-panel" data-tono="carmesi">
+
+          <div class="accar-codex-intro">
+            <span class="accar-codex-kicker">Defensa Militante de la Fe</span>
+            <h2 class="accar-codex-h2">Enseñanza: El Arsenal Apologético</h2>
+            <p class="accar-dropcap-p">
+              <span class="accar-capitular">L</span>os reformadores protestantes del siglo XVI y apologistas evangélicos actuales intentan con frecuencia reclamar a San Agustín citando frases aisladas sobre la gracia, pero callan sistemáticamente que Agustín profesó y defendió con ardor cada uno de los dogmas católicos que el protestantismo rechaza. Aquí tienes **ocho espadas documentales** con cita patrística exacta.
+            </p>
+          </div>
+
+          <div class="accar-codex-divider" aria-hidden="true"><span>✠</span></div>
+
+          <h3 class="accar-codex-h3">Ocho dogmas católicos demostrados por San Agustín (Siglos IV–V)</h3>
+
+          <div class="accar-codex-cards-grid">
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Espada I · Contra la «Sola Scriptura» y por los 73 Libros</span>
+              <h4>Autoridad de la Iglesia sobre el Canon Bíblico</h4>
+              <p><strong>Prueba:</strong> 1) Sentenció contra los maniqueos: <em>«No creería en el Evangelio si no me moviera a ello la autoridad de la Iglesia Católica»</em> (<em>Contra Ep. Manichaei</em> 5, 6). 2) En <em>De Doctrina Christiana</em> II, 8, 13 enumeró libro por libro el Canon de 73 libros incluyendo expresamente **Tobías, Judit, 1 y 2 Macabeos, Sabiduría y Eclesiástico**.</p>
+            </article>
+
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Espada II · Primado Supremo del Obispo de Roma</span>
+              <h4>«Roma locuta, causa finita» (Sermón 131, 10)</h4>
+              <p><strong>Prueba:</strong> Afirmó que en la Iglesia Romana <em>«siempre ha estado en vigor el principado de la cátedra apostólica»</em> (<em>Carta</em> 43, 7) y, al llegar los rescriptos del Papa San Inocencio I condenando a Pelagio en 417, proclamó: <em>«Ya llegaron los rescriptos de la Sede Apostólica; la causa ha terminado»</em>.</p>
+            </article>
+
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Espada III · Sucesión Apostólica Ininterrumpida</span>
+              <h4>La lista de los Papas desde San Pedro (Carta 53, 2)</h4>
+              <p><strong>Prueba:</strong> Para refutar a una secta nacida siglos después de Cristo, Agustín trazó la cadena nominal de los 38 Obispos de Roma desde San Pedro (Lino, Clemente, Anacleto...) hasta el Papa Anastasio I concluyendo: <em>«En todo este orden de sucesión no se halla ningún obispo donatista»</em> —ni tampoco ningún pastor protestante.</p>
+            </article>
+
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Espada IV · Presencia Real y Adoración Eucarística</span>
+              <h4>«Pecaríamos si no adorásemos aquella Carne»</h4>
+              <p><strong>Prueba:</strong> Contra todo simbolismo protestante enseñó a los recién bautizados: <em>«Ese pan que veis sobre el altar, santificado por la palabra de Dios, es el Cuerpo de Cristo»</em> (<em>Sermón</em> 227), y en su comentario al Salmo 98, 9 afirmó: <em>«Nadie come aquella carne sin antes adorarla... pecaríamos si no la adorásemos»</em>.</p>
+            </article>
+
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Espada V · Purgatorio y Sacrificio de la Misa por Difuntos</span>
+              <h4>El ruego de Santa Mónica ante el Altar (Confesiones IX, 11–13)</h4>
+              <p><strong>Prueba:</strong> Santa Mónica pidió en su lecho de muerte: <em>«Solamente os pido que os acordéis de mí ante el altar del Señor»</em>. En <em>La Ciudad de Dios</em> XXI, 24 y <em>Sermón</em> 172, 2 Agustín enseña explícitamente las penas purificatorias tras la muerte y cómo el Sacrificio del altar socorre a las almas fieles difuntas.</p>
+            </article>
+
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Espada VI · Refutación Anticipada del «Sola Fide»</span>
+              <h4>Tratado entero «Sobre la Fe y las Obras» (~413 d.C.)</h4>
+              <p><strong>Prueba:</strong> Mil cien años antes de Lutero, Agustín escribió <em>De Fide et Operibus</em> (14, 21) contra quienes malinterpretaban las cartas de San Pablo (como advierte 2 Pe 3, 16) creyendo que bastaba la fe sin guardar los mandamientos: probó que solo salva «la fe que obra por la caridad» (Gál 5, 6) unida a Santiago 2, 24.</p>
+            </article>
+
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Espada VII · Bautismo Regenerador de los Niños</span>
+              <h4>Tradición Apostólica Universal (Sermón 294; De Genesi X, 23)</h4>
+              <p><strong>Prueba:</strong> Contra anabaptistas y evangélicos que niegan el bautismo infantil, Agustín certificó que bautizar a los párvulos para remisión real del pecado original no fue invento conciliar, sino **tradición universal recibida directamente de los Apóstoles**.</p>
+            </article>
+
+            <article class="accar-codex-card">
+              <span class="accar-card-num">✠ Espada VIII · Santidad sin Mancha de María e Intercesión</h4>
+              <h4>«De Natura et Gratia» 36, 42 y «Contra Faustum» XX, 21</h4>
+              <p><strong>Prueba:</strong> Proclamó que, por el honor del Señor, en la Santísima Virgen María no cabe admitir cuestión alguna de pecado y profesó su Virginidad perpetua (*«Virgen concibió, Virgen dio a luz, Virgen permaneció»*, *Sermón* 51, 18), defendiendo a la vez contra Fausto la veneración de los mártires distinta de la *latría* debida solo a Dios.</p>
+            </article>
+          </div>
+
+          <div class="accar-codex-footer-nav">
+            <button type="button" class="accar-codex-btn-sec" onclick="loadView('views/historia-lista-de-padres.html')">
+              ← Volver al Directorio Patrístico
+            </button>
+            <button type="button" class="accar-codex-btn-pri" onclick="window.accarShowPadrePanel('escritos')">
+              Continuar a VI. Escritos Inmortales →
+            </button>
+          </div>
+
+        </section>
+
+        <!-- ==================== CAPÍTULO VI: ESCRITOS INMORTALES ==================== -->
+        <section id="panel-escritos" class="accar-padre-panel" data-tono="oro">
+
+          <div class="accar-codex-intro">
+            <span class="accar-codex-kicker">Fuentes Patrísticas Directas</span>
+            <h2 class="accar-codex-h2">Escritos Inmortales (Extractos Textuales)</h2>
+            <p class="accar-dropcap-p">
+              <span class="accar-capitular">L</span>eer directamente las palabras de San Agustín del siglo IV–V deshace de inmediato siglos de prejuicios anticatólicos. Despliega cada tratado para estudiar sus pasajes más célebres con las tesis dogmáticas resaltadas.
+            </p>
+          </div>
+
+          <div class="accar-codex-divider" aria-hidden="true"><span>✠</span></div>
+
+          <h3 class="accar-codex-h3">Seis pasajes magistrales para el estudio y el debate</h3>
+
+          <div class="accar-doc-accordion">
+
+            <div class="accar-doc-item doc-oro open">
+              <button class="accar-doc-trigger" type="button">
+                <span class="accar-doc-title">I. Contra la Carta de Maniqueo (5, 6) · La Autoridad de la Iglesia Católica</span>
+                <span class="accar-doc-icon">−</span>
               </button>
-              <div class="acc-content">
-                <p>El texto más destructivo contra la "Sola Scriptura": la Biblia no tiene autoridad por sí misma, sino porque la Iglesia Católica la garantiza.</p>
-                <div style="max-height: 400px; overflow-y: auto; padding: 15px; background: rgba(0,0,0,0.03); border-radius: 8px; border: 1px solid rgba(15,51,95,.12); font-size: 0.95rem; line-height: 1.7;">
-                  <p>Hay muchas otras cosas que me mantienen con todo derecho en el seno de la Iglesia Católica. Me retiene el consenso de los pueblos y de las naciones; me retiene su autoridad, fundada en los milagros, alimentada por la esperanza, acrecentada por la caridad y consolidada por la antigüedad.</p>
-                  <p><span style="background-color: #1b4528; color: #ffffff; padding: 2px 6px; border-radius: 4px; font-weight: bold;">Me retiene la sucesión de los obispos, desde la misma sede del apóstol Pedro, a quien el Señor encomendó sus ovejas después de la resurrección, hasta el episcopado actual.</span></p>
-                  <p><span style="background-color: #1b4528; color: #ffffff; padding: 2px 6px; border-radius: 4px; font-weight: bold;">Y, finalmente, me retiene el mismo nombre de "Católica", que no sin motivo esta Iglesia sola ha conservado entre tantas herejías.</span> De modo que, aunque todos los herejes quieren llamarse católicos, cuando un forastero pregunta dónde se reúne la Iglesia Católica, ningún hereje se atreve a señalarle su propia basílica o casa.</p>
-                  <p><span style="background-color: #1b4528; color: #ffffff; padding: 2px 6px; border-radius: 4px; font-weight: bold;">En cuanto a mí, no creería en el Evangelio si no me moviera a ello la autoridad de la Iglesia Católica.</span></p>
+              <div class="accar-doc-content">
+                <div class="accar-doc-tags">
+                  <span class="accar-doc-tag tag-oro">Año 397 d.C. · Refutación de la Sola Scriptura</span>
                 </div>
+                <p>Pasaje clásico donde Agustín expone los motivos que lo retienen en la comunión católica y por qué la Biblia recibe su acreditación del Magisterio:</p>
+                <blockquote class="accar-patristic-quote">
+                  «Muchas otras cosas hay que con justísimo derecho me retienen en el seno de la Iglesia Católica. Me retiene el consentimiento de los pueblos y de las naciones; me retiene la autoridad inaugurada con milagros, nutrida con la esperanza, acrecentada por la caridad y confirmada por la antigüedad.<br><br>
+                  <mark class="accar-hl">Me retiene la sucesión de los sacerdotes desde la misma sede del apóstol Pedro —a quien el Señor después de su resurrección encomendó apacentar sus ovejas— hasta el episcopado actual.</mark><br><br>
+                  Me retiene, finalmente, el mismo nombre de “Católica”, que no sin razón, en medio de tantas herejías, solo esta Iglesia ha conservado para sí... <mark class="accar-hl">Por mi parte, yo no creería en el Evangelio, si a ello no me moviera la autoridad de la Iglesia Católica.</mark>»
+                </blockquote>
               </div>
             </div>
 
-            <!-- 2. LA SUCESIÓN DEL PAPADO -->
-            <div class="acc-item">
-              <button class="acc-trigger" type="button">
-                <span>Carta 53 (La Lista de los Papas)</span>
-                <span>+</span>
+            <div class="accar-doc-item doc-azul">
+              <button class="accar-doc-trigger" type="button">
+                <span class="accar-doc-title">II. Carta 53 a Generoso (1–2) · La Lista de los Papas desde San Pedro</span>
+                <span class="accar-doc-icon">+</span>
               </button>
-              <div class="acc-content">
-                <p>Agustín demuestra a los herejes donatistas que la verdadera Iglesia es únicamente la que tiene conexión histórica ininterrumpida con San Pedro.</p>
-                <div style="max-height: 400px; overflow-y: auto; padding: 15px; background: rgba(0,0,0,0.03); border-radius: 8px; border: 1px solid rgba(15,51,95,.12); font-size: 0.95rem; line-height: 1.7;">
-                  <p>Si hay que tener en cuenta la sucesión de los obispos, ¡con cuánta más certeza y beneficio comenzamos a contar desde el mismo Pedro, a quien, siendo figura de toda la Iglesia, el Señor le dijo: "Sobre esta piedra edificaré mi Iglesia, y las puertas del infierno no prevalecerán contra ella"!</p>
-                  <p><span style="background-color: #1b4528; color: #ffffff; padding: 2px 6px; border-radius: 4px; font-weight: bold;">A Pedro le sucedió Lino, a Lino Clemente, a Clemente Anacleto, a Anacleto Evaristo, a Evaristo Alejandro... (Agustín enumera a todos los Papas hasta su época)... y a Dámaso le sucedió Siricio, a Siricio le sucede Anastasio.</span></p>
-                  <p><span style="background-color: #1b4528; color: #ffffff; padding: 2px 6px; border-radius: 4px; font-weight: bold;">En todo este orden de sucesión no se encuentra ningún obispo donatista.</span></p>
-                  <p>Esta es la Piedra contra la cual no pueden prevalecer las soberbias puertas del infierno.</p>
+              <div class="accar-doc-content">
+                <div class="accar-doc-tags">
+                  <span class="accar-doc-tag tag-azul">Año ~400 d.C. · Primado y Sucesión Apostólica</span>
                 </div>
+                <p>Demostración histórica contra quienes fundan iglesias al margen de la línea ininterrumpida de los Obispos de Roma:</p>
+                <blockquote class="accar-patristic-quote">
+                  «Si hay que atender al orden de sucesión de los obispos, ¡con cuánta mayor certeza y provecho para la salvación contamos desde el mismo Pedro, a quien, representando en su persona a toda la Iglesia, dijo el Señor: “Sobre esta piedra edificaré mi Iglesia, y las puertas del infierno no la vencerán”!<br><br>
+                  <mark class="accar-hl">Porque a Pedro le sucedió Lino; a Lino, Clemente; a Clemente, Anacleto; a Anacleto, Evaristo; a Evaristo, Alejandro...</mark> [enumera los 38 sucesores] ...a Liberio, Dámaso; a Dámaso, Siricio; y a Siricio le ha sucedido Anastasio.<br><br>
+                  <mark class="accar-hl">En todo este orden de sucesión no se encuentra ningún obispo donatista.</mark> Esta es la Roca que no vencen las soberbias puertas del infierno.»
+                </blockquote>
               </div>
             </div>
 
-            <!-- 3. INQUIETUD DEL CORAZÓN (CONFESIONES) -->
-            <div class="acc-item">
-              <button class="acc-trigger" type="button">
-                <span>Las Confesiones (Tarde te amé)</span>
-                <span>+</span>
+            <div class="accar-doc-item doc-oro">
+              <button class="accar-doc-trigger" type="button">
+                <span class="accar-doc-title">III. Sobre la Doctrina Cristiana (II, 8, 13) · Los 73 Libros de la Biblia</span>
+                <span class="accar-doc-icon">+</span>
               </button>
-              <div class="acc-content">
-                <p>El grito del alma arrepentida más hermoso de la historia de la literatura occidental, demostrando que solo Dios llena el vacío humano.</p>
-                <div style="max-height: 400px; overflow-y: auto; padding: 15px; background: rgba(0,0,0,0.03); border-radius: 8px; border: 1px solid rgba(15,51,95,.12); font-size: 0.95rem; line-height: 1.7;">
-                  <p><span style="background-color: #1b4528; color: #ffffff; padding: 2px 6px; border-radius: 4px; font-weight: bold;">Nos hiciste, Señor, para ti, y nuestro corazón está inquieto hasta que descanse en ti.</span> (Libro I, 1)</p>
-                  <p>¡Tarde te amé, Hermosura tan antigua y tan nueva, tarde te amé! Y he aquí que tú estabas dentro de mí, y yo fuera, y por fuera te buscaba; y deforme como era, me lanzaba sobre estas cosas hermosas que tú creaste.</p>
-                  <p><span style="background-color: #1b4528; color: #ffffff; padding: 2px 6px; border-radius: 4px; font-weight: bold;">Tú estabas conmigo, mas yo no estaba contigo. Me retenían lejos de ti aquellas cosas que, si no estuviesen en ti, no serían.</span></p>
-                  <p>Llamaste y clamaste, y rompiste mi sordera; brillaste y resplandeciste, y ahuyentaste mi ceguera; exhalaste tu fragancia, y respiré, y suspiro por ti; gusté de ti, y siento hambre y sed; me tocaste, y me abrasé en tu paz. (Libro X, 27)</p>
+              <div class="accar-doc-content">
+                <div class="accar-doc-tags">
+                  <span class="accar-doc-tag tag-oro">Año 397 d.C. · Prueba de los Libros Deuterocanónicos</span>
                 </div>
+                <p>Once siglos antes de que Lutero mutilara el Antiguo Testamento quitando siete libros, San Agustín dejó escrita la lista exacta de la Biblia Católica:</p>
+                <blockquote class="accar-patristic-quote">
+                  «Todo el canon de las Escrituras en que decimos que ha de ejercitarse esta consideración se contiene en estos libros: cinco de Moisés... el de Josué, el de los Jueces y el pequeño libro de Rut... los cuatro libros de los Reyes y dos de los Paralipómenos. <mark class="accar-hl">Hay otras historias de orden diferente, como Job, Tobías, Ester, Judit, los dos libros de los Macabeos y los dos de Esdras...</mark><br><br>
+                  Siguen los profetas, entre los cuales hay un libro de los Salmos de David y tres de Salomón: Proverbios, Cantar de los Cantares y Eclesiastés. <mark class="accar-hl">Pues aquellos dos libros, uno llamado Sabiduría y otro Eclesiástico... merecieron ser recibidos con autoridad entre los proféticos y contarse en el canon.</mark> ...En estos cuarenta y cuatro [cuarenta y seis contando Jeremías/Lamentaciones/Baruc] libros se encierra la autoridad del Antiguo Testamento; y la del Nuevo, en los veintisiete conocidos.»
+                </blockquote>
               </div>
             </div>
 
-          </div>
-
-          <div class="cta-row" style="margin-top: 24px;">
-            <button class="cta-btn dorado" onclick="showPanel('citas')">Ver Citas y Aforismos Inmortales →</button>
-          </div>
-        </div>
-
-      </section>
-      <!-- ===== FINAL PANEL ESCRITOS ===== -->
-
-      <!-- ===== INICIO PANEL CITAS ===== -->
-      <section id="panel-citas" class="content-panel">
-        
-        <div class="section-box">
-          <h2 class="section-title">Biblioteca de Citas y Aforismos</h2>
-          <p>
-            San Agustín es el Padre de la Iglesia más citado en la historia del cristianismo. Sus frases, forjadas en el fuego de su propia conversión y su lucha contra las herejías, son dagas espirituales perfectas para la meditación personal, la predicación y la defensa pública de la fe católica.
-          </p>
-        </div>
-
-        <div class="section-box">
-          <div class="accordion">
-
-            <!-- CATEGORÍA 1 -->
-            <div class="acc-item">
-              <button class="acc-trigger" type="button">
-                <span>1. Sobre la Iglesia, la Fe y la Verdad</span>
-                <span>+</span>
+            <div class="accar-doc-item doc-carmesi">
+              <button class="accar-doc-trigger" type="button">
+                <span class="accar-doc-title">IV. Comentario al Salmo 98 (n. 9) y Sermón 227 · La Eucaristía Real y Adorada</span>
+                <span class="accar-doc-icon">+</span>
               </button>
-              <div class="acc-content">
-                <div class="feature-grid">
-                  <article class="cita-card">
-                    <p class="cita-texto">"Roma ha hablado; el caso está cerrado (Roma locuta, causa finita est)."</p>
-                    <p class="cita-fuente">— Sermón 131, 10</p>
-                  </article>
-                  
-                  <article class="cita-card">
-                    <p class="cita-texto">"No creería en el Evangelio, si a ello no me moviera la autoridad de la Iglesia Católica."</p>
-                    <p class="cita-fuente">— Contra la Carta de Maniqueo, 5,6</p>
-                  </article>
-                  
-                  <article class="cita-card">
-                    <p class="cita-texto">"Quien no tiene a la Iglesia por madre, no puede tener a Dios por Padre."</p>
-                    <p class="cita-fuente">— El Combate Cristiano</p>
-                  </article>
-                  
-                  <article class="cita-card">
-                    <p class="cita-texto">"Equivocarse es humano, pero perseverar en el error es diabólico."</p>
-                    <p class="cita-fuente">— Sermones</p>
-                  </article>
-
-                  <article class="cita-card">
-                    <p class="cita-texto">"La verdad no es tuya ni mía, para que pueda ser tuya y mía."</p>
-                    <p class="cita-fuente">— Comentario a los Salmos</p>
-                  </article>
-
-                  <article class="cita-card">
-                    <p class="cita-texto">"Creemos para conocer, y conocemos para creer."</p>
-                    <p class="cita-fuente">— Tratado sobre el Evangelio de San Juan</p>
-                  </article>
+              <div class="accar-doc-content">
+                <div class="accar-doc-tags">
+                  <span class="accar-doc-tag tag-carmesi">Presencia Real Sustancial y Culto Eucarístico</span>
                 </div>
+                <p>Dos textos fulminantes sobre la fe eucarística de la Iglesia indivisa del siglo IV–V:</p>
+                <blockquote class="accar-patristic-quote">
+                  «Cristo anduvo aquí en su misma carne, y nos dio a comer su misma carne para nuestra salvación; <mark class="accar-hl">y nadie come aquella carne sin haberla adorado antes; y se ha hallado cómo pueda ser adorado semejante escabel de los pies del Señor, de modo que no solo no pequemos adorándolo, sino que pecaríamos si no lo adorásemos.</mark>» (<em>Enarrationes in Psalmos</em> 98, 9)<br><br>
+                  «Lo que os había prometido debo cumplíroslo hoy a vosotros, recién bautizados... <mark class="accar-hl">Ese pan que veis sobre el altar, santificado por la palabra de Dios, es el Cuerpo de Cristo. Ese cáliz, o más bien lo que contiene el cáliz, santificado por la palabra de Dios, es la Sangre de Cristo.</mark>» (<em>Sermón</em> 227)
+                </blockquote>
               </div>
             </div>
 
-            <!-- CATEGORÍA 2 -->
-            <div class="acc-item">
-              <button class="acc-trigger" type="button">
-                <span>2. Sobre Dios, el Alma y la Búsqueda</span>
-                <span>+</span>
+            <div class="accar-doc-item doc-azul">
+              <button class="accar-doc-trigger" type="button">
+                <span class="accar-doc-title">V. Sobre la Fe y las Obras (14, 21) · Contra la Falsa «Sola Fide»</span>
+                <span class="accar-doc-icon">+</span>
               </button>
-              <div class="acc-content">
-                <div class="feature-grid">
-                  <article class="cita-card">
-                    <p class="cita-texto">"Nos hiciste, Señor, para ti, y nuestro corazón está inquieto hasta que descanse en ti."</p>
-                    <p class="cita-fuente">— Confesiones I, 1</p>
-                  </article>
-                  
-                  <article class="cita-card">
-                    <p class="cita-texto">"¡Tarde te amé, Hermosura tan antigua y tan nueva, tarde te amé! Y tú estabas dentro de mí y yo afuera."</p>
-                    <p class="cita-fuente">— Confesiones X, 27</p>
-                  </article>
-                  
-                  <article class="cita-card">
-                    <p class="cita-texto">"Si lo comprendes, no es Dios."</p>
-                    <p class="cita-fuente">— Sermón 117</p>
-                  </article>
-                  
-                  <article class="cita-card">
-                    <p class="cita-texto">"Dios está más íntimo a mí que yo mismo (Interior intimo meo)."</p>
-                    <p class="cita-fuente">— Confesiones III, 6</p>
-                  </article>
-
-                  <article class="cita-card">
-                    <p class="cita-texto">"El que canta bien, ora dos veces."</p>
-                    <p class="cita-fuente">— Comentario a los Salmos</p>
-                  </article>
-
-                  <article class="cita-card">
-                    <p class="cita-texto">"Señor, da lo que mandas, y manda lo que quieras."</p>
-                    <p class="cita-fuente">— Confesiones X, 29</p>
-                  </article>
+              <div class="accar-doc-content">
+                <div class="accar-doc-tags">
+                  <span class="accar-doc-tag tag-azul">Año ~413 d.C. · Armonía entre San Pablo y Santiago</span>
                 </div>
+                <p>San Agustín explica el origen histórico de la Carta de Santiago como corrección apostólica contra quienes torcían a San Pablo para separar la fe de las obras:</p>
+                <blockquote class="accar-patristic-quote">
+                  «Por cuanto esta opinión había brotado ya entonces [en tiempos de los Apóstoles], las demás epístolas apostólicas —de Pedro, Juan, Santiago y Judas— dirigen principalmente su intención contra ella, <mark class="accar-hl">para afirmar con gran vehemencia que la fe sin las obras no aprovecha para nada; tal como el mismo Pablo definió que no cualquier fe salva, sino únicamente “la fe que obra por la caridad” (Gál 5, 6)</mark>... No se contradicen entre sí los apóstoles Pablo y Santiago: cuando Pablo dice que el hombre es justificado por la fe sin las obras de la Ley, habla de las obras anteriores a la fe [circuncisión y méritos propios sin gracia], no de las buenas obras que brotan necesariamente de la fe viva.»
+                </blockquote>
               </div>
             </div>
 
-            <!-- CATEGORÍA 3 -->
-            <div class="acc-item">
-              <button class="acc-trigger" type="button">
-                <span>3. Sobre el Amor, la Caridad y la Virtud</span>
-                <span>+</span>
+            <div class="accar-doc-item doc-carmesi">
+              <button class="accar-doc-trigger" type="button">
+                <span class="accar-doc-title">VI. Las Confesiones (I, 1 y X, 27) · «¡Tarde te amé, Hermosura tan antigua y tan nueva!»</span>
+                <span class="accar-doc-icon">+</span>
               </button>
-              <div class="acc-content">
-                <div class="feature-grid">
-                  <article class="cita-card">
-                    <p class="cita-texto">"Ama y haz lo que quieras. Si callas, calla por amor; si gritas, grita por amor; si corriges, corrige por amor; si perdonas, perdona por amor."</p>
-                    <p class="cita-fuente">— Comentario a la Epístola de San Juan</p>
-                  </article>
-                  
-                  <article class="cita-card">
-                    <p class="cita-texto">"La medida del amor es amar sin medida."</p>
-                    <p class="cita-fuente">— Carta 109</p>
-                  </article>
-                  
-                  <article class="cita-card">
-                    <p class="cita-texto">"La soberbia no es grandeza, sino hinchazón; y lo que está hinchado parece grande pero no está sano."</p>
-                    <p class="cita-fuente">— Epístolas</p>
-                  </article>
-
-                  <article class="cita-card">
-                    <p class="cita-texto">"El buen cristiano es libre, aun siendo esclavo; el mal cristiano es esclavo, aun siendo rey."</p>
-                    <p class="cita-fuente">— La Ciudad de Dios</p>
-                  </article>
-
-                  <article class="cita-card">
-                    <p class="cita-texto">"Aquel que no tiene celos, no está enamorado."</p>
-                    <p class="cita-fuente">— Contra Fausto</p>
-                  </article>
-
-                  <article class="cita-card">
-                    <p class="cita-texto">"Allí donde hay amor, no hay esfuerzo; y si hay esfuerzo, el esfuerzo es amado."</p>
-                    <p class="cita-fuente">— Tratado sobre el Evangelio de San Juan</p>
-                  </article>
+              <div class="accar-doc-content">
+                <div class="accar-doc-tags">
+                  <span class="accar-doc-tag tag-carmesi">Año ~397 d.C. · Cumbre Mística de la Literatura Universal</span>
                 </div>
-              </div>
-            </div>
-
-            <!-- CATEGORÍA 4 -->
-            <div class="acc-item">
-              <button class="acc-trigger" type="button">
-                <span>4. Sobre el Pecado, la Gracia y la Esperanza</span>
-                <span>+</span>
-              </button>
-              <div class="acc-content">
-                <div class="feature-grid">
-                  <article class="cita-card">
-                    <p class="cita-texto">"El que te creó sin ti, no te justificará sin ti."</p>
-                    <p class="cita-fuente">— Sermón 169</p>
-                  </article>
-                  
-                  <article class="cita-card">
-                    <p class="cita-texto">"Dios no manda cosas imposibles, sino que al mandar te enseña a que hagas lo que puedes y a que pidas lo que no puedes."</p>
-                    <p class="cita-fuente">— Sobre la Naturaleza y la Gracia</p>
-                  </article>
-                  
-                  <article class="cita-card">
-                    <p class="cita-texto">"Es mejor cojear por el camino correcto que avanzar a grandes pasos fuera de él."</p>
-                    <p class="cita-fuente">— Sermón 169</p>
-                  </article>
-
-                  <article class="cita-card">
-                    <p class="cita-texto">"El pasado confíalo a la misericordia de Dios, el presente a su amor, y el futuro a su providencia."</p>
-                    <p class="cita-fuente">— Atribuido a San Agustín / Espiritualidad Agustiniana</p>
-                  </article>
-
-                  <article class="cita-card">
-                    <p class="cita-texto">"La paciencia es la compañera de la sabiduría."</p>
-                    <p class="cita-fuente">— De Patientia</p>
-                  </article>
-
-                  <article class="cita-card">
-                    <p class="cita-texto">"Dios proporcionó el viento, pero el hombre debe izar las velas."</p>
-                    <p class="cita-fuente">— Sermones sobre la Gracia</p>
-                  </article>
-                </div>
+                <p>La plegaria inmortal del hijo pródigo restituido a los brazos del Padre:</p>
+                <blockquote class="accar-patristic-quote">
+                  «<mark class="accar-hl">Nos hiciste, Señor, para ti, y nuestro corazón está inquieto hasta que descanse en ti.</mark>» (<em>Confesiones</em> I, 1, 1)<br><br>
+                  «¡Tarde te amé, Hermosura tan antigua y tan nueva, tarde te amé! Y he aquí que tú estabas dentro de mí, y yo fuera, y por fuera te buscaba; y deforme como era, me precipitaba sobre estas cosas hermosas que tú creaste. <mark class="accar-hl">Tú estabas conmigo, mas yo no estaba contigo. Me retenían lejos de ti aquellas cosas que, si no existiesen en ti, no serían.</mark><br><br>
+                  Llamaste y clamaste, y quebrantaste mi sordera; brillaste y resplandeciste, y ahuyentaste mi ceguera; exhalaste tu fragancia, y la respiré, y ahora suspiro por ti; gusté de ti, y tengo hambre y sed; me tocaste, y me abrasé en tu paz.» (<em>Confesiones</em> X, 27, 38)
+                </blockquote>
               </div>
             </div>
 
           </div>
 
-          <div class="cta-row" style="margin-top: 24px;">
-            <a class="cta-link azul" href="https://apologeticaccar.com">Regresar a Apologética Católica</a>
-            <button class="cta-btn dorado" onclick="showPanel('inicio')">Volver al inicio →</button>
+          <div class="accar-codex-footer-nav">
+            <button type="button" class="accar-codex-btn-sec" onclick="loadView('views/historia-lista-de-padres.html')">
+              ← Volver al Directorio Patrístico
+            </button>
+            <button type="button" class="accar-codex-btn-pri" onclick="window.accarShowPadrePanel('citas')">
+              Abrir VII. Gran Biblioteca de Citas (60) →
+            </button>
           </div>
-        </div>
 
-      </section>
-      <!-- ===== FINAL PANEL CITAS ===== -->
-    </div>
-  </main>
-  <!-- ===== FINAL MAIN ===== -->
+        </section>
 
-  <script>
-    /* ===== INICIO SCRIPT AISLADO ===== */
-    (function(){
-      // SE AÑADIÓ "citas" AL ARRAY DE PANELES
-      const panelNames = ["inicio", "vida", "contexto", "ensenanza", "legado", "escritos", "citas"];
-      const mobileMenuToggle = document.getElementById("mobileMenuToggle");
-      const mobileNavPanel = document.getElementById("mobileNavPanel");
+        <!-- ==================== CAPÍTULO VII: GRAN BIBLIOTECA DE CITAS (60) ==================== -->
+        <section id="panel-citas" class="accar-padre-panel" data-tono="oro">
 
-      function openMobileMenu(){
-        if(!mobileMenuToggle || !mobileNavPanel) return;
-        mobileMenuToggle.classList.add("active");
-        mobileNavPanel.classList.add("active");
-        mobileMenuToggle.setAttribute("aria-expanded", "true");
+          <div class="accar-codex-intro">
+            <span class="accar-codex-kicker">Florilegio Patrístico · 60 Sentencias Verificadas</span>
+            <h2 class="accar-codex-h2">Gran Biblioteca de Citas y Aforismos</h2>
+            <p class="accar-dropcap-p">
+              <span class="accar-capitular">S</span>esenta sentencias inmortales y rigurosamente verificadas en las obras auténticas de San Agustín, organizadas en seis arsenales temáticos con buscador instantáneo y copiado directo para la meditación espiritual, la predicación y el debate apologético.
+            </p>
+          </div>
+
+          <!-- Buscador y Filtros Internos del Florilegio -->
+          <div class="accar-citas-controls">
+            <div class="accar-citas-search-box">
+              <input type="text" id="accar-agustin-citas-search" placeholder="Filtrar frases por palabra o tema (ej. Roma, Evangelio, adorar, gracia, humildad, amor)..." autocomplete="off" aria-label="Buscar en las 60 citas de San Agustín">
+              <span class="accar-citas-counter" id="accar-agustin-citas-count">60 citas</span>
+            </div>
+
+            <div class="accar-citas-pills" id="accar-agustin-citas-pills">
+              <button type="button" class="accar-cita-pill active" data-cat="todas">Todas (60)</button>
+              <button type="button" class="accar-cita-pill" data-cat="iglesia">Iglesia y Roma (10)</button>
+              <button type="button" class="accar-cita-pill" data-cat="dios">Dios y el Alma (10)</button>
+              <button type="button" class="accar-cita-pill" data-cat="gracia">Gracia y Conversión (10)</button>
+              <button type="button" class="accar-cita-pill" data-cat="sacramentos">Eucaristía y Sacramentos (10)</button>
+              <button type="button" class="accar-cita-pill" data-cat="caridad">Amor y Virtud (10)</button>
+              <button type="button" class="accar-cita-pill" data-cat="razon">Fe, Razón y Biblia (10)</button>
+            </div>
+          </div>
+
+          <div id="accar-agustin-citas-empty" class="accar-citas-empty" style="display: none;">
+            No se encontraron citas con ese término. Prueba otra palabra clave o selecciona «Todas (60)».
+          </div>
+
+          <div class="accar-citas-grid" id="accar-agustin-citas-grid"></div>
+
+          <div class="accar-codex-footer-nav">
+            <button type="button" class="accar-codex-btn-sec" onclick="loadView('views/historia-lista-de-padres.html')">
+              ← Volver al Directorio Patrístico
+            </button>
+            <button type="button" class="accar-codex-btn-pri" onclick="window.accarShowPadrePanel('inicio')">
+              ↑ Volver a I. Panorama Inicial
+            </button>
+          </div>
+
+        </section>
+
+      </div>
+
+    </main>
+
+  </div>
+
+</section>
+
+<style>
+/* =====================================================================
+   ESTILOS ENCAPSULADOS ESTRICTAMENTE EN #accar-ficha-padre
+   Protección absoluta del Header Global y arquitectura SPA
+===================================================================== */
+#accar-ficha-padre,
+#accar-ficha-padre * {
+  box-sizing: border-box;
+}
+
+#accar-ficha-padre {
+  --padre-gold: #d4af37;
+  --padre-gold-light: #eed076;
+  --padre-crimson: #8f1622;
+  --codex-scale: 1;
+
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  min-height: 100vh;
+  padding: 44px 20px 128px;
+  font-family: Georgia, "Times New Roman", serif;
+  color: #f8efd3;
+  border-top: 1px solid rgba(212, 175, 55, 0.26);
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(20, 48, 96, 0.58) 0%, rgba(6, 16, 36, 0.94) 36%, #030816 100%);
+  box-shadow: inset 0 24px 52px rgba(0, 0, 0, 0.58);
+}
+
+#accar-ficha-padre::before {
+  content: "";
+  position: absolute;
+  top: 110px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(1140px, 96vw);
+  height: min(1140px, 96vw);
+  background: url("/assets/img/historia-watermark.png") center top / contain no-repeat;
+  opacity: 0.055;
+  pointer-events: none;
+  z-index: 0;
+}
+
+#accar-ficha-padre .accar-padre-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+/* ===== BARRA SUPERIOR ===== */
+#accar-ficha-padre .accar-padre-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-bottom: 26px;
+}
+
+#accar-ficha-padre .accar-padre-breadcrumb {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-size: 0.83rem;
+  color: rgba(248, 239, 211, 0.72);
+}
+
+#accar-ficha-padre .accar-padre-breadcrumb a {
+  color: #eed076;
+  text-decoration: none;
+  font-weight: 700;
+  transition: color 0.22s ease;
+}
+
+#accar-ficha-padre .accar-padre-breadcrumb a:hover {
+  color: #fff9ec;
+}
+
+#accar-ficha-padre .accar-padre-breadcrumb strong {
+  color: #fff9ec;
+}
+
+#accar-ficha-padre .accar-padre-peers {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+#accar-ficha-padre .accar-peer-btn {
+  appearance: none;
+  padding: 7px 15px;
+  border-radius: 999px;
+  border: 1px solid rgba(212, 175, 55, 0.42);
+  background: rgba(4, 11, 28, 0.82);
+  color: #eed076;
+  font-family: inherit;
+  font-size: 0.71rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.24s ease;
+}
+
+#accar-ficha-padre .accar-peer-btn:hover {
+  border-color: #fff3c4;
+  background: rgba(212, 175, 55, 0.22);
+  color: #fff9ec;
+  transform: translateY(-1px);
+}
+
+/* ===== RELICARIO HERO CON ESCRITORIO PATRÍSTICO ===== */
+#accar-ficha-padre .accar-padre-hero {
+  position: relative;
+  padding: 38px 38px 30px;
+  margin-bottom: 28px;
+  border-radius: 28px;
+  border: 1px solid rgba(212, 175, 55, 0.58);
+  background:
+    linear-gradient(180deg, rgba(8, 20, 44, 0.78) 0%, rgba(5, 13, 30, 0.90) 100%),
+    url("/assets/img/bg_padres_iglesia_acccar.png") center center / cover no-repeat;
+  box-shadow:
+    0 28px 60px rgba(0, 0, 0, 0.75),
+    inset 0 1px 0 rgba(255, 238, 186, 0.18);
+}
+
+#accar-ficha-padre .accar-padre-hero::after {
+  content: "";
+  position: absolute;
+  inset: 8px;
+  border: 1px solid rgba(212, 175, 55, 0.20);
+  border-radius: 21px;
+  pointer-events: none;
+}
+
+#accar-ficha-padre .accar-padre-hero-grid {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 290px 1fr;
+  gap: 38px;
+  align-items: center;
+}
+
+#accar-ficha-padre .accar-padre-portrait-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+#accar-ficha-padre .accar-padre-camafeo {
+  position: relative;
+  width: 248px;
+  height: 248px;
+  padding: 7px;
+  border-radius: 30px;
+  border: 2.5px solid #eed076;
+  background: radial-gradient(circle at 50% 30%, #4d3510 0%, #140f06 75%);
+  box-shadow:
+    0 22px 44px rgba(0, 0, 0, 0.82),
+    0 0 28px rgba(212, 175, 55, 0.24);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transition: transform 0.38s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.38s ease;
+}
+
+#accar-ficha-padre .accar-padre-camafeo:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow:
+    0 28px 52px rgba(0, 0, 0, 0.88),
+    0 0 34px rgba(212, 175, 55, 0.36);
+}
+
+#accar-ficha-padre .accar-padre-camafeo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 22px;
+}
+
+#accar-ficha-padre .accar-padre-seal {
+  margin-top: 16px;
+  padding: 8px 15px;
+  border-radius: 999px;
+  border: 1px solid #fff3c4;
+  background: linear-gradient(180deg, #e6c667 0%, #ad851b 100%);
+  color: #160c02;
+  font-size: 0.70rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.52);
+}
+
+#accar-ficha-padre .accar-padre-liturgia-badge {
+  margin-top: 10px;
+  width: 100%;
+  max-width: 246px;
+  padding: 9px 14px 10px;
+  border-radius: 14px;
+  border: 1px solid rgba(212, 175, 55, 0.42);
+  border-top: 2.5px solid #d4af37;
+  background: linear-gradient(180deg, #081530 0%, #040a1a 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.50);
+  transition: transform 0.26s ease, border-color 0.26s ease;
+}
+
+#accar-ficha-padre .accar-padre-liturgia-badge:hover {
+  transform: translateY(-2px);
+  border-color: #eed076;
+}
+
+#accar-ficha-padre .accar-liturgia-label {
+  font-size: 0.63rem;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: #eed076;
+}
+
+#accar-ficha-padre .accar-liturgia-date {
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-variant-numeric: lining-nums proportional-nums;
+  font-size: 1.04rem;
+  font-weight: 600;
+  color: #fff9ec;
+}
+
+#accar-ficha-padre .accar-padre-latin-plate {
+  margin-top: 7px;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-variant-numeric: lining-nums proportional-nums;
+  font-size: 0.96rem;
+  font-style: italic;
+  color: #e4d8be;
+}
+
+/* Columna Derecha del Hero */
+#accar-ficha-padre .accar-padre-copy-col {
+  min-width: 0;
+}
+
+#accar-ficha-padre .accar-padre-kicker {
+  display: inline-block;
+  padding: 6px 16px;
+  margin-bottom: 12px;
+  border-radius: 999px;
+  border: 1px solid #fff3c4;
+  background: linear-gradient(180deg, #e5c463 0%, #a47b15 100%);
+  color: #170f02;
+  font-size: 0.73rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.50);
+}
+
+#accar-ficha-padre .accar-padre-name {
+  margin: 0 0 4px;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-size: clamp(2.5rem, 4.5vw, 4rem);
+  font-weight: 700;
+  line-height: 1.04;
+  color: #fff9ec;
+  text-shadow: 0 4px 18px rgba(0, 0, 0, 0.84);
+}
+
+#accar-ficha-padre .accar-padre-latin-sub {
+  margin: 0 0 16px;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-size: 1.13rem;
+  font-style: italic;
+  color: #eed076;
+  letter-spacing: 0.02em;
+}
+
+#accar-ficha-padre .accar-padre-lead {
+  margin: 0 0 22px;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-variant-numeric: lining-nums proportional-nums;
+  font-size: 1.20rem;
+  line-height: 1.66;
+  color: #f4ebd6;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.65);
+}
+
+#accar-ficha-padre .accar-padre-meta-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+
+#accar-ficha-padre .accar-padre-meta-card {
+  padding: 14px 15px 15px;
+  border-radius: 15px;
+  border: 1px solid rgba(212, 175, 55, 0.38);
+  border-top: 2.5px solid #d4af37;
+  background: rgba(4, 11, 28, 0.84);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.28s ease, background 0.28s ease, box-shadow 0.28s ease;
+}
+
+#accar-ficha-padre .accar-meta-label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #eed076;
+}
+
+#accar-ficha-padre .accar-meta-val {
+  display: block;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-variant-numeric: lining-nums proportional-nums;
+  font-size: 1rem;
+  line-height: 1.45;
+  color: #fff9ec;
+}
+
+/* ===== 7 PESTAÑAS PATRÍSTICAS (4 + 3) ===== */
+#accar-ficha-padre .accar-padre-tabs {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 28px;
+  padding-top: 22px;
+  border-top: 1px solid rgba(212, 175, 55, 0.28);
+}
+
+#accar-ficha-padre .accar-padre-tabs-row4 {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+#accar-ficha-padre .accar-padre-tabs-row3 {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+#accar-ficha-padre .accar-padre-tab {
+  appearance: none;
+  padding: 13px 10px;
+  border-radius: 13px;
+  border: 1px solid rgba(212, 175, 55, 0.40);
+  border-left: 3.5px solid #d4af37;
+  background: rgba(5, 14, 34, 0.90);
+  color: #e8dcc2;
+  font-family: Georgia, serif;
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  text-align: center;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.24s ease;
+}
+
+#accar-ficha-padre .accar-padre-tab.accar-tab-citas {
+  border-left-color: #eed076;
+  border-color: rgba(238, 208, 118, 0.62);
+}
+
+#accar-ficha-padre .accar-padre-tab:hover {
+  border-color: #eed076;
+  background: rgba(18, 40, 82, 0.95);
+  color: #fff9ec;
+  transform: translateY(-2px);
+}
+
+#accar-ficha-padre .accar-padre-tab.active {
+  border-color: #fff3c4;
+  background: linear-gradient(180deg, #e5c565 0%, #aa8017 100%);
+  color: #160e02;
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.58), 0 0 16px rgba(212, 175, 55, 0.35);
+}
+
+/* =====================================================================
+   PLIEGO DEL CÓDICE PATRÍSTICO (MODO NOCHE BASE + MODO PERGAMINO)
+===================================================================== */
+#accar-ficha-padre .accar-padre-codex {
+  position: relative;
+  padding: 34px 48px 48px;
+  border-radius: 28px;
+  border: 1px solid rgba(212, 175, 55, 0.48);
+  background: linear-gradient(180deg, #081328 0%, #040a17 100%);
+  box-shadow: 0 28px 60px rgba(0, 0, 0, 0.72);
+  color: #efe5cc;
+  transition: background 0.32s ease, color 0.32s ease, border-color 0.32s ease;
+}
+
+#accar-ficha-padre .accar-padre-codex::after {
+  content: "";
+  position: absolute;
+  inset: 9px;
+  border: 1px solid rgba(212, 175, 55, 0.18);
+  border-radius: 20px;
+  pointer-events: none;
+}
+
+#accar-ficha-padre .accar-padre-codex.theme-light {
+  background: linear-gradient(180deg, #faf4e6 0%, #f2e8d2 100%);
+  border-color: rgba(186, 146, 58, 0.65);
+  color: #211b13;
+  box-shadow:
+    0 28px 60px rgba(0, 0, 0, 0.65),
+    inset 0 0 44px rgba(175, 136, 56, 0.09);
+}
+
+#accar-ficha-padre .accar-padre-codex.theme-light::after {
+  border-color: rgba(156, 118, 38, 0.24);
+}
+
+/* Barra de Herramientas */
+#accar-ficha-padre .accar-codex-toolbar {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding-bottom: 16px;
+  margin-bottom: 30px;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.25);
+}
+
+#accar-ficha-padre .accar-padre-codex.theme-light .accar-codex-toolbar {
+  border-bottom-color: rgba(140, 104, 34, 0.24);
+}
+
+#accar-ficha-padre .accar-codex-section-tag {
+  font-size: 0.73rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #eed076;
+}
+
+#accar-ficha-padre .accar-padre-codex.theme-light .accar-codex-section-tag {
+  color: #821818;
+}
+
+#accar-ficha-padre .accar-codex-controls {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+#accar-ficha-padre .accar-codex-sizes {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+#accar-ficha-padre .accar-codex-size-lbl {
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: rgba(234, 224, 200, 0.72);
+  margin-right: 2px;
+}
+
+#accar-ficha-padre .accar-padre-codex.theme-light .accar-codex-size-lbl {
+  color: #544632;
+}
+
+#accar-ficha-padre .accar-codex-tool-btn {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(212, 175, 55, 0.40);
+  background: transparent;
+  color: #f2e8ce;
+  font-family: Georgia, serif;
+  font-size: 0.76rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+#accar-ficha-padre .accar-codex-tool-btn svg {
+  width: 14px;
+  height: 14px;
+}
+
+#accar-ficha-padre .accar-padre-codex.theme-light .accar-codex-tool-btn {
+  color: #241d13;
+  border-color: rgba(124, 92, 30, 0.35);
+  background: rgba(255, 255, 255, 0.48);
+}
+
+#accar-ficha-padre .accar-codex-tool-btn:hover {
+  border-color: #d4af37;
+}
+
+#accar-ficha-padre .accar-codex-tool-btn.active {
+  background: #d4af37;
+  border-color: #d4af37;
+  color: #081226 !important;
+}
+
+/* Cuerpo y Paneles */
+#accar-ficha-padre .accar-codex-body {
+  position: relative;
+  z-index: 2;
+  font-size: calc(20px * var(--codex-scale));
+}
+
+#accar-ficha-padre .accar-padre-panel {
+  --panel-accent: #c99b26;
+  display: none;
+}
+
+#accar-ficha-padre .accar-padre-panel[data-tono="verde"]   { --panel-accent: #1b7a48; }
+#accar-ficha-padre .accar-padre-panel[data-tono="azul"]    { --panel-accent: #1d4e89; }
+#accar-ficha-padre .accar-padre-panel[data-tono="carmesi"] { --panel-accent: #9b1622; }
+
+#accar-ficha-padre .accar-padre-panel.active {
+  display: block;
+  animation: accarPadrePanelIn 0.3s ease;
+}
+
+@keyframes accarPadrePanelIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+#accar-ficha-padre .accar-codex-intro {
+  max-width: 940px;
+  margin-bottom: 28px;
+}
+
+#accar-ficha-padre .accar-codex-kicker {
+  display: block;
+  margin-bottom: 6px;
+  font-family: Georgia, serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #eed076;
+}
+
+#accar-ficha-padre .accar-padre-codex.theme-light .accar-codex-kicker {
+  color: #8b1a1a;
+}
+
+#accar-ficha-padre .accar-codex-h2 {
+  margin: 0 0 18px;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-size: 2.55rem;
+  font-weight: 700;
+  line-height: 1.12;
+  color: #fff9ec;
+}
+
+#accar-ficha-padre .accar-padre-codex.theme-light .accar-codex-h2 {
+  color: #0b1e3d;
+}
+
+#accar-ficha-padre .accar-codex-h3 {
+  margin: 0 0 20px;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #eed076;
+}
+
+#accar-ficha-padre .accar-padre-codex.theme-light .accar-codex-h3 {
+  color: #7f1d1d;
+}
+
+#accar-ficha-padre .accar-codex-intro p {
+  margin: 0 0 16px;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-variant-numeric: lining-nums proportional-nums;
+  font-size: 1.05em;
+  line-height: 1.78;
+}
+
+#accar-ficha-padre .accar-capitular {
+  float: left;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-size: 3.3em;
+  font-weight: 700;
+  line-height: 0.80;
+  padding: 0.06em 0.13em 0 0;
+  color: #eed076;
+}
+
+#accar-ficha-padre .accar-padre-codex.theme-light .accar-capitular {
+  color: #8b1a1a;
+}
+
+#accar-ficha-padre .accar-codex-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 30px 0 26px;
+}
+
+#accar-ficha-padre .accar-codex-divider::before,
+#accar-ficha-padre .accar-codex-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.55), transparent);
+}
+
+#accar-ficha-padre .accar-padre-codex.theme-light .accar-codex-divider::before,
+#accar-ficha-padre .accar-padre-codex.theme-light .accar-codex-divider::after {
+  background: linear-gradient(90deg, transparent, rgba(140, 102, 28, 0.42), transparent);
+}
+
+#accar-ficha-padre .accar-codex-divider span {
+  padding: 0 14px;
+  font-size: 0.9rem;
+  color: #d4af37;
+}
+
+#accar-ficha-padre .accar-padre-codex.theme-light .accar-codex-divider span {
+  color: #8b1a1a;
+}
+
+/* Recuadro Carmesí Dogmático */
+#accar-ficha-padre .accar-callout-dogmatico {
+  margin: 0 0 28px;
+  padding: 24px 28px;
+  border-radius: 20px;
+  border: 1px solid rgba(212, 175, 55, 0.55);
+  border-left: 5px solid #eed076;
+  background: linear-gradient(135deg, #6e0e18 0%, #2b0509 100%);
+  color: #fff9ec;
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.25);
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.28s ease;
+}
+
+#accar-ficha-padre .accar-callout-kicker {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #eed076;
+}
+
+#accar-ficha-padre .accar-callout-dogmatico h4 {
+  margin: 0 0 8px;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-size: 1.42rem;
+  color: #fff9ec;
+}
+
+#accar-ficha-padre .accar-callout-dogmatico p {
+  margin: 0;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-size: 1em;
+  line-height: 1.66;
+  color: #f6ebd4;
+}
+
+/* ===== 4 PLACAS LAPIDARIAS ===== */
+#accar-ficha-padre .accar-stat-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  margin: 24px 0 10px;
+}
+
+#accar-ficha-padre .accar-stat-plaque {
+  position: relative;
+  padding: 22px 16px 20px;
+  border-radius: 18px;
+  border: 1px solid rgba(212, 175, 55, 0.55);
+  background:
+    radial-gradient(circle at 50% 0%, rgba(212, 175, 55, 0.18) 0%, transparent 62%),
+    linear-gradient(180deg, #0c2147 0%, #050e22 100%);
+  text-align: center;
+  color: #fff9ec;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.28);
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.28s ease, border-color 0.28s ease;
+}
+
+#accar-ficha-padre .accar-stat-plaque::after {
+  content: "";
+  position: absolute;
+  inset: 5px;
+  border: 1px solid rgba(212, 175, 55, 0.20);
+  border-radius: 13px;
+  pointer-events: none;
+}
+
+#accar-ficha-padre .accar-stat-cross {
+  display: block;
+  font-size: 0.72rem;
+  color: rgba(238, 208, 118, 0.78);
+  margin-bottom: 4px;
+}
+
+#accar-ficha-padre .accar-stat-num {
+  display: block;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-variant-numeric: lining-nums proportional-nums;
+  font-size: 2.25rem;
+  font-weight: 700;
+  line-height: 1.05;
+  color: #eed076;
+  margin-bottom: 8px;
+}
+
+#accar-ficha-padre .accar-stat-lbl {
+  display: block;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-size: 0.96rem;
+  line-height: 1.38;
+  color: #f2e8ce;
+}
+
+/* ===== REGISTRO LAPIDARIO Y TARJETAS DE ESTUDIO ===== */
+#accar-ficha-padre .accar-registry-box {
+  margin-bottom: 22px;
+  padding: 24px 26px;
+  border-radius: 20px;
+  border: 1px solid rgba(212, 175, 55, 0.34);
+  border-left: 4px solid #d4af37;
+  background: rgba(9, 22, 48, 0.62);
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.28s ease, border-color 0.28s ease;
+}
+
+#accar-ficha-padre .accar-padre-codex.theme-light .accar-registry-box {
+  background: rgba(255, 252, 245, 0.88);
+  border-color: rgba(160, 122, 42, 0.32);
+  border-left: 4px solid #8b1a1a;
+  box-shadow: 0 10px 24px rgba(40, 28, 8, 0.06);
+}
+
+#accar-ficha-padre .accar-registry-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-bottom: 12px;
+  margin-bottom: 16px;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.22);
+}
+
+#accar-ficha-padre .accar-padre-codex.theme-light .accar-registry-head {
+  border-bottom-color: rgba(140, 104, 34, 0.20);
+}
+
+#accar-ficha-padre .accar-registry-icon {
+  color: #d4af37;
+  font-size: 1rem;
+}
+
+#accar-ficha-padre .accar-padre-codex.theme-light .accar-registry-icon {
+  color: #8b1a1a;
+}
+
+#accar-ficha-padre .accar-registry-head h4 {
+  margin: 0;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-size: 1.38rem;
+  font-weight: 700;
+  color: #fff9ec;
+}
+
+#accar-ficha-padre .accar-padre-codex.theme-light .accar-registry-head h4 {
+  color: #0b1e3d;
+}
+
+#accar-ficha-padre .accar-registry-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px 28px;
+}
+
+#accar-ficha-padre .accar-registry-list li {
+  padding-left: 14px;
+  border-left: 2px solid rgba(212, 175, 55, 0.42);
+}
+
+#accar-ficha-padre .accar-padre-codex.theme-light .accar-registry-list li {
+  border-left-color: rgba(180, 138, 44, 0.55);
+}
+
+#accar-ficha-padre .accar-registry-list strong {
+  display: block;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-size: 1.02em;
+  font-weight: 700;
+  line-height: 1.3;
+  color: #eed076;
+}
+
+#accar-ficha-padre .accar-padre-codex.theme-light .accar-registry-list strong {
+  color: #1c160e;
+}
+
+#accar-ficha-padre .accar-registry-list span {
+  display: block;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-variant-numeric: lining-nums proportional-nums;
+  font-size: 0.90em;
+  font-style: italic;
+  color: rgba(238, 228, 204, 0.78);
+}
+
+#accar-ficha-padre .accar-padre-codex.theme-light .accar-registry-list span {
+  color: #5c4c36;
+}
+
+#accar-ficha-padre .accar-codex-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+#accar-ficha-padre .accar-codex-card {
+  padding: 22px 24px;
+  border-radius: 18px;
+  border: 1px solid rgba(212, 175, 55, 0.30);
+  border-left: 4px solid var(--panel-accent);
+  background: rgba(9, 22, 48, 0.62);
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.28s ease, border-color 0.28s ease;
+}
+
+#accar-ficha-padre .accar-padre-codex.theme-light .accar-codex-card {
+  background: rgba(255, 252, 245, 0.92);
+  border-color: rgba(160, 122, 42, 0.28);
+  border-left: 4.5px solid var(--panel-accent);
+  box-shadow: 0 10px 24px rgba(40, 28, 8, 0.06);
+}
+
+#accar-ficha-padre .accar-card-num {
+  display: inline-block;
+  margin-bottom: 6px;
+  font-family: Georgia, serif;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #eed076;
+}
+
+#accar-ficha-padre .accar-padre-codex.theme-light .accar-card-num {
+  color: #8b1a1a;
+}
+
+#accar-ficha-padre .accar-codex-card h4 {
+  margin: 0 0 10px;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-size: 1.36rem;
+  font-weight: 700;
+  line-height: 1.24;
+  color: #fff9ec;
+}
+
+#accar-ficha-padre .accar-padre-codex.theme-light .accar-codex-card h4 {
+  color: #0b1e3d;
+}
+
+#accar-ficha-padre .accar-codex-card p {
+  margin: 0;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-variant-numeric: lining-nums proportional-nums;
+  font-size: 0.98em;
+  line-height: 1.68;
+}
+
+/* ===== LÍNEA DEL TIEMPO ===== */
+#accar-ficha-padre .accar-timeline {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-left: 22px;
+  border-left: 2px solid rgba(212, 175, 55, 0.48);
+}
+
+#accar-ficha-padre .accar-padre-codex.theme-light .accar-timeline {
+  border-left-color: rgba(155, 114, 30, 0.45);
+}
+
+#accar-ficha-padre .accar-tl-item {
+  position: relative;
+  display: grid;
+  grid-template-columns: 112px 1fr;
+  gap: 16px;
+  align-items: start;
+}
+
+#accar-ficha-padre .accar-tl-item::before {
+  content: "";
+  position: absolute;
+  left: -29px;
+  top: 14px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid #eed076;
+  background: #1b7345;
+}
+
+#accar-ficha-padre .accar-tl-year {
+  padding: 7px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(212, 175, 55, 0.55);
+  background: linear-gradient(180deg, #165e38 0%, #0b331d 100%);
+  color: #fff9ec;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-variant-numeric: lining-nums proportional-nums;
+  font-size: 0.92rem;
+  font-weight: 700;
+  text-align: center;
+  white-space: nowrap;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.22);
+}
+
+#accar-ficha-padre .accar-tl-card {
+  padding: 16px 20px;
+  border-radius: 16px;
+  border: 1px solid rgba(212, 175, 55, 0.28);
+  background: rgba(9, 22, 48, 0.60);
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.28s ease, border-color 0.28s ease;
+}
+
+#accar-ficha-padre .accar-padre-codex.theme-light .accar-tl-card {
+  background: rgba(255, 252, 245, 0.92);
+  border-color: rgba(160, 122, 42, 0.28);
+  box-shadow: 0 8px 20px rgba(40, 28, 8, 0.05);
+}
+
+#accar-ficha-padre .accar-tl-card h4 {
+  margin: 0 0 6px;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-size: 1.24rem;
+  font-weight: 700;
+  color: #eed076;
+}
+
+#accar-ficha-padre .accar-padre-codex.theme-light .accar-tl-card h4 {
+  color: #0b1e3d;
+}
+
+#accar-ficha-padre .accar-tl-card p {
+  margin: 0;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-variant-numeric: lining-nums proportional-nums;
+  font-size: 0.96em;
+  line-height: 1.62;
+}
+
+/* ===== ACORDEÓN DE ESCRITOS PATRÍSTICOS ===== */
+#accar-ficha-padre .accar-doc-accordion {
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+}
+
+#accar-ficha-padre .accar-doc-item {
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(212, 175, 55, 0.34);
+  background: rgba(8, 20, 44, 0.72);
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.28s ease, border-color 0.28s ease;
+}
+
+#accar-ficha-padre .accar-padre-codex.theme-light .accar-doc-item {
+  background: rgba(255, 252, 245, 0.94);
+  border-color: rgba(150, 114, 38, 0.32);
+  box-shadow: 0 8px 20px rgba(40, 28, 8, 0.06);
+}
+
+#accar-ficha-padre .accar-doc-item.doc-oro     { border-left: 5px solid #c89d28; }
+#accar-ficha-padre .accar-doc-item.doc-azul    { border-left: 5px solid #1d4e89; }
+#accar-ficha-padre .accar-doc-item.doc-carmesi { border-left: 5px solid #9b1622; }
+
+#accar-ficha-padre .accar-doc-trigger {
+  appearance: none;
+  width: 100%;
+  border: none;
+  padding: 16px 20px;
+  background: linear-gradient(180deg, #0f2854 0%, #091936 100%);
+  color: #fff6dc;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.24s ease;
+}
+
+#accar-ficha-padre .accar-doc-item.open .accar-doc-trigger {
+  background: linear-gradient(180deg, #82131d 0%, #48070d 100%);
+}
+
+#accar-ficha-padre .accar-doc-title {
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-variant-numeric: lining-nums proportional-nums;
+  font-size: 1.22rem;
+  font-weight: 700;
+}
+
+#accar-ficha-padre .accar-doc-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1px solid rgba(238, 208, 118, 0.55);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.15rem;
+  color: #eed076;
+  flex-shrink: 0;
+}
+
+#accar-ficha-padre .accar-doc-content {
+  display: none;
+  padding: 18px 22px 22px;
+  border-top: 1px solid rgba(212, 175, 55, 0.20);
+}
+
+#accar-ficha-padre .accar-doc-item.open .accar-doc-content {
+  display: block;
+}
+
+#accar-ficha-padre .accar-doc-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+#accar-ficha-padre .accar-doc-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 13px;
+  border-radius: 999px;
+  font-family: Georgia, serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+#accar-ficha-padre .tag-oro {
+  background: #fbf1d4;
+  color: #57430d;
+  border: 1px solid rgba(196, 152, 34, 0.50);
+}
+
+#accar-ficha-padre .tag-azul {
+  background: #e4eef9;
+  color: #0e2c56;
+  border: 1px solid rgba(29, 78, 137, 0.35);
+}
+
+#accar-ficha-padre .tag-carmesi {
+  background: #f9e2e4;
+  color: #7f121b;
+  border: 1px solid rgba(139, 0, 0, 0.35);
+}
+
+#accar-ficha-padre .accar-doc-content p {
+  margin: 0;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-size: 0.98em;
+  line-height: 1.68;
+}
+
+#accar-ficha-padre .accar-patristic-quote {
+  margin: 14px 0 4px;
+  padding: 18px 22px;
+  border-radius: 14px;
+  border: 1px solid rgba(212, 175, 55, 0.40);
+  border-left: 4px solid #d4af37;
+  background: rgba(5, 13, 30, 0.58);
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-size: 1.01em;
+  line-height: 1.72;
+}
+
+#accar-ficha-padre .accar-padre-codex.theme-light .accar-patristic-quote {
+  background: rgba(139, 26, 26, 0.04);
+  border-color: rgba(150, 114, 38, 0.34);
+  border-left: 4px solid #8b1a1a;
+  color: #1c150d;
+}
+
+#accar-ficha-padre .accar-hl {
+  background: rgba(212, 175, 55, 0.22);
+  color: #fff6dc;
+  padding: 1px 6px;
+  border-radius: 5px;
+  font-weight: 700;
+}
+
+#accar-ficha-padre .accar-padre-codex.theme-light .accar-hl {
+  background: rgba(139, 26, 26, 0.11);
+  color: #6b0f14;
+}
+
+/* =====================================================================
+   CAPÍTULO VII: GRAN BIBLIOTECA DE 60 CITAS Y AFORISMOS
+===================================================================== */
+#accar-ficha-padre .accar-citas-controls {
+  margin-bottom: 24px;
+  padding: 18px 20px;
+  border-radius: 18px;
+  border: 1px solid rgba(212, 175, 55, 0.34);
+  background: rgba(6, 16, 38, 0.65);
+}
+
+#accar-ficha-padre .accar-padre-codex.theme-light .accar-citas-controls {
+  background: rgba(255, 252, 245, 0.86);
+  border-color: rgba(160, 122, 42, 0.32);
+}
+
+#accar-ficha-padre .accar-citas-search-box {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+#accar-agustin-citas-search {
+  flex: 1;
+  padding: 11px 18px;
+  border-radius: 999px;
+  border: 1px solid rgba(212, 175, 55, 0.45);
+  background: rgba(4, 10, 24, 0.85);
+  color: #fff9ec;
+  font-family: Georgia, serif;
+  font-size: 0.88rem;
+  outline: none;
+}
+
+#accar-ficha-padre .accar-padre-codex.theme-light #accar-agustin-citas-search {
+  background: #ffffff;
+  color: #1f1912;
+  border-color: rgba(150, 114, 38, 0.45);
+}
+
+#accar-agustin-citas-search:focus {
+  border-color: #d4af37;
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.18);
+}
+
+#accar-ficha-padre .accar-citas-counter {
+  padding: 6px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(212, 175, 55, 0.45);
+  background: rgba(212, 175, 55, 0.16);
+  color: #eed076;
+  font-family: Georgia, serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+#accar-ficha-padre .accar-padre-codex.theme-light .accar-citas-counter {
+  background: rgba(139, 26, 26, 0.08);
+  border-color: rgba(139, 26, 26, 0.32);
+  color: #7f1d1d;
+}
+
+#accar-ficha-padre .accar-citas-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+#accar-ficha-padre .accar-cita-pill {
+  appearance: none;
+  padding: 6px 13px;
+  border-radius: 999px;
+  border: 1px solid rgba(212, 175, 55, 0.36);
+  background: rgba(4, 11, 28, 0.72);
+  color: #e4d8be;
+  font-family: Georgia, serif;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.22s ease;
+}
+
+#accar-ficha-padre .accar-padre-codex.theme-light .accar-cita-pill {
+  background: rgba(246, 238, 220, 0.90);
+  border-color: rgba(150, 114, 38, 0.35);
+  color: #3d3120;
+}
+
+#accar-ficha-padre .accar-cita-pill:hover {
+  border-color: #d4af37;
+}
+
+#accar-ficha-padre .accar-cita-pill.active {
+  background: linear-gradient(180deg, #8f1622 0%, #52080f 100%) !important;
+  border-color: #eed076 !important;
+  color: #fff9ec !important;
+}
+
+#accar-ficha-padre .accar-citas-empty {
+  padding: 32px 20px;
+  text-align: center;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-size: 1.12rem;
+  font-style: italic;
+}
+
+#accar-ficha-padre .accar-citas-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+#accar-ficha-padre .accar-aforismo-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 22px 24px 18px;
+  border-radius: 18px;
+  border: 1px solid rgba(212, 175, 55, 0.32);
+  border-top: 3px solid #d4af37;
+  background: rgba(9, 22, 48, 0.66);
+  overflow: hidden;
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.28s ease, border-color 0.28s ease;
+}
+
+#accar-ficha-padre .accar-padre-codex.theme-light .accar-aforismo-card {
+  background: rgba(255, 252, 245, 0.95);
+  border-color: rgba(160, 122, 42, 0.30);
+  border-top: 3px solid #8b1a1a;
+  box-shadow: 0 10px 24px rgba(40, 28, 8, 0.06);
+}
+
+#accar-ficha-padre .accar-aforismo-card::before {
+  content: "«";
+  position: absolute;
+  top: -8px;
+  right: 16px;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-size: 4.4rem;
+  line-height: 1;
+  color: rgba(212, 175, 55, 0.14);
+  pointer-events: none;
+}
+
+#accar-ficha-padre .accar-padre-codex.theme-light .accar-aforismo-card::before {
+  color: rgba(139, 26, 26, 0.10);
+}
+
+#accar-ficha-padre .accar-aforismo-top {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+#accar-ficha-padre .accar-aforismo-num {
+  font-family: Georgia, serif;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #eed076;
+}
+
+#accar-ficha-padre .accar-padre-codex.theme-light .accar-aforismo-num {
+  color: #8b1a1a;
+}
+
+#accar-ficha-padre .accar-aforismo-cat {
+  font-family: Georgia, serif;
+  font-size: 0.63rem;
+  font-weight: 700;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  color: rgba(234, 224, 200, 0.68);
+}
+
+#accar-ficha-padre .accar-padre-codex.theme-light .accar-aforismo-cat {
+  color: #6b583e;
+}
+
+#accar-ficha-padre .accar-aforismo-txt {
+  margin: 0 0 16px;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-size: 1.03em;
+  font-style: italic;
+  line-height: 1.62;
+  color: #fff9ec;
+  position: relative;
+  z-index: 1;
+}
+
+#accar-ficha-padre .accar-padre-codex.theme-light .accar-aforismo-txt {
+  color: #1b150e;
+}
+
+#accar-ficha-padre .accar-aforismo-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding-top: 11px;
+  border-top: 1px solid rgba(212, 175, 55, 0.20);
+}
+
+#accar-ficha-padre .accar-padre-codex.theme-light .accar-aforismo-foot {
+  border-top-color: rgba(140, 104, 34, 0.18);
+}
+
+#accar-ficha-padre .accar-aforismo-src {
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-variant-numeric: lining-nums proportional-nums;
+  font-size: 0.86em;
+  font-weight: 700;
+  color: #eed076;
+}
+
+#accar-ficha-padre .accar-padre-codex.theme-light .accar-aforismo-src {
+  color: #0e2852;
+}
+
+#accar-ficha-padre .accar-aforismo-copy {
+  appearance: none;
+  padding: 4px 11px;
+  border-radius: 999px;
+  border: 1px solid rgba(212, 175, 55, 0.42);
+  background: transparent;
+  color: #eed076;
+  font-family: Georgia, serif;
+  font-size: 0.64rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+
+#accar-ficha-padre .accar-padre-codex.theme-light .accar-aforismo-copy {
+  color: #7f1d1d;
+  border-color: rgba(139, 26, 26, 0.35);
+}
+
+#accar-ficha-padre .accar-aforismo-copy:hover {
+  background: #d4af37;
+  border-color: #d4af37;
+  color: #081226 !important;
+}
+
+/* ===== INTERACCIÓN HOVER TÁCTIL PARA PC Y LAPTOP ===== */
+@media (hover: hover) {
+  #accar-ficha-padre .accar-padre-meta-card:hover {
+    transform: translateY(-4px);
+    border-color: #eed076;
+    background: rgba(18, 42, 86, 0.88);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.45);
+  }
+
+  #accar-ficha-padre .accar-stat-plaque:hover {
+    transform: translateY(-5px);
+    border-color: #eed076;
+    box-shadow: 0 20px 38px rgba(0, 0, 0, 0.42), 0 0 18px rgba(212, 175, 55, 0.20);
+  }
+
+  #accar-ficha-padre .accar-registry-box:hover,
+  #accar-ficha-padre .accar-codex-card:hover,
+  #accar-ficha-padre .accar-doc-item:hover,
+  #accar-ficha-padre .accar-callout-dogmatico:hover,
+  #accar-ficha-padre .accar-aforismo-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(212, 175, 55, 0.72);
+    box-shadow: 0 18px 34px rgba(0, 0, 0, 0.18);
+  }
+
+  #accar-ficha-padre .accar-tl-card:hover {
+    transform: translateX(6px);
+    border-color: rgba(212, 175, 55, 0.68);
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.16);
+  }
+}
+
+/* ===== BOTONES INFERIORES DE NAVEGACIÓN ===== */
+#accar-ficha-padre .accar-codex-footer-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 34px;
+  padding-top: 22px;
+  border-top: 1px solid rgba(212, 175, 55, 0.25);
+}
+
+#accar-ficha-padre .accar-padre-codex.theme-light .accar-codex-footer-nav {
+  border-top-color: rgba(140, 104, 34, 0.24);
+}
+
+#accar-ficha-padre .accar-codex-btn-sec,
+#accar-ficha-padre .accar-codex-btn-pri {
+  appearance: none;
+  padding: 12px 24px;
+  border-radius: 999px;
+  font-family: Georgia, serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+#accar-ficha-padre .accar-codex-btn-sec {
+  border: 1px solid rgba(212, 175, 55, 0.55);
+  background: linear-gradient(180deg, #102a58 0%, #081734 100%);
+  color: #fff4d2;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.22);
+}
+
+#accar-ficha-padre .accar-codex-btn-sec:hover {
+  border-color: #eed076;
+  background: linear-gradient(180deg, #163874 0%, #0b2046 100%);
+  transform: translateY(-2px);
+}
+
+#accar-ficha-padre .accar-codex-btn-pri {
+  border: 1px solid #fff3c4;
+  background: linear-gradient(180deg, #e5c463 0%, #b88e1e 100%);
+  color: #1a1204;
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.24);
+}
+
+#accar-ficha-padre .accar-codex-btn-pri:hover {
+  filter: brightness(1.06);
+  transform: translateY(-2px);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1120px) {
+  #accar-ficha-padre .accar-padre-meta-grid,
+  #accar-ficha-padre .accar-stat-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 920px) {
+  #accar-ficha-padre .accar-padre-hero {
+    padding: 28px 22px 24px;
+  }
+
+  #accar-ficha-padre .accar-padre-hero-grid {
+    grid-template-columns: 1fr;
+    text-align: center;
+    gap: 24px;
+  }
+
+  #accar-ficha-padre .accar-padre-meta-grid {
+    text-align: left;
+  }
+
+  #accar-ficha-padre .accar-padre-tabs-row4 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  #accar-ficha-padre .accar-padre-tabs-row3 {
+    grid-template-columns: 1fr;
+  }
+
+  #accar-ficha-padre .accar-padre-codex {
+    padding: 26px 22px 34px;
+  }
+
+  #accar-ficha-padre .accar-registry-list,
+  #accar-ficha-padre .accar-codex-cards-grid,
+  #accar-ficha-padre .accar-citas-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 580px) {
+  #accar-ficha-padre {
+    padding: 28px 12px 96px;
+  }
+
+  #accar-ficha-padre .accar-padre-camafeo {
+    width: 205px;
+    height: 205px;
+  }
+
+  #accar-ficha-padre .accar-padre-seal {
+    white-space: normal;
+  }
+
+  #accar-ficha-padre .accar-padre-meta-grid,
+  #accar-ficha-padre .accar-stat-grid {
+    grid-template-columns: 1fr;
+  }
+
+  #accar-ficha-padre .accar-citas-search-box {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  #accar-ficha-padre .accar-citas-counter {
+    text-align: center;
+  }
+
+  #accar-ficha-padre .accar-tl-item {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  #accar-ficha-padre .accar-tl-year {
+    width: max-content;
+  }
+
+  #accar-ficha-padre .accar-codex-footer-nav button {
+    width: 100%;
+    justify-content: center;
+  }
+}
+</style>
+
+<script>
+(function() {
+  const root = document.getElementById('accar-ficha-padre');
+  if (!root) return;
+
+  const codex = document.getElementById('accar-padre-codex');
+  const sectionTag = document.getElementById('accar-codex-section-tag');
+  const themeBtn = document.getElementById('accar-padre-theme-btn');
+  const themeLbl = document.getElementById('accar-padre-theme-label');
+  const sizeBtns = Array.from(root.querySelectorAll('.btn-padre-size'));
+  const tabs = Array.from(root.querySelectorAll('.accar-padre-tab'));
+  const panels = Array.from(root.querySelectorAll('.accar-padre-panel'));
+
+  const prefs = window.__accarPapaCodexPrefs || { isLight: true, scale: '1' };
+
+  function aplicarPrefs() {
+    root.style.setProperty('--codex-scale', prefs.scale);
+    sizeBtns.forEach(b => b.classList.toggle('active', b.dataset.size === prefs.scale));
+
+    if (prefs.isLight) {
+      codex.classList.add('theme-light');
+      if (themeLbl) themeLbl.textContent = 'Modo Oscuro';
+    } else {
+      codex.classList.remove('theme-light');
+      if (themeLbl) themeLbl.textContent = 'Modo Pergamino';
+    }
+    window.__accarPapaCodexPrefs = prefs;
+  }
+
+  aplicarPrefs();
+
+  window.accarShowPadrePanel = function(targetName) {
+    panels.forEach(p => {
+      p.classList.toggle('active', p.id === 'panel-' + targetName);
+    });
+
+    tabs.forEach(t => {
+      const esActivo = t.dataset.target === targetName;
+      t.classList.toggle('active', esActivo);
+      if (esActivo && sectionTag && t.dataset.label) {
+        sectionTag.textContent = '✠ Códice Patrístico · ' + t.dataset.label;
       }
+    });
 
-      function closeMobileMenu(){
-        if(!mobileMenuToggle || !mobileNavPanel) return;
-        mobileMenuToggle.classList.remove("active");
-        mobileNavPanel.classList.remove("active");
-        mobileMenuToggle.setAttribute("aria-expanded", "false");
+    const tabsBar = document.getElementById('accar-padre-tabs-bar');
+    const globalHeader = document.getElementById('accarGlobalHeader');
+    if (tabsBar) {
+      const headerH = globalHeader ? globalHeader.offsetHeight : 0;
+      const y = tabsBar.getBoundingClientRect().top + window.scrollY - headerH - 14;
+      window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' });
+    }
+  };
+
+  tabs.forEach(t => {
+    t.addEventListener('click', () => {
+      window.accarShowPadrePanel(t.dataset.target);
+    });
+  });
+
+  if (themeBtn) {
+    themeBtn.addEventListener('click', () => {
+      prefs.isLight = !prefs.isLight;
+      aplicarPrefs();
+    });
+  }
+
+  sizeBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      prefs.scale = btn.dataset.size || '1';
+      aplicarPrefs();
+    });
+  });
+
+  root.querySelectorAll('.accar-doc-trigger').forEach(trigger => {
+    trigger.addEventListener('click', () => {
+      const item = trigger.closest('.accar-doc-item');
+      const estabaAbierto = item.classList.contains('open');
+
+      root.querySelectorAll('.accar-doc-item').forEach(acc => {
+        acc.classList.remove('open');
+        const ic = acc.querySelector('.accar-doc-icon');
+        if (ic) ic.textContent = '+';
+      });
+
+      if (!estabaAbierto) {
+        item.classList.add('open');
+        const ic = item.querySelector('.accar-doc-icon');
+        if (ic) ic.textContent = '−';
       }
+    });
+  });
 
-      function toggleMobileMenu(){
-        if(!mobileNavPanel) return;
-        if(mobileNavPanel.classList.contains("active")){
-          closeMobileMenu();
-        }else{
-          openMobileMenu();
-        }
-      }
+  // =====================================================================
+  // GRAN ANTOLOGÍA VERIFICADA DE 60 CITAS DE SAN AGUSTÍN DE HIPONA
+  // =====================================================================
+  const CITAS_AGUSTIN = [
+    // 1. IGLESIA, UNIDAD Y PRIMADO ROMANO (1–10)
+    { cat: 'iglesia', catNom: 'Iglesia y Roma', txt: 'Por mi parte, yo no creería en el Evangelio, si a ello no me moviera la autoridad de la Iglesia Católica.', src: 'Contra la Carta de Maniqueo llamada del Fundamento, 5, 6' },
+    { cat: 'iglesia', catNom: 'Iglesia y Roma', txt: 'Ya han llegado de la Sede Apostólica los rescriptos; la causa ha terminado (causa finita est). ¡Ojalá termine también algún día el error!', src: 'Sermón 131, 10' },
+    { cat: 'iglesia', catNom: 'Iglesia y Roma', txt: 'En la Iglesia Romana siempre ha estado en vigor el principado de la cátedra apostólica.', src: 'Carta 43, 7' },
+    { cat: 'iglesia', catNom: 'Iglesia y Roma', txt: 'Fuera de la Iglesia Católica se puede tener todo menos la salvación: se puede tener el honor, los sacramentos, cantar aleluya, responder amén y tener el Evangelio; pero en ninguna parte sino en la Iglesia Católica se puede hallar la salvación.', src: 'Sermón al pueblo de la Iglesia de Cesarea, 6' },
+    { cat: 'iglesia', catNom: 'Iglesia y Roma', txt: 'Amemos al Señor nuestro Dios; amemos a su Iglesia: a Él como a Padre, a ella como a Madre.', src: 'Enarrationes in Psalmos 88, s. 2, 14' },
+    { cat: 'iglesia', catNom: 'Iglesia y Roma', txt: 'En la medida en que cada uno ama a la Iglesia de Cristo, en esa misma medida posee el Espíritu Santo.', src: 'Tratado sobre el Evangelio de San Juan 32, 8' },
+    { cat: 'iglesia', catNom: 'Iglesia y Roma', txt: 'Dos amores fundaron dos ciudades: el amor propio hasta el desprecio de Dios, la terrena; y el amor de Dios hasta el desprecio de sí mismo, la celestial.', src: 'La Ciudad de Dios XIV, 28' },
+    { cat: 'iglesia', catNom: 'Iglesia y Roma', txt: 'Según la presciencia de Dios, ¡cuántas ovejas están hoy fuera, y cuántos lobos están dentro!', src: 'Tratado sobre el Evangelio de San Juan 45, 12' },
+    { cat: 'iglesia', catNom: 'Iglesia y Roma', txt: 'La Iglesia avanza en su peregrinación entre las persecuciones del mundo y los consuelos de Dios.', src: 'La Ciudad de Dios XVIII, 51, 2' },
+    { cat: 'iglesia', catNom: 'Iglesia y Roma', txt: 'Contad los sacerdotes desde la misma sede de Pedro y ved quién sucedió a quién en ese orden de Padres: ésa es la Roca que no vencen las soberbias puertas del infierno.', src: 'Salmo contra la parte de Donato' },
 
-      function showPanel(name){
-        panelNames.forEach(panel => {
-          const panelEl = document.getElementById("panel-" + panel);
-          if(panelEl){
-            panelEl.classList.toggle("active", panel === name);
-          }
-          document.querySelectorAll('[data-target="' + panel + '"]').forEach(btnEl => {
-            btnEl.classList.toggle("active", panel === name);
-          });
+    // 2. DIOS, INTERIORIDAD Y BÚSQUEDA DEL ALMA (11–20)
+    { cat: 'dios', catNom: 'Dios y el Alma', txt: 'Nos hiciste, Señor, para ti, y nuestro corazón está inquieto hasta que descanse en ti.', src: 'Confesiones I, 1, 1' },
+    { cat: 'dios', catNom: 'Dios y el Alma', txt: '¡Tarde te amé, Hermosura tan antigua y tan nueva, tarde te amé! Y tú estabas dentro de mí y yo afuera, y por fuera te buscaba.', src: 'Confesiones X, 27, 38' },
+    { cat: 'dios', catNom: 'Dios y el Alma', txt: 'Tú estabas más adentro de mí que lo más íntimo mío, y más alto que lo más sumo mío (interior intimo meo et superior summo meo).', src: 'Confesiones III, 6, 11' },
+    { cat: 'dios', catNom: 'Dios y el Alma', txt: 'No quieras derramarte fuera; entra dentro de ti mismo, porque en el hombre interior habita la verdad; y si hallares mudable tu propia naturaleza, trasciéndete también a ti mismo.', src: 'De la verdadera religión 39, 72' },
+    { cat: 'dios', catNom: 'Dios y el Alma', txt: 'Hablamos de Dios, ¿qué tiene de extraño que no lo comprendas? Pues si lo comprendes, no es Dios (Si enim comprehendis, non est Deus).', src: 'Sermón 117, 3, 5' },
+    { cat: 'dios', catNom: 'Dios y el Alma', txt: '¡Dios siempre el mismo: conózcame a mí, conózcate a ti (Noverim me, noverim te)!', src: 'Soliloquios II, 1, 1' },
+    { cat: 'dios', catNom: 'Dios y el Alma', txt: 'Busquemos como quienes han de encontrar, y encontremos como quienes aún han de seguir buscando.', src: 'De Trinitate IX, 1, 1' },
+    { cat: 'dios', catNom: 'Dios y el Alma', txt: 'Mi peso es mi amor; él me lleva doquiera que soy llevado (Pondus meum amor meus; eo feror, quocumque feror).', src: 'Confesiones XIII, 9, 10' },
+    { cat: 'dios', catNom: 'Dios y el Alma', txt: 'Grande eres, Señor, y muy digno de alabanza; grande es tu poder, y tu sabiduría no tiene medida.', src: 'Confesiones I, 1, 1' },
+    { cat: 'dios', catNom: 'Dios y el Alma', txt: 'Canta, pero camina; alivia con el canto tu trabajo, mas no ames la pereza: canta y camina en el bien.', src: 'Sermón 256, 3' },
+
+    // 3. GRACIA, PECADO Y CONVERSIÓN (21–30)
+    { cat: 'gracia', catNom: 'Gracia y Conversión', txt: 'Quien te creó sin ti, no te justificará sin ti: creó al que no lo sabía, pero no justifica sino al que libremente consiente.', src: 'Sermón 169, 11, 13' },
+    { cat: 'gracia', catNom: 'Gracia y Conversión', txt: 'Toda mi esperanza no estriba sino en tu muy grande misericordia: da lo que mandas, y manda lo que quieras (Da quod iubes et iube quod vis).', src: 'Confesiones X, 29, 40' },
+    { cat: 'gracia', catNom: 'Gracia y Conversión', txt: 'Dios no manda cosas imposibles, sino que al mandar te amonesta a que hagas lo que puedas y pidas lo que no puedas, y te ayuda para que puedas.', src: 'Sobre la naturaleza y la gracia 43, 50' },
+    { cat: 'gracia', catNom: 'Gracia y Conversión', txt: 'Cuando Dios corona nuestros méritos, no corona otra cosa sino sus propios dones.', src: 'Carta 194, 5, 19' },
+    { cat: 'gracia', catNom: 'Gracia y Conversión', txt: 'A tu gracia y a tu misericordia atribuyo el que hayas derretido mis pecados como hielo; y a tu gracia atribuyo también cuantos males no cometí.', src: 'Confesiones II, 7, 15' },
+    { cat: 'gracia', catNom: 'Gracia y Conversión', txt: 'Es mejor cojear dentro del camino recto que caminar con paso firme fuera del camino.', src: 'Sermón 141, 4' },
+    { cat: 'gracia', catNom: 'Gracia y Conversión', txt: 'Aquel que prometió el perdón a tu arrepentimiento, no prometió el día de mañana a tu dilación.', src: 'Enarrationes in Psalmos 102, 16' },
+    { cat: 'gracia', catNom: 'Gracia y Conversión', txt: 'El comienzo de las buenas obras es la confesión humilde de las malas obras.', src: 'Tratado sobre el Evangelio de San Juan 12, 13' },
+    { cat: 'gracia', catNom: 'Gracia y Conversión', txt: 'La ley fue dada para que se buscase la gracia; la gracia fue dada para que se cumpliese la ley.', src: 'Del espíritu y de la letra 19, 34' },
+    { cat: 'gracia', catNom: 'Gracia y Conversión', txt: 'Si el Médico omnipotente bajó del cielo hasta nosotros, señal de que muy grande y mortal era nuestra herida.', src: 'Sermón 175, 1' },
+
+    // 4. EUCARISTÍA, SACRAMENTOS Y MARÍA SANTÍSIMA (31–40)
+    { cat: 'sacramentos', catNom: 'Eucaristía y Sacramentos', txt: 'Nadie come aquella carne de Cristo sin antes adorarla; y no solo no pecamos adorándola, sino que pecaríamos si no la adorásemos.', src: 'Enarrationes in Psalmos 98, 9' },
+    { cat: 'sacramentos', catNom: 'Eucaristía y Sacramentos', txt: 'Ese pan que veis sobre el altar, santificado por la palabra de Dios, es el Cuerpo de Cristo. Ese cáliz, o más bien lo que contiene el cáliz, santificado por la palabra de Dios, es la Sangre de Cristo.', src: 'Sermón 227 (a los neófitos)' },
+    { cat: 'sacramentos', catNom: 'Eucaristía y Sacramentos', txt: 'Sed lo que veis y recibid lo que sois: el misterio de vosotros mismos está puesto sobre la mesa del Señor.', src: 'Sermón 272' },
+    { cat: 'sacramentos', catNom: 'Eucaristía y Sacramentos', txt: 'Cuando Pedro bautiza, es Cristo quien bautiza; cuando Pablo bautiza, es Cristo quien bautiza; cuando Judas bautiza, es Cristo quien bautiza.', src: 'Tratado sobre el Evangelio de San Juan 6, 7' },
+    { cat: 'sacramentos', catNom: 'Eucaristía y Sacramentos', txt: 'Quita la palabra, ¿y qué es el agua sino agua? Se une la palabra al elemento, y se hace el Sacramento, que es también como palabra visible.', src: 'Tratado sobre el Evangelio de San Juan 80, 3' },
+    { cat: 'sacramentos', catNom: 'Eucaristía y Sacramentos', txt: '¡Oh Sacramento de piedad! ¡Oh signo de unidad! ¡Oh vínculo de caridad! Quien quiere vivir, tiene dónde vivir y tiene de qué vivir.', src: 'Tratado sobre el Evangelio de San Juan 26, 13' },
+    { cat: 'sacramentos', catNom: 'Eucaristía y Sacramentos', txt: 'Solamente os pido que os acordéis de ella [mi madre Mónica] ante el altar del Señor, dondequiera que os halléis.', src: 'Confesiones IX, 13, 37' },
+    { cat: 'sacramentos', catNom: 'Eucaristía y Sacramentos', txt: 'No se ha de dudar en modo alguno que los difuntos son socorridos por las oraciones de la Santa Iglesia, por el Sacrificio saludable y por las limosnas que se ofrecen por sus almas.', src: 'Sermón 172, 2' },
+    { cat: 'sacramentos', catNom: 'Eucaristía y Sacramentos', txt: 'Cantar es propio de quien ama (Cantare amantis est).', src: 'Sermón 336, 1' },
+    { cat: 'sacramentos', catNom: 'Eucaristía y Sacramentos', txt: 'Exceptuando siempre a la Santísima Virgen María, acerca de la cual, por el honor debido al Señor, no quiero que se mueva cuestión alguna cuando se trata de pecados.', src: 'Sobre la naturaleza y la gracia 36, 42' },
+
+    // 5. AMOR, CARIDAD, HUMILDAD Y ORDEN MORAL (41–50)
+    { cat: 'caridad', catNom: 'Amor y Virtud', txt: 'Ama y haz lo que quieras: si callas, calla por amor; si clamas, clama por amor; si corriges, corrige por amor; si perdonas, perdona por amor. Esté dentro la raíz del amor: de ella no puede brotar sino el bien.', src: 'Tratado sobre la Primera Epístola de San Juan 7, 8' },
+    { cat: 'caridad', catNom: 'Amor y Virtud', txt: 'La medida de amar a Dios es amarlo sin medida.', src: 'Carta 109, 2' },
+    { cat: 'caridad', catNom: 'Amor y Virtud', txt: 'Guardad siempre caridad para con las personas y aborrecimiento para con los vicios (cum dilectione hominum et odio vitiorum).', src: 'Carta 211, 11 (Regla)' },
+    { cat: 'caridad', catNom: 'Amor y Virtud', txt: 'La soberbia no es grandeza, sino hinchazón; y lo que está hinchado parece grande por fuera, mas no está sano por dentro.', src: 'Sermón 160, 7' },
+    { cat: 'caridad', catNom: 'Amor y Virtud', txt: '¿Piensas levantar la fábrica excelsa de la caridad? Pon primero el cimiento profundo de la humildad.', src: 'Sermón 69, 1, 2' },
+    { cat: 'caridad', catNom: 'Amor y Virtud', txt: 'El hombre bueno, aunque sea esclavo, es libre; el malo, aunque sea rey, es esclavo, y no de un solo señor, sino de tantos señores cuantos vicios lo dominan.', src: 'La Ciudad de Dios IV, 3' },
+    { cat: 'caridad', catNom: 'Amor y Virtud', txt: 'En aquello que se ama, o no se siente fatiga, o se ama también la misma fatiga.', src: 'Sobre el bien de la viudez 21, 26' },
+    { cat: 'caridad', catNom: 'Amor y Virtud', txt: 'Una ley que no sea justa no parece que sea ley en absoluto (Lex iniusta non est lex).', src: 'Del libre albedrío I, 5, 11' },
+    { cat: 'caridad', catNom: 'Amor y Virtud', txt: 'La paz de todas las cosas es la tranquilidad del orden; y el orden es la disposición que asigna a las cosas iguales y desiguales su propio lugar.', src: 'La Ciudad de Dios XIX, 13, 1' },
+    { cat: 'caridad', catNom: 'Amor y Virtud', txt: 'Desterrada la justicia, ¿qué son los reinos sino grandes bandas de ladrones?', src: 'La Ciudad de Dios IV, 4' },
+
+    // 6. FE, RAZÓN Y SAGRADA ESCRITURA (51–60)
+    { cat: 'razon', catNom: 'Fe, Razón y Biblia', txt: 'Entiende para que creas, cree para que entiendas (Intellige ut credas, crede ut intelligas): entiende mi palabra para creer, cree la Palabra de Dios para entender.', src: 'Sermón 43, 7, 9' },
+    { cat: 'razon', catNom: 'Fe, Razón y Biblia', txt: 'Si en el Evangelio crees lo que te agrada y rechazas lo que te desagrada, ya no es al Evangelio a quien crees, sino a ti mismo.', src: 'Contra Fausto el maniqueo XVII, 3' },
+    { cat: 'razon', catNom: 'Fe, Razón y Biblia', txt: 'El Nuevo Testamento está latente en el Antiguo, y el Antiguo se hace patente en el Nuevo (Novum in Vetere latet, et in Novo Vetus patet).', src: 'Cuestiones sobre el Heptateuco 2, 73' },
+    { cat: 'razon', catNom: 'Fe, Razón y Biblia', txt: 'Equivocarse alguna vez es flaqueza humana; mas perseverar en el error defendiendo la falsedad es soberbia diabólica.', src: 'Sermón 164, 14' },
+    { cat: 'razon', catNom: 'Fe, Razón y Biblia', txt: '¿Qué es la fe sino creer lo que todavía no ves? Y el premio de esa fe es llegar a contemplar lo que crees.', src: 'Tratado sobre el Evangelio de San Juan 40, 9' },
+    { cat: 'razon', catNom: 'Fe, Razón y Biblia', txt: 'Quien juzga haber entendido las Divinas Escrituras sin edificar con esa inteligencia el doble amor a Dios y al prójimo, todavía no las ha entendido.', src: 'Sobre la doctrina cristiana I, 36, 40' },
+    { cat: 'razon', catNom: 'Fe, Razón y Biblia', txt: 'La misma fe no sería nada si no fuese pensada: creer no es otra cosa que pensar con asentimiento (cum assensione cogitare).', src: 'Sobre la predestinación de los santos 2, 5' },
+    { cat: 'razon', catNom: 'Fe, Razón y Biblia', txt: 'La Sagrada Escritura crece con los pequeños, pero su entrada es humilde y rechaza la cerviz erguida de los soberbios.', src: 'Confesiones III, 5, 9' },
+    { cat: 'razon', catNom: 'Fe, Razón y Biblia', txt: 'Los milagros no suceden contra la naturaleza, sino contra lo que a nosotros nos es conocido de la naturaleza.', src: 'La Ciudad de Dios XXI, 8, 2' },
+    { cat: 'razon', catNom: 'Fe, Razón y Biblia', txt: '¿Qué es, pues, el tiempo? Si nadie me lo pregunta, lo sé; pero si quiero explicárselo al que me lo pregunta, no lo sé.', src: 'Confesiones XI, 14, 17' }
+  ];
+
+  function sinAcentos(str) {
+    return String(str || '')
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .toLowerCase()
+      .trim();
+  }
+
+  const citasGrid = document.getElementById('accar-agustin-citas-grid');
+  const citasSearch = document.getElementById('accar-agustin-citas-search');
+  const citasCount = document.getElementById('accar-agustin-citas-count');
+  const citasEmpty = document.getElementById('accar-agustin-citas-empty');
+  const citasPills = Array.from(root.querySelectorAll('.accar-cita-pill'));
+
+  let catActiva = 'todas';
+
+  function renderizarCitas() {
+    if (!citasGrid) return;
+    const q = sinAcentos(citasSearch ? citasSearch.value : '');
+
+    const filtradas = CITAS_AGUSTIN.filter((item) => {
+      const okCat = catActiva === 'todas' || item.cat === catActiva;
+      const okTxt = !q || sinAcentos(`${item.txt} ${item.src} ${item.catNom}`).includes(q);
+      return okCat && okTxt;
+    });
+
+    if (citasCount) {
+      citasCount.textContent = filtradas.length === 1 ? '1 cita' : `${filtradas.length} citas`;
+    }
+
+    if (citasEmpty) {
+      citasEmpty.style.display = filtradas.length === 0 ? 'block' : 'none';
+    }
+
+    citasGrid.innerHTML = filtradas.map((item, i) => `
+      <article class="accar-aforismo-card">
+        <div>
+          <div class="accar-aforismo-top">
+            <span class="accar-aforismo-num">✠ ${String(i + 1).padStart(2, '0')}</span>
+            <span class="accar-aforismo-cat">· ${item.catNom}</span>
+          </div>
+          <p class="accar-aforismo-txt">«${item.txt}»</p>
+        </div>
+        <div class="accar-aforismo-foot">
+          <span class="accar-aforismo-src">— ${item.src}</span>
+          <button type="button" class="accar-aforismo-copy" data-idx="${CITAS_AGUSTIN.indexOf(item)}">Copiar cita</button>
+        </div>
+      </article>
+    `).join('');
+
+    citasGrid.querySelectorAll('.accar-aforismo-copy').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const obj = CITAS_AGUSTIN[Number(btn.dataset.idx)];
+        if (!obj || !navigator.clipboard) return;
+        const textoCopiar = `«${obj.txt}» — San Agustín de Hipona (${obj.src})`;
+        navigator.clipboard.writeText(textoCopiar).then(() => {
+          const prev = btn.textContent;
+          btn.textContent = '✓ Copiada';
+          setTimeout(() => { btn.textContent = prev; }, 2000);
         });
-
-        closeMobileMenu();
-
-        const navBar = document.querySelector('.hero-nav');
-        const globalHeader = document.getElementById('accarGlobalHeader'); 
-        
-        if (navBar) {
-          const headerHeight = globalHeader ? globalHeader.offsetHeight : 0;
-          const absoluteY = navBar.getBoundingClientRect().top + window.scrollY;
-          
-          window.scrollTo({
-            top: absoluteY - headerHeight - 10,
-            behavior: "smooth"
-          });
-        }
-      }
-
-      document.querySelectorAll(".nav-btn").forEach(btn => {
-        btn.onclick = function(e) {
-          e.preventDefault();
-          showPanel(this.dataset.target);
-        };
       });
+    });
+  }
 
-      document.querySelectorAll(".mobile-nav-btn[data-target]").forEach(btn => {
-        btn.onclick = function(e) {
-          e.preventDefault();
-          showPanel(this.dataset.target);
-        };
-      });
+  renderizarCitas();
 
-      document.querySelectorAll(".acc-trigger").forEach(trigger => {
-        trigger.onclick = function(e) {
-          e.preventDefault();
-          const item = this.parentElement;
-          const isOpen = item.classList.contains("open");
+  if (citasSearch) {
+    citasSearch.addEventListener('input', renderizarCitas);
+  }
 
-          document.querySelectorAll(".acc-item").forEach(acc => {
-            acc.classList.remove("open");
-            const symbol = acc.querySelector(".acc-trigger span:last-child");
-            if(symbol) symbol.textContent = "+";
-          });
-
-          if(!isOpen){
-            item.classList.add("open");
-            const symbol = item.querySelector(".acc-trigger span:last-child");
-            if(symbol) symbol.textContent = "−";
-          }
-        };
-      });
-
-      if(mobileMenuToggle){
-        mobileMenuToggle.onclick = function(e){
-          e.preventDefault();
-          toggleMobileMenu();
-        };
-      }
-    })();
-    /* ===== FINAL SCRIPT AISLADO ===== */
-  </script>
-</body>
-</html>
-<!-- ===== FINAL SAN AGUSTÍN DE HIPONA ===== -->
+  citasPills.forEach((pill) => {
+    pill.addEventListener('click', () => {
+      catActiva = pill.dataset.cat || 'todas';
+      citasPills.forEach(p => p.classList.toggle('active', p === pill));
+      renderizarCitas();
+    });
+  });
+})();
+</script>
