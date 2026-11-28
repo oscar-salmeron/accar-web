@@ -899,18 +899,44 @@
 
 /* Maquetación Poética del Salmo Responsorial */
 #accar-lecturas-root .accar-salmo-antifona {
-  margin: 0 0 1.35em;
-  padding: 14px 18px;
+  margin: 0 0 1.55em;
+  padding: 15px 20px;
   border-radius: 12px;
   border-left: 3.5px solid #d4af37;
-  background: rgba(212, 175, 55, 0.08);
-  font-weight: 600;
-  line-height: 1.6;
+  background: rgba(212, 175, 55, 0.09);
+  line-height: 1.55;
 }
 
 #accar-lecturas-root .accar-pliego-lectura.theme-light .accar-salmo-antifona {
   border-left-color: #8b1a1a;
-  background: rgba(139, 26, 26, 0.05);
+  background: rgba(139, 26, 26, 0.055);
+}
+
+#accar-lecturas-root .accar-antifona-label {
+  display: block;
+  margin-bottom: 4px;
+  font-family: Georgia, serif;
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #eed076;
+}
+
+#accar-lecturas-root .accar-pliego-lectura.theme-light .accar-antifona-label {
+  color: #8b1a1a;
+}
+
+#accar-lecturas-root .accar-antifona-frase {
+  margin: 0 !important;
+  font-size: 1.06em;
+  font-weight: 600;
+  font-style: italic;
+}
+
+#accar-lecturas-root .accar-r-final {
+  margin-left: 6px;
+  font-size: 0.92em;
 }
 
 #accar-lecturas-root .accar-salmo-estrofa {
@@ -1269,11 +1295,14 @@ function formatearProsaLectura(rawText, tipoClave) {
 }
 
 // Maquetación poética y antifonal para el Salmo Responsorial
-function formatearSalmoLecturas(rawText) {
+function formatearSalmoLecturas(rawText, rawAntifona) {
   const bloques = extraerBloquesCrudos(rawText);
-  if (bloques.length === 0) return '';
+  if (bloques.length === 0 && !rawAntifona) return '';
 
   const piezasHtml = [];
+  let antifonaPrincipal = String(rawAntifona || '')
+    .replace(/^(?:R\/\.?|R\.|℟\.?)\s*/i, '')
+    .trim();
 
   bloques.forEach((bloque, idx) => {
     let limpio = bloque
@@ -1283,24 +1312,37 @@ function formatearSalmoLecturas(rawText) {
 
     const sinTags = limpio.replace(/<[^>]+>/g, '').trim();
 
-    // Antífona principal al inicio del Salmo
-    if (idx === 0 && /^(R\/?\.?)\s+/i.test(sinTags)) {
-      const cuerpoAntifona = limpio.replace(/^(R\/?\.?)\s*/i, '');
-      piezasHtml.push(`<div class="accar-salmo-antifona"><span class="accar-rubrica-roja">R/.</span> ${cuerpoAntifona}</div>`);
+    // Si el primer bloque ya traía la antífona, extraerla sin duplicar
+    if (idx === 0 && /^(?:R\/\.?|R\.|℟\.?)\s+/i.test(sinTags)) {
+      if (!antifonaPrincipal) {
+        antifonaPrincipal = limpio.replace(/^(?:R\/\.?|R\.|℟\.?)\s*/i, '').trim();
+      }
       return;
     }
 
     // Respuesta intercalada breve en línea independiente
-    if (/^(R\/?\.?)\s+/i.test(sinTags) && !/<br/i.test(limpio) && sinTags.length < 130) {
-      const cuerpoResp = limpio.replace(/^(R\/?\.?)\s*/i, '');
+    if (/^(?:R\/\.?|R\.|℟\.?)\s+/i.test(sinTags) && !/<br/i.test(limpio) && sinTags.length < 130) {
+      const cuerpoResp = limpio.replace(/^(?:R\/\.?|R\.|℟\.?)\s*/i, '');
       piezasHtml.push(`<p class="accar-salmo-respuesta-intermedia"><span class="accar-rubrica-roja">R/.</span> ${cuerpoResp}</p>`);
       return;
     }
 
-    // Estrofa poética del salmo
-    limpio = limpio.replace(/\b(R\/\.|R\.)/g, '<span class="accar-rubrica-roja">R/.</span>');
+    // Estrofa poética con indicación litúrgica R/. al cierre
+    limpio = limpio.replace(/(R\/\.|R\.)/g, '<span class="accar-rubrica-roja">R/.</span>');
+    if (!/accar-rubrica-roja/.test(limpio)) {
+      limpio += ' <span class="accar-rubrica-roja accar-r-final">R/.</span>';
+    }
     piezasHtml.push(`<p class="accar-salmo-estrofa">${limpio}</p>`);
   });
+
+  if (antifonaPrincipal) {
+    piezasHtml.unshift(`
+      <div class="accar-salmo-antifona">
+        <span class="accar-antifona-label">Antífona responsorial</span>
+        <p class="accar-antifona-frase"><span class="accar-rubrica-roja">R/.</span> ${antifonaPrincipal}</p>
+      </div>
+    `);
+  }
 
   return piezasHtml.join('');
 }
@@ -1537,7 +1579,7 @@ async function cargarLecturas(fechaYYYYMMDD) {
           liturgiaData.salmo = {
             titulo: 'Salmo Responsorial',
             ref: citaSalmo || 'Salmo Responsorial',
-            html: formatearSalmoLecturas(reading.text)
+            html: formatearSalmoLecturas(reading.text, reading.antifona)
           };
           const c = document.getElementById('cita-btn-salmo');
           if (c) c.textContent = citaSalmo;
