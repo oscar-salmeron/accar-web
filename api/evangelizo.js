@@ -1,3 +1,103 @@
+import * as cheerio from 'cheerio';
+
+const CACHE_ANTIFONAS = new Map();
+
+function extraerLineaRespuesta(htmlCrudo) {
+  if (!htmlCrudo) return '';
+  const normalizado = String(htmlCrudo)
+    .replace(/<br\s*\/?>/gi, '\n')
+    .replace(/<\/(p|div|li|h\d|tr)>/gi, '\n');
+
+  const $ = cheerio.load(normalizado);
+  const lineas = $.root().text()
+    .split('\n')
+    .map(l => l.replace(/\s+/g, ' ').trim())
+    .filter(Boolean);
+
+  for (const linea of lineas) {
+    const m = linea.match(/^(?:R\/\.?|R\.|℟\.?)\s*(.+)$/i);
+    if (m && m[1]) {
+      const limpia = m[1]
+        .replace(/^\([^)]{1,45}\)\s*/, '')
+        .replace(/\s*(?:R\/\.?|R\.)$/, '')
+        .trim();
+      if (limpia.length > 4) return limpia;
+    }
+  }
+  return '';
+}
+
+async function fetchConTimeout(url, ms = 2800) {
+  const ctrl = new AbortController();
+  const timer = setTimeout(() => ctrl.abort(), ms);
+  try {
+    const r = await fetch(url, {
+      signal: ctrl.signal,
+      headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)' }
+    });
+    if (!r.ok) return '';
+    return await r.text();
+  } catch (_) {
+    return '';
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+async function resolverAntifonaSalmo(dateParam, dataEWTN) {
+  const salmoObj = dataEWTN?.lecturas?.salmo || {};
+
+  // 1. Revisar si el propio JSON ya incluye la antífona en algún campo
+  const directa = (
+    salmoObj.antifona ||
+    salmoObj.respuesta ||
+    salmoObj.estribillo ||
+    salmoObj.aclamacion ||
+    salmoObj.r ||
+    salmoObj.subtitulo ||
+    dataEWTN?.antifona_salmo ||
+    dataEWTN?.respuesta_salmo ||
+    ''
+  ).toString().trim();
+
+  if (directa) {
+    return directa.replace(/^(?:R\/\.?|R\.|℟\.?)\s*/i, '').trim();
+  }
+
+  // 2. Revisar si viene incrustada en la primera línea del texto
+  const primerBloque = Array.isArray(salmoObj.texto) ? salmoObj.texto[0] : String(salmoObj.texto || '').split(/\n|<br/i)[0];
+  const mTexto = String(primerBloque || '').trim().match(/^(?:R\/\.?|R\.|℟\.?)\s*(.+)$/i);
+  if (mTexto && mTexto[1] && mTexto[1].trim().length > 4) {
+    return mTexto[1].trim();
+  }
+
+  // 3. Consultar caché en memoria de la instancia
+  if (CACHE_ANTIFONAS.has(dateParam)) {
+    return CACHE_ANTIFONAS.get(dateParam);
+  }
+
+  // 4. Obtener antífona litúrgica oficial desde Evangelizo (con respaldo en USCCB Español)
+  const ymd = dateParam.replace(/-/g, '');
+  const htmlEv = await fetchConTimeout(`https://feed.evangelizo.org/v2/reader.php?date=${ymd}&type=reading&lang=SP&content=PS`);
+  let antifona = extraerLineaRespuesta(htmlEv);
+
+  if (!antifona) {
+    const [yyyy, mm, dd] = dateParam.split('-');
+    const htmlUsccb = await fetchConTimeout(`https://bible.usccb.org/es/bible/lecturas/${mm}${dd}${yyyy.slice(-2)}.cfm`);
+    if (htmlUsccb) {
+      const idxSalmo = htmlUsccb.search(/Salmo\s+Responsorial/i);
+      const recorte = idxSalmo >= 0 ? htmlUsccb.slice(idxSalmo, idxSalmo + 4500) : htmlUsccb;
+      antifona = extraerLineaRespuesta(recorte);
+    }
+  }
+
+  if (antifona) {
+    CACHE_ANTIFONAS.set(dateParam, antifona);
+  }
+
+  return antifona;
+}
+
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
@@ -288,9 +388,10 @@ export default async function handler(req, res) {
     const { colorMisa, colorSanto } = inferirColorCelebracion(fiestaRaw, dataEWTN.color, cal.colorTiempo);
 
     const lec = dataEWTN.lecturas || {};
+    const antifonaSalmo = lec.salmo ? await resolverAntifonaSalmo(dateParam, dataEWTN) : '';
     const readings = [];
     if (lec.primera) readings.push({ type: 'FR', title: lec.primera.titulo, referencia: lec.primera.referencia, text: lec.primera.texto });
-    if (lec.salmo) readings.push({ type: 'PS', title: lec.salmo.titulo, referencia: lec.salmo.referencia, text: lec.salmo.texto });
+    if (lec.salmo) readings.push({ type: 'PS', title: lec.salmo.titulo, referencia: lec.salmo.referencia, antifona: antifonaSalmo, text: lec.salmo.texto });
     if (lec.segunda) readings.push({ type: 'SR', title: lec.segunda.titulo, referencia: lec.segunda.referencia, text: lec.segunda.texto });
     if (lec.evangelio) readings.push({ type: 'GSP', title: lec.evangelio.titulo, referencia: lec.evangelio.referencia, text: lec.evangelio.texto });
     if (lec.reflexion) readings.push({ type: 'RE', title: lec.reflexion.titulo, referencia: lec.reflexion.referencia, text: lec.reflexion.texto });
