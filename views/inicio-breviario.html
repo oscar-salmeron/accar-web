@@ -30,17 +30,24 @@
           <div class="accar-date-badge" id="brev-fecha-actual">Cargando fecha...</div>
         </div>
 
-        <!-- CAJA 2: CELEBRACIÓN Y SALTERIO -->
+        <!-- CAJA 2: CELEBRAMOS (3 CASILLAS SIMÉTRICAS EN 2 LÍNEAS) -->
         <div class="accar-sala-box">
           <h2 class="accar-box-title">Celebramos</h2>
           <div class="accar-box-rule" aria-hidden="true"></div>
 
-          <div class="accar-meta-pill">
-            <span id="brev-badge-tomo">TOMO</span>
-            <span class="accar-meta-sep" aria-hidden="true">·</span>
-            <span id="brev-badge-salterio">SALTERIO</span>
-            <span class="accar-meta-sep" aria-hidden="true">·</span>
-            <span id="brev-color-badge" class="accar-tiempo-dot">VERDE</span>
+          <div class="accar-meta-grid" aria-label="Datos litúrgicos del día">
+            <div class="accar-meta-cell">
+              <span class="accar-meta-k">Tomo</span>
+              <span class="accar-meta-v" id="brev-badge-tomo">—</span>
+            </div>
+            <div class="accar-meta-cell">
+              <span class="accar-meta-k">Salterio</span>
+              <span class="accar-meta-v" id="brev-badge-salterio">—</span>
+            </div>
+            <div class="accar-meta-cell">
+              <span class="accar-meta-k">Color</span>
+              <span class="accar-meta-v accar-tiempo-dot" id="brev-color-badge">Verde</span>
+            </div>
           </div>
 
           <p class="accar-celebramos-tipo">Liturgia de las Horas · Rito Romano</p>
@@ -53,13 +60,13 @@
           <h2 class="accar-box-title">¿Qué quieres leer?</h2>
           <div class="accar-box-rule" aria-hidden="true"></div>
 
-          <!-- CONMUTADOR DE UN SOLO CLIC: LECTURAS ⇄ LITURGIA DE LAS HORAS -->
-          <div class="accar-modo-switch" role="navigation" aria-label="Alternar entre Lecturas y Liturgia de las Horas">
+          <!-- CONMUTADOR DE UN SOLO CLIC: LECTURAS ⇄ OFICIO DIVINO -->
+          <div class="accar-modo-switch" role="navigation" aria-label="Alternar entre Lecturas y Oficio Divino">
             <button type="button" class="accar-modo-tab" onclick="window.irALecturasDesdeBreviario()">
-              ✠ Lecturas
+              Lecturas
             </button>
             <button type="button" class="accar-modo-tab activa" aria-current="page">
-              ✠ Liturgia Horas
+              Oficio Divino
             </button>
           </div>
 
@@ -101,12 +108,12 @@
         </div>
 
         <!-- CONMUTADOR VISIBLE EN MÓVIL ARRIBA DEL PLIEGO -->
-        <div class="accar-modo-switch accar-modo-switch-mobile" role="navigation" aria-label="Alternar entre Lecturas y Liturgia de las Horas">
+        <div class="accar-modo-switch accar-modo-switch-mobile" role="navigation" aria-label="Alternar entre Lecturas y Oficio Divino">
           <button type="button" class="accar-modo-tab" onclick="window.irALecturasDesdeBreviario()">
-            ✠ Lecturas de la Misa
+            Lecturas
           </button>
           <button type="button" class="accar-modo-tab activa" aria-current="page">
-            ✠ Liturgia de las Horas
+            Oficio Divino
           </button>
         </div>
 
@@ -200,17 +207,17 @@
   --tiempo-bg-mid: #062321;
   --tiempo-bg-deep: #021211;
   --tiempo-badge-bg: linear-gradient(135deg, #1b7a52 0%, #115437 100%);
-  --tiempo-badge-border: rgba(79, 209, 155, 0.55);
+  --tiempo-badge-border: rgba(62, 184, 122, 0.62);
   --tiempo-badge-text: #fff9ec;
-  --tiempo-semana-text: #5eead4;
-  --tiempo-kicker-light: #126b46;
-  --tiempo-kicker-dark: #5eead4;
+  --tiempo-semana-text: #2fb370;
+  --tiempo-kicker-light: #166e46;
+  --tiempo-kicker-dark: #2fb370;
 
   --santo-btn-bg: linear-gradient(135deg, #1b7a52 0%, #115437 100%);
-  --santo-btn-border: #4fd19b;
+  --santo-btn-border: rgba(62, 184, 122, 0.62);
   --santo-btn-text: #fff9ec;
-  --santo-btn-sub: rgba(255, 249, 236, 0.84);
-  --santo-btn-glow: rgba(27, 122, 82, 0.36);
+  --santo-btn-sub: rgba(255, 249, 236, 0.85);
+  --santo-btn-glow: rgba(27, 122, 82, 0.40);
 
   position: relative;
   width: 100%;
@@ -228,11 +235,11 @@
   --tiempo-bg-mid: #062321;
   --tiempo-bg-deep: #021211;
   --tiempo-badge-bg: linear-gradient(135deg, #1b7a52 0%, #115437 100%);
-  --tiempo-badge-border: rgba(79, 209, 155, 0.55);
+  --tiempo-badge-border: rgba(62, 184, 122, 0.62);
   --tiempo-badge-text: #fff9ec;
-  --tiempo-semana-text: #5eead4;
-  --tiempo-kicker-light: #126b46;
-  --tiempo-kicker-dark: #5eead4;
+  --tiempo-semana-text: #2fb370;
+  --tiempo-kicker-light: #166e46;
+  --tiempo-kicker-dark: #2fb370;
 }
 
 #accar-breviario-root[data-tiempo="morado"] {
@@ -487,33 +494,49 @@
   box-shadow: 0 8px 18px rgba(0, 0, 0, 0.36);
 }
 
-#accar-breviario-root .accar-meta-pill {
+#accar-breviario-root .accar-meta-grid {
   position: relative;
   z-index: 2;
-  display: inline-flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 6px;
-  padding: 5px 13px;
-  margin-bottom: 14px;
-  border-radius: 999px;
-  border: 1px solid rgba(212, 175, 55, 0.50);
-  background: rgba(3, 8, 30, 0.78);
-  color: #e8cb72;
-  font-size: 0.65rem;
-  font-weight: 700;
-  letter-spacing: 0.09em;
-  text-transform: uppercase;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 7px;
+  margin-bottom: 15px;
 }
 
-#accar-breviario-root .accar-meta-sep {
-  opacity: 0.55;
+#accar-breviario-root .accar-meta-cell {
+  padding: 8px 4px;
+  border-radius: 11px;
+  border: 1px solid rgba(212, 175, 55, 0.36);
+  background: rgba(3, 8, 28, 0.78);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  text-align: center;
+}
+
+#accar-breviario-root .accar-meta-k {
+  font-size: 0.59rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(234, 224, 200, 0.66);
+}
+
+#accar-breviario-root .accar-meta-v {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: #eed076;
+  white-space: nowrap;
 }
 
 #accar-breviario-root .accar-tiempo-dot {
   color: var(--tiempo-semana-text);
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 5px;
 }
 
@@ -523,7 +546,8 @@
   height: 7px;
   border-radius: 50%;
   background: var(--tiempo-semana-text);
-  box-shadow: 0 0 6px var(--tiempo-semana-text);
+  box-shadow: 0 0 5px var(--tiempo-semana-text);
+  flex-shrink: 0;
 }
 
 #accar-breviario-root .accar-celebramos-tipo {
@@ -580,16 +604,17 @@
 
 #accar-breviario-root .accar-modo-tab {
   appearance: none;
-  padding: 8px 6px;
+  padding: 9px 6px;
   border-radius: 9px;
   border: 1px solid transparent;
   background: transparent;
-  color: rgba(234, 224, 200, 0.74);
+  color: rgba(234, 224, 200, 0.76);
   font-family: inherit;
-  font-size: 0.69rem;
+  font-size: 0.70rem;
   font-weight: 700;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
+  text-align: center;
   cursor: pointer;
   white-space: nowrap;
   transition: all 0.24s ease;
@@ -1272,33 +1297,37 @@ async function cargarMetadatosDia(fechaYYYYMMDD) {
     const dataMeta = await resMeta.json();
     const fiesta = dataMeta.fiestas?.[0] || {};
 
-    // 1. Color del Tiempo Litúrgico
-    const colorTiempoClave = sinAcentos(fiesta.colorTiempo || fiesta.color || 'verde');
+    // 1. Color del Tiempo Litúrgico sincronizado también en los botones de las Horas
+    const colorTiempoRaw = fiesta.colorTiempo || fiesta.color || 'VERDE';
+    const colorTiempoClave = sinAcentos(colorTiempoRaw);
     root.setAttribute('data-tiempo', colorTiempoClave);
+    root.setAttribute('data-santo', colorTiempoClave);
 
-    if (badgeTomo) badgeTomo.textContent = fiesta.tomo || 'TOMO';
-    if (badgeSalterio) {
-      badgeSalterio.textContent = (fiesta.salterio || 'SALTERIO').replace('SEMANA', 'SEM.');
+    if (badgeTomo) {
+      badgeTomo.textContent = String(fiesta.tomo || '').replace(/^TOMO\s*/i, '').trim() || '—';
     }
-    if (badgeColor) badgeColor.textContent = (fiesta.colorTiempo || fiesta.color || 'VERDE').toUpperCase();
+    if (badgeSalterio) {
+      badgeSalterio.textContent = String(fiesta.salterio || '')
+        .replace(/^SALTERIO\s*/i, '')
+        .replace(/SEMANA/i, 'Semana')
+        .trim() || '—';
+    }
+    if (badgeColor) {
+      const limpioColor = String(colorTiempoRaw).toLowerCase().trim();
+      badgeColor.textContent = limpioColor ? limpioColor.charAt(0).toUpperCase() + limpioColor.slice(1) : 'Verde';
+    }
     if (semanaTarget) semanaTarget.textContent = fiesta.semana || 'Tiempo Litúrgico';
 
-    // 2. Color del Santo del Día para los botones de las Horas
-    let colorBotonesClave = sinAcentos(fiesta.colorCelebracion || colorTiempoClave);
+    // 2. Nombre y enlace del Santo del Día
     let nombreSantoMostrar = '';
     let idSantoEnlace = null;
 
     if (santoFirestore) {
       nombreSantoMostrar = santoFirestore.nombre;
       idSantoEnlace = santoFirestore.id;
-      if (!fiesta.esDiaSupremo) {
-        colorBotonesClave = santoFirestore.color;
-      }
     } else if (fiesta.santo && fiesta.santo.toUpperCase() !== 'FERIA') {
       nombreSantoMostrar = fiesta.santo;
     }
-
-    root.setAttribute('data-santo', colorBotonesClave);
 
     if (santoLinkTarget) {
       if (nombreSantoMostrar) {
