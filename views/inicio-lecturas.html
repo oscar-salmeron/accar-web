@@ -578,32 +578,45 @@
 #accar-lecturas-root .accar-menu-btn {
   appearance: none;
   width: 100%;
-  padding: 12px 15px;
-  border-radius: 11px;
-  border: 1px solid rgba(212, 175, 55, 0.22);
-  background: rgba(4, 11, 28, 0.72);
+  padding: 12px 16px;
+  border-radius: 12px;
+  border: 1px solid rgba(212, 175, 55, 0.24);
+  background: rgba(4, 11, 28, 0.74);
   color: #f4ebd2;
   text-align: left;
   font-family: inherit;
-  font-size: 0.92rem;
+  font-size: 0.94rem;
   font-weight: 700;
   cursor: pointer;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 4px;
   transition: all 0.26s ease;
 }
 
+#accar-lecturas-root .accar-btn-nombre {
+  display: block;
+  width: 100%;
+  font-size: 0.94rem;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
 #accar-lecturas-root .accar-btn-cita {
-  font-size: 0.72rem;
+  display: block;
+  width: 100%;
+  font-size: 0.78rem;
   font-weight: 400;
-  color: rgba(234, 224, 200, 0.62);
-  text-align: right;
-  max-width: 48%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  font-style: italic;
+  line-height: 1.35;
+  color: rgba(232, 203, 114, 0.84);
+  text-align: left;
+}
+
+#accar-lecturas-root .accar-btn-cita:empty {
+  display: none;
 }
 
 #accar-lecturas-root .accar-menu-btn:hover:not(.active) {
@@ -1252,10 +1265,12 @@ async function cargarLecturas(fechaYYYYMMDD) {
           const c = document.getElementById('cita-btn-primera');
           if (c) c.textContent = refLimpia;
         } else if (reading.type === 'PS') {
+          } else if (reading.type === 'PS') {
           const refSalmo = refLimpia || 'Salmo Responsorial';
-          liturgiaData.salmo = { titulo: 'Salmo Responsorial', ref: refSalmo, texto: textoLimpio };
+          const citaSalmoCompleta = /^salmo/i.test(refSalmo) ? refSalmo : `Salmo ${refSalmo}`;
+          liturgiaData.salmo = { titulo: 'Salmo Responsorial', ref: citaSalmoCompleta, texto: textoLimpio };
           const c = document.getElementById('cita-btn-salmo');
-          if (c) c.textContent = refSalmo.replace(/Salmo\s*/i, 'Sal ');
+          if (c) c.textContent = refLimpia ? citaSalmoCompleta : '';
         } else if (reading.type === 'SR') {
           liturgiaData.segunda = { titulo: 'Segunda Lectura', ref: refLimpia, texto: textoLimpio };
           const c = document.getElementById('cita-btn-segunda');
